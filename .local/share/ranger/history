@@ -1,0 +1,5 @@
+cd
+cd .config/sway/config.d/
+abort:Q
+cd .local/
+cd .config/

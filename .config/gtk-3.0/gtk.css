@@ -1,0 +1,15 @@
+/** Some apps use titlebar class and some window */
+.titlebar,
+window {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/** also remove shaddows */
+decoration {
+    box-shadow: none;
+}
+
+decoration:backdrop {
+    box-shadow: none;
+}

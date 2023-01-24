@@ -1,0 +1,184 @@
+{
+	"layer": "top", // Waybar at top layer
+	"position": "top", // Waybar position (top|bottom|left|right)
+	"height": 30, // Waybar height (to be removed for auto height)
+	"margin-left": 2, // Waybar left margin
+	"margin-right": 2, // Waybar right margin
+	"spacing": 4, // Gaps between modules (4px)
+	"modules-left": ["custom/leftseparator", "custom/spotify"],
+	"modules-center": ["sway/workspaces"],
+	"modules-right": ["tray", "network", "bluetooth", "pulseaudio", "battery", "clock", "custom/powermenu", "custom/rightseparator"],
+	// Modules configuration
+	"sway/workspaces": {
+		"format": "{name}",
+		"sort-by-number": true,
+		"persistent_workspaces": {
+			"1:一": [], // Always show a workspace with name '一', on all outputs if it does not exists
+			"2:二": [], // Always show a workspace with name '二', on all outputs if it does not exists
+			"3:三": [], // Always show a workspace with name '三', on all outputs if it does not exists
+			"4:四": [], // Always show a workspace with name '四', on all outputs if it does not exists
+			"5:五": [], // Always show a workspace with name '五', on all outputs if it does not exists
+			"6:六": [], // Always show a workspace with name '六', on all outputs if it does not exists
+		}
+	},
+	"sway/window": {
+		"format": "{shell} {app_id}",
+		"max-length": 50
+	},
+	"tray": {
+		"spacing": 5
+	},
+	"battery": {
+        	"format": "{capacity}% {icon}",
+        	"format-alt": "{time} {icon}",
+        	"format-icons": ["", "", "", "", ""],
+        	"format-charging": "{capacity}% ",
+        	"interval": 30,
+        	"states": {
+            		"warning": 25,
+            		"critical": 10
+        	},
+        	"tooltip": false
+        }, 
+	"clock": {
+		"format": " {:%H:%M}",
+		"format-alt": " {:%Y-%m-%d}",
+		"tooltip-format": "<span color='#74c7ec'><b><big>{:%Y %B}</big></b></span>\n<tt><small>{calendar}</small></tt>",
+		"calendar-weeks-pos": "left",
+		"today-format": "<span background='#cba6f7' color='#1e1e2e'><b>{}</b></span>",
+		"format-calendar": "<span color='#cdd6f4'><b>{}</b></span>",
+		"format-calendar-weeks": "<span color='#94e2d5'><b>{:%W} </b></span>",
+		"format-calendar-weekdays": "<span color='#f9e2af'><b>{}</b></span>",
+		"on-scroll": {
+			"calendar": 1
+		}
+	},
+	"cpu": {
+		"format": " {usage}%",
+		"states": {
+			"warning": 80,
+			"critical": 90
+		},        
+		"tooltip": true,
+		"on-click": "$TERM -e htop",
+		"on-click-right": "killall htop"
+	},
+	"memory": {
+		"format": " {percentage}%",
+		"states": {
+			"warning": 80,
+			"critical": 90 
+		},
+		"tooltip": true,
+		"tooltip-format": "{used}GiB/{total}GiB",
+		"on-click": "$TERM -e btop",
+		"on-click-right": "killall btop"
+	},
+	"temperature": {
+		"hwmon-path-abs": "/sys/devices/platform/asus-ec-sensors/hwmon",
+		"input-filename": "temp2_input",
+		"critical-threshold": 80,
+		"format-critical": "{icon} {temperatureC}°C",
+		"format": "{icon} {temperatureC}°C",
+		"format-icons": ["", "", "", "", ""],
+		"tooltip": true
+	},
+	"disk": {
+		"format": " {percentage_used}%",
+		"states": {
+			"warning": 80,
+			"critical": 90
+		},
+		"on-click": "thunar",
+		"on-click-right": "killall thunar",
+		"path": "/home",
+		"tooltip": true,
+		"tooltip-format": "{path} {used}/{total}"
+	},
+	"custom/spotify": {
+		"exec": "$HOME/.config/waybar/scripts/mediaplayer.py --player spotify 2> /dev/null",
+		"exec-if": "pgrep spotify",
+		"format": " {}",
+		"return-type": "json",
+		"max-length": 40,
+		"on-click": "playerctl -p spotify play-pause",
+		"on-click-right": "killall spotify",
+		"on-scroll-up": "playerctl -p spotify next",
+		"on-scroll-down": "playerctl -p spotify previous",
+		"tooltip": false,
+		"escape": true
+	},
+	"network": {
+		"format": "{icon}",
+		"tooltip-format": "SSID: {essid} | IP: {ipaddr}",
+		"format-linked": " No IP",
+		"format-icons": {
+			"wifi": [" ", ""],
+            		"ethernet": [""],
+            		"disconnected": [""]
+		},
+		"on-click": "$term -e nmtui",
+	},
+	"bluetooth": {
+		"format": "",
+		"format-connected-battery": " {icon}",
+		"tooltip-format": "{controller_alias}\t{controller_address}\n{status}",
+		"tooltip-format-off": "{controller_alias}\t{controller_address}\n{status}",
+		"tooltip-format-connected": "{controller_alias}\t{controller_address}\n{num_connections} {status}\n{device_enumerate}",
+		"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+		"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+		"format-icons": {
+			"default": [ "", "", "", "", ""]
+		},
+		"on-click": "$term -e bluetoothctl",
+		"on-click-right": "killall bluetoothctl",
+		"on-scroll-up": "bluetoothctl power on",
+		"on-scroll-down": "bluetoothctl power off",
+	},
+	"pulseaudio": {
+        		"format": "{icon}",
+        		"format-alt": "{volume} {icon}",
+        		"format-alt-click": "click-right",
+        		"format-muted": "",
+        		"format-icons": {
+            		"phone": [" ", " ", " ", " "],
+            		"default": ["", "", "", ""]
+        	},
+		"scroll-step": 10,
+        	"on-click": "pavucontrol",
+        	"tooltip": false
+	},
+	"custom/rightseparator": {
+		"format": "|",
+		"interval": "once",
+		"tooltip": false
+	},
+	"custom/leftseparator": {
+		"format": "|",
+		"interval": "once",
+		"tooltip": false
+	},
+	"custom/middleseparator": {
+		"format": "|",
+		"interval": "once",
+		"tooltip": false
+	},
+	"custom/powermenu": {
+        	"format": "",
+        	"on-click": "/home/xon/.config/wofi/scripts/powermenu.sh &",
+        	"on-click-right": "/home/xon/.config/wofi/scripts/powermenu.sh &",
+        	"tooltip": false
+        },
+	"custom/power": {
+		"format": " ",
+		"on-click": "swaynag -t warning -m 'Power Menu Options' -b 'Logout' 'swaymsg exit' -b 'Restart' 'shutdown -r now' -b 'Shutdown'  'shutdown -h now' --background=#005566 --button-background=#009999 --button-border=#002b33 --border-bottom=#002b33"
+	}, 
+//	"custom/chromium": {
+//		"format": "",
+//		"on-click"
+//	},
+
+
+
+
+}

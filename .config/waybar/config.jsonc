@@ -1,0 +1,147 @@
+{
+    "layer": "top",
+    "position": "top",
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "margin-left": 2,
+    "margin-right": 2,
+    "height": 0,
+    "modules-left": [
+        "clock",
+        "battery"
+    ],
+    "modules-center": [
+        "wlr/workspaces"
+    ],
+    "modules-right": [
+        "tray",     
+        "backlight",
+        "network",
+        "custom/updates",
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "custom/logout"
+    ],
+
+    "hyprland/window": {
+        "format": "{}"
+    },
+    "wlr/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+	"sort-by-number": true,
+        "on-click": "activate",
+        "format": "{icon}",
+        "persistent_workspaces": {
+            "1:一": [],
+            "2:二": [],
+            "3:三": [],
+            "4:四": [],
+            "5:五": [],
+            "6:六": [],
+            "7:七": [],
+            "8:八": [],
+            "9:九": [],
+            "10:十": []
+        },
+	"format-icons": {
+            "1": "一",
+            "2": "二",
+            "3": "三",
+            "4": "四",
+            "5": "五",
+	    "6": "六",
+	    "7": "七",
+	    "8": "八",
+	    "9": "九",
+	    "10": "十"
+        }
+    },
+    "custom/updates": {
+        "exec": "(checkupdates ; yay -Qua) | wc -l",
+        "interval": 7200,
+        "format": " {}"
+    },
+    "custom/weather" : {
+        "tooltip" : true,
+        "format" : "{}",
+        "interval" : 30,
+        "exec" : "~/.config/waybar/scripts/waybar-wttr.py",
+        "return-type" : "json"
+    },
+    "tray": {
+        "icon-size": 13,
+        "spacing": 10
+    },
+    "clock": {
+        "format": "{: %R   %d/%m}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "tooltip": false,
+        "format-muted": " Muted",
+        "on-click": "pamixer -t",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        }
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " Muted",
+        "on-click": "pamixer --default-source -t",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "scroll-step": 5
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": "",
+        "format-ethernet": "",
+        "tooltip-format": "{essid} ({signalStrength}%)",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "⚠",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+    },
+    "backlight": {
+        "tooltip": false,
+        "format": " {}%",
+        "interval":1,
+        "on-scroll-up": "light -A 5",
+        "on-scroll-down": "light -U 5"
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 20
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "custom/logout": {
+        "format": " ",
+        "on-click": "wlogout --protocol layer-shell -b 5 -T 400 -B 400",
+        "on-right-click": "wlogout --protocol layer-shell -b 5 -T 400 -B 400",
+	"tooltip": false
+    },
+    "custom/launcher":{
+        "format": " ",
+        "on-click": "rofi -show drun",
+        "on-click-right": "killall rofi"
+    },
+}
