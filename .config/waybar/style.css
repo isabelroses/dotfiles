@@ -55,6 +55,7 @@ tooltip {
 #custom-updates,
 #custom-caffeine,
 #custom-weather,
+#taskbar,
 #window,
 #clock,
 #battery,
@@ -73,6 +74,7 @@ tooltip {
     color: @white;
 }
 
+
 #backlight {
     border-radius: 10px 0px 0px 10px;
     border-right: 0px;
@@ -85,7 +87,6 @@ tooltip {
 }
 
 #workspaces {
-    background: #1e1e2e;
     border-radius: 10px;
     margin-left: 10px;
     padding-right: 0px;
@@ -98,8 +99,8 @@ tooltip {
 }
 
 #custom-updates {
-    border-left: 0px;
-    border-right: 0px;
+    border-radius: 10px;
+    margin-right: 10px;
 }
 
 #window {
@@ -109,7 +110,6 @@ tooltip {
 }
 
 #clock {
-    border-radius: 10px 0px 0px 10px;
     margin-left: 0px;
     border-right: 0px;
 }
@@ -130,9 +130,13 @@ tooltip {
 }
 
 #battery {
-    border-radius: 0 10px 10px 0;
-    margin-right: 10px;
+    margin-right: 0px;
     border-left: 0px;
+}
+
+#taskbar {
+    border-radius: 10px;
+    margin-right: 10px;
 }
 
 #custom-weather {
@@ -149,4 +153,7 @@ tooltip {
 
 #custom-launcher {
     border-radius: 10px 10px 10px 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-right: 12.5px;
 }

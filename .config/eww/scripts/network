@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+function strength {
+    WIFI_STRENGTH=$(awk 'NR==3 {printf("%.0f",$3*10/7)}' /proc/net/wireless)
+    echo $WIFI_STRENGTH
+}
+
+function icon {
+    WIFI_STATUS=$(iwctl station wlan0 show | grep connected | awk '{print $2}')
+    WIFI_STRENGTH=$(strength)
+
+    if [[ $WIFI_STATUS == 'connected' ]]; 
+    then
+        if [[ $WIFI_STRENGTH -ge 80 ]]; then echo '󰤨'; return; fi
+        if [[ $WIFI_STRENGTH -ge 60 ]]; then echo '󰤥'; return; fi
+        if [[ $WIFI_STRENGTH -ge 40 ]]; then echo '󰤢'; return; fi
+        if [[ $WIFI_STRENGTH -ge 20 ]]; then echo '󰤟'; return; fi
+        if [[ $WIFI_STRENGTH -ge  0 ]]; then echo '󰤯'; return; fi
+    fi
+    if [[ $WIFI_STATUS != 'connected' ]]; then echo '󰤮'; return; fi
+}
+
+function ssid {
+    WIFI_STATUS=$(iwctl station wlan0 show | grep connected | awk '{print $2}')
+
+    if [[ $WIFI_STATUS == 'connected' ]]; then
+        echo $(iwctl station wlan0 show | grep 'Connected network' | awk '{print $3}')
+    else
+        echo 'Not Connected'
+    fi
+}
+
+function state {
+    WIFI_STATUS=$(iwctl station wlan0 show | grep connected | awk '{print $2}')
+    if [[ $WIFI_STATUS != 'connected' ]];  then echo "off"
+    else echo "on"; fi
+
+}
+
+function toggle {
+    STATE=$(iwctl device wlan0 show | grep Powered | awk '{print $4}')
+    if [[ $STATE == 'on' ]]; 
+    then 
+        echo $(iwctl device wlan0 set-property Powered off);
+    else 
+        echo $(iwctl device wlan0 set-property Powered on); 
+    fi
+    eww update network_icon=$(icon)
+    eww update network_status=$(state)
+}
+
+if [[ $1 == 'wifi_icon' ]]; then icon; fi
+if [[ $1 == 'icon' ]]; then icon; fi
+if [[ $1 == 'ssid' ]]; then ssid; fi
+if [[ $1 == 'strength' ]]; then strength; fi
+if [[ $1 == 'state' ]]; then state; fi
+if [[ $1 == 'toggle' ]]; then toggle; fi
