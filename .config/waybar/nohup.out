@@ -1,0 +1,268 @@
+[2023-01-31 18:12:25.923] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:12:25.924] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:12:25.936] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:12:25.945] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:12:25.998] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+
+(process:831266): Helper-WARNING **: 18:15:03.814: Failed to set lock on pidfile: Rofi already running?
+
+(process:831266): Helper-WARNING **: 18:15:03.814: Got error: -1 Inappropriate ioctl for device
+rofi: no process found
+rofi: no process found
+[2023-01-31 18:16:21.753] [error] Error in command line: Expected argument following -s
+[2023-01-31 18:16:25.271] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:16:25.271] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:16:25.276] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:16:25.280] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:16:25.305] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+rofi: no process found
+[2023-01-31 18:17:01.674] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:17:01.675] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:17:01.690] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:17:01.698] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:17:01.746] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:17:24.289] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:17:24.290] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:17:24.302] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:17:24.310] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:17:24.365] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+
+(process:832993): Helper-WARNING **: 18:17:26.443: Failed to set lock on pidfile: Rofi already running?
+
+(process:832993): Helper-WARNING **: 18:17:26.443: Got error: -1 Inappropriate ioctl for device
+
+(process:832996): Helper-WARNING **: 18:17:26.938: Failed to set lock on pidfile: Rofi already running?
+
+(process:832996): Helper-WARNING **: 18:17:26.938: Got error: -1 Inappropriate ioctl for device
+
+(process:833013): Helper-WARNING **: 18:17:27.120: Failed to set lock on pidfile: Rofi already running?
+
+(process:833013): Helper-WARNING **: 18:17:27.120: Got error: -1 Inappropriate ioctl for device
+
+(process:833055): Helper-WARNING **: 18:17:30.827: Failed to set lock on pidfile: Rofi already running?
+
+(process:833055): Helper-WARNING **: 18:17:30.827: Got error: -1 Inappropriate ioctl for device
+
+(process:833058): Helper-WARNING **: 18:17:31.082: Failed to set lock on pidfile: Rofi already running?
+
+(process:833058): Helper-WARNING **: 18:17:31.082: Got error: -1 Inappropriate ioctl for device
+[2023-01-31 18:18:28.921] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:18:28.922] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:18:28.934] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:18:28.942] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:18:28.992] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:19:00.425] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:19:00.425] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:19:00.437] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:19:00.446] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:19:00.495] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:19:45.792] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:19:45.792] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:19:45.797] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:19:45.801] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:19:45.826] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:20:03.577] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:20:03.577] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:20:03.582] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:20:03.586] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:20:03.609] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:20:20.916] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:20:20.917] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:20:20.922] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:20:20.926] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:20:20.948] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:20:50.338] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:20:50.338] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:20:50.343] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:20:50.347] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:20:50.372] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:21:13.262] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:21:13.263] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:21:13.277] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:21:13.286] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:21:13.337] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:21:25.837] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:21:25.838] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:21:25.850] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:21:25.858] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:21:25.912] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:21:53.140] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:21:53.140] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:21:53.152] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:21:53.161] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:21:53.210] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:22:09.618] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:22:09.618] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:22:09.632] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:22:09.644] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:22:09.713] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:22:22.839] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:22:22.840] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:22:22.853] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:22:22.861] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:22:22.919] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:22:33.706] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:22:33.707] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:22:33.712] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:22:33.715] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:22:33.741] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:22:41.371] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:22:41.372] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:22:41.376] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:22:41.380] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:22:41.405] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:22:47.828] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:22:47.829] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:22:47.842] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:22:47.851] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:22:47.911] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:22:47.911] [error] Item '': No icon name or pixmap given.
+[2023-01-31 18:23:02.005] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:23:02.005] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:23:02.018] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:23:02.026] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:23:02.076] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:23:36.916] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:23:36.917] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:23:36.929] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:23:36.938] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:23:36.986] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:24:23.287] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:24:23.288] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:24:23.293] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:24:23.297] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:24:23.322] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:24:33.356] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:24:33.357] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:24:33.362] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:24:33.366] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:24:33.391] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:26:57.475] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:26:57.475] [error] * Line 14, Column 37
+  Missing ',' or ']' in array declaration
+
+[2023-01-31 18:29:14.291] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:29:14.291] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:29:14.377] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:29:14.385] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:29:14.437] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:30:03.495] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:30:03.495] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:30:03.574] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:30:03.582] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:30:03.639] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-01-31 18:30:28.079] [warning] Failed to update properties: GDBus.Error:org.freedesktop.DBus.Error.UnknownObject: No such object path '/StatusNotifierItem'
+[2023-01-31 18:30:56.127] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-01-31 18:30:56.127] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-01-31 18:30:56.156] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-01-31 18:30:56.160] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-01-31 18:30:56.182] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+Gdk-Message: 18:32:09.549: Error reading events from display: Connection reset by peer
+[2023-02-02 10:55:53.278] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-02-02 10:55:53.283] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-02-02 10:55:53.312] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-02-02 10:55:53.320] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-02-02 10:55:53.383] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-02 10:56:19.383] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-02-02 10:56:19.383] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-02-02 10:56:19.396] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-02-02 10:56:19.403] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-02-02 10:56:19.465] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-02 11:03:05.898] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-02-02 11:03:05.899] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-02-02 11:03:05.910] [warning] module image#chromium: Unknown module: image#chromium
+[2023-02-02 11:03:05.911] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-02-02 11:03:05.919] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-02-02 11:03:05.983] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-02 11:14:30.918] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-02-02 11:14:30.918] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-02-02 11:14:30.929] [warning] module image#chromium: Unknown module: image#chromium
+[2023-02-02 11:14:30.931] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-02-02 11:14:30.939] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-02-02 11:14:30.999] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-02 12:27:22.034] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-02-02 12:27:22.035] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-02-02 12:27:22.049] [warning] module image: Unknown module: image
+[2023-02-02 12:27:22.050] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-02-02 12:27:22.061] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-02-02 12:27:22.133] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-02 12:38:49.285] [error] Host: GDBus.Error:org.freedesktop.DBus.Error.InvalidArgs: Status Notifier Host with bus name ':1.109' and object path '/StatusNotifierHost/0' is already registered
+[2023-02-02 12:40:42.931] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-02-02 12:40:42.932] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-02-02 12:40:42.943] [warning] module image#browser: Unknown module: image#browser
+[2023-02-02 12:40:42.944] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-02-02 12:40:42.952] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-02-02 12:40:43.015] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-02 12:45:34.718] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-02-02 12:45:34.718] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-02-02 12:45:34.729] [warning] module image#browser: Unknown module: image#browser
+[2023-02-02 12:45:34.730] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-02-02 12:45:34.738] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-02-02 12:45:34.799] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-02 12:46:11.307] [info] Using configuration file /home/xon/.config/waybar/config.jsonc
+[2023-02-02 12:46:11.308] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-02-02 12:46:11.320] [warning] module image#browser: Unknown module: image#browser
+[2023-02-02 12:46:11.321] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+sh: -c: line 1: syntax error near unexpected token `('
+sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
+[2023-02-02 12:46:11.329] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-02-02 12:46:11.389] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+
+(process:927657): Helpers.IconFetcher-WARNING **: 12:53:29.881: Failed to load image: Failed to open file “2to3-3.10”: No such file or directory
+ok
+Gdk-Message: 14:33:57.337: Error flushing display: Broken pipe
+[2023-02-02 20:11:33.268] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-02 20:11:33.272] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-02-02 20:11:33.283] [warning] module image#browser: Unknown module: image#browser
+[2023-02-02 20:11:33.284] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+sh: -c: line 1: syntax error near unexpected token `('
+sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
+[2023-02-02 20:11:33.292] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+[2023-02-02 20:11:33.358] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-02 20:16:03.152] [info] Bar configured (width: 1916, height: 39) for output: eDP-1
+Gdk-Message: 20:16:03.154: Error reading events from display: Connection reset by peer
+[2023-02-14 18:11:43.014] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-14 18:11:43.014] [error] * Line 64, Column 5
+  Missing '}' or object member name
+
+[2023-02-14 18:11:58.827] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-14 18:11:58.827] [error] * Line 64, Column 5
+  Missing '}' or object member name
+
+[2023-02-14 18:13:01.701] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-14 18:13:01.701] [info] Using CSS file /home/xon/.config/waybar/style.css
+[2023-02-14 18:13:01.713] [warning] module image#browser: Unknown module: image#browser
+[2023-02-14 18:13:01.714] [warning] For a functional tray you must have libappindicator-* installed and export XDG_CURRENT_DESKTOP=Unity
+[2023-02-14 18:13:01.720] [warning] As using a timezone, some format args may be missing as the date library haven't got a release since 2018.
+sh: -c: line 1: syntax error near unexpected token `('
+sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
+[2023-02-14 18:13:01.762] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-14 18:30:17.318] [warning] Failed to update properties: GDBus.Error:org.freedesktop.DBus.Error.UnknownObject: No such object path '/StatusNotifierItem'
+ok
+Gdk-Message: 18:37:43.409: Error flushing display: Broken pipe
+[2023-02-24 08:34:53.493] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-24 08:34:53.497] [info] Using CSS file /home/xon/.config/waybar/style.css
+sh: -c: line 1: syntax error near unexpected token `('
+sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
+[2023-02-24 08:34:53.561] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-24 08:34:59.585] [info] Quitting.
+
+(waybar:543836): GLib-GIO-WARNING **: 08:34:59.599: Invalid id 2 passed to g_bus_unwatch_name()
+[2023-02-24 08:37:20.286] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-24 08:37:20.286] [info] Using CSS file /home/xon/.config/waybar/style.css
+sh: -c: line 1: syntax error near unexpected token `('
+sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
+[2023-02-24 08:37:20.351] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
