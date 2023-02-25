@@ -21,75 +21,67 @@ function close_osd {
     notify-send asd
 }
 
-picker() {
-    COLOR=$(distrobox-enter -n Arch -- hyprpicker -n | grep "#") &&
-    wl-copy --trim-newline $COLOR
-    notify-send -i color-select-symbolic -a "Color Picker" $(wl-paste)
-    echo $COLOR
-}
-
-function colorpicker {
-    bash $HOME/.config/eww/scripts/launcher picker
-}
-
 function network {
-    kitty   --class Network --title Network --hold \
-            command nmcli d wifi list
+    alacritty -e fish -c iwctl
 }
 
 function screenlock {
-    STATE0=$(eww windows | grep powermenu0 | awk '{print substr ($0, 0, 1)}')
-    STATE1=$(eww windows | grep powermenu1 | awk '{print substr ($0, 0, 1)}')
-    if [[ $STATE0 == '*' ]]; then eww close powermenu0; fi
-    if [[ $STATE1 == '*' ]]; then eww close powermenu1; fi
-    
-    hyprctl keyword blurls "gtk-layer-shell"
-    gtklock -s $HOME/.config/gtklock/style.css
+    STATE0=$(eww windows | grep powermenu | awk '{print substr ($0, 0, 1)}')
+    STATE1=$(eww windows | grep quicksettings | awk '{print substr ($0, 0, 1)}')
+    STATE2=$(eww windows | grep calendar | awk '{print substr ($0, 0, 1)}')
+    STATE3=$(eww windows | grep osd | awk '{print substr ($0, 0, 1)}')
+    if [[ $STATE0 == '*' ]]; then eww close powermenu0 && eww close powermenu1; fi
+    if [[ $STATE1 == '*' ]]; then eww close quicksettings0 && eww close quicksettings1; fi
+    if [[ $STATE2 == '*' ]]; then eww close calendar0 && eww close calendar1; fi
+    if [[ $STATE3 == '*' ]]; then eww close osd0 && eww close osd1; fi
+    swaylock
 }
 
-function notifications {
-    distrobox-enter -n Arch -- swaync-client -t
+function applauncher {
+    STATE0=$(eww windows | grep powermenu | awk '{print substr ($0, 0, 1)}')
+    STATE1=$(eww windows | grep quicksettings | awk '{print substr ($0, 0, 1)}')
+    STATE2=$(eww windows | grep calendar | awk '{print substr ($0, 0, 1)}')
+    STATE3=$(eww windows | grep osd | awk '{print substr ($0, 0, 1)}')
+    if [[ $STATE0 == '*' ]]; then eww close powermenu0 && eww close powermenu1; fi
+    if [[ $STATE1 == '*' ]]; then eww close quicksettings0 && eww close quicksettings1; fi
+    if [[ $STATE2 == '*' ]]; then eww close calendar0 && eww close calendar1; fi
+    if [[ $STATE3 == '*' ]]; then eww close osd0 && eww close osd1; fi
+    killall rofi || rofi -show drun -theme ~/.config/rofi/themes/catppuccin-mocha.rasi
 }
 
 function config {
-    flatpak run com.visualstudio.code $HOME/.config/hypr
+    alacritty -e micro $HOME/.config/hypr/hyprland.conf
 }
 
-function screenshot {
-    DIR="$HOME/Pictures/Screenshots"
-    mkdir -p $DIR
-
-    if [[ $1 == 'screen' ]]; then
-        distrobox-enter -n Arch -- hyprshot -m output -o $DIR
-    else
-        distrobox-enter -n Arch -- hyprshot -m region -o $DIR
-    fi
+function documents {
+    thunar $HOME/Documents
 }
 
-if [[ $1 == 'applauncher'       ]]; then rofi -show drun; fi
+function downloads {
+    thunar $HOME/Downloads
+}
+
+function pictures {
+    thunar $HOME/Pictures
+}
+
+function videos {
+    thunar $HOME/Videos
+}
+
+if [[ $1 == 'applauncher'    ]]; then applauncher; fi
+if [[ $1 == 'documents'      ]]; then documents; fi
+if [[ $1 == 'downloads'      ]]; then downloads; fi
+if [[ $1 == 'pictures'       ]]; then pictures; fi
+if [[ $1 == 'videos'         ]]; then videos; fi
 if [[ $1 == 'pavu'           ]]; then pavucontrol; fi
 if [[ $1 == 'network'        ]]; then network; fi
-if [[ $1 == 'rog'            ]]; then rog-control-center; fi
 if [[ $1 == 'brightness'     ]]; then wl-gammactl; fi
 if [[ $1 == 'bluetooth'      ]]; then blueberry; fi
 if [[ $1 == 'powermenu'      ]]; then powermenu; fi
-if [[ $1 == 'notifications'  ]]; then notifications; fi
 if [[ $1 == 'toggle_menu'    ]]; then toggle_menu $2; fi
 if [[ $1 == 'close_menu'     ]]; then close_menu $2; fi
 if [[ $1 == 'close_osd'      ]]; then close_osd; fi
 if [[ $1 == 'close_calendar' ]]; then close_calendar; fi
-if [[ $1 == 'colorpicker'    ]]; then colorpicker; fi
-if [[ $1 == 'picker'         ]]; then picker; fi
 if [[ $1 == 'screenlock'     ]]; then screenlock; fi
 if [[ $1 == 'config'         ]]; then config; fi
-if [[ $1 == 'screenshot'     ]]; then screenshot $2; fi
-
-if [[ $1 == 'firefox'       ]]; then flatpak run org.mozilla.firefox; fi
-if [[ $1 == 'kitty'         ]]; then gtk-launch kitty; fi
-if [[ $1 == 'file-manager'  ]]; then gtk-launch org.gnome.Nautilus; fi
-if [[ $1 == 'code'          ]]; then flatpak run com.visualstudio.code; fi
-if [[ $1 == 'spotify'       ]]; then flatpak run com.spotify.Client; fi
-if [[ $1 == 'caprine'       ]]; then flatpak run com.sindresorhus.Caprine; fi
-if [[ $1 == 'bitwig'        ]]; then gtk-launch bitwig; fi
-if [[ $1 == 'battle'        ]]; then gtk-launch Battle; fi
-if [[ $1 == 'bottles'       ]]; then flatpak run com.usebottles.bottles; fi
