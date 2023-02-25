@@ -6,6 +6,20 @@
 import re;
 import os;
 
+# Get the XDG_USER_DIRS directory names from enviromental variables
+
+xdgs_dirs = {path.split('/')[-2]: icon for key, icon in [
+    ('XDG_DOCUMENTS_DIR'  , ''),
+    ('XDG_DOWNLOAD_DIR'   , ''),
+    ('XDG_CONFIG_DIR'     , ''),
+    ('XDG_MUSIC_DIR'      , ''),
+    ('XDG_PICTURES_DIR'   , ''),
+    ('XDG_PUBLICSHARE_DIR', ''),
+    ('XDG_TEMPLATES_DIR'  , ''),
+    ('XDG_VIDEOS_DIR'     , ''),
+] if (path := os.getenv(key))}
+
+
 # all those glyphs will show as weird squares if you don't have the correct patched font
 # My advice is to use NerdFonts which can be found here:
 # https://github.com/ryanoasis/nerd-fonts
@@ -66,7 +80,7 @@ file_node_extensions = {
     'exe'      : '',
     'exs'      : '',
     'f#'       : '',
-    'fifo'     : '|',
+    'fifo'     : 'ﳣ',
     'fish'     : '',
     'flac'     : '',
     'flv'      : '',
@@ -133,14 +147,14 @@ file_node_extensions = {
     'nix'      : '',
     'o'        : '',
     'ogg'      : '',
-    'pdf'      : '',
+    'pdf'      : '',
     'php'      : '',
     'pl'       : '',
     'pm'       : '',
     'png'      : '',
     'pp'       : '',
-    'ppt'      : '',
-    'pptx'     : '',
+    'ppt'      : '',
+    'pptx'     : '',
     'ps1'      : '',
     'psb'      : '',
     'psd'      : '',
@@ -166,7 +180,7 @@ file_node_extensions = {
     'sass'     : '',
     'scala'    : '',
     'scss'     : '',
-    'sh'       : '',
+    'sh'       : '',
     'slim'     : '',
     'sln'      : '',
     'so'       : '',
@@ -192,8 +206,8 @@ file_node_extensions = {
     'xbps'     : '',
     'xcplayground' : '',
     'xhtml'    : '',
-    'xls'      : '',
-    'xlsx'     : '',
+    'xls'      : '',
+    'xlsx'     : '',
     'xml'      : '',
     'xul'      : '',
     'xz'       : '',
@@ -206,19 +220,19 @@ file_node_extensions = {
 dir_node_exact_matches = {
 # English
     '.git'                             : '',
-    'Desktop'                          : '',
-    'Documents'                        : '',
-    'Downloads'                        : '',
-    'Dotfiles'                         : '',
-    'Dropbox'                          : '',
-    'Music'                            : '',
-    'Pictures'                         : '',
-    'Public'                           : '',
-    'Templates'                        : '',
+    'Desktop'                          : '',
+    'Documents'                        : '',
+    'Downloads'                        : '',
+    'Dotfiles'                         : '',
+    'Dropbox'                          : '',
+    'Music'                            : '',
+    'Pictures'                         : '',
+    'Public'                           : '',
+    'Templates'                        : '',
     'Videos'                           : '',
 # Spanish
     'Escritorio'                       : '',
-    'Documentos'                       : '',
+    'Documentos'                       : '',
     'Descargas'                        : '',
     'Música'                           : '',
     'Imágenes'                         : '',
@@ -227,7 +241,7 @@ dir_node_exact_matches = {
     'Vídeos'                           : '',
 # French
     'Bureau'                           : '',
-    'Documents'                        : '',
+    'Documents'                        : '',
     'Images'                           : '',
     'Musique'                          : '',
     'Publique'                         : '',
@@ -265,6 +279,8 @@ dir_node_exact_matches = {
     'Letöltések'                       : '',
     'Számítógép'                       : '',
     'Videók'                           : '',
+# XDG_USER_DIRS
+    **xdgs_dirs
 }
 
 file_node_exact_matches = {
