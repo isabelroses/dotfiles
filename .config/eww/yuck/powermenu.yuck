@@ -55,10 +55,10 @@
         :class "power-menu"
         :space-evenly false
         :orientation "h"
-        (powerbutton :action "swaylock"                                      :icon "lock" :label "Lock Screen")
-        (powerbutton :action "systemctl suspend"                             :icon "suspend" :label "Suspend")
-        (powerbutton :action "systemctl reboot"                              :icon "reboot" :label "Restart")
-        (powerbutton :action "hyprctl dispatch exit 0"                       :icon "logout" :label "Log Out")
-        (powerbutton :action "systemctl poweroff"                            :icon "shutdown" :label "Shutdown")
+        (powerbutton :action "${EWW_CONFIG_DIR}/scripts/launcher screenlock"         :icon "lock" :label "Lock Screen")
+        (powerbutton :action "systemctl stop docker && systemctl reboot"             :icon "reboot" :label "Restart")
+        (powerbutton :action "systemctl stop docker && systemctl poweroff"           :icon "shutdown" :label "Shutdown")
+        (powerbutton :action "hyprctl dispatch exit 0"                               :icon "logout" :label "Log Out")
+        (powerbutton :action "systemctl suspend"                                     :icon "suspend" :label "Suspend")
     )
 )))

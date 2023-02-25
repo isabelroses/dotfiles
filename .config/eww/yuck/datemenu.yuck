@@ -57,6 +57,10 @@
             (label :text ":")
             (label :text minutes)
         )
+        (label 
+            :text date 
+            :class "date_small"
+        )
         (label  
             :class "uptime"
             :text "uptime: ${uptime}"

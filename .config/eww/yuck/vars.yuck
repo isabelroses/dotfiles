@@ -1,5 +1,6 @@
-(deflisten  active_workspace    :initial  "1"  `scripts/workspaces active`)
-(deflisten  workspaces          :initial  "[]" `scripts/workspaces get`)
+(defvar     ws-icons            '["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]')
+(deflisten  workspace                          `scripts/workspaces`)
+(deflisten  active_workspace    :initial  "1"  `scripts/get_workspaces`)
 (deflisten  window              :initial  "-"  `scripts/window class`)
 
 (deflisten  media_pos           :initial  "[]" `scripts/media_pos`)
@@ -22,7 +23,7 @@
 (defpoll    mute_state          :interval "3s" `scripts/volume mute_state`)
 
 (defpoll    theme_state         :interval "3s" `scripts/theme state`)
-(defpoll    theme_icon          :interval "3s" `scripts/theme icon`)
+(defvar     theme_icon          '󰃛')
 
 (defpoll    power_state         :interval "3s" `scripts/power state`)
 (defpoll    power_icon          :interval "3s" `scripts/power icon`)
@@ -30,8 +31,6 @@
 (defpoll    night_light_state   :interval "3s" `scripts/night_light state`)
 (defpoll    night_light_icon    :interval "3s" `scripts/night_light icon`)
 
-(defpoll    kbd_icon            :interval "3s" `scripts/brightness kbd_icon`)
-(defpoll    kbd_level           :interval "3s" :initial "100" `scripts/brightness kbd_level`)
 (defpoll    screen_icon         :interval "3s" `scripts/brightness screen_icon`)
 (defpoll    screen_level        :interval "3s" :initial "99" `scripts/brightness screen_level`)
 
@@ -43,11 +42,13 @@
 (defpoll    dnd_icon            :interval "3s" `scripts/notifications icon`)
 (defpoll    dnd_state           :interval "3s" `scripts/notifications state`)
 
-(defpoll    panel_clock         :interval "5s" `date "+%H:%M  |  %b. %d. %A"`)
-(defpoll    hour                :interval "5s" `date "+%H"`)
+(defpoll    panel_clock         :interval "5s" `date "+%I:%M %p  |  %d/%m/%y "`)
+(defpoll    hour                :interval "5s" `date "+%I"`)
 (defpoll    minutes             :interval "5s" `date "+%M"`)
-(defpoll    date                :interval "5s" `date "+%b. %d. %A"`)
+(defpoll    date                :interval "5s" `date "+%A %d %B"`)
 (defpoll    uptime              :interval "60s" "uptime | awk '{print $3}' | tr ',' ' '")
+
+(deflisten  airplane            `scripts/airplane`)
 
 (defpoll    events              :interval "3s" :initial "[]" `scripts/todo --eww`)
 
