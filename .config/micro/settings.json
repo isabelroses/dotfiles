@@ -1,3 +1,11 @@
 {
-    "colorscheme": "catppuccin-mocha"
+    "autosu": true,
+    "clipboard": "terminal",
+    "colorscheme": "catppuccin-mocha",
+    "eofnewline": false,
+    "pluginchannels": [
+        "https://raw.githubusercontent.com/micro-editor/plugin-channel/master/channel.json"
+    ],
+    "savecursor": true,
+    "statusformatl": "$(filename) @($(line):$(col)) $(modified)| $(opt:filetype) $(opt:encoding)"
 }

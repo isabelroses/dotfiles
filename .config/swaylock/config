@@ -1,11 +1,13 @@
 # Options
 ignore-empty-password
+show-failed-attempts
+clock
 
 # Style
 indicator-radius=120
 indicator-thickness=20
 line-uses-ring
-font="SF Pro Display"
+font="RobotoMono Nerd Font Regular"
 font-size=32
 
 # Colors

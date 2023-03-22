@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/usr/bin/env bash
 
 read -p 'optimise?(y/n): ' userinp
 

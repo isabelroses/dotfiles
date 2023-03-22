@@ -266,3 +266,35 @@ sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
 sh: -c: line 1: syntax error near unexpected token `('
 sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
 [2023-02-24 08:37:20.351] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-25 15:21:51.194] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-25 15:21:51.199] [info] Using CSS file /home/xon/.config/waybar/style.css
+sh: -c: line 1: syntax error near unexpected token `('
+sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
+[2023-02-25 15:21:51.272] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-25 15:22:17.281] [info] Quitting.
+
+(waybar:1913508): GLib-GIO-WARNING **: 15:22:17.305: Invalid id 2 passed to g_bus_unwatch_name()
+[2023-02-25 20:03:05.533] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-25 20:03:05.538] [info] Using CSS file /home/xon/.config/waybar/style.css
+sh: -c: line 1: syntax error near unexpected token `('
+sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
+[2023-02-25 20:03:05.607] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-25 20:03:14.774] [info] Quitting.
+
+(waybar:2383426): GLib-GIO-WARNING **: 20:03:14.780: Invalid id 2 passed to g_bus_unwatch_name()
+[2023-02-25 20:04:19.975] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-25 20:04:19.976] [info] Using CSS file /home/xon/.config/waybar/style.css
+sh: -c: line 1: syntax error near unexpected token `('
+sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
+[2023-02-25 20:04:20.044] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-25 20:05:29.925] [info] Quitting.
+[2023-02-26 15:16:44.197] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-26 15:16:44.198] [info] Using CSS file /home/xon/.config/waybar/style.css
+sh: -c: line 1: syntax error near unexpected token `('
+sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
+[2023-02-26 15:16:44.263] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
+[2023-02-26 15:28:06.660] [info] Using configuration file /home/xon/.config/waybar/config
+[2023-02-26 15:28:06.661] [info] Using CSS file /home/xon/.config/waybar/style.css
+sh: -c: line 1: syntax error near unexpected token `('
+sh: -c: line 1: `[ ((pacman -Qu ; yay -Qua) | wc -l) != 0 ]'
+[2023-02-26 15:28:06.710] [info] Bar configured (width: 1916, height: 47) for output: eDP-1
