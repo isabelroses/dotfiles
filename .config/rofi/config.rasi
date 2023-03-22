@@ -1,14 +1,18 @@
-configuration {
-	modi: "run,drun";
-	show-icons: true;
-	terminal: "terminator";
-	drun-display-format: "{icon} {name}";
-	location: 0;
-	disable-history: false;
-	hide-scrollbar: true;
-	display-drun: "   Apps ";
-	display-run: "   Run ";
-	sidebar-mode: true;
+configuration{
+    modi: "drun,run,window,ssh";
+    icon-theme: "Papirus-Dark";
+    show-icons: true;
+    terminal: "alacritty";
+    drun-display-format: "{icon} {name}";
+    location: 0;
+    disable-history: false;
+    hide-scrollbar: true;
+    display-drun: "   Apps ";
+    display-run: "   Run ";
+   	display-window: " 﩯  Window";
+    display-Network: " 󰤨  Network";
+    display-ssh: "🌐 SSH";
+    sidebar-mode: true;
 }
 
-@theme "./themes/catppuccin-mocha.rasi"
+@theme "catppuccin-mocha"

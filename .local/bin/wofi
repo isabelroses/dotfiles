@@ -1,6 +1,0 @@
-#!/bin/sh
-# Workaround for drun apps using terminal
-# https://todo.sr.ht/%7Escoopta/wofi/73
-# https://forum.manjaro.org/t/desktop-applications-running-in-terminal-in-manjaro-sway/37877
-parameters=$@
-PATH="${HOME}/.config/wofi/terminal:${PATH}" /usr/bin/wofi $parameters
