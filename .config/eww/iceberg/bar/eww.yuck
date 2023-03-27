@@ -1,0 +1,174 @@
+(include "yuck/start.yuck")
+(include "yuck/workspaces.yuck")
+(include "yuck/window.yuck")
+(include "yuck/notifs.yuck")
+(include "yuck/sys.yuck")
+(include "yuck/ram.yuck")
+(include "yuck/nvidia.yuck")
+(include "yuck/cpu.yuck")
+(include "yuck/disk.yuck")
+(include "yuck/updates.yuck")
+(include "yuck/bat.yuck")
+
+(defvar eww "eww -c ~/.config/eww/iceberg/bar")
+(deflisten right_widgets "scripts/test")
+(defwidget main []
+  (box :class "bar"
+    (left)
+    (right)))
+; Generic icon module foldstart
+(defwidget icon-module [icon ?class ?visible]
+  (box :class "${class} icon-module"
+       :orientation "h"
+       :valign "center"
+       :space-evenly false
+       :visible {visible ?: true} ; because the argument is optional
+    (label :class "icon-module__icon" :text "${icon}")
+    (children)))
+
+(defwidget left[]
+  (box :class "left"
+       :space-evenly false
+       :spacing 7 
+       :halign "start"
+    (start)
+    (workspaces)
+    (window-name)))
+
+(defwidget right[]
+  (box  :class "right" 
+        :space-evenly false
+        :spacing 7 
+        :halign "end"
+      (notifs)
+      (sys)
+      (nvidia)
+      (ram)
+      (cpu)
+      (disk)
+      (updates)
+      (bat)
+      (time)))
+
+; (defwidget right []
+;   (literal
+;     :content { right_widgets }))
+
+; (defwidget workspaces []
+;   (literal
+;     :content workspace
+;   :valign "center"))
+
+
+(defwidget main1 []
+  (box :class "bar"
+    (left1)
+    (right1)))
+
+(defwidget left1[]
+  (box :class "left"
+        :space-evenly false
+        :spacing 7 
+        :halign "start"
+    (start1)
+    (workspaces)
+    (window-name)))
+
+(defwidget right1[]
+  (box  :class "right" 
+        :space-evenly false
+        :spacing 7 
+        :halign "end"
+    (notifs)
+    (sys)
+    (nvidia)
+    (ram)
+    (cpu)
+    (disk)
+    (updates)
+    (bat)
+    (time)))
+
+(defwidget lbar[]
+  (box :class "bar left-bar"
+    (left)))
+
+(defwidget rbar[]
+  (box :class "bar right-bar"
+    (right)))
+
+(defwidget lbar1[]
+  (box :class "bar left-bar"
+    (left1)))
+
+(defwidget rbar1[]
+  (box :class "bar right-bar"
+    (right1)))
+
+(defwidget time1[]
+  (box :class "time-box"
+       :halign "center"
+       :valign "center"
+    (eventbox :class "time-eventbox"
+              :onclick "scripts/widgets toggle-time1 ; scripts/blank"
+              :cursor "pointer"
+      (label :class "time-label" :text "   ${time-lbl}"))))
+
+(defwidget time[]
+  (box :class "time-box"
+        :halign "center"
+        :valign "center"
+    (eventbox :class "time-eventbox"
+              :onclick "scripts/widgets toggle-time ; scripts/blank"
+              :cursor "pointer"
+      (label :class "time-label" :text "   ${time-lbl}"))))
+
+(defpoll time-lbl :interval "1s" "date +'%I:%M'")
+
+(defwindow bar0
+  :monitor 0
+  :geometry (geometry :x "0px" :y "0px" :width "100%" :height "50px" :anchor "top center")
+  :stacking "fg"
+  :hexpand false
+  :vexpand false
+  :exclusive false
+  :windowtype "dock"
+  (main))
+
+(defwindow left_bar0
+  :monitor 0
+  :geometry (geometry :x "10px" :y "10px" :height "50px" :anchor "top center")
+  :stacking "fg"
+  :exclusive false
+  (lbar))
+
+(defwindow right_bar0 
+  :monitor 0
+  :geometry (geometry :x "-10px" :y "10px" :height "50px" :anchor "top center")
+  :stacking "fg"
+  :exclusive false
+  (rbar))
+
+(defwindow bar1 
+  :monitor 1
+  :geometry (geometry :x "0px" :y "0px" :width "100%" :height "48px" :anchor "top center")
+  :stacking "fg"
+  :hexpand false
+  :vexpand false
+  :exclusive false
+  :windowtype "dock"
+  (main1))
+
+(defwindow left_bar1
+  :monitor 1
+  :geometry (geometry :x "10px" :y "10px" :height "48px" :anchor "top left")
+  :stacking "fg"
+  :exclusive false
+  (lbar1))
+
+(defwindow right_bar1 
+  :monitor 1
+  :geometry (geometry :x "-10px" :y "10px" :height "48px" :anchor "top right")
+  :stacking "fg"
+  :exclusive false
+  (rbar1))

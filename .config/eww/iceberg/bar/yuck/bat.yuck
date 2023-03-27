@@ -1,0 +1,24 @@
+(defwidget bat[]
+    (eventbox :class "bat-eventbox"
+              :onhover "${eww} update bat-vis=true"
+              :onhoverlost "${eww} update bat-vis=false"
+      (box :class "bat-box ${bat-class}"
+           :orientation "v"
+           :valign "center"
+        (overlay
+          (scale :class "bat-scale ${bat-class}" :active false :min 0 :max 101 :value bat-val)
+          (box :orientation "v"
+               :space-evenly false
+               :valign "center"
+            (revealer :class "bat-reveal" :reveal bat-vis
+                      :transition "slideup"
+                      :duration "550ms"
+              (label :class "bat-label" :halign "center" :valign "center" :text "${bat-val}%"))
+            (revealer :class "bat-reveal" :reveal {!bat-vis}
+                      :transition "slideup"
+                      :duration "550ms"
+              (label :class "bat-icon" :halign "center" :valign "center" :height 25 :width 25 :text bat-icon)))))))
+  
+  (defpoll bat-val :initial 0 :interval "1s" "scripts/bat level")
+  (defpoll bat-class :interval "1s" "scripts/bat class")
+  (defvar bat-vis false)

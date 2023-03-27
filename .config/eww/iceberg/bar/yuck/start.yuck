@@ -1,0 +1,20 @@
+(defwidget start[]
+    (box :class "start-box" 
+      (eventbox :class "start-eventbox"
+                :onclick "scripts/widgets toggle-sys ; scripts/blank"
+                :timeout "60s"
+                ; :cursor "pointer"
+                :valign "center"
+        (box :class "start"
+          (label :class "start-btn" :text "")))))
+  
+  (defwidget start1[]
+    (box :class "start-box" 
+      (eventbox :class "start-eventbox"
+                :onclick "scripts/widgets toggle-sys1 ; scripts/blank"
+                :timeout "60s"
+                ; :cursor "pointer"
+                :valign "center"
+        (box :class "start"
+          (label :class "start-btn" :text "")))))
+  
