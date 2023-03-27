@@ -2,6 +2,8 @@
 
 ### Previews
 
+![[eww-bar](assets/eww-bar.png)](assets/eww-bar.png)
+
 <details>
 <summary> Waybar </summary>
 
@@ -21,6 +23,15 @@
 ![[datemenu](assets/datemenu.png)](assets/datemenu.png)
 </details>
 
+</details>
+
+<details>
+<summary> Additional previews </summary>
+
+![[chromium-and-thunar.png](assets/chromium-and-thunar.png)](assets/chromium-and-thunar.png)
+![[obsidian.png](assets/obsidian.png)](assets/obsidian.png)
+![[terminal.png](assets/terminal.png)](assets/terminal.png)
+![[code.png](assets/code.png)](assets/code.png)
 </details>
 
 ## Install
