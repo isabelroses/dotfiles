@@ -1,0 +1,149 @@
+(defwidget sys-menu-main[]
+   (revealer
+      :transition "slideleft"
+      :reveal system-menu
+      :duration "650ms"
+   (box :class "menu sys-menu"
+       :orientation "v"
+       :space-evenly false
+       :spacing 15
+    (user)
+    (panel)
+    (media)
+    (sliders)
+    (powermenu)
+    (module-control))))
+(defvar system-menu false)
+
+(defwidget user[] 
+  (box :class "user"
+       :space-evenly false
+       :orientation "h"
+       :hexpand true
+       :spacing 15
+    (box :class "user-pfp" :halign "start" :valign "center" :style "background-image: url('assets/sakurafetch.png');") 
+    (box :class "user-details"
+         :orientation "v"
+         :space-evenly false
+         :valign "center"
+      (label :class "user-name" :halign "start" :text uname)
+      (label :class "user-uptime" :halign "start" :text uptime-val)))) 
+
+(defpoll uname :interval "1h" "echo $USER")
+(defpoll uptime-val :interval "30s" "uptime -p")
+
+(defwidget panel[]
+  (box :class "panel"
+       :spacing 15
+       :space-evenly false
+    (stats)
+    (sys-btns)))
+
+(defwidget stats[]
+  (box :class "stats"
+       :spacing 15
+    (v-iconmeter :name "ram" :active false :min 0 :max 101 :val ram-val :icon "")
+    (v-iconmeter :name "cpu" :active false :min 0 :max 101 :val cpu-val :icon "")
+    (v-iconmeter :name "dsk" :active false :min 0 :max 101 :val dsk-val :icon "")))
+
+(deflisten ram-val "scripts/stats follow ram")
+(deflisten cpu-val "scripts/stats follow cpu")
+(deflisten dsk-val "scripts/stats follow dsk")
+
+(defwidget sys-btns[]
+  (box :class "sys-btns"
+       :orientation "v"
+       :hexpand true
+       :spacing 15
+    (box :class "row"
+         :spacing 15
+      (button :class "wifi wifi-${wifi.state}" :timeout "5s" :tooltip "wifi" :onclick "scripts/sys toggle-wifi" {wifi.icon})
+      (button :class "air air-${air.state}" :timeout "5s" :tooltip "airplane mode" :onclick "scripts/sys toggle-air" {air.icon})
+      (button :class "dnd dnd-${dnd.state}" :timeout "5s" :tooltip "do not disturb" :onclick "scripts/sys toggle-dnd" {dnd.icon}))
+    (box :class "row"
+         :spacing 15
+      (button :class "night night-${night.state}" :tooltip "night light" :onclick "scripts/sys toggle-night" {night.icon})
+      (button :class "blue blue-${blue.state}" :tooltip "bluetooth" :onclick "scripts/sys toggle-blue" "")
+      (button :class "scr" :tooltip "take screenshot" :timeout "60s" :onclick "~/.config/eww/iceberg/bar/scripts/widgets toggle-sys ; wscreenshot -sa" ""))))
+
+(deflisten wifi "scripts/sys wifi")
+(deflisten air "scripts/sys air")
+(deflisten dnd "scripts/sys dnd")
+(deflisten night "scripts/sys night")
+(deflisten blue "scripts/sys blue")
+
+(defwidget media[]
+  (box :class "media"
+       :orientation "v"
+    (box :class "media-controls"
+         :orientation "h"
+         :space-evenly false
+         :spacing 15
+      (box :class "media-overview"
+           :orientation "v"
+           :hexpand true
+        (label :class "media-title" :halign "start" :limit-width 15 :text media-title)
+        (label :class "media-artist" :halign "start" :text media-artist)
+        (box 
+          (scale :class "media-track" :min 0 :max 101 :value media-track :active false)
+          (label :class "media-time" :halign "end" :text media-time)))
+      (box :class "media-playback"
+           :orientation "v"
+           :halign "end"
+        (button :class "media-prev" :onclick "scripts/media prev" "")
+        (button :class "media-toggle ${media-toggle-class}" :onclick "scripts/media toggle" media-toggle-icon)
+        (button :class "media-next" :onclick "scripts/media next" "")))))
+
+(defpoll media-title :interval "1s" "scripts/media title")
+(defpoll media-artist :interval "1s" "scripts/media artist")
+(defpoll media-time :interval "1s" "scripts/media time")
+(defpoll media-track :interval "1s" "scripts/media percent")
+(deflisten media-toggle-icon "scripts/media icon")
+(deflisten media-toggle-class "scripts/media class")
+
+(defwidget sliders[]
+  (box :class "sliders"
+       :orientation "v"
+       :spacing 15
+    (h-iconmeter :name "vol" :min 0 :max 101 :val vol-val :icon vol-icon :iwidth 45
+                 :onclick "../common/scripts/vol toggle-mute" 
+                 :onchange "../common/scripts/vol set {}")
+    (h-iconmeter :name "mic" :min 0 :max 101 :val mic-val :icon mic-icon :iwidth 45
+                 :onclick "../common/scripts/mic toggle-mute" 
+                 :onchange "../common/scripts/mic set {}")
+    (h-iconmeter :name "bright" :min 0 :max 101 :val bright-val :icon "" :iwidth 45
+                 :onchange "../common/scripts/bright set {}")))
+
+(deflisten vol-val :initial 0 "../common/scripts/vol follow")
+(defpoll vol-icon  :initial "" :interval "1s" "../common/scripts/vol icon")
+
+(deflisten mic-val :initial 0 "../common/scripts/mic follow")
+(defpoll mic-icon :interval "1s" "../common/scripts/mic icon")
+
+(deflisten bright-val :initial 0 "../common/scripts/bright follow")
+
+(defwidget module-control[]
+   (box :class "module-control"
+     (button :class "toggle-notifs" :onclick "../bar/scripts/adjust_bar notifs" :tooltip "Toggle notifs" "")
+     (button :class "toggle-updater" :onclick "../bar/scripts/adjust_bar updater" :tooltip "Toggle updates" "")
+     (button :class "toggle-sys" :onclick "../bar/scripts/adjust_bar sys" :tooltip "Toggle sys-menu" "")))
+
+(defwidget powermenu[]
+  (box :class "powermenu"
+    (button :class "power-lock" :onclick "../common/scripts/power lock" :tooltip "Lock" "")
+    (button :class "power-exit" :onclick "../common/scripts/power logout" :tooltip "Exit Hyprland" "")
+    (button :class "power-reboot" :onclick "../common/scripts/power reboot" :tooltip "Restart" "")
+    (button :class "power-shutdown" :onclick "../common/scripts/power shutdown" :tooltip "Shutdown" "")))
+
+(defwindow sys-menu0 
+   :monitor 0
+   :stacking "fg"
+   :geometry (geometry :x "5px" :y "55px" :width "1px" :anchor "top left")
+   (sys-menu-main))
+
+(defwindow sys-menu1 
+  :monitor 1
+  :stacking "fg"
+  :geometry (geometry :x "5px" :y "55px" :width "1px" :anchor "top left")
+  (sys-menu-main))
+

@@ -1,0 +1,90 @@
+#!/bin/sh
+
+eww_menu="eww -c $HOME/.config/eww/iceberg/menu"
+CACHE_DIR="$HOME/.cache/eww"
+focusmon=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .id')
+
+function toggle_sys0() {
+	if [ -f "$CACHE_DIR/sys-menu$focusmon.lock" ];then
+		rm "$CACHE_DIR/sys-menu$focusmon.lock"
+		$eww_menu update system-menu=false
+		sleep 0.5
+		# $eww_menu close unfocus
+		$eww_menu close "sys-menu$focusmon"
+	else
+		touch "$CACHE_DIR/sys-menu$focusmon.lock"
+		$eww_menu open "sys-menu$focusmon"
+		$eww_menu update system-menu=true
+	fi
+}
+
+function toggle_sys1() {
+	if [ -f "$CACHE_DIR/sys-menu$focusmon.lock" ];then
+		rm "$CACHE_DIR/sys-menu$focusmon.lock"
+		$eww_menu update system-menu=false
+		sleep 0.5
+		# $eww_menu close unfocus1
+		$eww_menu close "sys-menu$focusmon"
+	else
+		touch "$CACHE_DIR/sys-menu$focusmon.lock"
+		$eww_menu open "sys-menu$focusmon"
+		$eww_menu update system-menu=true
+	fi
+}
+
+function toggle_time0() {
+	if [ -f "$CACHE_DIR/time-menu.lock" ];then
+		rm "$CACHE_DIR/time-menu.lock"
+		$eww_menu update time-reveal=false
+		sleep 0.9
+		# $eww_menu close unfocus
+		$eww_menu close "time-menu$focusmon"
+		$eww_menu update time-vis=false
+	else
+		touch "$CACHE_DIR/time-menu.lock"
+		$eww_menu open "time-menu$focusmon" 
+		$eww_menu update time-vis=true
+		$eww_menu update time-reveal=true
+	fi
+}
+
+function toggle_time1() {
+	if [ -f "$CACHE_DIR/time-menu1.lock" ];then
+		rm "$CACHE_DIR/time-menu1.lock"
+		$eww_menu update time-reveal=false
+		sleep 0.9
+		# $eww_menu close unfocus
+		$eww_menu close time-menu1
+		$eww_menu update time-vis=false
+	else
+		touch "$CACHE_DIR/time-menu1.lock"
+		$eww_menu open time-menu1 
+		$eww_menu update time-vis=true
+		$eww_menu update time-reveal=true
+	fi
+}
+
+function toggle_clip() {
+	if [ -f "$CACHE_DIR/clipboard$focusmon.lock" ];then
+		rm "$CACHE_DIR/clipboard$focusmon.lock"
+		# $eww_menu close unfocus
+		$eww_menu close "clipboard$focusmon"
+	else
+		touch "$CACHE_DIR/clipboard$focusmon.lock"
+		$eww_menu open "clipboard$focusmon" 
+	fi
+}
+
+if ! [ -d "$CACHE_DIR" ];then
+	mkdir -p "$CACHE_DIR"
+fi
+
+case "$1" in
+	"toggle-sys") toggle_sys0;;
+	"toggle-sys1") toggle_sys1;;
+	"toggle-time") toggle_time0;;
+	"toggle-time1") toggle_time1;;
+	"toggle-clip") toggle_clip;;
+	*) echo "Unknown command";;
+esac
+

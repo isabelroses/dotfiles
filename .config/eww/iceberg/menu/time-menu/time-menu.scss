@@ -1,0 +1,269 @@
+.time-menu {
+	padding: 1rem;
+	padding-bottom: 10;
+	margin-right: 15;
+}
+
+.time-box {
+	color: #B8BDC9;
+	background-color: $raisin-black;
+	border-radius: 8px 8px 0 0;
+	padding: 1rem;
+
+	.time {
+		font-size: 36px;
+		font-weight: bold;
+	}
+
+	.month {
+		font-size: 32px;
+	}
+
+	.date {
+		font-size: 22px;
+		font-weight: bold;
+	}
+}
+
+.weather {
+	background-color: $raisin-black;
+	border-radius: 8px;
+}
+
+.weather-icon {
+	font-family: NotoEmoji Nerd Font Mono;
+	font-size: 48px;
+	//color: #B8BDC9;
+	color: $bg;
+	//background-color: $bg;
+	background-image: linear-gradient(to right, $blue, #678ac2);
+	border-radius: 8px;
+	padding: 0.5rem;
+	margin: 1rem;
+}
+
+.weather-details {
+	border-radius: 8px 8px 0 0;
+}
+
+.weather-name {
+	font-size: 14px;
+	color: $light-gray;
+}
+
+.weather-temp {
+	font-weight: bold;
+	color: #B8BDC9;
+	font-size: 28px;
+}
+
+.cal-box {
+}
+
+.cal-header {
+	font-weight: bold;
+	font-size: 18px;
+	color: #B8BDC9;
+	//color: $bg;
+	//background-image: linear-gradient(to right, $blue, #678ac2);
+	background-color: $raisin-black;
+	padding: 0.3rem 1.1rem;
+}
+
+calendar {
+	color: #B8BDC9;
+	background-color: $bg;
+	border-radius: 0 0 8px 8px;
+	padding: 1em .75em 0em;
+
+	&:selected {
+		color: $blue;
+		border-radius: 8px;
+		padding-top: 0.5rem
+	}
+
+	&:indeterminate {
+		color: $gray;
+	}
+}
+
+.notif-menu {
+	border-width: 0;
+	// padding-bottom: 
+}
+
+.notifications-box {
+	border-radius: 20px;
+	// under delete btn
+	// background-color: #B8BDC9;
+	// margin-bottom: 100em;
+}
+
+.notification-headers {
+	background-color: $bg;
+	// background-color: #B8BDC9;
+	padding: 0.5rem 0.5rem;
+}
+
+.notification-headers-label {
+	font-size: 16px;
+	font-weight: bold;
+	color: #B8BDC9;
+	background-color: $gray;
+	border-radius: 8px 8px 0 0;
+	padding: 0.6rem 0;
+}
+
+.notification-card-eventbox {
+	border-radius: 8px;
+}
+
+.notification-card {
+	border-bottom: 1px solid $gray;
+	background-color: $bg;
+	padding: 1rem 1rem 0.5rem 0rem;
+}
+
+.notification-content {
+	border-radius: 8px;
+}
+
+.notification-headers-clear {
+	font-size: 16px;
+	background-color: $raisin-black;
+	border-radius: 0 0 8px 8px;
+	color: $light-gray;
+	padding: 5px 22px;
+	margin-bottom: 1rem;
+}
+
+.notification-headers-clear:hover {
+	background-color: $red;
+	color: $bg;
+}
+
+.notifications-empty-icon {
+	font-size: 18px;
+}
+
+.notifications-empty-label {
+	font-family: JetBrainsMono Nerd Font Mono;
+	padding-top: 10px;
+	color: $gray;
+}
+
+.notification-card-LOW {
+	background-color: $gray;
+}
+
+.notification-card-NORMAL {
+	background-color: $blue;
+}
+
+.notification-card-CRITICAL {
+	background-color: $red;
+}
+
+.notification-card-OTHER {
+	border-left: 2px solid $blue;
+}
+
+.notification-wrapper {
+	border-radius: 8px;
+}
+
+.notification-card-notify-close {
+	color: $red;
+	font-size: 14px;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	margin: 0;
+}
+
+.notification-card-notify-close:hover {
+	color: $bg;
+	background-color: $red;
+}
+
+.notification-summary {
+	font-size: 16px;
+	font-weight: bold;
+	color: #B8BDC9;
+}
+
+.notification-body {
+	color: $light-gray;
+	font-size: 13px;
+}
+
+.notification-image {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	min-width: 150px;
+	min-height: 100px;
+	border-radius: 4px;
+	margin: 0 6px;
+}
+
+.notification-card-header-box {
+	background-color: $bg;
+	border-radius: 0 0 18px 8px;
+}
+
+.container {
+	border-bottom: 1px solid $gray;
+	background-color: $bg;
+	padding: 1rem 1rem 0.5rem 0rem;
+}
+
+.notification {
+	// @include rounding;
+	border-radius: 8px;
+	font-size: 12pt;
+	// border-bottom: 3px solid $colorbg;
+	padding: .7rem;
+	margin-top: 5px;
+	margin-bottom: 5px;
+
+	// box {
+	//    margin-bottom: .5rem;
+	// }
+
+	label {
+		font-size: 1rem;
+	}
+
+	&:hover {
+		border: 3px solid $yellow;
+	}
+
+	.appname {
+		font-size: 13pt;
+		color: $blue;
+		font-weight: bold;
+	}
+
+	.summary {
+		font-size: 13pt;
+		color: $fg;
+		font-weight: bold;
+	}
+
+	.body {
+		color: $fg;
+	}
+} 
+
+scrollbar {
+  -GtkScrollbar-has-backward-stepper: false;
+  -GtkScrollbar-has-forward-stepper: false;
+
+  slider {
+    padding: 0.2em;
+    border-radius: 1em;
+    background: $gray;
+    &:hover { background: $light-gray;}
+    &:active { background: $blue; }
+  }
+}

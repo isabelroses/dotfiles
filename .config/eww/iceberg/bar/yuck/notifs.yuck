@@ -1,0 +1,7 @@
+(defwidget notifs[]
+    (eventbox :class "notifs-eventbox"
+              :tooltip "Notifications"
+              :valign "center"
+      (label :class "notifs-label" :text "  ${notif-count}")))
+  
+(deflisten notif-count :initial "0" "~/.local/.scripts/notifs count")

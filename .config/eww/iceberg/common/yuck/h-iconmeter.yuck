@@ -1,0 +1,11 @@
+(defwidget h-iconmeter[name min max val icon ?active ?iwidth ?onclick ?onchange ?pointer]
+  (box :class "${name}-box"
+       :space-evenly false
+       :orientation "h"
+       :spacing 7
+    (box :class "${name}-box"
+      (eventbox :class "${name}-eventbox"
+                :onclick onclick
+        (label :class "${name}-icon" :width {iwidth ?: 20} :text icon)))
+    (scale :class "${name}-scale" :orientation "h" :active {active ?: true} :min min :max max :onchange onchange :value val)))
+

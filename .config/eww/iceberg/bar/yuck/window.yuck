@@ -1,0 +1,7 @@
+(deflisten window_listen "./scripts/window")
+
+(defwidget window-name []
+    (box :class "window-box"
+          :space-evenly false
+          :style "min-width: ${strlength(window_listen) * 10}px;"
+      (label :class "window-name-label" :text window_listen :limit-width 39)))

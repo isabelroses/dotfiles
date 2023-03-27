@@ -1,0 +1,6 @@
+(deflisten workspace "scripts/workspace")
+
+(defwidget workspaces []
+    (literal
+      :content workspace
+    :valign "center"))
