@@ -1,6 +1,6 @@
 (defvar main_monitor 0)
 (defvar real_name "Isabel")
-(defvar user_name "@xon")
+(defvar user_name "@isabel")
 (defvar profile_picture "assets/avatar")
 
 (include "./yuck/vars.yuck")
