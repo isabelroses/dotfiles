@@ -116,4 +116,4 @@ alias ee='exa -abghHliS --icons'
 
 alias es='exa --icons'
 
-# end aliases #
+# end aliases #export GPG_TTY=$(tty)
