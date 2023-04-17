@@ -3,7 +3,10 @@
 [user]
 	email = isabel@isabelroses.com
 	name = isabel
+	signingkey = 5CA53B45269A27BE
 [github]
 	user = isabelroses
 [credential]
     helper = store
+[commit]
+	gpgsign = true
