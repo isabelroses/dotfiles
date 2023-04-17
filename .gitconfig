@@ -1,0 +1,9 @@
+[core]
+	editor = micro
+[user]
+	email = isabel@isabelroses.com
+	name = isabel
+[github]
+	user = isabelroses
+[credential]
+    helper = store
