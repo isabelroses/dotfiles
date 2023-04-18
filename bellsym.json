@@ -23,7 +23,5 @@
 		".local/bin": "~/.local/bin",
 		".local/share": "~/.local/share"
 	},
-	"symlink": {
-		".config/gtk-4.0/": "~/.themes/Catppuccin-Mocha-Standard-Sapphire-Dark/gtk-4.0/assets/"
-	}
+	"symlink": {}
 }
