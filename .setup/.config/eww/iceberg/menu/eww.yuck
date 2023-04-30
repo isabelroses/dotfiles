@@ -1,0 +1,10 @@
+(include "../common/yuck/h-iconmeter.yuck")
+(include "../common/yuck/v-iconmeter.yuck")
+(include "./time-menu/time-menu.yuck")
+(include "./sys-menu/sys-menu.yuck")
+(include "./clipboard/clipboard.yuck")
+
+(defwidget sep[]
+  (box :class "sep"
+       :valign "center"))
+

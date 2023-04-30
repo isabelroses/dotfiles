@@ -1,0 +1,40 @@
+.clipboard0 {
+  background: $bg;
+  border-radius: 10;
+  padding: 0 0.5em;
+}
+.clipboard1 {
+  background: $bg;
+  border-radius: 10;
+  padding: 0 0.5em;
+}
+
+.cb-item {
+  border: 1px solid rgba($light-gray, 30%);
+  border-radius: 10;
+  margin: 4;
+  padding: 4;
+}
+
+.cb-text {
+  // overflow-wrap: anywhere;
+  // word-break: break-all;
+}
+
+.cb-empty {
+  color: rgba($fg, 30%);
+}
+
+.cb-event:hover > .cb-item {
+  background: $bg;
+}
+
+.cb-event > .cb-item > .cb-showhide >.cb-show {
+  color: transparent;
+}
+.cb-event:hover > .cb-item > .cb-showhide > .cb-hide {
+  color: transparent;
+}
+.cb-event:hover > .cb-item > .cb-showhide > .cb-show {
+  color: unset;
+}

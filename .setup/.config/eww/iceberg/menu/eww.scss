@@ -1,0 +1,45 @@
+* {
+    all: unset;
+    transition: 100ms ease-in;
+}
+
+@import "../common/scss/colors.scss";
+@import "./time-menu/time-menu.scss";
+@import "./sys-menu/sys-menu.scss";
+@import "./clipboard/clipboard.scss";
+
+tooltip {
+	color: #B8BDC9;
+	background-color: $bg;
+	border: 1px solid $gray;
+}
+
+@keyframes gradient_f {
+	0% {
+		background-position: 0% 200%;
+	}
+    50% {
+        background-position: 200% 0%;
+    }
+	100% {
+		background-position: 400% 200%;
+	}
+}
+
+.menu {
+    font-family: Noto Sans, "Font Awesome 6 Free";
+    background-color: $bg;
+}
+
+.sys-menu, .time-menu {
+	border: 1px solid $gray;
+	border-radius: 15px;
+}
+
+.menu-main, .sys-menu, .time-menu, .notif-menu {
+}
+
+.sep {
+    border-top: 1px solid $raisin-black;
+}
+

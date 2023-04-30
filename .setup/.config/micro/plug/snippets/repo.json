@@ -1,0 +1,29 @@
+[{
+  "Name": "snippets",
+  "Description": "plugin to insert language specific code snippets.",
+  "Website": "https://github.com/tommyshem/micro-snippets-plugin",
+  "Tags": ["snippet"],
+  "Versions": [
+    {
+       "Version": "0.2.0",
+      "Url": "https://github.com/tommyshem/micro-snippets-plugin/archive/v0.2.0.zip",
+      "Require": {
+        "micro": ">=2.0.0-1"
+      }
+    },
+    {
+       "Version": "0.1.4",
+      "Url": "https://github.com/tommyshem/micro-snippets-plugin/archive/v0.1.4.zip",
+      "Require": {
+        "micro": ">=1.3.4"
+      }
+    },
+    {
+       "Version": "0.1.2",
+      "Url": "https://github.com/tommyshem/micro-snippets-plugin/archive/v0.1.2.zip",
+      "Require": {
+        "micro": ">1.0.3 <1.3.4"
+      }
+    }
+  ]
+}]

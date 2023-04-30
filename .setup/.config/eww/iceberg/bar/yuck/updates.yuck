@@ -1,0 +1,6 @@
+(defpoll updates_poll :initial "" :interval "1m" "./scripts/updates.sh &")
+(deflisten updates_visible "~/.config/eww/iceberg/bar/scripts/test updater") 
+
+(defwidget updates []
+    (icon-module :class "updates" :icon " " :visible {updates_poll != "" && updates_visible != "none found"}
+      (label :text updates_poll)))

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+window () {
+  if [[ ${1:0:14} == "activewindow>>" ]]; then
+    result=$(echo "$1" | sed 's/^.\{14\}//g' | sed -e 's/,/-/g' | head -c 40)
+    echo "$result"
+  fi
+}
+
+socat -u UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock - | while read -r event; do 
+window "$event"
+done
+
+
+# window=$(hyprctl activewindow -j | jq -r '.title')
+
+# echo "$window"

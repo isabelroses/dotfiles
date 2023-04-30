@@ -1,0 +1,115 @@
+$spacing: $popover_padding*0.5;
+
+.datemenu {
+    @include floating_widget;
+
+    .module {
+        @include widget;
+        margin: $spacing;
+        padding: 12px;
+    }
+
+    .clock * {
+        margin-top: $spacing;
+        text-shadow: $text_shadow;
+        font-size: 7em;
+    }
+
+    .date_small {
+        font-size: 1.5em;
+    }
+
+    .uptime {
+        margin-bottom: $spacing*2;
+        font-size: 1.1em;
+        text-shadow: $text_shadow;
+        color: transparentize($fg_color, 0.3)
+    }
+
+    .calendar-bin {
+        padding: .6em 2em 0 2em;
+
+        calendar {
+            &.button {
+                @include button($flat: true);
+                margin: 1em;
+            }
+
+            &:selected {
+                border: 2px solid $accent;
+                border-radius: $button_radius;
+            }
+
+            &.header {
+                background-color: transparent;
+                border: none;
+                color: transparentize($fg_color, 0.5);
+            }
+
+            &.highlight {
+                background-color: transparent;
+                color: transparentize($accent, 0.5);
+            }
+
+            &:indeterminate {
+                color: transparentize($fg_color, 0.9);
+            }
+
+            font-size: 1.2em;
+            padding: .2em;
+        }
+    }
+
+    .events {
+        padding: 0;
+
+        .box-title {
+            padding: 12px;
+            padding-bottom: 6px;
+            border-bottom: $border_width solid transparentize($fg_color, 0.92);
+        }
+
+        .events-box {
+            padding: 12px;
+
+            .event {
+                label {
+                    font-size: 1.2em;
+                }
+
+                .date {
+                    color: transparentize($fg_color, 0.5);
+                    font-family: $mono_font;
+                }
+
+                .title {
+                    button label {
+                        color: transparent;
+                    }
+
+                    &:hover button {
+                        label {
+                            @include button();
+                            background-color: $bg_color;
+                            color: transparentize($fg_color, 0.3);
+                        }
+
+                        &:hover label {
+                            color: $fg_color
+                        }
+                    }
+                }
+
+                &.urgent {
+                    .date {
+                        color: transparentize(mix($fg_color, $red, 30%), 0.5);
+                    }
+
+                    .title {
+                        color: mix($fg_color, $red, 30%);
+                    }
+                }
+            }
+        }
+    }
+}

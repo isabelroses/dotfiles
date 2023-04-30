@@ -1,0 +1,14 @@
+[{
+  "Name": "yapf",
+  "Description": "plugin to run YAPF on save",
+  "Tags": ["python", "yapf"],
+  "Versions": [
+    {
+      "Version": "1.0.0",
+      "Url": "https://github.com/a11ce/micro-yapf/archive/1.0.0.zip",
+      "Require": {
+        "micro": ">=2.0.8"
+      }
+    }
+  ]
+}]

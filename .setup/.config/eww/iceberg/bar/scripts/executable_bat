@@ -1,0 +1,48 @@
+#!/bin/sh
+
+function level() {
+	energy=$(cat /sys/class/power_supply/qcom-battmgr-bat/energy_now)
+	full=$(cat /sys/class/power_supply/qcom-battmgr-bat/energy_full)
+	newfull=`expr $full / 100`
+	ans=`expr $energy / $newfull`
+	echo $ans
+}
+
+function charging() {
+	[ $(cat /sys/class/power_supply/qcom-battmgr-bat/status) = "Charging" ]
+}
+
+function icon() {
+	if charging;then
+		echo ""
+	elif (( $(level) < 20 ));then
+        echo ""
+	elif (( $(level) < 40 ));then
+        echo ""
+	elif (( $(level) < 60 ));then
+        echo ""
+	elif (( $(level) < 80 ));then
+        echo ""
+    else
+        echo ""
+    fi
+}
+
+function class() {
+	if (( $(level) < 20 ));then
+		echo "low"
+	elif (( $(level) < 40 ));then
+		echo "med"
+	else
+		echo "high"
+	fi
+}
+
+
+case "$1" in
+	"level") level;;
+	"icon") icon;;
+	"class") class;;
+	*) echo "unknown command" && exit 1;;
+esac
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+bar="$HOME/.config/eww/iceberg/bar"
+bar_theme="$HOME/.config/eww/themes/catppuccin-macchiato/bar"
+if [ -f "$bar/gradient" ];then
+		rm "$bar/gradient"
+		cp "$bar_theme/eww.scss" "$bar/eww.scss"
+	else
+		touch "$bar/gradient"
+		cp "$bar_theme/gradient.scss" "$bar/eww.scss"
+	fi

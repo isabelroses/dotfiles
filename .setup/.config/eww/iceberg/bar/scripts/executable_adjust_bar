@@ -1,0 +1,26 @@
+#!/bin/sh
+
+if grep -n "$1" ~/.config/eww/iceberg/bar/scripts/visibility_controls ; then 
+    line_number=$(grep -n "$1" ~/.config/eww/iceberg/bar/scripts/visibility_controls | head -c 1)
+    line_revised="$line_number""d"
+    sed -i "$line_revised" ~/.config/eww/iceberg/bar/scripts/visibility_controls
+else
+    sed -i '/^$/d' ~/.config/eww/iceberg/bar/scripts/visibility_controls
+    printf "\n$1" >> ~/.config/eww/iceberg/bar/scripts/visibility_controls
+fi
+
+echo "$line_number"
+
+
+podman run -d \
+  --name=jackett \
+  -e PUID=1000 \
+  -e PGID=1000 \
+  -e TZ=Etc/UTC \
+  -e AUTO_UPDATE=true `#optional` \
+  -e RUN_OPTS= `#optional` \
+  -p 9117:9117 \
+  -v /home/user/Personal/repos/jackett:/config \
+  -v /dev/null:/downloads \
+  --restart unless-stopped \
+  lscr.io/linuxserver/jackett:latest

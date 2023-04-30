@@ -1,0 +1,15 @@
+#!/bin/sh
+
+function check() {
+    echo -n "$(cat ~/.config/eww/iceberg/bar/scripts/visibility_controls)a" | grep "$1"
+    while inotifywait -q -q ~/.config/eww/iceberg/bar/scripts/visibility_controls; do
+    if grep -q "$1" ~/.config/eww/iceberg/bar/scripts/visibility_controls; then 
+    echo -n "$(cat ~/.config/eww/iceberg/bar/scripts/visibility_controls)a" | grep "$1"
+    else
+    echo "none found"
+    fi
+    done
+}
+case "$1" in
+	*) check "$1";;
+esac

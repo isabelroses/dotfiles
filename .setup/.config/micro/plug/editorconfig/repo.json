@@ -1,0 +1,22 @@
+[{
+  "Name": "editorconfig",
+  "Description": "EditorConfig plugin for micro",
+  "Tags": ["editorconfig", "utility", "format"],
+  "Website": "https://github.com/10sr/editorconfig-micro",
+  "Versions": [
+    {
+      "Version": "1.0.0",
+      "Url": "https://github.com/10sr/editorconfig-micro/archive/v1.0.0.zip",
+      "Require": {
+        "micro": ">=2.0.1"
+      }
+    },
+    {
+      "Version": "0.2.3",
+      "Url": "https://github.com/10sr/editorconfig-micro/archive/v0.2.3.zip",
+      "Require": {
+        "micro": ">=1.3.2 <2.0.0"
+      }
+    }
+  ]
+}]
