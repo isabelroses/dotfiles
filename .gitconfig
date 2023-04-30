@@ -6,7 +6,6 @@
 	signingkey = 5CA53B45269A27BE
 [github]
 	user = isabelroses
-	token = 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
 [credential]
     helper = store
 [commit]
