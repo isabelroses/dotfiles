@@ -1,0 +1,13 @@
+(deflisten sys_visible "~/.config/eww/iceberg/bar/scripts/test sys") 
+
+(defwidget sys[]
+    (box :spacing 10
+         :class "sys"
+         :valign "center"
+         :visible {sys_visible != "none found"}
+      (label :class "vol-icon" :text vol-icon)
+      (label :class "wifi-icon ${wifi-class}" :text "")))
+  
+  (defpoll vol-icon :interval "1s" "../common/scripts/vol icon")
+  (defpoll wifi-class :interval "1s" "scripts/wifi class")
+  (defpoll bat-icon :interval "1s" "scripts/bat icon")

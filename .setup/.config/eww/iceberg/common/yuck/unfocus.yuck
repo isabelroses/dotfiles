@@ -1,0 +1,5 @@
+(defwidget unfocus-eventbox [onclick]
+  (eventbox :class "unfocus-eventbox"
+            :onclick onclick
+    (box :hexpand true
+         :vexpand true)))

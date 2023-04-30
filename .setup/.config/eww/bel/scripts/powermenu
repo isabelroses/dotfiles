@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+EWW_DIR=$HOME/.config/eww/bel
+
+function screenlock {
+	STATE0=$(eww -c $EWW_DIR windows | grep powermenu | awk '{print substr ($0, 0, 1)}')
+    STATE1=$(eww -c $EWW_DIR windows | grep quicksettings | awk '{print substr ($0, 0, 1)}')
+    STATE2=$(eww -c $EWW_DIR windows | grep calendar | awk '{print substr ($0, 0, 1)}')
+    STATE3=$(eww -c $EWW_DIR windows | grep osd | awk '{print substr ($0, 0, 1)}')
+    if [[ $STATE0 == '*' ]]; then eww -c $EWW_DIR close powermenu0 && eww -c $EWW_DIR close powermenu1; fi
+    if [[ $STATE1 == '*' ]]; then eww -c $EWW_DIR close quicksettings0 && eww -c $EWW_DIR close quicksettings1; fi
+    if [[ $STATE2 == '*' ]]; then eww -c $EWW_DIR close calendar0 && eww -c $EWW_DIR close calendar1; fi
+    if [[ $STATE3 == '*' ]]; then eww -c $EWW_DIR close osd0 && eww -c $EWW_DIR close osd1; fi
+	swaylock
+}
+
+function reboot {
+    systemctl reboot
+}
+
+function suspend {
+    systemctl suspend
+}
+
+function poweroff {
+    systemctl poweroff
+}
+
+function logout {
+    hyprctl dispatch exit 0
+}
+
+if [[ $1 == 'reboot'        ]]; then reboot; fi
+if [[ $1 == 'logout'        ]]; then logout; fi
+if [[ $1 == 'poweroff'      ]]; then poweroff; fi
+if [[ $1 == 'suspend'       ]]; then suspend; fi
+if [[ $1 == 'screenlock'    ]]; then screenlock; fi

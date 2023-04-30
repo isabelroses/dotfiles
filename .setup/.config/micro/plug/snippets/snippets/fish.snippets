@@ -1,0 +1,29 @@
+# Shebang. Executing bash via /usr/bin/env makes scripts more portable.
+snippet #!
+	#!/usr/bin/env fish
+
+snippet if
+	if ${1:condition}
+		${0:#statements}
+	end
+
+snippet for
+	for ${1:needle} in ${1:haystack}
+		${0:#statements}
+	end
+
+snippet while
+	while ${1:condition}
+		${0:#statements}
+	end
+
+snippet switch
+	switch ${1:word}
+		case ${2:pattern}
+			${0:#statements}
+	end
+
+snippet function
+	function ${1:name}
+		${0:#body}
+	end

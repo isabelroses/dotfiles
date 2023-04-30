@@ -1,0 +1,22 @@
+[{
+  "Name": "fish",
+  "Description": "plugin to make scripting in fish more pleasant",
+  "Tags": ["fish"],
+  "Website": "https://github.com/onodera-punpun/micro-fish-plugin",
+  "Versions": [
+    {
+      "Version": "0.2.0",
+      "Url": "https://github.com/onodera-punpun/micro-fish-plugin/archive/0.2.0.zip",
+      "Require": {
+        "micro": ">=2.0.0-1"
+      }
+    },
+    {
+      "Version": "0.1.1",
+      "Url": "https://github.com/onodera-punpun/micro-fish-plugin/archive/0.1.1.zip",
+      "Require": {
+        "micro": ">=1.0.3"
+      }
+    }
+  ]
+}]

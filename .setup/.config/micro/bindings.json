@@ -1,0 +1,20 @@
+{
+    "Alt-/": "lua:comment.comment",
+    "Alt-a": "lua:snippets.Accept",
+    "Alt-c": "RemoveAllMultiCursors",
+    "Alt-d": "lua:snippets.Cancel",
+    "Alt-f": "command:format",
+    "Alt-k": "command:hover",
+    "Alt-m": "SpawnMultiCursorSelect",
+    "Alt-n": "SpawnMultiCursor",
+    "Alt-p": "RemoveMultiCursor",
+    "Alt-r": "command:references",
+    "Alt-s": "Save,Quit",
+    "Alt-w": "lua:snippets.Next",
+    "Alt-x": "SkipMultiCursor",
+    "AltShiftDown": "SpawnMultiCursorDown",
+    "AltShiftUp": "SpawnMultiCursorUp",
+    "CtrlSpace": "command:lspcompletion",
+    "CtrlUnderscore": "lua:comment.comment",
+    "F5": "lua:wc.wordCount"
+}

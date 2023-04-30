@@ -1,0 +1,9 @@
+filetype: filemanager
+
+detect:
+    filename: "^filemanager$"
+
+rules:
+    # The "..", the separator line thing, and directories
+    # Optionally, add this below to highlight the ascii line: "^─*$"
+    - special: "^\\.\\.$|\\-\\s.*|\\+\\s.*"

@@ -1,0 +1,137 @@
+(defwidget system-menu []
+  (box
+    :class "system-menu-box"
+    :space-evenly false
+    :orientation "v"
+    (box
+      :class "top-row"
+      :space-evenly false
+      (label
+        :class "time"
+        :style "font-family:ProductSans;"
+      :text "${hour}:${minutes}")
+      (box
+        :class "date-box"
+        :space-evenly false
+        (label
+          :class "date"
+          :style "font-family:ProductSans;"
+        :text {date})
+        
+        (centerbox
+          :class "system-row"
+          (box
+            :class "wifi-box"
+            :space-evenly false
+            :orientation "v"
+            (box
+              :class "element icon ${network_icon}"
+              :space-evenly false
+              (button
+                :class "wifi-button"
+                :onclick "scripts/network toggle"
+                
+              {network_icon})
+              (label
+                :class "separator"
+              :text "│")
+              (button
+                :class "wifi-arrow-btn"
+                :onclick "eww close system-menu && nm-connection-editor &"
+              ""))
+            (label
+              :text {wifi_ssid}
+              :style "font-family:ProductSans;"
+              :xalign 0.5
+            :limit-width 15))
+          
+          (box
+            :class "bluetooth-box"
+            :space-evenly false
+            :orientation "v"
+            (box
+              :class "element icon ${bluetooth_icon}"
+              :space-evenly false
+              (button
+                :class "bluetooth-button"
+                :onclick "scripts/bluetooth toggle"
+              {bluetooth_icon})
+              (label
+                :class "separator"
+              :text "│")
+              (button
+                :class "bluetooth-arrow-btn"
+                :onclick "eww close system-menu && blueberry"
+              ""))
+            
+            (box
+              :class "airplane-box"
+              :space-evenly false
+              :orientation "v"
+              (box
+                :class "element"
+                (button
+                  :class "airplane-button"
+                  :style "font-family:Material Symbols Outlined;"
+                  :onclick "scripts/airplane toggle"
+                airplane))
+              (label
+                :text "Airplane Mode"
+                :style "font-family:ProductSans;"
+                :xalign 0.5
+              :limit-width 16)))
+          
+          (box
+            :class "sliders"
+            :orientation "v"
+            (box
+              :class "volume-slider-box"
+              :space-evenly false
+              (button
+                :style "font-family:ProductSans;"
+                :class "volume-icon icon"
+                :onclick "scripts/volume mute SINK"
+              {volume_icon})
+              (scale
+                :class "volume-bar"
+                :value {volume_level}
+                :tooltip "volume on ${volume_level}%"
+              :onchange "scripts/volume setvol SINK {}"))
+            (box
+              :class "volume-slider-box"
+              :space-evenly false
+              (button
+                :class "volume-icon icon"
+                :onclick "scripts/volume mute SOURCE"
+                :style "font-family:ProductSans;"
+              "")
+              (box
+                :class "brightness-slider-box"
+                :space-evenly false
+                (button
+                  :class "brightness-slider-icon icon"
+                  :style "font-family:ProductSans;"
+                {screen_icon})
+                (scale
+                  :class "brightness-slider"
+                  :value {screen_level}
+                  :marks true
+                :onchange "light -S {}")))
+          )
+        )
+      )
+    )
+  )
+)
+;; windows
+(defwindow system-menu
+  :stacking "fg"
+  :monitor 0
+  :geometry (geometry
+    :x "0"
+    :y "0"
+    :width "0%"
+    :height "0%"
+  :anchor "right top")
+  (system-menu)
+)

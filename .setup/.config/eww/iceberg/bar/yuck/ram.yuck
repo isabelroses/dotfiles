@@ -1,0 +1,4 @@
+(defwidget ram []
+    (icon-module :class "ram" :icon " " :visible {EWW_RAM.used_mem_perc != ""}
+      (label :text "${round(EWW_RAM.used_mem_perc, 0)}%")))
+  

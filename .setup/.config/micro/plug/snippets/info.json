@@ -1,0 +1,10 @@
+{
+    "name": "snippets",
+    "description": "Snippets plugin",
+    "website": "",
+    "install": "",
+    "version": "1.0.0",
+    "require": [
+        "micro >= 2.0.0"
+    ]
+}
