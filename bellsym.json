@@ -14,7 +14,6 @@
 		".config/electron19-flags.conf": "~/.config/electron19-flags.conf",
 		".config/electron-flags.conf": "~/.config/electron-flags.conf",
 		".config/starship.toml": "~/.config/starship.toml",
-		".local/bin": "~/.local/bin",
-		".local/share": "~/.local/share"
+		".local/share/backgrounds": "~/.local/share/backgrounds"
 	}
 }
