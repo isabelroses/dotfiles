@@ -1,12 +1,6 @@
 {
-	"move": {
-		".config/alacritty": "~/.config/alacritty",
-		".config/bat": "~/.config/bat",
-		".config/eww": "~/.config/eww",
-		".config/fish": "~/.config/fish",
-		".config/gtk-2.0": "~/.config/gtk-2.0",
-		".config/gtk-3.0": "~/.config/gtk-3.0",
-		".config/gtk-4.0": "~/.config/gtk-4.0",
+	"move": {},
+	"symlink": {
 		".config/hypr": "~/.config/hypr",
 		".config/micro": "~/.config/micro",
 		".config/neofetch": "~/.config/neofetch",
@@ -22,6 +16,5 @@
 		".config/starship.toml": "~/.config/starship.toml",
 		".local/bin": "~/.local/bin",
 		".local/share": "~/.local/share"
-	},
-	"symlink": {}
+	}
 }
