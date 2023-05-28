@@ -2,38 +2,6 @@
 
 ### Previews
 
-![[eww-bar](assets/eww-bar.png)](assets/eww-bar.png)
-
-<details>
-<summary> Waybar </summary>
-
-![[waybar](assets/waybar.png)](assets/waybar.png)
-</details>
-
-<details>
-<summary> Eww Bar </summary>
-
-![[eww-bar](assets/eww-bar.png)](assets/eww-bar.png)
-
-<details>
-<summary> Additional previews </summary>
-
-![[quickmenu](assets/quickmenu.png)](assets/quickmenu.png)
-![[swaync](assets/swaync.png)](assets/swaync.png)
-![[datemenu](assets/datemenu.png)](assets/datemenu.png)
-</details>
-
-</details>
-
-<details>
-<summary> Additional previews </summary>
-
-![[chromium-and-thunar.png](assets/chromium-and-thunar.png)](assets/chromium-and-thunar.png)
-![[obsidian.png](assets/obsidian.png)](assets/obsidian.png)
-![[terminal.png](assets/terminal.png)](assets/terminal.png)
-![[code.png](assets/code.png)](assets/code.png)
-</details>
-
 ## Install
 
 ### paru
@@ -47,12 +15,11 @@ makepkg -si
 ### Packages
 Base
 ```
-paru -S hyprland-bin polkit-gnome bluez bluez-utils \
-ffmpeg swaync pavucontrol thunar sddm-git \
-wl-clipboard wf-recorder grimblast-git \ 
-ffmpegthumbnailer playerctl noise-suppression-for-voice \
+paru -S hyprland polkit-gnome bluez bluez-utils \
+ffmpeg pavucontrol thunar sddm-git inotify-tools \
+wl-clipboard cliphist grimblast-git playerctl \
 thunar-archive-plugin alacritty swaylock-effects \
-nwg-look-bin pamixer rofi-lbonn-wayland-git wlogout fish  \
+nwg-look-bin pamixer fish starship
 ```
 
 #### Themeing
@@ -60,25 +27,19 @@ nwg-look-bin pamixer rofi-lbonn-wayland-git wlogout fish  \
 paru -S papirus-folders-catppuccin-git catppuccin-gtk-theme-mocha catppuccin-cursors-mocha
 ```
 
-Backgrounds (choose one or both `default is hyprpaper`)
-```
-paru -S swaybg
-paru -S hyprpaper
-```
-
-Addons
-```
-paru -S ufw obsidian openvpn micro starship bellsym-git 
-```
-
-With waybar
-```
-paru -S  waybar-hyprland-git 
-```
-
 With eww
 ```
-paru -S upower eww-wayland jaq socat gjs coreutils
+paru -S upower eww-wayland jaq socat gjs coreutils gtk2 inotify-tools
+```
+
+Addons (stuff i like)
+```
+paru -S ufw obsidian micro bellsym-git
+```
+
+With waybar (see the waybar branch)
+```
+paru -S waybar-hyprland-git wlogout rofi-lbonn-wayland-git hyprpaper swaync
 ```
 
 If you opted to install bellsym-git. You can use the do:

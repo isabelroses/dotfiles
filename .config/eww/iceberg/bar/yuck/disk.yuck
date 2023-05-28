@@ -1,3 +1,0 @@
-(defwidget disk []
-    (icon-module :class "disk" :icon " " 
-      (label :text "${round(EWW_DISK["/"].used_perc, 0)}%"))) 

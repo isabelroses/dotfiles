@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+function toggle_menu {
+    MAIN=$(eww get main_monitor)
+    hyprctl keyword blurls "remove,gtk-layer-shell"
+    STATE=$(eww windows | grep $1$MAIN | awk '{print substr ($0, 0, 1)}')
+    if [[ $STATE == '*' ]]; then 
+        if [[ $1 == 'powermenu' ]]; then hyprctl keyword blurls "remove,gtk-layer-shell"; fi
+        eww close $1$MAIN;
+    else
+        if [[ $1 == 'powermenu' ]]; then hyprctl keyword blurls "gtk-layer-shell"; fi
+        if [[ $1 == 'app_launcher' ]]; then $HOME/.config/eww/scripts/apps query ""; fi
+        eww open $1$MAIN;
+    fi
+}
+
+function colorpicker {
+    pkill hyprpicker
+    hyprpicker -n -a
+}
+
+function network {
+    alacritty --class Network --title Network --hold \
+         --command nmcli d wifi list
+}
+
+function screenlock {
+    STATE0=$(eww -c $EWW_DIR windows | grep powermenu | awk '{print substr ($0, 0, 1)}')
+    STATE1=$(eww -c $EWW_DIR windows | grep quicksettings | awk '{print substr ($0, 0, 1)}')
+    STATE2=$(eww -c $EWW_DIR windows | grep calendar | awk '{print substr ($0, 0, 1)}')
+    STATE3=$(eww -c $EWW_DIR windows | grep osd | awk '{print substr ($0, 0, 1)}')
+    if [[ $STATE0 == '*' ]]; then eww -c $EWW_DIR close powermenu0 && eww -c $EWW_DIR close powermenu1; fi
+    if [[ $STATE1 == '*' ]]; then eww -c $EWW_DIR close quicksettings0 && eww -c $EWW_DIR close quicksettings1; fi
+    if [[ $STATE2 == '*' ]]; then eww -c $EWW_DIR close calendar0 && eww -c $EWW_DIR close calendar1; fi
+    if [[ $STATE3 == '*' ]]; then eww -c $EWW_DIR close osd0 && eww -c $EWW_DIR close osd1; fi
+    swaylock
+}
+
+function config {
+    $VISUAL $HOME/.config/hypr
+}
+
+function screenshot {
+    DIR="$HOME/Pictures/Screenshots"
+    mkdir -p $DIR
+
+    if [[ $1 == 'screen' ]]; then
+        distrobox-enter -n Arch -- hyprshot -m output -o $DIR
+    else
+        distrobox-enter -n Arch -- hyprshot -m region -o $DIR
+    fi
+}
+
+if [[ $1 == 'applauncher'    ]]; then rofi -show drun; fi
+if [[ $1 == 'pavu'           ]]; then pavucontrol; fi
+if [[ $1 == 'network'        ]]; then network; fi
+if [[ $1 == 'brightness'     ]]; then wl-gammactl; fi
+if [[ $1 == 'bluetooth'      ]]; then blueberry; fi
+if [[ $1 == 'powermenu'      ]]; then powermenu; fi
+if [[ $1 == 'toggle_menu'    ]]; then toggle_menu $2; fi
+if [[ $1 == 'close_calendar' ]]; then close_calendar; fi
+if [[ $1 == 'colorpicker'    ]]; then colorpicker; fi
+if [[ $1 == 'picker'         ]]; then picker; fi
+if [[ $1 == 'screenlock'     ]]; then screenlock; fi
+if [[ $1 == 'config'         ]]; then config; fi
+if [[ $1 == 'screenshot'     ]]; then screenshot $2; fi
+
+if [[ $1 == 'editor'        ]]; then alacritty start $EDITOR; fi
+

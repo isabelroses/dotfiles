@@ -1,0 +1,83 @@
+.datemenu{
+    @include floating_widget;
+
+    .widget{
+        @include widget;
+        margin: $spacing;
+        padding: $spacing;
+    }
+
+    .clock *{
+        margin-top: $spacing;
+        text-shadow: $text_shadow;
+        font-size: 7em;
+    }
+
+    .uptime{
+        margin-bottom: $spacing*2;
+        font-size: 1.1em;
+        text-shadow: $text_shadow;
+        color: transparentize($fg_color, 0.3)
+    }
+    
+    .calendar-bin{
+        padding: .6em 2em 0 2em;
+        @include calendar;
+    }
+
+    .system{
+        > * {
+            @include widget;
+            margin: $spacing;
+            padding: 5px;
+            min-width:  3.4em;
+            min-height: 3.4em;
+        }
+        circular-progress{
+            background-color: $bg_color;
+            color: $accent;
+            &.battery{
+                &.low{ color: $red }
+            }
+            .icon{ font-size: 1.3em; }
+        }
+    }
+
+    .media{
+        @include media($style: 'widget')
+    }
+
+    .events.widget {
+        padding: 0;
+        .events{
+            @include events;
+        }
+    }
+    
+    .weather{
+        .info{
+            label:first-child{ font-size: 1.2em; }
+            label:last-child{ color: transparentize($fg_color, 0.3); }
+        }
+        .icon{
+            font-size: 2.6em;
+            
+            &.clear.d{ color: transparentize($yellow, 0.6); }
+            &.clear.n{ color: transparentize($blue, 0.6); }
+
+            &.clouds.d{ color: transparentize($fg_color, 0.6); }
+            &.clouds.n{ color: transparentize($blue, 0.6); }
+
+            &.rain{ color: transparentize($blue, 0.6); }
+            &.thunderstorm{ color: transparentize($yellow, 0.6); }
+            &.snow{ color: transparentize($fg_color, 0.6); }
+            &.mist{ color: transparentize($teal, 0.6); }
+        }
+    }
+
+    .wallpaper{
+        min-height: 13em;
+        background-image: url($assets+'wallpaper.png');
+        background-size: cover;
+    }
+}

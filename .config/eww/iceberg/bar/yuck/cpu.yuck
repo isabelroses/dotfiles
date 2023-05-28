@@ -1,3 +1,0 @@
-(defwidget cpu []
-    (icon-module :class "cpu" :icon " " 
-      (label :text "${round(EWW_CPU.avg, 0)}%"))) 
