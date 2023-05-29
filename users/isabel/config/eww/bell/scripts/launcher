@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+
+function toggle_menu {
+    MAIN=$(eww get main_monitor)
+    STATE=$(eww windows | grep $1$MAIN | awk '{print substr ($0, 0, 1)}')
+    if [[ $STATE == '*' ]]; then 
+        eww close $1$MAIN;
+    else
+        eww open $1$MAIN;
+    fi
+}
+
+function close_osd {
+    notify-send asd
+}
+
+function network {
+    alacritty -e fish -c nmcli
+}
+
+function applauncher {
+    STATE0=$(eww windows | grep powermenu | awk '{print substr ($0, 0, 1)}')
+    STATE1=$(eww windows | grep quicksettings | awk '{print substr ($0, 0, 1)}')
+    STATE2=$(eww windows | grep calendar | awk '{print substr ($0, 0, 1)}')
+    STATE3=$(eww windows | grep osd | awk '{print substr ($0, 0, 1)}')
+    if [[ $STATE0 == '*' ]]; then eww close powermenu0 && eww close powermenu1; fi
+    if [[ $STATE1 == '*' ]]; then eww close quicksettings0 && eww close quicksettings1; fi
+    if [[ $STATE2 == '*' ]]; then eww close calendar0 && eww close calendar1; fi
+    if [[ $STATE3 == '*' ]]; then eww close osd0 && eww close osd1; fi
+    killall rofi || rofi -show drun 
+}
+
+function config {
+    alacritty -e micro $HOME/.config/hypr/hyprland.conf
+}
+
+function documents {
+    thunar $HOME/Documents
+}
+
+function downloads {
+    thunar $HOME/Downloads
+}
+
+function pictures {
+    thunar $HOME/Pictures
+}
+
+function videos {
+    thunar $HOME/Videos
+}
+
+function notifications {
+    STATE0=$(eww windows | grep powermenu | awk '{print substr ($0, 0, 1)}')
+    STATE1=$(eww windows | grep quicksettings | awk '{print substr ($0, 0, 1)}')
+    STATE2=$(eww windows | grep calendar | awk '{print substr ($0, 0, 1)}')
+    STATE3=$(eww windows | grep osd | awk '{print substr ($0, 0, 1)}')
+    if [[ $STATE0 == '*' ]]; then eww close powermenu0 && eww close powermenu1; fi
+    if [[ $STATE1 == '*' ]]; then eww close quicksettings0 && eww close quicksettings1; fi
+    if [[ $STATE2 == '*' ]]; then eww close calendar0 && eww close calendar1; fi
+    if [[ $STATE3 == '*' ]]; then eww close osd0 && eww close osd1; fi
+    swaync-client -t
+}
+
+function wlogout {
+	STATE0=$(eww windows | grep powermenu | awk '{print substr ($0, 0, 1)}')
+    STATE1=$(eww windows | grep quicksettings | awk '{print substr ($0, 0, 1)}')
+    STATE2=$(eww windows | grep calendar | awk '{print substr ($0, 0, 1)}')
+    STATE3=$(eww windows | grep osd | awk '{print substr ($0, 0, 1)}')
+    if [[ $STATE0 == '*' ]]; then eww close powermenu0 && eww close powermenu1; fi
+    if [[ $STATE1 == '*' ]]; then eww close quicksettings0 && eww close quicksettings1; fi
+    if [[ $STATE2 == '*' ]]; then eww close calendar0 && eww close calendar1; fi
+    if [[ $STATE3 == '*' ]]; then eww close osd0 && eww close osd1; fi
+	wlogout -b 5 -T 400 -B 400 &
+}
+
+if [[ $1 == 'applauncher'    ]]; then applauncher; fi
+if [[ $1 == 'documents'      ]]; then documents; fi
+if [[ $1 == 'downloads'      ]]; then downloads; fi
+if [[ $1 == 'pictures'       ]]; then pictures; fi
+if [[ $1 == 'videos'         ]]; then videos; fi
+if [[ $1 == 'pavu'           ]]; then pavucontrol; fi
+if [[ $1 == 'network'        ]]; then network; fi
+if [[ $1 == 'brightness'     ]]; then wl-gammactl; fi
+if [[ $1 == 'bluetooth'      ]]; then blueberry; fi
+if [[ $1 == 'powermenu'      ]]; then powermenu; fi
+if [[ $1 == 'toggle_menu'    ]]; then toggle_menu $2; fi
+if [[ $1 == 'close_menu'     ]]; then close_menu $2; fi
+if [[ $1 == 'close_osd'      ]]; then close_osd; fi
+if [[ $1 == 'close_calendar' ]]; then close_calendar; fi
+if [[ $1 == 'config'         ]]; then config; fi
+if [[ $1 == 'notifications'  ]]; then notifications; fi
+if [[ $1 == 'wlogout'        ]]; then wlogout; fi

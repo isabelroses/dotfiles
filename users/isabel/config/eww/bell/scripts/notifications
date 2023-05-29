@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+function toggle {
+    STATE=$(state)
+    STATE0=$(eww windows | grep powermenu | awk '{print substr ($0, 0, 1)}')
+    STATE1=$(eww windows | grep quicksettings | awk '{print substr ($0, 0, 1)}')
+    STATE2=$(eww windows | grep calendar | awk '{print substr ($0, 0, 1)}')
+    STATE3=$(eww windows | grep osd | awk '{print substr ($0, 0, 1)}')
+    if [[ $STATE0 == '*' ]]; then eww close powermenu0 && eww close powermenu1; fi
+    if [[ $STATE1 == '*' ]]; then eww close quicksettings0 && eww close quicksettings1; fi
+    if [[ $STATE2 == '*' ]]; then eww close calendar0 && eww close calendar1; fi
+    if [[ $STATE3 == '*' ]]; then eww close osd0 && eww close osd1; fi
+    if [[ $STATE == 'on' ]]; then
+        eww update dnd_icon=󰂚
+        eww update dnd_status=off
+        swaync-client --dnd-off
+    else
+        eww update dnd_icon=󰂛
+        eww update dnd_status=on
+        swaync-client --dnd-on
+    fi
+}
+
+function icon {
+    STATE=$(swaync-client --get-dnd)
+    if [[ $STATE == 'false' ]]; then echo '󰂚';
+    else echo '󰂛'; fi 
+}
+
+function state {
+    STATE=$(swaync-client --get-dnd)
+    if [[ $STATE == 'false' ]]; then echo 'off'
+    else echo 'on'; fi
+}
+
+if [[ $1 == 'toggle' ]]; then toggle; fi
+if [[ $1 == 'icon' ]]; then icon; fi
+if [[ $1 == 'state' ]]; then state; fi
+if [[ $1 == 'count' ]]; then swaync-client --count; fi
+if [[ $1 == 'open' ]]; then swaync-client --open-panel; fi

@@ -1,0 +1,6 @@
+keys:
+  - &isabel age1g3cz9g3x8slhkff3kfp9rcwq28pjmlnfv3mcp4dh4m6qh0sesuks6decwu
+creation_rules:
+  - key_groups:
+      - age:
+          - *isabel

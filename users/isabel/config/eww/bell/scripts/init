@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+killall eww
+eww daemon
+
+HDMI=$(hyprctl monitors -j | jq .[1].name)
+
+if [[ $HDMI == '"HDMI-A-1"' ]]; then
+    eww open secondarybar
+    eww open bar1
+    eww update main_monitor=1
+else
+    eww open bar0
+    eww update main_monitor=0
+fi

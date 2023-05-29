@@ -1,0 +1,57 @@
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: 
+{
+  home.packages = with pkgs; [
+    #life
+    armcord # discord
+    obsidian
+    minecraft
+    vscode
+    chromium
+    dconf
+    swaynotificationcenter
+    pavucontrol
+    playerctl
+    fontconfig
+    jellyfin-media-player
+    #security
+    #openvpn
+    seatd
+    gnupg
+    #wlogout
+    bitwarden
+    gnome.gnome-keyring
+    gnome.seahorse
+    wl-clipboard
+    #cli
+    networkmanager
+    gnome.gnome-bluetooth blueberry bluez
+    brightnessctl
+    coreutils
+    cloudflared
+    micro
+    cifs-utils
+    exa
+    unzip
+    btop
+    ranger
+    bat
+    starship
+    fd
+    duf
+    jq
+    ripgrep
+    age
+    inputs.catppuccin-toolbox.packages.${pkgs.system}.catwalk
+    #extra
+    zoom-us
+    distrobox
+    imagemagick
+    gtk3
+    gnome.gnome-font-viewer
+  ];
+} 
