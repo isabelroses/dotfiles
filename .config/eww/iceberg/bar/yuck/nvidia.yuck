@@ -1,5 +1,0 @@
-(deflisten nvidia_listen "./scripts/nvidia.sh")
-
-(defwidget nvidia []
-    (icon-module :class "nvidia" :icon " " 
-      (label :text nvidia_listen))) 
