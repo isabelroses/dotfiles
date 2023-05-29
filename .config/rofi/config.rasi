@@ -1,4 +1,4 @@
-configuration{
+configuration {
     modi: "drun,run,window,ssh";
     icon-theme: "Papirus-Dark";
     show-icons: true;

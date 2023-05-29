@@ -19,7 +19,7 @@ paru -S hyprland polkit-gnome bluez bluez-utils \
 ffmpeg pavucontrol thunar sddm-git inotify-tools \
 wl-clipboard cliphist grimblast-git playerctl \
 thunar-archive-plugin alacritty swaylock-effects \
-nwg-look-bin pamixer fish starship
+nwg-look-bin pamixer fish starship nm-connection-editor
 ```
 
 #### Themeing

@@ -20,8 +20,7 @@ function colorpicker {
 }
 
 function network {
-    alacritty --class Network --title Network --hold \
-         --command nmcli d wifi list
+    nm-connection-editor 
 }
 
 function screenlock {
@@ -34,6 +33,10 @@ function screenlock {
     if [[ $STATE2 == '*' ]]; then eww -c $EWW_DIR close calendar0 && eww -c $EWW_DIR close calendar1; fi
     if [[ $STATE3 == '*' ]]; then eww -c $EWW_DIR close osd0 && eww -c $EWW_DIR close osd1; fi
     swaylock
+}
+
+function clipboard {
+    cliphist list | rofi -dmenu -p "Clipboard" | cliphist decode | wl-copy
 }
 
 function config {
@@ -52,6 +55,7 @@ function screenshot {
 }
 
 if [[ $1 == 'applauncher'    ]]; then rofi -show drun; fi
+if [[ $1 == 'clipboard'      ]]; then clipboard; fi
 if [[ $1 == 'pavu'           ]]; then pavucontrol; fi
 if [[ $1 == 'network'        ]]; then network; fi
 if [[ $1 == 'brightness'     ]]; then wl-gammactl; fi
