@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+function state {
+    STATE=$(auto-cpufreq --stats | rg "governor" --line-buffered | awk '{print $4 fflush()}' | tr -d "\"")
+    if   [[ $STATE == 'powersave0' ]]; then echo 'off'
+    elif [[ $STATE == 'balanced0' ]]; then echo 'off'
+    else echo 'on'
+    fi
+}
+
+function icon {
+    STATE=$(asusctl profile --profile-get | awk '{print $4}')
+    if [[ $STATE == 'powersave0' ]]; then echo '󰾆'; fi
+    if [[ $STATE == 'balanced0' ]]; then echo '󰾅'; fi
+    if [[ $STATE == 'performance0' ]]; then echo '󰓅'; fi
+}
+
+function toggle {
+    STATE=$(state)
+    if [[ $STATE == 'off' ]]; then
+        auto-cpufreq --config $HOME/.local/share/auto-cpu-profiles/powersave.conf
+    else
+        auto-cpufreq --config $HOME/.local/share/auto-cpu-profiles/performance.conf
+    fi
+
+    eww update power="$(get)"
+}
+
+function get {
+    echo "{
+        \"state\": \"$(state)\",
+        \"icon\": \"$(icon)\"
+    }"
+}
+
+if [[ $1 == 'get' ]]; then get; fi
+if [[ $1 == 'toggle' ]]; then toggle; fi

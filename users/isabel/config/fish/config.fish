@@ -1,6 +1,7 @@
 ### EXPORT ###
 set TERM "xterm-256color"
 set fish_greeting
+set TERMINAL "alacritty"
 export "MICRO_TRUECOLOR=1"
 export GPG_TTY=$(tty)
 

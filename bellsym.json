@@ -1,0 +1,23 @@
+{
+	"move": {},
+	"symlink": {
+        ".config/alacritty": "~/.config/alacritty",
+        ".config/eww": "~/.config/eww",
+        ".config/bat": "~/.config/bat",
+		".config/hypr": "~/.config/hypr",
+		".config/micro/bindings.json": "~/.config/micro/",
+        ".config/micro/settings.json": "~/.config/micro/",
+        ".config/micro/colorschemes": "~/.config/micro/",
+		".config/fish/themes": "~/.config/fish/",
+        ".config/fish/config.fish": "~/.config/fish/",
+        ".config/fish/fish_variables": "~/.config/fish/",
+		".config/neofetch": "~/.config/neofetch",
+		".config/rofi": "~/.config/rofi",
+		".config/swappy": "~/.config/swappy",
+		".config/swaylock": "~/.config/swaylock",
+		".config/electron19-flags.conf": "~/.config/electron19-flags.conf",
+		".config/electron-flags.conf": "~/.config/electron-flags.conf",
+		".config/starship.toml": "~/.config/starship.toml",
+		".local/share/backgrounds": "~/.local/share/backgrounds"
+	}
+}
