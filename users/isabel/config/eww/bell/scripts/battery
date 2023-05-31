@@ -1,23 +1,14 @@
-#!/usr/bin/env gjs
-'use strict'
+import { GObject, Gio, UPowerGlib } from './lib.js'
+import { PowerManagerProxy } from './dbus.js'
 
-const { GObject, Gio, GLib, UPowerGlib: UPower } = imports.gi;
-
-const PowerManagerProxy = Gio.DBusProxy.makeProxyWrapper(
-`<node>
-  <interface name="org.freedesktop.UPower.Device">
-    <property name="State" type="u" access="read"/>
-    <property name="Percentage" type="d" access="read"/>
-    <property name="IsPresent" type="b" access="read"/>
-  </interface>
-</node>`
-);
-
-const Battery = GObject.registerClass(
+export const Battery = GObject.registerClass({
+    Signals: { 'sync': {} }
+},
 class Battery extends GObject.Object{
-    _init(){
-        super._init();
+    constructor(){
+        super();
 
+        this._json = {};
         this._proxy = new PowerManagerProxy(
             Gio.DBus.system,
             'org.freedesktop.UPower',
@@ -30,17 +21,21 @@ class Battery extends GObject.Object{
         );
     }
 
+    get json(){
+        return this._json;
+    }
+
     _sync(){
-        if(!this._proxy.IsPresent) return;
+        if(!this._proxy.IsPresent) return { available: false };
 
         let percent = this._proxy.Percentage;
-        let charging = this._proxy.State === UPower.DeviceState.CHARGING;
+        let charging = this._proxy.State === UPowerGlib.DeviceState.CHARGING;
         let charged =
-            this._proxy.State === UPower.DeviceState.FULLY_CHARGED ||
-            (this._proxy.State === UPower.DeviceState.CHARGING && percent === 100);
+            this._proxy.State === UPowerGlib.DeviceState.FULLY_CHARGED ||
+            (this._proxy.State === UPowerGlib.DeviceState.CHARGING && percent === 100);
 
         
-        let icons =          ['', '', '', '', '', '', '', '', '', ''];
+        let icons =          ['󰁺', '󰁻', '󰁼', '󰁽', '󰁾', '󰁿', '󰂀', '󰂁', '󰂂', '󰁹'];
         let charging_icons = ['󰢜', '󰂆', '󰂇', '󰂈', '󰢝', '󰂉', '󰢞', '󰂊', '󰂋', '󰂅'];        
         let i = Math.round(percent / 10)-1;
         if(i < 0) i = 0;
@@ -56,14 +51,12 @@ class Battery extends GObject.Object{
         else if(charging)     state = 'charging';
         else if(percent < 30) state = 'low';
 
-        print(JSON.stringify({
+        this._json = {
+            available: true,
             icon,
-            percent,    
+            percent,
             state
-        }))
+        };
+        this.emit('sync');
     }
 });
-
-const media = new Battery();
-const mainLoop = new GLib.MainLoop(null, false);
-mainLoop.run();

@@ -6,12 +6,12 @@ add_newline = true
 # Change the default prompt format
 format = """\
 [╭╴](238)$env_var\
-$all[╰─](238)$character"""
+$all[╰─](238)$character"""
 
 # Change the default prompt characters
 [character]
-success_symbol = "[](238)"
-error_symbol = "[](238)"
+success_symbol = ""
+error_symbol = ""
 
 # Shows an icon that should be included by zshrc script based on the distribution or os
 [env_var.STARSHIP_DISTRO]
@@ -21,11 +21,16 @@ disabled = false
 
 # Shows the username
 [username]
-style_user = "white bold"
-style_root = "black bold"
+style_user = "white"
+style_root = "black"
 format = "[$user]($style) "
 disabled = true  # disable in powershell
 show_always = false
+
+# [hostname]
+# ssh_only = true
+# format = " [$hostname](bold dark_green) "
+# disabled = true
 
 [directory]
 truncation_length = 3
