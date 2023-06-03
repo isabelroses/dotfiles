@@ -129,7 +129,7 @@ in {
     (nerdfonts.override {fonts = [ "RobotoMono" "JetBrainsMono" "CascadiaCode" "Hack" "Mononoki" "Ubuntu" "UbuntuMono" "Noto" ];})
   ];
   system = {
-    stateVersion = "22.11";
+    stateVersion = "23.05";
     autoUpgrade = {
       enable = true;
       channel = "https://nixos.org/channels/nixos-22.11";
