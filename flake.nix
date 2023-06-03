@@ -1,7 +1,7 @@
 {
   description = "Flameing hot trash";
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-22.11";
+    nixpkgs.url = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     hyprland.url = "github:hyprwm/Hyprland";
     hyprpaper.url = "github:hyprwm/Hyprpaper";
