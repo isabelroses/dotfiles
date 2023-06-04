@@ -27,6 +27,7 @@ in {
       ./apps
       ./packages
       ./shells
+      ./settings.nix
       #./secrets
     ];
     _module.args = { inherit inputs; };

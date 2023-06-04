@@ -6,26 +6,26 @@
     :valign "center"
     :hexpand true
     (box    :class "hour"
-            :space-evenly false
-            (label :text hour)
-            (label :text ":")
-            (label :text minutes))
+      :space-evenly false
+      (label :text hour)
+      (label :text ":")
+      (label :text minutes))
     (label  :class "date" :text date)
     (label  :class "uptime" :text "uptime: ${uptime}")
-))
+  ))
 
 (defwidget powerbutton [action icon label] (box
     :orientation "v"
     :space-evenly false
     :tooltip label
-    :class "button-bin" 
+    :class "button-bin"
     (button
-        :class "button"
-        :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu powermenu && ${action}"
-        (box :class "icon ${icon}" )
+      :class "button"
+      :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu powermenu && ${action}"
+      (box :class "icon ${icon}" )
     )
     (label :class "label" :text label)
-))
+  ))
 
 (defwidget powermenu [] (box
     :class "content"
@@ -34,16 +34,16 @@
     :orientation "v"
     :space-evenly false
     ;; (box :orientation "h"
-    ;;     :space-evenly false
-    ;;     (powermenu_clock))
+      ;;     :space-evenly false
+      ;;     (powermenu_clock))
     (box
-        :class "power-menu"
-        :space-evenly false
-        :orientation "h"
-        (powerbutton :action "${EWW_CONFIG_DIR}/scripts/launcher screenlock" :icon "lock" :label "Lock Screen")
-        (powerbutton :action "systemctl suspend"                             :icon "suspend" :label "Suspend")
-        (powerbutton :action "systemctl reboot"                              :icon "reboot" :label "Restart")
-        (powerbutton :action "hyprctl dispatch exit 0"                       :icon "logout" :label "Log Out")
-        (powerbutton :action "shutdown now"                                  :icon "shutdown" :label "Shutdown")
+      :class "power-menu"
+      :space-evenly false
+      :orientation "h"
+      (powerbutton :action "${EWW_CONFIG_DIR}/scripts/launcher screenlock" :icon "lock" :label "Lock Screen")
+      (powerbutton :action "systemctl suspend"                             :icon "suspend" :label "Suspend")
+      (powerbutton :action "systemctl reboot"                              :icon "reboot" :label "Restart")
+      (powerbutton :action "hyprctl dispatch exit 0"                       :icon "logout" :label "Log Out")
+      (powerbutton :action "shutdown now"                                  :icon "shutdown" :label "Shutdown")
     )
-))
+  ))

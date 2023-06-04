@@ -1,11 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+_: {
   imports = [
     ./eww.nix
+    ./home.nix
     ./sops.nix
     ./xdgs.nix
   ]; 

@@ -24,13 +24,8 @@
         (sysprogress_ram)
         (sysprogress_temp)
         (sysprogress_bat))
-    (events)
+    (box :class "events widget" (events))
     ;; (for player in {media.players}
     ;;     (media_player :player player ))
-    (box 
-        :class "weather-box"
-        :orientation "v"
-        (for place in weather
-             (weather :place place)))
     ;; (box :class "wallpaper module")
 ))

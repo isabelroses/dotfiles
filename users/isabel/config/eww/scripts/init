@@ -17,4 +17,4 @@ eww open desktop
 eww open notifications_popup
 # eww inspector
 
-$HOME/.config/eww/scripts/myshell/./myshell --eww --file
+$HOME/.config/eww/scripts/host/./host --eww --file
