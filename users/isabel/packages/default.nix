@@ -13,7 +13,7 @@
     vscode
     chromium
     dconf
-    swaynotificationcenter
+    #swaynotificationcenter
     pavucontrol
     playerctl
     fontconfig
@@ -33,14 +33,11 @@
     brightnessctl
     coreutils
     cloudflared
-    micro
+    #micro
     cifs-utils
     exa
     unzip
-    btop
-    ranger
-    bat
-    starship
+    #ranger
     fd
     duf
     jq

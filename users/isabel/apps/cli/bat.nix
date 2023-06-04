@@ -4,7 +4,11 @@
   lib,
   ...
 }: {
-  home.activation.buildBatCache = "${lib.getExe pkgs.bat} cache --build";
+  home = { 
+    packages = [ pkgs.bat ];
+    activation.buildBatCache = "${lib.getExe pkgs.bat} cache --build";
+  };
+
   programs.bat = {
     enable = true;
     config = {

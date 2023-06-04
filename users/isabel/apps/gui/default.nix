@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+_: {
   imports = [
     ./alacritty.nix
     ./nvim.nix

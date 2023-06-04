@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+_: {
   imports = [
     ./hyprland.nix
     ./swaylock.nix

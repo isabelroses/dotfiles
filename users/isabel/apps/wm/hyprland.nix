@@ -24,8 +24,6 @@
     systemdIntegration = true;
     extraConfig = builtins.readFile ../config/hypr/hyprland.conf;
   };
-  #xdg.configFile."hypr/hyprpaper.conf".text =
-  #  builtins.readFile ../config/hypr/hyprpaper.conf;
   xdg.configFile."hypr/mocha.conf".text =
     builtins.readFile ../config/hypr/mocha.conf;
 }
