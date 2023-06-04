@@ -1,4 +1,0 @@
-std="vim"
-
-[rules]
-global_usage = "allow"
