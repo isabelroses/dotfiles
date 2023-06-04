@@ -5,9 +5,8 @@
   ...
 }: {
   imports = [
-    ./wm
-    ./cli
-    ./gui
-    ./system
+    ./eww.nix
+    ./sops.nix
+    ./xdgs.nix
   ]; 
 }

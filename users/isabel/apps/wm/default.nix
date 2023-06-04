@@ -5,9 +5,7 @@
   ...
 }: {
   imports = [
-    ./wm
-    ./cli
-    ./gui
-    ./system
+    ./hyprland.nix
+    ./swaylock.nix
   ]; 
 }

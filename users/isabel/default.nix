@@ -14,7 +14,7 @@ in {
     isNormalUser = true;
     hashedPassword = "$6$pldP2v/cspZEt/2j$QvNZIG.WOPSc1VGPYrK8hgI9zsW1QMr6fVQSZkYVLBXgfcrFkGzedOdmOAYzAMjC6tTKZjYSjQqxmJUm4kSW00";
     extraGroups = [ "networkmanager" "wheel" "docker" "cloudflared" ];
-    packages = with pkgs; [ ];
+    # packages = with pkgs; [ ];
     shell = pkgs.fish;
   };
   users.groups.cloudflared = { };
@@ -34,6 +34,11 @@ in {
       inherit (config.system) stateVersion;
       username = system.currentUser;
       homeDirectory = "/home/${system.currentUser}";
+    };
+    manual = {
+      html.enable = false;
+      json.enable = false;
+      manpages.enable = false;
     };
   };
 }
