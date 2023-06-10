@@ -18,11 +18,15 @@ in {
     wlsunset
     wl-gammactl
     upower
+    inotify-tools
+    gtk3
+    blueberry gnome.gnome-bluetooth 
+    networkmanagerapplet
   ];
 
   programs.eww = {
     enable = true;
     package = pkgs.eww-wayland;
-    configDir = ../config/eww;
+    configDir = ../../config/eww;
   };
 }

@@ -4,6 +4,7 @@
     nixpkgs.url = "nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprpicker.url = "github:hyprwm/hyprpicker";
     catppuccin-toolbox.url = "github:catppuccin/toolbox";
     catppuccin.url = "github:Stonks3141/ctp-nix";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -32,7 +33,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
-  outputs = { self, home-manager, nixpkgs, nixpkgs-unstable, catppuccin, sops-nix, hyprland, ... } @ inputs:
+  outputs = { self, home-manager, nixpkgs, nixpkgs-unstable, catppuccin, sops-nix, hyprland, hyprpicker, ... } @ inputs:
   let
     system = import ./users/isabel/env.nix;
     overlays = final: prev: {
@@ -50,32 +51,60 @@
     };
   in
     {
-      nixosConfigurations.hydra = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/hydra
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = { 
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = {
-                flakePath = "/home/${system.currentUser}/.setup";
-                inherit system inputs;
+      nixosConfigurations = {
+        "hydra" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/hydra
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = { 
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  flakePath = "/home/${system.currentUser}/.setup";
+                  isNvidia = false;
+                  isLaptop = true;
+                  inherit system inputs;
+                };
               };
-            };
-          }
-          sops-nix.nixosModules.sops
-          catppuccin.nixosModules.catppuccin
-          hyprland.nixosModules.default
-          {programs.hyprland.enable = true;}
-          # ({config, ...}: {
-          #     config = {
-          #       nixpkgs.overlays = [overlays];
-          #     };
-          #   })
-        ];
-        specialArgs = { inherit system inputs; };
+            }
+            sops-nix.nixosModules.sops
+            catppuccin.nixosModules.catppuccin
+            hyprland.nixosModules.default
+            {programs.hyprland.enable = true;}
+          ];
+          specialArgs = { inherit system inputs; };
+        };
+        "amatarasu" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/amatarasu
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = { 
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  flakePath = "/home/${system.currentUser}/.setup";
+                  isNvidia = true;
+                  isLaptop = false;
+                  inherit system inputs;
+                };
+              };
+            }
+            sops-nix.nixosModules.sops
+            catppuccin.nixosModules.catppuccin
+            hyprland.nixosModules.default
+            {programs.hyprland.enable = true;}
+            # ({config, ...}: {
+            #     config = {
+            #       nixpkgs.overlays = [overlays];
+            #     };
+            #   })
+          ];
+          specialArgs = { inherit system inputs; };
+        };
       };
     };
 }

@@ -1,0 +1,88 @@
+(defwidget screenshotbutton [action menu icon label]
+  (box
+    :orientation "v"
+    :space-evenly false
+    :tooltip label
+    :class "button-bin"
+    (button
+      :class "button"
+      :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu ${menu} && ${action}"
+      (label :class "icon" :text icon)
+    )
+    (label :class "label" :text label)
+  )
+)
+
+(defwidget takeshot [] (box
+    :class "content"
+    :halign "center"
+    :valign "center"
+    :orientation "v"
+    :space-evenly false
+    (box
+      :class "takeshot-menu"
+      :space-evenly false
+      :orientation "h"
+      ;; (screenshotbutton
+        ;;   :action "sleep 5 && ${EWW_CONFIG_DIR}/scripts/screenshot screen &"
+        ;;   :icon "󰍹"
+        ;;   :menu "takeshot"
+        ;;   :label "Delayed"
+      ;; )
+      (screenshotbutton
+        :action "sleep 0.5 && ${EWW_CONFIG_DIR}/scripts/screenshot screen &"
+        :icon "󰍹"
+        :menu "takeshot"
+        :label "Screen"
+      )
+      (screenshotbutton
+        :action "${EWW_CONFIG_DIR}/scripts/screenshot window &"
+        :icon "󰏋"
+        :menu "takeshot"
+        :label "Window"
+      )
+      (screenshotbutton
+        :action "${EWW_CONFIG_DIR}/scripts/screenshot area &"
+        :icon "󰆟"
+        :menu "takeshot"
+        :label "Area"
+      )
+    )
+  )
+)
+
+(defwidget previewshot [] (box
+    :hexpand true
+    :orientation "v"
+    :class "content"
+    :space-evenly false
+    (box
+      :valign "center"
+      :halign "center"
+      :spacing 40
+      :class "previewshot-menu"
+      (screenshotbutton
+        :class "blue"
+        :action "${EWW_CONFIG_DIR}/scripts/screenshot save &"
+        :icon "󰆓"
+        :menu "previewshot"
+        :label "Save"
+      )
+      (screenshotbutton
+        :class "green"
+        :action "${EWW_CONFIG_DIR}/scripts/screenshot copy &"
+        :icon "󰆏"
+        :menu "previewshot"
+        :label "Copy"
+      )
+      (screenshotbutton
+        :class "red"
+        :action "close"
+        :icon ""
+        :menu "previewshot"
+        :label "Discard"
+      )
+    )
+    (box :class "preview" :vexpand true :hexpand true)
+  )
+)

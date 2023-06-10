@@ -1,7 +1,7 @@
 import { Gio } from './lib.js'
 
 export const MprisPlayerProxy = Gio.DBusProxy.makeProxyWrapper(
-`<node>
+    `<node>
     <interface name="org.mpris.MediaPlayer2.Player">
         <property name='CanControl' type='b' access='read' />
         <property name='CanGoNext' type='b' access='read' />
@@ -19,7 +19,7 @@ export const MprisPlayerProxy = Gio.DBusProxy.makeProxyWrapper(
 );
 
 export const DBusProxy = Gio.DBusProxy.makeProxyWrapper(
-`<node>
+    `<node>
     <interface name="org.freedesktop.DBus">
         <method name="ListNames">
             <arg type="as" direction="out" name="names"/>
@@ -34,7 +34,7 @@ export const DBusProxy = Gio.DBusProxy.makeProxyWrapper(
 );
 
 export const PowerManagerProxy = Gio.DBusProxy.makeProxyWrapper(
-`<node>
+    `<node>
     <interface name="org.freedesktop.UPower.Device">
         <property name="State" type="u" access="read"/>
         <property name="Percentage" type="d" access="read"/>
@@ -43,8 +43,8 @@ export const PowerManagerProxy = Gio.DBusProxy.makeProxyWrapper(
 </node>`
 );
 
-export const NotificationIFace = 
-`<node>
+export const NotificationIFace =
+    `<node>
     <interface name="org.freedesktop.Notifications">
         <property name="DoNotDisturb" type="b" access="read" />
         <method name="ToggleDND" />
@@ -90,15 +90,15 @@ export const NotificationIFace =
     </interface>
 </node>`;
 
-export const BluetoothIFace = 
-`<node>
+export const BluetoothIFace =
+    `<node>
     <interface name="com.github.isabel.bluetooth">
         <method name="Toggle" />
     </interface>
 </node>`
 
-export const ApplicationsIFace = 
-`<node>
+export const ApplicationsIFace =
+    `<node>
     <interface name="com.github.isabel.applications">
         <method name="Query">
             <arg type="s" direction="in" />

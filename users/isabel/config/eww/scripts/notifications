@@ -2,14 +2,14 @@
 
 function toggle {
     dbus-send --session --type=method_call \
-        --dest=com.github.isabel.myshell \
+        --dest=com.github.isabel.host \
         /org/freedesktop/Notifications \
         org.freedesktop.Notifications.ToggleDND
 }
 
 function dismiss {
     dbus-send --session --type=method_call \
-        --dest=com.github.isabel.myshell \
+        --dest=com.github.isabel.host \
         /org/freedesktop/Notifications \
         org.freedesktop.Notifications.DismissNotification \
         uint32:$1
@@ -17,7 +17,7 @@ function dismiss {
 
 function close {
     dbus-send --session --type=method_call \
-        --dest=com.github.isabel.myshell \
+        --dest=com.github.isabel.host \
         /org/freedesktop/Notifications \
         org.freedesktop.Notifications.CloseNotification \
         uint32:$1
@@ -25,7 +25,7 @@ function close {
 
 function action {
     dbus-send --session --type=method_call \
-        --dest=com.github.isabel.myshell \
+        --dest=com.github.isabel.host \
         /org/freedesktop/Notifications \
         org.freedesktop.Notifications.InvokeAction \
         uint32:$1 string:$2
@@ -33,7 +33,7 @@ function action {
 
 function clear_all {
     dbus-send --session --type=method_call \
-        --dest=com.github.isabel.myshell \
+        --dest=com.github.isabel.host \
         /org/freedesktop/Notifications \
         org.freedesktop.Notifications.Clear
 }

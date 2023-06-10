@@ -2,7 +2,7 @@
 
 function query {
     dbus-send --session --type=method_call \
-        --dest=com.github.isabel.myshell \
+        --dest=com.github.isabel.host \
         /com/github/isabel/applications \
         com.github.isabel.applications.Query \
         string:$1

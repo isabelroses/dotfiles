@@ -7,37 +7,33 @@
 {
   home.packages = with pkgs; [
     #life
-    armcord # discord
+    flatpak
     obsidian
     minecraft
     vscode
     chromium
     dconf
-    #swaynotificationcenter
     pavucontrol
     playerctl
     fontconfig
     jellyfin-media-player
     #security
-    #openvpn
     seatd
     gnupg
-    #wlogout
     bitwarden
     gnome.gnome-keyring
     gnome.seahorse
-    wl-clipboard
     #cli
     networkmanager
-    gnome.gnome-bluetooth blueberry bluez
+    lazygit
+    tldr
+    bluez
     brightnessctl
     coreutils
     cloudflared
-    #micro
     cifs-utils
     exa
     unzip
-    #ranger
     fd
     duf
     jq
@@ -48,7 +44,6 @@
     zoom-us
     distrobox
     imagemagick
-    gtk3
     gnome.gnome-font-viewer
   ];
 } 

@@ -4,26 +4,38 @@
   lib,
   inputs,
   ...
-}: {
+}: with lib; let
+    cfg = config.isabel.hyprland;
+in { 
+  options.isabel.hyprland = {
+    enable = mkEnableOption "enable hyprland";
+    withNvidia = mkEnableOption "enable pc settings";
+    onLaptop = mkEnableOption "enable laptop settings";
+  };
+  imports = [./hyprland-config.nix];
   home.packages = with pkgs; [
     #inputs.hyprpaper.packages.${pkgs.system}.hyprpaper
+    inputs.hyprpicker.packages.${pkgs.system}.hyprpicker
     brightnessctl
-    polkit_gnome
-    pamixer
     wl-clipboard
     wlsunset
     grim
     slurp
     swappy
-    xdg-desktop-portal
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-wlr
+    wl-clipboard
+    xdg-desktop-portal-hyprland
   ];
-  wayland.windowManager.hyprland = {
-    enable = true;
-    systemdIntegration = true;
-    extraConfig = builtins.readFile ../config/hypr/hyprland.conf;
-  };
-  xdg.configFile."hypr/mocha.conf".text =
-    builtins.readFile ../config/hypr/mocha.conf;
+  wayland.windowManager = mkMerge [
+    (mkIf cfg.enable {
+      hyprland = {
+        enable = true;
+        systemdIntegration = true;
+      };
+    })
+    (mkIf cfg.withNvidia {
+      hyprland = {
+        nvidiaPatches = true;
+      };
+    })
+  ];
 }

@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+screenshot=/tmp/screenshot.png
+path=~/Pictures/Screenshots
+
+window() {
+	grimblast save active $screenshot
+}
+
+area() {
+	grim -g "$(slurp)" $screenshot
+}
+
+screen() {
+	grim $screenshot
+}
+
+preview() {
+	$HOME/.config/eww/scripts/launcher toggle_menu previewshot
+}
+
+discard() {
+	rm "${screenshot}"
+}
+
+save() {
+	name="screenshot-$(date +%h-%m-%s_%d-%m-%y).png"
+	mkdir -p $path
+	cp $screenshot $path/$name
+	notify-send "screenshot saved!" "saved to ${path}/${name}" -i $screenshot
+}
+
+copy() {
+	wl-copy <$screenshot
+	notify-send "screenshot copied!" -i $screenshot
+}
+
+case $1 in
+"screen") screen && preview ;;
+"window") window && preview ;;
+"area") area && preview ;;
+"screen-quiet") screen && save && copy ;;
+"window-quiet") window && save && copy ;;
+"area-quiet") area && save && copy ;;
+"discard") discard ;;
+"copy") copy ;;
+"save") save ;;
+*) echo invalid option ;;
+esac

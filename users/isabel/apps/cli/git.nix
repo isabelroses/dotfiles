@@ -13,7 +13,7 @@
         format = "ssh";
       };
       init = {
-        defaultBranch = "master";
+        defaultBranch = "main";
       };
       commit = {
         gpgsign = true;

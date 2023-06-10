@@ -24,6 +24,9 @@
             &.medium{}
             &.high{ color: $blue; }
         }
+        &.bluetooth, &.bt_speaker{
+            color: $blue;
+        }
     }
 }
 
