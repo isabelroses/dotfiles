@@ -10,4 +10,7 @@
             onLaptop = isLaptop;
         };
     };
+    catppuccin ={
+        flavour = "mocha";
+    };
 }

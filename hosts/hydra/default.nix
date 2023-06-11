@@ -6,12 +6,12 @@ in {
   imports = [
       ../common
       ../common/settings.nix
+      ./common/ui.nix
       ../../users/isabel
 
       ./hardware-configuration.nix
 
       ./services.nix
-      ./ui.nix
       ./packages.nix
       ./networking.nix
     ];
@@ -26,6 +26,10 @@ in {
       efi.efiSysMountPoint = "/boot/efi";
       efi.canTouchEfiVariables = true;
       timeout = 1;
+    };
+    kernel.sysctl = {
+      "vm.swappiness" = 50;
+      "vm.max_map_count" = 2147483642;
     };
   };
   security = {

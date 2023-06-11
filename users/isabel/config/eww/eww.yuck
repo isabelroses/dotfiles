@@ -6,8 +6,8 @@
 (defvar     notifications   "{}")
 (defvar     apps            "{}")
 
-(deflisten  window      `scripts/hyprland window`)
-(deflisten  workspaces  `scripts/hyprland workspaces`)
+(deflisten  workspace  `scripts/hyprland`)
+(defvar     ws-icons   '["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]')
 
 (defpoll    volume      :interval "3s" :initial "{}" `scripts/volume get`)
 (defpoll    theme       :interval "3s" :initial "{}" `scripts/theme get`)

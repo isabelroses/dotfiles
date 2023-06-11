@@ -93,14 +93,6 @@
     :height "100%"
     :anchor "bottom right")(desktop))
 
-(defwindow dock
-  :monitor 0
-  :stacking "fg"
-  :namespace "eww_dock"
-  :geometry (geometry :width  "1%"
-    :height "1%"
-    :anchor "bottom center")(dock))
-
 (defwindow notifications_popup
   :monitor 0
   :stacking "overlay"

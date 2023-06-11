@@ -34,6 +34,7 @@ in {
                 # exec-once = wlsunset -S 9:00 -s 19:30
                 exec-once = bash ~/.config/eww/scripts/init
                 exec-once = hyprctl setcursor Catppuccin-Mocha-Sapphire 24
+                exec = ${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1
                 
                 # █▀▀ █▀▀ █▄░█ █▀▀ █▀█ ▄▀█ █░░
                 # █▄█ ██▄ █░▀█ ██▄ █▀▄ █▀█ █▄▄

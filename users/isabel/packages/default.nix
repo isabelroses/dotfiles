@@ -19,6 +19,7 @@
     jellyfin-media-player
     #security
     seatd
+    polkit_gnome
     gnupg
     bitwarden
     gnome.gnome-keyring
