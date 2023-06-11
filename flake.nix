@@ -21,6 +21,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote.url = "github:nix-community/lanzaboote";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   nixConfig = {
     substituters = [ 
@@ -34,7 +38,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
-  outputs = { self, home-manager, nixpkgs, nixpkgs-unstable, catppuccin, sops-nix, hyprland, hyprpicker, lanzaboote, ... } @ inputs:
+  outputs = { self, home-manager, nixpkgs, nixpkgs-unstable, nixos-wsl, catppuccin, sops-nix, hyprland, hyprpicker, lanzaboote, ... } @ inputs:
   let
     system = import ./users/isabel/env.nix;
     overlays = final: prev: {
@@ -104,6 +108,27 @@
             #       nixpkgs.overlays = [overlays];
             #     };
             #   })
+          ];
+          specialArgs = { inherit system inputs; };
+        };
+        "izanagi" = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/izanagi
+            inputs.nixos-wsl.nixosModules.wsl
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = { 
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  flakePath = "/home/${system.currentUser}/.setup";
+                  isNvidia = true;
+                  isLaptop = false;
+                  inherit system inputs;
+                };
+              };
+            }
           ];
           specialArgs = { inherit system inputs; };
         };
