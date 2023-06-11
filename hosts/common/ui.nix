@@ -8,6 +8,9 @@
     font = "RobotoMono Nerd Font";
   };
   fonts.fonts = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
     (nerdfonts.override {fonts = [ "RobotoMono" "JetBrainsMono" "CascadiaCode" "Hack" "Mononoki" "Ubuntu" "UbuntuMono" "Noto" ];})
   ];
   programs = {

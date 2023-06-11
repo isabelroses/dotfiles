@@ -49,7 +49,7 @@
 
 (defwidget bar [] (centerbox
     :orientation "v"
-    :class "vpanel ${workspaces.active_empty ? "floating" : ""}"
+    :class "vpanel"
     (box
         :class "leftBar"
         :space-evenly false

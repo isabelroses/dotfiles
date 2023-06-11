@@ -20,6 +20,7 @@
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote.url = "github:nix-community/lanzaboote";
   };
   nixConfig = {
     substituters = [ 
@@ -33,7 +34,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
   };
-  outputs = { self, home-manager, nixpkgs, nixpkgs-unstable, catppuccin, sops-nix, hyprland, hyprpicker, ... } @ inputs:
+  outputs = { self, home-manager, nixpkgs, nixpkgs-unstable, catppuccin, sops-nix, hyprland, hyprpicker, lanzaboote, ... } @ inputs:
   let
     system = import ./users/isabel/env.nix;
     overlays = final: prev: {
@@ -93,6 +94,7 @@
                 };
               };
             }
+            lanzaboote.nixosModules.lanzaboote
             sops-nix.nixosModules.sops
             catppuccin.nixosModules.catppuccin
             hyprland.nixosModules.default

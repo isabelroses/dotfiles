@@ -54,13 +54,8 @@
 @mixin workspaces() {
     @include button($flat: false, $radii: $panel_button_radius);
     .workspace-btn{
-        &.empty{ color: transparentize($fg_color, 0.34); }
-        &.occupied{ color: transparentize($fg_color, 0.18); }
-        &.active{ color: $fg_color; }
-        &:hover{
-            &.empty{ color: transparentize($fg_color, 0.18); }
-            &.occupied{ color: $fg_color; }
-        }
-        &:active{ color: $accent; }
+        color: $fg_color;
+        .focus{ color: $accent; }
+        &:hover{ color: darken($fg_color, 0.3); }
     }
 }

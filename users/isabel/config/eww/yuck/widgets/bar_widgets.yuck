@@ -7,30 +7,26 @@
   ))
 
 (defwidget panel_workspaces [orientation] (box :class "button-bin"
-    (eventbox :class "button workspaces"
-      (box
-        :space-evenly false
-        :orientation orientation
-        (for workspace in {workspaces.workspaces}
-          (button
-            :class "workspace-btn ${workspace.id == workspaces.active ? "active" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
-            :onclick "hyprctl dispatch workspace ${workspace.id}"
-            :valign "center"
-            (label :class "icon" :text {workspace.windows > 0 ? "${workspace.id == workspaces.active ? "" : ""}" : ""})
+  (eventbox
+    :class "button workspaces"
+    :onscroll "echo {} | sed -e \"s/up/-1/g\" -e \"s/down/+1/g\" | xargs hyprctl dispatch workspace"
+    (box
+      :space-evenly false
+      :orientation orientation
+      (for i in workspace
+        (button
+          :onclick "hyprctl dispatch workspace ${i.num}"
+          :class "workspace-btn"
+          :valign "center"
+          (label
+            :class "${i.focus}"
+            :text "${ws-icons[i.id]}"
           )
         )
       )
     )
-  ))
-
-(defwidget panel_window [angle] (box :class "button-bin"
-    (button :class "button window"
-      (label
-        :visible {window != "null" ? true : false}
-        :text {window}
-      :angle angle)
-    )
-  ))
+  )
+))
 
 (defwidget panel_separator [orientation dots visible] (box
     :orientation orientation

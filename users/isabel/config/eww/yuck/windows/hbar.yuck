@@ -21,7 +21,7 @@
 ))
 
 (defwidget hbar [] (centerbox
-    :class "hpanel ${workspaces.active_empty ? "floating" : ""}"
+    :class "hpanel"
     (box
         :class "leftBar"
         :space-evenly false
