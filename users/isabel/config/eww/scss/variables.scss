@@ -1,4 +1,4 @@
-$assets: '/home/isabel/.config/eww/assets/';
+$assets: './assets/';
 $wallpaper: $assets+'backgrounds/tempest.png';
 $avatar: $assets+'avatar';
 
@@ -36,4 +36,4 @@ $popover_padding: 14px;
     transition: 200ms;
 }
 
-$mono_font: 'mononoki NF';
+$mono_font: 'mononoki Nerd Font';
