@@ -93,7 +93,7 @@ export const Apps = GObject.registerClass({
     _register() {
       Gio.bus_own_name(
         Gio.BusType.SESSION,
-        'com.github.aylur.myshell',
+        'com.github.isabel.host',
         Gio.BusNameOwnerFlags.NONE,
         (connection, _) => {
           this._dbus = Gio.DBusExportedObject.wrapJSObject(ApplicationsIFace, this);
