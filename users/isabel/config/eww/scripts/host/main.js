@@ -39,7 +39,7 @@ const App = GObject.registerClass(
   class App extends Gtk.Application {
     constructor({ eww, file, stdout, fg_color }) {
       super({
-        application_id: 'com.github.isabel.myshell',
+        application_id: 'com.github.isabel.host',
         flags: Gio.ApplicationFlags.DEFAULT_FLAGS
       });
 
