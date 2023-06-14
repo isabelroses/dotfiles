@@ -1,45 +1,61 @@
 #!/usr/bin/env bash
 
 function toggle {
-    dbus-send --session --type=method_call \
-        --dest=com.github.isabel.host \
-        /org/freedesktop/Notifications \
-        org.freedesktop.Notifications.ToggleDND
+	dbus-send --session --type=method_call \
+		--dest=com.github.isabel.host \
+		/org/freedesktop/Notifications \
+		org.freedesktop.Notifications.ToggleDND
 }
 
 function dismiss {
-    dbus-send --session --type=method_call \
-        --dest=com.github.isabel.host \
-        /org/freedesktop/Notifications \
-        org.freedesktop.Notifications.DismissNotification \
-        uint32:$1
+	dbus-send --session --type=method_call \
+		--dest=com.github.isabel.host \
+		/org/freedesktop/Notifications \
+		org.freedesktop.Notifications.DismissNotification \
+		uint32:$1
+}
+
+function dismissLatest {
+	dbus-send --session --type=method_call \
+		--dest=com.github.isabel.host \
+		/org/freedesktop/Notifications \
+		org.freedesktop.Notifications.DismissLatestNotification
 }
 
 function close {
-    dbus-send --session --type=method_call \
-        --dest=com.github.isabel.host \
-        /org/freedesktop/Notifications \
-        org.freedesktop.Notifications.CloseNotification \
-        uint32:$1
+	dbus-send --session --type=method_call \
+		--dest=com.github.isabel.host \
+		/org/freedesktop/Notifications \
+		org.freedesktop.Notifications.CloseNotification \
+		uint32:$1
+}
+
+function closeLatest {
+	dbus-send --session --type=method_call \
+		--dest=com.github.isabel.host \
+		/org/freedesktop/Notifications \
+		org.freedesktop.Notifications.CloseLatestNotification
 }
 
 function action {
-    dbus-send --session --type=method_call \
-        --dest=com.github.isabel.host \
-        /org/freedesktop/Notifications \
-        org.freedesktop.Notifications.InvokeAction \
-        uint32:$1 string:$2
+	dbus-send --session --type=method_call \
+		--dest=com.github.isabel.host \
+		/org/freedesktop/Notifications \
+		org.freedesktop.Notifications.InvokeAction \
+		uint32:$1 string:$2
 }
 
 function clear_all {
-    dbus-send --session --type=method_call \
-        --dest=com.github.isabel.host \
-        /org/freedesktop/Notifications \
-        org.freedesktop.Notifications.Clear
+	dbus-send --session --type=method_call \
+		--dest=com.github.isabel.host \
+		/org/freedesktop/Notifications \
+		org.freedesktop.Notifications.Clear
 }
 
 if [[ $1 == 'toggle' ]]; then toggle; fi
 if [[ $1 == 'dismiss' ]]; then dismiss $2 $3; fi
+if [[ $1 == 'dismissLatest' ]]; then dismissLatest; fi
+if [[ $1 == 'closeLatest' ]]; then closeLatest; fi
 if [[ $1 == 'close' ]]; then close $2; fi
 if [[ $1 == 'action' ]]; then action $2 $3; fi
 if [[ $1 == 'clear' ]]; then clear_all; fi
