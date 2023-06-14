@@ -133,6 +133,7 @@ in {
                 bind = $mod, V, exec, ~/.config/eww/scripts/launcher clipboard
                 bind = $mod, F1, exec, ~/.config/hypr/keybind
                 bind = $mod, escape, exec, ~/./.config/eww/scripts/launcher toggle_menu powermenu
+                bind = $mod SHIFT, d, exec, ~/./.config/eww/scripts/notifications closeLatest
 
                 # █▀ █▀▀ █▀█ █▀▀ █▀▀ █▄░█ █▀ █░█ █▀█ ▀█▀
                 # ▄█ █▄▄ █▀▄ ██▄ ██▄ █░▀█ ▄█ █▀█ █▄█ ░█░

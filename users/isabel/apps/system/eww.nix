@@ -14,7 +14,6 @@ in {
     socat
     jaq
     acpi
-    gjs
     wlsunset
     wl-gammactl
     upower
