@@ -41,6 +41,7 @@
     ripgrep
     age
     inputs.catppuccin-toolbox.packages.${pkgs.system}.catwalk
+    auto-cpufreq
     #extra
     zoom-us
     distrobox

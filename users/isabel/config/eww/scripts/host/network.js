@@ -1,5 +1,5 @@
 import { NM, Gio, GObject } from './lib.js'
-import { showNotification } from './common.js'
+// import { showNotification } from './common.js'
 
 Gio._promisify(NM.Client, 'new_async');
 Gio._promisify(NM.DeviceWifi.prototype, 'request_scan_async');
