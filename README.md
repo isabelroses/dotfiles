@@ -3,7 +3,7 @@
 Still just learning nix. However if you are desprate enough to install this:
 
 ```bash
-git clone --recurse-submodules -b nixos https://github.com/isabelroses/dotfiles .setup
+git clone https://github.com/isabelroses/dotfiles .setup
 cd .setup
 sudo nixos-rebuild switch --flake .#hydra
 ```
