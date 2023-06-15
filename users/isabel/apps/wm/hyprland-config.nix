@@ -1,11 +1,10 @@
 {
     config,
-    isNvidia,
-    isLaptop,
     ...
 }:
 with lib; let
     cfg = config.isabel.hyprland;
+    inherit (lib) mkMerge mkIf;
 in {
     wayland.windowManager.hyprland = mkMerge [
         (mkIf cfg.enable {

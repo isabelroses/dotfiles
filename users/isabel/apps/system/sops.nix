@@ -1,7 +1,7 @@
 {config, ...}: {
   sops = {
     gnupg.home = config.programs.gpg.homedir;
-    defaultSopsFile = ../../../secrets.yaml;
+    defaultSopsFile = ../../../../secrets.yaml;
     secrets = {
       "gh-key" = {
         path = "${config.home.homeDirectory}/.ssh/keys/github/gh";

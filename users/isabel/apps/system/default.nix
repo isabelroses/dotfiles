@@ -3,6 +3,6 @@ _: {
     ./eww.nix
     ./home.nix
     ./sops.nix
-    ./xdgs.nix
+    ./xdg.nix
   ]; 
 }

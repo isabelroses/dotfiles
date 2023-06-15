@@ -5,12 +5,13 @@
   inputs,
   ...
 }: with lib; let
-    cfg = config.isabel.hyprland;
+  cfg = config.isabel.desktop.hyprland;
+  inherit (lib) mkEnableOption mkIf mkMerge;
 in { 
-  options.isabel.hyprland = {
+  options.isabel.desktop.hyprland = {
     enable = mkEnableOption "enable hyprland";
-    withNvidia = mkEnableOption "enable pc settings";
-    onLaptop = mkEnableOption "enable laptop settings";
+    isNvidia = mkEnableOption "enable pc settings";
+    isLaptop = mkEnableOption "enable laptop settings";
   };
   imports = [./hyprland-config.nix];
   home.packages = with pkgs; [
@@ -22,7 +23,6 @@ in {
     grim
     slurp
     swappy
-    wl-clipboard
     xdg-desktop-portal-hyprland
   ];
   wayland.windowManager = mkMerge [
@@ -32,10 +32,13 @@ in {
         systemdIntegration = true;
       };
     })
-    (mkIf cfg.withNvidia {
+    (mkIf cfg.isNvidia {
       hyprland = {
         nvidiaPatches = true;
       };
     })
   ];
+  xdg.portal = {
+    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+  };
 }
