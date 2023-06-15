@@ -76,7 +76,7 @@
                     isLaptop = true;
                   };
                 };
-              }
+              };
               home-manager = { 
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -111,7 +111,7 @@
                     isLaptop = false;
                   };
                 };
-              }
+              };
               home-manager = { 
                 useGlobalPkgs = true;
                 useUserPackages = true;
