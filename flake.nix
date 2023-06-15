@@ -62,7 +62,21 @@
           modules = [
             ./hosts/hydra
             home-manager.nixosModules.home-manager
+            sops-nix.nixosModules.sops
+            catppuccin.nixosModules.catppuccin
             {
+              isabel = {
+                isNvidia = false;
+                isLaptop = true;
+                desktop = {
+                  enable = true;
+                  hyprland = {
+                    enable = true;
+                    isNvidia = false;
+                    isLaptop = true;
+                  };
+                };
+              }
               home-manager = { 
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -74,10 +88,6 @@
                 };
               };
             }
-            sops-nix.nixosModules.sops
-            catppuccin.nixosModules.catppuccin
-            hyprland.nixosModules.default
-            {programs.hyprland.enable = true;}
           ];
           specialArgs = { inherit system inputs; };
         };
@@ -86,7 +96,22 @@
           modules = [
             ./hosts/amatarasu
             home-manager.nixosModules.home-manager
+            lanzaboote.nixosModules.lanzaboote
+            sops-nix.nixosModules.sops
+            catppuccin.nixosModules.catppuccin
             {
+              isabel = {
+                isNvidia = true;
+                isLaptop = false;
+                desktop = {
+                  enable = true;
+                  hyprland = {
+                    enable = true;
+                    isNvidia = true;
+                    isLaptop = false;
+                  };
+                };
+              }
               home-manager = { 
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -98,11 +123,6 @@
                 };
               };
             }
-            lanzaboote.nixosModules.lanzaboote
-            sops-nix.nixosModules.sops
-            catppuccin.nixosModules.catppuccin
-            hyprland.nixosModules.default
-            {programs.hyprland.enable = true;}
             # ({config, ...}: {
             #     config = {
             #       nixpkgs.overlays = [overlays];
@@ -118,13 +138,12 @@
             inputs.nixos-wsl.nixosModules.wsl
             home-manager.nixosModules.home-manager
             {
+              isabel.desktop.enable = false;
               home-manager = { 
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = {
                   flakePath = "/home/${system.currentUser}/.setup";
-                  isNvidia = true;
-                  isLaptop = false;
                   inherit system inputs;
                 };
               };
@@ -134,4 +153,6 @@
         };
       };
     };
+
+  nixosModules.isabel = import ./modules/;
 }

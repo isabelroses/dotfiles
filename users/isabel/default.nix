@@ -7,9 +7,6 @@
 }: let
   system = import ./env.nix;
 in {
-  imports = [
-  ];
-
   users.users.${system.currentUser} = {
     isNormalUser = true;
     hashedPassword = "$6$pldP2v/cspZEt/2j$QvNZIG.WOPSc1VGPYrK8hgI9zsW1QMr6fVQSZkYVLBXgfcrFkGzedOdmOAYzAMjC6tTKZjYSjQqxmJUm4kSW00";
@@ -18,6 +15,9 @@ in {
     shell = pkgs.fish;
   };
   users.groups.cloudflared = { };
+
+  programs.fish.enable = true;
+  xdg.portal.enable = true;
 
   home-manager.users.${system.currentUser} = {
     imports = [
