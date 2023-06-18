@@ -97,6 +97,8 @@
         ];
       };
 
+      window.opacity = 0.90;
+
       font = {
         normal = {
           family = "RobotoMono Nerd Font Mono";
