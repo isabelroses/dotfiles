@@ -1,0 +1,6 @@
+_: {
+  imports = [
+    ./alacritty
+    ./kitty
+  ];
+}
