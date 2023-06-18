@@ -30,23 +30,22 @@ in {
           Restart = "always";
           RestartSec = "1";
         };
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       };
     };
 
+    services = {
       gnome = {
         glib-networking.enable = true;
         gnome-keyring.enable = true;
       };
 
-      logind = {
-        extraConfig = ''
-          HandlePowerKey=suspend-then-hibernate
-          HandleLidSwtich=ignore
-          HandleLidSwitchDocked=ignore
-          HandleLidSwitchExternalPower=ignore
-        '';
-      };
+      logind.extraConfig = ''
+        HandlePowerKey=suspend-then-hibernate
+        HandleLidSwtich=ignore
+        HandleLidSwitchDocked=ignore
+        HandleLidSwitchExternalPower=ignore
+      '';
     };
   };
 }

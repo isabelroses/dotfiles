@@ -1,36 +1,37 @@
 {
   description = "Flameing hot trash";
-  
+
   outputs = {
     self,
     nixpkgs,
     flake-parts,
     ...
-  } @ inputs: flake-parts.lib.mkFlake {inherit inputs;} {
-    systems = [
-      "x86_64-linux"
-    ];
+  } @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [
+        "x86_64-linux"
+      ];
 
-    imports = [
-      {config._module.args._inputs = inputs // {inherit (inputs) self;};}
-    ];
-
-    flake = let
-      # extended nixpkgs lib, contains my custom functions
-      lib = import ./lib {inherit nixpkgs lib inputs;};
-    in {
-      # entry-point for nixos configurations
-      nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
-    };
-
-    perSystem = {
-      config,
-      inputs',
-      pkgs,
-      system,
-      ...
-    }: {
       imports = [
+        {config._module.args._inputs = inputs // {inherit (inputs) self;};}
+      ];
+
+      flake = let
+        # extended nixpkgs lib, contains my custom functions
+        lib = import ./lib {inherit nixpkgs lib inputs;};
+      in {
+        # entry-point for nixos configurations
+        nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
+      };
+
+      perSystem = {
+        config,
+        inputs',
+        pkgs,
+        system,
+        ...
+      }: {
+        imports = [
           {
             _module.args.pkgs = import nixpkgs {
               config.allowUnfree = true;
@@ -88,6 +89,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Home Manager
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -135,18 +141,15 @@
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"
-      "https://helix.cachix.org"
       "https://nix-gaming.cachix.org"
       "https://hyprland.cachix.org"
-      "https://cache.privatevoid.net"
+      "https://isabelroses.cachix.org"
     ];
     extra-trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "cache.privatevoid.net:SErQ8bvNWANeAvtsOESUwVYr2VJynfuc9JRwlzTTkVg="
+      "isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM="
     ];
   };
 }
-

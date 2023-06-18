@@ -11,9 +11,6 @@ with lib; let
 in {
   config = (mkIf programs.cli.enable) {
     home.packages = with pkgs; [
-      # packages from inputs
-      self.packages.${pkgs.hostPlatform.system}.fastfetch
-
       # CLI packages from nixpkgs
       unzip
       ripgrep
@@ -22,6 +19,7 @@ in {
       jq
       dconf
       nitch
+      exa
     ];
   };
 }

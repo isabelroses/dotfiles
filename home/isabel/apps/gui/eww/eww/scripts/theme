@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+function state {
+	THEME=$(awk -F "'" '{print $2}' $HOME/.config/eww/scss/colors.scss)
+	if [[ $THEME == "dark" ]]; then
+		echo 'on'
+	else echo 'off'; fi
+}
+
+function toggle {
+	STATE=$(state)
+	if [[ $STATE == 'on' ]]; then
+		cp $HOME/.config/eww/scss/colors_light.scss $HOME/.config/eww/scss/colors.scss
+	else
+		cp $HOME/.config/eww/scss/colors_dark.scss $HOME/.config/eww/scss/colors.scss
+	fi
+
+	eww update theme="$(get)"
+	$HOME/.config/eww/scripts/./init
+}
+
+function get {
+	icon='󱎖'
+	if [[ $(state) == 'on' ]]; then icon='󰃛'; fi
+	echo "{
+        \"state\": \"$(state)\",
+        \"icon\": \"$icon\" 
+    }"
+}
+
+if [[ $1 == 'toggle' ]]; then toggle; fi
+if [[ $1 == 'get' ]]; then get; fi

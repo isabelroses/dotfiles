@@ -21,10 +21,11 @@
 
   ## home-manager ##
   home = ../home; # home-manager configurations for hosts that need home-manager
-  homes = [hm home]; # combine hm flake input and the home module to be imported together
+  homes = [hm home cat]; # combine hm flake input and the home module to be imported together
 
   ## flake inputs ##
   hm = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
+  cat = inputs.catppuccin.nixosModules.catppuccin;
 
   # a list of shared modules that ALL systems need
   shared = [

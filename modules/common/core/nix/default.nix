@@ -24,14 +24,6 @@ with lib; {
       allowUnsupportedSystem = true;
       permittedInsecurePackages = [];
     };
-
-    overlays = with inputs; [
-      rust-overlay.overlays.default
-
-      (self: super: {
-        nixSuper = inputs.nix-super.packages.${pkgs.system}.default;
-      })
-    ];
   };
 
   # faster rebuilding
@@ -45,8 +37,6 @@ with lib; {
   nix = let
     mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
   in {
-    package = pkgs.nixSuper; # pkgs.nixVersions.unstable;
-
     # Make builds run with low priority so my system stays responsive
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
@@ -125,6 +115,7 @@ with lib; {
         "https://nix-gaming.cachix.org" # nix-gaming
         "https://nixpkgs-unfree.cachix.org" # unfree-package cache
         "https://numtide.cachix.org" # another unfree package cache
+        "https://isabelroses.cachix.org"
       ];
 
       trusted-public-keys = [
@@ -137,6 +128,7 @@ with lib; {
         "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
+        "isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM="
       ];
     };
   };

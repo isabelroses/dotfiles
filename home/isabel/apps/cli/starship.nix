@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  home.packages = [ pkgs.starship ];
+  home.packages = [pkgs.starship];
   programs.starship = {
     enable = true;
     catppuccin.enable = true;

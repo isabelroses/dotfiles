@@ -44,7 +44,7 @@ with lib; {
       enableInitrdTweaks = mkEnableOption "quality of life tweaks for the initrd stage";
       recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
       loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
-      
+
       kernel = mkOption {
         type = types.raw;
         default = pkgs.linuxPackages_latest;

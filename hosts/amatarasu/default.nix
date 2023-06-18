@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./system.nix
+    ./settings.nix
     ./hardware-configuration.nix
   ];
 }

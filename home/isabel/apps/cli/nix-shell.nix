@@ -17,8 +17,6 @@
   };
 
   programs.direnv = {
-    enableZshIntegration = true;
-
     enable = true;
     nix-direnv = {
       enable = true;

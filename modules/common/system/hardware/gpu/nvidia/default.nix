@@ -80,10 +80,10 @@ in {
         package = mkDefault nvidiaPackage;
         modesetting.enable = mkDefault true;
         prime.offload.enableOffloadCmd = device.gpu == "hybrid-nv";
-        powerManagement = {
-          enable = mkDefault true;
-          finegrained = mkDefault true;
-        };
+        #powerManagement = {
+        #  enable = mkDefault true;
+        #  finegrained = mkDefault true;
+        #};
 
         # use open source drivers by default, hosts may override this option if their gpu is
         # not supported by the open source drivers

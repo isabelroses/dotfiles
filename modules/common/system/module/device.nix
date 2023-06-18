@@ -12,7 +12,6 @@ with lib; {
       default = null;
     };
 
-
     gpu = mkOption {
       type = types.enum ["amd" "intel" "nvidia" null];
       default = null;

@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = osConfig.modules.programs.git;
-  inherit (config) colorscheme;
 in {
   home.packages = with pkgs; [
     gh # github command-line
@@ -39,14 +38,6 @@ in {
     ];
     extraConfig = {
       init.defaultBranch = "main";
-
-      delta = with colorscheme.colors; {
-        enable = true;
-        plus-style = "syntax ${base0A}";
-        minus-style = "syntax ${base08}";
-        line-numbers = true;
-        options.navigate = true;
-      };
 
       branch.autosetupmerge = "true";
       pull.ff = "only";

@@ -17,6 +17,7 @@ in {
       zoom-us # I hate this
       xfce.thunar
       pamixer # move
+      jellyfin-media-player
     ];
   };
 }

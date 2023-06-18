@@ -13,7 +13,7 @@ in {
       device = {
         type = "laptop";
         cpu = "intel";
-        gpu = "intel";
+        gpu = null;
         monitors = ["eDP-1"];
         hasBluetooth = true;
         hasSound = true;
