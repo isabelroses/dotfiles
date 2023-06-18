@@ -7,7 +7,7 @@ imports.gi.versions.GnomeBluetooth = '3.0'
 imports.gi.versions.NM = '1.0'
 imports.gi.versions.GdkPixbuf = '2.0'
 
-export const { 
+export const {
   Gtk,
   Gio,
   GLib,

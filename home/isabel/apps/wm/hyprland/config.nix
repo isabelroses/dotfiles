@@ -17,7 +17,6 @@
     else "kitty";
 in {
   wayland.windowManager.hyprland.extraConfig = ''
-
     # █░█ ▄▀█ █▀█ █ ▄▀█ █▄▄ █░░ █▀▀ █▀
     # ▀▄▀ █▀█ █▀▄ █ █▀█ █▄█ █▄▄ ██▄ ▄█
     $teal      = 0xff94e2d5

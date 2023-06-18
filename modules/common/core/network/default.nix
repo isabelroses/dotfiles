@@ -16,10 +16,6 @@ with lib; {
   };
 
   networking = {
-    hostId = builtins.substring 0 8 (
-      builtins.hashString "md5" config.networking.hostName
-    );
-
     # dns
     nameservers = [
       # cloudflare, yuck
@@ -37,7 +33,6 @@ with lib; {
       dns = "systemd-resolved";
       unmanaged = ["docker0" "rndis0"];
       wifi = {
-        macAddress = "random";
         powersave = true;
       };
     };

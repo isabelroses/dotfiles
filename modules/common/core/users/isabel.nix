@@ -31,7 +31,7 @@
         "libvirtd"
         "cloudflared"
       ];
-    uid = 1001;
+    uid = 1000;
     shell = pkgs.fish;
     initialPassword = "changeme";
     #openssh.authorizedKeys.keys = keys;

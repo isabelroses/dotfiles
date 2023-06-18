@@ -31,22 +31,22 @@ in {
       wl-gammactl
       upower
       inotify-tools
+      blueberry
+      gnome.gnome-bluetooth
+      networkmanagerapplet
+      gjs
       gtk3
       pango
       cairo
       harfbuzz
       gdk-pixbuf
       glib
-      gjs
-      blueberry
-      gnome.gnome-bluetooth
-      networkmanagerapplet
     ];
 
     programs.eww = {
       enable = true;
       package = ewwPackage;
-      configDir = ./eww;
+      configDir = ./config;
     };
   };
 }
