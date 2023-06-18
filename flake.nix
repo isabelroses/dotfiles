@@ -1,121 +1,152 @@
 {
   description = "Flameing hot trash";
+  
+  outputs = {
+    self,
+    nixpkgs,
+    flake-parts,
+    ...
+  } @ inputs: flake-parts.lib.mkFlake {inherit inputs;} {
+    systems = [
+      "x86_64-linux"
+    ];
+
+    imports = [
+      {config._module.args._inputs = inputs // {inherit (inputs) self;};}
+    ];
+
+    flake = let
+      # extended nixpkgs lib, contains my custom functions
+      lib = import ./lib {inherit nixpkgs lib inputs;};
+    in {
+      # entry-point for nixos configurations
+      nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
+    };
+
+    perSystem = {
+      config,
+      inputs',
+      pkgs,
+      system,
+      ...
+    }: {
+      imports = [
+          {
+            _module.args.pkgs = import nixpkgs {
+              config.allowUnfree = true;
+              config.allowUnsupportedSystem = true;
+              inherit system;
+            };
+          }
+        ];
+
+        devShells.default = inputs'.devshell.legacyPackages.mkShell {
+          name = "nyx";
+          commands = (import ./lib/flake/devShell).shellCommands;
+          packages = with pkgs; [
+            nil # nix ls
+            alejandra # formatter
+            git # flakes require git, and so do I
+            glow # markdown viewer
+            statix # lints and suggestions
+            deadnix # clean up unused nix code
+          ];
+        };
+
+        # provide the formatter for nix fmt
+        formatter = pkgs.alejandra;
+
+        # packages
+        packages = {
+          # A copy of Hyprland with its nixpkgs overriden
+          # cannot trigger binary cache pulls, so I push it to my own
+          hyprland-cached = inputs'.hyprland.packages.default;
+        };
+      };
+    };
+
   inputs = {
+    # Nix helper
+    nh = {
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixpkgs.url = "nixpkgs/nixos-23.05";
-    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprpicker.url = "github:hyprwm/hyprpicker";
-    catppuccin-toolbox.url = "github:catppuccin/toolbox";
-    catppuccin.url = "github:Stonks3141/ctp-nix";
-    sops-nix.url = "github:Mic92/sops-nix";
-    home-manager = {
-      url = github:nix-community/home-manager;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    xdg-desktop-portal-hyprland = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lanzaboote.url = "github:nix-community/lanzaboote";
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
+
+    # Nix gaming packages
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Home Manager
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Rust overlay
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Nix Language server
+    nil = {
+      url = "github:oxalica/nil";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
+
+    catppuccin.url = "github:Stonks3141/ctp-nix";
+
+    # Hyprland packages
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    xdg-portal-hyprland = {
+      url = "github:hyprwm/xdg-desktop-portal-hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # secure-boot on nixos
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, home-manager, nixpkgs, nixpkgs-unstable, nixos-wsl, catppuccin, sops-nix, hyprland, hyprpicker, lanzaboote, ... } @ inputs:
-  let
-    system = import ./users/isabel/env.nix;
-    overlays = final: prev: {
-      unstable = import nixpkgs-unstable {
-        inherit (prev) system;
-        config.allowUnfree = true;
-      };
-    };
-    pkgs = import nixpkgs {
-      config = {
-        allowBroken = true;
-        allowUnfree = true;
-        tarball-ttl = 0;
-      };
-    };
-  in
-    {
-      nixosConfigurations = {
-        "hydra" = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/hydra
-            home-manager.nixosModules.home-manager
-            sops-nix.nixosModules.sops
-            catppuccin.nixosModules.catppuccin
-            hyprland.nixosModules.default
-            {
-              programs.hyprland.enable = true;
-              home-manager = { 
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  flakePath = "/home/${system.currentUser}/.setup";
-                  isNvidia = false;
-                  isLaptop = true;
-                  inherit system inputs;
-                };
-              };
-            }
-          ];
-          specialArgs = { inherit system inputs; };
-        };
-        "amatarasu" = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/amatarasu
-            home-manager.nixosModules.home-manager
-            lanzaboote.nixosModules.lanzaboote
-            sops-nix.nixosModules.sops
-            catppuccin.nixosModules.catppuccin
-            {
-              home-manager = { 
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  flakePath = "/home/${system.currentUser}/.setup";
-                  isNvidia = true;
-                  isLaptop = false;
-                  inherit system inputs;
-                };
-              };
-            }
-            # ({config, ...}: {
-            #     config = {
-            #       nixpkgs.overlays = [overlays];
-            #     };
-            #   })
-          ];
-          specialArgs = { inherit system inputs; };
-        };
-        "izanagi" = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/izanagi
-            inputs.nixos-wsl.nixosModules.wsl
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = { 
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                extraSpecialArgs = {
-                  flakePath = "/home/${system.currentUser}/.setup";
-                  inherit system inputs;
-                };
-              };
-            }
-          ];
-          specialArgs = { inherit system inputs; };
-        };
-      };
-    };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+      "https://helix.cachix.org"
+      "https://nix-gaming.cachix.org"
+      "https://hyprland.cachix.org"
+      "https://cache.privatevoid.net"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "cache.privatevoid.net:SErQ8bvNWANeAvtsOESUwVYr2VJynfuc9JRwlzTTkVg="
+    ];
+  };
 }
+
