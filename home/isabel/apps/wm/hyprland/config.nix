@@ -9,6 +9,8 @@
   cfg = osConfig.modules.programs.default;
   monitors = osConfig.modules.device.monitors;
 
+  keyboard = osConfig.modules.device.keyboard;
+
   fileManager = osConfig.modules.programs.default.fileManager;
 
   terminal =
@@ -50,7 +52,7 @@ in {
     # █ █▄░█ █▀█ █░█ ▀█▀
     # █ █░▀█ █▀▀ █▄█ ░█░
     input {
-      kb_layout = gb
+      kb_layout = ${keyboard}
       follow_mouse = 1
       sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
       touchpad {
