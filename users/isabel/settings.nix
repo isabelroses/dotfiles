@@ -1,5 +1,0 @@
-_: {
-  catppuccin ={
-    flavour = "mocha";
-  };
-}
