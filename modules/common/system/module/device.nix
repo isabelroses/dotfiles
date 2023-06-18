@@ -41,5 +41,10 @@ with lib; {
       default = true;
       description = "Whether the system has sound support (usually true except for servers)";
     };
+
+    keyboard = mkOption {
+      type = types.enum ["us" "gb"];
+      default = "gb";
+    };
   };
 }
