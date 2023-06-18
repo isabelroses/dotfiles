@@ -9,6 +9,8 @@ let
   system = import ../../users/isabel/env.nix;
 in {
   services = {
+    gvfs.enable = true; # Mount, trash, and other functionalities
+    tumbler.enable = true; # Thunar thumbnail support for images
 
     # disable close laptop lid to sleep
     logind.extraConfig = ''
