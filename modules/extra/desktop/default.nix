@@ -1,0 +1,9 @@
+{
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./system
+  ];
+}
