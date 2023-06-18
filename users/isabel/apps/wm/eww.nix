@@ -18,8 +18,8 @@ in {
     wl-gammactl
     upower
     inotify-tools
-    gtk3 pango cairo harfbuzz gdk-pixbuf
-    blueberry gnome.gnome-bluetooth 
+    gtk3 pango cairo harfbuzz gdk-pixbuf glib gjs
+    blueberry gnome.gnome-bluetooth
     networkmanagerapplet
   ];
 

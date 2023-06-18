@@ -23,7 +23,7 @@
       ln="ln -i";
       
       mkidr="mkdir -pv"; # always create pearent directory
-      alias df="df -h"; # human readblity
+      df="df -h"; # human readblity
       rs="sudo reboot";
       sysctl="sudo systemctl";
       doas="doas --";

@@ -1,7 +1,7 @@
 {
-    currentUser = "isabel";
-    git = {
-        userEmail = "isabel@isabelroses.com";
-        userName = "isabel";
-    };
+  currentUser = "isabel";
+  git = {
+    userEmail = "isabel@isabelroses.com";
+    userName = "isabel";
+  };
 }

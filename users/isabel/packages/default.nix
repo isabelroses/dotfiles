@@ -30,6 +30,7 @@
     tldr
     bluez
     brightnessctl
+    curl
     coreutils
     cloudflared
     cifs-utils
@@ -42,6 +43,7 @@
     age
     inputs.catppuccin-toolbox.packages.${pkgs.system}.catwalk
     auto-cpufreq
+    nixpkgs-fmt
     #extra
     zoom-us
     distrobox

@@ -23,6 +23,8 @@
       git
       killall
       wget
+      curl
+      openssl
       home-manager
       pipewire
       wireplumber

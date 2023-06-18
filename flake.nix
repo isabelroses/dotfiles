@@ -26,24 +26,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  nixConfig = {
-    substituters = [ 
-      "https://hyprland.cachix.org"
-      "https://nix-gaming.cachix.org"
-      "https://nix-community.cachix.org"
-    ];
-    trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
-  };
   outputs = { self, home-manager, nixpkgs, nixpkgs-unstable, nixos-wsl, catppuccin, sops-nix, hyprland, hyprpicker, lanzaboote, ... } @ inputs:
   let
     system = import ./users/isabel/env.nix;
     overlays = final: prev: {
       unstable = import nixpkgs-unstable {
-        system = prev.system;
+        inherit (prev) system;
         config.allowUnfree = true;
       };
     };
@@ -64,19 +52,9 @@
             home-manager.nixosModules.home-manager
             sops-nix.nixosModules.sops
             catppuccin.nixosModules.catppuccin
+            hyprland.nixosModules.default
             {
-              isabel = {
-                isNvidia = false;
-                isLaptop = true;
-                desktop = {
-                  enable = true;
-                  hyprland = {
-                    enable = true;
-                    isNvidia = false;
-                    isLaptop = true;
-                  };
-                };
-              };
+              programs.hyprland.enable = true;
               home-manager = { 
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -100,18 +78,6 @@
             sops-nix.nixosModules.sops
             catppuccin.nixosModules.catppuccin
             {
-              isabel = {
-                isNvidia = true;
-                isLaptop = false;
-                desktop = {
-                  enable = true;
-                  hyprland = {
-                    enable = true;
-                    isNvidia = true;
-                    isLaptop = false;
-                  };
-                };
-              };
               home-manager = { 
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -138,7 +104,6 @@
             inputs.nixos-wsl.nixosModules.wsl
             home-manager.nixosModules.home-manager
             {
-              isabel.desktop.enable = false;
               home-manager = { 
                 useGlobalPkgs = true;
                 useUserPackages = true;
@@ -153,6 +118,4 @@
         };
       };
     };
-
-  nixosModules.isabel = import ./modules/;
 }

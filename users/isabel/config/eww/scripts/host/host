@@ -1,4 +1,4 @@
-#!/usr/bin/gjs -m
+#!/nix/store/bb8g1s76fh9f8s257v7p8f1kqklljl5v-gjs-1.76.0/bin/gjs -m
 
 /* 
  * Copyright 2023 github@aylur

@@ -17,7 +17,10 @@ in {
   users.groups.cloudflared = { };
 
   programs.fish.enable = true;
-  xdg.portal.enable = true;
+  xdg.portal = {
+    enable = true;
+    #extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+  };
 
   home-manager.users.${system.currentUser} = {
     imports = [
