@@ -6,7 +6,7 @@ in {
   imports = [
       ../common
       ../common/settings.nix
-      ./common/ui.nix
+      ../common/ui.nix
       ../../users/isabel
 
       ./hardware-configuration.nix
