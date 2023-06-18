@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+function state {
+	STATE=$(auto-cpufreq --get-state) # auto-cpufreq --stats | awk -F "\"" '/governor/ {print $2}'
+	if [[ $STATE == 'powersave' ]]; then
+		echo 'powersaver'
+	elif [[ $STATE == 'default' ]]; then
+		echo 'balanced'
+	else
+		echo 'performance'
+	fi
+}
+
+function icon {
+	STATE=$(state)
+	if [[ $STATE == 'powersave' ]]; then echo '󰾆'; fi
+	if [[ $STATE == 'balanced' ]]; then echo '󰾅'; fi
+	if [[ $STATE == 'performance' ]]; then echo '󰓅'; fi
+}
+
+function toggle {
+	STATE=$(state)
+	if [[ $STATE == 'performance' ]]; then
+		#auto-cpufreq --config=/home/isabel/.local/share/auto-cpu-profiles/balanced.conf
+		auto-cpufreq --force=reset
+	elif [[ $STATE == 'balanced' ]]; then
+		#auto-cpufreq --config=/home/isabel/.local/share/auto-cpu-profiles/powersave.conf
+		auto-cpufreq --force=powersave
+	else
+		#auto-cpufreq --config=/home/isabel/.local/share/auto-cpu-profiles/performance.conf
+		auto-cpufreq --force=performance
+	fi
+
+	eww update power="$(get)"
+}
+
+function get {
+	echo "{
+        \"state\": \"$(state)\",
+        \"icon\": \"$(icon)\"
+}"
+}
+
+if [[ $1 == 'get' ]]; then get; fi
+if [[ $1 == 'toggle' ]]; then toggle; fi

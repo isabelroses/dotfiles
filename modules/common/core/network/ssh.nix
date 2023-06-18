@@ -3,14 +3,12 @@
   lib,
   ...
 }: {
-  programs.ssh.startAgent = !config.modules.device.yubikeySupport.enable;
-
   services.openssh = {
     enable = true;
     startWhenNeeded = true;
     settings = {
       PermitRootLogin = lib.mkForce "no";
-      PasswordAuthentication = false;
+      PasswordAuthentication = true;
       KbdInteractiveAuthentication = lib.mkDefault false;
       UseDns = false;
       X11Forwarding = false;

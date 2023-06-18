@@ -10,18 +10,21 @@ in {
   imports = [
     # external home-manager modules
     inputs.hyprland.homeManagerModules.default
+    inputs.catppuccin.homeManagerModules.catppuccin
 
     # home package sets
     ./packages
 
     # apps and services I use
-    ./graphical # graphical apps
+    ./apps # graphical apps
+    ./services # system services, organized by display protocol
 
-    
     # declarative system and program themes (qt/gtk)
     ./themes
   ];
   config = {
+    catppuccin.flavour = "mocha";
+
     # reload system units when changing configs
     systemd.user.startServices = mkDefault "sd-switch"; # or "legacy" if "sd-switch" breaks again
 

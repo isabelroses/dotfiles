@@ -21,7 +21,6 @@
   # catppuccin theme for qt-apps
   home.packages = with pkgs; [
     qt5.qttools
-    qt6Packages.qtstyleplugin-kvantum
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.qt5ct
     breeze-icons
@@ -40,13 +39,13 @@
   };
 
   xdg.configFile."Kvantum/catppuccin/catppuccin.kvconfig".source = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-sapphire/Catppuccin-Mocha-sapphire.kvconfig";
-    sha256 = "1f8xicnc5696g0a7wak749hf85ynfq16jyf4jjg4dad56y4csm6s";
+    url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Sapphire/Catppuccin-Mocha-Sapphire.kvconfig";
+    sha256 = "0n9f5hysr4k1sf9fd3sgd9fvqwrxrpcvj6vajqmb5c5ji8nv2w3c";
   };
 
   xdg.configFile."Kvantum/catppuccin/catppuccin.svg".source = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-sapphire/Catppuccin-Mocha-sapphire.svg";
-    sha256 = "0vys09k1jj8hv4ra4qvnrhwxhn48c2gxbxmagb3dyg7kywh49wvg";
+    url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Sapphire/Catppuccin-Mocha-Sapphire.svg";
+    sha256 = "1hq9h34178h0d288hgwb0ngqnixz24m9lk0ahc4dahwqn77fndwf";
   };
 
   /*

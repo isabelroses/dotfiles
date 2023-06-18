@@ -3,5 +3,6 @@ _: {
     ./cli
     ./gui
     ./system
+    ./wm
   ];
 }

@@ -1,12 +1,12 @@
 {
   pkgs,
-  config, 
+  config,
   ...
 }: {
   home.packages = with pkgs; [
     neovim-unwrapped
   ];
-  
+
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-unwrapped;

@@ -4,13 +4,17 @@
   lib,
   ...
 }: {
-  boot.initrd.network.ssh.authorizedKeys = keys;
-
+  users.groups.cloudflared = {};
   users.users.isabel = {
     isNormalUser = true;
     extraGroups =
       [
         "wheel"
+        "nix"
+      ]
+      ++ lib.ifTheyExist config [
+        "network"
+        "networkmanager"
         "systemd-journal"
         "audio"
         "video"
@@ -19,17 +23,13 @@
         "lp"
         "tss"
         "power"
-        "nix"
-      ]
-      ++ lib.ifTheyExist config [
-        "network"
-        "networkmanager"
         "wireshark"
         "mysql"
         "docker"
         "podman"
         "git"
         "libvirtd"
+        "cloudflared"
       ];
     uid = 1001;
     shell = pkgs.fish;

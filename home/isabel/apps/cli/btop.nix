@@ -3,8 +3,8 @@
   pkgs,
   ...
 }: {
-  home.packages = [ pkgs.btop ];
-  
+  home.packages = [pkgs.btop];
+
   xdg.configFile."btop/themes/catppuccin_mocha.theme".text = builtins.readFile (pkgs.fetchFromGitHub {
       owner = "catppuccin";
       repo = "btop";
@@ -12,7 +12,7 @@
       sha256 = "sha256-ovVtupO5jWUw6cwA3xEzRe1juUB8ykfarMRVTglx3mk=";
     }
     + "/catppuccin_mocha.theme");
-    
+
   programs.btop = {
     enable = true;
     settings = {

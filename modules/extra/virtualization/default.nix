@@ -23,7 +23,6 @@ in {
       ];
 
     virtualisation = mkIf (sys.enable) {
-      
       docker = mkIf (sys.docker.enable) {
         enable = true;
 
@@ -35,7 +34,6 @@ in {
           dates = "weekly";
         };
       };
-
     };
   };
 }
