@@ -51,7 +51,7 @@ in {
         useHomeManager = true;
       };
       programs = {
-        git.signingKey = "419DBDD3228990BE";
+        git.signingKey = "766F429C95354AA1";
 
         cli.enable = true;
         gui.enable = true;
