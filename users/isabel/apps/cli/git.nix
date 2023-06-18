@@ -5,7 +5,7 @@
   system,
   ...
 }: let
-  shouldUseSSH = true;
+  shouldUseSSH = false;
   ifSSH = c:
     if shouldUseSSH
     then c
