@@ -20,6 +20,7 @@ in {
       dconf
       nitch
       exa
+      git-lfs
     ];
   };
 }
