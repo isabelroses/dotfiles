@@ -12,6 +12,7 @@ in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     programs.kitty = {
       enable = true;
+      catppuccin.enable = true;
       settings = {
         # General
         background_opacity = "0.85";
