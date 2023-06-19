@@ -46,13 +46,13 @@ with lib; {
         };
 
         browser = mkOption {
-          type = types.enum ["firefox" "librewolf" "chromium"];
+          type = types.enum ["firefox" "chromium"];
           default = "chromium";
         };
 
         editor = mkOption {
-          type = types.enum ["neovim" "code"];
-          default = "neovim";
+          type = types.enum ["nvim" "code"];
+          default = "nvim";
         };
       };
     };

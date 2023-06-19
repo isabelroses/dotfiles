@@ -8,15 +8,7 @@
   pointer = config.home.pointerCursor;
   cfg = osConfig.modules.programs.default;
   monitors = osConfig.modules.device.monitors;
-
   keyboard = osConfig.modules.device.keyboard;
-
-  fileManager = osConfig.modules.programs.default.fileManager;
-
-  terminal =
-    if (cfg.terminal == "alacritty")
-    then "alacritty"
-    else "kitty";
 in {
   wayland.windowManager.hyprland.extraConfig = ''
     # █░█ ▄▀█ █▀█ █ ▄▀█ █▄▄ █░░ █▀▀ █▀
@@ -28,10 +20,6 @@ in {
     $surface1  = 0xff45475a
     $surface0  = 0xff313244
 
-    $term=alacritty
-    $browser=chromium
-    $file=thunar
-    $editor=code
     $notes=obsidian
     $layout=dwindle
     $mod=SUPER
@@ -164,12 +152,13 @@ in {
     # █▄▀ █▀▀ █▄█ █▄▄ █ █▄░█ █▀▄
     # █░█ ██▄ ░█░ █▄█ █ █░▀█ █▄▀
 
-    bind = $mod, B, exec, $browser
-    bind = $mod, E, exec, $file
-    bind = $mod, C, exec, $editor
-    bind = $mod, Return, exec, $term
+    bind = $mod, B, exec, ${cfg.browser}
+    bind = $mod, E, exec, ${cfg.fileManager}
+    bind = $mod, C, exec, ${cfg.editor}
+    bind = $mod, Return, exec, ${cfg.terminal}
     bind = $mod, O, exec, $notes
-    bind = $mod, D, exec, ~/.config/eww/scripts/launcher toggle_menu app_launcher
+    bind = $mod, D, exec, rofi -show drun
+    #bind = $mod, D, exec, ~/.config/eww/scripts/launcher toggle_menu app_launcher
     bind = $mod SHIFT, R, exec, ~/.config/eww/scripts/init
     #bind = $mod, period, exec, killall rofi || rofi -show emoji -emoji-format "{emoji}" -modi emoji
     bind = $mod, V, exec, ~/.config/eww/scripts/launcher clipboard
