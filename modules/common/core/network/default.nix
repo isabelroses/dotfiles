@@ -39,7 +39,7 @@ with lib; {
   };
 
   # slows down boot time
-  systemd.services.NetworkManager-wait-online.enable = false;
+  systemd.services.NetworkManager-wait-online.enable = true;
   # enable wireless database
   hardware.wirelessRegulatoryDatabase = true;
 }

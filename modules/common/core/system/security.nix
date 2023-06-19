@@ -142,7 +142,6 @@ in {
       "ksmbd"
       "nfsv4"
       "nfsv3"
-      "cifs"
       "nfs"
       "cramfs"
       "freevxfs"

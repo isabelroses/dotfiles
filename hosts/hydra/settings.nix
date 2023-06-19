@@ -44,6 +44,12 @@ in {
           podman.enable = false;
           distrobox.enable = true;
         };
+
+        smb = {
+          enable = true;
+          media.enable = true;
+          genral.enable = true;
+        };
       };
       usrEnv = {
         isWayland = true;
