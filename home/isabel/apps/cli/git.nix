@@ -11,7 +11,6 @@ in {
     gh-cal # github activity stats in the CLI
     gist # manage github gists
     act # local github actions
-    zsh-forgit # zsh plugin to load forgit via `git forgit`
     gitflow
   ];
 

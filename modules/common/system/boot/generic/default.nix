@@ -62,6 +62,7 @@ in {
             "xhci_pci"
             "ahci"
             "btrfs"
+            "cifs"
             "sd_mod"
             "dm_mod"
             "usb_storage"
@@ -74,7 +75,6 @@ in {
             "usbhid"
             "sd_mod"
             "dm_mod"
-            "tpm"
           ];
         })
       ];

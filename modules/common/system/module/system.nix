@@ -67,6 +67,13 @@ with lib; {
       distrobox = {enable = mkEnableOption "distrobox";};
     };
 
+    # should smb shares be enable
+    smb = {
+      enable = mkEnableOption "smb shares";
+      genral = {enable = mkEnableOption "genral share";};
+      media = {enable = mkEnableOption "media share";};
+    };
+
     # should we optimize tcp networking
     networking = {
       optimizeTcp = mkOption {
