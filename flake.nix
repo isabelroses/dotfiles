@@ -113,7 +113,7 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
 
-    catppuccin.url = "github:Stonks3141/ctp-nix";
+    catppuccin.url = "github:isabelroses/ctp-nix";
 
     # Hyprland packages
     hyprland = {
