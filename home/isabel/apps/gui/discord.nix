@@ -10,8 +10,7 @@ with lib; let
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     home.packages = with pkgs; [
-      ((discord-canary.override {
-          nss = pkgs.nss_latest;
+      ((discord.override {
           withOpenASAR = true;
         })
         .overrideAttrs (old: {
@@ -19,7 +18,7 @@ in {
           nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.makeWrapper];
 
           postFixup = ''
-            wrapProgram $out/opt/DiscordCanary/DiscordCanary --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland}}"
+            wrapProgram $out/opt/Discord/Discord --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland}}"
           '';
         }))
     ];
