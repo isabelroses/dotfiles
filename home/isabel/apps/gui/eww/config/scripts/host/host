@@ -1,7 +1,5 @@
 #!/usr/bin/env -S gjs -m
 
-
-
 import { programArgs, programInvocationName } from 'system'
 import { main } from './main.js'
 

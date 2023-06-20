@@ -28,7 +28,7 @@ in {
       jaq
       acpi
       wlsunset
-      wl-gammactl
+      #wl-gammactl
       upower
       inotify-tools
       blueberry
