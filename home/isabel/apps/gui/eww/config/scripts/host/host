@@ -1,12 +1,11 @@
 #!/usr/bin/env -S gjs -m
 
-//const { programArgs, programInvocationName } = imports.system;
-//const { main } = imports['./main.js'];
+
 
 import { programArgs, programInvocationName } from 'system'
 import { main } from './main.js'
 
-imports.searchPath.push('/run/current-system/sw/lib');
+'@typelibPath@'.split(':').forEach(path => imports.gi.GIRepository.Repository.prepend_search_path(path));
 
 imports.gi.versions.Gtk = '3.0'
 imports.gi.versions.Gio = '2.0'

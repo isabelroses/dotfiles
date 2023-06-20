@@ -5,7 +5,6 @@
 }: {
   environment = {
     systemPackages = with pkgs; [
-      gtk3
       # packages necessery for thunar thumbnails
       xfce.tumbler
       libgsf # odf files
