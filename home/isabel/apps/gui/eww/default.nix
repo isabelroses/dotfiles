@@ -34,8 +34,8 @@ in {
       blueberry
       gnome.gnome-bluetooth
       networkmanagerapplet
-      gjs
       gtk3
+      gjs
       pango
       cairo
       harfbuzz
