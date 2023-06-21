@@ -2,7 +2,7 @@ _: {
   imports = [
     ./confs
 
-    ./chromium.nix
-    ./discord.nix
+    ./shared.nix
+    ./wayland.nix
   ];
 }
