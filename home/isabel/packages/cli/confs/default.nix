@@ -1,7 +1,5 @@
-_: {
+_:{
   imports = [
-    ./shells
-
     ./bat.nix
     ./btop.nix
     ./fish.nix

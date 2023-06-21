@@ -25,7 +25,7 @@
 
   ## flake inputs ##
   hm = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
-  cat = inputs.catppuccin.nixosModules.catppuccin;
+  cat = inputs.catppuccin.nixosModules.catppuccin; # cattpuccin nixos module
 
   # a list of shared modules that ALL systems need
   shared = [

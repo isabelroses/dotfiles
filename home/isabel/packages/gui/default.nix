@@ -1,6 +1,8 @@
 _: {
   imports = [
-    ./shared.nix
-    ./wayland.nix
+    ./confs
+
+    ./chromium.nix
+    ./discord.nix
   ];
 }

@@ -15,9 +15,8 @@ in {
     # home package sets
     ./packages
 
-    # apps and services I use
-    ./apps # graphical apps
-    ./services # system services, organized by display protocol
+    # system services, organized by display protocol
+    ./services
 
     # declarative system and program themes (qt/gtk)
     ./themes

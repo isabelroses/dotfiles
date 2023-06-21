@@ -1,9 +1,9 @@
-_: {
+_:{
   imports = [
     ./editors
-    ./terminals
-    ./launchers
     ./eww
+    ./launchers
+    ./terminals
 
     ./chromium.nix
     ./discord.nix

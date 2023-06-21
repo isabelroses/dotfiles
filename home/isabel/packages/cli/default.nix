@@ -1,5 +1,8 @@
-{inputs, ...}: {
+_: {
   imports = [
+    ./shells
+    ./confs
+
     ./shared.nix
     ./desktop.nix
     ./wayland.nix
