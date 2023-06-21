@@ -1,8 +1,12 @@
 {
+  osConfig,
+  lib,
   pkgs,
   inputs,
+  self,
   ...
-}: let
+}:
+with lib; let
   programs = osConfig.modules.programs;
   device = osConfig.modules.device;
 
