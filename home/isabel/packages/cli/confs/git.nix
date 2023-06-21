@@ -2,8 +2,10 @@
   osConfig,
   config,
   pkgs,
+  lib,
   ...
-}: let
+}:
+with lib; let
   cfg = osConfig.modules.programs.git;
   programs = osConfig.modules.programs;
   device = osConfig.modules.device;
