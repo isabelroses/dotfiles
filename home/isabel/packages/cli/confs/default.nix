@@ -1,4 +1,4 @@
-_:{
+_: {
   imports = [
     ./bat.nix
     ./btop.nix

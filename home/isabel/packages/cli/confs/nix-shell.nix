@@ -2,8 +2,7 @@
   pkgs,
   inputs,
   ...
-}: 
-let
+}: let
   programs = osConfig.modules.programs;
   device = osConfig.modules.device;
 

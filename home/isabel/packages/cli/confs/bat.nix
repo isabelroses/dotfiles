@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   programs = osConfig.modules.programs;
   device = osConfig.modules.device;
 
