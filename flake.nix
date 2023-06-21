@@ -14,6 +14,8 @@
 
       imports = [
         {config._module.args._inputs = inputs // {inherit (inputs) self;};}
+
+        inputs.flake-parts.flakeModules.easyOverlay
       ];
 
       flake = let
@@ -67,15 +69,18 @@
     };
 
   inputs = {
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
     # Nix helper
     nh = {
       url = "github:viperML/nh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs.url = "nixpkgs/nixos-23.05";
-
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
