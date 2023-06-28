@@ -106,7 +106,8 @@ in {
           format = "[$symbol ](red)";
         };
         docker_context = {
-          format = "via [ $context](bold blue) ";
+          symbol = "";
+          format = "[$symbol ](blue)";
         };
         java = {
           symbol = "";
@@ -131,7 +132,7 @@ in {
           style = "bold green";
         };
         git_status = {
-          format = "[\($all_status$ahead_behind\)]($style) ";
+          format = "[($all_status$ahead_behind)]($style) ";
           style = "bold green";
           conflicted = "🏳";
           up_to_date = " ";
@@ -141,7 +142,7 @@ in {
           behind = "⇣$count";
           stashed = "󰏗 ";
           modified = " ";
-          staged = "[++\($count\)](green)";
+          staged = "[++($count)](green)";
           renamed = "󰖷 ";
           deleted = " ";
         };

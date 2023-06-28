@@ -24,6 +24,20 @@ with lib; {
       allowUnsupportedSystem = true;
       permittedInsecurePackages = [];
     };
+
+    overlays = with inputs; [
+      rust-overlay.overlays.default
+
+      (final: prev: {
+        nur = import nur {
+          nurpkgs = prev;
+          pkgs = prev;
+          repoOverrides = {
+            bella = inputs.bella-nur.packages.${prev.system};
+          };
+        };
+      })
+    ];
   };
 
   # faster rebuilding
@@ -66,9 +80,9 @@ with lib; {
       # automatically optimise symlinks
       auto-optimise-store = true;
       # allow sudo users to mark the following values as trusted
-      allowed-users = ["@wheel" "nix-builder"];
+      allowed-users = ["@wheel"];
       # only allow sudo users to manage the nix store
-      trusted-users = ["@wheel" "nix-builder"];
+      trusted-users = ["@wheel"];
       # let the system decide the number of max jobs
       max-jobs = "auto";
       # build inside sandboxed environments
@@ -101,9 +115,6 @@ with lib; {
       keep-derivations = true;
       keep-outputs = true;
 
-      # use binary cache, its not gentoo
-      # external builders can also pick up those substituters
-      builders-use-substitutes = true;
       # substituters to use
       substituters = [
         "https://cache.ngi0.nixos.org" # content addressed nix cache (TODO)
