@@ -4,9 +4,7 @@ _: {
       enable = true;
       hashKnownHosts = true;
       compression = true;
-      matchBlocks = let
-        commonIdFile = "~/.ssh/keys/id_ed25519";
-      in {
+      matchBlocks = {
         "aur.archlinux.org" = {
           user = "aur";
           hostname = "aur.archlinux.org";
