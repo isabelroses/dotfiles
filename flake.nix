@@ -104,7 +104,11 @@
     catppuccin.url = "github:isabelroses/ctp-nix";
 
     # Secrets
-    sops-nix.url = "github:Mic92/sops-nix";
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+    };
 
     # Hyprland packages
     hyprland = {

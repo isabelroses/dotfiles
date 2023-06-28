@@ -11,6 +11,7 @@ in {
     # external home-manager modules
     inputs.hyprland.homeManagerModules.default
     inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.sops.homeManagerModules.sops
     #inputs.bella-nur.homeManagerModules.default
 
     # home package sets

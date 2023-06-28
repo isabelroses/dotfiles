@@ -1,16 +1,15 @@
 {
   pkgs,
   lib,
-  config,
+  osConfig,
   inputs,
   ...
 }:
 with lib; let
-  cfg = config.modules.programs.nvim;
+  cfg = osConfig.modules.programs.default;
 in {
-  options.modules.programs.nvim = {enable = mkEnableOption "nvim";};
-
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.editor == "nvim") {
+    xdg.configFile."nvim".source = ./config;
     programs.neovim = {
       enable = true;
       package = pkgs.neovim-unwrapped;
@@ -58,7 +57,8 @@ in {
         nvim-colorizer-lua
         nvim-ts-rainbow
         gitsigns-nvim
-        neo-tree-nvim
+        #neo-tree-nvim
+        nvim-tree-lua
         toggleterm-nvim
         todo-comments-nvim
         (nvim-treesitter.withPlugins (plugins:

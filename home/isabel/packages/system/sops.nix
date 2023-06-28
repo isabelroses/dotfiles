@@ -1,12 +1,15 @@
 {config, ...}: {
   sops = {
     gnupg.home = config.programs.gpg.homedir;
-    defaultSopsFile = ../../../../secrets/secrets.yaml;
+    defaultSopsFile = ./secrets.yaml;
     secrets = {
-      "gh-key" = {
+      git-credentials = {
+        path = "${config.home.homeDirectory}/.git-credentials"
+      };
+      gh-key = {
         path = "${config.home.homeDirectory}/.ssh/keys/github/gh";
       };
-      "gh-key-pub" = {
+      gh-key-pub = {
         path = "${config.home.homeDirectory}/.ssh/keys/github/gh.pub";
       };
     };
