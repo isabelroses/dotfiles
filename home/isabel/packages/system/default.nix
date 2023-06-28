@@ -1,9 +1,8 @@
 _: {
   imports = [
-    #seveices
     ./gpg.nix
     ./ssh.nix
-
+    ./sops.nix
     ./xdg.nix
   ];
 }
