@@ -16,6 +16,10 @@ with lib; {
   };
 
   networking = {
+    # use dhcpd
+    useDHCP = false;
+    useNetworkd = true;
+
     # dns
     nameservers = [
       # cloudflare, yuck

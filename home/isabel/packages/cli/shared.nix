@@ -20,6 +20,7 @@ in {
       dconf
       nitch
       exa
+      nur.repos.bella.bellado
     ];
   };
 }

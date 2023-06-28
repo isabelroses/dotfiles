@@ -43,19 +43,6 @@
           }
         ];
 
-        devShells.default = inputs'.devshell.legacyPackages.mkShell {
-          name = "nyx";
-          commands = (import ./lib/flake/devShell).shellCommands;
-          packages = with pkgs; [
-            nil # nix ls
-            alejandra # formatter
-            git # flakes require git, and so do I
-            glow # markdown viewer
-            statix # lints and suggestions
-            deadnix # clean up unused nix code
-          ];
-        };
-
         # provide the formatter for nix fmt
         formatter = pkgs.alejandra;
 
@@ -94,11 +81,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    devshell = {
-      url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Home Manager
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -118,7 +100,11 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
 
+    # Amazing themeing
     catppuccin.url = "github:isabelroses/ctp-nix";
+
+    # Secrets
+    sops-nix.url = "github:Mic92/sops-nix";
 
     # Hyprland packages
     hyprland = {
@@ -141,6 +127,18 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # nushell scripts
+    nu_scripts = {
+      type = "git";
+      url = "https://github.com/nushell/nu_scripts";
+      submodules = true;
+      flake = false;
+    };
+
+    # nur's
+    nur.url = "github:nix-community/nur";
+    bella-nur.url = "github:isabelroses/nur";
   };
 
   nixConfig = {

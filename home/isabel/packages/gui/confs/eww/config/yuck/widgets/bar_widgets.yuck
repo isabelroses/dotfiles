@@ -2,7 +2,7 @@
     (button
       :class "button launcher"
       :onclick "${EWW_CONFIG_DIR}/scripts/launcher toggle_menu app_launcher"
-      (label :class "icon" :text "" :halign "center")
+      (label :class "icon" :text "" :halign "center")
     )
   ))
 

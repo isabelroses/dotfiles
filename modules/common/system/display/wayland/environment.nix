@@ -9,11 +9,6 @@ with lib; let
   env = config.modules.usrEnv;
 in {
   config = mkIf (sys.enable && env.isWayland) {
-    environment.etc."greetd/environments".text = ''
-      ${lib.optionalString (env.desktop == "Hyprland") "Hyprland"}
-      zsh
-    '';
-
     environment = {
       # Experimental wayland-native wine
       # https://nixos.wiki/wiki/Wine

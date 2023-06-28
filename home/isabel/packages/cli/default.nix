@@ -1,6 +1,5 @@
 _: {
   imports = [
-    ./shells
     ./confs
 
     ./shared.nix

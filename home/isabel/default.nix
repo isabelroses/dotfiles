@@ -11,6 +11,7 @@ in {
     # external home-manager modules
     inputs.hyprland.homeManagerModules.default
     inputs.catppuccin.homeManagerModules.catppuccin
+    #inputs.bella-nur.homeManagerModules.default
 
     # home package sets
     ./packages
@@ -20,6 +21,9 @@ in {
 
     # declarative system and program themes (qt/gtk)
     ./themes
+
+    # dev shells
+    ./shells
   ];
   config = {
     catppuccin.flavour = "mocha";

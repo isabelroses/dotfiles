@@ -50,24 +50,5 @@ in
           inherit modules system;
           specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
         };
-
-      # mkIso is should be a set that extends mkSystem with necessary modules
-      # to create an iso image
-
-      mkNixosIso = {
-        modules,
-        system,
-        ...
-      } @ args:
-        mkSystem {
-          inherit system;
-          specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
-          modules =
-            [
-              "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
-              "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-            ]
-            ++ args.modules or [];
-        };
     }
   )

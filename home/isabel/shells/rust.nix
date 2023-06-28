@@ -3,8 +3,10 @@
   extras ? "",
 }:
 pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
+  buildInputs = with pkgs; [
     rustc
+    rustfmt
+    rust-analyzer
     cargo
     extras
   ];

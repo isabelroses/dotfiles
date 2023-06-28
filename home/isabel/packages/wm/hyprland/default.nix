@@ -21,6 +21,7 @@ in {
       grim
       hyprpicker
       hyprland-share-picker
+      nur.repos.bella.catppuccin-hyprland
     ];
     wayland.windowManager.hyprland = {
       enable = true;
