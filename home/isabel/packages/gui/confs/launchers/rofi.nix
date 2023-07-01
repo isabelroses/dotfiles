@@ -3,16 +3,14 @@
   lib,
   pkgs,
   osConfig,
-  self,
   ...
 }:
 with lib; let
   device = osConfig.modules.device;
-  env = osConfig.modules.usrEnv;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 
   rofiPackage =
-    if env.isWayland
+    if osConfig.modules.usrEnv.isWayland
     then pkgs.rofi-wayland
     else pkgs.rofi;
 in {

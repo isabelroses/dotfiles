@@ -2,8 +2,6 @@
   osConfig,
   lib,
   pkgs,
-  inputs,
-  self,
   ...
 }:
 with lib; let
@@ -18,6 +16,7 @@ in {
         alejandra
         deadnix
         nix-index
+        nix-tree
         statix
       ];
 

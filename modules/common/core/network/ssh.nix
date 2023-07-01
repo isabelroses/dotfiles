@@ -1,8 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}: {
+{lib, ...}: {
   services.openssh = {
     enable = true;
     startWhenNeeded = true;

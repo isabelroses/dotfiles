@@ -10,7 +10,7 @@ in {
   config = mkIf (env.isWayland) {
     home.packages = with pkgs; [
       swappy
-      swaynotificationcenter
+      #swaynotificationcenter
     ];
   };
 }

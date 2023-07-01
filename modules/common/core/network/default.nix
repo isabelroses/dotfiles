@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib; {
   imports = [
     ./ssh.nix

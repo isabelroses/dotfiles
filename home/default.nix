@@ -2,7 +2,8 @@
   config,
   inputs,
   self,
-  profiles,
+  inputs',
+  self',
   ...
 }: let
   user =
@@ -14,7 +15,7 @@ in {
     useUserPackages = true;
     useGlobalPkgs = true;
     extraSpecialArgs = {
-      inherit inputs self profiles;
+      inherit inputs self inputs' self';
     };
     users = {
       # home directory for the user

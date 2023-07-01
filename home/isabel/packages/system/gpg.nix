@@ -1,11 +1,8 @@
 {
-  osConfig,
   config,
   lib,
   ...
-}: let
-  sys = osConfig.modules.system;
-in {
+}: {
   services = {
     gpg-agent = {
       enable = true;

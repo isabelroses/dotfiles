@@ -1,10 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
-  home.packages = with pkgs; [alacritty];
+_: {
   programs.alacritty = {
     enable = true;
     catppuccin.enable = true;

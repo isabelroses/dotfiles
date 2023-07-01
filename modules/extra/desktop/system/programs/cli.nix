@@ -1,12 +1,8 @@
 {
   config,
-  pkgs,
-  lib,
   inputs,
   ...
-}: let
-  env = config.modules.usrEnv;
-in {
+}: {
   imports = [
     inputs.nh.nixosModules.default
   ];

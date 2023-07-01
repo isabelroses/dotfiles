@@ -14,7 +14,7 @@ in {
     home.packages = with pkgs; [
       bitwarden
       obsidian
-      zoom-us # I hate this
+      #zoom-us # I hate this
       xfce.thunar
       pamixer # move
       jellyfin-media-player

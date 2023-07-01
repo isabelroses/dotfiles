@@ -1,6 +1,7 @@
 {
   self,
   lib,
+  withSystem,
   ...
 }: let
   inputs = self.inputs;
@@ -39,6 +40,7 @@
 in {
   # fuck nvidia - Linus "the linux" Torvalds
   amatarasu = lib.mkNixosSystem {
+    inherit withSystem;
     system = "x86_64-linux";
     modules =
       [
@@ -48,11 +50,11 @@ in {
         virtualization
       ]
       ++ lib.concatLists [shared homes];
-    # specialArgs = {inherit inputs self lib profiles;};
     specialArgs = sharedArgs;
   };
 
-  hydra = lib.mkSystem {
+  hydra = lib.mkNixosSystem {
+    inherit withSystem;
     system = "x86_64-linux";
     modules =
       [
@@ -62,6 +64,6 @@ in {
         virtualization
       ]
       ++ lib.concatLists [shared homes];
-    specialArgs = {inherit inputs self lib;};
+    specialArgs = sharedArgs;
   };
 }

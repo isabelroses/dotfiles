@@ -17,7 +17,6 @@
   - [hydra](../hosts/hydra/) A super mid spec latop
   - [amatarasu](../hosts/amatarasu/) My high end gameing machine
 - :electric_plug: [modules](../modules/)
-- :lock: [secrets](secrets)
 
 <details>
 <summary> Hyprland Shortcuts </summary>

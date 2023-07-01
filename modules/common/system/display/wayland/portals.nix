@@ -2,7 +2,7 @@
   config,
   lib,
   pkgs,
-  inputs,
+  inputs',
   ...
 }: let
   cfg = config.modules.system.video;
@@ -14,9 +14,9 @@ in {
       enable = true;
 
       extraPortals = with pkgs;
-      with inputs; [
+      with inputs'; [
         xdg-desktop-portal-gtk
-        xdg-portal-hyprland.packages.${pkgs.system}.default
+        xdg-portal-hyprland.packages.default
       ];
       # xdg-desktop-wlr (this section) is no longer needed, xdg-desktop-portal-hyprland
       # will (and should) override this one, set to false or remove this section

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   environment = {
     systemPackages = with pkgs; [
       # packages necessery for thunar thumbnails
