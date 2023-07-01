@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   xdg.configFile."kdeglobals".source = "${(pkgs.catppuccin-kde.override {
     flavour = ["mocha"];
     accents = ["sapphire"];

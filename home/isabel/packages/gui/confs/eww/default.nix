@@ -3,7 +3,6 @@
   lib,
   pkgs,
   osConfig,
-  self,
   ...
 }:
 with lib; let
@@ -15,11 +14,6 @@ with lib; let
   device = osConfig.modules.device;
   env = osConfig.modules.usrEnv;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
-  mkService = lib.recursiveUpdate {
-    Unit.PartOf = ["graphical-session.target"];
-    Unit.After = ["graphical-session.target"];
-    Install.WantedBy = ["graphical-session.target"];
-  };
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     home.packages = with pkgs; [

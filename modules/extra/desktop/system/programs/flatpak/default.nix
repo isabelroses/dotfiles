@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+_: {
   # enable flatpak, as well as xdgp to communicate with the host filesystems
   services.flatpak.enable = false;
 

@@ -2,8 +2,6 @@
   osConfig,
   lib,
   pkgs,
-  inputs,
-  self,
   ...
 }:
 with lib; let

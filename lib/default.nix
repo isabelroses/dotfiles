@@ -44,11 +44,17 @@ in
       mkNixosSystem = {
         modules,
         system,
+        withSystem,
         ...
       } @ args:
-        mkSystem {
-          inherit modules system;
-          specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
-        };
+        withSystem system ({
+          inputs',
+          self',
+          ...
+        }:
+          mkSystem {
+            inherit modules system;
+            specialArgs = {inherit inputs lib self inputs' self';} // args.specialArgs or {};
+          });
     }
   )

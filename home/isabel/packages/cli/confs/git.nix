@@ -14,7 +14,6 @@ with lib; let
 in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.cli.enable)) {
     home.packages = with pkgs; [
-      gh-cal # github activity stats in the CLI
       gist # manage github gists
       act # local github actions
       gitflow
@@ -25,7 +24,11 @@ in {
       gh = {
         enable = true;
         enableGitCredentialHelper = false;
-        extensions = [];
+        extensions = with pkgs; [
+          gh-cal # github activity stats in the CLI
+          gh-dash # dashboard with pull requests and issues
+          gh-eco # explore the ecosystem
+        ];
         settings = {
           git_protocol = "ssh";
           prompt = "enabled";

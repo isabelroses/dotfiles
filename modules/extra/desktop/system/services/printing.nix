@@ -5,7 +5,6 @@
   ...
 }:
 with lib; let
-  device = config.modules.device;
   sys = config.modules.system;
 in {
   config = mkIf (sys.printing.enable) {

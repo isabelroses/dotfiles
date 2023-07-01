@@ -1,8 +1,6 @@
 {
   config,
-  pkgs,
   osConfig,
-  lib,
   ...
 }: let
   pointer = config.home.pointerCursor;
@@ -31,7 +29,6 @@ in {
     # exec-once = wlsunset -S 9:00 -s 19:30
     exec-once = ~/.config/eww/scripts/init
     exec-once = hyprctl setcursor ${pointer.name} ${toString pointer.size}
-
 
     # █▀▄▀█ █▀█ █▄░█ █ ▀█▀ █▀█ █▀█
     # █░▀░█ █▄█ █░▀█ █ ░█░ █▄█ █▀▄
@@ -99,13 +96,13 @@ in {
       blur_size = 2
       blur_new_optimizations = true
       blurls = "eww_powermenu"
-     blurls = "eww_takeshot"
+      blurls = "eww_takeshot"
 
       # █▀ █░█ ▄▀█ █▀▄ █▀█ █░█░█
       # ▄█ █▀█ █▀█ █▄▀ █▄█ ▀▄▀▄▀
       drop_shadow = true
-     col.shadow=$surface1
-     col.shadow_inactive=$surface1
+      col.shadow=$surface1
+      col.shadow_inactive=$surface1
     }
 
     # ▄▀█ █▄░█ █ █▀▄▀█ ▄▀█ ▀█▀ █ █▀█ █▄░█

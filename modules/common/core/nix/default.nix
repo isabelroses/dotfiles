@@ -3,7 +3,7 @@
   pkgs,
   lib,
   inputs,
-  self,
+  inputs',
   ...
 }:
 with lib; {
@@ -33,7 +33,7 @@ with lib; {
           nurpkgs = prev;
           pkgs = prev;
           repoOverrides = {
-            bella = inputs.bella-nur.packages.${prev.system};
+            bella = inputs'.bella-nur.packages;
           };
         };
       })
@@ -42,15 +42,16 @@ with lib; {
 
   # faster rebuilding
   documentation = {
-    enable = true;
     doc.enable = false;
-    man.enable = true;
-    dev.enable = false;
+    nixos.enable = false;
+    info.enable = false;
+    man = {
+      enable = lib.mkDefault true;
+      generateCaches = lib.mkDefault true;
+    };
   };
 
-  nix = let
-    mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
-  in {
+  nix = {
     # Make builds run with low priority so my system stays responsive
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";

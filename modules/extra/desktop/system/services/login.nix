@@ -3,11 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  env = config.modules.usrEnv;
-  sys = config.modules.system;
-in {
+}: {
   config = {
     # unlock GPG keyring on login
     security.pam.services.login = {

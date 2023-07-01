@@ -1,9 +1,6 @@
 {
   osConfig,
   lib,
-  pkgs,
-  inputs,
-  self,
   ...
 }:
 with lib; let
@@ -13,7 +10,6 @@ with lib; let
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.cli.enable)) {
-    home.packages = [pkgs.starship];
     programs.starship = {
       enable = true;
       catppuccin.enable = true;

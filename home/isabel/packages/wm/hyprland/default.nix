@@ -1,15 +1,13 @@
 {
   pkgs,
   lib,
-  config,
-  inputs,
-  self,
   osConfig,
+  inputs',
   ...
 }:
 with lib; let
-  hyprpicker = inputs.hyprpicker.packages.${pkgs.system}.default;
-  hyprland-share-picker = inputs.xdg-portal-hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
+  hyprpicker = inputs'.hyprpicker.packages.default;
+  hyprland-share-picker = inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland;
 
   env = osConfig.modules.usrEnv;
   device = osConfig.modules.device;
@@ -26,7 +24,7 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       systemdIntegration = true;
-      package = inputs.hyprland.packages.${pkgs.system}.default.override {
+      package = inputs'.hyprland.packages.default.override {
         nvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
       };
     };

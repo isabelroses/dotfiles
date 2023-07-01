@@ -1,12 +1,9 @@
 {
   lib,
   pkgs,
-  config,
   ...
 }: let
-  inherit (lib) mkIf mkOption mkEnableOption types;
-  inherit (builtins) toString;
-  cfg = config.profiles.style;
+  inherit (lib) mkOption mkEnableOption types;
 in {
   options = {
     profiles = {

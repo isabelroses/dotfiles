@@ -7,7 +7,7 @@
     flake-parts,
     ...
   } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+    flake-parts.lib.mkFlake {inherit inputs;} ({withSystem, ...}: {
       systems = [
         "x86_64-linux"
       ];
@@ -16,6 +16,8 @@
         {config._module.args._inputs = inputs // {inherit (inputs) self;};}
 
         inputs.flake-parts.flakeModules.easyOverlay
+
+        ./lib/args.nix # args that is passsed to the flake, moved away from the main file
       ];
 
       flake = let
@@ -23,37 +25,22 @@
         lib = import ./lib {inherit nixpkgs lib inputs;};
       in {
         # entry-point for nixos configurations
-        nixosConfigurations = import ./hosts {inherit nixpkgs self lib;};
+        nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
       };
 
       perSystem = {
         config,
-        inputs',
+        #inputs',
         pkgs,
-        system,
+        #system,
         ...
       }: {
-        imports = [
-          {
-            _module.args.pkgs = import nixpkgs {
-              config.allowUnfree = true;
-              config.allowUnsupportedSystem = true;
-              inherit system;
-            };
-          }
-        ];
+        imports = [{_module.args.pkgs = config.legacyPackages;}];
 
         # provide the formatter for nix fmt
         formatter = pkgs.alejandra;
-
-        # packages
-        packages = {
-          # A copy of Hyprland with its nixpkgs overriden
-          # cannot trigger binary cache pulls, so I push it to my own
-          hyprland-cached = inputs'.hyprland.packages.default;
-        };
       };
-    };
+    });
 
   inputs = {
     flake-parts = {
