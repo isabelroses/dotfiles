@@ -7,5 +7,6 @@ _: {
 
     ./chromium.nix
     ./discord.nix
+    ./zathura.nix
   ];
 }

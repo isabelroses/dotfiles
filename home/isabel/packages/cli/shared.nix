@@ -7,7 +7,7 @@
 with lib; let
   programs = osConfig.modules.programs;
 in {
-  config = (mkIf programs.cli.enable) {
+  config = mkIf (programs.cli.enable) {
     home.packages = with pkgs; [
       # CLI packages from nixpkgs
       unzip

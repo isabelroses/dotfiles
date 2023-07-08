@@ -7,12 +7,11 @@
 }:
 with lib; let
   cfg = osConfig.modules.programs.git;
-  programs = osConfig.modules.programs;
   device = osConfig.modules.device;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.cli.enable)) {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     home.packages = with pkgs; [
       gist # manage github gists
       act # local github actions

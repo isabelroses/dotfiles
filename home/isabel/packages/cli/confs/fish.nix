@@ -1,4 +1,4 @@
-_: {
+{osConfig, ...}: {
   programs.fish = {
     enable = true;
     catppuccin.enable = true;
@@ -28,7 +28,12 @@ _: {
       doas = "doas --";
       jctl = "journalctl -p 3 -xb"; # get error messages from journalctl
       lg = "lazygit";
+
+      # nix stuff
       ssp = "~/shells/spawnshell.sh";
+      rebuild = "nixos-rebuild switch --flake ${osConfig.modules.system.flakePath}#$1";
+      nixclean = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
+      nixrepair = "nix-store --verify --check-contents --repair";
     };
     shellInit = ''
       starship init fish | source

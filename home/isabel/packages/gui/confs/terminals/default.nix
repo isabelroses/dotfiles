@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./alacritty
-    ./kitty
+    ./alacritty.nix
+    ./kitty.nix
   ];
 }

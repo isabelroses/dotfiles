@@ -9,8 +9,9 @@ with lib; let
 
   device = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
+  sys = osConfig.modules.system;
 in {
-  config = mkIf ((programs.gui.enable) && (builtins.elem device.type acceptedTypes)) {
+  config = mkIf ((programs.gui.enable && sys.video.enable) && (builtins.elem device.type acceptedTypes)) {
     home.packages = with pkgs; [
       bitwarden
       obsidian
@@ -18,6 +19,7 @@ in {
       xfce.thunar
       pamixer # move
       jellyfin-media-player
+      mangal # tui manga finder + reader
     ];
   };
 }
