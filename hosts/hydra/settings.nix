@@ -9,7 +9,7 @@ in {
   config = {
     modules = {
       device = {
-        type = "laptop";
+        type = "hybrid";
         cpu = "intel";
         gpu = null;
         monitors = ["eDP-1"];
@@ -18,6 +18,8 @@ in {
       };
       system = {
         username = "isabel";
+
+        hostname = "hydra";
 
         boot = {
           loader = "systemd-boot";
@@ -54,6 +56,7 @@ in {
         desktop = "Hyprland";
         useHomeManager = true;
       };
+      
       programs = {
         git.signingKey = "766F429C95354AA1";
 
