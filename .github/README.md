@@ -39,6 +39,6 @@
 ## credits
 
 - [numtide/srvos](https://github.com/numtide/srvos)
-- [nullishamy](github.com/nullishamy/derivation-station/)
+- [nullishamy](https://github.com/nullishamy/derivation-station/)
 - [nekowinston](https://github.com/nekowinston/dotfiles)
 

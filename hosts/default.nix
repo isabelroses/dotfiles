@@ -19,9 +19,6 @@
   desktop = extraModules + /desktop; # for devices that are for daily use
   virtualization = extraModules + /virtualization; # hotpluggable virtalization module
 
-  # profiles
-  profiles = ../modules + /profiles;
-
   ## home-manager ##
   home = ../home; # home-manager configurations for hosts that need home-manager
   homes = [hm home]; # combine hm flake input and the home module to be imported together
@@ -34,7 +31,6 @@
   shared = [
     system # the skeleton module for config.modules.*
     core # the "sane" default shared across systems
-    profiles # a profiles module to provide configuration sets per demand
     options
     cat
   ];
