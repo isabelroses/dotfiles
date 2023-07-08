@@ -14,7 +14,7 @@ in {
       VISUAL = "nvim";
       SYSTEMD_PAGERSECURE = "true";
       PAGER = "less -FR";
-      FLAKE = "/home/isabel/.setup";
+      FLAKE = "${config.modules.system.flakePath}";
     };
 
     # packages I want pre-installed on all systems
