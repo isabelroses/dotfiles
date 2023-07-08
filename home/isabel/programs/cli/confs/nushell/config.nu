@@ -217,10 +217,10 @@ let-env PROMPT_INDICATOR_VI_NORMAL = "N "
 
 # Aliases
 # ls to exa
-alias ls = exa -al --color=always --icons --group-directories-first
-alias la = exa -a --color=always --icons --group-directories-firt
-alias ll = exa -abghHliS --icons --group-directories-first
-alias lt = exa -aT --color=always --icons --group-directories-first
+#alias ls = exa -al --color=always --icons --group-directories-first
+#alias la = exa -a --color=always --icons --group-directories-firt
+#alias ll = exa -abghHliS --icons --group-directories-first
+#alias lt = exa -aT --color=always --icons --group-directories-first
 
 alias df = df -h # human readblity
 alias rs = sudo reboot
@@ -229,7 +229,6 @@ alias doas = doas --
 alias jctl = journalctl -p 3 -xb # get error messages from journalctl
 alias lg = lazygit
 alias ssp = ~/shells/spawnshell.sh
-
 
 use "~/.config/nushell/scripts/custom-completions/nix/nix-completions.nu" *
 use "~/.config/nushell/scripts/custom-completions/git/git-completions.nu" *

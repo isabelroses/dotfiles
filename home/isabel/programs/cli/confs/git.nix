@@ -51,6 +51,10 @@ in {
           signByDefault = true;
         };
         ignores = [
+          "*.bak"
+          "*.swp"
+          "*.swo"
+          "target/"
           ".cache/"
           ".idea/"
           "*.swp"

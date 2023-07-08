@@ -72,6 +72,7 @@ with lib; {
       podman = {enable = mkEnableOption "podman";};
       qemu = {enable = mkEnableOption "qemu";};
       distrobox = {enable = mkEnableOption "distrobox";};
+      waydroid = {enable = mkEnableOption "waydroid";};
     };
 
     # should smb shares be enable
