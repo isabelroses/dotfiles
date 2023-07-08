@@ -56,7 +56,6 @@ in {
         desktop = "Hyprland";
         useHomeManager = true;
       };
-      
       programs = {
         git.signingKey = "766F429C95354AA1";
 
