@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
   sys = config.modules.system.networking;
+  inherit (lib) mkIf;
 in {
   config = mkIf (sys.optimizeTcp) {
     boot = {
