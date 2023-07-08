@@ -68,6 +68,10 @@ in {
       extraConfig = ''
         # rollback results in sudo lectures after each reboot
         Defaults lecture = never
+        Defaults pwfeedback
+        Defaults env_keep += "EDITOR PATH"
+        Defaults timestamp_timeout = 300
+        Defaults passprompt="[31m sudo: password for %p@%h, running as %U:[0m "
       '';
     };
 
