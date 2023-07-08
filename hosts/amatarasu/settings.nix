@@ -20,6 +20,8 @@ in {
       system = {
         username = "isabel";
 
+        hostname = "amatarasu";
+
         boot = {
           loader = "systemd-boot";
           enableKernelTweaks = true;
