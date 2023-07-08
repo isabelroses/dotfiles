@@ -10,7 +10,7 @@
 </div>
 
 
-## config layout
+### config layout
 
 - :house_with_garden: [home](../home)
 - :computer: [hosts](../hosts/)
@@ -36,7 +36,7 @@
 
 </details>
 
-## credits
+### credits
 
 - [numtide/srvos](https://github.com/numtide/srvos)
 - [nullishamy](https://github.com/nullishamy/derivation-station/)
