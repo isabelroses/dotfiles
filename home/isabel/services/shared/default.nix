@@ -1,6 +1,6 @@
 _: {
   imports = [
     ./polkit
-    ./tray
+    ./tray.nix
   ];
 }
