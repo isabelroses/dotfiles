@@ -14,7 +14,7 @@
 
 - :house_with_garden: [home](../home)
 - :computer: [hosts](../hosts/)
-  - [hydra](../hosts/hydra/) A super mid spec latop
+  - [hydra](../hosts/hydra/) A super mid spec laptop
   - [amatarasu](../hosts/amatarasu/) My high end gameing machine
 - :electric_plug: [modules](../modules/)
 
@@ -35,4 +35,10 @@
 | <kbd>SUPER+SHIFT+[number]</kbd> | move to workspace [number] |
 
 </details>
+
+## credits
+
+- [numtide/srvos](https://github.com/numtide/srvos)
+- [nullishamy](github.com/nullishamy/derivation-station/)
+- [nekowinston](https://github.com/nekowinston/dotfiles)
 
