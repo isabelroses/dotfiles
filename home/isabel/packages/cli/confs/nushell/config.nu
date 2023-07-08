@@ -222,12 +222,6 @@ alias la = exa -a --color=always --icons --group-directories-firt
 alias ll = exa -abghHliS --icons --group-directories-first
 alias lt = exa -aT --color=always --icons --group-directories-first
 
-# confirm
-alias cp = cp -i
-alias mv = mv -i
-alias rm = rm -i
-alias ln = ln -i
-
 alias df = df -h # human readblity
 alias rs = sudo reboot
 alias sysctl = sudo systemctl
