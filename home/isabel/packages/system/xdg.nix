@@ -1,5 +1,6 @@
 {config, ...}: let
   browser = ["chromium.desktop"];
+  zathura = ["org.pwmt.zathura.desktop.desktop"];
   filemanager = ["thunar.desktop"];
 
   associations = {
@@ -20,10 +21,9 @@
     "video/*" = ["mpv.dekstop"];
     "image/*" = ["imv.desktop"];
     "application/json" = browser;
-    "application/pdf" = browser;
-    "x-scheme-handler/tg" = ["telegramdesktop.desktop"];
+    "application/pdf" = zathura;
     "x-scheme-handler/spotify" = ["spotify.desktop"];
-    "x-scheme-handler/discord" = ["WebCord.desktop"];
+    "x-scheme-handler/discord" = ["Discord.desktop"];
     "inode/directory" = filemanager;
   };
 in {

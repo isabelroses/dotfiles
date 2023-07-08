@@ -3,23 +3,28 @@
   lib,
   pkgs,
   osConfig,
+  self',
   ...
 }:
 with lib; let
   device = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
+  sys = osConfig.modules.system;
+  programs = osConfig.modules.programs;
 
   rofiPackage =
     if osConfig.modules.usrEnv.isWayland
     then pkgs.rofi-wayland
     else pkgs.rofi;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable && programs.gui.enable) {
     programs.rofi = {
       enable = true;
-      package =
-        pkgs.rofi-wayland.overrideAttrs
-        (oldAttrs: {mesonFlags = ["-Dxcb=disabled"];});
+      package = rofiPackage.override {
+        plugins = with self'.packages; [
+          pkgs.rofi-rbw
+        ];
+      };
       extraConfig = {
         modi = "drun";
         icon-theme = "Papirus-Dark";
