@@ -12,8 +12,10 @@
   # common modules, to be shared across all systems
   core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
   system = commonModules + /system; # system module for configuring system-specific options easily
+  options = commonModules + /options; # the module that provides the options for my system configuration
 
   # extra modules, likely optional but possibly critical
+  #server = extraModules + /server; # for devices that act as "servers"
   desktop = extraModules + /desktop; # for devices that are for daily use
   virtualization = extraModules + /virtualization; # hotpluggable virtalization module
 
@@ -22,7 +24,7 @@
 
   ## home-manager ##
   home = ../home; # home-manager configurations for hosts that need home-manager
-  homes = [hm home cat]; # combine hm flake input and the home module to be imported together
+  homes = [hm home]; # combine hm flake input and the home module to be imported together
 
   ## flake inputs ##
   hm = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
@@ -33,6 +35,8 @@
     system # the skeleton module for config.modules.*
     core # the "sane" default shared across systems
     profiles # a profiles module to provide configuration sets per demand
+    options
+    cat
   ];
 
   # extraSpecialArgs that all hosts need
