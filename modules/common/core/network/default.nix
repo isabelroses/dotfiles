@@ -1,8 +1,9 @@
 {lib, ...}:
 with lib; {
   imports = [
-    ./ssh.nix
     ./blocker.nix
+    ./firewall.nix
+    ./ssh.nix
   ];
 
   services = {
@@ -12,8 +13,8 @@ with lib; {
 
   networking = {
     # use dhcpd
-    useDHCP = false;
-    useNetworkd = true;
+    useDHCP = mkDefault false;
+    useNetworkd = mkDefault true;
 
     # dns
     nameservers = [
@@ -37,8 +38,12 @@ with lib; {
     };
   };
 
-  # slows down boot time
-  systemd.services.NetworkManager-wait-online.enable = true;
   # enable wireless database
   hardware.wirelessRegulatoryDatabase = true;
+
+  # slows down boot time
+  systemd.services.NetworkManager-wait-online.enable = true;
+  systemd.network.wait-online.enable = false;
+  systemd.services.systemd-networkd.stopIfChanged = false;
+  systemd.services.systemd-resolved.stopIfChanged = false;
 }
