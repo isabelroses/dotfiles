@@ -18,6 +18,7 @@ in {
         nix-index
         nix-tree
         statix
+        nil
       ];
 
       sessionVariables = {

@@ -20,6 +20,9 @@ in {
       ]
       ++ optionals (sys.distrobox.enable) [
         distrobox
+      ]
+      ++ optionals (sys.waydroid.enable) [
+        waydroid
       ];
 
     virtualisation = mkIf (sys.enable) {

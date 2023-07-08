@@ -13,8 +13,8 @@ in {
     inputs.sops.homeManagerModules.sops
     #inputs.bella-nur.homeManagerModules.default
 
-    # home package sets
-    ./packages
+    # programs sets
+    ./programs
 
     # system services, organized by display protocol
     ./services
