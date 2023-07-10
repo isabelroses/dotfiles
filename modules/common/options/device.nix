@@ -3,6 +3,7 @@ with lib; {
   options.modules.device = {
     type = mkOption {
       type = types.enum ["laptop" "desktop" "server" "hybrid" "lite"];
+      default = null;
     };
 
     # the type of cpu your system has - vm and regular cpus currently do not differ
@@ -17,6 +18,8 @@ with lib; {
       default = null;
       description = "the manifacturer/type of the primary system gpu";
     };
+
+    hasTPM = mkEnableOption "Whether the system has tpm support";
 
     monitors = mkOption {
       type = types.listOf types.string;

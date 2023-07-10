@@ -1,6 +1,4 @@
-{inputs, ...}: let
-  inherit (inputs.nixpkgs);
-in {
+{inputs, ...}: {
   perSystem = {system, ...}: {
     legacyPackages = import inputs.nixpkgs {
       inherit system;

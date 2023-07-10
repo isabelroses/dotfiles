@@ -8,10 +8,8 @@
 in {
   imports = [
     # external home-manager modules
-    inputs.hyprland.homeManagerModules.default
+    inputs.hyprland.homeManagerModules.default 
     inputs.catppuccin.homeManagerModules.catppuccin
-    inputs.sops.homeManagerModules.sops
-    #inputs.bella-nur.homeManagerModules.default
 
     # programs sets
     ./programs
@@ -25,9 +23,7 @@ in {
     # dev shells
     ./shells
   ];
-  config = {
-    catppuccin.flavour = "mocha";
-
+  config = { 
     # reload system units when changing configs
     systemd.user.startServices = mkDefault "sd-switch"; # or "legacy" if "sd-switch" breaks again
 

@@ -17,7 +17,7 @@
 
         inputs.flake-parts.flakeModules.easyOverlay
 
-        ./lib/args.nix # args that is passsed to the flake, moved away from the main file
+        ./lib/makesys.nix # args that is passsed to the flake, moved away from the main file
       ];
 
       flake = let
@@ -124,6 +124,13 @@
       type = "git";
       url = "https://github.com/nushell/nu_scripts";
       submodules = true;
+      flake = false;
+    };
+
+    isabel-nvim = {
+      type = "git";
+      url = "https://github.com/isabelroses/nvim";
+      submodules = false;
       flake = false;
     };
 

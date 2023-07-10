@@ -26,6 +26,18 @@ in {
       ];
 
     virtualisation = mkIf (sys.enable) {
+      libvirtd = {
+        enable = true;
+        qemu = {
+          package = pkgs.qemu_kvm;
+          ovmf = {
+            enable = true;
+            packages = [pkgs.OVMFFull.fd];
+          };
+          swtpm.enable = true;
+        };
+      };
+
       docker = mkIf (sys.docker.enable) {
         enable = true;
 

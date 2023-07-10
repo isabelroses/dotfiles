@@ -30,7 +30,7 @@ in {
         environmentVariables = {
           EDITOR = "nvim";
           GIT_EDITOR = "nvim";
-          VISUAL = "neovide";
+          VISUAL = "code";
           TERMINAL = "alacritty";
         };
       in {
