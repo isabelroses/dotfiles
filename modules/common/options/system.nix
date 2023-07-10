@@ -10,11 +10,12 @@ with lib; {
     # enabled in usrenv
     username = mkOption {
       type = types.str;
+      description = "The username of the non-root superuser for your system";
     };
 
-    # no actual use yet, do not use
     hostname = mkOption {
       type = types.str;
+      description = "The name of the device for the system";
     };
 
     # the path to the flake
@@ -92,17 +93,9 @@ with lib; {
     };
 
     security = {
-      fixWebcam = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Fix the purposefully broken webcam by un-blacklisting the related kernel module.";
-      };
+      fixWebcam = mkEnableOption "Fix the purposefully broken webcam by un-blacklisting the related kernel module.";
 
-      secureBoot = mkOption {
-        type = types.bool;
-        default = false;
-        description = "Enable secure-boot and load necessary packages.";
-      };
+      secureBoot = mkEnableOption "Enable secure-boot and load necessary packages.";
     };
   };
 }

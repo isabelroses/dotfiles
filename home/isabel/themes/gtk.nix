@@ -1,16 +1,16 @@
 {
-  osConfig,
-  config,
   pkgs,
   lib,
+  config,
+  osConfig,
   ...
-}:
-with lib; let
+}: let
   device = osConfig.modules.device;
+  sys = osConfig.modules.system;
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = lib.mkIf (builtins.elem device.type acceptedTypes && (sys.video.enable)) {
     xdg.systemDirs.data = let
       schema = pkgs.gsettings-desktop-schemas;
     in ["${schema}/share/gsettings-schemas/${schema.name}"];

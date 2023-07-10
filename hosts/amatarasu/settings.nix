@@ -12,6 +12,7 @@ in {
         type = "desktop";
         cpu = "intel";
         gpu = "nvidia";
+        hasTPM = true;
         monitors = ["HDMI-1"];
         hasBluetooth = false;
         hasSound = true;
