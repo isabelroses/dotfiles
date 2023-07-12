@@ -17,7 +17,7 @@
       gh-key-pub.path = "${config.home.homeDirectory}/.ssh/github.pub";
       aur-key.path = "${config.home.homeDirectory}/.ssh/aur";
       aur-key-pub.path = "${config.home.homeDirectory}/.ssh/aur.pub";
-    
+
       # ORACLE vps'
       openvpn-key.path = "${config.home.homeDirectory}/.ssh/openvpn";
       luz-key.path = "${config.home.homeDirectory}/.ssh/luz";

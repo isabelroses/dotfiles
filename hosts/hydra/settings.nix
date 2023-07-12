@@ -12,6 +12,7 @@ in {
         type = "hybrid";
         cpu = "intel";
         gpu = null;
+        hasTPM = true;
         monitors = ["eDP-1"];
         hasBluetooth = true;
         hasSound = true;
@@ -61,6 +62,11 @@ in {
 
         cli.enable = true;
         gui.enable = true;
+
+        nur = {
+          enable = true;
+          bella = true;
+        };
 
         default = {
           terminal = "alacritty";

@@ -20,6 +20,7 @@ in {
       pamixer # move
       jellyfin-media-player
       mangal # tui manga finder + reader
+      insomnia # rest client
     ];
   };
 }

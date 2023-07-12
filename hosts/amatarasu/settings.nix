@@ -58,6 +58,11 @@ in {
         cli.enable = true;
         gui.enable = true;
 
+        nur = {
+          enable = true;
+          bella = true;
+        };
+
         default = {
           terminal = "alacritty";
         };

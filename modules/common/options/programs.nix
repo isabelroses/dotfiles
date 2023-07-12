@@ -4,7 +4,7 @@ with lib; {
   # default programs for referencing in other config files.
   options.modules = {
     services = {
-      jellyfin.enable = mkEnableOption "Enables the jellyfin service";
+      jellyfin.enable = mkEnableOption "Enables the jellyfin service"; # TODO
       cloudflare = {
         enable = mkEnableOption "Enables cloudflared tunnels";
         token = mkOption {
@@ -42,6 +42,11 @@ with lib; {
         };
       };
 
+      nur = {
+        enable = mkEnableOption "Use nur for extra packages";
+        bella = mkEnableOption "Enable the isabelroses nur extra packages";
+      };
+
       # default program options
       default = {
         # what program should be used as the default terminal
@@ -65,6 +70,11 @@ with lib; {
         editor = mkOption {
           type = types.enum ["nvim" "code"];
           default = "nvim";
+        };
+
+        bar = mkOption {
+          type = types.enum ["eww" "waybar"];
+          default = "eww";
         };
       };
     };

@@ -8,7 +8,7 @@
 in {
   imports = [
     # external home-manager modules
-    inputs.hyprland.homeManagerModules.default 
+    inputs.hyprland.homeManagerModules.default
     inputs.catppuccin.homeManagerModules.catppuccin
 
     # programs sets
@@ -23,7 +23,7 @@ in {
     # dev shells
     ./shells
   ];
-  config = { 
+  config = {
     # reload system units when changing configs
     systemd.user.startServices = mkDefault "sd-switch"; # or "legacy" if "sd-switch" breaks again
 

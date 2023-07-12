@@ -127,6 +127,7 @@
       flake = false;
     };
 
+    # my nvim conf
     isabel-nvim = {
       type = "git";
       url = "https://github.com/isabelroses/nvim";

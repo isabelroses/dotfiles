@@ -12,15 +12,19 @@ with lib; let
   env = osConfig.modules.usrEnv;
   device = osConfig.modules.device;
   sys = osConfig.modules.system;
+  programs = osConfig.modules.programs;
 in {
   imports = [./config.nix];
   config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
-    home.packages = with pkgs; [
-      grim
-      hyprpicker
-      hyprland-share-picker
-      nur.repos.bella.catppuccin-hyprland
-    ];
+    home.packages = with pkgs;
+      [
+        grim
+        hyprpicker
+        hyprland-share-picker
+      ]
+      ++ optionals (programs.nur.enable && programs.nur.bella) [
+        nur.repos.bella.catppuccin-hyprland
+      ];
     wayland.windowManager.hyprland = {
       enable = true;
       systemdIntegration = true;
