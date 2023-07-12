@@ -1,7 +1,7 @@
 _: {
   imports = [
     ./editors
-    ./eww
+    ./bars
     ./launchers
     ./terminals
 

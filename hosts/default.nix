@@ -6,7 +6,7 @@
 }: let
   inputs = self.inputs;
   inherit (lib) concatLists mkNixosSystem;
- 
+
   # common modules, to be shared across all systems
   commonModules = ../modules/common; # the path where common modules reside
   core = commonModules + /core; # the self-proclaimed sane defaults for all my systems

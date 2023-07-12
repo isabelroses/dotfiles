@@ -27,7 +27,8 @@ in {
     exec-once = wl-paste --type text --watch cliphist store #Stores only text data
     exec-once = wl-paste --type image --watch cliphist store #Stores only image data
     # exec-once = wlsunset -S 9:00 -s 19:30
-    exec-once = ~/.config/eww/scripts/init
+    # exec-once = ~/.config/eww/scripts/init
+    exec = waybar
     exec-once = hyprctl setcursor ${pointer.name} ${toString pointer.size}
 
     # █▀▄▀█ █▀█ █▄░█ █ ▀█▀ █▀█ █▀█

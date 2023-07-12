@@ -17,19 +17,18 @@ with lib; let
   programs = osConfig.modules.programs;
   sys = osConfig.modules.system;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable) {
+  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && programs.default.bar == "eww") {
     home.packages = with pkgs; [
       ewwPackage
       socat
       jaq
       acpi
       wlsunset
-      #wl-gammactl
+      wl-gammactl
       upower
       inotify-tools
       blueberry
       gnome.gnome-bluetooth
-      networkmanagerapplet
       gtk3
       gjs
       pango
