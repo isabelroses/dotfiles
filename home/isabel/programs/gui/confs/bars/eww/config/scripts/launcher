@@ -1,45 +1,44 @@
 #!/usr/bin/env bash
 
 function toggle_menu {
-	MAIN=$(eww get main_monitor)
-	hyprctl keyword blurls "remove,gtk-layer-shell"
-	STATE=$(eww windows | grep $1$MAIN | awk '{print substr ($0, 0, 1)}')
-	if [[ $STATE == '*' ]]; then
-		# if [[ $1 == 'powermenu' ]]; then hyprctl keyword blurls "remove,gtk-layer-shell"; fi
-		eww close $1$MAIN
-	else
-		if [[ $1 == 'powermenu' ]]; then hyprctl keyword blurls "gtk-layer-shell"; fi
-		if [[ $1 == 'app_launcher' ]]; then $HOME/.config/eww/scripts/apps query ""; fi
-		eww open $1$MAIN
-	fi
+  hyprctl keyword blurls "remove,gtk-layer-shell"
+  STATE=$(eww windows | grep $1 | awk '{print substr ($0, 0, 1)}')
+  if [[ $STATE == '*' ]]; then
+    # if [[ $1 == 'powermenu' ]]; then hyprctl keyword blurls "remove,gtk-layer-shell"; fi
+    eww close $1
+  else
+    if [[ $1 == 'powermenu' ]]; then hyprctl keyword blurls "gtk-layer-shell"; fi
+    if [[ $1 == 'app_launcher' ]]; then $HOME/.config/eww/scripts/apps query ""; fi
+    eww open $1
+  fi
 }
 
 function colorpicker {
-	pkill hyprpicker
-	hyprpicker -n -a
+  pkill hyprpicker
+  hyprpicker -n -a
 }
 
 function network {
-	nm-connection-editor
+  nm-connection-editor
 }
 
 function screenlock {
-	STATE=$(eww windows | grep powermenu | awk '{print substr ($0, 0, 1)}')
-	if [[ $STATE == '*' ]]; then eww close powermenu; fi
-	swaylock
+  STATE=$(eww windows | grep powermenu | awk '{print substr ($0, 0, 1)}')
+  if [[ $STATE == '*' ]]; then eww close powermenu; fi
+  swaylock
 }
 
 function clipboard {
-	cliphist list | rofi -dmenu -p "Clipboard" | cliphist decode | wl-copy
+  cliphist list | rofi -dmenu -p "Clipboard" | cliphist decode | wl-copy
 }
 
 function config {
-	$VISUAL $HOME/.config/hypr
+  $VISUAL $HOME/.config/hypr
 }
 
 function powersettings {
-	alacritty --class Power --title Power --hold \
-		--command auto-cpufreq --stats
+  alacritty --class Power --title Power --hold \
+    --command auto-cpufreq --stats
 }
 
 if [[ $1 == 'applauncher' ]]; then rofi -show drun; fi

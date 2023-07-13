@@ -1,9 +1,9 @@
 _: {
   imports = [
+    ./services
     ./locale.nix
     ./environment.nix
     ./security.nix
-    ./services.nix
     ./programs.nix
   ];
 

@@ -1,5 +1,17 @@
 import { NM, Gio, GObject } from './lib.js'
-// import { showNotification } from './common.js'
+
+function showNotification(title, message) {
+  let notification = new Gio.Notification();
+  notification.set_title(title);
+  notification.set_body(message);
+  notification.set_priority(Gio.NotificationPriority.NORMAL);
+  application.register(null);
+  application.send_notification(null, notification);
+  GLib.timeout_add_seconds(GLib.PRIORITY_DEFAULT, 2, () => {
+    application.quit();
+    return GLib.SOURCE_REMOVE;
+  });
+}
 
 Gio._promisify(NM.Client, 'new_async');
 Gio._promisify(NM.DeviceWifi.prototype, 'request_scan_async');
@@ -43,25 +55,25 @@ export const Network = GObject.registerClass({
       this._wifi = this._getDevice(NM.DeviceType.WIFI);
       if (this._wifi) {
         this._wifi.connect('notify::active-access-point', this._activeAp.bind(this));
-        this._wifi.connect('access-point-added', (_, ap) => this._apAdded(ap));
-        this._wifi.connect('access-point-removed', (_, ap) => this._apRemoved(ap));
+        //this._wifi.connect('access-point-added', (_, ap) => this._apAdded(ap));
+        //this._wifi.connect('access-point-removed', (_, ap) => this._apRemoved(ap));
       }
 
       this._activeAp();
       this._sync();
     }
 
-    _apAdded(ap) {
-      let ssid = NM.utils_ssid_to_utf8(ap.get_ssid().get_data());
-      showNotification('Access Point Added', `The access point "${ssid}" has been added.`);
-      this._sync();
-    }
+    //_apAdded(ap) {
+    //  let ssid = NM.utils_ssid_to_utf8(ap.get_ssid().get_data());
+    //  showNotification('Access Point Added', `The access point "${ssid}" has been added.`);
+    //  this._sync();
+    //}
 
-    _apRemoved(ap) {
-      let ssid = NM.utils_ssid_to_utf8(ap.get_ssid().get_data());
-      showNotification('Access Point Removed', `The access point "${ssid}" has been removed.`);
-      this._sync();
-    }
+    //_apRemoved(ap) {
+    //  let ssid = NM.utils_ssid_to_utf8(ap.get_ssid().get_data());
+    //  showNotification('Access Point Removed', `The access point "${ssid}" has been removed.`);
+    //  this._sync();
+    //}
 
     _activeAp() {
       if (this._ap) this._ap.disconnect(this._apBind);

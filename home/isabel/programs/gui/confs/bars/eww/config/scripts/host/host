@@ -3,8 +3,6 @@
 import { programArgs, programInvocationName } from 'system'
 import { main } from './main.js'
 
-'@typelibPath@'.split(':').forEach(path => imports.gi.GIRepository.Repository.prepend_search_path(path));
-
 imports.gi.versions.Gtk = '3.0'
 imports.gi.versions.Gio = '2.0'
 imports.gi.versions.GLib = '2.0'

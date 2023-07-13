@@ -1,12 +1,54 @@
 {
   config,
   osConfig,
+  lib,
   ...
-}: let
+}:
+with lib; let
   pointer = config.home.pointerCursor;
   cfg = osConfig.modules.programs.default;
-  monitors = osConfig.modules.device.monitors;
-  keyboard = osConfig.modules.device.keyboard;
+  dev = osConfig.modules.device;
+  mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},preferred,${toString (i * 1920)}x0,1'') dev.monitors);
+
+  extraBinds =
+    if (cfg.bar == "eww")
+    then ''
+      exec-once = ~/.config/eww/scripts/init
+
+      bind = $mod, D, exec, ~/.config/eww/scripts/launcher toggle_menu app_launcher
+      bind = $mod SHIFT, R, exec, ~/.config/eww/scripts/init
+      bind = $mod, V, exec, ~/.config/eww/scripts/launcher clipboard
+      bind = $mod, escape, exec, ~/.config/eww/scripts/launcher toggle_menu powermenu
+      bind = $mod shift, d, exec, ~/.config/eww/scripts/notifications closeLatest
+      bind = $mod, L, exec, ~/.config/eww/scripts/launcher screenlock
+
+      bind = , PRINT, exec, ~/.config/eww/scripts/launcher toggle_menu takeshot
+      bind = SHIFT, PRINT, exec, ~/.config/eww/scripts/screenshot screen-quiet
+      bind = SUPER SHIFT, S, exec, ~/.config/eww/scripts/screenshot area-quiet
+
+      bind = , XF86AudioMute, exec, ~/.config/eww/scripts/volume mute
+      bind = , XF86AudioRaiseVolume, exec, ~/.config/eww/scripts/volume up
+      bind = , XF86AudioLowerVolume, exec, ~/.config/eww/scripts/volume down
+      bind = , XF86MonBrightnessUp, exec, ~/.config/eww/scripts/brightness up
+      bind = , XF86MonBrightnessDown, exec, ~/.config/eww/scripts/brightness down
+    ''
+    else ''
+      exec = waybar
+
+      bind = $mod, D, exec, rofi -show drun
+      bind = $mod, V, exec, cliphist list | rofi -dmenu -p "Clipboard" | cliphist decode | wl-copy
+      bind = $mod, escape, exec, wlogout
+      bind = $mod, L, exec, swaylock
+      bind = $mod, period, exec, killall rofi || rofi -show emoji -emoji-format "{emoji}" -modi emoji
+
+      bind = , Print, exec, grim -g "$(slurp)" - | swappy -f -
+
+      bind = , XF86AudioMute, exec, pamixer -t
+      bind = , XF86AudioRaiseVolume, exec, pamixer -i 5
+      bind = , XF86AudioLowerVolume, exec, pamixer -d 5
+      bind = , XF86MonBrightnessUp, exec, brightnessctl set 5%+ -q
+      bind = , XF86MonBrightnessDown, exec, brightnessctl set 5%- -q
+    '';
 in {
   wayland.windowManager.hyprland.extraConfig = ''
     # █░█ ▄▀█ █▀█ █ ▄▀█ █▄▄ █░░ █▀▀ █▀
@@ -18,8 +60,6 @@ in {
     $surface1  = 0xff45475a
     $surface0  = 0xff313244
 
-    $notes=obsidian
-    $layout=dwindle
     $mod=SUPER
 
     # █▀▀ ▀▄▀ █▀▀ █▀▀
@@ -27,18 +67,16 @@ in {
     exec-once = wl-paste --type text --watch cliphist store #Stores only text data
     exec-once = wl-paste --type image --watch cliphist store #Stores only image data
     # exec-once = wlsunset -S 9:00 -s 19:30
-    # exec-once = ~/.config/eww/scripts/init
-    exec = waybar
     exec-once = hyprctl setcursor ${pointer.name} ${toString pointer.size}
 
     # █▀▄▀█ █▀█ █▄░█ █ ▀█▀ █▀█ █▀█
     # █░▀░█ █▄█ █░▀█ █ ░█░ █▄█ █▀▄
-    ${builtins.concatStringsSep "\n" (builtins.map (monitor: ''monitor=${monitor},preferred,0x0,1'') monitors)}
+    ${mapMonitors}
 
     # █ █▄░█ █▀█ █░█ ▀█▀
     # █ █░▀█ █▀▀ █▄█ ░█░
     input {
-      kb_layout = ${keyboard}
+      kb_layout = ${dev.keyboard}
       follow_mouse = 1
       sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
       touchpad {
@@ -59,7 +97,7 @@ in {
       gaps_out=5
       border_size=2
       no_border_on_floating = true
-      layout = $layout
+      layout = master
       col.active_border=$sapphire
       col.inactive_border=$surface0
       col.group_border_active=$blue
@@ -145,7 +183,12 @@ in {
     windowrule = float, ^(xdg-desktop-portal)$
     windowrule = float, ^(xdg-desktop-portal-gnome)$
     windowrule = float, ^(transmission-gtk)$
-    windowrule=workspace 6 silent,discord
+    windowrulev2 = workspace 6, title:^(.*(Disc|WebC)ord.*)$
+    windowrule = float,Bitwarden
+    windowrule = size 800 600,class:Bitwarden
+    # throw sharing indicators away
+    windowrulev2 = workspace special silent, title:^(Firefox — Sharing Indicator)$
+    windowrulev2 = workspace special silent, title:^(.*is sharing (your screen|a window)\.)$
 
     # █▄▀ █▀▀ █▄█ █▄▄ █ █▄░█ █▀▄
     # █░█ ██▄ ░█░ █▄█ █ █░▀█ █▄▀
@@ -154,37 +197,14 @@ in {
     bind = $mod, E, exec, ${cfg.fileManager}
     bind = $mod, C, exec, ${cfg.editor}
     bind = $mod, Return, exec, ${cfg.terminal}
-    bind = $mod, O, exec, $notes
-    bind = $mod, D, exec, rofi -show drun
-    #bind = $mod, D, exec, ~/.config/eww/scripts/launcher toggle_menu app_launcher
-    bind = $mod SHIFT, R, exec, ~/.config/eww/scripts/init
-    #bind = $mod, period, exec, killall rofi || rofi -show emoji -emoji-format "{emoji}" -modi emoji
-    bind = $mod, V, exec, ~/.config/eww/scripts/launcher clipboard
-    bind = $mod, F1, exec, ~/.config/hypr/keybind
-    bind = $mod, escape, exec, ~/.config/eww/scripts/launcher toggle_menu powermenu
-    bind = $mod shift, d, exec, ~/.config/eww/scripts/notifications closeLatest
+    bind = $mod, O, exec, obsidian
 
-    # █▀ █▀▀ █▀█ █▀▀ █▀▀ █▄░█ █▀ █░█ █▀█ ▀█▀
-    # ▄█ █▄▄ █▀▄ ██▄ ██▄ █░▀█ ▄█ █▀█ █▄█ ░█░
-    bind = , PRINT, exec, ~/.config/eww/scripts/launcher toggle_menu takeshot
-    bind = SHIFT, PRINT, exec, ~/.config/eww/scripts/screenshot screen-quiet
-    bind = SUPER SHIFT, S, exec, ~/.config/eww/scripts/screenshot area-quiet
+    ${extraBinds}
 
-    # █▀▄▀█ █ █▀ █▀▀
-    # █░▀░█ █ ▄█ █▄▄
-    # bind = $mod, X, exec, hyprpicker -a -n
-    bind = , XF86AudioMute, exec, ~/.config/eww/scripts/volume mute
-    bind = , XF86AudioRaiseVolume, exec, ~/.config/eww/scripts/volume up
-    bind = , XF86AudioLowerVolume, exec, ~/.config/eww/scripts/volume down
-    bind = , XF86MonBrightnessUp, exec, ~/.config/eww/scripts/brightness up
-    bind = , XF86MonBrightnessDown, exec, ~/.config/eww/scripts/brightness down
     bind = , XF86AudioPlay, exec, playerctl play-pause
     bind = , XF86AudioPause, exec, playerctl play-pause
     bind = , XF86AudioNext, exec, playerctl next
     bind = , XF86AudioPrev, exec, playerctl previous
-    bind = $mod, Tab, cyclenext,
-    bind = $mod, Tab, bringactivetotop,
-    bind = $mod, L, exec, ~/.config/eww/scripts/launcher screenlock
 
     # █░█░█ █ █▄░█ █▀▄ █▀█ █░█░█   █▀▄▀█ ▄▀█ █▄░█ ▄▀█ █▀▀ █▀▄▀█ █▀▀ █▄░█ ▀█▀
     # ▀▄▀▄▀ █ █░▀█ █▄▀ █▄█ ▀▄▀▄▀   █░▀░█ █▀█ █░▀█ █▀█ █▄█ █░▀░█ ██▄ █░▀█ ░█░
