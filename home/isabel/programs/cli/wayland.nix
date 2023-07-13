@@ -15,6 +15,7 @@ in {
       grim
       slurp
       wl-clipboard
+      cliphist
     ];
   };
 }

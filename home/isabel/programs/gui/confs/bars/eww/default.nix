@@ -19,23 +19,21 @@ with lib; let
 in {
   config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && programs.default.bar == "eww") {
     home.packages = with pkgs; [
-      ewwPackage
       socat
       jaq
       acpi
-      wlsunset
-      wl-gammactl
       upower
       inotify-tools
       blueberry
+      networkmanagerapplet
       gnome.gnome-bluetooth
       gtk3
-      gjs
       pango
       cairo
       harfbuzz
       gdk-pixbuf
       glib
+      nur.repos.bella.gjs # patched gjs version
     ];
 
     programs.eww = {

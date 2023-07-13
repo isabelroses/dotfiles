@@ -13,6 +13,9 @@ in {
     home.packages = with pkgs; [
       swappy
       #swaynotificationcenter
+      wlsunset
+      wl-gammactl
+      pavucontrol
     ];
   };
 }

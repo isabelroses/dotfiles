@@ -4,6 +4,7 @@ with lib; {
     ./blocker.nix
     ./firewall.nix
     ./ssh.nix
+    ./optimise.nix
   ];
 
   services = {

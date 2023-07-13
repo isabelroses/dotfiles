@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  sys = config.modules.system.security;
+  sys = config.modules.system;
 in {
   security = {
     protectKernelImage = true;
@@ -154,7 +154,6 @@ in {
       "hfsplus"
       "squashfs"
       "udf"
-      "btusb"
       "hpfs"
       "jfs"
       "minix"
@@ -164,7 +163,13 @@ in {
       "qnx6"
       "sysv"
     ]
-    ++ lib.optionals (!sys.fixWebcam) [
+    ++ lib.optionals (!sys.security.fixWebcam) [
       "uvcvideo" # this is why your webcam no worky
+    ]
+    ++ lib.optionals (!sys.bluetooth.enable) [
+      "btusb" # let bluetooth dongles work
+    ]
+    ++ lib.optionals (!sys.smb.enable) [
+      "cifs" # allows smb to work
     ];
 }

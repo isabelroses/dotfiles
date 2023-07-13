@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./clipboard.nix
+    #./clipboard.nix
     ./swaylock.nix
   ];
 }
