@@ -4,7 +4,19 @@ with lib; {
   # default programs for referencing in other config files.
   options.modules = {
     services = {
+      smb = {
+        enable = mkEnableOption "Enables smb shares";
+        host.enable = mkEnableOption "Enables hosting of smb shares";
+
+        # should smb shares be enabled as a recpient machine
+        recive = {
+          general = mkEnableOption "genral share";
+          media = mkEnableOption "media share";
+        };
+      };
+
       jellyfin.enable = mkEnableOption "Enables the jellyfin service"; # TODO
+
       cloudflare = {
         enable = mkEnableOption "Enables cloudflared tunnels";
         token = mkOption {
@@ -13,6 +25,8 @@ with lib; {
           description = "The token which is used by cloudflared tunnels";
         };
       };
+
+      vscode-server.enable = mkEnableOption "Enables remote ssh vscode server";
     };
 
     programs = {
@@ -45,13 +59,12 @@ with lib; {
       nur = {
         enable = mkEnableOption "Use nur for extra packages";
         bella = mkEnableOption "Enable the isabelroses nur extra packages";
+        nekowinston = mkEnableOption "Enables the nekowinston nur extra packages";
       };
 
       # default program options
       default = {
         # what program should be used as the default terminal
-        # do note this is NOT the command, but just the name. i.e setting footclient will
-        # not work because the program name will be references as "foot" in the rest of the config
         terminal = mkOption {
           type = types.enum ["alacritty" "kitty" "wezterm"];
           default = "alacritty";
@@ -68,7 +81,7 @@ with lib; {
         };
 
         editor = mkOption {
-          type = types.enum ["nvim" "code"];
+          type = types.enum ["nvim" "codium"];
           default = "nvim";
         };
 
