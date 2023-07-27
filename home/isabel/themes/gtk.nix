@@ -65,13 +65,6 @@ in {
         size = 13;
       };
 
-      gtk3.extraConfig = {
-        gtk-xft-antialias = 1;
-        gtk-xft-hinting = 1;
-        gtk-xft-hintstyle = "hintslight";
-        gtk-xft-rgba = "rgb";
-      };
-
       gtk2 = {
         configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
         extraConfig = ''
@@ -80,6 +73,18 @@ in {
           gtk-xft-hintstyle="hintslight"
           gtk-xft-rgba="rgb"
         '';
+      };
+
+      gtk3.extraConfig = {
+        gtk-xft-antialias = 1;
+        gtk-xft-hinting = 1;
+        gtk-xft-hintstyle = "hintslight";
+        gtk-xft-rgba = "rgb";
+        gtk-application-prefer-dark-theme = 1;
+      };
+
+      gtk4.extraConfig = {
+        gtk-application-prefer-dark-theme = 1;
       };
     };
 

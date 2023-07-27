@@ -3,5 +3,8 @@ _: {
     ./gtk.nix
     ./qt.nix
   ];
-  config.catppuccin.flavour = "mocha";
+  config.catppuccin = {
+    flavour = "mocha";
+    accent = "sapphire";
+  };
 }
