@@ -20,6 +20,8 @@ in {
         "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
         "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
         "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
+        "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
+        "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
       ];
       package = pkgs.chromium.override {
         nss = pkgs.nss_latest;
