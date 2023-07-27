@@ -23,6 +23,8 @@ in {
         enable = true;
         # resolve .local domains for printers
         nssmdns = true;
+        # pass avahi port(s) to the firewall
+        openFirewall = true;
       };
     };
   };

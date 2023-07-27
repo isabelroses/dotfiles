@@ -74,38 +74,6 @@ in {
         Defaults passprompt="[31m sudo: password for %p@%h, running as %U:[0m "
       '';
     };
-
-    # doas is pretty wacky and interferes with nix's --remote-sudo
-    doas = {
-      enable = mkDefault (!config.security.sudo.enable);
-      extraRules = [
-        {
-          groups = ["wheel"];
-          persist = true;
-          keepEnv = false;
-        }
-        {
-          groups = ["power"];
-          noPass = true;
-          cmd = "${pkgs.systemd}/bin/poweroff";
-        }
-        {
-          groups = ["power"];
-          noPass = true;
-          cmd = "${pkgs.systemd}/bin/reboot";
-        }
-        {
-          groups = ["nix"];
-          cmd = "nix-collect-garbage";
-          noPass = true;
-        }
-        {
-          groups = ["nix"];
-          cmd = "nixos-rebuild";
-          keepEnv = true;
-        }
-      ];
-    };
   };
 
   boot.kernel.sysctl = {
@@ -169,7 +137,7 @@ in {
     ++ lib.optionals (!sys.bluetooth.enable) [
       "btusb" # let bluetooth dongles work
     ]
-    ++ lib.optionals (!sys.smb.enable) [
+    ++ lib.optionals (!config.modules.services.smb.enable) [
       "cifs" # allows smb to work
     ];
 }
