@@ -10,7 +10,7 @@
   default = osConfig.modules.programs.default;
   dev = osConfig.modules.device;
   monitors = osConfig.modules.device.monitors;
-  
+
   mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
       if monitor == "DP-1"
       then "1920x1080@144"
@@ -37,26 +37,27 @@
 in {
   wayland.windowManager.hyprland = {
     settings = {
-      "$mod"      = "SUPER";
-      "$teal"     = "0xff94e2d5";
-      "$sky"      = "0xff89dceb";
+      "$mod" = "SUPER";
+      "$teal" = "0xff94e2d5";
+      "$sky" = "0xff89dceb";
       "$sapphire" = "0xff74c7ec";
-      "$blue"     = "0xff89b4fa";
+      "$blue" = "0xff89b4fa";
       "$surface1" = "0xff45475a";
       "$surface0" = "0xff313244";
 
-      exec-once = [
-        "wl-paste --type text --watch cliphist store" #Stores only text data
-        "wl-paste --type image --watch cliphist store" #Stores only image data
-        #"wlsunset -S 9:00 -s 19:30"
-        "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
-      ]
-      ++ optionals (default.bar == "eww") [
-        "~/.config/eww/scripts/init"
-      ]
-      ++ optionals (default.bar == "waybar") [
-        "waybar"
-      ];
+      exec-once =
+        [
+          "wl-paste --type text --watch cliphist store" #Stores only text data
+          "wl-paste --type image --watch cliphist store" #Stores only image data
+          "wlsunset -S 8:00 -s 20:00"
+          "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
+        ]
+        ++ optionals (default.bar == "eww") [
+          "~/.config/eww/scripts/init"
+        ]
+        ++ optionals (default.bar == "waybar") [
+          "waybar"
+        ];
 
       input = {
         kb_layout = "${dev.keyboard}";
@@ -64,12 +65,12 @@ in {
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
         touchpad = {
           tap-to-click = true;
-          natural_scroll = false; # this is not natrual 
+          natural_scroll = false; # this is not natrual
           disable_while_typing = false;
         };
       };
 
-      gestures.workspace_swipe = (dev.type == "laptop" || dev.type == "hybrid");
+      gestures.workspace_swipe = dev.type == "laptop" || dev.type == "hybrid";
 
       general = {
         layout = "master";
@@ -78,18 +79,17 @@ in {
         gaps_out = 5;
         border_size = 2;
         no_border_on_floating = true;
-        col = {
-          active_border = "$sapphire";
-          inactive_border = "$surface0";
-          group_border_active = "$blue";
-          group_border = "$surface0";
-        };
+
+        "col.active_border" = "$sapphire";
+        "col.inactive_border" = "$surface0";
+        "col.group_border_active" = "$blue";
+        "col.group_border" = "$surface0";
       };
 
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
-        
+
         # window swallowing
         enable_swallow = true; # hide windows that spawn other windows
         swallow_regex = "foot|thunar|nemo";
@@ -117,10 +117,8 @@ in {
         ];
 
         drop_shadow = true;
-        col = {
-          shadow = "$surface1";
-          shadow_inactive = "$surface1";
-        };
+        "col.shadow" = "$surface1";
+        "col.shadow_inactive" = "$surface1";
       };
 
       animations = {
@@ -167,92 +165,94 @@ in {
 
       windowrulev2 = [
         "workspace 6, title:^(.*(Disc|WebC)ord.*)$"
-    
+
         # throw sharing indicators away
         "workspace special silent, title:^(Firefox — Sharing Indicator)$"
         "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
       ];
 
-      bind = [
-        # open apps
-        "$mod, B, exec, ${default.browser}"
-        "$mod, E, exec, ${default.fileManager}"
-        "$mod, C, exec, ${default.editor}"
-        "$mod, Return, exec, ${default.terminal}"
-        "$mod, O, exec, obsidian"
+      bind =
+        [
+          # open apps
+          "$mod, B, exec, ${default.browser}"
+          "$mod, E, exec, ${default.fileManager}"
+          "$mod, C, exec, ${default.editor}"
+          "$mod, Return, exec, ${default.terminal}"
+          "$mod, O, exec, obsidian"
 
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioPause, exec, playerctl play-pause"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrev, exec, playerctl previous"
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioPause, exec, playerctl play-pause"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPrev, exec, playerctl previous"
 
-        # window managment
-        "$mod, Q, killactive,"
-        # "$mod SHIFT, Q, exit,"
-        "$mod SHIFT, c, exec, hyprctl reload"
-        "$mod, F, fullscreen,"
-        "$mod, Space, togglefloating,"
-        "$mod, P, pseudo," # dwindle
-        "$mod, S, togglesplit," # dwindle
+          # window managment
+          "$mod, Q, killactive,"
+          # "$mod SHIFT, Q, exit,"
+          "$mod SHIFT, c, exec, hyprctl reload"
+          "$mod, F, fullscreen,"
+          "$mod, Space, togglefloating,"
+          "$mod, P, pseudo," # dwindle
+          "$mod, S, togglesplit," # dwindle
 
-        # grouping
-        "$mod, g, togglegroup"
-        "bind= $mod, tab, changegroupactive"
+          # grouping
+          "$mod, g, togglegroup"
+          "bind= $mod, tab, changegroupactive"
 
-        # special workspace stuff
-        "$mod, grave, togglespecialworkspace"
-        "$mod SHIFT, grave, movetoworkspace, special"
+          # special workspace stuff
+          "$mod, grave, togglespecialworkspace"
+          "$mod SHIFT, grave, movetoworkspace, special"
 
-        # scroll wheel binds
-        "$mod, mouse_down, workspace, e+1"
-        "$mod, mouse_up, workspace, e-1"
-      ]
-      ++ optionals (default.bar == "eww") [
-        "$mod, D, exec, ~/.config/eww/scripts/launcher toggle_menu app_launcher"
-        "$mod SHIFT, R, exec, ~/.config/eww/scripts/init"
-        "bind = $mod, V, exec, ~/.config/eww/scripts/launcher clipboard"
-        "$mod, escape, exec, ~/.config/eww/scripts/launcher toggle_menu powermenu"
-        "$mod shift, d, exec, ~/.config/eww/scripts/notifications closeLatest"
-        "$mod, L, exec, ~/.config/eww/scripts/launcher screenlock"
-        ", XF86AudioMute, exec, ~/.config/eww/scripts/volume mute"
-        
-        # screenshot
-        ", PRINT, exec, ~/.config/eww/scripts/launcher toggle_menu takeshot"
-        "shift, PRINT, exec, ~/.config/eww/scripts/screenshot screen-quiet"
-        "super shift, S, exec, ~/.config/eww/scripts/screenshot area-quiet" 
-      ]
-      ++ optionals (default.bar == "waybar") [
-        "$mod, D, exec, rofi -show drun"
-        "$mod, V, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
-        "$mod, escape, exec, wlogout"
-        "$mod, L, exec, swaylock"
-        "$mod, period, exec, killall rofi || rofi -show emoji -emoji-format '{emoji}' -modi emoji"
-        ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
-        ", XF86AudioMute, exec, pamixer -t"
-      ];
+          # scroll wheel binds
+          "$mod, mouse_down, workspace, e+1"
+          "$mod, mouse_up, workspace, e-1"
+        ]
+        ++ optionals (default.bar == "eww") [
+          "$mod, D, exec, ~/.config/eww/scripts/launcher toggle_menu app_launcher"
+          "$mod SHIFT, R, exec, ~/.config/eww/scripts/init"
+          "bind = $mod, V, exec, ~/.config/eww/scripts/launcher clipboard"
+          "$mod, escape, exec, ~/.config/eww/scripts/launcher toggle_menu powermenu"
+          "$mod shift, d, exec, ~/.config/eww/scripts/notifications closeLatest"
+          "$mod, L, exec, ~/.config/eww/scripts/launcher screenlock"
+          ", XF86AudioMute, exec, ~/.config/eww/scripts/volume mute"
+
+          # screenshot
+          ", PRINT, exec, ~/.config/eww/scripts/launcher toggle_menu takeshot"
+          "shift, PRINT, exec, ~/.config/eww/scripts/screenshot screen-quiet"
+          "super shift, S, exec, ~/.config/eww/scripts/screenshot area-quiet"
+        ]
+        ++ optionals (default.bar == "waybar") [
+          "$mod, D, exec, rofi -show drun"
+          "$mod, V, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
+          "$mod, escape, exec, wlogout"
+          "$mod, L, exec, swaylock"
+          "$mod, period, exec, killall rofi || rofi -show emoji -emoji-format '{emoji}' -modi emoji"
+          ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
+          ", XF86AudioMute, exec, pamixer -t"
+        ];
 
       # mouse binds
       bindm = [
         "$mod, mouse:272, movewindow"
-        "bindm = $mod, mouse:273, resizewindow"
+        "$mod, mouse:273, resizewindow"
       ];
 
       # hold to repeat action buttons
-      binde = []
-      ++ optionals (default.bar == "eww") [
-        ", XF86AudioRaiseVolume, exec, ~/.config/eww/scripts/volume up"
-        ", XF86AudioLowerVolume, exec, ~/.config/eww/scripts/volume down"
-        ", XF86MonBrightnessUp, exec, ~/.config/eww/scripts/brightness up"
-        ", XF86MonBrightnessDown, exec, ~/.config/eww/scripts/brightness down"
-      ]
-      ++ optionals (default.bar == "waybar") [
-        ", XF86AudioRaiseVolume, exec, pamixer -i 5"
-        ", XF86AudioLowerVolume, exec, pamixer -d 5"
-        ", XF86MonBrightnessUp, exec, brightnessctl set 5%+ -q"
-        ", XF86MonBrightnessDown, exec, brightnessctl set 5%- -q"
-      ];
+      binde =
+        []
+        ++ optionals (default.bar == "eww") [
+          ", XF86AudioRaiseVolume, exec, ~/.config/eww/scripts/volume up"
+          ", XF86AudioLowerVolume, exec, ~/.config/eww/scripts/volume down"
+          ", XF86MonBrightnessUp, exec, ~/.config/eww/scripts/brightness up"
+          ", XF86MonBrightnessDown, exec, ~/.config/eww/scripts/brightness down"
+        ]
+        ++ optionals (default.bar == "waybar") [
+          ", XF86AudioRaiseVolume, exec, pamixer -i 5"
+          ", XF86AudioLowerVolume, exec, pamixer -d 5"
+          ", XF86MonBrightnessUp, exec, brightnessctl set 5%+ -q"
+          ", XF86MonBrightnessDown, exec, brightnessctl set 5%- -q"
+        ];
     };
-    
+
     extraConfig = ''
       ${mapMonitors}
       ${optionalString (builtins.length monitors != 1) "${mapMonitorsToWs}"}
@@ -262,13 +262,13 @@ in {
       bind=$mod, M, submap, move
       submap=move
 
-    	  binde = , left, movewindow, l
+        binde = , left, movewindow, l
         binde = , right, movewindow, r
-    	  binde = , up, movewindow, u
-    	  binde = , down, movewindow, d
-    	  binde = , j, movewindow, l
+        binde = , up, movewindow, u
+        binde = , down, movewindow, d
+        binde = , j, movewindow, l
         binde = , l, movewindow, r
-    	  binde = , i, movewindow, u
+        binde = , i, movewindow, u
         binde = , k, movewindow, d
 
         bind=,escape,submap,reset
@@ -276,22 +276,21 @@ in {
 
       # █▀█ █▀▀ █▀ █ ▀█ █▀▀
       # █▀▄ ██▄ ▄█ █ █▄ ██▄
-
       bind=SUPER, R, submap, resize
       submap=resize
 
-    	  binde = , left, resizeactive, -20 0
-      	binde = , right, resizeactive, 20 0
-    	  binde = , up, resizeactive, 0 -20
-    	  binde = , down, resizeactive, 0 20
-    	  binde = , h, resizeactive, -20 0
-    	  binde = , j, resizeactive, 20 0
-    	  binde = , i, resizeactive, 0 -20
-    	  binde = , k, resizeactive, 0 20
+        binde = , left, resizeactive, -20 0
+        binde = , right, resizeactive, 20 0
+        binde = , up, resizeactive, 0 -20
+        binde = , down, resizeactive, 0 20
+        binde = , h, resizeactive, -20 0
+        binde = , j, resizeactive, 20 0
+        binde = , i, resizeactive, 0 -20
+        binde = , k, resizeactive, 0 20
 
-      bind=,escape,submap,reset
+        bind=,escape,submap,reset
       submap=reset
-   
+
       ${
         builtins.concatStringsSep "\n" (builtins.genList (
             x: let
