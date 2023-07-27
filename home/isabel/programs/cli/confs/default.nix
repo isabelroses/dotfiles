@@ -8,5 +8,6 @@ _: {
     ./git.nix
     ./nix-shell.nix
     ./starship.nix
+    ./tealdear.nix
   ];
 }
