@@ -1,4 +1,4 @@
-_:{
+_: {
   imports = [
     ./media.nix
     ./general.nix
