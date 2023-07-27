@@ -1,4 +1,5 @@
-_: {
+{pkgs, ...}: {
+  home.packages = with pkgs; [cloudflared];
   programs = {
     ssh = {
       enable = true;
@@ -52,6 +53,13 @@ _: {
           hostname = "192.168.86.4";
           user = "isabel";
           identityFile = "~/.ssh/alpha";
+        };
+
+        "alpha-remote" = {
+          hostname = "ssh.isabelroses.com";
+          user = "isabel";
+          identityFile = "~/.ssh/alpha";
+          proxyCommand = "cloudflared access ssh --hostname %h";
         };
 
         "hydra" = {
