@@ -69,6 +69,11 @@ with lib; {
         default = "none";
         description = "The bootloader that should be used for the device.";
       };
+
+      plymouth = {
+        enable = mkEnableOption "plymouth boot splash";
+        withThemes = mkEnableOption "plymouth theme";
+      };
     };
 
     # should virtualization (docker, qemu, podman etc.) be enabled
@@ -79,13 +84,6 @@ with lib; {
       qemu = {enable = mkEnableOption "qemu";};
       distrobox = {enable = mkEnableOption "distrobox";};
       waydroid = {enable = mkEnableOption "waydroid";};
-    };
-
-    # should smb shares be enable
-    smb = {
-      enable = mkEnableOption "smb shares";
-      genral = {enable = mkEnableOption "genral share";};
-      media = {enable = mkEnableOption "media share";};
     };
 
     # should we optimize tcp networking
