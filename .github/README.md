@@ -1,22 +1,32 @@
 <div align="center">
 <h1>
-<img width="96" src="./assets/68747470733a2f2f66696c65732e617274747572696e2e636f6d2f66696c65732f6e69786f73636f6c6f7266756c2e737667.svg"></img> <br>
-  sawse
+<img width="96" src="./assets/flake.svg"></img> <br>
+  isabel's dotfiles
 </h1>
-<p></p>
   <img src="https://img.shields.io/github/stars/isabelroses/dotfiles?color=f5c2e7&labelColor=303446&style=for-the-badge&logo=starship&logoColor=f5c2e7">
+  <img alt="ci" src="https://img.shields.io/github/actions/workflow/status/isabelroses/dotfiles/check.yml?label=build&color=a6e3a1&labelColor=303446&style=for-the-badge&logo=github&logoColor=a6e3a1" />
   <img src="https://img.shields.io/github/repo-size/isabelroses/dotfiles?color=fab387&labelColor=303446&style=for-the-badge&logo=github&logoColor=fab387">
- <p></p>
 </div>
 
+### [todo](https://todo.isabelroses.com/projects/3/kanban#share-auth-token=nTSpRoqUTRECeVjSXKhqsvWJaMyAYXfaexAnIAFY)
+
+The [todo](https://todo.isabelroses.com/projects/3/kanban#share-auth-token=nTSpRoqUTRECeVjSXKhqsvWJaMyAYXfaexAnIAFY) is a list of all the items that need to be handeled in any given way
 
 ### config layout
 
-- :house_with_garden: [home](../home)
-- :computer: [hosts](../hosts/)
-  - [hydra](../hosts/hydra/) A super mid spec laptop
-  - [amatarasu](../hosts/amatarasu/) My high end gameing machine
-- :electric_plug: [modules](../modules/)
+- 🏠 [home](../home)
+- 🖥️ [hosts](../hosts/)
+  - 🐉 [hydra](../hosts/hydra/) A super mid spec laptop
+  - ☀️ [amatarasu](../hosts/amatarasu/) My high end gameing machine
+- 🔌 [modules](../modules/)
+  - [common](../modules/common/) Common configuration settings
+    - [core](../modules/common/core/) Core parts of the configuration
+    - [options](../modules/common/options/) Selecteable settings that can be used to toggle certain settings
+    - [system](../modules/common/system/) System configurations
+  - [extra](../modules/extra/) Prebuilt configrations & spare parts
+    - [desktop](../modules/extra/desktop/) Default desktop config
+    - [server](../modules/extra/server/) Deafult server config
+    - [virtualization](../modules/extra/virtualization/) Settings for virtualization
 
 <details>
 <summary> Hyprland Shortcuts </summary>
@@ -41,4 +51,3 @@
 - [numtide/srvos](https://github.com/numtide/srvos)
 - [nullishamy](https://github.com/nullishamy/derivation-station/)
 - [nekowinston](https://github.com/nekowinston/dotfiles)
-
