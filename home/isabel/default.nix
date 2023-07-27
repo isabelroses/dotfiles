@@ -8,8 +8,11 @@
 in {
   imports = [
     # external home-manager modules
-    inputs.hyprland.homeManagerModules.default
+    #inputs.hyprland.homeManagerModules.default
     inputs.catppuccin.homeManagerModules.catppuccin
+
+    # important system level configurations
+    ./system
 
     # programs sets
     ./programs
