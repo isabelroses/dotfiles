@@ -5,6 +5,5 @@ _: {
     ./gpu # gpu specific options
     ./tmp # Trusted Platform Module
     ./bluetooth # bluetooth
-    ./smb #smb shares
   ];
 }
