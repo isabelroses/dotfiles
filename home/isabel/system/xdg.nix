@@ -1,6 +1,10 @@
-{config, ...}: let
+{
+  config,
+  pkgs,
+  ...
+}: let
   browser = ["chromium.desktop"];
-  zathura = ["org.pwmt.zathura.desktop.desktop"];
+  zathura = ["org.pwmt.zathura.desktop"];
   filemanager = ["thunar.desktop"];
 
   associations = {
@@ -27,6 +31,7 @@
     "inode/directory" = filemanager;
   };
 in {
+  home.packages = with pkgs; [xdg-utils];
   xdg = {
     userDirs = {
       enable = true;
