@@ -37,6 +37,7 @@ in {
       nixclean = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
       nixrepair = "nix-store --verify --check-contents --repair";
     };
+    shellAbbrs = {};
     shellInit = ''
       starship init fish | source
       set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
