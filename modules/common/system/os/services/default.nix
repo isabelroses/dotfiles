@@ -1,6 +1,15 @@
-{lib, ...}: {
-  imports = [./systemd.nix];
+{
+  config,
+  inputs,
+  lib,
+  ...
+}: {
+  imports = [
+    ./systemd.nix
+    inputs.vscode-server.nixosModules.default
+  ];
   services = {
+    vscode-server.enable = config.modules.services.vscode-server.enable;
     # monitor and control temparature
     thermald.enable = true;
     # handle ACPI events

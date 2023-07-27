@@ -10,7 +10,7 @@ with lib; let
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     fonts = {
-      enableDefaultFonts = false;
+      enableDefaultPackages = false;
 
       fontconfig = {
         # this fixes emoji stuff
@@ -32,7 +32,7 @@ in {
       };
 
       # font packages that should be installed
-      fonts = with pkgs; [
+      packages = with pkgs; [
         corefonts
         material-icons
         material-design-icons

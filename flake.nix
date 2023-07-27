@@ -1,5 +1,5 @@
 {
-  description = "Flameing hot trash";
+  description = "Isabel's dotfiles";
 
   outputs = {
     self,
@@ -54,7 +54,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # remote ssh vscode server
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
@@ -138,6 +145,7 @@
     # nur's
     nur.url = "github:nix-community/nur";
     bella-nur.url = "github:isabelroses/nur";
+    nekowinston-nur.url = "github:nekowinston/nur";
   };
 
   nixConfig = {

@@ -8,14 +8,33 @@
 in {
   users.groups.cloudflared = lib.mkIf (cloudflare.enable) {};
   systemd = with lib; {
-    services.tunnel = mkIf (cloudflare.enable) {
-      wantedBy = ["multi-user.target"];
-      after = ["network.target" "network-online.target" "systemd-resolved.service"];
-      serviceConfig = {
-        ExecStart = "${pkgs.cloudflared}/bin/cloudflared tunnel --no-autoupdate run --token=${cloudflare.token}";
-        Restart = "always";
-        User = "${config.modules.system.username}";
-        Group = "cloudflared";
+    services = {
+      tunnel = mkIf (cloudflare.enable) {
+        wantedBy = ["multi-user.target"];
+        after = ["network.target" "network-online.target" "systemd-resolved.service"];
+        serviceConfig = {
+          ExecStart = "${pkgs.cloudflared}/bin/cloudflared tunnel --no-autoupdate run --token=${cloudflare.token}";
+          Restart = "always";
+          User = "${config.modules.system.username}";
+          Group = "cloudflared";
+        };
+      };
+
+      # clean audit log if it's more than 524,288,000 bytes, which is roughly 500 megabytes
+      # it can grow MASSIVE in size if left unchecked
+      "clean-audit-log" = mkIf (config.security.auditd.enable) {
+        script = ''
+            set -eu
+            if [[ $(stat -c "%s" /var/log/audit/audit.log) -gt 524288000 ]]; then
+              echo "Clearing Audit Log";
+          rm -rvf /var/log/audit/audit.log;
+          echo "Done!"
+            fi
+        '';
+        serviceConfig = {
+          Type = "oneshot";
+          User = "root";
+        };
       };
     };
 
@@ -27,23 +46,6 @@ in {
       timerConfig = {
         OnCalendar = "daily";
         Persistent = true;
-      };
-    };
-
-    # clean audit log if it's more than 524,288,000 bytes, which is roughly 500 megabytes
-    # it can grow MASSIVE in size if left unchecked
-    services."clean-audit-log" = mkIf (config.security.auditd.enable) {
-      script = ''
-          set -eu
-          if [[ $(stat -c "%s" /var/log/audit/audit.log) -gt 524288000 ]]; then
-            echo "Clearing Audit Log";
-        rm -rvf /var/log/audit/audit.log;
-        echo "Done!"
-          fi
-      '';
-      serviceConfig = {
-        Type = "oneshot";
-        User = "root";
       };
     };
   };
