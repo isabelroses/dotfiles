@@ -5,14 +5,14 @@
   ...
 }:
 with lib; let
-  share = config.modules.system.smb;
+  smb = config.modules.services.smb;
 in {
   imports = [
-    ./media
-    ./genral
+    ./recive
+    ./host
   ];
 
-  config = mkIf (share.enable) {
+  config = mkIf (smb.enable) {
     environment.systemPackages = [pkgs.cifs-utils];
   };
 }
