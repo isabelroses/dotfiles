@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib; let
@@ -14,14 +15,14 @@ in {
       mediaKeys.enable = true;
     };
     # able to change scheduling policies, e.g. to SCHED_RR
-    security.rtkit.enable = true;
+    security.rtkit.enable = config.services.pipewire.enable;
 
     # we replace pulseaudio with the incredibly based pipewire
     services.pipewire = {
       enable = mkDefault true;
       alsa = {
         enable = true;
-        support32Bit = true; # TODO: make this only enable on 32bit systems
+        support32Bit = with pkgs; (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86);
       };
       pulse.enable = true;
       jack.enable = true;
