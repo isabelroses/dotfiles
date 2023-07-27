@@ -25,22 +25,21 @@ with lib; {
       permittedInsecurePackages = [];
     };
 
-    overlays = with inputs;
+    overlays = with inputs; let
+      nuropt = config.modules.programs.nur;
+    in
       [
         rust-overlay.overlays.default
       ]
-      ++ optionals (config.modules.programs.nur.enable) [
+      ++ optionals (nuropt.enable) [
         (final: prev: {
           nur = import nur {
             nurpkgs = prev;
             pkgs = prev;
-            repoOverrides = {
-              bella = inputs'.bella-nur.packages;
-            };
-            # TODO if more repoOverrides are added
-            #repoOverrides = mkMerge [
-            #  (mkIf (config.modules.programs.nur.bella) { bella = inputs'.bella-nur.packages; })
-            #];
+            repoOverrides =
+              {}
+              // lib.optionalAttrs (nuropt.bella) {bella = inputs'.bella-nur.packages;}
+              // lib.optionalAttrs (nuropt.nekowinston) {nekowinston = inputs'.nekowinston-nur.packages;};
           };
         })
       ];
