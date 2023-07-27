@@ -6,5 +6,6 @@ _: {
     ./network # networking & tcp optimizations
     ./boot # boot and bootloader configurations
     ./os # system configurations
+    ./smb # host and recive smb shares
   ];
 }

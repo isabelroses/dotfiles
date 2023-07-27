@@ -4,11 +4,11 @@
   ...
 }:
 with lib; let
-  share = config.modules.system.smb;
+  smb = config.modules.services.smb;
 in {
-  config = mkIf ((share.enable) && (share.media.enable)) {
-    fileSystems."/mnt/media" = {
-      device = "//192.168.86.4/media";
+  config = mkIf ((smb.enable) && (smb.recive.general)) {
+    fileSystems."/mnt/general" = {
+      device = "//192.168.86.4/sharedata";
       fsType = "cifs";
       options = [
         "x-systemd.automount"
