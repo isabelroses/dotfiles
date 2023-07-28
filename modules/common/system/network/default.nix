@@ -13,7 +13,9 @@ with lib; {
   };
 
   networking = {
-    # use dhcpd
+    # global dhcp has been deprecated upstream
+    # use networkd instead
+    # individual interfaces are still managed through dhcp in hardware configurations
     useDHCP = mkDefault false;
     useNetworkd = mkDefault true;
 
@@ -36,16 +38,34 @@ with lib; {
       unmanaged = ["docker0" "rndis0"];
       wifi = {
         powersave = true;
+        #macAddress = "random"; # use a random mac address on every boot
       };
     };
   };
 
-  # enable wireless database
+  # enable wireless database, it helps with finding the right channels
   hardware.wirelessRegulatoryDatabase = true;
+  
+  # allow for the system to boot without waiting for the network interfaces are online
+  # speeds up boot times
+  systemd = let
+    ethernetDevices = [
+      "wlp1s0f0u8" # wifi dongle
+    ];
+  in {
+    network.wait-online.enable = false;
+    services =
+      {
+        NetworkManager-wait-online.enable = false;
 
-  # slows down boot time
-  systemd.services.NetworkManager-wait-online.enable = true;
-  systemd.network.wait-online.enable = false;
-  systemd.services.systemd-networkd.stopIfChanged = false;
-  systemd.services.systemd-resolved.stopIfChanged = false;
+        # disable networkd and resolved from being restarted on configuration changes
+        systemd-networkd.stopIfChanged = false;
+        systemd-resolved.stopIfChanged = false;
+      }
+      // lib.concatMapAttrs (_: v: v) (lib.genAttrs ethernetDevices (device: {
+        # Assign an IP address when the device is plugged in rather than on startup. Needed to prevent
+        # blocking the boot sequence when the device is unavailable, as it is hotpluggable.
+        "network-addresses-${device}".wantedBy = lib.mkForce ["sys-subsystem-net-devices-${device}.device"];
+      }));
+  };
 }
