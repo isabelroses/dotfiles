@@ -45,7 +45,7 @@ with lib; {
 
   # enable wireless database, it helps with finding the right channels
   hardware.wirelessRegulatoryDatabase = true;
-  
+
   # allow for the system to boot without waiting for the network interfaces are online
   # speeds up boot times
   systemd = let

@@ -82,9 +82,6 @@ in {
       # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
       kernelParams =
         [
-          # enables calls to ACPI methods through /proc/acpi/call
-          "acpi_call"
-
           # https://en.wikipedia.org/wiki/Kernel_page-table_isolation
           # auto means kernel will automatically decide the pti state
           "pti=auto" # on | off
@@ -98,9 +95,6 @@ in {
           # https://tails.boum.org/contribute/design/kernel_hardening/
           "slab_nomerge"
 
-          # needs to be on for powertop
-          "debugfs=on"
-
           # only allow signed modules
           "module.sig_enforce=1"
 
@@ -113,9 +107,8 @@ in {
           # performance improvement for direct-mapped memory-side-cache utilization, reduces the predictability of page allocations
           "page_alloc.shuffle=1"
 
-          # WARNING: this will leak unhashed memory addresses to dmesg
           # for debugging kernel-level slab issues
-          # "slub_debug=FZP"
+          "slub_debug=FZP"
 
           # always-enable sysrq keys. Useful for debugging
           "sysrq_always_enabled=0"
@@ -164,7 +157,6 @@ in {
           "rd.udev.log_level=3"
 
           # disable the cursor in vt to get a black screen during intermissions
-          # TODO turn back on in tty
           "vt.global_cursor_default=0"
         ]
         ++ optionals (sys.boot.extraKernelParams != []) sys.boot.extraKernelParams;

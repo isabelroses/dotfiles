@@ -1,34 +1,9 @@
 {lib, ...}:
 with lib; {
+  imports = [./services.nix];
   # this module provides overrides for certain defaults and lets you set
   # default programs for referencing in other config files.
   options.modules = {
-    services = {
-      smb = {
-        enable = mkEnableOption "Enables smb shares";
-        host.enable = mkEnableOption "Enables hosting of smb shares";
-
-        # should smb shares be enabled as a recpient machine
-        recive = {
-          general = mkEnableOption "genral share";
-          media = mkEnableOption "media share";
-        };
-      };
-
-      jellyfin.enable = mkEnableOption "Enables the jellyfin service"; # TODO
-
-      cloudflare = {
-        enable = mkEnableOption "Enables cloudflared tunnels";
-        token = mkOption {
-          type = types.str;
-          default = "";
-          description = "The token which is used by cloudflared tunnels";
-        };
-      };
-
-      vscode-server.enable = mkEnableOption "Enables remote ssh vscode server";
-    };
-
     programs = {
       # "override" is a simple option that sets the programs' state to the oppossite of their default
       override = {
@@ -46,6 +21,11 @@ with lib; {
       };
       gui = {
         enable = mkEnableOption "Enable GUI programs";
+      };
+
+      gaming = {
+        enable = mkEnableOption "Enable packages required for the device to be gaming-ready";
+        gamescope.enable = mkEnableOption "Gamescope compositing manager" // {default = config.modules.programs.gaming.enable;};
       };
 
       git = {
@@ -66,7 +46,7 @@ with lib; {
       default = {
         # what program should be used as the default terminal
         terminal = mkOption {
-          type = types.enum ["alacritty" "kitty" "wezterm"];
+          type = types.enum ["alacritty" "kitty" "wezterm" "foot"];
           default = "alacritty";
         };
 
@@ -85,8 +65,13 @@ with lib; {
           default = "nvim";
         };
 
+        launcher = mkOption {
+          type = types.enum ["rofi" "wofi"];
+          default = "rofi";
+        };
+
         bar = mkOption {
-          type = types.enum ["eww" "waybar"];
+          type = types.enum ["eww" "waybar" "ags"];
           default = "eww";
         };
       };

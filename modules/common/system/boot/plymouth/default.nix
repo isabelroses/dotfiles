@@ -10,9 +10,7 @@
   cfg = config.modules.system.boot.plymouth;
 in {
   config = mkIf cfg.enable {
-    boot.plymouth = let
-      pack = cfg.pack;
-    in
+    boot.plymouth =
       {
         enable = true;
       }

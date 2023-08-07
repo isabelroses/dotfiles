@@ -65,6 +65,7 @@ in {
             general = true;
           };
         };
+        photoprism.enable = true;
         vscode-server.enable = true;
       };
       programs = {

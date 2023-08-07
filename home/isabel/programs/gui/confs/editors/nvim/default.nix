@@ -16,7 +16,12 @@ in {
 
     programs.neovim = {
       enable = true;
-      package = pkgs.neovim-unwrapped;
+      package = pkgs.symlinkJoin {
+        name = "neovim";
+        paths = [pkgs.neovim-unwrapped];
+        buildInputs = [pkgs.makeWrapper pkgs.gcc];
+        postBuild = "wrapProgram $out/bin/nvim --prefix CC : ${pkgs.lib.getExe pkgs.gcc}";
+      };
       vimAlias = true;
       viAlias = false;
       vimdiffAlias = false;
@@ -47,7 +52,6 @@ in {
             tree-sitter-comment
             tree-sitter-http
             tree-sitter-regex
-            tree-sitter-dart
             tree-sitter-make
             tree-sitter-html
             tree-sitter-css

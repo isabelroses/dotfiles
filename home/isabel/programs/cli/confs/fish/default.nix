@@ -1,27 +1,39 @@
-{osConfig, ...}: let
+{
+  osConfig,
+  config,
+  pkgs,
+  ...
+}: let
   sys = osConfig.modules.system;
+  #symlink = fileName: {recursive ? false}: {
+  #  source = config.lib.file.mkOutOfStoreSymlink "${sys.flakePath}/${fileName}";
+  #  inherit recursive;
+  #};
 in {
   programs.fish = {
     enable = true;
     catppuccin.enable = true;
+    plugins = [];
+    functions = {
+      bj = "nohup $argv </dev/null &>/dev/null &";
+      "." = ''
+        set -l input $argv[1]
+        if echo $input | grep -q '^[1-9][0-9]*$'
+          set -l levels $input
+          for i in (seq $levels)
+            cd ..
+          end
+        else
+          echo "Invalid input format. Please use '<number>' to go back a specific number of directories."
+        end
+      '';
+    };
     shellAliases = {
-      ".." = "cd ..";
-      "..." = "cd ../..";
-      ".3" = "cd ../../..";
-      ".4" = "cd ../../../..";
-      ".5" = "cd ../../../../..";
-
       # ls to exa
       ls = "exa -al --color=always --icons --group-directories-first";
-      la = "exa -a --color=always --icons --group-directories-first";
+      la = "command exa -a --color=always --icons --group-directories-first";
       ll = "exa -abghHliS --icons --group-directories-first";
       lt = "exa -aT --color=always --icons --group-directories-first";
-
-      # confirm
-      cp = "cp -i";
-      mv = "mv -i";
-      rm = "rm -i";
-      ln = "ln -i";
 
       mkidr = "mkdir -pv"; # always create pearent directory
       df = "df -h"; # human readblity
@@ -48,4 +60,5 @@ in {
       export GPG_TTY=$(tty)
     '';
   };
+  #xdg.configFile."fish/conf.d" = symlink "home/${sys.username}/programs/cli/confs/fish/conf.d" {recursive = true;};
 }
