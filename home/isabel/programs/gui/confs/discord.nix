@@ -14,6 +14,7 @@ in {
     home.packages = with pkgs; [
       ((discord.override {
           withOpenASAR = true;
+          withVencord = true;
         })
         .overrideAttrs (old: {
           libPath = old.libPath + ":${pkgs.libglvnd}/lib";
