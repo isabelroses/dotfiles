@@ -1,5 +1,9 @@
-{pkgs, lib, ...}: 
-
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 with lib; let
   device = config.modules.device;
   cfg = config.modules.services;
