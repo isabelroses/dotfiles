@@ -1,15 +1,14 @@
 {
-  nixpkgs,
   lib,
   inputs,
   ...
 }: let
   # inherit self from inputs
-  self = inputs.self;
+  inherit (inputs) self;
 
   # just an alias to nixpkgs.lib.nixosSystem, lets me avoid adding
   # nixpkgs to the scope in the file it is used in
-  mkSystem = nixpkgs.lib.nixosSystem;
+  mkSystem = lib.nixosSystem;
 
   # mkNixosSystem wraps mkSystem (a.k.a lib.nixosSystem) with flake-parts' withSystem to provide inputs' and self' from flake-parts
   # it also acts as a template for my nixos hosts with system type and modules being imported beforehand

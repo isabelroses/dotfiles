@@ -22,7 +22,7 @@ in {
       # github cli
       gh = {
         enable = true;
-        enableGitCredentialHelper = false;
+        gitCredentialHelper.enable = false;
         extensions = with pkgs; [
           gh-cal # github activity stats in the CLI
           gh-dash # dashboard with pull requests and issues

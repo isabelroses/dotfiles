@@ -20,6 +20,13 @@
 
   # a basic function to fetch a specified user's public keys from github .keys url
   fetchKeys = username: (builtins.fetchurl "https://github.com/${username}.keys");
+
+  # a helper function that checks if a list contains a list of given strings
+  containsStrings = {
+    list,
+    targetStrings,
+  }:
+    builtins.all (s: builtins.any (x: x == s) list) targetStrings;
 in {
-  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys;
+  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings;
 }

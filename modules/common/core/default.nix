@@ -1,6 +1,5 @@
 _: {
   imports = [
     ./nix
-    ./users
   ];
 }

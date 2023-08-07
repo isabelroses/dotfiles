@@ -1,7 +1,4 @@
 _: {
-  imports = [
-    ./services
-  ];
   config = {
     video.enable = false;
     sound.enable = false;

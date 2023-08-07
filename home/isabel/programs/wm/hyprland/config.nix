@@ -9,7 +9,7 @@
   pointer = config.home.pointerCursor;
   default = osConfig.modules.programs.default;
   dev = osConfig.modules.device;
-  monitors = osConfig.modules.device.monitors;
+  inherit (osConfig.modules.device) monitors;
 
   mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
       if monitor == "DP-1"
@@ -57,6 +57,9 @@ in {
         ]
         ++ optionals (default.bar == "waybar") [
           "waybar"
+        ]
+        ++ optionals (default.bar == "ags") [
+          "ags"
         ];
 
       input = {
@@ -107,10 +110,13 @@ in {
         active_opacity = 1.0;
         inactive_opacity = 1.0;
 
-        blur = true;
-        blur_passes = 1;
-        blur_size = 2;
-        blur_new_optimizations = true;
+        blur = {
+          enabled = true;
+          passes = 1;
+          size = 2;
+          new_optimizations = true;
+        };
+
         blurls = [
           "eww_powermenu"
           "eww_takeshot"
@@ -180,11 +186,6 @@ in {
           "$mod, Return, exec, ${default.terminal}"
           "$mod, O, exec, obsidian"
 
-          ", XF86AudioPlay, exec, playerctl play-pause"
-          ", XF86AudioPause, exec, playerctl play-pause"
-          ", XF86AudioNext, exec, playerctl next"
-          ", XF86AudioPrev, exec, playerctl previous"
-
           # window managment
           "$mod, Q, killactive,"
           # "$mod SHIFT, Q, exit,"
@@ -228,6 +229,31 @@ in {
           "$mod, period, exec, killall rofi || rofi -show emoji -emoji-format '{emoji}' -modi emoji"
           ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
           ", XF86AudioMute, exec, pamixer -t"
+        ]
+        ++ optionals (default.bar != "ags") [
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioPause, exec, playerctl play-pause"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioPrev, exec, playerctl previous"
+        ];
+
+      bindle =
+        []
+        ++ optionals (default.bar == "ags") [
+          ", XF86MonBrightnessUp, exec, ags run-js `ags.Service.Brightness.screen += 0.02; ags.Service.Indicator.display()`"
+          ", XF86MonBrightnessDown, exec, ags run-js `ags.Service.Brightness.screen -= 0.02; ags.Service.Indicator.display()`"
+          ", XF86AudioRaiseVolume, exec, ags run-js `ags.Service.Audio.speaker.volume += 0.05; ags.Service.Indicator.speaker()`"
+          ", XF86AudioLowerVolume, exec, ags run-js `ags.Service.Audio.speaker.volume -= 0.05; ags.Service.Indicator.speaker()`"
+        ];
+
+      bindl =
+        []
+        ++ optionals (default.bar == "ags") [
+          ", XF86AudioPlay, exec, ags run-js `ags.Service.Mpris.getPlayer()?.playPause()`"
+          ", XF86AudioStop, exec, ags run-js `ags.Service.Mpris.getPlayer()?.stop()`"
+          ", XF86AudioPause, exec, ags run-js `ags.Service.Mpris.getPlayer()?.pause()`"
+          ", XF86AudioPrev, exec, ags run-js `ags.Service.Mpris.getPlayer()?.previous()`"
+          ", XF86AudioNext, exec, ags run-js `ags.Service.Mpris.getPlayer()?.next()`"
         ];
 
       # mouse binds

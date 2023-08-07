@@ -109,6 +109,8 @@ with lib; {
         "nix-command"
         "recursive-nix"
         "ca-derivations"
+        "repl-flake"
+        "auto-allocate-uids"
       ];
       # don't warn me that my git tree is dirty, I know
       warn-dirty = false;

@@ -19,7 +19,7 @@
     # firmware updater for machine hardware
     fwupd.enable = true;
     # I don't use lvm, can be disabled
-    lvm.enable = lib.mkDefault false;
+    lvm.enable = false;
     # enable smartd monitoering
     smartd.enable = true;
     # limit systemd journal size

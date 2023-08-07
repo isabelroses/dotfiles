@@ -1,8 +1,11 @@
 {
+  pkgs,
   config,
   inputs,
   ...
-}: {
+}: let
+  env = config.modules.usrEnv;
+in {
   imports = [
     inputs.nh.nixosModules.default
   ];
@@ -25,5 +28,14 @@
       # type "fuck" to fix the last command that made you go "fuck"
       thefuck.enable = true;
     };
+
+    # determine which version of wine to be used
+    # then add it to systemPackages
+    environment.systemPackages = with pkgs; let
+      winePackage =
+        if (env.isWayland) == true
+        then wineWowPackages.waylandFull
+        else wineWowPackages.stableFull;
+    in [winePackage];
   };
 }

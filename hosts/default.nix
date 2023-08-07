@@ -4,7 +4,7 @@
   withSystem,
   ...
 }: let
-  inputs = self.inputs;
+  inherit (self) inputs;
   inherit (lib) concatLists mkNixosSystem;
 
   # common modules, to be shared across all systems
@@ -18,6 +18,7 @@
   #server = extraModules + /server; # for devices that act as "servers"
   desktop = extraModules + /desktop; # for devices that are for daily use
   virtualization = extraModules + /virtualization; # hotpluggable virtalization module
+  sharedModules = extraModules + /shared; # shared modules
 
   ## home-manager ##
   home = ../home; # home-manager configurations for hosts that need home-manager
@@ -32,6 +33,7 @@
     system # the skeleton module for config.modules.*
     core # the "sane" default shared across systems
     options
+    sharedModules
     cat # for the quick themeing
   ];
 
