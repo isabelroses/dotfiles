@@ -9,7 +9,7 @@
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = lib.mkIf (builtins.elem device.type acceptedTypes && (sys.video.enable)) {
+  config = lib.mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
     xdg.configFile."kdeglobals".source = "${(pkgs.catppuccin-kde.override {
       flavour = ["mocha"];
       accents = ["blue"];
@@ -17,7 +17,7 @@ in {
     })}/share/color-schemes/CatppuccinMochaBlue.colors";
     qt = {
       enable = true;
-      # platformTheme = "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes "gtk" or "gnome"
+      platformTheme = "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes "gtk" or "gnome"
       style = {
         package = pkgs.catppuccin-kde;
         name = "Catpuccin-Mocha-Dark";
@@ -36,7 +36,7 @@ in {
 
     home.sessionVariables = {
       #QT_QPA_PLATFORMTHEME = "kvantum"; # can't be used alongside kvantum, nix above knows why
-      QT_STYLE_OVERRIDE = "kvantum";
+      #QT_STYLE_OVERRIDE = "kvantum";
       QT_AUTO_SCREEN_SCALE_FACTOR = "1";
       QT_QPA_PLATFORM = "wayland;xcb";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";

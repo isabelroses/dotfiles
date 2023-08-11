@@ -1,0 +1,48 @@
+.corners .corner {
+    background-color: if($screen_corners, $bg_color, transparent);
+    border-radius: $radii*2;
+}
+
+.desktop {
+    @if $bar_style =='normal' {
+        border-radius: if($screen_corners, $popover_radius, 0);
+        box-shadow: inset 0 0 $spacing 0 $shadow;
+    }
+
+    @if $drop_shadow {
+        label {
+            text-shadow: $text_shadow;
+        }
+    }
+
+    @else {
+
+        .separator {
+            border: $border;
+        }
+
+        label {
+            @include text_border;
+        }
+    }
+}
+
+window.indicator .progress {
+    @include floating_widget;
+    padding: $spacing/2;
+
+    .fill {
+        border-radius: max($popover_radius - $spacing/2, 0);
+        background-color: $accent;
+        color: $accent_fg;
+
+        image {
+            -gtk-icon-transform: scale(0.7);
+        }
+
+        label {
+            margin: 3px;
+            font-size: 34px;
+        }
+    }
+}

@@ -25,6 +25,9 @@ in {
 
     # dev shells
     ./shells
+
+    # other settings that can't be organized as easly
+    ./misc
   ];
   config = {
     # reload system units when changing configs

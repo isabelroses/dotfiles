@@ -27,6 +27,9 @@
     targetStrings,
   }:
     builtins.all (s: builtins.any (x: x == s) list) targetStrings;
+  
+  # replace whitespaces with hyphens
+  serializeTheme = inputString: lib.strings.toLower (builtins.replaceStrings [" "] ["-"] inputString);
 in {
-  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings;
+  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme;
 }

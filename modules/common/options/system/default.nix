@@ -1,10 +1,10 @@
 {
   lib,
-  pkgs,
   ...
 }:
 with lib; {
   imports = [
+    ./activation.nix
     ./boot.nix
     ./networking.nix
     ./security.nix

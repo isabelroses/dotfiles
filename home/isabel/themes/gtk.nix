@@ -5,7 +5,8 @@
   osConfig,
   ...
 }: let
-  device = osConfig.modules.device;
+  inherit (osConfig.modules) device;
+  cfg = osConfig.modules.style;
   sys = osConfig.modules.system;
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
@@ -18,24 +19,14 @@ in {
     home = {
       packages = with pkgs; [
         glib # gsettings
-        (catppuccin-gtk.override {
-          size = "standard";
-          accents = ["sapphire"];
-          variant = "mocha";
-          tweaks = ["normal"];
-        })
-        (catppuccin-papirus-folders.override {
-          accent = "sapphire";
-          flavor = "mocha";
-        })
       ];
 
       sessionVariables = {
-        # set GTK theme as specified by the catppuccin-gtk package
-        GTK_THEME = "${config.gtk.theme.name}";
+        # set GTK theme to the name specified by the gtk package
+        GTK_THEME = "${cfg.gtk.theme.name}";
 
         # gtk applications should use filepickers specified by xdg
-        GTK_USE_PORTAL = "1";
+        GTK_USE_PORTAL = "${toString cfg.gtk.usePortal}";
       };
     };
 
@@ -43,26 +34,18 @@ in {
       enable = true;
 
       theme = {
-        name = "Catppuccin-Mocha-Standard-Sapphire-dark";
-        package = pkgs.catppuccin-gtk.override {
-          size = "standard";
-          accents = ["sapphire"];
-          variant = "mocha";
-          tweaks = ["normal"];
-        };
+        name = "${cfg.gtk.theme.name}";
+        package = cfg.gtk.theme.package;
       };
 
       iconTheme = {
-        name = "Papirus-Dark";
-        package = pkgs.catppuccin-papirus-folders.override {
-          accent = "sapphire";
-          flavor = "mocha";
-        };
+        name = "${cfg.gtk.iconTheme.name}";
+        package = cfg.gtk.iconTheme.package;
       };
 
       font = {
-        name = "Lexend";
-        size = 13;
+        name = "${cfg.gtk.font.name}";
+        size = cfg.gtk.font.size;
       };
 
       gtk2 = {
@@ -87,19 +70,5 @@ in {
         gtk-application-prefer-dark-theme = 1;
       };
     };
-
-    # cursor theme
-    home = {
-      pointerCursor = {
-        package = pkgs.catppuccin-cursors.mochaDark; #pkgs.bibata-cursors;
-        name = "Catppuccin-Mocha-Dark-Cursors"; #"Bibata-Modern-Classic";
-        size = 24;
-        gtk.enable = true;
-        x11.enable = true;
-      };
-    };
-
-    i18n.inputMethod.enabled = "fcitx5";
-    i18n.inputMethod.fcitx5.addons = with pkgs; [fcitx5-mozc];
   };
 }

@@ -210,7 +210,7 @@ in {
         ++ optionals (default.bar == "eww") [
           "$mod, D, exec, ~/.config/eww/scripts/launcher toggle_menu app_launcher"
           "$mod SHIFT, R, exec, ~/.config/eww/scripts/init"
-          "bind = $mod, V, exec, ~/.config/eww/scripts/launcher clipboard"
+          "$mod, V, exec, ~/.config/eww/scripts/launcher clipboard"
           "$mod, escape, exec, ~/.config/eww/scripts/launcher toggle_menu powermenu"
           "$mod shift, d, exec, ~/.config/eww/scripts/notifications closeLatest"
           "$mod, L, exec, ~/.config/eww/scripts/launcher screenlock"
@@ -225,10 +225,17 @@ in {
           "$mod, D, exec, rofi -show drun"
           "$mod, V, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
           "$mod, escape, exec, wlogout"
-          "$mod, L, exec, swaylock"
           "$mod, period, exec, killall rofi || rofi -show emoji -emoji-format '{emoji}' -modi emoji"
-          ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
+        ]
+        ++ optionals (default.bar == "ags") [
+          "$mod, D, exec, ags toggle-window applauncher"
+          "$mod, escape, exec, ags toggle-window powermenu"
+          "$mod SHIFT, R, exec, kill (ps aux | grep ags | awk 'FNR == 1 {print $2}') ; ags"
+        ]
+        ++ optionals (default.bar != "eww") [
+          "$mod, L, exec, swaylock"
           ", XF86AudioMute, exec, pamixer -t"
+          ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
         ]
         ++ optionals (default.bar != "ags") [
           ", XF86AudioPlay, exec, playerctl play-pause"

@@ -16,7 +16,7 @@ in {
         useOSProber = true;
         efiSupport = true;
         enableCryptodisk = mkDefault false;
-        device = "nodev";
+        device = cfg.boot.device;
         theme = null;
         backgroundColor = null;
         splashImage = null;

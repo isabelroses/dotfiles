@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   ...
 }:
 with lib; {

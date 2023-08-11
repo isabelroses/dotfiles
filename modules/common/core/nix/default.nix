@@ -4,6 +4,7 @@
   lib,
   inputs,
   inputs',
+  self,
   ...
 }:
 with lib; {
@@ -13,13 +14,25 @@ with lib; {
   };
 
   environment = {
+    etc = with inputs; {
+      # set channels (backwards compatibility)
+      "nix/flake-channels/system".source = self;
+      "nix/flake-channels/nixpkgs".source = nixpkgs;
+      "nix/flake-channels/home-manager".source = home-manager;
+
+      # preserve current flake in /etc
+      "nixos/flake".source = self;
+    };
+
     # we need git for flakes, don't we
     systemPackages = [pkgs.git];
   };
 
   nixpkgs = {
+    pkgs = self.legacyPackages.${config.nixpkgs.system};
+
     config = {
-      allowUnfree = true; # really a pain in the ass to deal with when disabled
+      allowUnfree = true;
       allowBroken = false;
       allowUnsupportedSystem = true;
       permittedInsecurePackages = [];
@@ -56,10 +69,23 @@ with lib; {
     };
   };
 
-  nix = {
+  nix = let
+    mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs; 
+  in {
+    # pin the registry to avoid downloading and evaluating a new nixpkgs
+    # version everytime
+    # this will add each flake input as a registry
+    # to make nix3 commands consistent with your flake
+    registry = mappedRegistry // {default = mappedRegistry.nixpkgs;};
+
+    # This will additionally add your inputs to the system's legacy channels
+    # Making legacy nix commands consistent as well, awesome!
+    nixPath = mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
+
     # Make builds run with low priority so my system stays responsive
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
+    daemonIOSchedPriority = 7;
 
     # set up garbage collection to run daily,
     # removing unused packages after three days
