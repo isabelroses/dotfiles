@@ -1,7 +1,5 @@
 {
   osConfig,
-  config,
-  pkgs,
   ...
 }: let
   sys = osConfig.modules.system;

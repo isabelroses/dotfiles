@@ -29,11 +29,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1691391724,
-        "narHash": "sha256-kV6Y3gGH5q1HdLJlnzSX2tLPmxhboEWUxdyktotuK/w=",
+        "lastModified": 1691597402,
+        "narHash": "sha256-HcJlaRdtsStB4h7Gb3AtI92Ur06I+XmOx43vfK6rCG0=",
         "owner": "isabelroses",
         "repo": "nur",
-        "rev": "a48e0de90b311a158e81c970fc106912808fd06a",
+        "rev": "0b789ccd5c8505a82b2c62aea4bb71b38d9a0e06",
         "type": "github"
       },
       "original": {
@@ -600,11 +600,11 @@
     "isabel-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1690537955,
-        "narHash": "sha256-ZS8aHNVX6AmOZgwJ9S9kUPJWIMgN0h7CIEeKQ+Fu1ok=",
+        "lastModified": 1691575884,
+        "narHash": "sha256-42VQOHkvdqlqqs4Of0wXbrVyvvaIZIgQZx1pj3QMKY8=",
         "ref": "refs/heads/main",
-        "rev": "c0f6440641b4bc627d7f25b9b1e986e9814d083c",
-        "revCount": 10,
+        "rev": "1489357a98c4226122fff4c9574d85fdc9c84d49",
+        "revCount": 11,
         "submodules": false,
         "type": "git",
         "url": "https://github.com/isabelroses/nvim"
@@ -783,11 +783,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1691371061,
-        "narHash": "sha256-BxPbPVlBIoneaXIBiHd0LVzA+L4nmvFCNBU6TmQAiMM=",
+        "lastModified": 1691464053,
+        "narHash": "sha256-D21ctOBjr2Y3vOFRXKRoFr6uNBvE8q5jC4RrMxRZXTM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5068bc8fe943bde3c446326da8d0ca9c93d5a682",
+        "rev": "844ffa82bbe2a2779c86ab3a72ff1b4176cec467",
         "type": "github"
       },
       "original": {

@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 with lib; let
@@ -12,7 +11,7 @@ in {
       consoleLogLevel = 0;
 
       # always use the latest kernel instead of the old-ass lts one
-      kernelPackages = lib.mkOverride 500 pkgs.linuxPackages_latest;
+      kernelPackages = lib.mkOverride 500 sys.boot.kernel;
 
       extraModulePackages = with config.boot.kernelPackages; [acpi_call];
       extraModprobeConfig = "options hid_apple fnmode=1";
@@ -130,9 +129,6 @@ in {
           "usbcore.autosuspend=-1"
           # linux security modules
           "lsm=landlock,lockdown,yama,apparmor,bpf"
-
-          # 7 = KERN_DEBUG for debugging
-          "loglevel=7"
 
           # isables resume and restores original swap space
           "noresume"

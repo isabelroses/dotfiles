@@ -1,29 +1,84 @@
 {
+  lib,
   config,
   osConfig,
-  lib,
   ...
-}: let
+}:
+with lib; let
   default = osConfig.modules.programs.default;
 in {
-  wayland.windowManager.sway = {
-    config = rec {
-      modifier = "Mod4";
-      workspaceAutoBackAndForth = true;
-      terminal = lib.getExe config.programs.${default.terminal}.package;
-      menu = lib.getExe config.programs.${default.launcher}.package;
-      defaultWorkspace = "workspace number 1";
+  config = mkIf (config.wayland.windowManager.sway.enable) {
+    wayland.windowManager.sway = {
+      config = {
+        modifier = "Mod4";
+        workspaceAutoBackAndForth = true;
+        terminal = default.terminal;
+        menu = default.launcher;
+        defaultWorkspace = "workspace number 1";
 
-      keybindings = let
-        mod = modifier;
-      in {
-        # launchers
-        "${mod}+Return" = "exec ${terminal}";
-        "${mod}+d" = "exec ${menu}";
-        "${mod}+b" = "exec ${default.browser}";
+        keybindings = let
+          mod = config.wayland.windowManager.sway.config.modifier;
+        in {
+          # launchers
+          "${mod}+Return" = "exec ${default.terminal}";
+          "${mod}+d" = "exec ${default.launcher}";
+          "${mod}+b" = "exec ${default.browser}";
+          "${mod}+e" = "exec ${default.fileManager}";
+          "${mod}+o" = "exec obsidian";
 
-        "${mod}+l" = "exec swaylock";
-        "${mod}+q" = "kill";
+          "${mod}+l" = "exec swaylock";
+          "${m}+t" = "floating toggle";
+          "Print" = "grim -g \"$(slurp)\"";
+          "${mod}+q" = "kill";
+        };
+
+        window = {
+          titlebar = false;
+          hideEdgeBorders = "none";
+          border = 2;
+        };
+
+        gaps = {
+          smartBorders = "on";
+          outer = 5;
+          inner = 5;
+        };
+
+        startup = [{command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY";}];
+
+        input = {
+          "type:pointer" = {
+            accel_profile = "flat";
+            pointer_accel = "0";
+          };
+          "type:touchpad" = {
+            middle_emulation = "enabled";
+            natural_scroll = "enabled";
+            tap = "enabled";
+          };
+        };
+        extraConfig = ''
+          set $ws1  1:一
+          set $ws2  2:二
+          set $ws3  3:三
+          set $ws4  4:四
+          set $ws5  5:五
+          set $ws6  6:六
+          set $ws7  7:七 
+          set $ws8  8:八
+          set $ws9  9:九
+          set $ws10 10:十
+
+          for_window [window_role="PictureInPicture"] floating enable sticky enable
+          for_window [class="Pavucontrol"] floating enable
+
+          corner_radius       5
+          smart_corner_radius enable
+
+          blur                enable
+          blur_passes         2
+          blur_radius         4
+        '';
       };
     };
   };

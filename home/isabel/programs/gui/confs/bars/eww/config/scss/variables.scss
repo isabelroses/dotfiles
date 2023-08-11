@@ -1,6 +1,7 @@
 $assets: './assets/';
-$wallpaper: $assets+'backgrounds/tempest.png';
-$avatar: $assets+'avatar';
+$pic_dir = '/home/isabel/media/pictures/';
+$wallpaper: $pic_dir + 'wallpapers/tempest.png';
+$avatar: $pic_dir + 'pfps/avatar';
 
 $hover: transparentize($fg_color, 0.84);
 

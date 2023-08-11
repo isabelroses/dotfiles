@@ -29,9 +29,31 @@ in {
       withNodeJs = false;
       withPython3 = false;
       extraPackages = with pkgs; [
+        # external deps
+        fd
+        ripgrep
+        lazygit
+
         texlab # latex LSP
         nil # nix language server
         alejandra # nix formatter
+        shellcheck
+
+        #rust
+        cargo
+        rust-analyzer
+        rustc
+        rustfmt
+
+        # web dev
+        nodePackages.alex
+
+        # python
+        nodePackages.pyright
+
+        # lua
+        stylua
+        lua-language-server
       ];
       plugins = with pkgs.vimPlugins; [
         (nvim-treesitter.withPlugins (plugins:

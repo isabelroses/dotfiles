@@ -15,7 +15,7 @@ in {
         gpu = "nvidia";
         hasTPM = true;
         monitors = ["HDMI-1"];
-        hasBluetooth = false;
+        hasBluetooth = true;
         hasSound = true;
         keyboard = "us";
       };
@@ -45,11 +45,11 @@ in {
         };
 
         virtualization = {
-          enable = true;
-          docker.enable = true;
-          qemu.enable = true;
+          enable = false;
+          docker.enable = false;
+          qemu.enable = false;
           podman.enable = false;
-          distrobox.enable = true;
+          distrobox.enable = false;
         };
       };
       usrEnv = {
@@ -74,6 +74,10 @@ in {
         cli.enable = true;
         gui.enable = true;
 
+        default = {
+          bar = "ags";
+        };
+
         nur = {
           enable = true;
           bella = true;
@@ -84,12 +88,10 @@ in {
 
     hardware = {
       nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
-        nvidiaPersistenced = mkForce false;
-
         open = mkForce false;
 
         prime = {
-          offload.enable = mkForce true;
+          offload.enable =  true;
           # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
           intelBusId = "PCI:0:2:0";
 

@@ -3,6 +3,7 @@ _: {
     ./device
     ./programs
     ./system
+    ./themes
     ./usrEnv
   ];
 }

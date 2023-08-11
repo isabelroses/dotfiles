@@ -1,0 +1,76 @@
+window#dashboard .dashboard {
+    @include floating_widget;
+
+    .notifications {
+        @include notifications;
+        min-width: 450px;
+
+        .header {
+            padding-left: .3em;
+            margin-bottom: $spacing;
+        }
+
+        .notification-list-box {
+            @include widget;
+
+            .wallpaper {
+                border-radius: max($radii - $border_width, 0);
+                background-position: bottom right;
+
+                @if $drop_shadow {
+                    box-shadow: inset 0 0 $spacing 0 $shadow;
+                }
+            }
+        }
+
+        .notification-list {
+            viewport>box {
+                padding: $spacing/2;
+            }
+
+            .notification>box {
+                @include floating_widget;
+                border-radius: $radii;
+                padding: $spacing;
+                margin: $spacing/2;
+            }
+        }
+
+        .placeholder {
+            color: $wallpaper_fg;
+
+            .icon {
+                font-size: 7em
+            }
+
+            label {
+                @if $drop_shadow {
+                    text-shadow: $text_shadow;
+                }
+
+                @else {
+                    @include text_border;
+                }
+
+            }
+        }
+    }
+
+    .separator {
+        background-color: transparentize($fg_color, 0.94);
+        min-width: 2px;
+        border-radius: $radii;
+        margin: 0 $spacing;
+    }
+
+    .datemenu {
+        @include datemenu;
+    }
+
+    .mediabox {
+        @include widget;
+        @include media;
+        min-height: 140px;
+        margin-top: $spacing;
+    }
+}

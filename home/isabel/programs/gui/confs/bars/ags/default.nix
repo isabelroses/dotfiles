@@ -13,11 +13,22 @@ with lib; let
 in {
   config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && programs.default.bar == "ags") {
     home = {
-      file.".config/ags".source = ./config;
       packages = with pkgs; [
         nur.repos.bella.ags
         socat
+        sassc
+        swww
       ];
+    };
+    xdg.configFile = let
+      symlink = fileName: {recursive ? false}: {
+        source = config.lib.file.mkOutOfStoreSymlink "${sys.flakePath}/${fileName}";
+        inherit recursive;
+      };
+    in {
+      "ags" = symlink "home/${sys.username}/programs/gui/confs/bars/ags/config" {
+        recursive = true;
+      };
     };
   };
 }

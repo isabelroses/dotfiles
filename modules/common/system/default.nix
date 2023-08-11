@@ -6,5 +6,6 @@ _: {
     ./boot # boot and bootloader configurations
     ./os # system configurations
     ./smb # host and recive smb shares
+    ./activation # activation system for nixos-rebuild
   ];
 }
