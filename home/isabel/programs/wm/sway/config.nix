@@ -64,7 +64,7 @@ in {
           set $ws4  4:四
           set $ws5  5:五
           set $ws6  6:六
-          set $ws7  7:七 
+          set $ws7  7:七
           set $ws8  8:八
           set $ws9  9:九
           set $ws10 10:十

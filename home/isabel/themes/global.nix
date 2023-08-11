@@ -9,7 +9,7 @@ in {
   home = {
     pointerCursor = {
       package = cfg.pointerCursor.package;
-      name = "${cfg.pointerCursor.name}"; 
+      name = "${cfg.pointerCursor.name}";
       size = 24;
       gtk.enable = true;
       x11.enable = true;

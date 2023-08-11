@@ -37,6 +37,7 @@ in {
         material-icons
         material-design-icons
         dejavu_fonts
+        inter
         noto-fonts
         noto-fonts-cjk
         noto-fonts-emoji

@@ -1,11 +1,18 @@
 {
+  osConfig,
   config,
   lib,
   ...
-}: {
+}: let
+  sys = osConfig.modules.system;
+in {
   services = {
     gpg-agent = {
       enable = true;
+      pinentryFlavor =
+        if (sys.video.enable)
+        then "gnome3"
+        else "curses";
       enableSshSupport = true;
       defaultCacheTtl = 1209600;
       defaultCacheTtlSsh = 1209600;

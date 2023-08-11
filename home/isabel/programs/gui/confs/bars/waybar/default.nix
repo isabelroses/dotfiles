@@ -10,7 +10,7 @@ with lib; let
   inherit (osConfig.modules) device;
   env = osConfig.modules.usrEnv;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
-   inherit (osConfig.modules) programs;
+  inherit (osConfig.modules) programs;
   sys = osConfig.modules.system;
 in {
   config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && env.isWayland && programs.default.bar == "waybar") {

@@ -22,7 +22,7 @@
 
       flake = let
         # extended nixpkgs lib, contains my custom functions
-        lib = import ./lib {inherit nixpkgs lib inputs;};
+        lib = import ./lib {inherit nixpkgs inputs;};
       in {
         # entry-point for nixos configurations
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
@@ -30,9 +30,7 @@
 
       perSystem = {
         config,
-        #inputs',
         pkgs,
-        #system,
         ...
       }: {
         imports = [{_module.args.pkgs = config.legacyPackages;}];
@@ -48,6 +46,8 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     # Nix helper
     nh = {
       url = "github:viperML/nh";
@@ -59,9 +59,6 @@
       url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
 
     # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
@@ -105,10 +102,7 @@
     };
 
     # Hyprland packages
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    hyprland.url = "github:hyprwm/Hyprland";
 
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
@@ -125,6 +119,9 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # mailserver on nixos
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
 
     # nushell scripts
     nu_scripts = {

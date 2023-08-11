@@ -19,7 +19,31 @@ in {
       dbus = {
         packages = with pkgs; [dconf gcr udisks2];
         enable = true;
+        # Use the faster dbus-broker instead of the classic dbus-daemon
+        implementation = "broker"; # TODO: keep an eye on this setting to see if it breaks anything
       };
+
+      # disable chrony in favor if systemd-timesyncd
+      timesyncd.enable = lib.mkDefault true;
+      chrony.enable = lib.mkDefault false;
+    };
+
+    systemd = let
+      extraConfig = ''
+        DefaultTimeoutStopSec=15s
+      '';
+    in {
+      inherit extraConfig;
+      user = {inherit extraConfig;};
+      services."getty@tty1".enable = false;
+      services."autovt@tty1".enable = false;
+      services."getty@tty7".enable = false;
+      services."autovt@tty7".enable = false;
+
+      # TODO channels-to-flakes
+      tmpfiles.rules = [
+        "D /nix/var/nix/profiles/per-user/root 755 root root - -"
+      ];
     };
   };
 }

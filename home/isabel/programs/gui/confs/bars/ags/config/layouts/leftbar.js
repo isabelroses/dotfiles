@@ -34,26 +34,22 @@ const quicksettings = {
 
 // bar
 const { launcher, bar } = imports.layouts.shared;
-const separator = { type: 'separator', valign: 'center' };
+const separator = { type: 'separator' };
 
 const panel = bar({
     anchor: ['top', 'left', 'bottom'],
     orientation: 'vertical',
     start: [
-        launcher(),
-        { type: 'workspaces', className: 'workspaces panel-button' },
+        launcher(20),
+        { type: 'workspaces', className: 'workspaces panel-button', orientation: 'vertical' },
         { type: 'media/panel-indicator', className: 'media panel-button', hexpand: true, halign: 'end' },
     ],
     center: [
-        { type: 'dashboard/panel-button', format: '%I\n%M' },
+        { type: 'dashboard/panel-button', format: '%I\n܅\n%M' },
     ],
     end: [
-        { type: 'notifications/panel-indicator', direction: 'right', className: 'notifications panel-button', hexpand: true },
-        { type: 'box', hexpand: true },
         { type: 'colorpicker', className: 'colorpicker panel-button' },
-        separator,
-        { type: 'quicksettings/panel-button' },
-        separator,
+        { type: 'quicksettings/panel-button', orientation: 'vertical' },
         { type: 'powermenu/panel-button' },
     ],
 });

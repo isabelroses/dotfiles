@@ -20,6 +20,9 @@
       ];
     };
 
+    # registry for linux, thanks to gnome
+    dconf.enable = true;
+
     # gnome's keyring manager
     seahorse.enable = true;
 

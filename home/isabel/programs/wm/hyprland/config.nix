@@ -165,6 +165,7 @@ in {
         "float, ^(xdg-desktop-portal)$"
         "float, ^(xdg-desktop-portal-gnome)$"
         "float, ^(transmission-gtk)$"
+        "float, ^(ags)$"
         "float, Bitwarden"
         "size 800 600,class:Bitwarden"
       ];
@@ -223,19 +224,19 @@ in {
         ]
         ++ optionals (default.bar == "waybar") [
           "$mod, D, exec, rofi -show drun"
-          "$mod, V, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
           "$mod, escape, exec, wlogout"
           "$mod, period, exec, killall rofi || rofi -show emoji -emoji-format '{emoji}' -modi emoji"
         ]
         ++ optionals (default.bar == "ags") [
           "$mod, D, exec, ags toggle-window applauncher"
           "$mod, escape, exec, ags toggle-window powermenu"
-          "$mod SHIFT, R, exec, kill (ps aux | grep ags | awk 'FNR == 1 {print $2}') ; ags"
+          "$mod SHIFT, R, exec, kill $(ps aux | rg ags | awk 'FNR == 1 {print $2}') ; ags"
         ]
         ++ optionals (default.bar != "eww") [
           "$mod, L, exec, swaylock"
           ", XF86AudioMute, exec, pamixer -t"
           ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
+          "$mod, V, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
         ]
         ++ optionals (default.bar != "ags") [
           ", XF86AudioPlay, exec, playerctl play-pause"

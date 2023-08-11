@@ -11,7 +11,7 @@ with lib; {
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
 
     extraKernelParams = mkOption {
-      type = with types; listOf string;
+      type = with types; listOf str;
       default = [];
     };
 
