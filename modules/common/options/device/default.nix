@@ -22,7 +22,7 @@ with lib; {
     hasTPM = mkEnableOption "Whether the system has tpm support";
 
     monitors = mkOption {
-      type = types.listOf types.string;
+      type = types.listOf types.str;
       default = [];
       description = ''
         this does not affect any drivers and such, it is only necessary for

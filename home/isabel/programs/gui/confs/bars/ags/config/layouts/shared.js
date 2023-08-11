@@ -57,7 +57,7 @@ var bar = ({ anchor, orientation, start, center, end }) => monitor => ({
         children: [
             { className: 'start', type: 'box', orientation, children: start },
             { className: 'center', type: 'box', orientation, children: center },
-            { className: 'end', type: 'box', orientation, children: end },
+            { className: 'end', type: 'box', orientation, children: end, valign: 'end' },
         ],
     },
 });

@@ -358,7 +358,7 @@ Widget.widgets['quicksettings/popup-content'] = () => Widget({
     ],
 });
 
-Widget.widgets['quicksettings/panel-button'] = () => Widget({
+Widget.widgets['quicksettings/panel-button'] = ({ orientation }) => Widget({
     type: 'button',
     className: 'quicksettings panel-button',
     onClick: () => App.toggleWindow('quicksettings'),
@@ -375,6 +375,7 @@ Widget.widgets['quicksettings/panel-button'] = () => Widget({
     }]],
     child: {
         type: 'box',
+        orientation,
         children: [
             { type: 'audio/microphone-mute-indicator', unmuted: null },
             { type: 'notifications/dnd-indicator', noisy: null },

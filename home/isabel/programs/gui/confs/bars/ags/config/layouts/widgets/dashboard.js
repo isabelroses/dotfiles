@@ -1,4 +1,5 @@
 const { App, Widget } = ags;
+const { Theme } = ags.Service;
 
 Widget.widgets['dashboard/panel-button'] = ({ format = '%I:%M:%S | %d/%m/%y', ...props }) => Widget({
     ...props,
@@ -18,6 +19,7 @@ Widget.widgets['dashboard/popup-content'] = () => Widget({
     type: 'box',
     className: 'dashboard',
     vexpand: false,
+    // orientation: Theme.getSetting('layout') == 'leftbar' ? 'vertical' : 'horizontal',
     children: [
         {
             type: 'box',

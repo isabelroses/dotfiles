@@ -1,7 +1,4 @@
-{
-  osConfig,
-  ...
-}: let
+{osConfig, ...}: let
   sys = osConfig.modules.system;
   #symlink = fileName: {recursive ? false}: {
   #  source = config.lib.file.mkOutOfStoreSymlink "${sys.flakePath}/${fileName}";

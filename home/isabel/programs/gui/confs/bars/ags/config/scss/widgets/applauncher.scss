@@ -1,4 +1,4 @@
-window#applauncher .applauncher{
+window#applauncher .applauncher {
     @include floating_widget;
 
     .search.wallpaper {
@@ -10,7 +10,9 @@ window#applauncher .applauncher{
         @if $drop_shadow {
             box-shadow: 0 0 0 $border_width $border_color,
                 inset 0 0 $spacing 0 $shadow;
-        } @else {
+        }
+
+        @else {
             box-shadow: 0 0 0 $border_width $border_color;
         }
 
@@ -72,7 +74,8 @@ window#applauncher .applauncher{
             margin-right: $spacing;
         }
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             .title {
                 color: $accent;
             }

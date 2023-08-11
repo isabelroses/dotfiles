@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib; {
   # should we optimize tcp networking
   options.modules.system.security = {

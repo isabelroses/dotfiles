@@ -14,11 +14,10 @@ with lib; let
     inherit recursive;
   };
   pictures = "media/pictures";
-
 in {
   config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
     home.file = {
-      "${pictures}/pfps" = symlink "pfps" { 
+      "${pictures}/pfps" = symlink "pfps" {
         recursive = true;
       };
       "${pictures}/wallpapers" = symlink "wallpapers" {

@@ -44,13 +44,19 @@ in {
     firewall = {
       enable = mkDefault true;
       package = mkDefault pkgs.iptables-nftables-compat;
-      allowedTCPPorts = []; 
+      allowedTCPPorts = [];
       allowedUDPPorts = [];
       allowedTCPPortRanges = [
-        { from = 1714; to = 1764; } #KDEconnect
+        {
+          from = 1714;
+          to = 1764;
+        } #KDEconnect
       ];
       allowedUDPPortRanges = [
-        { from = 1714; to = 1764; } #KDEconnect
+        {
+          from = 1714;
+          to = 1764;
+        } #KDEconnect
       ];
       allowPing = mkDefault device.type == "server";
       logReversePathDrops = true;

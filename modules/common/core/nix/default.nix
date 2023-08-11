@@ -70,7 +70,7 @@ with lib; {
   };
 
   nix = let
-    mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs; 
+    mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
   in {
     # pin the registry to avoid downloading and evaluating a new nixpkgs
     # version everytime
