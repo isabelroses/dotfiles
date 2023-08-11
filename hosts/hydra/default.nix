@@ -32,7 +32,7 @@ in {
 
         video.enable = true;
         sound.enable = true;
-        bluetooth.enable = false;
+        bluetooth.enable = true;
         printing.enable = false;
 
         networking = {
@@ -76,7 +76,7 @@ in {
         gui.enable = true;
 
         default = {
-          #bar = "ags";
+          bar = "ags";
         };
 
         nur = {
@@ -88,14 +88,11 @@ in {
     };
 
     boot = {
-      kernelParams =
-        [
-          "nohibernate"
-        ]
-        ++ optionals ((device.cpu == "intel") && (device.gpu != "hybrid-nv")) [
-          "i915.enable_fbc=1"
-          "i915.enable_psr=2"
-        ];
+      kernelParams = [
+        "nohibernate"
+        "i915.enable_fbc=1"
+        "i915.enable_psr=2"
+      ];
     };
 
     console.earlySetup = true;
