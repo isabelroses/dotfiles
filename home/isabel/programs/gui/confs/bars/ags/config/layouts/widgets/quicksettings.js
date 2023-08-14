@@ -403,7 +403,7 @@ Widget.widgets['quicksettings/panel-button'] = ({ orientation }) => Widget({
                 indicator: { type: 'battery/indicator', className: 'battery' },
                 child: { type: 'battery/level-label' },
                 connection: [Battery, revealer => {
-                    revealer.reveal_child = Battery.percent < 100;
+                    revealer.reveal_child = Battery.percent < 10;
                 }],
             },
         ],

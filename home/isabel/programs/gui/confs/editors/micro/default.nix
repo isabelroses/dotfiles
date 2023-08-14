@@ -1,13 +1,12 @@
 {
   lib,
   config,
-  osConfig,
+  defaults,
   ...
-}:
-with lib; let
-  cfg = osConfig.modules.programs.default;
+}: let
+  inherit (lib) mkIf;
 in {
-  config = mkIf (cfg.editor == "micro") {
+  config = mkIf (defaults.editor == "micro") {
     programs.micro = {
       enable = true;
       catppuccin.enable = true;

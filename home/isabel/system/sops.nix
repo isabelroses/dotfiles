@@ -11,27 +11,29 @@
     defaultSopsFile = ./secrets.yaml;
 
     secrets = let
-      homedir = config.home.homeDirectory;
+      homeDir = config.home.homeDirectory;
+      sshDir = homeDir + "/.ssh";
     in {
-      git-credentials.path = "${homedir}/.git-credentials";
+      git-credentials.path = "${homeDir}/.git-credentials";
+      cloudflared-hydra.path = "${homeDir}/.secrets/cloudflared";
 
       # git ssh keys
-      gh-key.path = "${homedir}/.ssh/github";
-      gh-key-pub.path = "${homedir}/.ssh/github.pub";
-      aur-key.path = "${homedir}/.ssh/aur";
-      aur-key-pub.path = "${homedir}/.ssh/aur.pub";
+      gh-key.path = "${sshDir}/github";
+      gh-key-pub.path = "${sshDir}/github.pub";
+      aur-key.path = "${sshDir}/aur";
+      aur-key-pub.path = "${sshDir}/aur.pub";
 
       # ORACLE vps'
-      openvpn-key.path = "${homedir}/.ssh/openvpn";
-      luz-key.path = "${homedir}/.ssh/luz";
-      edalyn-key.path = "${homedir}/.ssh/edalyn";
-      king-key.path = "${homedir}/.ssh/king";
+      openvpn-key.path = "${sshDir}/openvpn";
+      luz-key.path = "${sshDir}/luz";
+      edalyn-key.path = "${sshDir}/edalyn";
+      king-key.path = "${sshDir}/king";
 
       # my local servers / clients
-      alpha-key.path = "${homedir}/.ssh/alpha";
-      alpha-key-pub.path = "${homedir}/.ssh/alpha.pub";
-      hydra-key.path = "${homedir}/.ssh/hydra";
-      hydra-key-pub.path = "${homedir}/.ssh/hydra.pub";
+      alpha-key.path = "${sshDir}/.ssh/alpha";
+      alpha-key-pub.path = "${sshDir}/alpha.pub";
+      hydra-key.path = "${sshDir}/hydra";
+      hydra-key-pub.path = "${sshDir}/hydra.pub";
     };
   };
 }

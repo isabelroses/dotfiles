@@ -1,7 +1,7 @@
 const Shared = imports.layouts.shared;
 
 // static windows
-const notifications = monitor => Shared.notifications(monitor, 'slide_right', ['left']);
+const notifications = monitor => Shared.notifications(monitor, 'slide_down', ['top']);
 const desktop = Shared.desktop;
 const corners = Shared.corners;
 
@@ -42,7 +42,6 @@ const panel = bar({
     start: [
         launcher(20),
         { type: 'workspaces', className: 'workspaces panel-button', orientation: 'vertical' },
-        { type: 'media/panel-indicator', className: 'media panel-button', hexpand: true, halign: 'end' },
     ],
     center: [
         { type: 'dashboard/panel-button', format: '%I\n܅\n%M' },

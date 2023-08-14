@@ -1,19 +1,31 @@
-{lib, ...}:
+{
+  lib,
+  config,
+  ...
+}:
 with lib; {
   imports = [
     ./activation.nix
     ./boot.nix
     ./networking.nix
     ./security.nix
+    ./virtualization.nix
   ];
 
   options.modules.system = {
     # the default user (not users) you plan to use on a specific device
     # this will dictate the initial home-manager settings if home-manager is
     # enabled in usrenv
-    username = mkOption {
-      type = types.str;
-      description = "The username of the non-root superuser for your system";
+    users = mkOption {
+      type = with types; listOf str;
+      default = ["isabel"];
+      description = "The users of your system";
+    };
+
+    mainUser = mkOption {
+      type = types.enum config.modules.system.users;
+      description = "The username of the main user for your system";
+      default = builtins.elemAt config.modules.system.users 0;
     };
 
     hostname = mkOption {
@@ -47,16 +59,6 @@ with lib; {
     # you might need to add more drivers to the printing module for your printer to work
     printing = {
       enable = mkEnableOption "printing";
-    };
-
-    # should virtualization (docker, qemu, podman etc.) be enabled
-    virtualization = {
-      enable = mkEnableOption "virtualization";
-      docker = {enable = mkEnableOption "docker";};
-      podman = {enable = mkEnableOption "podman";};
-      qemu = {enable = mkEnableOption "qemu";};
-      distrobox = {enable = mkEnableOption "distrobox";};
-      waydroid = {enable = mkEnableOption "waydroid";};
     };
   };
 }

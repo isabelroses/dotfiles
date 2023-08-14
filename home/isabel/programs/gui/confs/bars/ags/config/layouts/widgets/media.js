@@ -113,7 +113,7 @@ Widget.widgets['media/popup-content'] = props => Widget({
 
 Widget.widgets['media/panel-indicator'] = ({
     player = prefer,
-    direction = 'left',
+    direction,
     onClick = () => Mpris.getPlayer(player)?.playPause(),
     ...props
 }) => Widget({

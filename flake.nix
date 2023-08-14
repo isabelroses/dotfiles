@@ -16,8 +16,9 @@
         {config._module.args._inputs = inputs // {inherit (inputs) self;};}
 
         inputs.flake-parts.flakeModules.easyOverlay
+        inputs.treefmt-nix.flakeModule
 
-        ./lib/makesys.nix # args that is passsed to the flake, moved away from the main file
+        ./parts/makesys # args that is passsed to the flake, moved away from the main file
       ];
 
       flake = let
@@ -26,17 +27,67 @@
       in {
         # entry-point for nixos configurations
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
+
+        nixosModules = {
+          # extends the steam module from nixpkgs/nixos to add a STEAM_COMPAT_TOOLS option
+          steam-compat = ./modules/extra/shared/nixos/steam;
+
+          # we do not want to provide a default module
+          default = null;
+        };
+
+        homeManagerModules = {
+          gtklock = ./modules/extra/shared/home-manager/gtklock;
+
+          default = null;
+        };
       };
 
       perSystem = {
         config,
+        inputs',
         pkgs,
         ...
       }: {
         imports = [{_module.args.pkgs = config.legacyPackages;}];
 
+        devShells.default = let
+          devShell = import ./parts/devShell;
+        in
+          inputs'.devshell.legacyPackages.mkShell {
+            name = "nix";
+            commands = devShell.shellCommands;
+            inherit (devShell) env;
+            packages = with pkgs; [
+              config.treefmt.build.wrapper # treewide formatter
+              nil # nix ls
+              alejandra # nix formatter
+              git # flakes require git, and so do I
+              glow # markdown viewer
+              statix # lints and suggestions
+              deadnix # clean up unused nix code
+            ];
+          };
+
         # provide the formatter for nix fmt
         formatter = pkgs.alejandra;
+
+        # configure treefmt
+        treefmt = {
+          projectRootFile = "flake.nix";
+
+          programs = {
+            alejandra.enable = true;
+            deadnix.enable = false;
+            shellcheck.enable = true;
+            shfmt = {
+              enable = true;
+              # https://flake.parts/options/treefmt-nix.html#opt-perSystem.treefmt.programs.shfmt.indent_size
+              # 0 causes shfmt to use tabs
+              indent_size = 0;
+            };
+          };
+        };
       };
     });
 
@@ -51,6 +102,23 @@
     # Nix helper
     nh = {
       url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # a tree-wide formatter
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # project shells
+    devshell = {
+      url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

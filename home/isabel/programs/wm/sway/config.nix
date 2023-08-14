@@ -1,33 +1,32 @@
 {
   lib,
   config,
-  osConfig,
+  defaults,
   ...
-}:
-with lib; let
-  default = osConfig.modules.programs.default;
+}: let
+  inherit (lib) mkIf;
 in {
   config = mkIf (config.wayland.windowManager.sway.enable) {
     wayland.windowManager.sway = {
       config = {
         modifier = "Mod4";
         workspaceAutoBackAndForth = true;
-        terminal = default.terminal;
-        menu = default.launcher;
+        terminal = defaults.terminal;
+        menu = defaults.launcher;
         defaultWorkspace = "workspace number 1";
 
         keybindings = let
           mod = config.wayland.windowManager.sway.config.modifier;
         in {
           # launchers
-          "${mod}+Return" = "exec ${default.terminal}";
-          "${mod}+d" = "exec ${default.launcher}";
-          "${mod}+b" = "exec ${default.browser}";
-          "${mod}+e" = "exec ${default.fileManager}";
+          "${mod}+Return" = "exec ${defaults.terminal}";
+          "${mod}+d" = "exec ${defaults.launcher}";
+          "${mod}+b" = "exec ${defaults.browser}";
+          "${mod}+e" = "exec ${defaults.fileManager}";
           "${mod}+o" = "exec obsidian";
 
           "${mod}+l" = "exec swaylock";
-          "${m}+t" = "floating toggle";
+          "${mod}+t" = "floating toggle";
           "Print" = "grim -g \"$(slurp)\"";
           "${mod}+q" = "kill";
         };

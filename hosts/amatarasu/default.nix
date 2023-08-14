@@ -2,9 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (lib) mkIf mkForce optionals;
+  inherit (config.modules) device;
 in {
   imports = [./hardware-configuration.nix];
   config = {
@@ -20,7 +20,7 @@ in {
         keyboard = "us";
       };
       system = {
-        username = "isabel";
+        mainUser = "isabel";
 
         hostname = "amatarasu";
 

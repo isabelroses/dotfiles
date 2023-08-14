@@ -3,9 +3,11 @@
   lib,
   pkgs,
   osConfig,
+  defaults,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
+
   ewwPackage =
     if env.isWayland
     then pkgs.eww-wayland
@@ -17,7 +19,7 @@ with lib; let
   programs = osConfig.modules.programs;
   sys = osConfig.modules.system;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && programs.default.bar == "eww") {
+  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && defaults.bar == "eww") {
     home.packages = with pkgs; [
       socat
       jaq

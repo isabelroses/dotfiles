@@ -2,14 +2,13 @@
   pkgs,
   lib,
   config,
-  osConfig,
   inputs,
+  defaults,
   ...
-}:
-with lib; let
-  cfg = osConfig.modules.programs.default;
+}: let
+  inherit (lib) mkIf;
 in {
-  config = mkIf (cfg.editor == "nvim") {
+  config = mkIf (defaults.editor == "nvim") {
     home.file."${config.xdg.configHome}/nvim" = {
       source = inputs.isabel-nvim;
     };

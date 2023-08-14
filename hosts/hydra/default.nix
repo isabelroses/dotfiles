@@ -1,11 +1,4 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
-  device = config.modules.device;
-in {
+{config, ...}: {
   imports = [./hardware-configuration.nix];
   config = {
     modules = {
@@ -19,7 +12,7 @@ in {
         hasSound = true;
       };
       system = {
-        username = "isabel";
+        mainUser = "isabel";
 
         hostname = "hydra";
 
@@ -44,7 +37,7 @@ in {
           docker.enable = true;
           qemu.enable = false;
           podman.enable = false;
-          distrobox.enable = true;
+          distrobox.enable = false;
         };
       };
       usrEnv = {
@@ -63,9 +56,10 @@ in {
         vscode-server.enable = true;
         cloudflare = {
           enable = true;
+          id = "32f941a8-e557-4d8a-bafd-52a7d65a5daf";
         };
         jellyfin = {
-          enable = true;
+          enable = false;
           asDockerContainer = true;
         };
       };
