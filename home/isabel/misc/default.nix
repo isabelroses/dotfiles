@@ -3,14 +3,14 @@
   config,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
+}: let
+  inherit (lib) mkIf;
+  inherit (osConfig.modules) device;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
   sys = osConfig.modules.system;
 
   symlink = fileName: {recursive ? false}: {
-    source = config.lib.file.mkOutOfStoreSymlink "${sys.flakePath}/home/${sys.username}/misc/${fileName}";
+    source = config.lib.file.mkOutOfStoreSymlink "${sys.flakePath}/home/${sys.mainUser}/misc/${fileName}";
     inherit recursive;
   };
   pictures = "media/pictures";

@@ -4,7 +4,7 @@
   osConfig,
   ...
 }: let
-  device = osConfig.modules.device;
+  inherit (osConfig.modules) device;
   sys = osConfig.modules.system;
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];

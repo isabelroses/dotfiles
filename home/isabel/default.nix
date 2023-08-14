@@ -2,14 +2,15 @@
   inputs,
   config,
   lib,
+  self,
   ...
 }: let
   inherit (lib) mkDefault;
 in {
   imports = [
-    # external home-manager modules
-    #inputs.hyprland.homeManagerModules.default
+    # imported home-manager modules
     inputs.catppuccin.homeManagerModules.catppuccin
+    self.homeManagerModules.gtklock
 
     # important system level configurations
     ./system
@@ -36,9 +37,9 @@ in {
     home = {
       username = "isabel";
       homeDirectory = "/home/isabel";
+      extraOutputsToInstall = ["doc" "devdoc"];
 
       stateVersion = mkDefault "23.05";
-      extraOutputsToInstall = ["doc" "devdoc"];
     };
 
     manual = {

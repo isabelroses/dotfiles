@@ -47,7 +47,7 @@ with lib; {
         # what program should be used as the default terminal
         terminal = mkOption {
           type = types.enum ["alacritty" "kitty" "wezterm" "foot"];
-          default = "alacritty";
+          default = "kitty";
         };
 
         fileManager = mkOption {

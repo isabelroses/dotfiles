@@ -1,5 +1,6 @@
 _: {
   imports = [
-    ./services
+    ./home-manager
+    ./nixos
   ];
 }

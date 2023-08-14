@@ -1,11 +1,11 @@
 _: {
   imports = [
-    ./editors
     ./bars
+    ./browsers
+    ./editors
     ./launchers
     ./terminals
 
-    ./chromium.nix
     ./discord.nix
     ./zathura.nix
   ];

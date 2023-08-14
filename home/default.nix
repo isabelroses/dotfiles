@@ -4,24 +4,17 @@
   self,
   inputs',
   self',
+  lib,
   ...
 }: let
-  user =
-    if (config.modules.system.username == null)
-    then "isabel"
-    else "${config.modules.system.username}";
+  defaults = config.modules.programs.default;
 in {
   home-manager = {
     verbose = true;
     useUserPackages = true;
     useGlobalPkgs = true;
     backupFileExtension = "old";
-    extraSpecialArgs = {
-      inherit inputs self inputs' self';
-    };
-    users = {
-      # home directory for the user
-      ${user} = ./${user};
-    };
+    extraSpecialArgs = {inherit inputs self inputs' self' defaults;};
+    users = lib.genAttrs config.modules.system.users (name: ./${name});
   };
 }

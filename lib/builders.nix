@@ -28,6 +28,26 @@
         inherit modules system;
         specialArgs = {inherit lib inputs self inputs' self';} // args.specialArgs or {};
       });
+
+  # mkIso is should be a set that extends mkSystem with necessary modules
+  # to create an Iso image
+  # we do not use mkNixosSystem because it overcomplicates things, an ISO does not require what we get in return for those complications
+  mkNixosIso = {
+    modules,
+    system,
+    ...
+  } @ args:
+    mkSystem {
+      inherit system;
+      specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
+      modules =
+        [
+          # get an installer profile from nixpkgs to base the Isos off of
+          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+        ]
+        ++ args.modules or [];
+    };
 in {
-  inherit mkSystem mkNixosSystem;
+  inherit mkSystem mkNixosSystem mkNixosIso;
 }

@@ -5,8 +5,8 @@
   inputs,
   osConfig,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
   programs = osConfig.modules.programs;
   flakePath = osConfig.modules.system.flakePath;
 in {

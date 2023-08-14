@@ -11,7 +11,7 @@ in {
     modules = {
       style = {
         forceGtk = mkEnableOption "Force GTK applications to use the GTK theme";
-        useKvantum = mkEnableOption "Use Kvantum to theme QT applications" // {default = !cfg.forceGtk;};
+        useKvantum = mkEnableOption "Use Kvantum to theme QT applications";
 
         # choose a colorscheme
         colorScheme = {

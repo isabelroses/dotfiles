@@ -2,6 +2,7 @@
   config,
   lib,
   osConfig,
+  defaults,
   ...
 }:
 with lib; let
@@ -11,7 +12,7 @@ with lib; let
   programs = osConfig.modules.programs;
 in {
   imports = [./config.nix];
-  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable && programs.gui.enable && programs.default.launcher == "wofi") {
+  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable && programs.gui.enable && defaults.launcher == "wofi") {
     programs.wofi.enable = true;
   };
 }

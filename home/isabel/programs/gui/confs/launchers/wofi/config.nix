@@ -1,6 +1,4 @@
-{osConfig, ...}: let
-  default = osConfig.modules.programs.default;
-in {
+{defaults, ...}: {
   programs.wofi = {
     settings = {
       show = ["drun" "run"];
@@ -9,7 +7,7 @@ in {
       allow_images = true;
       image_size = 22;
       gtk_dark = true;
-      terminal = default.terminal;
+      terminal = defaults.terminal;
       key_expand = "Tab";
       run-always_parse_args = true;
       normal_window = false;

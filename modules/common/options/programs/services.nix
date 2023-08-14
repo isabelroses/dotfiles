@@ -19,10 +19,10 @@ with lib; {
 
     cloudflare = {
       enable = mkEnableOption "Enables cloudflared tunnels";
-      token = mkOption {
+      id = mkOption {
         type = types.str;
         default = "";
-        description = "The token which is used by cloudflared tunnels";
+        description = "The cloudflared tunnel id";
       };
     };
 

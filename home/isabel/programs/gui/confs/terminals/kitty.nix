@@ -2,25 +2,25 @@
   config,
   lib,
   osConfig,
+  defaults,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  programs = osConfig.modules.programs;
+}: let
+  inherit (lib) mkIf;
+  inherit (osConfig.modules) device programs;
   sys = osConfig.modules.system;
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
+  acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable) {
+  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && defaults.terminal == "kitty") {
     programs.kitty = {
-      enable = false;
+      enable = true;
       catppuccin.enable = true;
       settings = {
         # General
         background_opacity = "0.85";
         font_family = "monospace";
-        font_size = 14;
+        font_size = 13;
         disable_ligatures = "never";
-        cursor_shape = "underline";
+        cursor_shape = "beam";
         cursor_blink_interval = "0.5";
         cursor_stop_blinking_after = "15.0";
         scrollback_lines = 10000;
@@ -37,8 +37,8 @@ in {
         open_url_with = "default";
         confirm_os_window_close = 0;
         enable_audio_bell = false;
-        window_padding_width = 15;
-        window_margin_width = 10;
+        window_padding_width = 2;
+        window_margin_width = 2;
       };
       keybindings = {
         "ctrl+c" = "copy_or_interrupt";

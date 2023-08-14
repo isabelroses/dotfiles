@@ -3,6 +3,7 @@
   lib,
   pkgs,
   osConfig,
+  defaults,
   ...
 }:
 with lib; let
@@ -17,7 +18,7 @@ with lib; let
     else pkgs.rofi;
 in {
   imports = [./config.nix];
-  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable && programs.gui.enable && programs.default.launcher == "rofi") {
+  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable && programs.gui.enable && defaults.launcher == "rofi") {
     programs.rofi = {
       enable = true;
       package = rofiPackage.override {

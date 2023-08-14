@@ -2,12 +2,12 @@
   config,
   osConfig,
   lib,
+  defaults,
   ...
 }: let
   inherit (lib) imap0 optionalString optionals;
 
   pointer = config.home.pointerCursor;
-  default = osConfig.modules.programs.default;
   dev = osConfig.modules.device;
   inherit (osConfig.modules.device) monitors;
 
@@ -52,13 +52,13 @@ in {
           "wlsunset -S 8:00 -s 20:00"
           "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
         ]
-        ++ optionals (default.bar == "eww") [
+        ++ optionals (defaults.bar == "eww") [
           "~/.config/eww/scripts/init"
         ]
-        ++ optionals (default.bar == "waybar") [
+        ++ optionals (defaults.bar == "waybar") [
           "waybar"
         ]
-        ++ optionals (default.bar == "ags") [
+        ++ optionals (defaults.bar == "ags") [
           "ags"
         ];
 
@@ -181,10 +181,10 @@ in {
       bind =
         [
           # open apps
-          "$mod, B, exec, ${default.browser}"
-          "$mod, E, exec, ${default.fileManager}"
-          "$mod, C, exec, ${default.editor}"
-          "$mod, Return, exec, ${default.terminal}"
+          "$mod, B, exec, ${defaults.browser}"
+          "$mod, E, exec, ${defaults.fileManager}"
+          "$mod, C, exec, ${defaults.editor}"
+          "$mod, Return, exec, ${defaults.terminal}"
           "$mod, O, exec, obsidian"
 
           # window managment
@@ -208,7 +208,7 @@ in {
           "$mod, mouse_down, workspace, e+1"
           "$mod, mouse_up, workspace, e-1"
         ]
-        ++ optionals (default.bar == "eww") [
+        ++ optionals (defaults.bar == "eww") [
           "$mod, D, exec, ~/.config/eww/scripts/launcher toggle_menu app_launcher"
           "$mod SHIFT, R, exec, ~/.config/eww/scripts/init"
           "$mod, V, exec, ~/.config/eww/scripts/launcher clipboard"
@@ -222,23 +222,23 @@ in {
           "shift, PRINT, exec, ~/.config/eww/scripts/screenshot screen-quiet"
           "super shift, S, exec, ~/.config/eww/scripts/screenshot area-quiet"
         ]
-        ++ optionals (default.bar == "waybar") [
+        ++ optionals (defaults.bar == "waybar") [
           "$mod, D, exec, rofi -show drun"
           "$mod, escape, exec, wlogout"
           "$mod, period, exec, killall rofi || rofi -show emoji -emoji-format '{emoji}' -modi emoji"
         ]
-        ++ optionals (default.bar == "ags") [
+        ++ optionals (defaults.bar == "ags") [
           "$mod, D, exec, ags toggle-window applauncher"
           "$mod, escape, exec, ags toggle-window powermenu"
-          "$mod SHIFT, R, exec, kill $(ps aux | rg ags | awk 'FNR == 1 {print $2}') ; ags"
+          "$mod SHIFT, R, exec, ags quit ; ags"
         ]
-        ++ optionals (default.bar != "eww") [
+        ++ optionals (defaults.bar != "eww") [
           "$mod, L, exec, swaylock"
           ", XF86AudioMute, exec, pamixer -t"
           ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
           "$mod, V, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
         ]
-        ++ optionals (default.bar != "ags") [
+        ++ optionals (defaults.bar != "ags") [
           ", XF86AudioPlay, exec, playerctl play-pause"
           ", XF86AudioPause, exec, playerctl play-pause"
           ", XF86AudioNext, exec, playerctl next"
@@ -247,7 +247,7 @@ in {
 
       bindle =
         []
-        ++ optionals (default.bar == "ags") [
+        ++ optionals (defaults.bar == "ags") [
           ", XF86MonBrightnessUp, exec, ags run-js `ags.Service.Brightness.screen += 0.02; ags.Service.Indicator.display()`"
           ", XF86MonBrightnessDown, exec, ags run-js `ags.Service.Brightness.screen -= 0.02; ags.Service.Indicator.display()`"
           ", XF86AudioRaiseVolume, exec, ags run-js `ags.Service.Audio.speaker.volume += 0.05; ags.Service.Indicator.speaker()`"
@@ -256,7 +256,7 @@ in {
 
       bindl =
         []
-        ++ optionals (default.bar == "ags") [
+        ++ optionals (defaults.bar == "ags") [
           ", XF86AudioPlay, exec, ags run-js `ags.Service.Mpris.getPlayer()?.playPause()`"
           ", XF86AudioStop, exec, ags run-js `ags.Service.Mpris.getPlayer()?.stop()`"
           ", XF86AudioPause, exec, ags run-js `ags.Service.Mpris.getPlayer()?.pause()`"
@@ -273,13 +273,13 @@ in {
       # hold to repeat action buttons
       binde =
         []
-        ++ optionals (default.bar == "eww") [
+        ++ optionals (defaults.bar == "eww") [
           ", XF86AudioRaiseVolume, exec, ~/.config/eww/scripts/volume up"
           ", XF86AudioLowerVolume, exec, ~/.config/eww/scripts/volume down"
           ", XF86MonBrightnessUp, exec, ~/.config/eww/scripts/brightness up"
           ", XF86MonBrightnessDown, exec, ~/.config/eww/scripts/brightness down"
         ]
-        ++ optionals (default.bar == "waybar") [
+        ++ optionals (defaults.bar == "waybar") [
           ", XF86AudioRaiseVolume, exec, pamixer -i 5"
           ", XF86AudioLowerVolume, exec, pamixer -d 5"
           ", XF86MonBrightnessUp, exec, brightnessctl set 5%+ -q"

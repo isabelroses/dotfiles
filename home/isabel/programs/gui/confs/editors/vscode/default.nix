@@ -3,10 +3,9 @@
   pkgs,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  programs = osConfig.modules.programs;
+}: let
+  inherit (lib) mkIf;
+  inherit (osConfig.modules) device programs;
   sys = osConfig.modules.system;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {

@@ -4,16 +4,16 @@
   lib,
   inputs',
   osConfig,
+  defaults,
   ...
-}:
-with lib; let
-  inherit (osConfig.modules) device;
+}: let
+  inherit (lib) mkIf;
   env = osConfig.modules.usrEnv;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
-  inherit (osConfig.modules) programs;
+  inherit (osConfig.modules) programs device;
   sys = osConfig.modules.system;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && env.isWayland && programs.default.bar == "waybar") {
+  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && env.isWayland && defaults.bar == "waybar") {
     home.packages = with pkgs; [wlogout];
     programs.waybar = {
       enable = true;
