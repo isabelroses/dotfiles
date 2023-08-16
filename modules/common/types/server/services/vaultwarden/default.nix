@@ -18,7 +18,7 @@ in {
 
     services.vaultwarden = {
       enable = true;
-      environmentFile = config.age.secrets.vaultwarden-env.path;
+      environmentFile = config.sops.secrets.vaultwarden-env.path;
       backupDir = "/srv/storage/vaultwarden/backup";
       config = {
         DOMAIN = "https://vault.isabelroses.com";

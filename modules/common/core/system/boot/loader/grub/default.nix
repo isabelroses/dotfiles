@@ -9,10 +9,8 @@
 in {
   config = mkIf (cfg.boot.loader == "grub") {
     boot.loader = {
-      # default grub to disabled, we manually enable grub on "server" hosts
-      # or any other host that needs it
       grub = {
-        enable = mkDefault false;
+        enable = mkDefault true;
         useOSProber = true;
         efiSupport = true;
         enableCryptodisk = mkDefault false;
