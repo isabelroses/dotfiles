@@ -12,7 +12,7 @@
       # mailserver
       mailserver-isabel.path = mailserverPath + "/isabel";
       mailserver-gitea.path = mailserverPath + "/gitea";
-      mailserver-vaultwarden = mailserverPath + "/vaultwarden";
+      mailserver-vaultwarden.path = mailserverPath + "/vaultwarden";
 
       # vaultwarden
       vaultwarden-env.path = secretsPath + "/vaultwarden/env";
