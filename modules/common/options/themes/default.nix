@@ -58,7 +58,7 @@ in {
           theme = {
             package = mkOption {
               type = types.package;
-              default = pkgs.catppucin-kde.override {
+              default = pkgs.catppuccin-kde.override {
                 flavour = ["mocha"];
                 accents = ["sapphire"];
                 winDecStyles = ["modern"];
