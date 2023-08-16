@@ -20,16 +20,47 @@ in {
       config = {
         modules = [
           "${pkgs.gtklock-powerbar-module.outPath}/lib/gtklock/powerbar-module.so"
-          "${pkgs.gtklock-playerctl-module}/lib/gtklock/playerctl-module.so"
         ];
 
         style = pkgs.writeText "gtklock-style.css" ''
           window {
-            font-family: Product Sans;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
           }
+
+
+          #clock-label {
+            margin-bottom: 30px;
+            font-size: 800%;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0px 2px 10px rgba(0,0,0,.1)
+          }
+
+          #body {
+            margin-top: 50px;
+          }
+
+          #unlock-button {
+            all: unset;
+            color: transparent;
+          }
+
           entry {
-            border-radius: 19px;
-            box-shadow: 0 1px 3px rgba(0,0,0,.1);
+            border-radius: 12px;
+            margin: 1px;
+            box-shadow: 1px 2px 4px rgba(0,0,0,.1)
+          }
+
+          #input-label {
+            color: transparent;
+            margin: -20rem;
+          }
+
+          #powerbar-box * {
+            border-radius: 12px;
+            box-shadow: 1px 2px 4px rgba(0,0,0,.1)
           }
         '';
       };
