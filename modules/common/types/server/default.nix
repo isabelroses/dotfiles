@@ -1,6 +1,14 @@
-_: {
-  config = {
-    video.enable = false;
+{config, lib, ...}: let
+  inherit (lib) mkIf;
+  inherit (config.modules) device;
+  acceptedTypes = ["server"];
+in {
+  imports = [
+    ./services
+    ./system
+  ];
+  
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     sound.enable = false;
     environment = {
       # we don't need any x libs on a server

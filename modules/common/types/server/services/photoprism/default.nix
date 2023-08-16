@@ -6,10 +6,10 @@
 }:
 with lib; let
   device = config.modules.device;
-  cfg = config.modules.services;
+  cfg = config.modules.services.photoprism;
   acceptedTypes = ["server" "hybrid"];
 in {
-  services = mkIf (builtins.elem device.type acceptedTypes && cfg.photoprism.enable) {
+  services = mkIf (builtins.elem device.type acceptedTypes && cfg.enable) {
     photoprism = {
       enable = true;
       port = 2342;

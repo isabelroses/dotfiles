@@ -3,25 +3,12 @@
   inputs,
   lib,
   ...
-}: let
-  inherit (lib) mkIf;
-in {
+}: {
   imports = [
     ./systemd.nix
     inputs.vscode-server.nixosModules.default
   ];
   services = {
-    cloudflared = mkIf (config.modules.services.cloudflare.enable) {
-      enable = true;
-      user = "${config.modules.system.mainUser}";
-      tunnels."${config.modules.services.cloudflare.id}" = {
-        credentialsFile = "${config.home-manager.users.${config.modules.system.mainUser}.sops.secrets.cloudflared-hydra.path}";
-        default = "http_status:404";
-        ingress = {
-          "tv.isabelroses.com" = "http://localhost:8096";
-        };
-      };
-    };
     vscode-server.enable = config.modules.services.vscode-server.enable;
     # monitor and control temparature
     thermald.enable = true;
