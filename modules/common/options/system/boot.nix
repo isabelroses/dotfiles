@@ -27,6 +27,12 @@ with lib; {
       description = "The bootloader that should be used for the device.";
     };
 
+    device = mkOption {
+      type = with types; nullOr str;
+      default = "nodev";
+      description = "The device to install the bootloader to.";
+    };
+
     plymouth = {
       enable = mkEnableOption "plymouth boot splash";
       withThemes = mkEnableOption "plymouth theme";

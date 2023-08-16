@@ -46,6 +46,7 @@ in {
           };
         # vaultwawrden
         "vault.isabelroses.com" =
+          mkIf (config.modules.services.vaultwarden.enable)
           template
           // {
             locations."/" = {
@@ -55,16 +56,17 @@ in {
           };
         # gitea
         "git.isabelroses.com" =
+          mkIf (config.modules.services.gitea.enable)
           template
           // {
             locations."/".proxyPass = "http://127.0.0.1:${toString config.services.gitea.settings.server.HTTP_PORT}";
           };
 
         # mailserver
-        "mail.isabelroses.com" = template;
+        "mail.isabelroses.com" = mkIf (config.modules.services.mailserver.enable) template;
 
         # webmail
-        "webmail.isabelroses.com" = template;
+        "webmail.isabelroses.com" = mkIf (config.modules.services.mailserver.enable) template;
 
         "search.isabelroses.com" =
           template
