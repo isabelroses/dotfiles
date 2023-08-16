@@ -55,10 +55,14 @@ in {
 
         # qt specific options
         qt = {
-          style = {
+          theme = {
             package = mkOption {
               type = types.package;
-              default = pkgs.catppucin-kde;
+              default = pkgs.catppucin-kde.override {
+                flavour = ["mocha"];
+                accents = ["sapphire"];
+                winDecStyles = ["modern"];
+              };
               description = "The theme package to be used for QT programs";
             };
             name = mkOption {
@@ -66,6 +70,11 @@ in {
               default = "Catppuccin-Mocha-Dark";
               description = "The name for the QT theme package";
             };
+          };
+
+          kdeglobals.source = mkOption {
+            type = types.path;
+            default = "${cfg.qt.theme.package}/";
           };
         };
 

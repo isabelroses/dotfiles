@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  inputs',
   osConfig,
   defaults,
   ...
@@ -17,7 +16,7 @@ in {
     home.packages = with pkgs; [wlogout];
     programs.waybar = {
       enable = true;
-      package = inputs'.hyprland.packages.waybar-hyprland;
+      package = pkgs.waybar-hyprland;
       settings = {
         mainBar = {
           layer = "top";

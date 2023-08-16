@@ -4,23 +4,22 @@
   osConfig,
   ...
 }: let
+  inherit (lib) mkIf;
   inherit (osConfig.modules) device;
   sys = osConfig.modules.system;
+  cfg = osConfig.modules.style;
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = lib.mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
-    xdg.configFile."kdeglobals".source = "${(pkgs.catppuccin-kde.override {
-      flavour = ["mocha"];
-      accents = ["blue"];
-      winDecStyles = ["modern"];
-    })}/share/color-schemes/CatppuccinMochaBlue.colors";
+  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
+    xdg.configFile."kdeglobals".source = cfg.qt.kdeglobals.source;
+
     qt = {
       enable = true;
-      platformTheme = "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes "gtk" or "gnome"
+      platformTheme = mkIf cfg.forceGtk "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes "gtk" or "gnome"
       style = {
-        package = pkgs.catppuccin-kde;
-        name = "Catpuccin-Mocha-Dark";
+        name = "${cfg.qt.theme.name}";
+        package = cfg.qt.theme.package;
       };
     };
 
@@ -32,6 +31,9 @@ in {
       libsForQt5.qtstyleplugin-kvantum
       libsForQt5.qt5ct
       breeze-icons
+
+      # add theme package to path just in case
+      cfg.qt.theme.package
     ];
 
     home.sessionVariables = {
