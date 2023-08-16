@@ -1,4 +1,8 @@
-{config, lib, ...}: let
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib) mkIf;
   inherit (config.modules) device;
   acceptedTypes = ["server"];
@@ -7,7 +11,7 @@ in {
     ./services
     ./system
   ];
-  
+
   config = mkIf (builtins.elem device.type acceptedTypes) {
     sound.enable = false;
     environment = {

@@ -65,9 +65,22 @@ in {
       [
         {networking.hostName = "hydra";}
         ./hydra
-        workstation 
+        workstation
       ]
       ++ concatLists [shared homes hybrid];
+    specialArgs = sharedArgs;
+  };
+
+  bernie = mkNixosSystem {
+    inherit withSystem;
+    system = "aarch64-linux";
+    modules =
+      [
+        {networking.hostName = "bernie";}
+        ./bernie
+        server
+      ]
+      ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
 }
