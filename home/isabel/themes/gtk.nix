@@ -19,6 +19,8 @@ in {
     home = {
       packages = with pkgs; [
         glib # gsettings
+        cfg.gtk.theme.package
+        cfg.gtk.iconTheme.package
       ];
 
       sessionVariables = {
