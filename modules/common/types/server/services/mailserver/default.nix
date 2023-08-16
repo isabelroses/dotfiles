@@ -7,14 +7,14 @@
 }:
 with lib; let
   device = config.modules.device;
-  cfg = config.modules.services.override;
+  cfg = config.modules.services.mailserver;
   acceptedTypes = ["server" "hybrid"];
 in {
   imports = [
     inputs.simple-nixos-mailserver.nixosModule
   ];
 
-  config = mkIf (builtins.elem device.type acceptedTypes && !cfg.mailserver) {
+  config = mkIf (builtins.elem device.type acceptedTypes && cfg.enable) {
     # required for roundcube
     networking.firewall.allowedTCPPorts = [80 443];
 
@@ -29,7 +29,7 @@ in {
         hostName = "webmail.isabelroses.com";
         extraConfig = ''
           $config['imap_host'] = array(
-            'tls://mail.isabelroses.com' => "isabelroses's Mail Server",
+            'tls://mail.isabelroses.com' => "Isabelroses's Mail Server",
             'ssl://imap.gmail.com:993' => 'Google Mail',
           );
           $config['username_domain'] = array(
@@ -96,8 +96,18 @@ in {
       domains = ["isabelroses.com"];
       loginAccounts = {
         "isabel@isabelroses.com" = {
-          hashedPasswordFile = config.age.secrets.mailserver-secret.path;
+          hashedPasswordFile = config.sops.secrets.mailserver-isabel.path;
           aliases = ["isabel" "me@isabelroses.com" "admin" "admin@isabelroses.com" "root" "root@isabelroses.com" "postmaster" "postmaster@isabelroses.com"];
+        };
+
+        "gitea@isabelroses.com" = {
+          aliases = ["gitea"];
+          hashedPasswordFile = config.sops.secrets.mailserver-gitea.path;
+        };
+
+        "vaultwarden@isabelroses.com" = {
+          aliases = ["vaultwarden"];
+          hashedPasswordFile = config.sops.secrets.mailserver-vaultwarden.path;
         };
       };
 

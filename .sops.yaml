@@ -1,6 +1,10 @@
 keys:
   - &isabel age16sj4v4y0ny784kwsrs0x9vayrwy8avj0na3tmd87jsa692dte3nsj8z8m6
 creation_rules:
+  - path_regex: home/isabel/system/secrets.yaml
   - key_groups:
     - age:
       - *isabel
+  - path_regex: modules/common/types/server/system/secrets.yaml
+  - key_groups:
+    - age:

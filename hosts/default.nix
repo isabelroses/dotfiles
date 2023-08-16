@@ -16,9 +16,10 @@
 
   # system types, split up per system
   deviceType = commonModules + /types; # the path where device type modules reside
-  #server = deviceType + /server; # for devices that are of the server type - provides online services
+  server = deviceType + /server; # for devices that are of the server type - provides online services
   laptop = deviceType + /laptop; # for devices that are of the laptop type - provides power optimizations
   workstation = deviceType + /workstation; # for devices that are of workstation type - any device that is for daily use
+  hybrid = [server laptop];
 
   # extra modules, likely optional but possibly critical
   extraModules = modulePath + /extra; # the path where extra modules reside
@@ -64,10 +65,9 @@ in {
       [
         {networking.hostName = "hydra";}
         ./hydra
-        workstation
-        laptop
+        workstation 
       ]
-      ++ concatLists [shared homes];
+      ++ concatLists [shared homes hybrid];
     specialArgs = sharedArgs;
   };
 }

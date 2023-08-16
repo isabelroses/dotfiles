@@ -26,6 +26,12 @@ with lib; {
       };
     };
 
+    mailserver.enable = mkEnableOption "Enable the mailserver service";
+
+    gitea.enable = mkEnableOption "Enable the gitea service";
+
+    vaultwarden.enable = mkEnableOption "Enable the vaultwarden service";
+
     photoprism.enable = mkEnableOption "Enable the photoprism service";
 
     vscode-server.enable = mkEnableOption "Enables remote ssh vscode server";
