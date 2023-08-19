@@ -29,7 +29,7 @@ in {
       enable = true;
       systemdIntegration = true;
       package = inputs'.hyprland.packages.default.override {
-        nvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
+        enableNvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
       };
     };
   };
