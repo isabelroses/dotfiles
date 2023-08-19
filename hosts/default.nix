@@ -13,6 +13,7 @@
   commonModules = modulePath + /common; # the path where common modules reside
   core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
   options = commonModules + /options; # the module that provides the options for my system configuration
+  secrets = commonModules + /secrets;
 
   # system types, split up per system
   deviceType = commonModules + /types; # the path where device type modules reside
@@ -39,6 +40,7 @@
     options
     sharedModules
     cat # for the quick themeing
+    secrets
   ];
 
   # extraSpecialArgs that all hosts need
