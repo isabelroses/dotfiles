@@ -2,6 +2,7 @@
   lib,
   pkgs,
   osConfig,
+  defaults,
   ...
 }: let
   inherit (lib) mkIf optionals;
@@ -10,7 +11,7 @@
   env = osConfig.modules.usrEnv;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable) {
+  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && defaults.browser == "chromium") {
     programs.chromium = {
       enable = true;
       extensions = [

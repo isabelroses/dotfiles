@@ -3,6 +3,7 @@
   pkgs,
   config,
   osConfig,
+  defaults,
   ...
 }: let
   inherit (lib) mkIf types mkEnableOption mkOption mkForce;
@@ -60,7 +61,7 @@ in {
     };
   };
 
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable) {
+  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && defaults.browser == "firefox") {
     programs = {
       # schizo firefox config based on firefox ESR
       schizofox = {
