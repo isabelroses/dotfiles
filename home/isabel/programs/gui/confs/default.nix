@@ -2,7 +2,6 @@ _: {
   imports = [
     ./bars
     ./browsers
-    ./editors
     ./launchers
     ./terminals
 

@@ -5,13 +5,10 @@
   lib,
   ...
 }:
-with lib; let
+let
   cfg = osConfig.modules.programs.git;
-  device = osConfig.modules.device;
-
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = {
     home.packages = with pkgs; [
       gist # manage github gists
       act # local github actions
@@ -32,12 +29,6 @@ in {
           git_protocol = "ssh";
           prompt = "enabled";
         };
-      };
-
-      # lazygit which is cool
-      lazygit = {
-        enable = true;
-        catppuccin.enable = true;
       };
 
       # normal git stuff
