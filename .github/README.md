@@ -8,10 +8,6 @@
   <img src="https://img.shields.io/github/repo-size/isabelroses/dotfiles?color=fab387&labelColor=303446&style=for-the-badge&logo=github&logoColor=fab387">
 </div>
 
-### [todo](https://todo.isabelroses.com/projects/3/kanban#share-auth-token=nTSpRoqUTRECeVjSXKhqsvWJaMyAYXfaexAnIAFY)
-
-The [todo](https://todo.isabelroses.com/projects/3/kanban#share-auth-token=nTSpRoqUTRECeVjSXKhqsvWJaMyAYXfaexAnIAFY) is a list of all the items that need to be handeled in any given way
-
 ### config layout
 
 - 🏠 [home](../home)
