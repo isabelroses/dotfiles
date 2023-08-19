@@ -59,8 +59,8 @@
           id = "32f941a8-e557-4d8a-bafd-52a7d65a5daf";
         };
         jellyfin = {
-          enable = false;
-          asDockerContainer = true;
+          enable = true;
+          asDockerContainer = false;
         };
       };
       programs = {
