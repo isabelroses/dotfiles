@@ -38,7 +38,8 @@ in {
         };
       in {
         # website + other stuff
-        "isabelroses.com" = mkIf (config.modules.services.isabelroses-web.enable)
+        "isabelroses.com" =
+          mkIf (config.modules.services.isabelroses-web.enable)
           template
           // {
             serverAliases = ["isabelroses.com"];
@@ -68,7 +69,8 @@ in {
         # webmail
         "webmail.isabelroses.com" = mkIf (config.modules.services.mailserver.enable) template;
 
-        "search.isabelroses.com" = mkIf (config.modules.services.searxng.enable)
+        "search.isabelroses.com" =
+          mkIf (config.modules.services.searxng.enable)
           template
           // {
             locations."/".proxyPass = "http://127.0.0.1:8888";

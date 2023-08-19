@@ -7,7 +7,7 @@
 }: let
   sys = osConfig.modules.system;
 in {
-  imports = [ inputs.sops.homeManagerModules.sops ];
+  imports = [inputs.sops.homeManagerModules.sops];
 
   services = {
     gpg-agent = {

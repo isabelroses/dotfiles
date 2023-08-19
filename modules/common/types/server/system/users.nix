@@ -1,4 +1,8 @@
-{lib, config, ...}: let
+{
+  lib,
+  config,
+  ...
+}: let
   inherit (lib) mkIf;
 in {
   users.users.git = mkIf config.modules.services.gitea.enable {

@@ -4,7 +4,7 @@
   inputs,
   ...
 }: {
-  imports = [ inputs.sops.nixosModules.sops ];
+  imports = [inputs.sops.nixosModules.sops];
 
   environment.systemPackages = with pkgs; [sops age];
 
@@ -73,7 +73,7 @@
         path = sshDir + "/bernie";
         owner = mainUser;
       };
-      king-key = { 
+      king-key = {
         path = sshDir + "/king";
         owner = mainUser;
       };

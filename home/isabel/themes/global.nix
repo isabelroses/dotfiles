@@ -1,7 +1,4 @@
-{
-  osConfig,
-  ...
-}: let
+{osConfig, ...}: let
   cfg = osConfig.modules.style;
 in {
   # cursor theme
