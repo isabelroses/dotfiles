@@ -30,14 +30,6 @@ with lib; {
       '';
     };
 
-    screenLock = mkOption {
-      type = with types; nullOr (enum ["swaylock" "gtklock"]);
-      default = "gtklock";
-      description = lib.mdDoc ''
-        The lockscreen module to be loaded by home-manager.
-      '';
-    };
-
     noiseSupressor = mkOption {
       type = with types; nullOr (enum ["rnnoise" "noisetorch"]);
       default = "rnnoise";

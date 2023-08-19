@@ -1,7 +1,6 @@
 _: {
   imports = [
+    ./screenlock
     #./clipboard.nix
-    ./swaylock.nix
-    ./gtklock.nix
   ];
 }

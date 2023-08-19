@@ -3,16 +3,19 @@
   lib,
   config,
   osConfig,
+  defaults,
   ...
 }:
-with lib; let
+let
+  inherit (lib) mkIf;
+
   dev = osConfig.modules.device;
   vid = osConfig.modules.system.video;
   env = osConfig.modules.usrEnv;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes && env.screenLock == "swaylock") && (vid.enable && env.isWayland)) {
+  config = mkIf ((builtins.elem dev.type acceptedTypes && defaults.screenLock == "swaylock") && (vid.enable && env.isWayland)) {
     home.packages = with pkgs; [swaylock-effects];
 
     programs.swaylock = {

@@ -180,11 +180,12 @@ in {
 
       bind =
         [
-          # open apps
+          # launchers
           "$mod, B, exec, ${defaults.browser}"
           "$mod, E, exec, ${defaults.fileManager}"
           "$mod, C, exec, ${defaults.editor}"
           "$mod, Return, exec, ${defaults.terminal}"
+          "$mod, L, exec, ${defaults.screenLock}"
           "$mod, O, exec, obsidian"
 
           # window managment
@@ -214,7 +215,6 @@ in {
           "$mod, V, exec, ~/.config/eww/scripts/launcher clipboard"
           "$mod, escape, exec, ~/.config/eww/scripts/launcher toggle_menu powermenu"
           "$mod shift, d, exec, ~/.config/eww/scripts/notifications closeLatest"
-          "$mod, L, exec, ~/.config/eww/scripts/launcher screenlock"
           ", XF86AudioMute, exec, ~/.config/eww/scripts/volume mute"
 
           # screenshot
@@ -233,7 +233,6 @@ in {
           "$mod SHIFT, R, exec, ags quit ; ags"
         ]
         ++ optionals (defaults.bar != "eww") [
-          "$mod, L, exec, swaylock"
           ", XF86AudioMute, exec, pamixer -t"
           ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
           "$mod, V, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"

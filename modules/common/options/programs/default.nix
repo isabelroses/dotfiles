@@ -74,6 +74,14 @@ with lib; {
           type = types.enum ["eww" "waybar" "ags"];
           default = "eww";
         };
+
+        screenLock = mkOption {
+          type = with types; nullOr (enum ["swaylock" "gtklock"]);
+          default = "gtklock";
+          description = lib.mdDoc ''
+            The lockscreen module to be loaded by home-manager.
+          '';
+        };
       };
     };
   };
