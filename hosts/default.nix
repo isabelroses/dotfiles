@@ -52,7 +52,6 @@ in {
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "amatarasu";}
         ./amatarasu
         workstation
       ]
@@ -65,7 +64,6 @@ in {
     system = "x86_64-linux";
     modules =
       [
-        {networking.hostName = "hydra";}
         ./hydra
         workstation
       ]
@@ -78,7 +76,6 @@ in {
     system = "aarch64-linux";
     modules =
       [
-        {networking.hostName = "bernie";}
         ./bernie
         server
       ]
