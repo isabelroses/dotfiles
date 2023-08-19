@@ -1,6 +1,5 @@
 {
   osConfig,
-  pkgs,
   ...
 }: let
   cfg = osConfig.modules.style;
