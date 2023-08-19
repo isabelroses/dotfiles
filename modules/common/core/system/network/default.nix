@@ -1,4 +1,4 @@
-{lib, ...}:
+{lib, config, ...}:
 with lib; {
   imports = [
     ./blocker.nix
@@ -13,6 +13,7 @@ with lib; {
   };
 
   networking = {
+    hostName = config.modules.system.hostname;
     # global dhcp has been deprecated upstream
     # use networkd instead
     # individual interfaces are still managed through dhcp in hardware configurations
