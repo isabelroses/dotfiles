@@ -56,7 +56,7 @@
           devShell = import ./parts/devShell;
         in
           inputs'.devshell.legacyPackages.mkShell {
-            name = "nix";
+            name = "setup";
             commands = devShell.shellCommands;
             inherit (devShell) env;
             packages = with pkgs; [

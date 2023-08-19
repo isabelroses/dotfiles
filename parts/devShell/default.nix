@@ -24,6 +24,18 @@
       command = "git push";
       category = "source control";
     }
+    {
+      help = "Check if the configuration works";
+      name = "check";
+      command = "nix flake check";
+      category = "nix";
+    }
+    {
+      help = "Update the flake's inputs";
+      name = "update";
+      command = "nix flake update";
+      category = "nix";
+    }
   ];
 
   env = [
