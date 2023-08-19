@@ -35,5 +35,9 @@ with lib; {
     photoprism.enable = mkEnableOption "Enable the photoprism service";
 
     vscode-server.enable = mkEnableOption "Enables remote ssh vscode server";
+
+    isabelroses-web.enable = mkEnableOption "Enables my website";
+
+    searxng.enable = mkEnableOption "Enables searxng search engine service";
   };
 }
