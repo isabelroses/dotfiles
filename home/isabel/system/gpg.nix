@@ -2,10 +2,13 @@
   osConfig,
   config,
   lib,
+  inputs,
   ...
 }: let
   sys = osConfig.modules.system;
 in {
+  imports = [ inputs.sops.homeManagerModules.sops ];
+
   services = {
     gpg-agent = {
       enable = true;
@@ -24,6 +27,8 @@ in {
 
   # Allow manually restarting gpg-agent in case of failure
   systemd.user.services.gpg-agent.Unit.RefuseManualStart = lib.mkForce false;
+
+  sops.gnupg.home = config.programs.gpg.homedir;
 
   programs = {
     gpg = {

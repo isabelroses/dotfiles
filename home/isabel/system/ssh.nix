@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   home.packages = with pkgs; [cloudflared];
   programs = {
     ssh = {
@@ -30,11 +30,17 @@
           identityFile = "~/.ssh/openvpn";
         };
 
-        "edalyn" = {
-          hostname = "141.147.113.225";
-          user = "ubuntu";
-          identityFile = "~/.ssh/edalyn";
-        };
+        #"edalyn" = {
+        #  hostname = "141.147.113.225";
+        #  user = "ubuntu";
+        #  identityFile = "~/.ssh/edalyn";
+        #};
+
+        #"luz" = {
+        #  hostname = "144.21.55.221";
+        #  user = "ubuntu";
+        #  identityFile = "~/.ssh/luz";
+        #};
 
         "king" = {
           hostname = "150.230.117.215";
@@ -42,10 +48,10 @@
           identityFile = "~/.ssh/king";
         };
 
-        "luz" = {
-          hostname = "144.21.55.221";
-          user = "ubuntu";
-          identityFile = "~/.ssh/luz";
+        "bernie" = {
+          hostname = "143.47.240.116";
+          user = "isabel";
+          identityFile = "~/.ssh/bernie";
         };
 
         # my local servers / clients
