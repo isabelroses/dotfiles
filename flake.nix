@@ -19,7 +19,7 @@
         inputs.flake-parts.flakeModules.easyOverlay
         inputs.treefmt-nix.flakeModule
 
-        ./parts/makesys # args that is passsed to the flake, moved away from the main file
+        ./parts/makeSys # args that is passsed to the flake, moved away from the main file
       ];
 
       flake = let
