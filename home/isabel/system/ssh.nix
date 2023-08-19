@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [cloudflared wishlist];
+  home.packages = with pkgs; [cloudflared];
   programs = {
     ssh = {
       enable = true;

@@ -19,6 +19,9 @@ with lib; {
       cli = {
         enable = mkEnableOption "Enable CLI programs";
       };
+      tui = {
+        enable = mkEnableOption "Enable TUI programs";
+      };
       gui = {
         enable = mkEnableOption "Enable GUI programs";
       };

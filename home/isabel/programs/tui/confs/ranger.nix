@@ -6,12 +6,11 @@
   ...
 }:
 with lib; let
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
+  inherit (osConfig.modules) programs device;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.cli.enable)) {
+  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.tui.enable)) {
     home.packages = with pkgs; [
       ranger
     ];
