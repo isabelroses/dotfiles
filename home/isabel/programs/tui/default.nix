@@ -1,5 +1,10 @@
-{config, pkgs, osConfig, lib, ...}:
-let 
+{
+  config,
+  pkgs,
+  osConfig,
+  lib,
+  ...
+}: let
   inherit (lib) mkIf;
   inherit (osConfig.modules) programs;
 in {

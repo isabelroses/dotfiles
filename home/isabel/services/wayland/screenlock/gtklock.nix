@@ -5,8 +5,7 @@
   osConfig,
   defaults,
   ...
-}:
-let
+}: let
   inherit (lib) mkIf;
   dev = osConfig.modules.device;
   vid = osConfig.modules.system.video;
