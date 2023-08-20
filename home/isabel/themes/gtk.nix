@@ -5,13 +5,14 @@
   osConfig,
   ...
 }: let
+  inherit (lib) mkIf;
   inherit (osConfig.modules) device;
   cfg = osConfig.modules.style;
   sys = osConfig.modules.system;
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = lib.mkIf (builtins.elem device.type acceptedTypes && (sys.video.enable)) {
+  config = mkIf (builtins.elem device.type acceptedTypes && (sys.video.enable)) {
     xdg.systemDirs.data = let
       schema = pkgs.gsettings-desktop-schemas;
     in ["${schema}/share/gsettings-schemas/${schema.name}"];
@@ -28,7 +29,7 @@ in {
         GTK_THEME = "${cfg.gtk.theme.name}";
 
         # gtk applications should use filepickers specified by xdg
-        GTK_USE_PORTAL = "${toString cfg.gtk.usePortal}";
+        GTK_USE_PORTAL = "${with lib; toString (boolToNum cfg.gtk.usePortal)}";
       };
     };
 
