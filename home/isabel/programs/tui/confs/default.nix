@@ -1,4 +1,4 @@
-_:{
+_: {
   imports = [
     ./lazygit.nix
     ./ranger.nix

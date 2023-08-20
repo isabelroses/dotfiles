@@ -1,4 +1,4 @@
-_:{
+_: {
   imports = [
     ./gtklock.nix
     ./swaylock.nix

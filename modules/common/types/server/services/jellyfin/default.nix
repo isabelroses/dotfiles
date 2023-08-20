@@ -2,16 +2,15 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   inherit (lib) mkIf;
   device = config.modules.device;
   cfg = config.modules.services.jellyfin;
   acceptedTypes = ["server" "hybrid"];
-in { 
+in {
   config = mkIf (builtins.elem device.type acceptedTypes && cfg.enable) {
     # NOT docker
-    services = mkIf (!cfg.asDockerContainer){
+    services = mkIf (!cfg.asDockerContainer) {
       jellyfin = {
         enable = true;
         group = "jellyfin";

@@ -1,4 +1,9 @@
-{config, lib, osConfig, ...}: let
+{
+  config,
+  lib,
+  osConfig,
+  ...
+}: let
   inherit (lib) mkIf;
   inherit (osConfig.modules) programs;
 in {

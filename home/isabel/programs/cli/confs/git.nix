@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = osConfig.modules.programs.git;
 in {
   config = {
