@@ -37,5 +37,14 @@ with lib; {
       enable = mkEnableOption "plymouth boot splash";
       withThemes = mkEnableOption "plymouth theme";
     };
+
+    memtest = {
+      enable = mkEnableOption "memtest86+";
+      package = mkOption {
+        type = types.package;
+        default = pkgs.memtest86plus;
+        description = "The memtest package to use.";
+      };
+    };
   };
 }
