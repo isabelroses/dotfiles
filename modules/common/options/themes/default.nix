@@ -74,7 +74,7 @@ in {
 
           kdeglobals.source = mkOption {
             type = types.path;
-            default = "${cfg.qt.theme.package}/";
+            default = "${cfg.qt.theme.package}/share/color-schemes/CatppuccinMochaSapphire.colors";
           };
         };
 
