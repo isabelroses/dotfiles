@@ -1,121 +1,121 @@
-const { App, Widget } = ags;
+const { EventBox, CenterBox, Box, Revealer } = ags.Widget;
+const { App } = ags;
 
-const padding = windowName => ({
-    type: 'eventbox',
+const Padding = windowName => EventBox({
     className: 'padding',
     hexpand: true,
     vexpand: true,
-    onClick: () => App.toggleWindow(windowName),
+    connections: [['button-press-event', () => App.toggleWindow(windowName)]],
 });
 
-const revealer = (windowName, transition, child) => ({
-    type: 'box',
+const PopupRevealer = (windowName, transition, child) => Box({
     style: 'padding: 1px;',
-    children: [{
-        type: 'revealer',
+    children: [Revealer({
         transition,
         child,
-        duration: 350,
+        transitionDuration: 350,
         connections: [[App, (revealer, name, visible) => {
             if (name === windowName)
                 revealer.reveal_child = visible;
         }]],
-    }],
+    })],
 });
 
 const layouts = {
-    'center': (windowName, child) => ({
-        type: 'centerbox',
+    'center': (windowName, child) => CenterBox({
         className: 'shader',
         children: [
-            padding(windowName),
-            {
-                type: 'centerbox',
-                orientation: 'vertical',
+            Padding(windowName),
+            CenterBox({
+                vertical: true,
                 children: [
-                    padding(windowName),
+                    Padding(windowName),
                     child,
-                    padding(windowName),
+                    Padding(windowName),
                 ],
-            },
-            padding(windowName),
+            }),
+            Padding(windowName),
         ],
     }),
-    'top': (windowName, child) => ({
-        type: 'centerbox',
+    'left': (windowName, child) => Box({
         children: [
-            padding(windowName),
-            {
-                type: 'box',
-                orientation: 'vertical',
-                children: [
-                    revealer(windowName, 'slide_down', child),
-                    padding(windowName),
-                ],
-            },
-            padding(windowName),
-        ],
-    }),
-    'left': (windowName, child) => ({
-        type: 'centerbox',
-        children: [
-            padding(windowName),
-            {
-                type: 'box',
-                orientation: 'horizontal',
-                children: [
-                    revealer(windowName, 'slide_right', child),
-                    padding(windowName),
-                ],
-            },
-            padding(windowName),
-        ],
-    }),
-    'topright': (windowName, child) => ({
-        type: 'box',
-        children: [
-            padding(windowName),
-            {
-                type: 'box',
+            Padding(windowName),
+            Box({
                 hexpand: false,
-                orientation: 'vertical',
+                vertical: true,
                 children: [
-                    revealer(windowName, 'slide_down', child),
-                    padding(windowName),
+                    Padding(windowName),
+                    PopupRevealer(windowName, 'slide_right', child),
                 ],
-            },
+            }),
         ],
     }),
-    'bottomright': (windowName, child) => ({
-        type: 'box',
+    'top': (windowName, child) => CenterBox({
         children: [
-            padding(windowName),
-            {
-                type: 'box',
-                hexpand: false,
-                orientation: 'vertical',
+            Padding(windowName),
+            Box({
+                vertical: true,
                 children: [
-                    padding(windowName),
-                    revealer(windowName, 'slide_up', child),
+                    PopupRevealer(windowName, 'slide_down', child),
+                    Padding(windowName),
                 ],
-            },
+            }),
+            Padding(windowName),
         ],
     }),
-    'bottomleft': (windowName, child) => ({
-        type: 'box',
+    'top right': (windowName, child) => Box({
         children: [
-            padding(windowName),
-            {
-                type: 'box',
+            Padding(windowName),
+            Box({
                 hexpand: false,
-                orientation: 'vertical',
+                vertical: true,
                 children: [
-                    padding(windowName),
-                    revealer(windowName, 'slide_right', child),
+                    PopupRevealer(windowName, 'slide_down', child),
+                    Padding(windowName),
                 ],
-            },
+            }),
         ],
     }),
+    'bottom right': (windowName, child) => Box({
+        children: [
+            Padding(windowName),
+            Box({
+                hexpand: false,
+                vertical: true,
+                children: [
+                    Padding(windowName),
+                    PopupRevealer(windowName, 'slide_up', child),
+                ],
+            }),
+        ],
+    }),
+    'top left': (windowName, child) => Box({
+        children: [
+            Padding(windowName),
+            Box({
+                hexpand: false,
+                vertical: true,
+                children: [
+                    Padding(windowName),
+                    PopupRevealer(windowName, 'slide_right', child),
+                ],
+            }),
+        ],
+    }),
+    'bottom left': (windowName, child) => Box({
+        children: [
+            Padding(windowName),
+            Box({
+                hexpand: false,
+                vertical: true,
+                children: [
+                    Padding(windowName),
+                    PopupRevealer(windowName, 'slide_right', child),
+                ],
+            }),
+        ],
+    }),
+
 };
 
-Widget.widgets['layout'] = ({ layout, window, child }) => Widget(layouts[layout](window, child));
+export const PopupLayout = ({ layout, window, child }) => layouts[layout](window, child);

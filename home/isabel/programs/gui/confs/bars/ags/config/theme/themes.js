@@ -51,8 +51,7 @@ const misc_colors = {
 };
 
 // themes
-/* exported dark light */
-var mocha = {
+const mocha = {
     wallpaper: WP + 'tempest.png',
     name: 'mocha',
     color_scheme: 'dark',
@@ -62,7 +61,7 @@ var mocha = {
     ...misc_colors,
 };
 
-var latte = {
+const latte = {
     wallpaper: WP + 'coke.jpg',
     name: 'latte',
     color_scheme: 'light',
@@ -71,3 +70,8 @@ var latte = {
     ...settings,
     ...misc_colors,
 };
+
+export default [
+  mocha,
+  latte,
+];

@@ -1,28 +1,21 @@
-const { Widget } = ags;
+import * as hyprland from '../../modules/hyprland.js';
+const { Box, EventBox, Button } = ags.Widget;
 const { execAsync } = ags.Utils;
 
-Widget.widgets['workspaces'] = ({ orientation, ...props }) => Widget({
+export const Workspaces = ({ props, vertical }) => Box({
     ...props,
-    type: 'box',
-    children: [{
-        type: 'box',
-        children: [{
-            type: 'eventbox',
+    className: 'workspaces panel-button',
+    children: [Box({
+        children: [EventBox({
             className: 'eventbox',
-            child: {
-                type: 'hyprland/workspaces',
-                fixed: 7,
-                orientation,
-                child: {
-                    type: 'box',
+            child: hyprland.Workspaces({
+                vertical,
+                indicator: () => Box({
                     className: 'indicator',
                     valign: 'center',
-                    children: [{
-                        type: 'box',
-                        className: 'fill',
-                    }],
-                },
-            },
-        }],
-    }],
+                    children: [Box({ className: 'fill' })],
+                }),
+            }),
+        })],
+    })],
 });

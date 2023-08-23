@@ -12,13 +12,8 @@ window#quicksettings .quicksettings {
             margin-right: $spacing;
             min-width: $spacing*7 + 38px;
 
-            .image {
-                border-radius: max($radii - $border_width, 0);
-            }
-
             .shader {
                 @include shader;
-                border-radius: max($radii - $border_width, 0);
             }
         }
 
@@ -58,20 +53,18 @@ window#quicksettings .quicksettings {
     .volume-box {
         @include widget;
         margin-top: $spacing;
-
-        .volume {
-            .slider {
-                @include slider;
-                margin-right: $spacing;
-            }
-
-            button {
-                @include button($flat: true);
-                padding: $spacing/2;
-                margin: $spacing/2;
-            }
+        
+        scale {
+            @include slider;
+            margin-right: $spacing;
         }
 
+        button {
+            @include button($flat: true);
+            padding: $spacing/2;
+            margin: $spacing/2;
+        }
+        
         .menu {
             all: unset;
             border-top: 1px solid $widget_bg;
@@ -102,7 +95,7 @@ window#quicksettings .quicksettings {
         margin-top: $spacing;
         padding-right: $spacing;
 
-        .slider {
+        scale {
             @include slider;
             margin: 0 $spacing;
             margin-left: 0;

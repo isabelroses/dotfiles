@@ -49,7 +49,7 @@ window#powermenu .powermenu {
     button {
         @include common;
 
-        .icon {
+        image {
             @include button;
             margin: $popover_padding;
             margin-bottom: $popover_padding/2;
@@ -58,16 +58,16 @@ window#powermenu .powermenu {
             min-height: 120px;
         }
 
-        label, .icon {
+        label, image {
             color: transparentize($fg_color, 0.1);
         }
 
         &:hover {
-            .icon { @include button_hover; }
+            image { @include button_hover; }
             label{ color: $fg_color; }
         }
-        &:focus .icon { @include button_focus; }
-        &:active .icon { @include button_active; }
+        &:focus image { @include button_focus; }
+        &:active image { @include button_active; }
 
         &:focus, &:active {
             label{ color: $accent; }

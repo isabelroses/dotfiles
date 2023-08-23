@@ -24,9 +24,7 @@ window#dashboard .dashboard {
         }
 
         .notification-list {
-            viewport>box {
                 padding: $spacing/2;
-            }
 
             .notification>box {
                 @include floating_widget;
@@ -67,10 +65,4 @@ window#dashboard .dashboard {
         @include datemenu;
     }
 
-    .mediabox {
-        @include widget;
-        @include media;
-        min-height: 140px;
-        margin-top: $spacing;
-    }
 }
