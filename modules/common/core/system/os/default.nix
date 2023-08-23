@@ -3,6 +3,7 @@ _: {
     ./display
     ./environment
     ./locale
+    ./network
     ./programs
     ./security
     ./services
