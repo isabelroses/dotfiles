@@ -1,71 +1,45 @@
-const Shared = imports.layouts.shared;
+import * as shared from './shared.js';
+import { Launcher } from './shared.js';
+import { Workspaces } from './widgets/hyprland.js';
+import { Separator } from '../modules/misc.js';
+import { PanelIndicator as MediaIndicator } from './widgets/media.js';
+import { PanelIndicator as NotificationIndicator } from './widgets/notifications.js';
+import { DistroIcon } from '../modules/misc.js';
+import { PanelButton as ColorPicker } from '../modules/colorpicker.js';
+import { PanelButton as PowerMenu } from './widgets/powermenu.js';
+import { PanelButton as DashBoard } from './widgets/dashboard.js';
+import { PanelButton as QuickSettings } from './widgets/quicksettings.js';
 
-// static windows
-const notifications = monitor => Shared.notifications(monitor, 'slide_down', ['top']);
-const desktop = Shared.desktop;
-const corners = Shared.corners;
-
-// popups
-const dashboard = {
-    name: 'dashboard',
-    popup: true,
-    focusable: true,
-    anchor: ['top'],
-    child: {
-        type: 'layout',
-        layout: 'top',
-        window: 'dashboard',
-        child: { type: 'dashboard/popup-content' },
-    },
-};
-
-const quicksettings = {
-    name: 'quicksettings',
-    popup: true,
-    focusable: true,
-    anchor: ['top', 'right'],
-    child: {
-        type: 'layout',
-        layout: 'topright',
-        window: 'quicksettings',
-        child: { type: 'quicksettings/popup-content' },
-    },
-};
-
-// bar
-const { launcher, bar } = imports.layouts.shared;
-const separator = { type: 'separator', valign: 'center' };
-
-const panel = bar({
-    anchor: ['top', 'left', 'right'],
-    orientation: 'horizontal',
+const Bar = monitor => shared.Bar({
+    anchor: 'top left right',
+    monitor,
     start: [
-        launcher(),
-        { type: 'workspaces', className: 'workspaces panel-button' },
-        { type: 'media/panel-indicator', className: 'media panel-button', hexpand: true, halign: 'end' },
+        Launcher({ child: DistroIcon() }),
+        Workspaces(),
+        MediaIndicator({ hexpand: true, halign: 'end' }),
     ],
     center: [
-        { type: 'dashboard/panel-button' },
+        DashBoard(),
     ],
     end: [
-        { type: 'notifications/panel-indicator', direction: 'right', className: 'notifications panel-button', hexpand: true },
-        { type: 'box', hexpand: true },
-        { type: 'colorpicker', className: 'colorpicker panel-button' },
-        separator,
-        { type: 'quicksettings/panel-button' },
-        separator,
-        { type: 'powermenu/panel-button' },
+        NotificationIndicator({ direction: 'right', hexpand: true, halign: 'start' }),
+        ags.Widget.Box({ hexpand: true }),
+        ColorPicker(),
+        Separator({ valign: 'center' }),
+        QuickSettings(),
+        Separator({ valign: 'center' }),
+        PowerMenu(),
     ],
 });
 
-/* exported windows */
-var windows = [
-    ...ags.Service.Hyprland.HyprctlGet('monitors').map(({ id }) => ([
-        notifications(id),
-        desktop(id),
-        ...corners(id),
-        panel(id),
-    ])).flat(),
-    dashboard,
-    quicksettings,
-];
+export default monitors => ([
+    ...monitors.map(monitor => [
+        Bar(monitor),
+        shared.Notifications(monitor, 'slide_down', 'top'),
+        shared.Desktop(monitor),
+        ...shared.Corners(monitor),
+        shared.OSDIndicator(monitor),
+    ]),
+    shared.Quicksettings({ position: 'top right' }),
+    shared.Dashboard({ position: 'top' }),
+]).flat(2);

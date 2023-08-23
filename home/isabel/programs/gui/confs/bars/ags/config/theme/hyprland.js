@@ -1,8 +1,8 @@
-const { Service, App } = ags;
-const { execAsync } = ags.Utils;
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import Service from 'resource:///com/github/Aylur/ags/service/service.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
-/* exported setupHyprland */
-function setupHyprland() {
+export function setupHyprland() {
     try {
         App.instance.connect('config-parsed', () => {
             for (const [name] of App.windows) {
@@ -18,6 +18,6 @@ function setupHyprland() {
                 execAsync(['hyprctl', 'keyword', 'layerrule', `blur, ${name}`]);
         });
     } catch (error) {
-        print(error);
+        logError(error);
     }
 }

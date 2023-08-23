@@ -1,20 +1,19 @@
-const { Widget, App } = ags;
+const { App } = ags;
 const { Hyprland, Applications } = ags.Service;
-const { execAsync, lookUpIcon, warning } = ags.Utils;
+const { execAsync, lookUpIcon } = ags.Utils;
+const { Box, Button, Label, Icon } = ags.Widget;
 
-Widget.widgets['hyprland/workspaces'] = ({
+export const Workspaces = ({
     fixed = 7,
-    child,
-    orientation,
+    vertical,
+    indicator,
     ...props
-}) => Widget({
+} = {}) => Box({
     ...props,
-    type: 'box',
-    orientation,
-    children: Array.from({ length: fixed }, (_, i) => i + 1).map(i => ({
-        type: 'button',
-        onClick: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
-        child: child ? Widget(child) : `${i}`,
+    vertical,
+    children: Array.from({ length: fixed }, (_, i) => i + 1).map(i => Button({
+        onClicked: () => execAsync(`hyprctl dispatch workspace ${i}`).catch(print),
+        child: indicator ? indicator() : Label(`${i}`),
         connections: [[Hyprland, btn => {
             const { workspaces, active } = Hyprland;
             const occupied = workspaces.has(i) && workspaces.get(i).windows > 0;

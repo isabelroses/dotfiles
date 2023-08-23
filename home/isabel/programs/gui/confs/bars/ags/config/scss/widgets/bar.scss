@@ -51,6 +51,10 @@ $float: 5px;
         font-weight: bold;
     }
 
+    image {
+        font-size: $font-size * 1.2;
+    }
+
     >* {
         padding: .3em .5em;
     }
