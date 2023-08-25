@@ -17,14 +17,14 @@ const Bar = monitor => shared.Bar({
     start: [
         Launcher({ child: DistroIcon() }),
         Workspaces({ vertical: true }),
-        MediaIndicator({ hexpand: false, halign: 'end' }),
+        // MediaIndicator({ hexpand: false, halign: 'end' }),
     ],
     center: [
         DashBoard({ format: '%I\n܅\n%M' }),
     ],
     end: [
-        NotificationIndicator({ direction: 'right', hexpand: false, halign: 'start' }),
-        ags.Widget.Box({ hexpand: true }),
+        // NotificationIndicator({ direction: 'right', hexpand: false, halign: 'start' }),
+        // ags.Widget.Box({ hexpand: true }),
         ColorPicker(),
         Separator({ valign: 'center' }),
         QuickSettings({ vertical: true }),

@@ -16,7 +16,7 @@ in {
     home.packages = with pkgs; [wlogout];
     programs.waybar = {
       enable = true;
-      package = pkgs.waybar-hyprland;
+      package = pkgs.waybar;
       settings = {
         mainBar = {
           layer = "top";
