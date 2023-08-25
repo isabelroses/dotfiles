@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (self) inputs;
-  inherit (lib) concatLists mkNixosSystem;
+  inherit (lib) concatLists mkNixosSystem mkNixosIso;
 
   modulePath = ../modules;
 
@@ -80,6 +80,14 @@ in {
         server
       ]
       ++ concatLists [shared homes];
+    specialArgs = sharedArgs;
+  };
+
+  lilith = mkNixosIso {
+    system = "x86_64-linux";
+    modules = [
+      ./lilith
+    ];
     specialArgs = sharedArgs;
   };
 }
