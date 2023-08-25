@@ -42,6 +42,9 @@
 
           default = null;
         };
+
+        # build with `nix build .#images.<hostname>`
+        images = import ./hosts/images.nix {inherit inputs self lib;};
       };
 
       perSystem = {
@@ -52,13 +55,16 @@
       }: {
         imports = [{_module.args.pkgs = config.legacyPackages;}];
 
+        # provide the formatter for nix fmt
+        formatter = pkgs.alejandra;
+
         devShells.default = let
-          devShell = import ./parts/devShell;
+          extra = import ./parts/devShell;
         in
           inputs'.devshell.legacyPackages.mkShell {
             name = "setup";
-            commands = devShell.shellCommands;
-            inherit (devShell) env;
+            commands = extra.shellCommands;
+            env = extra.shellEnv;
             packages = with pkgs; [
               config.treefmt.build.wrapper # treewide formatter
               nil # nix ls
@@ -69,9 +75,6 @@
               deadnix # clean up unused nix code
             ];
           };
-
-        # provide the formatter for nix fmt
-        formatter = pkgs.alejandra;
 
         # configure treefmt
         treefmt = {
@@ -181,6 +184,15 @@
     xdg-portal-hyprland = {
       url = "github:hyprwm/xdg-desktop-portal-hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Firefox but really locked down and air tight
+    schizofox = {
+      url = "github:schizofox/schizofox";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
     };
 
     # secure-boot on nixos
