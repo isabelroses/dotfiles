@@ -21,6 +21,7 @@ in {
       jellyfin-media-player
       mangal # tui manga finder + reader
       insomnia # rest client
+      libreoffice # office apps
     ];
   };
 }

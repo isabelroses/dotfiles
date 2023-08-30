@@ -205,7 +205,7 @@ export const SettingsDialog = () => Widget({
             SpinButton('Useless Gaps', 'wm_gaps', 128),
             SpinButton('Spacing', 'spacing', 18),
             SpinButton('Roundness', 'radii', 36),
-            TextSpinButton('Layout', 'layout', ['topbar', 'bottombar']),
+            TextSpinButton('Layout', 'layout', ['topbar', 'leftbar']),
             TextSpinButton('Bar Style', 'bar_style', ['normal', 'floating', 'separated']),
             SwitchButton('Screen Corners', 'screen_corners'),
         ]),

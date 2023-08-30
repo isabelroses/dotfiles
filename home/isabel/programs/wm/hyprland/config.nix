@@ -247,10 +247,10 @@ in {
       bindle =
         []
         ++ optionals (defaults.bar == "ags") [
-          ", XF86MonBrightnessUp, exec, ags run-js `ags.Service.Brightness.screen += 0.02; ags.Service.Indicator.display()`"
-          ", XF86MonBrightnessDown, exec, ags run-js `ags.Service.Brightness.screen -= 0.02; ags.Service.Indicator.display()`"
-          ", XF86AudioRaiseVolume, exec, ags run-js `ags.Service.Audio.speaker.volume += 0.05; ags.Service.Indicator.speaker()`"
-          ", XF86AudioLowerVolume, exec, ags run-js `ags.Service.Audio.speaker.volume -= 0.05; ags.Service.Indicator.speaker()`"
+          ", XF86MonBrightnessUp, exec, ags run-js 'ags.Service.Brightness.screen += 0.02; ags.Service.Indicator.display()'"
+          ", XF86MonBrightnessDown, exec, ags run-js 'ags.Service.Brightness.screen -= 0.02; ags.Service.Indicator.display()'"
+          ", XF86AudioRaiseVolume, exec, ags run-js 'ags.Service.Audio.speaker.volume += 0.05; ags.Service.Indicator.speaker()'"
+          ", XF86AudioLowerVolume, exec, ags run-js 'ags.Service.Audio.speaker.volume -= 0.05; ags.Service.Indicator.speaker()'"
         ];
 
       bindl =

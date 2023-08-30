@@ -33,7 +33,7 @@ const SysButton = (icon, action) => Button({
     child: Box({
         vertical: true,
         children: [
-            Icon(icon),
+            Icon({ icon, size: 42 }),
             Label(action),
         ],
     }),
