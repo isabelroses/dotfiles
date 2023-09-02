@@ -1,9 +1,5 @@
 {osConfig, ...}: let
   sys = osConfig.modules.system;
-  #symlink = fileName: {recursive ? false}: {
-  #  source = config.lib.file.mkOutOfStoreSymlink "${sys.flakePath}/${fileName}";
-  #  inherit recursive;
-  #};
 in {
   programs.fish = {
     enable = true;
@@ -37,6 +33,9 @@ in {
       doas = "doas --";
       jctl = "journalctl -p 3 -xb"; # get error messages from journalctl
       lg = "lazygit";
+
+      docker = "podman";
+      docker-compose = "podman-compose";
 
       # nix stuff
       ssp = "~/shells/spawnshell.sh";

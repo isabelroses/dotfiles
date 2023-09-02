@@ -21,11 +21,11 @@ in {
       };
       system = {
         mainUser = "isabel";
-
         hostname = "amatarasu";
 
         boot = {
           loader = "systemd-boot";
+          secureBoot = false;
           plymouth = {
             enable = true;
             withThemes = true;
@@ -39,6 +39,10 @@ in {
         sound.enable = true;
         bluetooth.enable = false;
         printing.enable = false;
+
+        security = {
+          auditd.enable = true;
+        };
 
         networking = {
           optimizeTcp = true;

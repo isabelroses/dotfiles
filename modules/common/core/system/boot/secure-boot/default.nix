@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  sys = config.modules.system.security;
+  sys = config.modules.system.boot;
 in {
   imports = [
     inputs.lanzaboote.nixosModules.lanzaboote

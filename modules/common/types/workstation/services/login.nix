@@ -1,6 +1,9 @@
 {
   config,
+  lib,
   pkgs,
+  self,
+  inputs,
   ...
 }: {
   config = {
@@ -30,6 +33,17 @@
     };
 
     services = {
+      xserver = {
+        enable = true;
+        displayManager.sddm = lib.mkIf config.modules.usrEnv.programs.sddm.enable {
+          enable = true;
+          theme = "${import ../../../../../parts/pkgs/sddm.nix {inherit pkgs lib;}}";
+          settings = {
+            General = {InputMethod = "";};
+          };
+        };
+      };
+
       gnome = {
         gnome-keyring.enable = true;
       };

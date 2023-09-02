@@ -17,7 +17,7 @@
       FLAKE = "${config.modules.system.flakePath}";
     };
 
-    # packages I want pre-installed on all systems
+    # packages I want on all systems
     systemPackages = with pkgs; [
       git
       curl

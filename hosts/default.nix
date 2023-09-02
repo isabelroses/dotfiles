@@ -84,18 +84,7 @@ in {
     ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
-
-  bernie = mkNixosSystem {
-    inherit withSystem;
-    system = "aarch64-linux";
-    modules =
-      [
-        ./bernie
-        server
-      ]
-      ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
-  };
+  */
 
   lilith = mkNixosIso {
     system = "x86_64-linux";
@@ -104,5 +93,4 @@ in {
     ];
     specialArgs = sharedArgs;
   };
-  */
 }

@@ -1,7 +1,6 @@
 _: {
   imports = [
-    ./fish
-    ./nushell
+    ./shells
 
     ./bat.nix
     ./git.nix

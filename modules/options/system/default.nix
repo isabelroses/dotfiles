@@ -2,27 +2,27 @@
   lib,
   config,
   ...
-}:
-with lib; {
+}: let
+  inherit (lib) mkOption mkEnableOption optionals types;
+in {
   imports = [
     ./activation.nix
     ./boot.nix
+    ./emulation.nix
+    ./encryption.nix
     ./networking.nix
+    ./printing.nix
     ./security.nix
     ./virtualization.nix
-    ./emulation.nix
-    ./printing.nix
   ];
 
   options.modules.system = {
-    warnings =
-      if config.modules.system.users == []
-      then [
-        ''
-          You do not have a main user set. This may cause issues with some modules.
-        ''
-      ]
-      else [];
+    warnings = optionals (config.modules.system.users == []) [
+      ''
+        You have not added any users to be supported by your system. You may end up with an unbootable system!
+        Consider setting `config.modules.system.users` in your configuration
+      ''
+    ];
 
     mainUser = mkOption {
       type = types.enum config.modules.system.users;
