@@ -7,9 +7,10 @@
 }: let
   nurOpt = config.modules.usrEnv.programs.nur;
 in {
-  nixpkgs.overlays = [
+  nixpkgs.overlays =
+    [
       inputs.rust-overlay.overlays.default
-      
+
       (
         _: prev: {
           # temp fix until https://github.com/NixOS/nixpkgs/pull/249382 is merged
