@@ -15,6 +15,7 @@ in {
     gui.enable = mkEnableOption "Enable GUI programs";
 
     zathura.enable = mkEnableOption "Enable zathura PDF reader";
+    sddm.enable = mkEnableOption "Enable SDDM";
 
     git = {
       signingKey = mkOption {

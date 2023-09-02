@@ -3,13 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-with lib; {
+}: let
+  inherit (lib) mkOption mkEnableOption types;
+in {
   options.modules.system.boot = {
     enableKernelTweaks = mkEnableOption "security and performance related kernel parameters";
     enableInitrdTweaks = mkEnableOption "quality of life tweaks for the initrd stage";
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
+    secureBoot = mkEnableOption "Enable secure-boot and load necessary packages";
 
     extraKernelParams = mkOption {
       type = with types; listOf str;

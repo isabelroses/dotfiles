@@ -3,7 +3,7 @@ with lib; {
   options.modules.device = {
     type = mkOption {
       type = types.enum ["laptop" "desktop" "server" "hybrid" "lite" "vm"];
-      default = null;
+      default = "";
     };
 
     # the type of cpu your system has - vm and regular cpus currently do not differ

@@ -6,18 +6,18 @@
         type = "hybrid";
         cpu = "intel";
         gpu = null;
-        hasTPM = true;
         monitors = ["eDP-1"];
+        hasTPM = true;
         hasBluetooth = true;
         hasSound = true;
       };
       system = {
         mainUser = "isabel";
-
         hostname = "hydra";
 
         boot = {
           loader = "systemd-boot";
+          secureBoot = false;
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
           loadRecommendedModules = true;
@@ -27,6 +27,11 @@
         sound.enable = true;
         bluetooth.enable = true;
         printing.enable = false;
+
+        security = {
+          fixWebcam = false;
+          auditd.enable = true;
+        };
 
         networking = {
           optimizeTcp = true;
@@ -53,6 +58,7 @@
           gui.enable = true;
 
           zathura.enable = true;
+          sddm.enable = true;
 
           defaults = {
             bar = "ags";

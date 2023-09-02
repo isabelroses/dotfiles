@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }: {
@@ -23,7 +24,7 @@
       mailserverPath = secretsPath + "/mailserver";
     in {
       ### server ###
-      cloudflared-hydra = {
+      cloudflared-hydra = lib.mkIf config.modules.usrEnv.services.cloudflared.enable {
         #path = secretsPath + "/cloudflared/hydra";
         owner = "cloudflared";
         group = "cloudflared";

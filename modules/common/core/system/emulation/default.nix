@@ -3,8 +3,8 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
   sys = config.modules.system;
 in {
   config = mkIf sys.emulation.enable {
@@ -15,7 +15,7 @@ in {
       registrations = {
         # aarch64 interpreter
         aarch64-linux = {
-          interpreter = lib.mkForce "${pkgs.qemu}/bin/qemu-aarch64";
+          interpreter = "${pkgs.qemu}/bin/qemu-aarch64";
         };
 
         # i686 interpreter
