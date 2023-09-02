@@ -43,7 +43,7 @@
         useHomeManager = true;
 
         programs = {
-          git.signingKey = "";
+          git.signingKey = "B4D9D513B1560D99";
 
           cli.enable = true;
           tui.enable = true;
