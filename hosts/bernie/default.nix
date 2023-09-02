@@ -1,4 +1,4 @@
-{config, ...}: {
+{lib, config, ...}: {
   imports = [./hardware-configuration.nix];
   config = {
     modules = {
@@ -15,7 +15,7 @@
         hostname = "bernie";
 
         boot = {
-          loader = "systemd-boot";
+          loader = "grub";
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
           loadRecommendedModules = true;
@@ -58,9 +58,9 @@
 
         services = {
           vscode-server.enable = true;
-          mailserver.enable = true;
-          gitea.enable = true;
-          isabelroses-web.enable = true;
+          mailserver.enable = false;
+          gitea.enable = false;
+          isabelroses-web.enable = false;
         };
       };
     };
@@ -79,6 +79,17 @@
           "net.ipv4.ip_forward" = true;
           "net.ipv6.conf.all.forwarding" = true;
         };
+      };
+
+      loader.grub = {
+        enable = true;
+        useOSProber = lib.mkForce false;
+        efiSupport = lib.mkForce false;
+        enableCryptodisk = false;
+        theme = null;
+        backgroundColor = null;
+        splashImage = null;
+        device = lib.mkForce "/dev/sda";
       };
     };
   };

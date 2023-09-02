@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkDefault mkForce;
-  device = config.modules.device;
+  inherit (config.modules) device;
 in {
   services = {
     # enable opensnitch firewall
@@ -19,6 +19,7 @@ in {
       maxretry = 7;
       ignoreIP = [
         "127.0.0.0/8"
+        "10.0.0.0/8"
         "192.168.86.0/16"
       ];
 
@@ -44,7 +45,7 @@ in {
     firewall = {
       enable = mkDefault true;
       package = mkDefault pkgs.iptables-nftables-compat;
-      allowedTCPPorts = [];
+      allowedTCPPorts = [443 8080];
       allowedUDPPorts = [];
       allowedTCPPortRanges = [
         {
