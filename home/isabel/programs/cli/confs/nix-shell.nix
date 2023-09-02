@@ -3,14 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
-
+}: let
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.cli.enable)) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.cli.enable) {
     home = {
       packages = with pkgs; [
         alejandra
@@ -31,6 +27,17 @@ in {
       nix-direnv = {
         enable = true;
       };
+
+      stdlib = ''
+        : ''${XDG_CACHE_HOME:=$HOME/.cache}
+        declare -A direnv_layout_dirs
+        direnv_layout_dir() {
+          echo "''${direnv_layout_dirs[$PWD]:=$(
+              echo -n "$XDG_CACHE_HOME"/direnv/layouts/
+              echo -n "$PWD" | shasum | cut -d ' ' -f 1
+          )}"
+        }
+      '';
     };
   };
 }

@@ -3,13 +3,11 @@
   config,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
-  cfg = config.modules.services.photoprism;
-  acceptedTypes = ["server" "hybrid"];
+}: let
+  inherit (config.networking) domain;
+  cfg = config.modules.usrEnv.services.photoprism;
 in {
-  services = mkIf (builtins.elem device.type acceptedTypes && cfg.enable) {
+  services = lib.mkIf cfg.enable {
     photoprism = {
       enable = true;
       port = 2342;
@@ -23,7 +21,7 @@ in {
         PHOTOPRISM_DATABASE_NAME = "photoprism";
         PHOTOPRISM_DATABASE_SERVER = "/run/mysqld/mysqld.sock";
         PHOTOPRISM_DATABASE_USER = "photoprism";
-        PHOTOPRISM_SITE_URL = "https://photos.isabelroses.com";
+        PHOTOPRISM_SITE_URL = "https://photos.${domain}";
         PHOTOPRISM_SITE_TITLE = "My PhotoPrism";
       };
     };

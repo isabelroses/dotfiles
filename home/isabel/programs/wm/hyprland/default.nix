@@ -4,25 +4,20 @@
   osConfig,
   inputs',
   ...
-}:
-with lib; let
-  hyprpicker = inputs'.hyprpicker.packages.default;
-  hyprland-share-picker = inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland;
+}: let
+  inherit (osConfig.modules) device usrEnv;
 
-  env = osConfig.modules.usrEnv;
-  device = osConfig.modules.device;
-  sys = osConfig.modules.system;
-  programs = osConfig.modules.programs;
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   imports = [./config.nix];
-  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isWayland osConfig && usrEnv.desktop == "Hyprland") {
     home.packages = with pkgs;
       [
         grim
-        hyprpicker
-        hyprland-share-picker
+        inputs'.hyprpicker.packages.default
+        inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland
       ]
-      ++ optionals (programs.nur.enable && programs.nur.bella) [
+      ++ lib.optionals (usrEnv.programs.nur.enable && usrEnv.programs.nur.bella) [
         nur.repos.bella.catppuccin-hyprland
       ];
     wayland.windowManager.hyprland = {

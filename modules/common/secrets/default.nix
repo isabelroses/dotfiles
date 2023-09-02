@@ -25,7 +25,7 @@
       ### server ###
       cloudflared-hydra = {
         #path = secretsPath + "/cloudflared/hydra";
-        owner = mainUser;
+        owner = "cloudflared";
         group = "cloudflared";
       };
 

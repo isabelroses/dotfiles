@@ -2,13 +2,11 @@
   config,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
-  progs = config.modules.programs.default;
+}: let
+  progs = config.modules.usrEnv.programs.defaults;
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = lib.mkIf (lib.isAcceptedDevice config acceptedTypes) {
     environment.variables = {
       # open links with the default browser
       BROWSER = progs.browser;

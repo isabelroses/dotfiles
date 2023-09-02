@@ -4,12 +4,10 @@
   osConfig,
   ...
 }: let
-  inherit (lib) mkIf;
-  inherit (osConfig.modules) device programs;
   sys = osConfig.modules.system;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable && sys.video.enable) {
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;

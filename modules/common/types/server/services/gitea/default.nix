@@ -5,12 +5,11 @@
   ...
 }:
 with lib; let
-  device = config.modules.device;
-  acceptedTypes = ["server" "hybrid"];
-  cfg = config.modules.services.gitea;
-  domain = "git.isabelroses.com";
+  cfg = config.modules.usrEnv.services.gitea;
+  inherit (config.networking) domain;
+  gitea_domain = "git.${domain}";
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && cfg.enable) {
+  config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [config.services.gitea.settings.server.HTTP_PORT];
 
     services = {
@@ -33,9 +32,9 @@ in {
 
         settings = {
           server = {
-            ROOT_URL = "https://${domain}";
+            ROOT_URL = "https://${gitea_domain}";
             HTTP_PORT = 7000;
-            DOMAIN = "${domain}";
+            DOMAIN = "${gitea_domain}";
 
             START_SSH_SERVER = false;
             BUILTIN_SSH_SERVER_USER = "git";
@@ -60,8 +59,8 @@ in {
           mailer = {
             ENABLED = true;
             PROTOCOL = "smtps";
-            SMTP_ADDR = "mail.isabelroses.com";
-            USER = "gitea@isabelroses.com";
+            SMTP_ADDR = "mail.${domain}";
+            USER = "gitea@${domain}";
           };
         };
       };

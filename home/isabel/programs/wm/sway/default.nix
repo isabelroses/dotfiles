@@ -1,10 +1,14 @@
-{lib, ...}:
-with lib; let
-  env = osConfig.modules.usrEnv;
-  sys = osConfig.modules.system;
+{
+  lib,
+  osConfig,
+  ...
+}: let
+  inherit (osConfig.modules) usrEnv;
+
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   imports = [./config.nix];
-  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Sway"))) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isWayland osConfig && usrEnv.desktop == "Sway") {
     wayland.windowManager.sway = {
       enable = true;
       package = null;

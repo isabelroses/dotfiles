@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  smb = config.modules.services.smb;
+  smb = config.modules.usrEnv.services.smb;
 in {
   config = mkIf ((smb.enable) && (smb.recive.media)) {
     fileSystems."/mnt/media" = {

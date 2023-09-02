@@ -20,6 +20,7 @@
         inputs.treefmt-nix.flakeModule
 
         ./parts/makeSys # args that is passsed to the flake, moved away from the main file
+        ./parts/overlays # overlays that make the system that bit cleaner
       ];
 
       flake = let
@@ -44,7 +45,7 @@
         };
 
         # build with `nix build .#images.<hostname>`
-        images = import ./hosts/images.nix {inherit inputs self lib;};
+        #images = import ./hosts/images.nix {inherit inputs self lib;};
       };
 
       perSystem = {

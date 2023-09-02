@@ -2,18 +2,17 @@
   lib,
   config,
   ...
-}:
-with lib; let
-  device = config.modules.device;
-  acceptedTypes = ["server" "hybrid"];
+}: let
+  domain = "isabelroses.com";
+  inherit (lib) mkIf;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
-    networking.domain = "isabelroses.com";
+  config = {
+    networking.domain = domain;
 
     security = {
       acme = {
         acceptTerms = true;
-        defaults.email = "isabel@isabelroses.com";
+        defaults.email = "isabel@${domain}";
       };
     };
 
@@ -32,49 +31,52 @@ in {
       recommendedProxySettings = true;
 
       virtualHosts = let
+        mkProxy = endpoint: port: extra: {
+          "${endpoint}" = {
+            proxyPass = "http://127.0.0.1:${toString port}";
+            proxyWebsockets = true;
+            extraConfig = extra;
+          };
+        };
+
         template = {
           forceSSL = true;
           enableACME = true;
         };
       in {
         # website + other stuff
-        "isabelroses.com" =
-          mkIf (config.modules.services.isabelroses-web.enable)
+        "${domain}" =
+          mkIf (config.modules.usrEnv.services.isabelroses-web.enable)
           template
           // {
-            serverAliases = ["isabelroses.com"];
-            root = "/home/isabel/dev/isabelroses.com-pub";
+            serverAliases = ["${domain}"];
+            root = "/home/isabel/dev/${domain}-pub";
           };
+
         # vaultwawrden
-        "vault.isabelroses.com" =
-          mkIf (config.modules.services.vaultwarden.enable)
+        "vault.${domain}" =
+          mkIf (config.modules.usrEnv.services.vaultwarden.enable)
           template
           // {
-            locations."/" = {
-              proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
-              extraConfig = "proxy_pass_header Authorization;";
-            };
+            locations = mkProxy "/" "${config.services.vaultwarden.config.ROCKET_PORT}" "proxy_pass_header Authorization;";
           };
+
         # gitea
-        "git.isabelroses.com" =
-          mkIf (config.modules.services.gitea.enable)
+        "git.${domain}" =
+          mkIf (config.modules.usrEnv.services.gitea.enable)
           template
           // {
-            locations."/".proxyPass = "http://127.0.0.1:${toString config.services.gitea.settings.server.HTTP_PORT}";
+            locations = mkProxy "/" "${config.services.gitea.settings.server.HTTP_PORT}";
           };
 
-        # mailserver
-        "mail.isabelroses.com" = mkIf (config.modules.services.mailserver.enable) template;
+        "mail.${domain}" = mkIf (config.modules.usrEnv.services.mailserver.enable) template;
+        "webmail.${domain}" = mkIf (config.modules.usrEnv.services.mailserver.enable) template;
 
-        # webmail
-        "webmail.isabelroses.com" = mkIf (config.modules.services.mailserver.enable) template;
-
-        "search.isabelroses.com" =
-          mkIf (config.modules.services.searxng.enable)
+        "search.${domain}" =
+          mkIf (config.modules.usrEnv.services.searxng.enable)
           template
           // {
-            locations."/".proxyPass = "http://127.0.0.1:8888";
-            extraConfig = ''
+            locations = mkProxy "/" "8888" ''
               access_log /dev/null;
               error_log /dev/null;
               proxy_connect_timeout 60s;

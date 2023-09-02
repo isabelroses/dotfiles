@@ -6,8 +6,11 @@
   inputs',
   self,
   ...
-}:
-with lib; {
+}: {
+  imports = [
+    ./overlays.nix
+  ];
+
   system = {
     autoUpgrade.enable = false;
     stateVersion = lib.mkDefault "23.05";
@@ -37,25 +40,6 @@ with lib; {
       allowUnsupportedSystem = true;
       permittedInsecurePackages = [];
     };
-
-    overlays = with inputs; let
-      nurOpt = config.modules.programs.nur;
-    in
-      [
-        rust-overlay.overlays.default
-      ]
-      ++ optionals (nurOpt.enable) [
-        (final: prev: {
-          nur = import nur {
-            nurpkgs = prev;
-            pkgs = prev;
-            repoOverrides =
-              {}
-              // lib.optionalAttrs (nurOpt.bella) {bella = inputs'.bella-nur.packages;}
-              // lib.optionalAttrs (nurOpt.nekowinston) {nekowinston = inputs'.nekowinston-nur.packages;};
-          };
-        })
-      ];
   };
 
   # faster rebuilding
@@ -70,7 +54,7 @@ with lib; {
   };
 
   nix = let
-    mappedRegistry = mapAttrs (_: v: {flake = v;}) inputs;
+    mappedRegistry = lib.mapAttrs (_: v: {flake = v;}) inputs;
   in {
     # pin the registry to avoid downloading and evaluating a new nixpkgs
     # version everytime
@@ -80,7 +64,7 @@ with lib; {
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
+    nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
     # Make builds run with low priority so my system stays responsive
     daemonCPUSchedPolicy = "idle";

@@ -3,11 +3,8 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-in {
-  config = mkIf (programs.cli.enable) {
+}: {
+  config = lib.mkIf osConfig.modules.usrEnv.programs.cli.enable {
     home.packages = with pkgs;
       [
         # CLI packages from nixpkgs
@@ -20,7 +17,7 @@ in {
         nitch
         exa
       ]
-      ++ optionals (programs.nur.enable && programs.nur.bella) [
+      ++ lib.optionals (osConfig.modules.usrEnv.programs.nur.enable && osConfig.modules.usrEnv.programs.nur.bella) [
         nur.repos.bella.bellado
         nur.repos.bella.catppuccinifier-cli
       ];

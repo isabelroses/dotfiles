@@ -5,13 +5,12 @@
   osConfig,
   defaults,
   ...
-}:
-with lib; let
-  inherit (osConfig.modules) device programs system;
+}: let
+  inherit (osConfig.modules.system) video;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
   imports = [inputs.schizofox.homeManagerModule];
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && system.video.enable && defaults.browser == "firefox") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable && video.enable && defaults.browser == "firefox") {
     programs.schizofox = {
       enable = true;
       package = "firefox-esr-115-unwrapped";

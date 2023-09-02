@@ -5,11 +5,10 @@
   ...
 }:
 with lib; let
-  smb = config.modules.services.smb;
+  smb = config.modules.usrEnv.services.smb;
 in {
   imports = [
     ./recive
-    ./host
   ];
 
   config = mkIf (smb.enable) {

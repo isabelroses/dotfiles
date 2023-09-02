@@ -4,14 +4,8 @@
   pkgs,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  programs = osConfig.modules.programs;
-  sys = osConfig.modules.system;
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
-in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable) {
+}: {
+  config = lib.mkIf (osConfig.modules.usrEnv.programs.zathura.enable) {
     xdg.configFile."zathura/catppuccin-mocha".source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha";
       hash = "sha256-/HXecio3My2eXTpY7JoYiN9mnXsps4PAThDPs4OCsAk=";
