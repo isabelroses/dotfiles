@@ -73,6 +73,17 @@ in {
     specialArgs = sharedArgs;
   };
 
+  bernie = mkNixosSystem {
+    inherit withSystem;
+    system = "x86_64-linux";
+    modules = [
+      ./bernie
+      server
+    ]
+    ++ concatLists [shared homes];
+    specialArgs = sharedArgs;
+  };
+
   /*
   beta = mkNixosSystem {
     inherit withSystem;
