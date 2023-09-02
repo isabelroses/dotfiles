@@ -1,4 +1,8 @@
-{lib, config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   imports = [./hardware-configuration.nix];
   config = {
     modules = {
