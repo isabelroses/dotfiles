@@ -12,7 +12,7 @@ in {
     inputs.lanzaboote.nixosModules.lanzaboote
   ];
 
-  config = mkIf (sys.secureBoot) {
+  config = mkIf sys.secureBoot {
     environment.systemPackages = [
       # For debugging and troubleshooting Secure Boot.
       pkgs.sbctl

@@ -5,10 +5,8 @@
   inputs,
   defaults,
   ...
-}: let
-  inherit (lib) mkIf;
-in {
-  config = mkIf (defaults.editor == "nvim") {
+}: {
+  config = lib.mkIf (defaults.editor == "nvim") {
     home.file."${config.xdg.configHome}/nvim" = {
       source = inputs.isabel-nvim;
     };

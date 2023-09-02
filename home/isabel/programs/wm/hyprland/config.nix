@@ -185,7 +185,7 @@ in {
           "$mod, E, exec, ${defaults.fileManager}"
           "$mod, C, exec, ${defaults.editor}"
           "$mod, Return, exec, ${defaults.terminal}"
-          "$mod, L, exec, ${defaults.screenLock}"
+          "$mod, L, exec, ${defaults.screenLocker}"
           "$mod, O, exec, obsidian"
 
           # window managment

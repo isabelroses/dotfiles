@@ -7,10 +7,9 @@
   ...
 }: let
   inherit (lib) mkIf;
-  programs = osConfig.modules.programs;
   flakePath = osConfig.modules.system.flakePath;
 in {
-  config = mkIf (programs.cli.enable) {
+  config = mkIf (osConfig.modules.usrEnv.programs.cli.enable) {
     programs.nushell = {
       enable = true;
       package = pkgs.nushell;

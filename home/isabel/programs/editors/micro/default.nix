@@ -3,10 +3,8 @@
   config,
   defaults,
   ...
-}: let
-  inherit (lib) mkIf;
-in {
-  config = mkIf (defaults.editor == "micro") {
+}: {
+  config = lib.mkIf (defaults.editor == "micro") {
     programs.micro = {
       enable = true;
       catppuccin.enable = true;

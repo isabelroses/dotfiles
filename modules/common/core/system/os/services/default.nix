@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   ...
 }: {
   imports = [
@@ -8,7 +9,7 @@
     inputs.vscode-server.nixosModules.default
   ];
   services = {
-    vscode-server.enable = config.modules.services.vscode-server.enable;
+    vscode-server.enable = config.modules.usrEnv.services.vscode-server.enable;
     # monitor and control temparature
     thermald.enable = true;
     # handle ACPI events
@@ -18,7 +19,7 @@
     # firmware updater for machine hardware
     fwupd.enable = true;
     # I don't use lvm, can be disabled
-    lvm.enable = false;
+    lvm.enable = lib.mkDefault false;
     # enable smartd monitoering
     smartd.enable = true;
     # limit systemd journal size

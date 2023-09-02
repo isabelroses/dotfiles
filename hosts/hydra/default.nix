@@ -44,40 +44,41 @@
         isWayland = true;
         desktop = "Hyprland";
         useHomeManager = true;
-      };
-      services = {
-        smb = {
-          enable = true;
-          recive = {
-            media = true;
-            general = true;
+
+        programs = {
+          git.signingKey = "CFF897835DD77813";
+
+          cli.enable = true;
+          tui.enable = true;
+          gui.enable = true;
+
+          zathura.enable = true;
+
+          defaults = {
+            bar = "ags";
+          };
+
+          nur = {
+            enable = true;
+            bella = true;
+            nekowinston = true;
           };
         };
-        vscode-server.enable = true;
-        cloudflare = {
-          enable = true;
-          id = "32f941a8-e557-4d8a-bafd-52a7d65a5daf";
-        };
-        jellyfin = {
-          enable = true;
-          asDockerContainer = false;
-        };
-      };
-      programs = {
-        git.signingKey = "CFF897835DD77813";
 
-        cli.enable = true;
-        tui.enable = true;
-        gui.enable = true;
-
-        default = {
-          bar = "ags";
-        };
-
-        nur = {
-          enable = true;
-          bella = true;
-          nekowinston = true;
+        services = {
+          smb = {
+            enable = false;
+            recive = {
+              media = false;
+              general = false;
+            };
+          };
+          vscode-server.enable = true;
+          cloudflared.enable = false;
+          jellyfin = {
+            enable = false;
+            asDockerContainer = false;
+          };
         };
       };
     };

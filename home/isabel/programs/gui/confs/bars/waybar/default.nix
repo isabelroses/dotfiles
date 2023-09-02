@@ -6,13 +6,9 @@
   defaults,
   ...
 }: let
-  inherit (lib) mkIf;
-  env = osConfig.modules.usrEnv;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
-  inherit (osConfig.modules) programs device;
-  sys = osConfig.modules.system;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && env.isWayland && defaults.bar == "waybar") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable && lib.isWayland osConfig && defaults.bar == "waybar") {
     home.packages = with pkgs; [wlogout];
     programs.waybar = {
       enable = true;

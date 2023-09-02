@@ -4,14 +4,13 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
-  inherit (osConfig.modules) device;
+  inherit (lib) mkIf isAcceptedDevice;
 
   json = pkgs.formats.json {};
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes) {
     xdg.configFile."pipewire/pipewire.conf.d/99-input-denoising.conf" = {
       source = json.generate "99-input-denoising.conf" {
         "context.modules" = [

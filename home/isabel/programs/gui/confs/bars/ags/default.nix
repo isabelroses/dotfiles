@@ -6,13 +6,10 @@
   defaults,
   ...
 }: let
-  inherit (lib) mkIf;
-  device = osConfig.modules.device;
+  inherit (osConfig.modules) system;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
-  programs = osConfig.modules.programs;
-  sys = osConfig.modules.system;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && defaults.bar == "ags") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.usrEnv.programs.gui.enable && defaults.bar == "ags") {
     home = {
       packages = with pkgs; [
         nur.repos.bella.ags
@@ -24,11 +21,11 @@ in {
     };
     xdg.configFile = let
       symlink = fileName: {recursive ? false}: {
-        source = config.lib.file.mkOutOfStoreSymlink "${sys.flakePath}/${fileName}";
+        source = config.lib.file.mkOutOfStoreSymlink "${system.flakePath}/${fileName}";
         inherit recursive;
       };
     in {
-      "ags" = symlink "home/${sys.mainUser}/programs/gui/confs/bars/ags/config" {
+      "ags" = symlink "home/${system.mainUser}/programs/gui/confs/bars/ags/config" {
         recursive = true;
       };
     };

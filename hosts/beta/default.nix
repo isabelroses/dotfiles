@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}: {
+{config, ...}: {
   imports = [./hardware-configuration.nix];
   config = {
     modules = {
@@ -46,24 +42,26 @@
       usrEnv = {
         isWayland = false;
         useHomeManager = true;
-      };
-      services = {
-        smb = {
-          enable = true;
+
+        programs = {
+          git.signingKey = "";
+
+          cli.enable = true;
+          gui.enable = false;
+
+          nur = {
+            enable = true;
+            bella = true;
+            nekowinston = true;
+          };
         };
-        vscode-server.enable = true;
-        mailserver.enable = true;
-      };
-      programs = {
-        git.signingKey = "";
 
-        cli.enable = true;
-        gui.enable = false;
-
-        nur = {
-          enable = true;
-          bella = true;
-          nekowinston = true;
+        services = {
+          smb = {
+            enable = true;
+          };
+          vscode-server.enable = true;
+          mailserver.enable = true;
         };
       };
     };

@@ -56,32 +56,36 @@ in {
         isWayland = true;
         desktop = "Hyprland";
         useHomeManager = true;
-      };
-      services = {
-        smb = {
-          enable = true;
-          recive = {
-            media = true;
-            general = true;
+
+        programs = {
+          git.signingKey = "7F2F6BD6997FCDF7";
+
+          cli.enable = true;
+          tui.enable = true;
+          gui.enable = true;
+
+          zathura.enable = true;
+
+          defaults = {
+            bar = "ags";
+          };
+
+          nur = {
+            enable = true;
+            bella = true;
+            nekowinston = true;
           };
         };
-        photoprism.enable = true;
-        vscode-server.enable = true;
-      };
-      programs = {
-        git.signingKey = "7F2F6BD6997FCDF7";
 
-        cli.enable = true;
-        gui.enable = true;
-
-        default = {
-          bar = "ags";
-        };
-
-        nur = {
-          enable = true;
-          bella = true;
-          nekowinston = true;
+        services = {
+          smb = {
+            enable = false;
+            recive = {
+              media = false;
+              general = false;
+            };
+          };
+          vscode-server.enable = true;
         };
       };
     };

@@ -29,7 +29,7 @@ with lib; let
     powerprofilesctl set power-saver
   '';
 
-  cfg = config.modules.programs;
+  cfg = config.modules.usrEnv.programs;
 in {
   config = mkIf cfg.gaming.enable {
     programs = {

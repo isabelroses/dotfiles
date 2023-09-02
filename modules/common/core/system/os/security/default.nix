@@ -9,13 +9,16 @@ with lib; let
 in {
   security = {
     protectKernelImage = true;
-    lockKernelModules = false; # breaks virtd, wireguard and iptables
+    lockKernelModules = sys.security.lockModules; # breaks virtd, wireguard and iptables
 
     # force-enable the Page Table Isolation (PTI) Linux kernel feature
     forcePageTableIsolation = true;
 
     # User namespaces are required for sandboxing. Better than nothing imo.
     allowUserNamespaces = true;
+
+    # Disable unprivileged user namespaces, unless containers are enabled
+    unprivilegedUsernsClone = !config.virtualisation.containers.enable;
 
     apparmor = {
       enable = true;
@@ -134,7 +137,7 @@ in {
     ++ lib.optionals (!sys.bluetooth.enable) [
       "btusb" # let bluetooth dongles work
     ]
-    ++ lib.optionals (!config.modules.services.smb.enable) [
+    ++ lib.optionals (!config.modules.usrEnv.services.smb.enable) [
       "cifs" # allows smb to work
     ];
 }

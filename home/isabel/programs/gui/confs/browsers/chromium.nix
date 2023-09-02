@@ -5,13 +5,10 @@
   defaults,
   ...
 }: let
-  inherit (lib) mkIf optionals;
-  inherit (osConfig.modules) device programs;
-  sys = osConfig.modules.system;
-  env = osConfig.modules.usrEnv;
+  inherit (osConfig.modules.system) video;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && defaults.browser == "chromium") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable && video.enable && defaults.browser == "chromium") {
     programs.chromium = {
       enable = true;
       extensions = [
@@ -53,7 +50,7 @@ in {
             "--disable-speech-api"
             "--disable-speech-synthesis-api"
           ]
-          ++ optionals (env.isWayland) [
+          ++ lib.optionals (lib.isWayland osConfig) [
             # Wayland
             # Disabled because hardware acceleration doesn't work
             # when disabling --use-gl=egl, it's not gonna show any emoji

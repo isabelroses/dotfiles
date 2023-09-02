@@ -15,8 +15,8 @@ in {
         virt-viewer
       ]
       ++ optionals sys.docker.enable [
-        docker
-        docker-compose
+        podman-compose
+        podman-desktop
       ]
       ++ optionals sys.distrobox.enable [
         distrobox
@@ -25,8 +25,11 @@ in {
         waydroid
       ];
 
-    virtualisation = mkIf sys.enable {
-      libvirtd = {
+    virtualisation = {
+      # qemu
+      kvmgt.enable = sys.qemu.enable && config.modules.device.type == "intel";
+      spiceUSBRedirection.enable = sys.qemu.enable;
+      libvirtd = mkIf sys.qemu.enable {
         enable = true;
         qemu = {
           package = pkgs.qemu_kvm;
@@ -38,17 +41,24 @@ in {
         };
       };
 
-      docker = mkIf sys.docker.enable {
+      # podman
+      podman = mkIf sys.docker.enable {
         enable = true;
-
+        dockerCompat = true;
+        dockerSocket.enable = true;
+        defaultNetwork.settings = {
+          dns_enabled = true;
+        };
         enableNvidia = builtins.any (driver: driver == "nvidia") config.services.xserver.videoDrivers;
-
         autoPrune = {
           enable = true;
           flags = ["--all"];
           dates = "weekly";
         };
       };
+
+      waydroid.enable = sys.waydroid.enable;
+      lxd.enable = mkDefault config.virtualisation.waydroid.enable;
     };
   };
 }
