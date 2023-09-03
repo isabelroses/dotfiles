@@ -41,7 +41,7 @@ in {
           $config['smtp_host'] = "ssl://${config.mailserver.fqdn}";
           $config['smtp_user'] = "%u";
           $config['smtp_pass'] = "%p";
-        ''; 
+        '';
       };
 
       postfix = {

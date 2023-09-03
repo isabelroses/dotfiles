@@ -3,8 +3,8 @@
   config,
   ...
 }: let
+  cfg = config.modules.usrEnv.services.nginx;
   domain = "isabelroses.com";
-  inherit (lib) mkIf;
 in {
   config = {
     networking.domain = domain;
@@ -16,7 +16,7 @@ in {
       };
     };
 
-    services.nginx = {
+    services.nginx = lib.mkIf cfg.enable {
       enable = true;
       commonHttpConfig = ''
         real_ip_header CF-Connecting-IP;
@@ -64,19 +64,20 @@ in {
         "mail.${domain}" = template;
         "webmail.${domain}" = template;
 
-        /* "search.${domain}" =
-          template
-          // {
-            locations."/".proxyPass = "http://127.0.0.1:8888";
-            extraConfig = ''
-              access_log /dev/null;
-              error_log /dev/null;
-              proxy_connect_timeout 60s;
-              proxy_send_timeout 60s;
-              proxy_read_timeout 60s;
-            '';
-          };
-          */
+        /*
+         "search.${domain}" =
+        template
+        // {
+          locations."/".proxyPass = "http://127.0.0.1:8888";
+          extraConfig = ''
+            access_log /dev/null;
+            error_log /dev/null;
+            proxy_connect_timeout 60s;
+            proxy_send_timeout 60s;
+            proxy_read_timeout 60s;
+          '';
+        };
+        */
       };
     };
   };

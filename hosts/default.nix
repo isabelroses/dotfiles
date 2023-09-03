@@ -96,7 +96,6 @@ in {
     ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
-  */
 
   lilith = mkNixosIso {
     system = "x86_64-linux";
@@ -105,4 +104,5 @@ in {
     ];
     specialArgs = sharedArgs;
   };
+  */
 }

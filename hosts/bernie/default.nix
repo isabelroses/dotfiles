@@ -69,6 +69,7 @@
           gitea.enable = false;
           vaultwarden.enable = true;
           isabelroses-web.enable = true;
+          nginx.enable = true;
         };
       };
     };
