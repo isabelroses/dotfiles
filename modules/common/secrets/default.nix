@@ -20,7 +20,7 @@
       sshDir = homeDir + "/.ssh";
 
       ### servers ###
-      secretsPath = "/run/secrets.d/";
+      secretsPath = "/run/secrets.d";
       mailserverPath = secretsPath + "/mailserver";
     in {
       ### server ###
@@ -34,6 +34,7 @@
       mailserver-isabel.path = mailserverPath + "/isabel";
       mailserver-gitea.path = mailserverPath + "/gitea";
       mailserver-vaultwarden.path = mailserverPath + "/vaultwarden";
+      mailserver-database.path = mailserverPath + "/database";
 
       # vaultwarden
       vaultwarden-env.path = secretsPath + "/vaultwarden/env";

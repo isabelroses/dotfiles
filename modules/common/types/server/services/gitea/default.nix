@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.modules.usrEnv.services.gitea;
   inherit (config.networking) domain;
-  gitea_domain = "git.${domain}";
+  gitea_domain = "gitea.${domain}";
 in {
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [config.services.gitea.settings.server.HTTP_PORT];

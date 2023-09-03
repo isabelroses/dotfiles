@@ -20,6 +20,7 @@ in {
       roundcube = {
         enable = true;
         database.username = "roundcube";
+        #database.passwordFile = config.sops.secrets.mailserver-database.path;
         maxAttachmentSize = 50;
         dicts = with pkgs.aspellDicts; [en];
         # this is the url of the vhost, not necessarily the same as the fqdn of
@@ -27,21 +28,20 @@ in {
         hostName = "webmail.${domain}";
         extraConfig = ''
           $config['imap_host'] = array(
-            'tls://mail.${domain}' => "Isabelroses's Mail Server",
+            'ssl://${config.mailserver.fqdn}' => "Isabelroses's Mail Server",
             'ssl://imap.gmail.com:993' => 'Google Mail',
           );
           $config['username_domain'] = array(
-            'mail.${domain}' => '${domain}',
+            '${config.mailserver.fqdn}' => '${domain}',
             'mail.gmail.com' => 'gmail.com',
           );
           $config['x_frame_options'] = false;
           # starttls needed for authentication, so the fqdn required to match
           # the certificate
-          $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
+          $config['smtp_host'] = "ssl://${config.mailserver.fqdn}";
           $config['smtp_user'] = "%u";
           $config['smtp_pass'] = "%p";
-          $config['plugins'] = [ "carddav" ];
-        '';
+        ''; 
       };
 
       postfix = {
@@ -53,8 +53,9 @@ in {
         ];
         dnsBlacklistOverrides = ''
           ${domain} OK
-          mail.${domain} OK
+          ${config.mailserver.fqdn} OK
           127.0.0.0/8 OK
+          10.0.0.0/8 OK
           192.168.0.0/16 OK
         '';
         headerChecks = [
@@ -77,9 +78,9 @@ in {
 
     mailserver = {
       enable = true;
-      mailDirectory = "/srv/storage/mail/vmail";
-      dkimKeyDirectory = "/srv/storage/mail/dkim";
-      sieveDirectory = "/srv/storage/mail/sieve";
+      #mailDirectory = "/srv/storage/mail/vmail";
+      #dkimKeyDirectory = "/srv/storage/mail/dkim";
+      #sieveDirectory = "/srv/storage/mail/sieve";
       openFirewall = true;
       enableImap = true;
       enableImapSsl = true;
@@ -99,7 +100,7 @@ in {
         };
 
         "gitea@${domain}" = {
-          aliases = ["gitea"];
+          aliases = ["gitea" "git" "git@${domain}"];
           hashedPasswordFile = config.sops.secrets.mailserver-gitea.path;
         };
 
