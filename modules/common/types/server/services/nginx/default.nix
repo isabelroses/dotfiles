@@ -21,7 +21,7 @@ in {
       commonHttpConfig = ''
         real_ip_header CF-Connecting-IP;
         add_header 'Referrer-Policy' 'origin-when-cross-origin';
-        add_header X-Frame-Options DENY;
+        add_header X-Frame-Options "SAMEORIGIN" always;
         add_header X-Content-Type-Options nosniff;
       '';
 
@@ -31,14 +31,6 @@ in {
       recommendedProxySettings = true;
 
       virtualHosts = let
-        mkProxy = endpoint: port: extra: {
-          "${endpoint}" = {
-            proxyPass = "http://127.0.0.1:${toString port}";
-            proxyWebsockets = true;
-            extraConfig = extra;
-          };
-        };
-
         template = {
           forceSSL = true;
           enableACME = true;
@@ -46,37 +38,37 @@ in {
       in {
         # website + other stuff
         "${domain}" =
-          mkIf (config.modules.usrEnv.services.isabelroses-web.enable)
           template
           // {
             serverAliases = ["${domain}"];
-            root = "/home/isabel/dev/${domain}-pub";
+            root = "/var/www/${domain}";
           };
 
         # vaultwawrden
         "vault.${domain}" =
-          mkIf (config.modules.usrEnv.services.vaultwarden.enable)
           template
           // {
-            locations = mkProxy "/" "${config.services.vaultwarden.config.ROCKET_PORT}" "proxy_pass_header Authorization;";
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
+              extraConfig = "proxy_pass_header Authorization;";
+            };
           };
 
         # gitea
-        "git.${domain}" =
-          mkIf (config.modules.usrEnv.services.gitea.enable)
+        "gitea.${domain}" =
           template
           // {
-            locations = mkProxy "/" "${config.services.gitea.settings.server.HTTP_PORT}";
+            locations."/".proxyPass = "http://127.0.0.1:${toString config.services.gitea.settings.server.HTTP_PORT}";
           };
 
-        "mail.${domain}" = mkIf (config.modules.usrEnv.services.mailserver.enable) template;
-        "webmail.${domain}" = mkIf (config.modules.usrEnv.services.mailserver.enable) template;
+        "mail.${domain}" = template;
+        "webmail.${domain}" = template;
 
-        "search.${domain}" =
-          mkIf (config.modules.usrEnv.services.searxng.enable)
+        /* "search.${domain}" =
           template
           // {
-            locations = mkProxy "/" "8888" ''
+            locations."/".proxyPass = "http://127.0.0.1:8888";
+            extraConfig = ''
               access_log /dev/null;
               error_log /dev/null;
               proxy_connect_timeout 60s;
@@ -84,6 +76,7 @@ in {
               proxy_read_timeout 60s;
             '';
           };
+          */
       };
     };
   };

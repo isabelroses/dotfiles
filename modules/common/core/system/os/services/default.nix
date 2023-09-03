@@ -21,7 +21,7 @@
     # I don't use lvm, can be disabled
     lvm.enable = lib.mkDefault false;
     # enable smartd monitoering
-    smartd.enable = false;
+    smartd.enable = true;
     # limit systemd journal size
     journald.extraConfig = ''
       SystemMaxUse=100M

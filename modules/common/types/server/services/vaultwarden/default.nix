@@ -32,7 +32,7 @@ in {
         signupsVerify = true;
         smtpAuthMechanism = "Login";
         smtpFrom = "vaultwarden@${domain}";
-        smtpFromName = "isabelroses's Vaultwarden Service";
+        smtpFromName = "Isabelroses's Vaultwarden Service";
         smtpHost = "mail.${domain}";
         smtpPort = 465;
         smtpSecurity = "force_tls";
