@@ -9,6 +9,7 @@ in {
     vscode-server.enable = mkEnableOption "Enables remote ssh vscode server";
     isabelroses-web.enable = mkEnableOption "Enables my website";
     searxng.enable = mkEnableOption "Enables searxng search engine service";
+    nginx.enable = mkEnableOption "Enables nginx webserver";
     cloudflared.enable = mkEnableOption "Enables cloudflared tunnels";
 
     jellyfin = {

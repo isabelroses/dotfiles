@@ -1,4 +1,8 @@
-{lib, config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   config = {
     services.smartd.enable = lib.mkForce false; #Unavailable - device lacks SMART capability.
 
