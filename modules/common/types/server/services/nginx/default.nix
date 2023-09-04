@@ -41,7 +41,7 @@ in {
         "${domain}" =
           template
           // {
-            serverAliases = ["${domain}"]; 
+            serverAliases = ["${domain}"];
             locations."/" = {
               root = "/var/www/${domain}";
               index = "index.php";

@@ -1,5 +1,8 @@
-{config, lib, ...}:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   cfg = config.modules.usrEnv.services;
   inherit (config.networking) domain;
 in {
