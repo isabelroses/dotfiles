@@ -1,4 +1,8 @@
-{lib, ...}: let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   inherit (lib) mkEnableOption mkOption types;
 in {
   options.modules.system.emulation = {
@@ -12,7 +16,7 @@ in {
 
     systems = mkOption {
       type = with types; listOf str;
-      default = ["x86_64-linux" "aarch64-linux" "i686-linux"];
+      default = builtins.filter (system: system != pkgs.system) ["aarch64-linux" "i686-linux"];
       description = ''
         the systems to enable emulation for
       '';
