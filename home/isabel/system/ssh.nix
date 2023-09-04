@@ -5,11 +5,14 @@
       enable = true;
       hashKnownHosts = true;
       compression = true;
-      extraConfig = ''
-        Host *
-         Port 22
-      '';
-      matchBlocks = {
+      matchBlocks = let
+        base = {
+          user = "isabel";
+        };
+        template = base // {
+          identityFile = "~/.ssh/nixos";
+        };
+      in {
         # git clients
         "aur.archlinux.org" = {
           user = "aur";
@@ -30,31 +33,28 @@
           identityFile = "~/.ssh/openvpn";
         };
 
-        #"edalyn" = {
-        #  hostname = "141.147.113.225";
-        #  user = "ubuntu";
-        #  identityFile = "~/.ssh/edalyn";
-        #};
-
-        #"luz" = {
-        #  hostname = "144.21.55.221";
-        #  user = "ubuntu";
-        #  identityFile = "~/.ssh/luz";
-        #};
-
         "king" = {
           hostname = "150.230.117.215";
           user = "ubuntu";
           identityFile = "~/.ssh/king";
         };
 
-        "bernie" = {
+        "amity" = base // {
           hostname = "143.47.240.116";
-          user = "isabel";
-          identityFile = "~/.ssh/bernie";
+          identityFile = "~/.ssh/amity";
         };
 
-        # my local servers / clients
+        # hetzner cloud vps 
+        "bernie" = template // {
+          hostname = "91.107.198.173";
+        };
+
+        # my local servers / clients 
+        "hydra" = template // {
+          hostname = "192.168.86.3";
+        };
+
+        /*
         "alpha" = {
           hostname = "192.168.86.4";
           user = "isabel";
@@ -67,12 +67,7 @@
           identityFile = "~/.ssh/alpha";
           proxyCommand = "cloudflared access ssh --hostname %h";
         };
-
-        "hydra" = {
-          hostname = "192.168.86.3";
-          user = "isabel";
-          identityFile = "~/.ssh/hydra";
-        };
+        */
       };
     };
   };

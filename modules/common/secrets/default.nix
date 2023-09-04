@@ -68,11 +68,8 @@
         path = sshDir + "/openvpn";
         owner = mainUser;
       };
-      # Luz and Edalyn are now dead replaced by bernie
-      #luz-key.path = sshDir + "/luz";
-      #edalyn-key.path = sshDir + "/edalyn";
-      bernie-key = {
-        path = sshDir + "/bernie";
+      amity-key = {
+        path = sshDir + "/amity";
         owner = mainUser;
       };
       king-key = {
@@ -80,7 +77,18 @@
         owner = mainUser;
       };
 
+      # All nixos machines
+      nixos-key = {
+        path = sshDir + "/nixos";
+        owner = mainUser;
+      };
+      nixos-key-pub = {
+        path = sshDir + "/nixos.pub";
+        owner = mainUser;
+      };
+
       # my local servers / clients
+      /*
       alpha-key = {
         path = sshDir + "/alpha";
         owner = mainUser;
@@ -89,14 +97,7 @@
         path = sshDir + "/alpha.pub";
         owner = mainUser;
       };
-      hydra-key = {
-        path = sshDir + "/hydra";
-        owner = mainUser;
-      };
-      hydra-key-pub = {
-        path = sshDir + "/hydra.pub";
-        owner = mainUser;
-      };
+      */
     };
   };
 }
