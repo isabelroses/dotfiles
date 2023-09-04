@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  cfg = config.modules.usrEnv.services;
+  cfg = config.modules.usrEnv.services.isabelroses-web;
   inherit (config.networking) domain;
 in {
   config.services.phpfpm.pools.${domain} = lib.mkIf cfg.enable {
