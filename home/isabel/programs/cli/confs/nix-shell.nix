@@ -3,10 +3,8 @@
   lib,
   pkgs,
   ...
-}: let
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
-in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.cli.enable) {
+}: {
+  config = lib.mkIf (osConfig.modules.usrEnv.programs.cli.enable) {
     home = {
       packages = with pkgs; [
         alejandra
