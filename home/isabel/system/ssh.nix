@@ -9,9 +9,11 @@
         base = {
           user = "isabel";
         };
-        template = base // {
-          identityFile = "~/.ssh/nixos";
-        };
+        template =
+          base
+          // {
+            identityFile = "~/.ssh/nixos";
+          };
       in {
         # git clients
         "aur.archlinux.org" = {
@@ -39,20 +41,26 @@
           identityFile = "~/.ssh/king";
         };
 
-        "amity" = base // {
-          hostname = "143.47.240.116";
-          identityFile = "~/.ssh/amity";
-        };
+        "amity" =
+          base
+          // {
+            hostname = "143.47.240.116";
+            identityFile = "~/.ssh/amity";
+          };
 
-        # hetzner cloud vps 
-        "bernie" = template // {
-          hostname = "91.107.198.173";
-        };
+        # hetzner cloud vps
+        "bernie" =
+          template
+          // {
+            hostname = "91.107.198.173";
+          };
 
-        # my local servers / clients 
-        "hydra" = template // {
-          hostname = "192.168.86.3";
-        };
+        # my local servers / clients
+        "hydra" =
+          template
+          // {
+            hostname = "192.168.86.3";
+          };
 
         /*
         "alpha" = {
