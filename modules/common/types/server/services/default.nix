@@ -7,5 +7,6 @@ _: {
     ./nginx
     ./photoprism
     ./vaultwarden
+    ./websites
   ];
 }

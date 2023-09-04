@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: let
@@ -40,8 +41,26 @@ in {
         "${domain}" =
           template
           // {
-            serverAliases = ["${domain}"];
-            root = "/var/www/${domain}";
+            serverAliases = ["${domain}"]; 
+            locations."/" = {
+              root = "/var/www/${domain}";
+              index = "index.php";
+              extraConfig = ''
+                try_files $uri $uri/ $uri.html $uri.php$is_args$query_string;
+
+                location ~* \.php(/|$) {
+                  try_files $uri =404;
+
+                  include ${config.services.nginx.package}/conf/fastcgi_params;
+                  include ${pkgs.nginx}/conf/fastcgi.conf;
+
+                  fastcgi_pass  unix:${config.services.phpfpm.pools.${domain}.socket};
+                  fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                  fastcgi_param PATH_INFO $fastcgi_path_info;
+                }
+              '';
+            };
           };
 
         # vaultwawrden
