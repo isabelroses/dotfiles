@@ -20,7 +20,7 @@ in {
         "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
         "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
       ];
-      package = pkgs.chromium.override {
+      package = pkgs.ungoogled-chromium.override {
         nss = pkgs.nss_latest;
         commandLineArgs =
           [
