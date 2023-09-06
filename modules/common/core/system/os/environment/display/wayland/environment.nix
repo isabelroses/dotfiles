@@ -2,12 +2,17 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
   sys = config.modules.system.video;
   env = config.modules.usrEnv;
 in {
   config = mkIf (sys.enable && env.isWayland) {
+    environment.etc."greetd/environments".text = mkIf config.services.greetd.enable ''
+      ${lib.optionalString (env.desktop == "Hyprland") "Hyprland"}
+      fish
+    '';
+
     environment = {
       variables = {
         NIXOS_OZONE_WL = "1";

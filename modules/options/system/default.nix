@@ -44,6 +44,15 @@ in {
       description = "The name of the device for the system";
     };
 
+    autoLogin = mkOption {
+      type = types.bool;
+      default = false;
+      description = lib.mdDoc ''
+        Whether to enable passwordless login. This is generally useful on systems with
+        FDE (Full Disk Encryption) enabled. It is a security risk for systems without FDE.
+      '';
+    };
+
     # the path to the flake
     flakePath = mkOption {
       type = types.str;
