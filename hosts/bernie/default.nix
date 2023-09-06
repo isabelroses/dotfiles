@@ -62,7 +62,7 @@ _: {
         services = {
           vscode-server.enable = true;
           mailserver.enable = true;
-          gitea.enable = false;
+          gitea.enable = true;
           vaultwarden.enable = true;
           isabelroses-web.enable = true;
           nginx.enable = true;
