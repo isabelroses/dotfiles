@@ -12,7 +12,6 @@
       };
       system = {
         mainUser = "isabel";
-
         hostname = "beta";
 
         boot = {

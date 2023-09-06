@@ -21,7 +21,7 @@
   laptop = deviceType + /laptop; # for devices that are of the laptop type - provides power optimizations
   desktop = commonModules + /types/desktop; # for devices that are of the desktop type - any device that is stationary
   workstation = deviceType + /workstation; # for devices that are of workstation type - any device that is for daily use
-  hybrid = [server laptop];
+  #hybrid = [server laptop];
 
   # extra modules, likely optional but possibly critical
   extraModules = modulePath + /extra; # the path where extra modules reside
@@ -54,8 +54,15 @@ in {
       [
         ./hydra
         workstation
+        laptop
       ]
-      ++ concatLists [shared homes hybrid];
+      ++ concatLists [
+        shared
+        homes
+        /*
+        hybrid
+        */
+      ];
     specialArgs = sharedArgs;
   };
 

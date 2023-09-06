@@ -1,9 +1,9 @@
-{config, ...}: {
+_: {
   imports = [./hardware-configuration.nix];
   config = {
     modules = {
       device = {
-        type = "hybrid";
+        type = "laptop";
         cpu = "intel";
         gpu = null;
         monitors = ["eDP-1"];
@@ -58,7 +58,6 @@
           gui.enable = true;
 
           zathura.enable = true;
-          sddm.enable = true;
 
           defaults = {
             bar = "ags";
