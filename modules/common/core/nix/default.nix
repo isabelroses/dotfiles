@@ -169,6 +169,7 @@
         "https://nixpkgs-unfree.cachix.org" # unfree-package cache
         "https://numtide.cachix.org" # another unfree package cache
         "https://isabelroses.cachix.org" # precompiled binarys from my NUR
+        "https://neovim-flake.cachix.org" # a cache for notashelf's neovim flake
       ];
 
       trusted-public-keys = [
@@ -181,6 +182,7 @@
         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         "isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM="
+        "neovim-flake.cachix.org-1:iyQ6lHFhnB5UkVpxhQqLJbneWBTzM8LBYOFPLNH4qZw="
       ];
     };
   };
