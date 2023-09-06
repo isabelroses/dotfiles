@@ -16,6 +16,9 @@ in {
       # thumbnail support on thunar
       tumbler.enable = true;
 
+      # storage daemon required for udiskie auto-mount
+      udisks2.enable = true;
+
       dbus = {
         packages = with pkgs; [dconf gcr udisks2];
         enable = true;
