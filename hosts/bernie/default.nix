@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}: {
+_: {
   imports = [
     ./hardware-configuration.nix
     ./overrides.nix
