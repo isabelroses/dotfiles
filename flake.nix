@@ -220,6 +220,11 @@
       flake = false;
     };
 
+    neovim-flake = {
+      url = "github:NotAShelf/neovim-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nur's
     nur.url = "github:nix-community/nur";
     bella-nur.url = "github:isabelroses/nur";
