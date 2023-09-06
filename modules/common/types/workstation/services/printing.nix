@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
   sys = config.modules.system;
 in {
-  config = mkIf (sys.printing.enable) {
+  config = lib.mkIf sys.printing.enable {
     # enable cups and add some drivers for common printers
     services = {
       printing = {

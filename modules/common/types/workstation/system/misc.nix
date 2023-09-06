@@ -2,12 +2,11 @@
   config,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (config.modules) device;
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = lib.mkIf (builtins.elem device.type acceptedTypes) {
     qt = {
       enable = true;
       platformTheme = "qt5ct";
