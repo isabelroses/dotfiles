@@ -31,7 +31,7 @@ in {
 
           kdeglobals.source = mkOption {
             type = types.path;
-            default = "${cfg.qt.theme.package}/share/color-schemes/CatppuccinMochaBlue.colors";
+            default = "${cfg.qt.theme.package}/share/color-schemes/CatppuccinMochaSapphire.colors";
             description = "The source file for the kdeglobals file. Usually provided by the qt theme package";
           };
         };
