@@ -42,6 +42,14 @@ in {
         '';
       };
 
+      loginManager = mkOption {
+        type = with types; nullOr (enum ["greetd" "gdm" "lightdm" "sddm"]);
+        default = "greetd";
+        description = mdDoc ''
+          The login manager to be used by the system.
+        '';
+      };
+
       noiseSupressor = mkOption {
         type = with types; nullOr (enum ["rnnoise" "noisetorch"]);
         default = "rnnoise";
