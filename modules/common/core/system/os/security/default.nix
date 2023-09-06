@@ -34,7 +34,7 @@ in {
     # system audit
     auditd.enable = sys.security.auditd.enable;
     audit = {
-      enable = sys.security.auditd.enable;
+      inherit (sys.security.auditd) enable;
       backlogLimit = 8192;
       failureMode = "printk";
       rules = [
