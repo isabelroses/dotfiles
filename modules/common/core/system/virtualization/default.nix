@@ -3,33 +3,37 @@
   config,
   pkgs,
   ...
-}:
-with lib; let
-  sys = config.modules.system.virtualization;
+}: let
+  inherit (lib) optionals mkIf mkDefault;
+  sys = config.modules.system;
+  cfg = sys.virtualization;
 in {
-  config = mkIf sys.enable {
+  config = mkIf cfg.enable {
     environment.systemPackages = with pkgs;
       []
-      ++ optionals sys.qemu.enable [
+      ++ optionals cfg.qemu.enable [
         virt-manager
         virt-viewer
       ]
-      ++ optionals sys.docker.enable [
+      ++ optionals cfg.docker.enable [
+        podman
         podman-compose
-        podman-desktop
       ]
-      ++ optionals sys.distrobox.enable [
+      ++ optionals (cfg.docker.enable && sys.video.enable) [
+        lxd
+      ]
+      ++ optionals cfg.distrobox.enable [
         distrobox
       ]
-      ++ optionals sys.waydroid.enable [
+      ++ optionals cfg.waydroid.enable [
         waydroid
       ];
 
     virtualisation = {
       # qemu
-      kvmgt.enable = sys.qemu.enable && config.modules.device.type == "intel";
-      spiceUSBRedirection.enable = sys.qemu.enable;
-      libvirtd = mkIf sys.qemu.enable {
+      kvmgt.enable = cfg.qemu.enable && config.modules.device.type == "intel";
+      spiceUSBRedirection.enable = cfg.qemu.enable;
+      libvirtd = mkIf cfg.qemu.enable {
         enable = true;
         qemu = {
           package = pkgs.qemu_kvm;
@@ -42,7 +46,7 @@ in {
       };
 
       # podman
-      podman = mkIf sys.docker.enable {
+      podman = mkIf cfg.docker.enable {
         enable = true;
         dockerCompat = true;
         dockerSocket.enable = true;
@@ -57,7 +61,7 @@ in {
         };
       };
 
-      waydroid.enable = sys.waydroid.enable;
+      waydroid.enable = cfg.waydroid.enable;
       lxd.enable = mkDefault config.virtualisation.waydroid.enable;
     };
   };
