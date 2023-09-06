@@ -1,7 +1,8 @@
 _: {
   imports = [
     ./micro
-    ./nvim
+    #./nvim
+    ./nvim-flake
     ./vscode
   ];
 }

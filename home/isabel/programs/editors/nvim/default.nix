@@ -3,7 +3,6 @@
   lib,
   config,
   inputs,
-  osConfig,
   defaults,
   ...
 }: {
