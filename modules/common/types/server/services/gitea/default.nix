@@ -20,7 +20,7 @@ in {
         lfs.enable = true;
         user = "git";
         database.user = "git";
-        stateDir = "/srv/storage/gitea/data";
+        #stateDir = "/srv/storage/gitea/data";
 
         mailerPasswordFile = config.sops.secrets.mailserver-gitea.path;
         dump = {
