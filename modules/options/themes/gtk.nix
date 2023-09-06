@@ -15,7 +15,7 @@ in {
           theme = {
             name = mkOption {
               type = types.str;
-              default = "Catppuccin-Mocha-Standard-Blue-dark";
+              default = "Catppuccin-Mocha-Standard-Sapphire-dark";
               description = "The name for the GTK theme package";
             };
 
@@ -35,7 +35,6 @@ in {
             name = mkOption {
               type = types.str;
               description = "The name for the icon theme that will be used for GTK programs";
-
               default = "Papirus-Dark";
             };
 
