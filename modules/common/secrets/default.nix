@@ -15,7 +15,7 @@
     age.keyFile = "/home/${config.modules.system.mainUser}/.config/sops/age/keys.txt";
 
     secrets = let
-      mainUser = config.modules.system.mainUser;
+      inherit (config.modules.system) mainUser;
       homeDir = config.home-manager.users.${mainUser}.home.homeDirectory;
       sshDir = homeDir + "/.ssh";
 
@@ -32,7 +32,11 @@
 
       # mailserver
       mailserver-isabel.path = mailserverPath + "/isabel";
-      mailserver-gitea.path = mailserverPath + "/gitea";
+      mailserver-gitea = {
+        path = mailserverPath + "/gitea";
+        owner = "git";
+        group = "gitea";
+      };
       mailserver-vaultwarden.path = mailserverPath + "/vaultwarden";
       mailserver-database.path = mailserverPath + "/database";
 

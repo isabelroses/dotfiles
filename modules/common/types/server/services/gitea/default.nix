@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.modules.usrEnv.services.gitea;
   inherit (config.networking) domain;
-  gitea_domain = "gitea.${domain}";
+  gitea_domain = "git.${domain}";
 in {
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [config.services.gitea.settings.server.HTTP_PORT];
@@ -20,12 +20,12 @@ in {
         lfs.enable = true;
         user = "git";
         database.user = "git";
-        #stateDir = "/srv/storage/gitea/data";
+        #stateDir = "/storage/gitea/data";
 
         mailerPasswordFile = config.sops.secrets.mailserver-gitea.path;
         dump = {
-          enable = true;
-          backupDir = "/srv/storage/gitea/dump";
+          enable = false;
+          backupDir = "/storage/gitea/dump";
           interval = "06:00";
           type = "tar.zst";
         };
