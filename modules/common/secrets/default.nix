@@ -32,8 +32,9 @@
 
       # mailserver
       mailserver-isabel.path = mailserverPath + "/isabel";
-      mailserver-gitea = {
-        path = mailserverPath + "/gitea";
+      mailserver-gitea.path = mailserverPath + "/gitea";
+      mailserver-gitea-nohash = {
+        path = mailserverPath + "/gitea-nohash";
         owner = "git";
         group = "gitea";
       };

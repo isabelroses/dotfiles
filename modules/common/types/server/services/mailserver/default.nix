@@ -16,11 +16,17 @@ in {
     # required for roundcube
     networking.firewall.allowedTCPPorts = [80 443];
 
+    systemd.services = let
+      template = {after = ["sops-nix.service"];};
+    in {
+      roundcube = template;
+      mailserver = template;
+    };
+
     services = {
       roundcube = {
         enable = true;
         database.username = "roundcube";
-        #database.passwordFile = config.sops.secrets.mailserver-database.path;
         maxAttachmentSize = 50;
         dicts = with pkgs.aspellDicts; [en];
         # this is the url of the vhost, not necessarily the same as the fqdn of
