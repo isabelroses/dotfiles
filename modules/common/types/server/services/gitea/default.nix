@@ -8,9 +8,30 @@ with lib; let
   cfg = config.modules.usrEnv.services.gitea;
   inherit (config.networking) domain;
   gitea_domain = "git.${domain}";
+
+  # stole this from https://git.winston.sh/winston/deployment-flake/src/branch/main/config/services/gitea.nix who stole it from https://github.com/getchoo
+  theme = pkgs.fetchzip {
+    url = "https://github.com/catppuccin/gitea/releases/download/v0.4.1/catppuccin-gitea.tar.gz";
+    sha256 = "sha256-14XqO1ZhhPS7VDBSzqW55kh6n5cFZGZmvRCtMEh8JPI=";
+    stripRoot = false;
+  };
 in {
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [config.services.gitea.settings.server.HTTP_PORT];
+
+    systemd.services = {
+      gitea = {
+        after = ["sops-nix.service"];
+        preStart = let
+          inherit (config.services.gitea) stateDir;
+        in
+          lib.mkAfter ''
+            rm -rf ${stateDir}/custom/public
+            mkdir -p ${stateDir}/custom/public
+            ln -sf ${theme} ${stateDir}/custom/public/css
+          '';
+      };
+    };
 
     services = {
       gitea = {
@@ -22,10 +43,10 @@ in {
         database.user = "git";
         #stateDir = "/storage/gitea/data";
 
-        mailerPasswordFile = config.sops.secrets.mailserver-gitea.path;
+        mailerPasswordFile = config.sops.secrets.mailserver-gitea-nohash.path;
         dump = {
-          enable = false;
-          backupDir = "/storage/gitea/dump";
+          enable = true;
+          #backupDir = "/storage/gitea/dump";
           interval = "06:00";
           type = "tar.zst";
         };
@@ -46,7 +67,15 @@ in {
 
           attachment.ALLOWED_TYPES = "*/*";
           service.DISABLE_REGISTRATION = true;
-          ui.DEFAULT_THEME = "arc-green";
+          ui = {
+            DEFAULT_THEME = "catppuccin-mocha-sapphire";
+            THEMES =
+              builtins.concatStringsSep
+              ","
+              (["auto,forgejo-auto,forgejo-dark,forgejo-light,arc-gree,gitea"]
+                ++ (map (name: lib.removePrefix "theme-" (lib.removeSuffix ".css" name))
+                  (builtins.attrNames (builtins.readDir theme))));
+          };
           migrations.ALLOWED_DOMAINS = "github.com, *.github.com, gitlab.com, *.gitlab.com";
           packages.ENABLED = false;
           repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
@@ -59,6 +88,7 @@ in {
           mailer = {
             ENABLED = true;
             PROTOCOL = "smtps";
+            SUBJECT_PREFIX = "iztea Gitea: ";
             SMTP_ADDR = "mail.${domain}";
             USER = "gitea@${domain}";
           };
