@@ -8,9 +8,12 @@
 in {
   config = lib.mkIf cfg.enable {
     # this forces the system to create backup folder
-    systemd.services.backup-vaultwarden.serviceConfig = {
-      User = "root";
-      Group = "root";
+    systemd.services = {
+      vaultwarden.after = ["sops-nix.service"];
+      backup-vaultwarden.serviceConfig = {
+        User = "root";
+        Group = "root";
+      };
     };
 
     services.vaultwarden = {

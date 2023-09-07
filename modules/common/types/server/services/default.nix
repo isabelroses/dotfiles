@@ -1,6 +1,7 @@
 _: {
   imports = [
     ./cloudflared
+    ./cybershef
     ./gitea
     ./jellyfin
     ./mailserver
