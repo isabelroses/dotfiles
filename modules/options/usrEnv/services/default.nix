@@ -4,6 +4,7 @@ in {
   options.modules.usrEnv.services = {
     mailserver.enable = mkEnableOption "Enable the mailserver service";
     gitea.enable = mkEnableOption "Enable the gitea service";
+    cyberchef.enable = mkEnableOption "Enable the cyberchef website";
     vaultwarden.enable = mkEnableOption "Enable the vaultwarden service";
     photoprism.enable = mkEnableOption "Enable the photoprism service";
     vscode-server.enable = mkEnableOption "Enables remote ssh vscode server";
