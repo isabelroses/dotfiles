@@ -4,7 +4,9 @@
   lib,
   inputs,
   ...
-}: {
+}: let
+  inherit (lib) mkIf;
+in {
   imports = [inputs.sops.nixosModules.sops];
 
   environment.systemPackages = with pkgs; [sops age];
@@ -24,7 +26,7 @@
       mailserverPath = secretsPath + "/mailserver";
     in {
       ### server ###
-      cloudflared-hydra = lib.mkIf config.modules.usrEnv.services.cloudflared.enable {
+      cloudflared-hydra = mkIf config.modules.usrEnv.services.cloudflared.enable {
         #path = secretsPath + "/cloudflared/hydra";
         owner = "cloudflared";
         group = "cloudflared";
@@ -33,7 +35,7 @@
       # mailserver
       mailserver-isabel.path = mailserverPath + "/isabel";
       mailserver-gitea.path = mailserverPath + "/gitea";
-      mailserver-gitea-nohash = {
+      mailserver-gitea-nohash = mkIf config.modules.usrEnv.services.gitea.enable {
         path = mailserverPath + "/gitea-nohash";
         owner = "git";
         group = "gitea";
