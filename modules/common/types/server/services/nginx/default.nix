@@ -3,7 +3,8 @@
   config,
   ...
 }: let
-  cfg = config.modules.usrEnv.services.nginx;
+  cfg = config.modules.usrEnv.services;
+  inherit (lib) mkIf;
   domain = "isabelroses.com";
 in {
   config = {
@@ -16,7 +17,7 @@ in {
       };
     };
 
-    services.nginx = lib.mkIf cfg.enable {
+    services.nginx = mkIf cfg.nginx.enable {
       enable = true;
       commonHttpConfig = ''
         real_ip_header CF-Connecting-IP;
@@ -30,68 +31,62 @@ in {
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
 
-      virtualHosts = let
-        template = {
+      virtualHosts = {
+        # website + other stuff
+        "${domain}" = mkIf cfg.isabelroses-web.enable {
+          forceSSL = true;
+          enableACME = true;
+          serverAliases = ["${domain}"];
+          locations."/" = {
+            root = "/var/www/${domain}";
+            index = "index.php";
+            extraConfig = ''
+              try_files $uri $uri/ $uri.html $uri.php$is_args$query_string;
+
+              location ~* \.php(/|$) {
+                try_files $uri =404;
+
+                include ${config.services.nginx.package}/conf/fastcgi_params;
+                include ${config.services.nginx.package}/conf/fastcgi.conf;
+
+                fastcgi_pass  unix:${config.services.phpfpm.pools.${domain}.socket};
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param PATH_INFO $fastcgi_path_info;
+              }
+            '';
+          };
+        };
+
+        # vaultwawrden
+        "vault.${domain}" = mkIf cfg.vaultwarden.enable {
+          forceSSL = true;
+          enableACME = true;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
+            extraConfig = "proxy_pass_header Authorization;";
+          };
+        };
+
+        # gitea
+        "git.${domain}" = mkIf cfg.gitea.enable {
+          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.gitea.settings.server.HTTP_PORT}";
           forceSSL = true;
           enableACME = true;
         };
-      in {
-        # website + other stuff
-        "${domain}" =
-          template
-          // {
-            serverAliases = ["${domain}"];
-            locations."/" = {
-              root = "/var/www/${domain}";
-              index = "index.php";
-              extraConfig = ''
-                try_files $uri $uri/ $uri.html $uri.php$is_args$query_string;
 
-                location ~* \.php(/|$) {
-                  try_files $uri =404;
+        "mail.${domain}" = mkIf cfg.mailserver.enable {
+          forceSSL = true;
+          enableACME = true;
+        };
+        "webmail.${domain}" = mkIf cfg.mailserver.enable {
+          forceSSL = true;
+          enableACME = true;
+        };
 
-                  include ${config.services.nginx.package}/conf/fastcgi_params;
-                  include ${config.services.nginx.package}/conf/fastcgi.conf;
-
-                  fastcgi_pass  unix:${config.services.phpfpm.pools.${domain}.socket};
-                  fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                  fastcgi_param PATH_INFO $fastcgi_path_info;
-                }
-              '';
-            };
-          };
-
-        # vaultwawrden
-        "vault.${domain}" =
-          template
-          // {
-            locations."/" = {
-              proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
-              extraConfig = "proxy_pass_header Authorization;";
-            };
-          };
-
-        # gitea
-        "git.${domain}" =
-          template
-          // {
-            locations."/".proxyPass = "http://127.0.0.1:${toString config.services.gitea.settings.server.HTTP_PORT}";
-          };
-
-        "mail.${domain}" = template;
-        "webmail.${domain}" = template;
-
-        "wakapi.${domain}" =
-          template
-          // {
-            locations."/".proxyPass = "http://127.0.0.1:${toString config.services.wakapi.port}";
-          };
-
-        /*
-         "search.${domain}" =
-        template
-        // {
+        "search.${domain}" = mkIf cfg.searxng.enable {
+          forceSSL = true;
+          enableACME = true;
           locations."/".proxyPass = "http://127.0.0.1:8888";
           extraConfig = ''
             access_log /dev/null;
@@ -101,7 +96,6 @@ in {
             proxy_read_timeout 60s;
           '';
         };
-        */
       };
     };
   };

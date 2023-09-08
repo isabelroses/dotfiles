@@ -6,6 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf;
+  inherit (config.modules.usrEnv) services;
 in {
   imports = [inputs.sops.nixosModules.sops];
 
@@ -26,7 +27,7 @@ in {
       mailserverPath = secretsPath + "/mailserver";
     in {
       ### server ###
-      cloudflared-hydra = mkIf config.modules.usrEnv.services.cloudflared.enable {
+      cloudflared-hydra = mkIf services.cloudflared.enable {
         #path = secretsPath + "/cloudflared/hydra";
         owner = "cloudflared";
         group = "cloudflared";
@@ -35,7 +36,7 @@ in {
       # mailserver
       mailserver-isabel.path = mailserverPath + "/isabel";
       mailserver-gitea.path = mailserverPath + "/gitea";
-      mailserver-gitea-nohash = mkIf config.modules.usrEnv.services.gitea.enable {
+      mailserver-gitea-nohash = mkIf services.gitea.enable {
         path = mailserverPath + "/gitea-nohash";
         owner = "git";
         group = "gitea";
@@ -45,6 +46,13 @@ in {
 
       # vaultwarden
       vaultwarden-env.path = secretsPath + "/vaultwarden/env";
+
+      #wakapi
+      wakapi = mkIf services.wakapi.enable {
+        path = secretsPath + "/wakapi/default";
+        owner = "wakapi";
+        group = "wakapi";
+      };
 
       ### user ###
       git-credentials = {

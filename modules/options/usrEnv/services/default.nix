@@ -12,6 +12,7 @@ in {
     searxng.enable = mkEnableOption "Enables searxng search engine service";
     nginx.enable = mkEnableOption "Enables nginx webserver";
     cloudflared.enable = mkEnableOption "Enables cloudflared tunnels";
+    wakapi.enable = mkEnableOption "Enables wakapit";
 
     jellyfin = {
       enable = mkEnableOption "Enables the jellyfin service";
