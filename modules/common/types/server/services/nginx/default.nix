@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }: let
@@ -52,7 +51,7 @@ in {
                   try_files $uri =404;
 
                   include ${config.services.nginx.package}/conf/fastcgi_params;
-                  include ${pkgs.nginx}/conf/fastcgi.conf;
+                  include ${config.services.nginx.package}/conf/fastcgi.conf;
 
                   fastcgi_pass  unix:${config.services.phpfpm.pools.${domain}.socket};
                   fastcgi_split_path_info ^(.+\.php)(/.+)$;
@@ -82,6 +81,12 @@ in {
 
         "mail.${domain}" = template;
         "webmail.${domain}" = template;
+
+        "wakapi.${domain}" =
+          template
+          // {
+            locations."/".proxyPass = "http://127.0.0.1:${toString config.services.wakapi.port}";
+          };
 
         /*
          "search.${domain}" =
