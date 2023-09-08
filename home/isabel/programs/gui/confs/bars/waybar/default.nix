@@ -1,18 +1,23 @@
 {
-  config,
   pkgs,
   lib,
   osConfig,
   defaults,
   ...
 }: let
+  inherit (lib) optionalString;
+  sys = osConfig.modules.system;
+  cfg = osConfig.modules.programs;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable && lib.isWayland osConfig && defaults.bar == "waybar") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isWayland osConfig && defaults.bar == "waybar") {
     home.packages = with pkgs; [wlogout];
+
     programs.waybar = {
       enable = true;
       package = pkgs.waybar;
+      systemd.enable = true;
+      style = import ./style.nix {};
       settings = {
         mainBar = {
           layer = "top";
@@ -27,12 +32,13 @@ in {
             "custom/launcher"
           ];
           modules-center = [
-            "wlr/workspaces"
+            "hyprland/workspaces"
           ];
           modules-right = [
             "tray"
             "backlight"
-            "bluetooth"
+            (optionalString sys.bluetooth.enable "bluetooth")
+            (optionalString cfg.gaming.enable "gamemode")
             "pulseaudio"
             "battery"
             "clock"
@@ -47,7 +53,7 @@ in {
             "on-click-middle" = "close";
             "on-click-right" = "activate";
           };
-          "wlr/workspaces" = {
+          "hyprland/workspaces" = {
             disable-scroll = true;
             all-outputs = true;
             sort-by-number = true;
@@ -179,9 +185,20 @@ in {
             on-click = "rofi -show drun";
             on-click-right = "rofi -show drun";
           };
+          gamemode = {
+            format = "󰊴";
+            format-alt = "{glyph}";
+            glyph = "󰊴";
+            hide-not-running = true;
+            use-icon = true;
+            icon-name = "input-gaming-symbolic";
+            icon-spacing = 4;
+            icon-size = 20;
+            tooltip = true;
+            tooltip-format = "Games running: {count}";
+          };
         };
       };
-      style = builtins.readFile ./style.css;
     };
   };
 }
