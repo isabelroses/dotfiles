@@ -3,23 +3,27 @@
   lib,
   pkgs,
   ...
-}: {
-  config = lib.mkIf osConfig.modules.usrEnv.programs.cli.enable {
+}: let
+  inherit (lib) mkIf optionals;
+  cfg = osConfig.modules.usrEnv.programs;
+in {
+  config = mkIf cfg.cli.enable {
     home.packages = with pkgs;
       [
         # CLI packages from nixpkgs
         unzip
-        ripgrep
         rsync
         fd
         jq
         dconf
         nitch
-        exa
       ]
-      ++ lib.optionals (osConfig.modules.usrEnv.programs.nur.enable && osConfig.modules.usrEnv.programs.nur.bella) [
+      ++ lib.optionals (cfg.nur.enable && cfg.nur.bella) [
         nur.repos.bella.bellado
         nur.repos.bella.catppuccinifier-cli
+      ]
+      ++ optionals cfg.cli.modernShell.enable [
+        ripgrep
       ];
   };
 }
