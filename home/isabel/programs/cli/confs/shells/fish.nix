@@ -20,12 +20,6 @@ in {
       '';
     };
     shellAliases = {
-      # ls to exa
-      ls = "exa -al --color=always --icons --group-directories-first";
-      la = "command exa -a --color=always --icons --group-directories-first";
-      ll = "exa -abghHliS --icons --group-directories-first";
-      lt = "exa -aT --color=always --icons --group-directories-first";
-
       mkidr = "mkdir -pv"; # always create pearent directory
       df = "df -h"; # human readblity
       rs = "sudo reboot";
