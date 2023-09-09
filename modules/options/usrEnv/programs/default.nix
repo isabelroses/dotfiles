@@ -10,7 +10,10 @@ in {
   ];
 
   options.modules.usrEnv.programs = {
-    cli.enable = mkEnableOption "Enable CLI programs";
+    cli = {
+      enable = mkEnableOption "Enable CLI programs";
+      modernShell.enable = mkEnableOption "Enable modern shell programs";
+    };
     tui.enable = mkEnableOption "Enable TUI programs";
     gui.enable = mkEnableOption "Enable GUI programs";
 

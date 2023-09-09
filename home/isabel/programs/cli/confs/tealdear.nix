@@ -5,7 +5,7 @@
 }: let
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.cli.enable) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isModernShell osConfig) {
     programs.tealdeer = {
       enable = true;
       settings = {

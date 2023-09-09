@@ -38,6 +38,9 @@
 
   # assert if the device is wayland-ready by checking sys.video and env.isWayland options
   isWayland = conf: conf.modules.system.video.enable && conf.modules.usrEnv.isWayland;
+
+  # check if modernshell and cli are both enabled
+  isModernShell = conf: conf.modules.usrEnv.programs.cli.enable && conf.modules.usrEnv.programs.cli.modernShell.enable;
 in {
-  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland;
+  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland isModernShell;
 }

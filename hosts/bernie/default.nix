@@ -48,7 +48,10 @@ _: {
         programs = {
           git.signingKey = "B4D9D513B1560D99";
 
-          cli.enable = true;
+          cli = {
+            enable = true;
+            modernShell.enable = true;
+          };
           tui.enable = true;
           gui.enable = false;
 
