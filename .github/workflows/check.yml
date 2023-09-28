@@ -1,19 +1,19 @@
-name: Nix Flake Check
+name: Validate Nix Flake
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    paths:
+      - "**.nix"
+      - "**.lock"
+      - ".github/workflows/check.yml"
 
 jobs:
-  checks:
-    name: Check expressions
+  check-flake:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v18
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v23
         with:
-          install_url: https://nixos.org/nix/install
-          extra_nix_config: |
-            auto-optimise-store = true
-            experimental-features = nix-command flakes
-            access-tokens = ${{ secrets.AUTH_TOKEN }}
-      - run: nix flake check
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: nix flake check --show-trace --accept-flake-config

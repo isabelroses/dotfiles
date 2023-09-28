@@ -21,9 +21,11 @@ in {
       package = pkgs.neovim-unwrapped;
       viAlias = true;
       vimAlias = true;
+
       enableEditorconfig = true;
       preventJunkFiles = true;
       enableLuaLoader = true;
+      useSystemClipboard = true;
 
       treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
         lua

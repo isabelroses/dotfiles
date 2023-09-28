@@ -62,7 +62,7 @@ in {
         useHomeManager = true;
 
         programs = {
-          git.signingKy = "7F2F6BD6997FCDF7";
+          git.signingKey = "7F2F6BD6997FCDF7";
 
           cli = {
             enable = true;

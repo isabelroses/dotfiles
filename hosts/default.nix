@@ -74,7 +74,6 @@ in {
     specialArgs = sharedArgs;
   };
 
-  # fuck nvidia - Linus "the linux" Torvalds
   amatarasu = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";

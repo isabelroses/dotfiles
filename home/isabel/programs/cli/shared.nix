@@ -17,6 +17,8 @@ in {
         jq
         dconf
         nitch
+        hyfetch
+        cached-nix-shell
       ]
       ++ lib.optionals (cfg.nur.enable && cfg.nur.bella) [
         nur.repos.bella.bellado

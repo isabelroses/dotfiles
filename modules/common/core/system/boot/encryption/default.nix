@@ -28,7 +28,7 @@ in {
       keyFileSize = cfg.keySize;
 
       # if keyfile is not there, fall back to cryptsetup password
-      fallbackToPassword = cfg.fallbackToPassword; # IMPLIED BY config.boot.initrd.systemd.enable
+      inherit (cfg) fallbackToPassword; # IMPLIED BY config.boot.initrd.systemd.enable
     };
   };
 }

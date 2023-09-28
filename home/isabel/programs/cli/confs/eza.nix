@@ -8,11 +8,12 @@ in {
   config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isModernShell osConfig) {
     programs.eza = {
       enable = true;
+      icons = true;
       enableAliases = true;
       extraOptions = [
         "--group-directories-first"
+        "--header"
       ];
-      icons = true;
     };
   };
 }

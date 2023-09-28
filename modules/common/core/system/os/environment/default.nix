@@ -29,5 +29,14 @@
     # disable all packages installed by default, so that my system doesn't have anything
     # that I myself have added
     defaultPackages = [];
+
+    # enable completions for system packages
+    pathsToLink = ["/share/fish" "/share/bash-completion" "/share/nix-direnv"];
+
+    # https://github.com/NixOS/nixpkgs/issues/72394#issuecomment-549110501
+    # why??
+    etc."mdadm.conf".text = ''
+      MAILADDR root
+    '';
   };
 }

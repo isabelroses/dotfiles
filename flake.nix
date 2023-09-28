@@ -47,6 +47,8 @@
 
         # build with `nix build .#images.<hostname>`
         #images = import ./hosts/images.nix {inherit inputs self lib;};
+
+        schemas = inputs.flake-schemas.schemas // (import ./parts/schemas);
       };
 
       perSystem = {
@@ -236,6 +238,10 @@
     nur.url = "github:nix-community/nur";
     bella-nur.url = "github:isabelroses/nur";
     nekowinston-nur.url = "github:nekowinston/nur";
+
+    # Schemas
+    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
+    nixSchemas.url = "github:DeterminateSystems/nix/flake-schemas";
   };
 
   nixConfig = {

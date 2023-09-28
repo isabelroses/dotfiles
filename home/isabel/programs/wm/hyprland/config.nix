@@ -10,30 +10,6 @@
   pointer = config.home.pointerCursor;
   dev = osConfig.modules.device;
   inherit (osConfig.modules.device) monitors;
-
-  mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
-      if monitor == "DP-1"
-      then "1920x1080@144"
-      else "preferred"
-    },${toString (i * 1920)}x0,1'') monitors);
-
-  mapMonitorsToWs = builtins.concatStringsSep "\n" (
-    builtins.genList (
-      x: ''
-        workspace = ${toString (x + 1)}, monitor:${
-          if (x + 1) <= 5
-          then "${builtins.elemAt monitors 0} ${
-            if (x + 1) == 1
-            then ", default:true"
-            else ""
-          }"
-          else "${builtins.elemAt monitors 1}"
-        }
-
-      ''
-    )
-    10
-  );
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -286,7 +262,31 @@ in {
         ];
     };
 
-    extraConfig = ''
+    extraConfig = let
+      mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
+          if monitor == "DP-1"
+          then "1920x1080@144"
+          else "preferred"
+        },${toString (i * 1920)}x0,1'') monitors);
+
+      mapMonitorsToWs = builtins.concatStringsSep "\n" (
+        builtins.genList (
+          x: ''
+            workspace = ${toString (x + 1)}, monitor:${
+              if (x + 1) <= 5
+              then "${builtins.elemAt monitors 0} ${
+                if (x + 1) == 1
+                then ", default:true"
+                else ""
+              }"
+              else "${builtins.elemAt monitors 1}"
+            }
+
+          ''
+        )
+        10
+      );
+    in ''
       ${mapMonitors}
       ${optionalString (builtins.length monitors != 1) "${mapMonitorsToWs}"}
 

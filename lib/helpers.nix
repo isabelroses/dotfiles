@@ -21,6 +21,16 @@
   # a basic function to fetch a specified user's public keys from github .keys url
   fetchKeys = username: (builtins.fetchurl "https://github.com/${username}.keys");
 
+  indexOf = list: elem: let
+    f = f: i:
+      if i == (builtins.length list)
+      then null
+      else if (builtins.elemAt list i) == elem
+      then i
+      else f f (i + 1);
+  in
+    f f 0;
+
   # function to generate theme slugs from theme names
   # "A String With Whitespaces" -> "a-string-with-whitespaces"
   serializeTheme = inputString: lib.strings.toLower (builtins.replaceStrings [" "] ["-"] inputString);
@@ -42,5 +52,5 @@
   # check if modernshell and cli are both enabled
   isModernShell = conf: conf.modules.usrEnv.programs.cli.enable && conf.modules.usrEnv.programs.cli.modernShell.enable;
 in {
-  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland isModernShell;
+  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland isModernShell indexOf;
 }
