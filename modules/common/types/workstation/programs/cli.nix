@@ -38,10 +38,6 @@ in {
         # shut up. SHUT UP
         silent = true;
 
-        # set `keep-derivations` and `keep-outputs` nix settings
-        # I already set those myself, but we still make sure
-        persistDerivations = true;
-
         # faster, persistent implementation of use_nix and use_flake
         nix-direnv.enable = true;
       };

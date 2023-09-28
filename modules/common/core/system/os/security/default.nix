@@ -3,10 +3,12 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkDefault;
+
   sys = config.modules.system;
 in {
+  imports = [./clamav.nix];
   security = {
     protectKernelImage = true;
     lockKernelModules = sys.security.lockModules; # breaks virtd, wireguard and iptables
@@ -74,7 +76,6 @@ in {
         Defaults pwfeedback
         Defaults env_keep += "EDITOR PATH"
         Defaults timestamp_timeout = 300
-        Defaults passprompt="[31m sudo: password for %p@%h, running as %U:[0m "
       '';
     };
   };

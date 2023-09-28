@@ -15,7 +15,6 @@ in {
       [
         grim
         inputs'.hyprpicker.packages.default
-        inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland
       ]
       ++ lib.optionals (usrEnv.programs.nur.enable && usrEnv.programs.nur.bella) [
         nur.repos.bella.catppuccin-hyprland

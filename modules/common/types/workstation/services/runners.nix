@@ -22,7 +22,7 @@ in {
 
     # run unpatched linux binaries with nix-ld
     programs.nix-ld.dev = {
-      enable = false;
+      enable = true;
       libraries = with pkgs; [
         stdenv.cc.cc
         openssl

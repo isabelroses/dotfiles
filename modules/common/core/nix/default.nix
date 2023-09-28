@@ -42,26 +42,19 @@
     in
       [
         inputs.rust-overlay.overlays.default
-
-        (
-          _: prev: {
-            # temp fix until https://github.com/NixOS/nixpkgs/pull/249382 is merged
-            gtklock = prev.gtklock.overrideAttrs (_: super: {
-              nativeBuildInputs = super.nativeBuildInputs ++ [prev.wrapGAppsHook];
-              buildInputs = super.buildInputs ++ [prev.librsvg];
-            });
-          }
-        )
+        (_: _: {
+          nixSchemas = inputs'.nixSchemas.packages.default;
+        })
       ]
-      ++ lib.optionals (nurOpt.enable) [
-        (final: prev: {
+      ++ lib.optionals nurOpt.enable [
+        (_: prev: {
           nur = import inputs.nur {
             nurpkgs = prev;
             pkgs = prev;
             repoOverrides =
               {}
-              // lib.optionalAttrs (nurOpt.bella) {bella = inputs'.bella-nur.packages;}
-              // lib.optionalAttrs (nurOpt.nekowinston) {nekowinston = inputs'.nekowinston-nur.packages;};
+              // lib.optionalAttrs nurOpt.bella {bella = inputs'.bella-nur.packages;}
+              // lib.optionalAttrs nurOpt.nekowinston {nekowinston = inputs'.nekowinston-nur.packages;};
           };
         })
       ];
@@ -130,7 +123,7 @@
       sandbox = true;
       # supported system features
       # TODO: "gccarch-core2" "gccarch-haswell"
-      system-features = ["nixos-tests" "kvm" "recursive-nix" "big-parallel"];
+      system-features = ["nixos-test" "kvm" "recursive-nix" "big-parallel"];
       # extra architectures supported by my builders
       extra-platforms = config.boot.binfmt.emulatedSystems;
       # continue building derivations if one fails
