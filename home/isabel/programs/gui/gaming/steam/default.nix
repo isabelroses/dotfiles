@@ -26,6 +26,21 @@
             xorg.libXi
             xorg.libXinerama
             xorg.libXScrnSaver
+            at-spi2-atk
+            fmodex
+            gtk3
+            gtk3-x11
+            harfbuzz
+            icu
+            glxinfo
+            inetutils
+            libthai
+            mono5
+            pango
+            stdenv.cc.cc.lib
+            strace
+            zlib
+            libunwind
           ];
       };
     };

@@ -32,17 +32,14 @@
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
 
         nixosModules = {
-          # extends the steam module from nixpkgs/nixos to add a STEAM_COMPAT_TOOLS option
-          steam-compat = ./modules/extra/shared/nixos/steam;
-
           # we do not want to provide a default module
-          default = null;
+          default = builtins.throw "Nothing to provide you!";
         };
 
         homeManagerModules = {
           gtklock = ./modules/extra/shared/home-manager/gtklock;
 
-          default = null;
+          default = builtins.throw "Nothing to provide you!";
         };
 
         # build with `nix build .#images.<hostname>`

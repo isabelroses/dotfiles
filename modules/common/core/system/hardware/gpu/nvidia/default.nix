@@ -14,7 +14,7 @@ with lib; let
     then config.boot.kernelPackages.nvidiaPackages.stable
     else config.boot.kernelPackages.nvidiaPackages.beta;
 
-  device = config.modules.device;
+  inherit (config.modules) device;
   env = config.modules.usrEnv;
 in {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
@@ -55,13 +55,13 @@ in {
           LIBVA_DRIVER_NAME = "nvidia";
         }
 
-        (mkIf (env.isWayland) {
+        (mkIf env.isWayland {
           WLR_NO_HARDWARE_CURSORS = "1";
           #__GLX_VENDOR_LIBRARY_NAME = "nvidia";
           #GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
         })
 
-        (mkIf ((env.isWayland) && (device.gpu == "hybrid-nv")) {
+        (mkIf (env.isWayland && device.gpu == "hybrid-nv") {
           #__NV_PRIME_RENDER_OFFLOAD = "1";
           #WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
         })
@@ -77,13 +77,14 @@ in {
 
     hardware = {
       nvidia = {
-        package = mkDefault nvidiaPackage;
+        #package = mkDefault nvidiaPackage;
+        package = mkDefault config.boot.kernelPackages.nvidiaPackages.stable;
         modesetting.enable = mkDefault true;
         prime.offload.enableOffloadCmd = device.gpu == "hybrid-nv";
-        #powerManagement = {
-        #  enable = mkDefault true;
-        #  finegrained = mkDefault true;
-        #};
+        powerManagement = {
+          enable = mkDefault true;
+          finegrained = mkDefault true;
+        };
 
         # use open source drivers by default, hosts may override this option if their gpu is
         # not supported by the open source drivers
