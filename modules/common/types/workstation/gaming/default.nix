@@ -31,6 +31,7 @@ with lib; let
 
   cfg = config.modules.usrEnv.programs;
 in {
+  imports = [./steam.nix];
   config = mkIf cfg.gaming.enable {
     programs = {
       gamemode = {
@@ -46,17 +47,6 @@ in {
             end = endscript.outPath;
           };
         };
-      };
-
-      steam = {
-        enable = true;
-        # Open ports in the firewall for Steam Remote Play
-        remotePlay.openFirewall = true;
-        # Open ports in the firewall for Source Dedicated Server
-        dedicatedServer.openFirewall = true;
-        # Compatibility tools to install
-        # this option is provided by modules/shared/nixos/steam
-        withProtonGE = true;
       };
     };
   };

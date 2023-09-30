@@ -1,5 +1,2 @@
 _: {
-  imports = [
-    ./steam
-  ];
 }
