@@ -31,7 +31,7 @@ with lib; let
 
   cfg = config.modules.usrEnv.programs;
 in {
-  imports = [./steam.nix];
+  # imports = [./steam.nix];
   config = mkIf cfg.gaming.enable {
     programs = {
       gamemode = {
