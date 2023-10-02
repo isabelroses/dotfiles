@@ -15,13 +15,12 @@
     zulu8
     # Java 11
     temurin-jre-bin-11
-    graalvm11-ce
     # Java 17
     temurin-jre-bin-17
-    graalvm17-ce
     # Latest
     temurin-jre-bin
     zulu
+    graalvm-ce
   ];
 in {
   config = lib.mkIf osConfig.modules.programs.gaming.minecraft.enable {
