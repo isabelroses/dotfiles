@@ -81,7 +81,6 @@ in {
 
       decoration = {
         rounding = 10;
-        multisample_edges = true;
 
         active_opacity = 1.0;
         inactive_opacity = 1.0;
@@ -104,7 +103,7 @@ in {
       };
 
       animations = {
-        enabled = !(dev.type == "laptop");
+        enabled = dev.type != "laptop";
 
         bezier = [
           "overshot, 0.05, 0.9, 0.1, 1.1"
