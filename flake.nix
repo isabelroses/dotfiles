@@ -22,6 +22,7 @@
         ./parts/pkgs # packages
         ./parts/makeSys # args that is passsed to the flake, moved away from the main file
         ./parts/overlays # overlays that make the system that bit cleaner
+        ./parts/templates # programing templates for the quick setup of new programing enviorments
       ];
 
       flake = let
