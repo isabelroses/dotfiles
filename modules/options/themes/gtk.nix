@@ -16,7 +16,7 @@ in {
           theme = {
             name = mkOption {
               type = types.str;
-              default = "Catppuccin-Mocha-Standard-Sapphire-dark";
+              default = "Catppuccin-Mocha-Standard-Sapphire-Dark";
               description = "The name for the GTK theme package";
             };
 
