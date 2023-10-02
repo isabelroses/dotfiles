@@ -193,6 +193,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # More up to date auto-cpufreq
+    auto-cpufreq = {
+      url = "github:adnanhodzic/auto-cpufreq";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Firefox but really locked down and air tight
     schizofox = {
       url = "github:schizofox/schizofox";

@@ -37,6 +37,26 @@
         "type": "github"
       }
     },
+    "auto-cpufreq": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1696141805,
+        "narHash": "sha256-YmyYuZPV8/+z9dIv04efwv9bxs50nUErNqO+4z4I3UI=",
+        "owner": "adnanhodzic",
+        "repo": "auto-cpufreq",
+        "rev": "0c03b004bbe4e573e216ae136d6977bc11ec9196",
+        "type": "github"
+      },
+      "original": {
+        "owner": "adnanhodzic",
+        "repo": "auto-cpufreq",
+        "type": "github"
+      }
+    },
     "bella-nur": {
       "inputs": {
         "ags": "ags",
@@ -2978,6 +2998,7 @@
     },
     "root": {
       "inputs": {
+        "auto-cpufreq": "auto-cpufreq",
         "bella-nur": "bella-nur",
         "catppuccin": "catppuccin",
         "devshell": "devshell",
