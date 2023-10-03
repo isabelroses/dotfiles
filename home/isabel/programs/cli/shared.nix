@@ -2,6 +2,7 @@
   osConfig,
   lib,
   pkgs,
+  inputs',
   ...
 }: let
   inherit (lib) mkIf optionals;
@@ -26,6 +27,7 @@ in {
       ]
       ++ optionals cfg.cli.modernShell.enable [
         ripgrep
+        inputs'.catppuccin-toolbox.packages.catwalk
       ];
   };
 }

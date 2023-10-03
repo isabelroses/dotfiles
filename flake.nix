@@ -170,8 +170,9 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
 
-    # Amazing themeing
+    # Amazing themeing & tools
     catppuccin.url = "github:isabelroses/ctp-nix";
+    catppuccin-toolbox.url = "github:catppuccin/toolbox";
 
     # Secrets
     sops = {
