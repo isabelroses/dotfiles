@@ -16,6 +16,7 @@ in {
         socat
         sassc
         networkmanagerapplet
+        inotify-tools
         swww
       ];
     };

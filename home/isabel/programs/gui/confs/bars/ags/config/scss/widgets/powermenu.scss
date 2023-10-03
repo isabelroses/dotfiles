@@ -1,7 +1,5 @@
 window#powermenu, window#verification {
     .shader {
-        min-width: 4000px;
-        min-height: 4000px;
         background-color: rgba(0, 0, 0, 0.05);
     }
 }
@@ -56,6 +54,7 @@ window#powermenu .powermenu {
             border-radius: $radii*2;
             min-width: 120px;
             min-height: 120px;
+            font-size: 68px;
         }
 
         label, image {
@@ -63,7 +62,7 @@ window#powermenu .powermenu {
         }
 
         &:hover {
-            image { @include button_hover; }
+            image{ @include button_hover; }
             label{ color: $fg_color; }
         }
         &:focus image { @include button_focus; }
