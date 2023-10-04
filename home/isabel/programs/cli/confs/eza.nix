@@ -3,9 +3,9 @@
   lib,
   ...
 }: let
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+  inherit (lib) mkIf isModernShell;
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isModernShell osConfig) {
+  config = mkIf (isModernShell osConfig) {
     programs.eza = {
       enable = true;
       icons = true;
