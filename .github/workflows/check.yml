@@ -12,8 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v23
-        with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-      - run: nix flake check --show-trace --accept-flake-config
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        logger: pretty
+
+      - name: Check Flake
+        run: nix flake check --show-trace --accept-flake-config
