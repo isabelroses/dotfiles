@@ -77,8 +77,7 @@ in {
 
     hardware = {
       nvidia = {
-        #package = mkDefault nvidiaPackage;
-        package = mkDefault config.boot.kernelPackages.nvidiaPackages.stable;
+        package = mkDefault nvidiaPackage;
         modesetting.enable = mkDefault true;
         prime.offload.enableOffloadCmd = device.gpu == "hybrid-nv";
         powerManagement = {
