@@ -191,7 +191,7 @@
     # nushell scripts
     nu_scripts = {
       type = "git";
-      url = "https://github.com/nushell/nu_scripts";
+      url = "github.com:nushell/nu_scripts";
       submodules = true;
       flake = false;
     };
@@ -199,10 +199,12 @@
     # my nvim conf
     isabel-nvim = {
       type = "git";
-      url = "https://github.com/isabelroses/nvim";
+      url = "github:isabelroses/nvim";
       submodules = false;
       flake = false;
     };
+
+    isabelroses-com.url = "github:isabelroses/isabelroses.com/master";
 
     neovim-flake = {
       url = "github:NotAShelf/neovim-flake";
