@@ -28,7 +28,7 @@
   };
 
   nixpkgs = {
-    pkgs = self.legacyPackages.${config.nixpkgs.system};
+    #pkgs = self.legacyPackages.${config.nixpkgs.system};
 
     config = {
       allowUnfree = true;
