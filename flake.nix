@@ -19,10 +19,13 @@
         inputs.treefmt-nix.flakeModule
 
         # flake parts
-        ./parts/pkgs # packages
-        ./parts/makeSys # args that is passsed to the flake, moved away from the main file
-        ./parts/overlays # overlays that make the system that bit cleaner
-        ./parts/templates # programing templates for the quick setup of new programing enviorments
+        ./flake/pkgs # packages
+        ./flake/makeSys # args that is passsed to the flake, moved away from the main file
+        ./flake/overlays # overlays that make the system that bit cleaner
+        ./flake/templates # programing templates for the quick setup of new programing enviorments
+        ./flake/schemas # home-baked schemas for upcoming nix schemas
+        ./flake/treefmt # treefmt configuration
+        ./flake/modules # nixos and home-manager modules provided by this flake
       ];
 
       flake = let
@@ -31,22 +34,6 @@
       in {
         # entry-point for nixos configurations
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
-
-        nixosModules = {
-          # we do not want to provide a default module
-          default = builtins.throw "Nothing to provide you!";
-        };
-
-        homeManagerModules = {
-          gtklock = ./modules/extra/shared/home-manager/gtklock;
-
-          default = builtins.throw "Nothing to provide you!";
-        };
-
-        # build with `nix build .#images.<hostname>`
-        #images = import ./hosts/images.nix {inherit inputs self lib;};
-
-        schemas = inputs.flake-schemas.schemas // (import ./parts/schemas);
       };
 
       perSystem = {
@@ -61,7 +48,7 @@
         formatter = pkgs.alejandra;
 
         devShells.default = let
-          extra = import ./parts/devShell;
+          extra = import ./flake/devShell;
         in
           inputs'.devshell.legacyPackages.mkShell {
             name = "setup";
@@ -77,33 +64,16 @@
               deadnix # clean up unused nix code
             ];
           };
-
-        # configure treefmt
-        treefmt = {
-          projectRootFile = "flake.nix";
-
-          programs = {
-            alejandra.enable = true;
-            deadnix.enable = false;
-            shellcheck.enable = true;
-            shfmt = {
-              enable = true;
-              # https://flake.parts/options/treefmt-nix.html#opt-perSystem.treefmt.programs.shfmt.indent_size
-              # 0 causes shfmt to use tabs
-              indent_size = 0;
-            };
-          };
-        };
       };
     });
 
   inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Nix helper
     nh = {
