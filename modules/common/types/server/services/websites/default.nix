@@ -4,8 +4,8 @@
   ...
 }: let
   cfg = config.modules.usrEnv.services.isabelroses-web;
-  inherit (config.networking) domain;
 in {
+  /*
   config.services.phpfpm.pools.${domain} = lib.mkIf cfg.enable {
     user = config.services.nginx.user;
     settings = {
@@ -20,5 +20,12 @@ in {
       "pm.max_requests" = 500;
       "catch_workers_output" = true;
     };
+  };
+  */
+
+  virtualisation.oci-containers.containers.isabelroses-com = lib.mkIf cfg.enable {
+    image = "docker.io/isabelroses/isabelroses.com:latest";
+    ports = ["127.0.0.1:3000:3000"];
+    extraOptions = ["-l=io.containers.autoupdate=registry"];
   };
 }

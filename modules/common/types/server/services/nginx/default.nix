@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs',
   ...
 }: let
   cfg = config.modules.usrEnv.services;
@@ -34,40 +33,10 @@ in {
 
       virtualHosts = {
         # website + other stuff
-        /*
-          "${domain}" = mkIf cfg.isabelroses-web.enable {
-          forceSSL = true;
-          enableACME = true;
-          serverAliases = ["${domain}"];
-          locations."/" = {
-            root = "/var/www/${domain}";
-            index = "index.php";
-            extraConfig = ''
-              try_files $uri $uri/ $uri.html $uri.php$is_args$query_string;
-
-              location ~* \.php(/|$) {
-                try_files $uri =404;
-
-                include ${config.services.nginx.package}/conf/fastcgi_params;
-                include ${config.services.nginx.package}/conf/fastcgi.conf;
-
-                fastcgi_pass  unix:${config.services.phpfpm.pools.${domain}.socket};
-                fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                fastcgi_param PATH_INFO $fastcgi_path_info;
-              }
-            '';
-          };
-        };
-        */
-
         "${domain}" = mkIf cfg.isabelroses-web.enable {
           forceSSL = true;
           enableACME = true;
-          serverAliases = ["${domain}"];
-          locations."/" = {
-            proxyPass = "${inputs'.isabelroses-com.packages.default}";
-          };
+          locations."/".proxyPass = "http://127.0.0.1:3000";
         };
 
         # vaultwawrden

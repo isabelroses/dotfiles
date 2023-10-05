@@ -204,8 +204,6 @@
       flake = false;
     };
 
-    isabelroses-com.url = "github:isabelroses/isabelroses.com/master";
-
     neovim-flake = {
       url = "github:NotAShelf/neovim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
