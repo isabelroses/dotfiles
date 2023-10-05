@@ -45,7 +45,7 @@ export default () => Widget.Box({
                     children: [
                         Widget.Button({
                             valign: 'center',
-                            onClicked: Theme.openSettings,
+                            onClicked: () => Theme.openSettings(),
                             child: Widget.Icon(icons.settings),
                         }),
                         Widget.Label({
