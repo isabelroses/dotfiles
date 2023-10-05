@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  inputs',
   ...
 }: let
   cfg = config.modules.usrEnv.services;
@@ -33,7 +34,8 @@ in {
 
       virtualHosts = {
         # website + other stuff
-        "${domain}" = mkIf cfg.isabelroses-web.enable {
+        /*
+          "${domain}" = mkIf cfg.isabelroses-web.enable {
           forceSSL = true;
           enableACME = true;
           serverAliases = ["${domain}"];
@@ -55,6 +57,16 @@ in {
                 fastcgi_param PATH_INFO $fastcgi_path_info;
               }
             '';
+          };
+        };
+        */
+
+        "${domain}" = mkIf cfg.isabelroses-web.enable {
+          forceSSL = true;
+          enableACME = true;
+          serverAliases = ["${domain}"];
+          locations."/" = {
+            proxyPass = "${inputs'.isabelroses-com.packages.default}";
           };
         };
 
