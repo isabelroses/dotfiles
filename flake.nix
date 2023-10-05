@@ -19,8 +19,9 @@
         inputs.treefmt-nix.flakeModule
 
         # flake parts
+        ./flake/makeSys.nix # args that is passsed to the flake, moved away from the main file
+
         ./flake/pkgs # packages
-        ./flake/makeSys # args that is passsed to the flake, moved away from the main file
         ./flake/overlays # overlays that make the system that bit cleaner
         ./flake/templates # programing templates for the quick setup of new programing enviorments
         ./flake/schemas # home-baked schemas for upcoming nix schemas
