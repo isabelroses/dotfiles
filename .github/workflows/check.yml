@@ -22,4 +22,4 @@ jobs:
           logger: pretty
 
       - name: Check Flake
-        run: nix flake check --show-trace --accept-flake-config
+        run: nix flake check --accept-flake-config
