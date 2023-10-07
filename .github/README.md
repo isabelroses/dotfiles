@@ -51,3 +51,4 @@
 - [nullishamy](https://github.com/nullishamy/derivation-station)
 - [nekowinston](https://github.com/nekowinston/dotfiles)
 - [getchoo](https://github.com/getchoo)
+- [BlankParticle](https://github.com/BlankParticle/nixos-flake/blob/d4976617aaa2d2b1f9362fde547f835a4e3bed57/pkgs/discord-krisp-patcher/default.nix)
