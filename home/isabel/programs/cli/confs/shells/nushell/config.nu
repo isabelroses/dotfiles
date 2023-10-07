@@ -140,7 +140,7 @@ let theme = {
   shape_range: { fg: $stheme.yellow attr: b}
   shape_internalcall: { fg: $stheme.blue attr: b}
   shape_external: { fg: $stheme.blue attr: b}
-  shape_externalarg: $stheme.text 
+  shape_externalarg: $stheme.text
   shape_literal: $stheme.blue
   shape_operator: $stheme.yellow
   shape_signature: { fg: $stheme.green attr: b}
@@ -152,7 +152,7 @@ let theme = {
   shape_custom: {attr: b}
 }
 
-let-env config = {
+$env.config = {
   show_banner: false
   cursor_shape: {
     vi_normal: block
@@ -188,14 +188,14 @@ let-env config = {
       name: jump_to_start
       keycode: char_h
       modifier: shift
-      mode: [vi_normal] 
+      mode: [vi_normal]
       event: { edit: MoveToLineStart }
     }
     {
       name: jump_to_end
       modifier: shift
       keycode: char_l
-      mode: [vi_normal] 
+      mode: [vi_normal]
       event: { edit: MoveToLineEnd }
     }
   ]
@@ -212,8 +212,8 @@ let-env config = {
   }
 }
 
-let-env PROMPT_INDICATOR_VI_INSERT = "I "
-let-env PROMPT_INDICATOR_VI_NORMAL = "N "
+$env.PROMPT_INDICATOR_VI_INSERT = "I "
+$env.PROMPT_INDICATOR_VI_NORMAL = "N "
 
 # Aliases
 # ls to exa

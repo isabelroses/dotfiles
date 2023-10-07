@@ -17,10 +17,10 @@ in {
 
     home.file = {
       "${config.xdg.configHome}/nushell/config.nu" = mkForce {
-        source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/packages/cli/confs/nushell/config.nu";
+        source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/programs/cli/confs/shells/nushell/config.nu";
       };
       "${config.xdg.configHome}/nushell/env.nu" = mkForce {
-        source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/packages/cli/confs/nushell/env.nu";
+        source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/programs/cli/confs/shells/nushell/env.nu";
       };
       "${config.xdg.configHome}/nushell/history.txt" = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.dataHome}/history";
@@ -35,7 +35,7 @@ in {
       in {
         text = ''
           ${concatStringsSep "\n"
-            (mapAttrsToList (k: v: "let-env ${k} = ${v}")
+            (mapAttrsToList (k: v: "$env.${k} = ${v}")
               environmentVariables)}
         '';
       };
