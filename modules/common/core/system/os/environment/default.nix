@@ -11,7 +11,7 @@
     # variables that I want to set globally on all systems
     variables = {
       EDITOR = "nvim";
-      VISUAL = "nvim";
+      VISUAL = "vscodium";
       SYSTEMD_PAGERSECURE = "true";
       PAGER = "less -FR";
       FLAKE = "${config.modules.system.flakePath}";
