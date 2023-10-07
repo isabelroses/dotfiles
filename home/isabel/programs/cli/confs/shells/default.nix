@@ -4,5 +4,6 @@ _: {
 
     ./bash.nix
     ./fish.nix
+    ./shellAlias.nix
   ];
 }
