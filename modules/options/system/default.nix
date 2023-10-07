@@ -56,7 +56,7 @@ in {
     # the path to the flake
     flakePath = mkOption {
       type = types.str;
-      default = "/home/isabel/.setup";
+      default = "/home/isabel/.config/flake";
       description = "The path to the configuration";
     };
 
