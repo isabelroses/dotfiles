@@ -1,9 +1,8 @@
 _: {
   imports = [
-    ./nushell
-
     ./bash.nix
     ./fish.nix
+    ./nushell.nix
     ./shellAlias.nix
   ];
 }
