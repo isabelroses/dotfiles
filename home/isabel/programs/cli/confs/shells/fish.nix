@@ -1,6 +1,4 @@
-{osConfig, ...}: let
-  sys = osConfig.modules.system;
-in {
+_: {
   programs.fish = {
     enable = true;
     catppuccin.enable = true;
@@ -19,23 +17,6 @@ in {
         end
       '';
     };
-    shellAliases = {
-      mkidr = "mkdir -pv"; # always create pearent directory
-      df = "df -h"; # human readblity
-      rs = "sudo reboot";
-      sysctl = "sudo systemctl";
-      doas = "doas --";
-      jctl = "journalctl -p 3 -xb"; # get error messages from journalctl
-      lg = "lazygit";
-
-      docker = "podman";
-      docker-compose = "podman-compose";
-
-      # nix stuff
-      rebuild = "sudo nixos-rebuild switch --flake ${sys.flakePath}#${sys.hostname}";
-      nixclean = "sudo nix-collect-garbage --delete-older-than 3d && nix-collect-garbage -d";
-      nixrepair = "nix-store --verify --check-contents --repair";
-    };
     shellAbbrs = {};
     shellInit = ''
       starship init fish | source
@@ -48,5 +29,4 @@ in {
       export GPG_TTY=$(tty)
     '';
   };
-  #xdg.configFile."fish/conf.d" = symlink "home/${sys.username}/programs/cli/confs/fish/conf.d" {recursive = true;};
 }
