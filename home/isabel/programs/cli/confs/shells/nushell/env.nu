@@ -1,7 +1,7 @@
 mkdir ~/.cache/starship
 starship init nu | str replace "term size -c" "term size" | save -f ~/.cache/starship/init.nu
 
-let-env SSH_AGENT_TIMEOUT = 300
+$env.SSH_AGENT_TIMEOUT = 300
 mkdir ~/.cache/ssh-agent/
 
 if ("~/.cache/ssh-agent/agent" | path exists) {
