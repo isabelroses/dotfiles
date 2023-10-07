@@ -23,9 +23,6 @@ in {
     # declarative system and program themes (qt/gtk)
     ./themes
 
-    # dev shells
-    ./shells
-
     # other settings that can't be organized as easly
     ./misc
   ];
