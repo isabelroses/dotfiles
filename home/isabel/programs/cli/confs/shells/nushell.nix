@@ -270,7 +270,12 @@ in {
       '';
     };
     "${config.xdg.configHome}/nushell/scripts" = {
-      source = inputs.nu_scripts;
+      source = pkgs.fetchFromGitHub {
+        owner = "nushell";
+        repo = "nu_scripts";
+        rev = "85da8c2fb5967a7f575d8f63ebeb8d49d36fc139";
+        hash = "sha256-tT/BTnIXEgcMoyfujzWMFlOM7EclWT9LL/dt5jj7Y2M=";
+      };
     };
   };
 }

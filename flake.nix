@@ -193,14 +193,6 @@
     # mailserver on nixos
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
 
-    # nushell scripts
-    nu_scripts = {
-      type = "git";
-      url = "github.com:nushell/nu_scripts";
-      submodules = true;
-      flake = false;
-    };
-
     /*
     # my nvim conf
     isabel-nvim = {
