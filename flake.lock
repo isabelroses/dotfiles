@@ -1462,24 +1462,6 @@
         "type": "github"
       }
     },
-    "isabel-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1691575884,
-        "narHash": "sha256-42VQOHkvdqlqqs4Of0wXbrVyvvaIZIgQZx1pj3QMKY8=",
-        "ref": "refs/heads/main",
-        "rev": "1489357a98c4226122fff4c9574d85fdc9c84d49",
-        "revCount": 11,
-        "submodules": false,
-        "type": "git",
-        "url": "github:isabelroses/nvim"
-      },
-      "original": {
-        "submodules": false,
-        "type": "git",
-        "url": "github:isabelroses/nvim"
-      }
-    },
     "kommentary": {
       "flake": false,
       "locked": {
@@ -3094,7 +3076,6 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprpicker": "hyprpicker",
-        "isabel-nvim": "isabel-nvim",
         "lanzaboote": "lanzaboote",
         "nekowinston-nur": "nekowinston-nur",
         "neovim-flake": "neovim-flake",
