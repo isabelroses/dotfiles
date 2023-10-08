@@ -7,6 +7,7 @@ _: {
     ./hardware # hardware - i.e bluetooth, sound, tpm etc.
     ./media # enable multimedia
     ./os # system configurations
+    ./security # keeping the system safe
     ./smb # host and recive smb shares
     ./virtualization # hypervisor and virtualisation related options - docker, QEMU, waydroid etc.
   ];
