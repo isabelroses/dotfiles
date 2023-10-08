@@ -35,6 +35,10 @@
       in {
         # entry-point for nixos configurations
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
+
+        # build with `nix build .#images.<hostname>`
+        # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
+        images = import ./hosts/images.nix {inherit inputs self lib;};
       };
 
       perSystem = {
@@ -197,6 +201,7 @@
       flake = false;
     };
 
+    /*
     # my nvim conf
     isabel-nvim = {
       type = "git";
@@ -204,6 +209,7 @@
       submodules = false;
       flake = false;
     };
+    */
 
     neovim-flake = {
       url = "github:NotAShelf/neovim-flake";
