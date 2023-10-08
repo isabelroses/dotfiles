@@ -5,15 +5,7 @@
   ...
 }: let
   inherit (self) inputs;
-  inherit
-    (lib)
-    concatLists
-    mkNixosSystem
-    /*
-    mkNixosIso
-    */
-    
-    ;
+  inherit (lib) concatLists mkNixosSystem mkNixosIso;
 
   modulePath = ../modules;
   options = modulePath + /options; # the module that provides the options for my system configurations
@@ -110,6 +102,7 @@ in {
     ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
+  */
 
   lilith = mkNixosIso {
     system = "x86_64-linux";
@@ -118,5 +111,4 @@ in {
     ];
     specialArgs = sharedArgs;
   };
-  */
 }
