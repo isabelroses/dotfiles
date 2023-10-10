@@ -1,113 +1,126 @@
-import themes from '../../themes.js';
-import setupScss from './scss.js';
-import setupHyprland from './hyprland.js';
-import SettingsDialog from '../../settingsdialog/SettingsDialog.js';
-import { Service, Utils } from '../../imports.js';
+import themes from "../../themes.js";
+import setupScss from "./scss.js";
+import setupHyprland from "./hyprland.js";
+import SettingsDialog from "../../settingsdialog/SettingsDialog.js";
+import IconBrowser from "../../misc/IconBrowser.js";
+import { Service, Utils } from "../../imports.js";
 
-const THEME_CACHE = Utils.CACHE_DIR + '/theme-overrides.json';
+const THEME_CACHE = Utils.CACHE_DIR + "/theme-overrides.json";
 
 class ThemeService extends Service {
-    static { Service.register(this); }
+	static {
+		Service.register(this);
+	}
 
-    get themes() { return themes; }
+	get themes() {
+		return themes;
+	}
 
-    _defaultAvatar = `/home/${Utils.USER}/media/pictures/pfps/avatar`;
-    _defaultTheme = themes[0].name;
+	_defaultAvatar = `/home/${Utils.USER}/media/pictures/pfps/avatar`;
+	_defaultTheme = themes[0].name;
 
-    constructor() {
-        super();
-        Utils.exec('swww init');
-        this.setup();
-    }
+	constructor() {
+		super();
+		Utils.exec("swww init");
+		this.setup();
+	}
 
-    openSettings() {
-        if (!this._dialog)
-            this._dialog = SettingsDialog();
+	openSettings() {
+		if (!this._dialog) this._dialog = SettingsDialog();
 
-        this._dialog.hide();
-        this._dialog.present();
-    }
+		this._dialog.hide();
+		this._dialog.present();
+	}
 
-    getTheme() {
-        return themes.find(({ name }) => name === this.getSetting('theme'));
-    }
+	iconBrowser() {
+		IconBrowser();
+	}
 
-    setup() {
-        const theme = {
-            ...this.getTheme(),
-            ...this.settings,
-        };
-        setupScss(theme);
-        setupHyprland();
-        this.setupOther();
-        this.setupWallpaper();
-    }
+	getTheme() {
+		return themes.find(({ name }) => name === this.getSetting("theme"));
+	}
 
-    reset() {
-        Utils.exec(`rm ${THEME_CACHE}`);
-        this._settings = null;
-        this.setup();
-        this.emit('changed');
-    }
+	setup() {
+		const theme = {
+			...this.getTheme(),
+			...this.settings,
+		};
+		setupScss(theme);
+		setupHyprland();
+		this.setupOther();
+		this.setupWallpaper();
+	}
 
-    setupOther() {
-        const darkmode = this.getSetting('color_scheme') === 'dark';
+	reset() {
+		Utils.exec(`rm ${THEME_CACHE}`);
+		this._settings = null;
+		this.setup();
+		this.emit("changed");
+	}
 
-        if (Utils.exec('which gsettings')) {
-            const gsettings = 'gsettings set org.gnome.desktop.interface color-scheme';
-            Utils.execAsync(`${gsettings} "prefer-${darkmode ? 'dark' : 'light'}"`).catch(print);
-        }
-    }
+	setupOther() {
+		const darkmode = this.getSetting("color_scheme") === "dark";
 
-    setupWallpaper() {
-        Utils.execAsync([
-            'swww', 'img',
-            this.getSetting('wallpaper'),
-        ]).catch(print);
-    }
+		if (Utils.exec("which gsettings")) {
+			const gsettings =
+				"gsettings set org.gnome.desktop.interface color-scheme";
+			Utils.execAsync(
+				`${gsettings} "prefer-${darkmode ? "dark" : "light"}"`,
+			).catch(print);
+		}
+	}
 
-    get settings() {
-        if (this._settings)
-            return this._settings;
+	setupWallpaper() {
+		Utils.execAsync(["swww", "img", this.getSetting("wallpaper")]).catch(
+			print,
+		);
+	}
 
-        try {
-            this._settings = JSON.parse(Utils.readFile(THEME_CACHE));
-        } catch (_) {
-            this._settings = {};
-        }
+	get settings() {
+		if (this._settings) return this._settings;
 
-        return this._settings;
-    }
+		try {
+			this._settings = JSON.parse(Utils.readFile(THEME_CACHE));
+		} catch (_) {
+			this._settings = {};
+		}
 
-    setSetting(prop, value) {
-        const settings = this.settings;
-        settings[prop] = value;
-        Utils.writeFile(JSON.stringify(settings, null, 2), THEME_CACHE).catch(print);
-        this._settings = settings;
-        this.emit('changed');
+		return this._settings;
+	}
 
-        if (prop === 'layout') {
-            if (!this._notiSent) {
-                this._notiSent = true;
-                Utils.execAsync(['notify-send', 'Layout Change Needs a Reload']);
-            }
-            return;
-        }
+	setSetting(prop, value) {
+		const settings = this.settings;
+		settings[prop] = value;
+		Utils.writeFile(JSON.stringify(settings, null, 2), THEME_CACHE).catch(
+			print,
+		);
+		this._settings = settings;
+		this.emit("changed");
 
-        this.setup();
-    }
+		if (prop === "layout") {
+			if (!this._notiSent) {
+				this._notiSent = true;
+				Utils.execAsync([
+					"notify-send",
+					"Layout Change Needs a Reload",
+				]);
+			}
+			return;
+		}
 
-    getSetting(prop) {
-        if (prop === 'theme')
-            return this.settings.theme || this._defaultTheme;
+		this.setup();
+	}
 
-        if (prop === 'avatar')
-            return this.settings.avatar || this._defaultAvatar;
+	getSetting(prop) {
+		if (prop === "theme") return this.settings.theme || this._defaultTheme;
 
-        return this.settings[prop] !== undefined
-            ? this.settings[prop]
-            : this.getTheme()[prop];
-    }
+		if (prop === "avatar")
+			return this.settings.avatar || this._defaultAvatar;
+
+		return this.settings[prop] !== undefined
+			? this.settings[prop]
+			: this.getTheme()[prop];
+	}
 }
 
 export default new ThemeService();
