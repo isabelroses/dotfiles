@@ -9,11 +9,9 @@
     inputs.vscode-server.nixosModules.default
   ];
   services = {
-    vscode-server.enable = config.modules.usrEnv.services.vscode-server.enable;
+    vscode-server.enable = config.modules.services.vscode-server.enable;
     # monitor and control temparature
     thermald.enable = true;
-    # handle ACPI events
-    acpid.enable = true;
     # discard blocks that are not in use by the filesystem, good for SSDs
     fstrim.enable = true;
     # firmware updater for machine hardware
