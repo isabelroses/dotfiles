@@ -9,7 +9,7 @@
   inherit (osConfig.modules) system;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.usrEnv.programs.gui.enable && defaults.bar == "ags") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.programs.gui.enable && defaults.bar == "ags") {
     home = {
       packages = with pkgs; [
         nur.repos.bella.ags
