@@ -38,7 +38,7 @@
     };
 
     overlays = let
-      nurOpt = config.modules.usrEnv.programs.nur;
+      nurOpt = config.modules.programs.nur;
     in
       [
         inputs.rust-overlay.overlays.default
