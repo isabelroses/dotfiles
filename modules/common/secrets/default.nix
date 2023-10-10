@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (config.modules.usrEnv) services;
+  inherit (config.modules) services;
 in {
   imports = [inputs.sops.nixosModules.sops];
 
