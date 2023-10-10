@@ -15,7 +15,7 @@
 
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig) && osConfig.modules.usrEnv.programs.gui.enable && defaults.bar == "eww") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig) && osConfig.modules.programs.gui.enable && defaults.bar == "eww") {
     home.packages = with pkgs; [
       socat
       jaq

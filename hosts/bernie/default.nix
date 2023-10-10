@@ -44,32 +44,32 @@ _: {
       usrEnv = {
         isWayland = false;
         useHomeManager = true;
+      };
 
-        programs = {
-          git.signingKey = "B4D9D513B1560D99";
+      programs = {
+        git.signingKey = "B4D9D513B1560D99";
 
-          cli = {
-            enable = true;
-            modernShell.enable = true;
-          };
-          tui.enable = true;
-          gui.enable = false;
-
-          nur = {
-            enable = true;
-            bella = true;
-            nekowinston = true;
-          };
+        cli = {
+          enable = true;
+          modernShell.enable = true;
         };
+        tui.enable = true;
+        gui.enable = false;
 
-        services = {
-          vscode-server.enable = true;
-          mailserver.enable = true;
-          gitea.enable = true;
-          vaultwarden.enable = true;
-          isabelroses-web.enable = true;
-          nginx.enable = true;
+        nur = {
+          enable = true;
+          bella = true;
+          nekowinston = true;
         };
+      };
+
+      services = {
+        vscode-server.enable = true;
+        mailserver.enable = true;
+        gitea.enable = true;
+        vaultwarden.enable = true;
+        isabelroses-web.enable = true;
+        nginx.enable = true;
       };
     };
   };

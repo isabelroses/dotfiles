@@ -1,10 +1,6 @@
 {lib, ...}: let
   inherit (lib) mkOption types mdDoc;
 in {
-  imports = [
-    ./programs
-    ./services
-  ];
   options.modules.usrEnv = {
     useHomeManager = mkOption {
       type = types.bool;

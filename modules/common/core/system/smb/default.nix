@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  smb = config.modules.usrEnv.services.smb;
+  smb = config.modules.services.smb;
 in {
   imports = [
     ./recive

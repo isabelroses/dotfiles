@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf optionals;
-  cfg = osConfig.modules.usrEnv.programs;
+  cfg = osConfig.modules.programs;
 in {
   config = mkIf cfg.cli.enable {
     home.packages = with pkgs;

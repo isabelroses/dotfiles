@@ -6,7 +6,7 @@
 }: let
   inherit (config.networking) domain;
 in {
-  services.wakapi = lib.mkIf config.modules.usrEnv.services.wakapi.enable {
+  services.wakapi = lib.mkIf config.modules.services.wakapi.enable {
     enable = true;
     package = pkgs.wakapi;
 
@@ -21,6 +21,6 @@ in {
         allow_signup = false;
         disable_frontpage = true;
       };
-    };
+    };    
   };
 }

@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib) mkEnableOption;
 in {
-  options.modules.usrEnv.services = {
+  options.modules.services = {
     mailserver.enable = mkEnableOption "Enable the mailserver service";
     gitea.enable = mkEnableOption "Enable the gitea service";
     cyberchef.enable = mkEnableOption "Enable the cyberchef website";

@@ -10,7 +10,7 @@
   inherit (osConfig.modules) system;
 in {
   programs.nushell = {
-    inherit (osConfig.modules.usrEnv.programs.cli) enable;
+    inherit (osConfig.modules.programs.cli) enable;
     package = pkgs.nushell;
 
     extraConfig = ''
@@ -251,7 +251,7 @@ in {
       '';
   };
 
-  home.file = mkIf osConfig.modules.usrEnv.programs.cli.enable {
+  home.file = mkIf osConfig.modules.programs.cli.enable {
     "${config.xdg.configHome}/nushell/history.txt" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.dataHome}/history";
     };

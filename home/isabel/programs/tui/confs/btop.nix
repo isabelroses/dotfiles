@@ -5,7 +5,7 @@
 }: let
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.tui.enable) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.tui.enable) {
     programs.btop = {
       enable = true;
       catppuccin.enable = true;

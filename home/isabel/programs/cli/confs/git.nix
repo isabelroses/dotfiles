@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  cfg = osConfig.modules.usrEnv.programs.git;
+  cfg = osConfig.modules.programs.git;
 in {
   config = {
     home.packages = with pkgs; [

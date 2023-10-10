@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.usrEnv.services.gitea;
+  cfg = config.modules.services.gitea;
   inherit (config.networking) domain;
   gitea_domain = "git.${domain}";
 

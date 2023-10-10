@@ -9,7 +9,7 @@ in {
     ./defaults
   ];
 
-  options.modules.usrEnv.programs = {
+  options.modules.programs = {
     cli = {
       enable = mkEnableOption "Enable CLI programs";
       modernShell.enable = mkEnableOption "Enable modern shell programs";
@@ -28,7 +28,7 @@ in {
     };
 
     gaming = let
-      cfg = config.modules.usrEnv.programs.gaming;
+      cfg = config.modules.programs.gaming;
     in {
       enable = mkEnableOption "Enable packages required for the device to be gaming-ready";
       emulation.enable = mkEnableOption "Enable programs required to emulate other platforms";

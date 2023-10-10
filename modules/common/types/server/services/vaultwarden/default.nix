@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (config.networking) domain;
-  cfg = config.modules.usrEnv.services.vaultwarden;
+  cfg = config.modules.services.vaultwarden;
 in {
   config = lib.mkIf cfg.enable {
     # this forces the system to create backup folder

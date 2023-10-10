@@ -8,7 +8,7 @@
   inherit (osConfig.modules.system) video;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable && video.enable && defaults.browser == "chromium") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable && defaults.browser == "chromium") {
     programs.chromium = {
       enable = true;
       extensions = [

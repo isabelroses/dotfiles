@@ -6,7 +6,7 @@
   inherit (lib) mkIf;
   inherit (config.networking) domain;
 in {
-  services.cloudflared = mkIf (config.modules.usrEnv.services.cloudflared.enable) {
+  services.cloudflared = mkIf (config.modules.services.cloudflared.enable) {
     enable = true;
     tunnels.${config.networking.hostName} = {
       credentialsFile = "${config.sops.secrets.cloudflared-hydra.path}";
