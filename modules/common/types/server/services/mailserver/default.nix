@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (config.networking) domain;
-  cfg = config.modules.usrEnv.services.mailserver;
+  cfg = config.modules.services.mailserver;
 in {
   imports = [
     inputs.simple-nixos-mailserver.nixosModule

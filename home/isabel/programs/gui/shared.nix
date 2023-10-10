@@ -6,7 +6,7 @@
 }: let
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable) {
     home.packages = with pkgs; [
       bitwarden
       obsidian

@@ -7,7 +7,7 @@
 }: let
   inherit (config.networking) domain;
 in {
-  services.nginx.virtualHosts."chef.${domain}" = lib.mkIf config.modules.usrEnv.services.cyberchef.enable {
+  services.nginx.virtualHosts."chef.${domain}" = lib.mkIf config.modules.services.cyberchef.enable {
     default = true;
     forceSSL = true;
     enableACME = true;

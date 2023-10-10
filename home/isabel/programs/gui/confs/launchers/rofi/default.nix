@@ -15,7 +15,7 @@
 in {
   imports = [./config.nix];
 
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable && defaults.launcher == "rofi") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && defaults.launcher == "rofi") {
     programs.rofi = {
       enable = true;
       package = rofiPackage.override {

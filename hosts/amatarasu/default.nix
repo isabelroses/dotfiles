@@ -60,40 +60,40 @@ in {
         isWayland = true;
         desktop = "Hyprland";
         useHomeManager = true;
+      };
 
-        programs = {
-          git.signingKey = "7F2F6BD6997FCDF7";
+      programs = {
+        git.signingKey = "7F2F6BD6997FCDF7";
 
-          cli = {
-            enable = true;
-            modernShell.enable = true;
-          };
-          tui.enable = true;
-          gui.enable = true;
+        cli = {
+          enable = true;
+          modernShell.enable = true;
+        };
+        tui.enable = true;
+        gui.enable = true;
 
-          zathura.enable = true;
+        zathura.enable = true;
 
-          defaults = {
-            bar = "ags";
-          };
-
-          nur = {
-            enable = true;
-            bella = true;
-            nekowinston = true;
-          };
+        defaults = {
+          bar = "ags";
         };
 
-        services = {
-          smb = {
-            enable = false;
-            recive = {
-              media = false;
-              general = false;
-            };
-          };
-          vscode-server.enable = true;
+        nur = {
+          enable = true;
+          bella = true;
+          nekowinston = true;
         };
+      };
+
+      services = {
+        smb = {
+          enable = false;
+          recive = {
+            media = false;
+            general = false;
+          };
+        };
+        vscode-server.enable = true;
       };
     };
 

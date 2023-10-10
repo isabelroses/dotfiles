@@ -49,44 +49,44 @@ _: {
         isWayland = true;
         desktop = "Hyprland";
         useHomeManager = true;
+      };
 
-        programs = {
-          git.signingKey = "CFF897835DD77813";
+      programs = {
+        git.signingKey = "CFF897835DD77813";
 
-          cli = {
-            enable = true;
-            modernShell.enable = true;
-          };
-          tui.enable = true;
-          gui.enable = true;
+        cli = {
+          enable = true;
+          modernShell.enable = true;
+        };
+        tui.enable = true;
+        gui.enable = true;
 
-          zathura.enable = true;
+        zathura.enable = true;
 
-          defaults = {
-            bar = "ags";
-          };
-
-          nur = {
-            enable = true;
-            bella = true;
-            nekowinston = true;
-          };
+        defaults = {
+          bar = "ags";
         };
 
-        services = {
-          smb = {
-            enable = false;
-            recive = {
-              media = false;
-              general = false;
-            };
+        nur = {
+          enable = true;
+          bella = true;
+          nekowinston = true;
+        };
+      };
+
+      services = {
+        smb = {
+          enable = false;
+          recive = {
+            media = false;
+            general = false;
           };
-          vscode-server.enable = true;
-          cloudflared.enable = false;
-          jellyfin = {
-            enable = false;
-            asDockerContainer = false;
-          };
+        };
+        vscode-server.enable = true;
+        cloudflared.enable = false;
+        jellyfin = {
+          enable = false;
+          asDockerContainer = false;
         };
       };
     };

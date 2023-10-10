@@ -41,27 +41,27 @@
       usrEnv = {
         isWayland = false;
         useHomeManager = true;
+      };
 
-        programs = {
-          git.signingKey = "";
+      programs = {
+        git.signingKey = "";
 
-          cli.enable = true;
-          gui.enable = false;
+        cli.enable = true;
+        gui.enable = false;
 
-          nur = {
-            enable = true;
-            bella = true;
-            nekowinston = true;
-          };
+        nur = {
+          enable = true;
+          bella = true;
+          nekowinston = true;
         };
+      };
 
-        services = {
-          smb = {
-            enable = true;
-          };
-          vscode-server.enable = true;
-          mailserver.enable = true;
+      services = {
+        smb = {
+          enable = true;
         };
+        vscode-server.enable = true;
+        mailserver.enable = true;
       };
     };
 

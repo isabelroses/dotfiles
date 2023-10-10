@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  cfg = config.modules.usrEnv.services;
+  cfg = config.modules.services;
   inherit (lib) mkIf;
   domain = "isabelroses.com";
 in {

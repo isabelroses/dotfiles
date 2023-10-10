@@ -8,7 +8,7 @@
   inherit (osConfig.modules.system) video;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable && video.enable && defaults.terminal == "kitty") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable && defaults.terminal == "kitty") {
     programs.kitty = {
       enable = true;
       catppuccin.enable = true;

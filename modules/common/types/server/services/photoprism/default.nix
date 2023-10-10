@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (config.networking) domain;
-  cfg = config.modules.usrEnv.services.photoprism;
+  cfg = config.modules.services.photoprism;
 in {
   services = lib.mkIf cfg.enable {
     photoprism = {

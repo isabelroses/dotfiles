@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  cfg = config.modules.usrEnv.services.jellyfin;
+  cfg = config.modules.services.jellyfin;
 in {
   config = mkIf cfg.enable {
     # NOT docker

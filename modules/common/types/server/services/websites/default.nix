@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  cfg = config.modules.usrEnv.services.isabelroses-web;
+  cfg = config.modules.services.isabelroses-web;
 in {
   /*
   config.services.phpfpm.pools.${domain} = lib.mkIf cfg.enable {

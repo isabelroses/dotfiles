@@ -8,7 +8,7 @@
   acceptedTypes = ["laptop" "desktop" "hybrid"];
   inherit (osConfig.modules.system) flakePath mainUser;
 in {
-  programs.vscode = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable) {
+  programs.vscode = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable) {
     enable = true;
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [
@@ -64,7 +64,7 @@ in {
     mutableExtensionsDir = true;
   };
 
-  xdg.configFile = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.usrEnv.programs.gui.enable) {
+  xdg.configFile = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable) {
     "VSCodium/User/keybindings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/programs/editors/vscode/keybindings.json";
     "VSCodium/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/programs/editors/vscode/settings.json";
   };

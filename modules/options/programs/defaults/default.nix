@@ -1,7 +1,7 @@
 {lib, ...}: let
   inherit (lib) mkOption types mdDoc;
 in {
-  options.modules.usrEnv.programs = {
+  options.modules.programs = {
     # default program options
     defaults = {
       terminal = mkOption {

@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  cfg = config.modules.usrEnv.services.smb;
+  cfg = config.modules.services.smb;
 in {
   config = mkIf cfg.enable {
     services = {
