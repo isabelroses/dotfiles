@@ -2,10 +2,8 @@
   config,
   lib,
   ...
-}: let
-  inherit (lib) mkIf;
-in {
-  system.activationScripts.diff = mkIf config.modules.system.activation.diffGenerations {
+}: {
+  system.activationScripts.diff = lib.mkIf config.modules.system.activation.diffGenerations {
     supportsDryActivation = true;
     text = ''
       if [[ -e /run/current-system ]]; then
