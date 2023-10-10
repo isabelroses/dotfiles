@@ -10,6 +10,7 @@
     flake-parts.lib.mkFlake {inherit inputs;} ({withSystem, ...}: {
       systems = [
         "x86_64-linux"
+        "aarch64-linux"
       ];
 
       imports = [
@@ -43,6 +44,7 @@
 
       perSystem = {
         config,
+        self',
         inputs',
         pkgs,
         ...

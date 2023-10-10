@@ -31,7 +31,7 @@
     defaultPackages = [];
 
     # enable completions for system packages
-    pathsToLink = ["/share/fish" "/share/bash-completion" "/share/nix-direnv"];
+    pathsToLink = ["/share/zsh" "/share/nushell" "/share/fish" "/share/bash-completion" "/share/nix-direnv"];
 
     # https://github.com/NixOS/nixpkgs/issues/72394#issuecomment-549110501
     # why??

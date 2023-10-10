@@ -6,6 +6,9 @@
   ...
 }: let
   inherit (lib) mkIf mkDefault;
+  inherit (pkgs.stdenv) hostPlatform;
+
+  isx86Linux = hostPlatform.isLinux && hostPlatform.isx86;
 
   cfg = config.modules.system.sound;
   inherit (config.modules) device;
@@ -30,7 +33,7 @@ in {
       jack.enable = true;
       alsa = {
         enable = true;
-        support32Bit = with pkgs; (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86);
+        support32Bit = isx86Linux;
       };
 
       lowLatency = {

@@ -47,7 +47,8 @@ with lib; {
       dns = "systemd-resolved";
       unmanaged = ["docker0" "rndis0"];
       wifi = {
-        macAddress = "random"; # use a random mac address on every boot, this can scew with static ip
+        # The bellow is disabled as my uni hated me for it
+        # macAddress = "random"; # use a random mac address on every boot, this can scew with static ip
         powersave = true;
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
       };
