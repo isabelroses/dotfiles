@@ -4,13 +4,11 @@
   osConfig,
   ...
 }: let
-  inherit (osConfig.modules.usrEnv) programs;
+  inherit (osConfig.modules) programs;
   acceptedTypes = ["laptop" "desktop" "lite"];
 in {
   imports = [
-    ./mangohud
     ./minecraft
-    ./steam
   ];
 
   config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && programs.gaming.enable) {
