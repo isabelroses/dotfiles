@@ -35,7 +35,7 @@ in {
       # if your system is low on ram, you should avoid tmpfs to prevent hangups while compiling
       tmp = {
         # /tmp on tmpfs, lets it live on your ram
-        useTmpfs = mkDefault true;
+        useTmpfs = sys.boot.tmpOnTmpfs;
 
         # If not using tmpfs, which is naturally purged on reboot, we must clean
         # /tmp ourselves. /tmp should be volatile storage!
@@ -43,8 +43,7 @@ in {
       };
 
       # initrd and kernel tweaks
-      # if you intend to copy paste this section, read what each parameter or module does before doing so
-      # I am not responsible for your broken system
+      # read what each parameter or module does before doing so, it will defo break something otherwise
       initrd = mkMerge [
         (mkIf sys.boot.enableInitrdTweaks {
           # Verbosity of the initrd
@@ -55,84 +54,49 @@ in {
           # saves 30~ mb space according to the nix derivation
           systemd.strip = true;
 
+          # enable systemd in initrd
           # extremely experimental, just the way I like it on a production machine
           systemd.enable = true;
-        })
 
-        (mkIf sys.boot.enableKernelTweaks {
           # List of modules that are always loaded by the initrd
           kernelModules = [
+            "nvme"
             "xhci_pci"
             "ahci"
             "btrfs"
             "cifs"
             "sd_mod"
             "dm_mod"
-            "usb_storage"
-            "rtsx_pci_sdmmc"
+            "tpm"
           ];
 
           # the set of kernel modules in the initial ramdisk used during the boot process
           availableKernelModules = [
-            "nvme"
             "usbhid"
             "sd_mod"
             "dm_mod"
+            "uas"
+            "usb_storage"
+            "rtsx_pci_sdmmc" # Realtek SD card interface (btw i hate realtek)
           ];
         })
       ];
 
       # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
       kernelParams =
-        [
+        optionals sys.boot.enableKernelTweaks [
           # https://en.wikipedia.org/wiki/Kernel_page-table_isolation
           # auto means kernel will automatically decide the pti state
           "pti=auto" # on | off
 
-          # make stack-based attacks on the kernel harder
-          "randomize_kstack_offset=on"
-
-          # this has been defaulted to none back in 2016 - break really old binaries for security
-          "vsyscall=none"
-
-          # https://tails.boum.org/contribute/design/kernel_hardening/
-          "slab_nomerge"
-
-          # only allow signed modules
-          "module.sig_enforce=1"
-
-          # blocks access to all kernel memory, even preventing administrators from being able to inspect and probe the kernel
-          "lockdown=confidentiality"
-
-          # enable buddy allocator free poisoning
-          "page_poison=1"
-
-          # performance improvement for direct-mapped memory-side-cache utilization, reduces the predictability of page allocations
-          "page_alloc.shuffle=1"
-
-          # for debugging kernel-level slab issues
-          "slub_debug=FZP"
-
-          # always-enable sysrq keys. Useful for debugging
-          "sysrq_always_enabled=0"
-
-          # save power on idle by limiting c-states
-          # https://gist.github.com/wmealing/2dd2b543c4d3cff6cab7
-          "processor.max_cstate=5"
-
           # disable the intel_idle driver and use acpi_idle instead
           "idle=nomwait"
-
-          # ignore access time (atime) updates on files, except when they coincide with updates to the ctime or mtime
-          "rootflags=noatime"
 
           # enable IOMMU for devices used in passthrough and provide better host performance
           "iommu=pt"
 
           # disable usb autosuspend
           "usbcore.autosuspend=-1"
-          # linux security modules
-          "lsm=landlock,lockdown,yama,apparmor,bpf"
 
           # isables resume and restores original swap space
           "noresume"
@@ -146,9 +110,6 @@ in {
           # disable boot logo if any
           "logo.nologo"
 
-          # tell the kernel to not be verbose
-          # "quiet"
-
           # disable systemd status messages
           # rd prefix means systemd-udev will be used instead of initrd
           "rd.systemd.show_status=auto"
@@ -158,6 +119,10 @@ in {
 
           # disable the cursor in vt to get a black screen during intermissions
           "vt.global_cursor_default=0"
+        ]
+        ++ optionals sys.boot.silentBoot [
+          # tell the kernel to not be verbose, the voices are too loud
+          "quite"
         ]
         ++ optionals (sys.boot.extraKernelParams != []) sys.boot.extraKernelParams;
     };

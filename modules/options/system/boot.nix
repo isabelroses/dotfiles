@@ -12,13 +12,29 @@ in {
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
     tmpOnTmpfs = mkEnableOption "`/tmp` living on tmpfs. false means it will be cleared manually on each reboot";
-    secureBoot = mkEnableOption "secure-boot and load necessary packages";
+
+    kernel = mkOption {
+      type = types.raw;
+      default = pkgs.linuxPackages_latest;
+      description = "The kernel to use for the system.";
+    };
+
+    # https://nixos.wiki/wiki/Secure_Boot
+    secureBoot = mkEnableOption ''
+      secure-boot and load necessary packages, say good bye to systemd-boot
+    '';
 
     extraModprobeConfig = mkOption {
       type = types.str;
       default = ''options hid_apple fnmode=1'';
       description = "Extra modprobe config that will be passed to system modprobe config.";
     };
+
+    silentBoot =
+      mkEnableOption (lib.mdDoc ''
+        almost entirely silent boot process through `quiet` kernel parameter
+      '')
+      // {default = config.modules.system.boot.plymouth.enable;};
 
     extraKernelParams = mkOption {
       type = with types; listOf str;
@@ -29,11 +45,6 @@ in {
       type = with types; listOf package;
       default = with config.boot.kernelPackages; [acpi_call];
       description = "Extra kernel modules to be loaded.";
-    };
-
-    kernel = mkOption {
-      type = types.raw;
-      default = pkgs.linuxPackages_latest;
     };
 
     # the bootloader that should be used
