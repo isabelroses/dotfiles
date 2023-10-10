@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.modules) system usrEnv;
+  inherit (config.modules) system usrEnv programs;
   inherit (lib) mkIf;
   sessionData = config.services.xserver.displayManager.sessionData.desktops;
   sessionPath = lib.concatStringsSep ":" [
@@ -24,7 +24,7 @@ in {
         };
       };
 
-      greetd = mkIf (usrEnv.programs.defaults.loginManager == "greetd") {
+      greetd = mkIf (programs.defaults.loginManager == "greetd") {
         gnupg.enable = true;
         enableGnomeKeyring = true;
       };
@@ -42,7 +42,7 @@ in {
       ];
 
       greetd = {
-        enable = usrEnv.programs.defaults.loginManager == "greetd";
+        enable = programs.defaults.loginManager == "greetd";
         vt = 2;
         restart = !system.autoLogin;
         settings = {
