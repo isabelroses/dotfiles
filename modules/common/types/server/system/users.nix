@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  cfg = config.modules.usrEnv.services;
+  cfg = config.modules.services;
 in {
   users = {
     groups.wakapi = mkIf cfg.wakapi.enable {};
@@ -21,7 +21,7 @@ in {
         group = "wakapi";
       };
       /*
-      cloudflared = mkIf config.modules.usrEnv.services.cloudflared.enable {
+      cloudflared = mkIf config.modules.services.cloudflared.enable {
         isSystemUser = true;
         extraGroups = [];
         useDefaultShell = true;
