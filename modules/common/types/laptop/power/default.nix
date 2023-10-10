@@ -39,6 +39,10 @@ in {
     };
 
     services = {
+      # handle ACPI events
+      acpid.enable = true;
+
+      # a very cool user-selected power profiles helping my system not die 5 mins into my lecture
       power-profiles-daemon.enable = true;
 
       # temperature target on battery
@@ -86,11 +90,12 @@ in {
     };
     boot = {
       kernelModules = ["acpi_call"];
-      extraModulePackages = with config.boot.kernelPackages; [
-        acpi_call
-        cpupower
-        pkgs.cpupower-gui
-      ];
+      extraModulePackages = with config.boot.kernelPackages;
+        [
+          acpi_call
+          cpupower
+        ]
+        ++ [pkgs.cpupower-gui];
     };
   };
 }
