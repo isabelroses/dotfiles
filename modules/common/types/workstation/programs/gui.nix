@@ -31,6 +31,6 @@
     seahorse.enable = true;
 
     # networkmanager tray uility
-    nm-applet.enable = config.modules.usrEnv.programs.defaults.bar == "waybar";
+    nm-applet.enable = config.modules.programs.defaults.bar == "waybar";
   };
 }
