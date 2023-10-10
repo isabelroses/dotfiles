@@ -12,7 +12,7 @@
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && (sys.video.enable)) {
+  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
     xdg.systemDirs.data = let
       schema = pkgs.gsettings-desktop-schemas;
     in ["${schema}/share/gsettings-schemas/${schema.name}"];
