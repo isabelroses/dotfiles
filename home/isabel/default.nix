@@ -13,16 +13,12 @@ in {
 
     # important system enviroment config
     ./system
-
     # programs that are used, e.g. GUI apps
     ./programs
-
     # system services, organized by display protocol
     ./services
-
     # Application themeing
     ./themes
-
     # Other data that can't be organized as easly
     ./misc
   ];
