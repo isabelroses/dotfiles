@@ -20,15 +20,6 @@ in {
         isSystemUser = true;
         group = "wakapi";
       };
-      /*
-      cloudflared = mkIf config.modules.services.cloudflared.enable {
-        isSystemUser = true;
-        extraGroups = [];
-        useDefaultShell = true;
-        home = "/var/lib/cloudflared";
-        group = "cloudflared";
-      };
-      */
     };
   };
 }
