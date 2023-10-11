@@ -85,6 +85,6 @@ with lib; {
   # disable fontConfig to save space, not like we have a GUI anyways
   fonts.fontconfig.enable = lib.mkForce false;
 
-  # disable sound related programs, more space saving
+  # disable sound related programs, saving more space
   sound.enable = false;
 }
