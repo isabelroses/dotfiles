@@ -13,9 +13,8 @@ in {
       enable = true;
       catppuccin.enable = true;
       settings = {
-        # General
         background_opacity = "0.85";
-        font_family = "monospace";
+        font_family = "RobotoMono Nerd Font";
         font_size = 13;
         disable_ligatures = "never";
         cursor_shape = "beam";
