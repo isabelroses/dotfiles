@@ -1,9 +1,12 @@
 _: {
   imports = [
-    ./environment
-    ./network
-    ./programs
-    ./services
-    ./users
+    ./boot # boot and bootloader configurations
+    ./display # display protocol
+    ./environment # system enviroment
+    ./fs # file system confiurations
+    ./network # networking
+    ./programs # common programs
+    ./services # common services
+    ./users # who is on the system
   ];
 }

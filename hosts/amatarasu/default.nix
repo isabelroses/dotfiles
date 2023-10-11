@@ -35,6 +35,7 @@ in {
           loadRecommendedModules = true;
         };
 
+        fs = ["ext4" "vfat"];
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;

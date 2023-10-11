@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkOption mkEnableOption optionals types;
+  inherit (lib) mkOption mkEnableOption optionals types mdDoc;
 in {
   imports = [
     ./activation.nix
@@ -33,7 +33,7 @@ in {
     users = mkOption {
       type = with types; listOf str;
       default = ["isabel"];
-      description = lib.mdDoc ''
+      description = mdDoc ''
         A list of users that you wish to declare as your non-system users. The first username
         in the list will be treated as your main user unless `modules.system.mainUser` is set.
       '';
@@ -47,9 +47,20 @@ in {
     autoLogin = mkOption {
       type = types.bool;
       default = false;
-      description = lib.mdDoc ''
+      description = mdDoc ''
         Whether to enable passwordless login. This is generally useful on systems with
         FDE (Full Disk Encryption) enabled. It is a security risk for systems without FDE.
+      '';
+    };
+
+    fs = mkOption {
+      type = with types; listOf str;
+      default = ["vfat" "ext4"];
+      description = mdDoc ''
+        A list of filesystems available supported by the system
+        it will enable services based on what strings are found in the list.
+
+        It would be a good idea to keep vfat and ext4 so you can mount USBs.
       '';
     };
 
