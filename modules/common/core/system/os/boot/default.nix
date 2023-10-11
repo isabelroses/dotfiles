@@ -1,6 +1,5 @@
 _: {
   imports = [
-    ./encryption
     ./generic
     ./loader
     ./plymouth
