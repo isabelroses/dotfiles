@@ -17,6 +17,11 @@ with lib; {
   };
 
   networking = {
+    # generate a host ID by hashing the hostname
+    hostId = builtins.substring 0 8 (
+      builtins.hashString "md5" config.networking.hostName
+    );
+
     hostName = config.modules.system.hostname;
     # global dhcp has been deprecated upstream
     # use networkd instead
@@ -42,9 +47,12 @@ with lib; {
       dns = "systemd-resolved";
       unmanaged = ["docker0" "rndis0"];
       wifi = {
+        # The bellow is disabled as my uni hated me for it
+        # macAddress = "random"; # use a random mac address on every boot, this can scew with static ip
         powersave = true;
-        #macAddress = "random"; # use a random mac address on every boot
+        scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
       };
+      ethernet.macAddress = "random";
     };
   };
 
@@ -56,6 +64,7 @@ with lib; {
   systemd = let
     ethernetDevices = [
       "wlp1s0f0u8" # wifi dongle
+      "enp7s0" # ethernet interface on the motherboard
     ];
   in {
     network.wait-online.enable = false;

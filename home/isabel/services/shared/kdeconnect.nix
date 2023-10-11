@@ -2,13 +2,13 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
+}: let
+  inherit (osConfig.modules.system) video;
+  inherit (lib) mkIf isAcceptedDevice;
+
   acceptedTypes = ["desktop" "laptop" "hybrid"];
-  sys = osConfig.modules.system;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
+  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && video.enable) {
     # connect my phone
     services.kdeconnect = {
       enable = true;

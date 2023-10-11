@@ -30,6 +30,17 @@ in {
 
       # help manage android devices via command line
       adb.enable = true;
+
+      # enable direnv integration
+      direnv = {
+        enable = true;
+
+        # shut up. SHUT UP
+        silent = true;
+
+        # faster, persistent implementation of use_nix and use_flake
+        nix-direnv.enable = true;
+      };
     };
 
     # determine which version of wine to be used

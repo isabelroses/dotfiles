@@ -3,12 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
-  device = config.modules.device;
+}: let
+  inherit (config.modules) device;
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = lib.mkIf (builtins.elem device.type acceptedTypes) {
     services = {
       udev.packages = with pkgs; [
         gnome.gnome-settings-daemon

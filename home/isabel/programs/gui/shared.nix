@@ -3,15 +3,10 @@
   lib,
   osConfig,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-
-  device = osConfig.modules.device;
+}: let
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
-  sys = osConfig.modules.system;
 in {
-  config = mkIf ((programs.gui.enable && sys.video.enable) && (builtins.elem device.type acceptedTypes)) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable) {
     home.packages = with pkgs; [
       bitwarden
       obsidian
@@ -21,7 +16,6 @@ in {
       jellyfin-media-player
       mangal # tui manga finder + reader
       insomnia # rest client
-      libreoffice # office apps
     ];
   };
 }

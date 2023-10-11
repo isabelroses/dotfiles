@@ -5,12 +5,15 @@
   inputs,
   defaults,
   ...
-}: let
-  inherit (lib) mkIf;
-in {
-  config = mkIf (defaults.editor == "nvim") {
-    home.file."${config.xdg.configHome}/nvim" = {
-      source = inputs.isabel-nvim;
+}: {
+  config = lib.mkIf (defaults.editor == "nvim") {
+    xdg.configFile = let
+      symlink = fileName: {recursive ? false}: {
+        source = config.lib.file.mkOutOfStoreSymlink "${fileName}";
+        inherit recursive;
+      };
+    in {
+      "nvim" = symlink inputs.isabel-nvim {recursive = true;};
     };
 
     programs.neovim = {

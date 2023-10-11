@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./nix # configuration for the nix package manager and build tool
+    ./gaming # super cool procrastinations related things
     ./system # system configurations, from bootloader to desktop environment
   ];
 }

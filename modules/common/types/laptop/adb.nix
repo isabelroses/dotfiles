@@ -4,12 +4,10 @@
   ...
 } @ args:
 with lib; let
-  device = config.modules.device;
+  inherit (config.modules) device;
 in {
   config = mkIf (device.type == "laptop" || device.type == "hybrid") {
     services = {
-      # TODO: move android adb rule elsewhere
-      # this should probably be a device or programs option
       udev.extraRules = let
         inherit (import ./plugged.nix args) plugged unplugged;
       in ''

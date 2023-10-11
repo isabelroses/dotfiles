@@ -3,27 +3,22 @@ window.corner .corner {
     border-radius: if($screen_corners, $radii*2, 0);
 }
 
-.desktop {
+window.desktop {
     @if $bar_style =='normal' {
         border-radius: if($screen_corners, $popover_radius, 0);
         box-shadow: inset 0 0 $spacing 0 $shadow;
     }
 
-    @if $drop_shadow {
-        label {
-            text-shadow: $text_shadow;
-        }
+    .date {
+        color: $wallpaper_fg;
+        font-size: 48px;
     }
+}
 
-    @else {
-
-        .separator {
-            border: $border;
-        }
-
-        label {
-            @include text_border;
-        }
+.desktop-menu {
+    image {
+        margin-left: -14px;
+        margin-right: 6px;
     }
 }
 
@@ -40,12 +35,8 @@ window.indicator .progress {
             -gtk-icon-transform: scale(0.7);
         }
 
-        .icon overlay {
+        .font-icon {
             font-size: 34px;
-
-            label {
-                font-size: 34px;
-            }
         }
     }
 }

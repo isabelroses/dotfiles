@@ -3,9 +3,10 @@
   lib,
   ...
 }: let
-  env = osConfig.modules.usrEnv;
+  inherit (lib) mkIf isAcceptedDevice;
+  acceptedTypes = ["lite" "hybrid" "laptop" "desktop"];
 in {
-  config = (lib.mkIf env.useHomeManager) {
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes) {
     # fake a tray to let apps start
     # https://github.com/nix-community/home-manager/issues/2064
     systemd.user.targets.tray = {

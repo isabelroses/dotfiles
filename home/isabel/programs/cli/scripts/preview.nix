@@ -18,7 +18,7 @@
       ${lib.getExe pkgs.catimg} -w 100 -r 2 "$1"
       ;;
     *directory*)
-      ${lib.getExe pkgs.exa} --icons -1 --color=always "$1"
+      ${lib.getExe pkgs.eza} --icons -1 --color=always "$1"
       ;;
     *)
       echo "unknown file format"

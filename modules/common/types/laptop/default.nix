@@ -1,18 +1,7 @@
-{
-  config,
-  lib,
-  ...
-}:
-with lib; let
-  device = config.modules.device;
-in {
+_: {
   imports = [
     ./power
     ./adb.nix
     ./touchpad.nix
   ];
-
-  config =
-    mkIf (device.type == "laptop" || device.type == "hybrid") {
-    };
 }
