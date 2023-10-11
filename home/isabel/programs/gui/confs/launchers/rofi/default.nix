@@ -5,17 +5,20 @@
   osConfig,
   defaults,
   ...
-}: let
+}:
+with lib; let
+  device = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
+  sys = osConfig.modules.system;
+  programs = osConfig.modules.programs;
 
   rofiPackage =
-    if lib.isWayland osConfig
+    if osConfig.modules.usrEnv.isWayland
     then pkgs.rofi-wayland
     else pkgs.rofi;
 in {
   imports = [./config.nix];
-
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && defaults.launcher == "rofi") {
+  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable && programs.gui.enable && defaults.launcher == "rofi") {
     programs.rofi = {
       enable = true;
       package = rofiPackage.override {

@@ -39,7 +39,6 @@ in {
           key = cfg.signingKey;
           signByDefault = true;
         };
-        lfs.enable = true;
         ignores = [
           "*.bak"
           "*.swp"
@@ -100,19 +99,21 @@ in {
             "ssh://git@codeberg.org/".pushInsteadOf = "codeberg:";
           };
         };
+        lfs.enable = true;
         aliases = {
-          st = "status";
           br = "branch";
           c = "commit -m";
           ca = "commit -am";
           co = "checkout";
           d = "diff";
           df = "!git hist | peco | awk '{print $2}' | xargs -I {} git diff {}^ {}";
+          edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`";
           fuck = "commit --amend -m";
           graph = "log --all --decorate --graph";
           ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)";
           pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
           af = "!git add $(git ls-files -m -o --exclude-standard | fzf -m)";
+          st = "status";
           hist = ''
             log --pretty=format:"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)" --graph --date=relative --decorate --all
           '';

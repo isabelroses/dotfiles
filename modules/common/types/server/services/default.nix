@@ -1,14 +1,11 @@
 _: {
   imports = [
-    ./cloudflared
-    ./cyberchef
+    ./cloudflare
     ./gitea
     ./jellyfin
     ./mailserver
     ./nginx
     ./photoprism
     ./vaultwarden
-    ./wakatime
-    ./websites
   ];
 }

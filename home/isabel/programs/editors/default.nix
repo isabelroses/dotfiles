@@ -1,9 +1,7 @@
-{pkgs, ...}: {
+_: {
   imports = [
     ./micro
-    #./nvim
-    ./nvim-flake
+    ./nvim
     ./vscode
   ];
-  config.home.packages = with pkgs; [arduino];
 }
