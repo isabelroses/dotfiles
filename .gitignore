@@ -1,2 +1,6 @@
+# Ingore nixos build outputs
 result
 .direnv/
+
+# Ignore pre-commit config
+.pre-commit-config.yaml
