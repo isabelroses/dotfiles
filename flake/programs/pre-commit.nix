@@ -2,12 +2,16 @@
   imports = [inputs.pre-commit-hooks.flakeModule];
 
   perSystem.pre-commit = {
-    settings.excludes = ["flake.lock"];
+    check.enable = true;
 
-    settings.hooks = {
-      alejandra.enable = true;
-      prettier.enable = true;
-      editorconfig-checker.enable = true;
+    settings = {
+      excludes = ["flake.lock"];
+
+      hooks = {
+        alejandra.enable = true;
+        prettier.enable = true;
+        editorconfig-checker.enable = true;
+      };
     };
   };
 }

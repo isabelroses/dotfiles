@@ -255,7 +255,7 @@ in {
     "${config.xdg.configHome}/nushell/history.txt" = {
       source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.dataHome}/history";
     };
-    "${config.xdg.configHome}/nushell/env-nix.nu" = with lib; let
+    "${config.xdg.configHome}/nushell/env-nix.nu" = let
       environmentVariables = {
         EDITOR = "nvim";
         GIT_EDITOR = "nvim";
@@ -264,8 +264,8 @@ in {
       };
     in {
       text = ''
-        ${concatStringsSep "\n"
-          (mapAttrsToList (k: v: "$env.${k} = ${v}")
+        ${lib.concatStringsSep "\n"
+          (lib.mapAttrsToList (k: v: "$env.${k} = ${v}")
             environmentVariables)}
       '';
     };

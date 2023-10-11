@@ -7,7 +7,7 @@ indent_style = tab
 indent_size = 4
 insert_final_newline = true
 tab_width = 4
-trim_trailing_whitespace = true
+trim_trailing_whitespace = false
 
 [*.md]
 indent_style = space
@@ -18,6 +18,14 @@ trim_trailing_whitespace = false
 indent_style = space
 indent_size = 2
 tab_width = 2
+
+[*.yuck]
+indent_style = spaces
+indent_size = 4
+
+[*.js]
+indent_style = spaces
+indent_size = 2
 
 [*.{diff,patch}]
 end_of_line = unset

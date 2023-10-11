@@ -1,7 +1,7 @@
 _: {
   systems = ["x86_64-linux" "aarch64-linux"];
 
-  perSystem = _: {
+  perSystem = {pkgs, ...}: {
     treefmt = {
       projectRootFile = "flake.nix";
 
@@ -9,6 +9,16 @@ _: {
         alejandra.enable = true;
         deadnix.enable = false;
         shellcheck.enable = true;
+
+        prettier = {
+          enable = true;
+          package = pkgs.prettierd;
+          excludes = [];
+          settings = {
+            editorconfig = true;
+          };
+        };
+
         shfmt = {
           enable = true;
           # https://flake.parts/options/treefmt-nix.html#opt-perSystem.treefmt.programs.shfmt.indent_size

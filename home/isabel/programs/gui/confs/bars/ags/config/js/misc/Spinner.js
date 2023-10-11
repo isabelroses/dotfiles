@@ -1,8 +1,9 @@
-import Gtk from 'gi://Gtk';
-import { Widget } from '../imports.js';
+import Gtk from "gi://Gtk";
+import { Widget } from "../imports.js";
 
-export default props => Widget({
-    ...props,
-    type: Gtk.Spinner,
-    active: true,
-});
+export default (props) =>
+    Widget({
+        ...props,
+        type: Gtk.Spinner,
+        active: true,
+    });

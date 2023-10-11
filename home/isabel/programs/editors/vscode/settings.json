@@ -35,19 +35,12 @@
 	"nix.enableLanguageServer": true,
 	"nix.serverPath": "nil",
 	// using flakes with `formatter = pkgs.alejandra;`
-	"nix.formatterPath": [
-		"nix",
-		"fmt",
-		"--",
-		"-"
-	],
+	"nix.formatterPath": ["nix", "fmt", "--", "-"],
 	"nix.serverSettings": {
 		// settings for 'nil' LSP
 		"nil": {
 			"formatting": {
-				"command": [
-					"alejandra"
-				]
+				"command": ["alejandra"]
 			}
 		}
 	}

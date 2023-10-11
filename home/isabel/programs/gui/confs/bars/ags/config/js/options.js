@@ -1,6 +1,6 @@
 export default {
     // if this player is running this will be shown on panel
-    preferredMpris: 'spotify',
+    preferredMpris: "spotify",
 
     // number of workspaces shown on panel and overview
     workspaces: 7,
@@ -15,7 +15,7 @@ export default {
     },
 
     // path to read temperature from
-    temperature: '/sys/class/thermal/thermal_zone0/temp',
+    temperature: "/sys/class/thermal/thermal_zone0/temp",
 
     // at what intervals should cpu, ram, temperature refresh
     systemFetchInterval: 5000,
