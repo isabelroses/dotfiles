@@ -3,10 +3,13 @@
   lib,
   pkgs,
   ...
-}: let
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+}:
+with lib; let
+  env = osConfig.modules.usrEnv;
+  programs = osConfig.modules.programs;
+  sys = osConfig.modules.system;
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.programs.gui.enable) {
+  config = mkIf (env.isWayland && programs.gui.enable && sys.video.enable) {
     home.packages = with pkgs; [
       swappy
       #swaynotificationcenter

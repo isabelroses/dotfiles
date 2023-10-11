@@ -1,13 +1,9 @@
 {
   config,
   pkgs,
-  lib,
   inputs,
   ...
-}: let
-  inherit (lib) mkIf;
-  inherit (config.modules) services;
-in {
+}: {
   imports = [inputs.sops.nixosModules.sops];
 
   environment.systemPackages = with pkgs; [sops age];
@@ -18,41 +14,28 @@ in {
     age.keyFile = "/home/${config.modules.system.mainUser}/.config/sops/age/keys.txt";
 
     secrets = let
-      inherit (config.modules.system) mainUser;
+      mainUser = config.modules.system.mainUser;
       homeDir = config.home-manager.users.${mainUser}.home.homeDirectory;
       sshDir = homeDir + "/.ssh";
 
       ### servers ###
-      secretsPath = "/run/secrets.d";
+      secretsPath = "/run/secrets.d/";
       mailserverPath = secretsPath + "/mailserver";
     in {
       ### server ###
-      cloudflared-hydra = mkIf services.cloudflared.enable {
+      cloudflared-hydra = {
         #path = secretsPath + "/cloudflared/hydra";
-        owner = "cloudflared";
+        owner = mainUser;
         group = "cloudflared";
       };
 
       # mailserver
       mailserver-isabel.path = mailserverPath + "/isabel";
       mailserver-gitea.path = mailserverPath + "/gitea";
-      mailserver-gitea-nohash = mkIf services.gitea.enable {
-        path = mailserverPath + "/gitea-nohash";
-        owner = "git";
-        group = "gitea";
-      };
       mailserver-vaultwarden.path = mailserverPath + "/vaultwarden";
-      mailserver-database.path = mailserverPath + "/database";
 
       # vaultwarden
       vaultwarden-env.path = secretsPath + "/vaultwarden/env";
-
-      #wakapi
-      wakapi = mkIf services.wakapi.enable {
-        path = secretsPath + "/wakapi/default";
-        owner = "wakapi";
-        group = "wakapi";
-      };
 
       ### user ###
       git-credentials = {
@@ -83,8 +66,11 @@ in {
         path = sshDir + "/openvpn";
         owner = mainUser;
       };
-      amity-key = {
-        path = sshDir + "/amity";
+      # Luz and Edalyn are now dead replaced by bernie
+      #luz-key.path = sshDir + "/luz";
+      #edalyn-key.path = sshDir + "/edalyn";
+      bernie-key = {
+        path = sshDir + "/bernie";
         owner = mainUser;
       };
       king-key = {
@@ -92,18 +78,7 @@ in {
         owner = mainUser;
       };
 
-      # All nixos machines
-      nixos-key = {
-        path = sshDir + "/nixos";
-        owner = mainUser;
-      };
-      nixos-key-pub = {
-        path = sshDir + "/nixos.pub";
-        owner = mainUser;
-      };
-
       # my local servers / clients
-      /*
       alpha-key = {
         path = sshDir + "/alpha";
         owner = mainUser;
@@ -112,7 +87,14 @@ in {
         path = sshDir + "/alpha.pub";
         owner = mainUser;
       };
-      */
+      hydra-key = {
+        path = sshDir + "/hydra";
+        owner = mainUser;
+      };
+      hydra-key-pub = {
+        path = sshDir + "/hydra.pub";
+        owner = mainUser;
+      };
     };
   };
 }

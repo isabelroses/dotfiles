@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  inherit (osConfig.modules.system) video;
+  sys = osConfig.modules.system;
 in {
   imports = [inputs.sops.homeManagerModules.sops];
 
@@ -13,7 +13,7 @@ in {
     gpg-agent = {
       enable = true;
       pinentryFlavor =
-        if (video.enable)
+        if (sys.video.enable)
         then "gnome3"
         else "curses";
       enableSshSupport = true;
