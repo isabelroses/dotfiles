@@ -24,6 +24,7 @@ _: {
           loadRecommendedModules = true;
         };
 
+        fs = ["ext4" "vfat"];
         video.enable = false;
         sound.enable = false;
         bluetooth.enable = false;
