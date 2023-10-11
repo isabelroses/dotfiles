@@ -35,7 +35,7 @@ export const BatteryProgress = () => Widget.Box({
 export default () => Widget.Box({
     className: 'header',
     children: [
-        Avatar(),
+        Avatar({shader: false}),
         Widget.Box({
             className: 'system-box',
             vertical: true,
