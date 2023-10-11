@@ -3,6 +3,7 @@
 in {
   flake = {
     # extensible flake schemas
+    # https://github.com/DeterminateSystems/flake-schemas
     schemas = inputs.flake-schemas.schemas // schemas;
   };
 }

@@ -6,7 +6,7 @@
 in {
   flake = {
     nixosModules = {
-      # i do not provide a default module
+      # i do not provide a default module, so throw an error
       default = builtins.throw "There is no default module.";
     };
 
