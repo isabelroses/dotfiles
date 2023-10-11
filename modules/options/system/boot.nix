@@ -47,7 +47,6 @@ in {
       description = "Extra kernel modules to be loaded.";
     };
 
-    # the bootloader that should be used
     loader = mkOption {
       type = types.enum ["none" "grub" "systemd-boot"];
       default = "none";

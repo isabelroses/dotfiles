@@ -56,6 +56,7 @@ in {
           enableACME = true;
         };
 
+        # mailserver
         "mail.${domain}" = mkIf cfg.mailserver.enable {
           forceSSL = true;
           enableACME = true;
@@ -65,6 +66,7 @@ in {
           enableACME = true;
         };
 
+        # searxng
         "search.${domain}" = mkIf cfg.searxng.enable {
           forceSSL = true;
           enableACME = true;

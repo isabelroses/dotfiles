@@ -34,7 +34,6 @@ in {
       ];
     };
 
-    # the ssh port(s) should be automatically passed to the firewall's allowedTCPports
     openFirewall = true;
     # the port(s) openssh daemon should listen on
     ports = [22];

@@ -7,8 +7,6 @@ in {
       default = "";
     };
 
-    # the type of cpu your system has - vm and regular cpus currently do not differ
-    # as I do not work with vms, but they have been added for forward-compatibility
     cpu = mkOption {
       type = types.enum ["pi" "intel" "vm-intel" "amd" "vm-amd" null];
       default = null;

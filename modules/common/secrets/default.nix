@@ -22,11 +22,11 @@ in {
       homeDir = config.home-manager.users.${mainUser}.home.homeDirectory;
       sshDir = homeDir + "/.ssh";
 
-      ### servers ###
+      # servers
       secretsPath = "/run/secrets.d";
       mailserverPath = secretsPath + "/mailserver";
     in {
-      ### server ###
+      # server
       cloudflared-hydra = mkIf services.cloudflared.enable {
         #path = secretsPath + "/cloudflared/hydra";
         owner = "cloudflared";
@@ -54,7 +54,7 @@ in {
         group = "wakapi";
       };
 
-      ### user ###
+      # user
       git-credentials = {
         path = homeDir + "/.git-credentials";
         owner = mainUser;

@@ -25,7 +25,7 @@ in {
     # able to change scheduling policies, e.g. to SCHED_RR
     security.rtkit.enable = config.services.pipewire.enable;
 
-    # we replace pulseaudio with the incredibly based pipewire
+    # pipewire is newer and just better
     services.pipewire = {
       enable = mkDefault true;
       wireplumber.enable = true;
@@ -37,16 +37,13 @@ in {
       };
 
       lowLatency = {
-        # enable this module
         enable = true;
-        # defaults (no need to be set unless modified)
         quantum = 64;
         rate = 48000;
       };
     };
 
-    # if for some reason pipewire is disabled, we may enable pulseaudio as backup
-    # I don't like PA, but I won't discard it altogether
+    # pulseaudio backup
     hardware.pulseaudio.enable = !config.services.pipewire.enable;
     # write bluetooth rules if and only if pipewire is enabled AND the device has bluetooth
     environment.etc = mkIf (config.services.pipewire.enable && device.hasBluetooth) {

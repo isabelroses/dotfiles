@@ -2,8 +2,7 @@ _: {
   security = {
     pam = {
       # fix "too many files open" errors while writing a lot of data at once
-      # (e.g. when building a large package)
-      # if this, somehow, doesn't meet your requirements you may just bump the numbers up
+      # was previously a huge issue when rebuilding
       loginLimits = [
         {
           domain = "@wheel";

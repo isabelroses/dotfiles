@@ -11,7 +11,7 @@ in {
       xserver.libinput = {
         enable = true;
 
-        # disable mouse acceleration
+        # disable mouse acceleration (yes im gamer)
         mouse = {
           accelProfile = "flat";
           accelSpeed = "0";

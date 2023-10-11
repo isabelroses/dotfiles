@@ -13,7 +13,7 @@ in {
     # force-enable the Page Table Isolation (PTI) Linux kernel feature
     forcePageTableIsolation = true;
 
-    # User namespaces are required for sandboxing. Better than nothing imo.
+    # User namespaces are required for sandboxing.
     allowUserNamespaces = true;
 
     # Disable unprivileged user namespaces, unless containers are enabled
@@ -28,22 +28,22 @@ in {
   };
 
   boot = {
-    kernel = {
-      sysctl = {
-        # The Magic SysRq key is a key combo that allows users connected to the
-        # system console of a Linux kernel to perform some low-level commands.
-        # Disable it, since we don't need it, and is a potential security concern.
-        "kernel.sysrq" = 0;
-        # Restrict ptrace() usage to processes with a pre-defined relationship
-        # (e.g., parent/child)
-        "kernel.yama.ptrace_scope" = 2;
-        # Hide kptrs even for processes with CAP_SYSLOG
-        "kernel.kptr_restrict" = 2;
-        # Disable bpf() JIT (to eliminate spray attacks)
-        "net.core.bpf_jit_enable" = false;
-        # Disable ftrace debugging
-        "kernel.ftrace_enabled" = false;
-      };
+    kernel.sysctl = {
+      # The Magic SysRq key is a key combo that allows users connected to the
+      # system console of a Linux kernel to perform some low-level commands.
+      # Disable it, since we don't need it, and is a potential security concern.
+      "kernel.sysrq" = 0;
+      # Restrict ptrace() usage to processes with a pre-defined relationship
+      # (e.g., parent/child)
+      "kernel.yama.ptrace_scope" = 2;
+      # Hide kptrs even for processes with CAP_SYSLOG
+      "kernel.kptr_restrict" = 2;
+      # Disable bpf() JIT (to eliminate spray attacks)
+      "net.core.bpf_jit_enable" = false;
+      # Disable ftrace debugging
+      "kernel.ftrace_enabled" = false;
+      # Avoid kernel memory address exposures via dmesg (this value can also be set by CONFIG_SECURITY_DMESG_RESTRICT).
+      "kernel.dmesg_restrict" = 1;
     };
 
     # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html

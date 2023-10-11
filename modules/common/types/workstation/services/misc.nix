@@ -38,7 +38,7 @@ in {
     in {
       inherit extraConfig;
       user = {inherit extraConfig;};
-      services."getty@tty1".enable = false;
+      services."getty@tty1".enable = false; # if you want to use tty1 enable
       services."autovt@tty1".enable = false;
       services."getty@tty7".enable = false;
       services."autovt@tty7".enable = false;

@@ -11,19 +11,19 @@ in {
     inputs.catppuccin.homeManagerModules.catppuccin
     self.homeManagerModules.gtklock
 
-    # important system level configurations
+    # important system enviroment config
     ./system
 
-    # programs sets
+    # programs that are used, e.g. GUI apps
     ./programs
 
     # system services, organized by display protocol
     ./services
 
-    # declarative system and program themes (qt/gtk)
+    # Application themeing
     ./themes
 
-    # other settings that can't be organized as easly
+    # Other data that can't be organized as easly
     ./misc
   ];
   config = {
@@ -39,7 +39,7 @@ in {
     };
 
     manual = {
-      # the docs suck, so we disable them to save space
+      # I don't use docs, so just disable them
       html.enable = false;
       json.enable = false;
       manpages.enable = false;

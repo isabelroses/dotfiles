@@ -53,26 +53,25 @@ in {
       '';
     };
 
-    # the path to the flake
     flakePath = mkOption {
       type = types.str;
       default = "/home/isabel/.config/flake";
       description = "The path to the configuration";
     };
 
-    # should sound related programs and audio-dependent programs be enabled
     sound = {
       enable = mkEnableOption "sound";
+      description = "Does the device have sound and its related programs be enabled";
     };
 
-    # should the device enable graphical programs
     video = {
       enable = mkEnableOption "video drivers";
+      description = "Does the device allow for graphical programs";
     };
 
-    # should the device load bluetooth drivers and enable blueman
     bluetooth = {
       enable = mkEnableOption "bluetooth";
+      description = "should the device load bluetooth drivers and enable blueman";
     };
   };
 }

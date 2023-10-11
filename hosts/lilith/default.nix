@@ -22,7 +22,6 @@ with lib; {
 
   users.extraUsers.root.password = "";
 
-  # console locale #
   console = let
     variant = "u24n";
   in {
@@ -31,7 +30,7 @@ with lib; {
     keyMap = "en";
   };
 
-  # attempt to fix "too many open files"
+  # fix: "too many open files"
   security.pam.loginLimits = [
     {
       domain = "*";
@@ -55,14 +54,14 @@ with lib; {
       start the graphical user interface.
     '';
 
-  # borrow some environment options from the minimal profile to save space
+  # Use environment options, minimal profile, to save space
   environment = {
-    noXlibs = mkDefault true; # trim inputs
+    noXlibs = mkDefault true;
 
-    # no packages other than my defaults
+    # no packages other, other then the ones i provide
     defaultPackages = [];
 
-    # system packages for the base installer
+    # needed packages for the installer
     systemPackages = with pkgs; [
       nixos-install-tools
       gitMinimal
@@ -70,7 +69,7 @@ with lib; {
       netcat
     ];
 
-    # fix an annoying warning
+    # fix annoying warning
     etc."mdadm.conf".text = ''
       MAILADDR root
     '';
@@ -83,9 +82,9 @@ with lib; {
     info.enable = mkDefault false;
   };
 
-  # disable fontConfig to save space, we don't have a graphical environment on the ISO
+  # disable fontConfig to save space, not like we have a GUI anyways
   fonts.fontconfig.enable = lib.mkForce false;
 
-  # disable sound related programs
+  # disable sound related programs, more space saving
   sound.enable = false;
 }

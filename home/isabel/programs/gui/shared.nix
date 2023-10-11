@@ -8,14 +8,12 @@
 in {
   config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable) {
     home.packages = with pkgs; [
-      bitwarden
-      obsidian
-      #zoom-us # I hate this
-      xfce.thunar
-      pamixer # move
-      jellyfin-media-player
+      bitwarden # password manager
+      obsidian # note taking with markdown
+      pamixer # move evntually
+      # jellyfin-media-player
       mangal # tui manga finder + reader
-      insomnia # rest client
+      # insomnia # rest client
     ];
   };
 }

@@ -11,7 +11,7 @@
 
     file = {
       ".local/bin/preview" = {
-        # Preview script for fzf tab
+        # Preview files script for fzf tab
         executable = true;
         text = import ./preview.nix {inherit lib pkgs;};
       };

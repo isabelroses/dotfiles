@@ -10,14 +10,14 @@ in {
     home.packages = with pkgs; [
       gist # manage github gists
       act # local github actions
-      gitflow
+      gitflow # Extend git with the Gitflow branching model
     ];
 
     programs = {
       # github cli
       gh = {
         enable = true;
-        gitCredentialHelper.enable = false;
+        gitCredentialHelper.enable = false; # i use sops for this anyways
         extensions = with pkgs; [
           gh-cal # github activity stats in the CLI
           gh-dash # dashboard with pull requests and issues
@@ -57,7 +57,7 @@ in {
           "result-*"
         ];
         extraConfig = {
-          init.defaultBranch = "main";
+          init.defaultBranch = "main"; # warning the AUR hates this
 
           branch.autosetupmerge = "true";
           pull.ff = "only";
@@ -100,6 +100,7 @@ in {
             "ssh://git@codeberg.org/".pushInsteadOf = "codeberg:";
           };
         };
+
         aliases = {
           st = "status";
           br = "branch";

@@ -25,7 +25,7 @@ in {
     };
   };
 
-  # Allow manually restarting gpg-agent in case of failure
+  # Allow manually restarting gpg-agent if it fails
   systemd.user.services.gpg-agent.Unit.RefuseManualStart = lib.mkForce false;
 
   sops.gnupg.home = config.programs.gpg.homedir;

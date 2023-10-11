@@ -29,8 +29,7 @@ in {
         database.username = "roundcube";
         maxAttachmentSize = 50;
         dicts = with pkgs.aspellDicts; [en];
-        # this is the url of the vhost, not necessarily the same as the fqdn of
-        # the mailserver
+        # this is the url of the vhost, not necessarily the same as the fqdn of the mailserver
         hostName = "webmail.${domain}";
         extraConfig = ''
           $config['imap_host'] = array(
