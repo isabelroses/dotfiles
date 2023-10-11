@@ -3,75 +3,74 @@ _: {
     ./hardware-configuration.nix
     ./overrides.nix
   ];
-  config = {
-    modules = {
-      device = {
-        type = "server";
-        cpu = "amd";
-        gpu = null;
-        hasTPM = false;
-        hasBluetooth = false;
-        hasSound = false;
-      };
-      system = {
-        mainUser = "isabel";
-        hostname = "bernie";
 
-        boot = {
-          loader = "grub";
-          enableKernelTweaks = true;
-          enableInitrdTweaks = true;
-          loadRecommendedModules = true;
-        };
+  config.modules = {
+    device = {
+      type = "server";
+      cpu = "amd";
+      gpu = null;
+      hasTPM = false;
+      hasBluetooth = false;
+      hasSound = false;
+    };
+    system = {
+      mainUser = "isabel";
+      hostname = "bernie";
 
-        fs = ["ext4" "vfat"];
-        video.enable = false;
-        sound.enable = false;
-        bluetooth.enable = false;
-        printing.enable = false;
-
-        networking = {
-          optimizeTcp = false;
-        };
-
-        virtualization = {
-          enable = true;
-          docker.enable = true;
-          qemu.enable = false;
-          podman.enable = false;
-          distrobox.enable = false;
-        };
-      };
-      usrEnv = {
-        isWayland = false;
-        useHomeManager = true;
+      boot = {
+        loader = "grub";
+        enableKernelTweaks = true;
+        enableInitrdTweaks = true;
+        loadRecommendedModules = true;
       };
 
-      programs = {
-        git.signingKey = "B4D9D513B1560D99";
+      fs = ["ext4" "vfat"];
+      video.enable = false;
+      sound.enable = false;
+      bluetooth.enable = false;
+      printing.enable = false;
 
-        cli = {
-          enable = true;
-          modernShell.enable = true;
-        };
-        tui.enable = true;
-        gui.enable = false;
-
-        nur = {
-          enable = true;
-          bella = true;
-          nekowinston = true;
-        };
+      networking = {
+        optimizeTcp = false;
       };
 
-      services = {
-        vscode-server.enable = true;
-        mailserver.enable = true;
-        gitea.enable = true;
-        vaultwarden.enable = true;
-        isabelroses-web.enable = true;
-        nginx.enable = true;
+      virtualization = {
+        enable = true;
+        docker.enable = true;
+        qemu.enable = false;
+        podman.enable = false;
+        distrobox.enable = false;
       };
+    };
+    usrEnv = {
+      isWayland = false;
+      useHomeManager = true;
+    };
+
+    programs = {
+      git.signingKey = "B4D9D513B1560D99";
+
+      cli = {
+        enable = true;
+        modernShell.enable = true;
+      };
+      tui.enable = true;
+      gui.enable = false;
+
+      nur = {
+        enable = true;
+        bella = true;
+        nekowinston = true;
+      };
+    };
+
+    services = {
+      vscode-server.enable = true;
+      mailserver.enable = true;
+      gitea.enable = true;
+      vaultwarden.enable = true;
+      isabelroses-web.enable = true;
+      nginx.enable = true;
     };
   };
 }
