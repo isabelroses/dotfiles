@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf optionalString;
+  inherit (lib) mkIf;
 
   sys = config.modules.system;
 in {
