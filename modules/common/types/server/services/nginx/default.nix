@@ -2,27 +2,27 @@
   lib,
   config,
   ...
-}: let
-  cfg = config.modules.services;
-  inherit (lib) mkIf;
-  domain = "isabelroses.com";
+}:
+with lib; let
+  device = config.modules.device;
+  acceptedTypes = ["server" "hybrid"];
 in {
-  config = {
-    networking.domain = domain;
+  config = mkIf (builtins.elem device.type acceptedTypes) {
+    networking.domain = "isabelroses.com";
 
     security = {
       acme = {
         acceptTerms = true;
-        defaults.email = "isabel@${domain}";
+        defaults.email = "isabel@isabelroses.com";
       };
     };
 
-    services.nginx = mkIf cfg.nginx.enable {
+    services.nginx = {
       enable = true;
       commonHttpConfig = ''
         real_ip_header CF-Connecting-IP;
         add_header 'Referrer-Policy' 'origin-when-cross-origin';
-        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Frame-Options DENY;
         add_header X-Content-Type-Options nosniff;
       '';
 
@@ -31,52 +31,57 @@ in {
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
 
-      virtualHosts = {
+      virtualHosts = let
+        template = {
+          forceSSL = true;
+          enableACME = true;
+        };
+      in {
         # website + other stuff
-        "${domain}" = mkIf cfg.isabelroses-web.enable {
-          forceSSL = true;
-          enableACME = true;
-          locations."/".proxyPass = "http://127.0.0.1:3000";
-        };
-
-        # vaultwawrden
-        "vault.${domain}" = mkIf cfg.vaultwarden.enable {
-          forceSSL = true;
-          enableACME = true;
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
-            extraConfig = "proxy_pass_header Authorization;";
+        "isabelroses.com" =
+          mkIf (config.modules.services.isabelroses-web.enable)
+          template
+          // {
+            serverAliases = ["isabelroses.com"];
+            root = "/home/isabel/dev/isabelroses.com-pub";
           };
-        };
-
+        # vaultwawrden
+        "vault.isabelroses.com" =
+          mkIf (config.modules.services.vaultwarden.enable)
+          template
+          // {
+            locations."/" = {
+              proxyPass = "http://127.0.0.1:${toString config.services.vaultwarden.config.ROCKET_PORT}";
+              extraConfig = "proxy_pass_header Authorization;";
+            };
+          };
         # gitea
-        "git.${domain}" = mkIf cfg.gitea.enable {
-          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.gitea.settings.server.HTTP_PORT}";
-          forceSSL = true;
-          enableACME = true;
-        };
+        "git.isabelroses.com" =
+          mkIf (config.modules.services.gitea.enable)
+          template
+          // {
+            locations."/".proxyPass = "http://127.0.0.1:${toString config.services.gitea.settings.server.HTTP_PORT}";
+          };
 
-        "mail.${domain}" = mkIf cfg.mailserver.enable {
-          forceSSL = true;
-          enableACME = true;
-        };
-        "webmail.${domain}" = mkIf cfg.mailserver.enable {
-          forceSSL = true;
-          enableACME = true;
-        };
+        # mailserver
+        "mail.isabelroses.com" = mkIf (config.modules.services.mailserver.enable) template;
 
-        "search.${domain}" = mkIf cfg.searxng.enable {
-          forceSSL = true;
-          enableACME = true;
-          locations."/".proxyPass = "http://127.0.0.1:8888";
-          extraConfig = ''
-            access_log /dev/null;
-            error_log /dev/null;
-            proxy_connect_timeout 60s;
-            proxy_send_timeout 60s;
-            proxy_read_timeout 60s;
-          '';
-        };
+        # webmail
+        "webmail.isabelroses.com" = mkIf (config.modules.services.mailserver.enable) template;
+
+        "search.isabelroses.com" =
+          mkIf (config.modules.services.searxng.enable)
+          template
+          // {
+            locations."/".proxyPass = "http://127.0.0.1:8888";
+            extraConfig = ''
+              access_log /dev/null;
+              error_log /dev/null;
+              proxy_connect_timeout 60s;
+              proxy_send_timeout 60s;
+              proxy_read_timeout 60s;
+            '';
+          };
       };
     };
   };

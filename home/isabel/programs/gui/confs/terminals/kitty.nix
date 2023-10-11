@@ -5,10 +5,12 @@
   defaults,
   ...
 }: let
-  inherit (osConfig.modules.system) video;
+  inherit (lib) mkIf;
+  inherit (osConfig.modules) device programs;
+  sys = osConfig.modules.system;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable && defaults.terminal == "kitty") {
+  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && defaults.terminal == "kitty") {
     programs.kitty = {
       enable = true;
       catppuccin.enable = true;
