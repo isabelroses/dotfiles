@@ -5,9 +5,12 @@
 }: {
   imports = [
     ./locale.nix # locale settings
-    ./display # display protocol (wayland/xorg)
   ];
+
   environment = {
+    # the below can be done for faster shell reponse time but it can break things, and it did
+    # binsh = "${pkgs.dash}/bin/dash";
+
     variables = {
       EDITOR = "nvim";
       VISUAL = "vscodium";
