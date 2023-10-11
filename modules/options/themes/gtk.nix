@@ -8,7 +8,6 @@ in {
   options = {
     modules = {
       style = {
-        # gtk specific options
         gtk = {
           enable = mkEnableOption "GTK theming optionss";
           usePortal = mkEnableOption "native desktop portal use for filepickers";

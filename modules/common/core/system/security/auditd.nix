@@ -1,11 +1,11 @@
 {config, ...}: let
-  sys = config.modules.system;
+  cfg = config.modules.system.security;
 in {
   security = {
     # system audit
-    auditd.enable = sys.security.auditd.enable;
+    auditd.enable = cfg.auditd.enable;
     audit = {
-      enable = sys.security.auditd.enable;
+      enable = cfg.auditd.enable;
       backlogLimit = 8192;
       failureMode = "printk";
       rules = [

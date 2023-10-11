@@ -28,7 +28,7 @@ in {
         # set GTK theme to the name specified by the gtk package
         GTK_THEME = "${cfg.gtk.theme.name}";
 
-        # gtk applications should use filepickers specified by xdg
+        # gtk applications should use xdg specified settings
         GTK_USE_PORTAL = "${with lib; toString (boolToNum cfg.gtk.usePortal)}";
       };
     };

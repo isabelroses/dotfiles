@@ -5,7 +5,6 @@
 }: let
   inherit (lib) mkOption mkEnableOption mdDoc types;
 in {
-  # should we optimize tcp networking
   options.modules.system.security = {
     fixWebcam = mkEnableOption (mdDoc "Fix the purposefully broken webcam by un-blacklisting the related kernel module.");
     tor.enable = mkEnableOption (mdDoc "Tor daemon");

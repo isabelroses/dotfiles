@@ -16,7 +16,7 @@
     fstrim.enable = true;
     # firmware updater for machine hardware
     fwupd.enable = true;
-    # I don't use lvm, can be disabled
+    # Not using lvm
     lvm.enable = lib.mkDefault false;
     # enable smartd monitoering
     smartd.enable = true;

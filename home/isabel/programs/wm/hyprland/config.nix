@@ -45,8 +45,9 @@ in {
         touchpad = {
           tap-to-click = true;
           natural_scroll = false; # this is not natrual
-          disable_while_typing = false;
+          disable_while_typing = false; # this is annoying
         };
+        numlock_by_default = true; # numlock enable
       };
 
       gestures.workspace_swipe = dev.type == "laptop" || dev.type == "hybrid";
@@ -61,8 +62,23 @@ in {
 
         "col.active_border" = "$sapphire";
         "col.inactive_border" = "$surface0";
+      };
+
+      group = {
+        insert_after_current = true;
+        # focus on the window that has just been moved out of the group
+        focus_removed_window = true;
+
         "col.group_border_active" = "$blue";
         "col.group_border" = "$surface0";
+
+        groupbar = {
+          gradients = false;
+          font_size = 12;
+
+          render_titles = false;
+          scrolling = true; # change focused window with scroll
+        };
       };
 
       misc = {

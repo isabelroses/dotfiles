@@ -9,7 +9,7 @@
   acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
   config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && video.enable) {
-    # connect my phone
+    # connect my phone, please its so inconsistant
     services.kdeconnect = {
       enable = true;
       indicator = true;

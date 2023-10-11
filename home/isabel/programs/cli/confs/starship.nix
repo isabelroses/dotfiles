@@ -49,6 +49,7 @@
         style = "bold white";
         format = "[$symbol]($style)";
       };
+      # If it is commented out it does not exist yet
       os.symbols = {
         Arch = "";
         Artix = "";

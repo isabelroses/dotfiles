@@ -19,7 +19,7 @@ in {
         show_banner: false,
       }
 
-      #nu custom commands
+      # nu custom commands
       # Open a file. Show structured data, if possible. Else fallback to `bat`
       def o [filename: path] {
         if (open $filename | describe) == "raw input" {

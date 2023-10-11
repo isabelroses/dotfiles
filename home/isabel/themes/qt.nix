@@ -67,7 +67,7 @@ in {
       # remain backwards compatible with qt5
       DISABLE_QT5_COMPAT = "0";
 
-      # tell calibre to use the dark theme, because the light one hurts my eyes
+      # tell calibre to use the dark theme
       CALIBRE_USE_DARK_PALETTE = "1";
     };
   };

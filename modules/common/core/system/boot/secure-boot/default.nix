@@ -14,14 +14,11 @@ in {
 
   config = mkIf sys.secureBoot {
     environment.systemPackages = [
-      # For debugging and troubleshooting Secure Boot.
+      # Secure Boot, my love keeping my valorant working on windows
       pkgs.sbctl
     ];
 
-    # Lanzaboote currently replaces the systemd-boot module.
-    # This setting is usually set to true in configuration.nix
-    # generated at installation time. So we force it to false
-    # for now.
+    # Lanzaboote replaces the systemd-boot module.
     boot.loader.systemd-boot.enable = lib.mkForce false;
 
     boot = {

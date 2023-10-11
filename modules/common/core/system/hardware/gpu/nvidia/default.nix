@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  # use the latest possible nvidia package
+  # only the newest nvidia package
   nvStable = config.boot.kernelPackages.nvidiaPackages.stable.version;
   nvBeta = config.boot.kernelPackages.nvidiaPackages.beta.version;
 
@@ -18,7 +18,7 @@ with lib; let
   env = config.modules.usrEnv;
 in {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
-    # nvidia drivers are unfree software
+    # nvidia drivers kinda are unfree software
     nixpkgs.config.allowUnfree = true;
 
     services.xserver = mkMerge [
@@ -44,8 +44,7 @@ in {
     ];
 
     boot = {
-      # blacklist nouveau module so that it does not conflict with nvidia drm stuff
-      # also the nouveau performance is godawful, I'd rather run linux on a piece of paper than use nouveau
+      # blacklist nouveau module as otherwise it conflicts with nvidia drm
       blacklistedKernelModules = ["nouveau"];
     };
 
@@ -57,8 +56,8 @@ in {
 
         (mkIf env.isWayland {
           WLR_NO_HARDWARE_CURSORS = "1";
-          #__GLX_VENDOR_LIBRARY_NAME = "nvidia";
-          #GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
+          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently (not that i use it lol)
         })
 
         (mkIf (env.isWayland && device.gpu == "hybrid-nv") {
@@ -85,10 +84,8 @@ in {
           finegrained = mkDefault true;
         };
 
-        # use open source drivers by default, hosts may override this option if their gpu is
-        # not supported by the open source drivers
-        open = mkDefault true;
-        nvidiaSettings = false; # add nvidia-settings to pkgs, useless on nixos
+        open = mkDefault true; # use open source drivers by default
+        nvidiaSettings = false; # adds nvidia-settings to pkgs, so useless on nixos
         nvidiaPersistenced = true;
         forceFullCompositionPipeline = true;
       };

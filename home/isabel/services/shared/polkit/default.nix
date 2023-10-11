@@ -12,6 +12,7 @@ in {
     # gnome polkit agent
     systemd.user.services.polkit-gnome-authentication-agent-1 = mkGraphicalService {
       Service.ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      # pantheon alternate, probaly runs lighter
       # Service.ExecStart = "${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit";
     };
   };

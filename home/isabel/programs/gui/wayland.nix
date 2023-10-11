@@ -8,11 +8,11 @@
 in {
   config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.programs.gui.enable) {
     home.packages = with pkgs; [
-      swappy
-      #swaynotificationcenter
-      wlsunset
+      swappy # used for screenshot area selection
+      # swaynotificationcenter
+      wlsunset # reduce blue light at night
       wl-gammactl
-      pavucontrol
+      pavucontrol # TODO move audio
     ];
   };
 }

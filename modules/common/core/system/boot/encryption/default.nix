@@ -8,7 +8,7 @@
   cfg = config.modules.system.boot.encryption;
 in {
   config = mkIf cfg.enable {
-    # mildly improves performance for the disk encryption
+    # improve performance for disk encryption
     boot.initrd.availableKernelModules = [
       "aesni_intel"
       "cryptd"

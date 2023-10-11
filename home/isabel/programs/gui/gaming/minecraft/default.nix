@@ -25,17 +25,14 @@
 in {
   config = lib.mkIf osConfig.modules.programs.gaming.minecraft.enable {
     home = {
-      # copy the catppuccin theme to the themes directory of PrismLauncher
+      # PrismLauncher now with a cool theme
       file.".local/share/PrismLauncher/themes/mocha" = {
         source = catppuccin-mocha;
         recursive = true;
       };
 
       packages = [
-        # the successor to polyMC, which is now mostly abandoned
         (pkgs.prismlauncher.override {
-          # get java versions required by various minecraft versions
-          # "write once run everywhere" my ass
           jdks = javaPackages;
         })
       ];

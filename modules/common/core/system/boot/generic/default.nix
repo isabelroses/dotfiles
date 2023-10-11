@@ -10,35 +10,33 @@ in {
     boot = {
       consoleLogLevel = 0;
 
-      # always use the latest kernel instead of the old-ass lts one
+      # always use the latest kernel, love the unstablity
       kernelPackages = mkOverride 500 sys.boot.kernel;
 
       extraModulePackages = mkDefault sys.boot.extraModulePackages;
       extraModprobeConfig = mkDefault sys.boot.extraModprobeConfig;
       # whether to enable support for Linux MD RAID arrays
-      # I don't know why this defaults to true, how many people use RAID anyway?
-      # also on > 23.11, this will throw a warning if neither MAILADDR nor PROGRAM are set
+      # as of 23.11>, this throws a warning if neither MAILADDR nor PROGRAM are set
       swraid.enable = mkDefault false;
 
-      # settings shared between bootloaders
+      # shared config between bootloaders
       # they are set unless system.boot.loader != none
       loader = {
         # if set to 0, space needs to be held to get the boot menu to appear
         timeout = mkForce 2;
         generationsDir.copyKernels = true;
 
-        # allow installation to modify EFI variables
+        # we need to allow installation to modify EFI variables
         efi.canTouchEfiVariables = true;
       };
 
-      # instructions on how /tmp should be handled
-      # if your system is low on ram, you should avoid tmpfs to prevent hangups while compiling
+      # if you have a lack of ram, you should avoid tmpfs to prevent hangups while compiling
       tmp = {
         # /tmp on tmpfs, lets it live on your ram
         useTmpfs = sys.boot.tmpOnTmpfs;
 
         # If not using tmpfs, which is naturally purged on reboot, we must clean
-        # /tmp ourselves. /tmp should be volatile storage!
+        # we have to clean /tmp
         cleanOnBoot = mkDefault (!config.boot.tmp.useTmpfs);
       };
 
@@ -51,14 +49,13 @@ in {
           verbose = false;
 
           # strip copied binaries and libraries from inframs
-          # saves 30~ mb space according to the nix derivation
+          # saves some nice space
           systemd.strip = true;
 
-          # enable systemd in initrd
-          # extremely experimental, just the way I like it on a production machine
+          # enable systemd in initrd (experimental)
           systemd.enable = true;
 
-          # List of modules that are always loaded by the initrd
+          # List of modules that are loaded by the initrd
           kernelModules = [
             "nvme"
             "xhci_pci"
@@ -87,9 +84,9 @@ in {
         optionals sys.boot.enableKernelTweaks [
           # https://en.wikipedia.org/wiki/Kernel_page-table_isolation
           # auto means kernel will automatically decide the pti state
-          "pti=auto" # on | off
+          "pti=auto" # on || off
 
-          # disable the intel_idle driver and use acpi_idle instead
+          # disable the intel_idle (it stinks anyway) driver and use acpi_idle instead
           "idle=nomwait"
 
           # enable IOMMU for devices used in passthrough and provide better host performance
@@ -101,13 +98,13 @@ in {
           # isables resume and restores original swap space
           "noresume"
 
-          # allows systemd to set and save the backlight state
-          "acpi_backlight=native" # none | vendor | video | native
+          # allow systemd to set and save the backlight state
+          "acpi_backlight=native"
 
           # prevent the kernel from blanking plymouth out of the fb
           "fbcon=nodefer"
 
-          # disable boot logo if any
+          # disable boot logo
           "logo.nologo"
 
           # disable systemd status messages

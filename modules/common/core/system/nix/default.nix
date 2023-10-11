@@ -23,7 +23,7 @@
       "nixos/flake".source = self;
     };
 
-    # we need git for flakes, don't we
+    # git is reqired for flakes
     systemPackages = [pkgs.git];
   };
 
@@ -60,7 +60,7 @@
       ];
   };
 
-  # faster rebuilding
+  # faster rebuilding, plus i don't use the docs anyways
   documentation = {
     doc.enable = false;
     nixos.enable = false;
@@ -74,31 +74,25 @@
   nix = let
     mappedRegistry = lib.mapAttrs (_: v: {flake = v;}) inputs;
   in {
-    # pin the registry to avoid downloading and evaluating a new nixpkgs
-    # version everytime
-    # this will add each flake input as a registry
-    # to make nix3 commands consistent with your flake
+    # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = mappedRegistry // {default = mappedRegistry.nixpkgs;};
 
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
+    # We love legacy support (for now)
     nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
 
-    # Make builds run with low priority so my system stays responsive
+    # Make builds run with a low priority, keeping the system fast
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
     daemonIOSchedPriority = 7;
 
-    # set up garbage collection to run daily,
-    # removing unused packages after three days
+    # set up garbage collection to run daily, and removing packages after 3 days
     gc = {
       automatic = true;
       dates = "Mon *-*-* 03:00";
       options = "--delete-older-than 3d";
     };
 
-    # automatically optimize nix store my removing hard links
-    # do it after the gc
+    # automatically optimize /nix/store by removing hard links
     optimise = {
       automatic = true;
       dates = ["04:00"];
@@ -108,7 +102,7 @@
       # specify the path to the nix registry
       flake-registry = "/etc/nix/registry.json";
       # Free up to 20GiB whenever there is less than 5GB left.
-      # this setting is in bytes, so we multiply with 1024 thrice
+      # this setting is in bytes, so we multiply with 1024 by 3
       min-free = "${toString (5 * 1024 * 1024 * 1024)}";
       max-free = "${toString (20 * 1024 * 1024 * 1024)}";
       # automatically optimise symlinks
@@ -124,14 +118,12 @@
       # supported system features
       # TODO: "gccarch-core2" "gccarch-haswell"
       system-features = ["nixos-test" "kvm" "recursive-nix" "big-parallel"];
-      # extra architectures supported by my builders
       extra-platforms = config.boot.binfmt.emulatedSystems;
-      # continue building derivations if one fails
+      # continue building derivations even if one fails
       keep-going = true;
-      # show more log lines for failed builds
+      # show more log lines for failed builds, as this happens alot and is useful
       log-lines = 30;
-      # enable new nix command and flakes
-      # and also "unintended" recursion as well as content addresssed nix
+      # enable new nix command and flakes and also "unintended" recursion as well as content addresssed nix
       extra-experimental-features = [
         "flakes"
         "nix-command"
@@ -140,7 +132,7 @@
         "repl-flake"
         "auto-allocate-uids"
       ];
-      # don't warn me that my git tree is dirty, I know
+      # ignore dirty working tree
       warn-dirty = false;
       # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
       http-connections = 50;
@@ -153,9 +145,9 @@
 
       # substituters to use
       substituters = [
-        "https://cache.ngi0.nixos.org" # content addressed nix cache (TODO)
+        "https://cache.ngi0.nixos.org" # content addressed nix cache
         "https://cache.nixos.org" # funny binary cache
-        "https://nixpkgs-wayland.cachix.org" # automated builds of *some* wayland packages
+        "https://nixpkgs-wayland.cachix.org" # some wayland packages
         "https://nix-community.cachix.org" # nix-community cache
         "https://hyprland.cachix.org" # hyprland
         "https://nix-gaming.cachix.org" # nix-gaming

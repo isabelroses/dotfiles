@@ -23,21 +23,15 @@ with lib; {
     );
 
     hostName = config.modules.system.hostname;
-    # global dhcp has been deprecated upstream
-    # use networkd instead
-    # individual interfaces are still managed through dhcp in hardware configurations
+    # global dhcp has been deprecated upstream, so we use networkd instead
+    # however individual interfaces are still managed through dhcp in hardware configurations
     useDHCP = mkDefault false;
     useNetworkd = mkDefault true;
 
     # dns
     nameservers = [
-      # cloudflare, yuck
-      # shares data
       "1.1.1.1"
       "1.0.0.1"
-
-      # quad9, said to be the best
-      # shares *less* data
       "9.9.9.9"
     ];
 
@@ -47,7 +41,7 @@ with lib; {
       dns = "systemd-resolved";
       unmanaged = ["docker0" "rndis0"];
       wifi = {
-        # The bellow is disabled as my uni hated me for it
+        # The below is disabled as my uni hated me for it
         # macAddress = "random"; # use a random mac address on every boot, this can scew with static ip
         powersave = true;
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
@@ -56,11 +50,10 @@ with lib; {
     };
   };
 
-  # enable wireless database, it helps with finding the right channels
+  # enable wireless database, it helps keeping wifi speedy
   hardware.wirelessRegulatoryDatabase = true;
 
   # allow for the system to boot without waiting for the network interfaces are online
-  # speeds up boot times
   systemd = let
     ethernetDevices = [
       "wlp1s0f0u8" # wifi dongle
