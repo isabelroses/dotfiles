@@ -3,10 +3,14 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+with lib; let
+  device = osConfig.modules.device;
+  env = osConfig.modules.usrEnv;
+  sys = osConfig.modules.system;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.programs.cli.enable) {
+  config = mkIf ((builtins.elem device.type acceptedTypes) && (env.isWayland && sys.video.enable)) {
     home.packages = with pkgs; [
       grim
       slurp

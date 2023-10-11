@@ -4,9 +4,11 @@
   ...
 }: let
   inherit (lib) mkIf;
+  device = config.modules.device;
   cfg = config.modules.services.jellyfin;
+  acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf cfg.enable {
+  config = mkIf (builtins.elem device.type acceptedTypes && cfg.enable) {
     # NOT docker
     services = mkIf (!cfg.asDockerContainer) {
       jellyfin = {
@@ -15,6 +17,12 @@ in {
         user = "jellyfin";
         openFirewall = true;
       };
+    };
+
+    # with docker
+    modules.system.virtualization = mkIf (cfg.asDockerContainer) {
+      enable = true;
+      docker.enable = true;
     };
 
     virtualisation.oci-containers.containers.jellyfin = mkIf (cfg.asDockerContainer) {

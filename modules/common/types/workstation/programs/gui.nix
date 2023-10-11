@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   environment = {
     systemPackages = with pkgs; [
       # packages necessery for thunar thumbnails
@@ -31,6 +27,6 @@
     seahorse.enable = true;
 
     # networkmanager tray uility
-    nm-applet.enable = config.modules.programs.defaults.bar == "waybar";
+    nm-applet.enable = true;
   };
 }

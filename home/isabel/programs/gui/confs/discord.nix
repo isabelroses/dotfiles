@@ -2,21 +2,19 @@
   osConfig,
   lib,
   pkgs,
-  self,
   ...
-}: let
-  inherit (osConfig.modules.system) video;
+}:
+with lib; let
+  device = osConfig.modules.device;
+  programs = osConfig.modules.programs;
+  sys = osConfig.modules.system;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable) {
+  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable) {
     home.packages = with pkgs; [
-      self.packages.${pkgs.hostPlatform.system}.discord-krisp-patcher
-
       ((discord.override {
-          nss = pkgs.nss_latest;
           withOpenASAR = true;
           withVencord = true;
-          withTTS = false;
         })
         .overrideAttrs (old: {
           libPath = old.libPath + ":${pkgs.libglvnd}/lib";
