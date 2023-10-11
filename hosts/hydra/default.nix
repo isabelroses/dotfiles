@@ -1,23 +1,23 @@
-{config, ...}: {
+_: {
   imports = [./hardware-configuration.nix];
   config = {
     modules = {
       device = {
-        type = "hybrid";
+        type = "laptop";
         cpu = "intel";
         gpu = null;
-        hasTPM = true;
         monitors = ["eDP-1"];
+        hasTPM = true;
         hasBluetooth = true;
         hasSound = true;
       };
       system = {
         mainUser = "isabel";
-
         hostname = "hydra";
 
         boot = {
           loader = "systemd-boot";
+          secureBoot = false;
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
           loadRecommendedModules = true;
@@ -27,6 +27,11 @@
         sound.enable = true;
         bluetooth.enable = true;
         printing.enable = false;
+
+        security = {
+          fixWebcam = false;
+          auditd.enable = true;
+        };
 
         networking = {
           optimizeTcp = true;
@@ -45,32 +50,20 @@
         desktop = "Hyprland";
         useHomeManager = true;
       };
-      services = {
-        smb = {
-          enable = true;
-          recive = {
-            media = true;
-            general = true;
-          };
-        };
-        vscode-server.enable = true;
-        cloudflare = {
-          enable = true;
-          id = "32f941a8-e557-4d8a-bafd-52a7d65a5daf";
-        };
-        jellyfin = {
-          enable = true;
-          asDockerContainer = false;
-        };
-      };
+
       programs = {
         git.signingKey = "CFF897835DD77813";
 
-        cli.enable = true;
+        cli = {
+          enable = true;
+          modernShell.enable = true;
+        };
         tui.enable = true;
         gui.enable = true;
 
-        default = {
+        zathura.enable = true;
+
+        defaults = {
           bar = "ags";
         };
 
@@ -78,6 +71,22 @@
           enable = true;
           bella = true;
           nekowinston = true;
+        };
+      };
+
+      services = {
+        smb = {
+          enable = false;
+          recive = {
+            media = false;
+            general = false;
+          };
+        };
+        vscode-server.enable = true;
+        cloudflared.enable = false;
+        jellyfin = {
+          enable = false;
+          asDockerContainer = false;
         };
       };
     };

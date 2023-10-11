@@ -1,8 +1,9 @@
 _: {
   imports = [
-    ./loader
-    ./secure-boot
-    ./plymouth
+    ./encryption
     ./generic
+    ./loader
+    ./plymouth
+    ./secure-boot
   ];
 }
