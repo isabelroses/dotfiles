@@ -1,7 +1,6 @@
 _: {
   imports = [
     ./activation # activation system for nixos-rebuild
-    ./boot # boot and bootloader configurations
     ./emulation # emulation setup
     ./encryption # keeping my stuff hidden from you strange people
     ./hardware # hardware - bluetooth etc.
