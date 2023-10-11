@@ -1,42 +1,42 @@
 window.corner .corner {
-    background-color: if($screen_corners, $bg_color, transparent);
-    border-radius: if($screen_corners, $radii*2, 0);
+	background-color: if($screen_corners, $bg_color, transparent);
+	border-radius: if($screen_corners, $radii * 2, 0);
 }
 
 window.desktop {
-    @if $bar_style =='normal' {
-        border-radius: if($screen_corners, $popover_radius, 0);
-        box-shadow: inset 0 0 $spacing 0 $shadow;
-    }
+	@if $bar_style == "normal" {
+		border-radius: if($screen_corners, $popover_radius, 0);
+		box-shadow: inset 0 0 $spacing 0 $shadow;
+	}
 
-    .date {
-        color: $wallpaper_fg;
-        font-size: 48px;
-    }
+	.date {
+		color: $wallpaper_fg;
+		font-size: 48px;
+	}
 }
 
 .desktop-menu {
-    image {
-        margin-left: -14px;
-        margin-right: 6px;
-    }
+	image {
+		margin-left: -14px;
+		margin-right: 6px;
+	}
 }
 
 window.indicator .progress {
-    @include floating_widget;
-    padding: $spacing/2;
+	@include floating_widget;
+	padding: $spacing/2;
 
-    .fill {
-        border-radius: max($popover_radius - $spacing/2, 0);
-        background-color: $accent;
-        color: $accent_fg;
+	.fill {
+		border-radius: max($popover_radius - $spacing/2, 0);
+		background-color: $accent;
+		color: $accent_fg;
 
-        image {
-            -gtk-icon-transform: scale(0.7);
-        }
+		image {
+			-gtk-icon-transform: scale(0.7);
+		}
 
-        .font-icon {
-            font-size: 34px;
-        }
-    }
+		.font-icon {
+			font-size: 34px;
+		}
+	}
 }

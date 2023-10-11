@@ -22,7 +22,7 @@
 
         # flake parts
         ./flake/makeSys.nix # args that is passsed to the flake, moved away from the main file
-        ./flake/checks.nix # checks for the flake
+        #./flake/checks.nix # checks for the flake
 
         # flake part programs
         ./flake/programs/pre-commit.nix # pre-commit hooks

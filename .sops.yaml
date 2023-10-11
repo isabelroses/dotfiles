@@ -3,5 +3,5 @@ keys:
 creation_rules:
   - path_regex: modules/common/secrets/[^/]+\.yaml$
   - key_groups:
-    - age:
-      - *isabel
+      - age:
+          - *isabel

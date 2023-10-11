@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./environment.nix
+    ./enviroment.nix
     ./users.nix
   ];
 }

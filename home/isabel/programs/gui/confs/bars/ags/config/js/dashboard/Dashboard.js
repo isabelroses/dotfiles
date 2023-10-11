@@ -5,16 +5,16 @@ import Separator from "../misc/Separator.js";
 import { Widget } from "../imports.js";
 
 export default ({ anchor = ["top"], layout = "top" } = {}) =>
-	PopupWindow({
-		name: "dashboard",
-		layout,
-		anchor,
-		content: Widget.Box({
-			className: "dashboard",
-			children: [
-				NotificationColumn(),
-				Separator({ orientation: "vertical" }),
-				DateColumn(),
-			],
-		}),
-	});
+    PopupWindow({
+        name: "dashboard",
+        layout,
+        anchor,
+        content: Widget.Box({
+            className: "dashboard",
+            children: [
+                NotificationColumn(),
+                Separator({ orientation: "vertical" }),
+                DateColumn(),
+            ],
+        }),
+    });
