@@ -21,6 +21,6 @@ in {
         allow_signup = false;
         disable_frontpage = true;
       };
-    };    
+    };
   };
 }
