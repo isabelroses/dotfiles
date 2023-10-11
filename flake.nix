@@ -26,7 +26,7 @@
 
         # flake part programs
         ./flake/programs/pre-commit.nix # pre-commit hooks
-        ./flake/programs/treefmt.nix # treefmt configuration #TODO fix it broke
+        ./flake/programs/treefmt.nix # treefmt configuration
 
         ./flake/pkgs # packages exposed to the flake
         ./flake/overlays # overlays that make the system that bit cleaner
