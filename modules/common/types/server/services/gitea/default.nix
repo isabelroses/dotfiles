@@ -40,13 +40,14 @@ in {
         appName = "iztea";
         lfs.enable = true;
         user = "git";
+        group = "git";
         database.user = "git";
-        #stateDir = "/storage/gitea/data";
+        stateDir = "/srv/storage/gitea/data";
 
         mailerPasswordFile = config.sops.secrets.mailserver-gitea-nohash.path;
         dump = {
           enable = true;
-          #backupDir = "/storage/gitea/dump";
+          backupDir = "/srv/storage/gitea/dump";
           interval = "06:00";
           type = "tar.zst";
         };
