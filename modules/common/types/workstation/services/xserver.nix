@@ -15,6 +15,7 @@ in {
       displayManager.lightdm.enable = programs.defaults.loginManager == "lightdm";
       displayManager.sddm = {
         enable = programs.defaults.loginManager == "sddm";
+        wayland.enable = true;
         theme = "${import ../../../../../parts/pkgs/sddm.nix {inherit pkgs lib;}}";
         settings = {
           General = {InputMethod = "";};
