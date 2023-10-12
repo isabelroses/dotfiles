@@ -46,7 +46,7 @@ with lib; {
         powersave = true;
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
       };
-      ethernet.macAddress = "random";
+      # ethernet.macAddress = "random";
     };
   };
 
