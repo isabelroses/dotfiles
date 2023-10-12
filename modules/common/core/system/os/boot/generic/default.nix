@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals optional;
+  inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals;
   sys = config.modules.system;
 in {
   config = {
@@ -81,7 +81,7 @@ in {
 
       # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
       kernelParams =
-        optionals sys.boot.enableKernelTweaks [
+        (optionals sys.boot.enableKernelTweaks [
           # https://en.wikipedia.org/wiki/Kernel_page-table_isolation
           # auto means kernel will automatically decide the pti state
           "pti=auto" # on || off
@@ -116,10 +116,11 @@ in {
 
           # disable the cursor in vt to get a black screen during intermissions
           "vt.global_cursor_default=0"
-        ]
-        ++ sys.boot.extraKernelParams
-        # tell the kernel to not be verbose, the voices are too loud
-        ++ optional sys.boot.silentBoot ["quite"];
+        ])
+        ++ (optionals sys.boot.silentBoot [
+          # tell the kernel to not be verbose, the voices are too loud
+          "quite"
+        ]);
     };
   };
 }
