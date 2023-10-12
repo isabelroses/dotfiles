@@ -1,6 +1,7 @@
 _: {
   imports = [
     ./hardware-configuration.nix
+    ./mount.nix
     ./overrides.nix
   ];
 
