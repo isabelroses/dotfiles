@@ -39,7 +39,7 @@ in {
       mailserver-gitea-nohash = mkIf services.gitea.enable {
         path = mailserverPath + "/gitea-nohash";
         owner = "git";
-        group = "gitea";
+        group = "git";
       };
       mailserver-vaultwarden.path = mailserverPath + "/vaultwarden";
       mailserver-database.path = mailserverPath + "/database";
