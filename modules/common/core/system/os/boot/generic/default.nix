@@ -3,7 +3,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals;
+  inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals optional;
   sys = config.modules.system;
 in {
   config = {
@@ -117,11 +117,9 @@ in {
           # disable the cursor in vt to get a black screen during intermissions
           "vt.global_cursor_default=0"
         ]
-        ++ optionals sys.boot.silentBoot [
-          # tell the kernel to not be verbose, the voices are too loud
-          "quite"
-        ]
-        ++ optionals (sys.boot.extraKernelParams != []) sys.boot.extraKernelParams;
+        ++ sys.boot.extraKernelParams
+        # tell the kernel to not be verbose, the voices are too loud
+        ++ optional sys.boot.silentBoot ["quite"];
     };
   };
 }
