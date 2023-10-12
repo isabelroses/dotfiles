@@ -2,8 +2,11 @@
   lib,
   config,
   ...
-}:
-with lib; {
+}: let
+  inherit (lib) mkIf mkDefault mkForce genAttrs;
+
+  dev = config.modules.device;
+in {
   imports = [
     ./blocker.nix
     ./firewall.nix
@@ -40,13 +43,15 @@ with lib; {
       plugins = [];
       dns = "systemd-resolved";
       unmanaged = ["docker0" "rndis0"];
+
       wifi = {
         # The below is disabled as my uni hated me for it
         # macAddress = "random"; # use a random mac address on every boot, this can scew with static ip
         powersave = true;
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
       };
-      # ethernet.macAddress = "random";
+
+      ethernet.macAddress = mkIf (dev.type != "server") "random";
     };
   };
 
@@ -69,10 +74,10 @@ with lib; {
         systemd-networkd.stopIfChanged = false;
         systemd-resolved.stopIfChanged = false;
       }
-      // lib.concatMapAttrs (_: v: v) (lib.genAttrs ethernetDevices (device: {
+      // lib.concatMapAttrs (_: v: v) (genAttrs ethernetDevices (device: {
         # Assign an IP address when the device is plugged in rather than on startup. Needed to prevent
         # blocking the boot sequence when the device is unavailable, as it is hotpluggable.
-        "network-addresses-${device}".wantedBy = lib.mkForce ["sys-subsystem-net-devices-${device}.device"];
+        "network-addresses-${device}".wantedBy = mkForce ["sys-subsystem-net-devices-${device}.device"];
       }));
   };
 }
