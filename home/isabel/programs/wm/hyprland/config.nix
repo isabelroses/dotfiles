@@ -69,8 +69,8 @@ in {
         # focus on the window that has just been moved out of the group
         focus_removed_window = true;
 
-        "col.group_border_active" = "$blue";
-        "col.group_border" = "$surface0";
+        "col.border_active" = "$blue";
+        "col.border_inactive" = "$surface0";
 
         groupbar = {
           gradients = false;
