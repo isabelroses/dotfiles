@@ -3,6 +3,7 @@ _: {
     ./hardware-configuration.nix
     ./mount.nix
     ./overrides.nix
+    ./services.nix
   ];
 
   config.modules = {
@@ -63,15 +64,6 @@ _: {
         bella = true;
         nekowinston = true;
       };
-    };
-
-    services = {
-      vscode-server.enable = true;
-      mailserver.enable = true;
-      gitea.enable = true;
-      vaultwarden.enable = true;
-      isabelroses-web.enable = true;
-      nginx.enable = true;
     };
   };
 }
