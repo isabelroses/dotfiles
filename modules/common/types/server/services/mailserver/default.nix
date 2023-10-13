@@ -114,6 +114,11 @@ in {
           aliases = ["vaultwarden" "bitwarden" "bitwarden@${domain}"];
           hashedPasswordFile = config.sops.secrets.mailserver-vaultwarden.path;
         };
+
+        "grafana@${domain}" = {
+          aliases = ["grafana" "monitor" "monitor@${domain}"];
+          hashedPasswordFile = config.sops.secrets.mailserver-grafana.path;
+        };
       };
 
       mailboxes = {
