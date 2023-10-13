@@ -35,23 +35,50 @@ in {
 
       # mailserver
       mailserver-isabel.path = mailserverPath + "/isabel";
+      mailserver-vaultwarden.path = mailserverPath + "/vaultwarden";
+      mailserver-database.path = mailserverPath + "/database";
+
+      mailserver-grafana.path = mailserverPath + "/grafana";
+      mailserver-grafana-nohash = {
+        path = mailserverPath + "/grafana-nohash";
+        owner = "grafana";
+        group = "grafana";
+      };
+
       mailserver-gitea.path = mailserverPath + "/gitea";
       mailserver-gitea-nohash = mkIf services.gitea.enable {
         path = mailserverPath + "/gitea-nohash";
         owner = "git";
         group = "git";
       };
-      mailserver-vaultwarden.path = mailserverPath + "/vaultwarden";
-      mailserver-database.path = mailserverPath + "/database";
 
       # vaultwarden
       vaultwarden-env.path = secretsPath + "/vaultwarden/env";
+
+      # miniflux
+      miniflux-env = mkIf services.miniflux.enable {
+        path = secretsPath + "/mini/env";
+        owner = "miniflux";
+        group = "miniflux";
+      };
+
+      # matrix
+      matrix = mkIf services.matrix.enable {
+        path = secretsPath + "/matrix";
+        owner = "matrix-synapse";
+        mode = "400";
+      };
 
       #wakapi
       wakapi = mkIf services.wakapi.enable {
         path = secretsPath + "/wakapi/default";
         owner = "wakapi";
         group = "wakapi";
+      };
+
+      mongodb-passwd = mkIf services.database.mongodb.enable {
+        path = secretsPath + "/mongodb/passwd";
+        mode = "400";
       };
 
       # user
