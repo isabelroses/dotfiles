@@ -5,7 +5,7 @@
     check.enable = true;
 
     settings = {
-      excludes = ["flake.lock"];
+      excludes = ["flake.lock" "secrets.yaml"];
 
       hooks = {
         alejandra.enable = true;
