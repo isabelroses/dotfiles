@@ -79,6 +79,27 @@ in {
             proxy_read_timeout 60s;
           '';
         };
+
+        "graph.${domain}" = mkIf cfg.monitoring.grafana.enable {
+          locations."/" = {
+            proxyPass = "http://${toString config.services.grafana.settings.server.http_addr}:${toString config.services.grafana.settings.server.http_port}/";
+            proxyWebsockets = true;
+          };
+          addSSL = true;
+          enableACME = true;
+        };
+
+        "flux.${domain}" = mkIf cfg.miniflux.enable {
+          locations."/".proxyPass = "http://unix:${config.systemd.services.miniflux.environment.LISTEN_ADDR}";
+          forceSSL = true;
+          enableACME = true;
+        };
+
+        "matrix.${domain}" = mkIf cfg.matrix.enable {
+          locations."/".proxyPass = "http://127.0.0.1:8008";
+          forceSSL = true;
+          enableACME = true;
+        };
       };
     };
   };
