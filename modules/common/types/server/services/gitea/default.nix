@@ -45,6 +45,7 @@ in {
         stateDir = "/srv/storage/gitea/data";
 
         mailerPasswordFile = config.sops.secrets.mailserver-gitea-nohash.path;
+
         dump = {
           enable = true;
           backupDir = "/srv/storage/gitea/dump";
@@ -60,7 +61,7 @@ in {
 
             START_SSH_SERVER = false;
             BUILTIN_SSH_SERVER_USER = "git";
-            SSH_PORT = 22;
+            SSH_PORT = 30;
             DISABLE_ROUTER_LOG = true;
             SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
             LANDING_PAGE = "/explore/repos";

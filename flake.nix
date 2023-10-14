@@ -200,7 +200,7 @@
 
     # More up to date auto-cpufreq
     auto-cpufreq = {
-      url = "github:isabelroses/auto-cpufreq";
+      url = "github:AdnanHodzic/auto-cpufreq";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
