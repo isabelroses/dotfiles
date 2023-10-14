@@ -44,26 +44,7 @@
         };
       };
 
-      debugMode = {
-        enable = false;
-        logFile = "/tmp/nvim.log";
-      };
-
-      lsp = {
-        formatOnSave = true;
-        lspkind.enable = true;
-        lsplines.enable = true;
-        lightbulb.enable = true;
-        lspsaga.enable = false;
-        lspSignature.enable = true;
-        nvimCodeActionMenu.enable = true;
-        trouble.enable = false;
-      };
-
-      debugger.nvim-dap = {
-        enable = true;
-        ui.enable = true;
-      };
+      spellChecking.enable = true;
 
       languages = {
         enableLSP = true;
@@ -73,6 +54,7 @@
 
         nix.enable = true;
         html.enable = true;
+        markdown.enable = true;
         sql.enable = false;
         ts.enable = true;
         go.enable = false;
@@ -81,6 +63,8 @@
         dart.enable = false;
         elixir.enable = false;
         svelte.enable = false;
+        lua.enable = false;
+        php.enable = false;
 
         rust = {
           enable = true;
@@ -96,11 +80,32 @@
         };
       };
 
+      lsp = {
+        formatOnSave = true;
+        lspkind.enable = true;
+        lsplines.enable = true;
+        lightbulb.enable = true;
+        lspsaga.enable = false;
+        lspSignature.enable = true;
+        nvimCodeActionMenu.enable = true;
+        trouble.enable = false;
+      };
+
+      debugMode = {
+        enable = false;
+        logFile = "/tmp/nvim.log";
+      };
+
+      debugger.nvim-dap = {
+        enable = true;
+        ui.enable = true;
+      };
+
       visuals = {
         enable = true;
         nvimWebDevicons.enable = true;
         scrollBar.enable = false;
-        smoothScroll.enable = false;
+        smoothScroll.enable = true;
         cellularAutomaton.enable = false;
         fidget-nvim.enable = true;
 
@@ -130,11 +135,18 @@
         style = "mocha";
         transparent = true;
       };
+
       autopairs.enable = true;
 
       autocomplete = {
         enable = true;
         type = "nvim-cmp";
+
+        mappings = {
+          confirm = "<Tab>";
+          next = "<Down>";
+          previous = "<Up>";
+        };
       };
 
       filetree = {
@@ -178,6 +190,11 @@
             };
           };
 
+          filters = {
+            dotfiles = true;
+            gitIgnored = true;
+          };
+
           diagnostics.enable = true;
 
           modified = {
@@ -187,7 +204,10 @@
           };
 
           mappings = {
-            toggle = "<C-w>";
+            toggle = "<leader>e";
+            refresh = "<leader>er";
+            findFile = "<leader>ef";
+            focus = "<leader>et";
           };
         };
       };
@@ -203,7 +223,21 @@
         cheatsheet.enable = false;
       };
 
-      telescope.enable = true;
+      telescope = {
+        enable = true;
+
+        mappings = {
+          findFiles = "<leader><leader>";
+          liveGrep = "<leader>fs";
+          treesitter = "<leader>ffs";
+
+          gitCommits = "<leader>fgc";
+          gitBufferCommits = "<leader>fgbc";
+          gitBranches = "<leader>fgb";
+          gitStatus = "<leader>fgs";
+          gitStash = " <leader>fgx";
+        };
+      };
 
       git = {
         enable = true;
@@ -212,14 +246,14 @@
       };
 
       minimap = {
-        # cool for vanity but practically useless on small screens
         minimap-vim.enable = false;
         codewindow.enable = false;
       };
 
       dashboard = {
         dashboard-nvim.enable = false;
-        alpha.enable = true;
+        alpha.enable = false;
+        startify.enable = false;
       };
 
       notify = {
@@ -231,21 +265,17 @@
           enable = true;
           manualMode = false;
           detectionMethods = ["lsp" "pattern"];
-          patterns = [
-            ".git"
-            ".hg"
-            "Makefile"
-            "package.json"
-            "index.*"
-            ".anchor"
-          ];
         };
       };
 
       utility = {
-        ccc.enable = true;
+        ccc.enable = false; # color picker
         icon-picker.enable = true;
         diffview-nvim.enable = true;
+        surround.enable = true; # quick delimters altering
+
+        # TODO wakatime
+
         motion = {
           hop.enable = true;
           leap.enable = false;
@@ -253,9 +283,20 @@
       };
 
       notes = {
-        mind-nvim.enable = true;
-        todo-comments.enable = true;
-        obsidian.enable = false;
+        todo-comments = {
+          enable = true;
+
+          mappings = {
+            quickFix = "<leader>tdf";
+            telescope = "<leader>tds";
+          };
+        };
+
+        obsidian = {
+          enable = true;
+          dir = "~/documents/obsidian";
+          completion.nvim_cmp = true;
+        };
       };
 
       terminal = {
@@ -273,7 +314,6 @@
       ui = {
         noice.enable = true;
         colorizer.enable = true;
-        modes-nvim.enable = false;
         illuminate.enable = true;
 
         breadcrumbs = {
@@ -308,8 +348,14 @@
 
       session = {
         nvim-session-manager = {
-          enable = false;
-          autoloadMode = "Disabled"; # misbehaves with dashboard
+          enable = true;
+
+          mappings = {
+            deleteSession = "<leader>sd";
+            loadLastSession = "<leader>slt";
+            loadSession = "<leader>sl";
+            saveCurrentSession = "<leader>ss";
+          };
         };
       };
 
@@ -322,19 +368,29 @@
       };
 
       presence = {
-        presence-nvim.enable = true;
+        presence-nvim.enable = false;
       };
 
       maps.normal = {
         "<leader>qq" = {
           action = "<cmd>qall!<CR>";
-          silent = false;
+          silent = true;
           desc = "Quit all";
         };
         "<C-s>" = {
           action = ":w<CR>";
           silent = true;
           desc = "Save";
+        };
+        "<leader>es" = {
+          action = ''
+            function ()
+              nvim-tree-api.tree.toggle_hidden_filter()
+              nvim-tree-api.tree.toggle_gitignore_filter()
+            end)
+          '';
+          silent = true;
+          desc = "Show hidden files";
         };
       };
     };
