@@ -16,7 +16,6 @@
   mkEnableOption' = desc: mkEnableOption "${desc}" // {default = cfg.monitoring.enable;};
 in {
   options.modules.services = {
-    mailserver.enable = mkEnableOption "Enable the mailserver service";
     matrix.enable = mkEnableOption "Enable matrix server";
     miniflux.enable = mkEnableOption "Enable miniflux rss news aggreator service";
     gitea.enable = mkEnableOption "Enable the gitea service";
@@ -28,11 +27,12 @@ in {
     searxng.enable = mkEnableOption "Enables searxng search engine service";
     nginx.enable = mkEnableOption "Enables nginx webserver";
     cloudflared.enable = mkEnableOption "Enables cloudflared tunnels";
-    wakapi.enable = mkEnableOption "Enables wakapit";
+    wakapi.enable = mkEnableOption "Enables wakapi";
+    jellyfin.enable = mkEnableOption "Enables the jellyfin service";
 
-    jellyfin = {
-      enable = mkEnableOption "Enables the jellyfin service";
-      asDockerContainer = mkEnableOption "Enables the service as a docker container";
+    mailserver = {
+      enable = mkEnableOption "Enable the mailserver service";
+      rspamd-web.enable = mkEnableOption "Enable rspamd web ui";
     };
 
     # monitoring tools

@@ -61,6 +61,12 @@ in {
           forceSSL = true;
           enableACME = true;
         };
+        "rspamd.${domain}" = mkIf (cfg.mailserver.enable && cfg.mailserver.rspamd-web.enable) {
+          forceSSL = true;
+          enableACME = true;
+          basicAuthFile = config.sops.secrets.rspamd-web.path;
+          locations."/".proxyPass = "http://unix:/run/rspamd/worker-controller.sock:/";
+        };
         "webmail.${domain}" = mkIf cfg.mailserver.enable {
           forceSSL = true;
           enableACME = true;
