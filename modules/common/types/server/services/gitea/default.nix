@@ -45,6 +45,7 @@ in {
         stateDir = "/srv/storage/gitea/data";
 
         mailerPasswordFile = config.sops.secrets.mailserver-gitea-nohash.path;
+
         dump = {
           enable = true;
           backupDir = "/srv/storage/gitea/dump";
