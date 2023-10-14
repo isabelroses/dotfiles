@@ -85,10 +85,7 @@ _: {
         };
         vscode-server.enable = true;
         cloudflared.enable = false;
-        jellyfin = {
-          enable = false;
-          asDockerContainer = false;
-        };
+        jellyfin.enable = false;
       };
     };
 
