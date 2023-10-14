@@ -83,10 +83,11 @@ in {
 
     mailserver = {
       enable = true;
-      # make sure the perms here is 077
-      mailDirectory = "/srv/storage/mail/vmail";
-      dkimKeyDirectory = "/srv/storage/mail/dkim";
-      sieveDirectory = "/srv/storage/mail/sieve";
+      # make sure the perms here is
+      # /srv/storage/mail/ # 775
+      mailDirectory = "/srv/storage/mail/vmail"; # 770
+      dkimKeyDirectory = "/srv/storage/mail/dkim"; # 775
+      sieveDirectory = "/srv/storage/mail/sieve"; # 770
       openFirewall = true;
       enableImap = true;
       enableImapSsl = true;
