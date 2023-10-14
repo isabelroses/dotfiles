@@ -5,7 +5,6 @@ import OSD from "./js/osd/OSD.js";
 import Applauncher from "./js/applauncher/Applauncher.js";
 import PowerMenu from "./js/powermenu/PowerMenu.js";
 import Verification from "./js/powermenu/Verification.js";
-import Desktop from "./js/desktop/Desktop.js";
 import Notifications from "./js/notifications/Notifications.js";
 import QuickSettings from "./js/quicksettings/QuickSettings.js";
 import options from "./js/options.js";
@@ -27,7 +26,6 @@ export default {
         forMonitors(TopBar),
         forMonitors(ScreenCorners),
         forMonitors(OSD),
-        forMonitors(Desktop),
         forMonitors(Notifications),
         Applauncher(),
         Dashboard(),

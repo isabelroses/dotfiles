@@ -38,16 +38,6 @@ class Indicator extends Service {
         );
     }
 
-    kbd() {
-        // brightness is async, so lets wait a bit
-        Utils.timeout(10, () =>
-            this.popup(
-                (Brightness.kbd * 33 + 1) / 100,
-                icons.brightness.keyboard,
-            ),
-        );
-    }
-
     connectWidget(widget, callback) {
         Utils.connect(this, widget, callback, "popup");
     }
