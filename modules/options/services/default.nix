@@ -10,7 +10,7 @@
 
   # ifOneEnabled takes a parent option and 3 child options and checks if at least one of them is enabled
   # => ifOneEnabled config.modules.services "service1" "service2" "service3"
-  ifOneEnabled = cfg: a: b: c: cfg.a || cfg.b || cfg.c;
+  # ifOneEnabled = cfg: a: b: c: cfg.a || cfg.b || cfg.c;
 
   # mkEnableOption is the same as mkEnableOption but with the default value being equal to cfg.monitoring.enable
   mkEnableOption' = desc: mkEnableOption "${desc}" // {default = cfg.monitoring.enable;};
@@ -37,7 +37,7 @@ in {
 
     # monitoring tools
     monitoring = {
-      enable = mkEnableOption "system monitoring services" // {default = ifOneEnabled cfg "grafana" "prometheus" "loki";};
+      enable = mkEnableOption "system monitoring services"; # // {default = ifOneEnabled cfg "grafana" "prometheus" "loki";};
       prometheus.enable = mkEnableOption' "Prometheus monitoring service";
       grafana.enable = mkEnableOption' "Grafana monitoring service";
       loki.enable = mkEnableOption' "Loki monitoring service";

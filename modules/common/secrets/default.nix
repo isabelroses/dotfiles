@@ -39,7 +39,7 @@ in {
       mailserver-database.path = mailserverPath + "/database";
 
       mailserver-grafana.path = mailserverPath + "/grafana";
-      mailserver-grafana-nohash = {
+      mailserver-grafana-nohash = mkIf services.monitoring.grafana.enable {
         path = mailserverPath + "/grafana-nohash";
         owner = "grafana";
         group = "grafana";
