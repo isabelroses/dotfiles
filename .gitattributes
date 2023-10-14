@@ -1,2 +1,2 @@
 /flake/templates/* linguist-vendored
-!/flake/templates/*.nix linguist-language=Nix
+\!/flake/templates/*.nix linguist-language=Nix
