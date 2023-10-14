@@ -38,6 +38,8 @@ in {
       mailserver-vaultwarden.path = mailserverPath + "/vaultwarden";
       mailserver-database.path = mailserverPath + "/database";
 
+      rspamd-web.path = mailserverPath + "/rspamd-auth-file";
+
       mailserver-grafana.path = mailserverPath + "/grafana";
       mailserver-grafana-nohash = mkIf services.monitoring.grafana.enable {
         path = mailserverPath + "/grafana-nohash";

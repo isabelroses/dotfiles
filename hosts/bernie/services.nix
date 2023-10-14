@@ -3,11 +3,15 @@ _: {
     vscode-server.enable = false;
     miniflux.enable = false;
     matrix.enable = true;
-    mailserver.enable = true;
     gitea.enable = true;
     vaultwarden.enable = true;
     isabelroses-web.enable = true;
     nginx.enable = true;
+
+    mailserver = {
+      enable = true;
+      rspamd-web.enable = false;
+    };
 
     monitoring = {
       grafana.enable = true;
