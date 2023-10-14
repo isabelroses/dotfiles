@@ -1,8 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./micro
-    #./nvim
-    ./nvim-flake # https://github.com/NotAShelf/neovim-flake/
+    ./nvim # https://github.com/NotAShelf/neovim-flake/
     ./vscode
   ];
   config.home.packages = with pkgs; [
