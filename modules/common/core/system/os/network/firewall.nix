@@ -7,6 +7,28 @@
   inherit (lib) mkDefault mkForce;
   inherit (config.modules) device;
 in {
+  environment.etc."fail2ban/filter.d/vaultwarden.conf" = {
+    enable = config.services.vaultwarden.enable;
+    text = ''
+      [INCLUDES]
+      before = common.conf
+      [Definition]
+      failregex = ^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$
+      ignoreregex =
+    '';
+  };
+
+  environment.etc."fail2ban/filter.d/vaultwarden-admin.conf" = {
+    enable = config.services.vaultwarden.enable;
+    text = ''
+      [INCLUDES]
+      before = common.conf
+      [Definition]
+      failregex = ^.*Invalid admin token\. IP: <ADDR>.*$
+      ignoreregex =
+    '';
+  };
+
   services = {
     # enable opensnitch firewall
     # inactive until opensnitch UI is opened
@@ -29,6 +51,27 @@ in {
           port = 22
           mode = aggressive
         '';
+
+        vaultwarden = ''
+          enabled = true
+          port = 80,443,8822
+          filter = vaultwarden
+          banaction = %(banaction_allports)s
+          logpath = /var/log/vaultwarden.log
+          maxretry = 3
+          bantime = 14400
+          findtime = 14400
+        '';
+        vaultwarden-admin = ''
+          enabled = true
+          port = 80,443
+          filter = vaultwarden-admin
+          banaction = %(banaction_allports)s
+          logpath = /var/log/vaultwarden.log
+          maxretry = 3
+          bantime = 14400
+          findtime = 14400
+        '';
       };
 
       bantime-increment = {
@@ -45,7 +88,10 @@ in {
     firewall = {
       enable = mkDefault true;
       package = mkDefault pkgs.iptables-nftables-compat;
-      allowedTCPPorts = [443 8080];
+      allowedTCPPorts = [
+        443
+        8080
+      ];
       allowedUDPPorts = [];
       allowedTCPPortRanges = [
         {
