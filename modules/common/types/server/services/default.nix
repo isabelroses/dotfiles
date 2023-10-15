@@ -13,6 +13,6 @@ _: {
     ./photoprism
     ./vaultwarden
     ./wakatime
-    ./websites
+    #./websites
   ];
 }
