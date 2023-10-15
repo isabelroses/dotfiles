@@ -21,26 +21,38 @@
       useSystemClipboard = true;
 
       treesitter.grammars = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-        lua
+        regex
         markdown
         markdown-inline
       ];
 
       extraPlugins = with pkgs.vimPlugins; {
+        friendly-snippets = {package = friendly-snippets;};
+
         aerial = {
           package = aerial-nvim;
           setup = "require('aerial').setup {}";
         };
 
+        /*
         harpoon = {
           package = harpoon;
           setup = "require('harpoon').setup {}";
           after = ["aerial"];
         };
+        */
 
         nvim-surround = {
           package = nvim-surround;
           setup = "require('nvim-surround').setup{}";
+        };
+
+        undotree = {
+          package = undotree;
+          setup = ''
+            vim.g.undotree_ShortIndicators = true
+            vim.g.undotree_TreeVertShape = '│'
+          '';
         };
       };
 
@@ -63,8 +75,12 @@
         dart.enable = false;
         elixir.enable = false;
         svelte.enable = false;
-        lua.enable = false;
         php.enable = false;
+
+        lua = {
+          enable = false;
+          lsp.neodev.enable = false;
+        };
 
         rust = {
           enable = true;
@@ -171,11 +187,7 @@
           view = {
             preserveWindowProportions = false;
             cursorline = false;
-            width = {
-              min = 35;
-              max = -1;
-              padding = 1;
-            };
+            width = 35;
           };
 
           renderer = {
@@ -216,7 +228,10 @@
         nvimBufferline.enable = true;
       };
 
-      treesitter.context.enable = true;
+      treesitter = {
+        fold = true;
+        context.enable = true;
+      };
 
       binds = {
         whichKey.enable = true;
