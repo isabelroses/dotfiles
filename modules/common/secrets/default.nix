@@ -21,69 +21,55 @@ in {
       inherit (config.modules.system) mainUser;
       homeDir = config.home-manager.users.${mainUser}.home.homeDirectory;
       sshDir = homeDir + "/.ssh";
-
-      # servers
-      secretsPath = "/run/secrets.d";
-      mailserverPath = secretsPath + "/mailserver";
     in {
       # server
       cloudflared-hydra = mkIf services.cloudflared.enable {
-        path = secretsPath + "/cloudflared/hydra";
         owner = "cloudflared";
         group = "cloudflared";
       };
 
       # mailserver
-      mailserver-isabel.path = mailserverPath + "/isabel";
-      mailserver-vaultwarden.path = mailserverPath + "/vaultwarden";
-      mailserver-database.path = mailserverPath + "/database";
+      rspamd-web = {};
+      mailserver-isabel = {};
+      mailserver-vaultwarden = {};
+      mailserver-database = {};
+      mailserver-grafana = {};
 
-      rspamd-web.path = mailserverPath + "/rspamd-auth-file";
-
-      mailserver-grafana.path = mailserverPath + "/grafana";
       mailserver-grafana-nohash = mkIf services.monitoring.grafana.enable {
-        path = mailserverPath + "/grafana-nohash";
         owner = "grafana";
         group = "grafana";
       };
 
-      mailserver-gitea.path = mailserverPath + "/gitea";
+      mailserver-gitea = {};
       mailserver-gitea-nohash = mkIf services.gitea.enable {
-        path = mailserverPath + "/gitea-nohash";
         owner = "git";
         group = "git";
       };
 
-      isabelroses-web-env = {
-        path = secretsPath + "/isabelroses-web/.env";
-      };
+      isabelroses-web-env = {};
 
       # vaultwarden
-      vaultwarden-env.path = secretsPath + "/vaultwarden/env";
+      vaultwarden-env = {};
 
       # miniflux
       miniflux-env = mkIf services.miniflux.enable {
-        path = secretsPath + "/mini/env";
         owner = "miniflux";
         group = "miniflux";
       };
 
       # matrix
       matrix = mkIf services.matrix.enable {
-        path = secretsPath + "/matrix";
         owner = "matrix-synapse";
         mode = "400";
       };
 
       #wakapi
       wakapi = mkIf services.wakapi.enable {
-        path = secretsPath + "/wakapi/default";
         owner = "wakapi";
         group = "wakapi";
       };
 
       mongodb-passwd = mkIf services.database.mongodb.enable {
-        path = secretsPath + "/mongodb/passwd";
         mode = "400";
       };
 
