@@ -28,7 +28,7 @@ in {
     in {
       # server
       cloudflared-hydra = mkIf services.cloudflared.enable {
-        #path = secretsPath + "/cloudflared/hydra";
+        path = secretsPath + "/cloudflared/hydra";
         owner = "cloudflared";
         group = "cloudflared";
       };
@@ -52,6 +52,10 @@ in {
         path = mailserverPath + "/gitea-nohash";
         owner = "git";
         group = "git";
+      };
+
+      isabelroses-web-env = {
+        path = secretsPath + "/isabelroses-web/.env";
       };
 
       # vaultwarden
