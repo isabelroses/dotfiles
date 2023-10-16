@@ -19,38 +19,36 @@ export const BatteryProgress = () =>
                 },
             ],
         ],
-        children: [
-            Widget.Overlay({
+        child: Widget.Overlay({
+            vexpand: true,
+            child: Widget.ProgressBar({
+                hexpand: true,
                 vexpand: true,
-                child: Widget.ProgressBar({
-                    hexpand: true,
-                    vexpand: true,
+                connections: [
+                    [
+                        Battery,
+                        (progress) => {
+                            progress.fraction = Battery.percent / 100;
+                        },
+                    ],
+                ],
+            }),
+            overlays: [
+                Widget.Label({
                     connections: [
                         [
                             Battery,
-                            (progress) => {
-                                progress.fraction = Battery.percent / 100;
+                            (l) => {
+                                l.label =
+                                    Battery.charging || Battery.charged
+                                        ? icons.battery.charging
+                                        : `${Battery.percent}%`;
                             },
                         ],
                     ],
                 }),
-                overlays: [
-                    Widget.Label({
-                        connections: [
-                            [
-                                Battery,
-                                (l) => {
-                                    l.label =
-                                        Battery.charging || Battery.charged
-                                            ? icons.battery.charging
-                                            : `${Battery.percent}%`;
-                                },
-                            ],
-                        ],
-                    }),
-                ],
-            }),
-        ],
+            ],
+        }),
     });
 
 export default () =>
