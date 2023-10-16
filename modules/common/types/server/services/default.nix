@@ -1,7 +1,7 @@
 _: {
   imports = [
     ./cloudflared
-    #./containers
+    ./containers
     ./cyberchef
     ./databases
     ./gitea
