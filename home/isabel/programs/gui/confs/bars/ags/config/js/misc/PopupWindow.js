@@ -14,22 +14,20 @@ const Padding = (windowName) =>
 const PopupRevealer = (windowName, transition, child) =>
     Widget.Box({
         style: "padding: 1px;",
-        children: [
-            Widget.Revealer({
-                transition,
-                child,
-                transitionDuration: options.windowAnimationDuration,
-                connections: [
-                    [
-                        App,
-                        (revealer, name, visible) => {
-                            if (name === windowName)
-                                revealer.reveal_child = visible;
-                        },
-                    ],
+        child: Widget.Revealer({
+            transition,
+            child,
+            transitionDuration: options.windowAnimationDuration,
+            connections: [
+                [
+                    App,
+                    (revealer, name, visible) => {
+                        if (name === windowName)
+                            revealer.reveal_child = visible;
+                    },
                 ],
-            }),
-        ],
+            ],
+        }),
     });
 
 const layouts = {

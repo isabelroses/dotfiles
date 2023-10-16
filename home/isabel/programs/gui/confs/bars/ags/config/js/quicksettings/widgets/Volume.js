@@ -51,7 +51,7 @@ export const Volume = () =>
             VolumeSlider(),
             Arrow("sink-selector"),
             Widget.Box({
-                children: [Arrow("app-mixer")],
+                child: Arrow("app-mixer"),
                 connections: [
                     [
                         Audio,

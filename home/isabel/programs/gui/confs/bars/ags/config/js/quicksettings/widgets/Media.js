@@ -67,24 +67,22 @@ const TextBox = (player) =>
 const PlayerBox = (player) =>
     Widget.Box({
         className: `player ${player.name}`,
-        children: [
-            mpris.BlurredCoverArt(player, {
-                className: "cover-art-bg",
-                hexpand: true,
-                children: [
-                    Widget.Box({
-                        className: "shader",
-                        hexpand: true,
-                        vertical: true,
-                        children: [
-                            TextBox(player),
-                            mpris.PositionSlider(player),
-                            Footer(player),
-                        ],
-                    }),
-                ],
-            }),
-        ],
+        child: mpris.BlurredCoverArt(player, {
+            className: "cover-art-bg",
+            hexpand: true,
+            children: [
+                Widget.Box({
+                    className: "shader",
+                    hexpand: true,
+                    vertical: true,
+                    children: [
+                        TextBox(player),
+                        mpris.PositionSlider(player),
+                        Footer(player),
+                    ],
+                }),
+            ],
+        }),
     });
 
 export default () =>

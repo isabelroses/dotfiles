@@ -7,8 +7,8 @@ const wlCopy = (color) => Utils.execAsync(["wl-copy", color]).catch(print);
 
 const colors = Variable([]);
 Utils.readFileAsync(COLORS_CACHE)
-    .catch(() => print("no colorpicker cache found"))
-    .then((out) => colors.setValue(JSON.parse(out || "[]")));
+    .then((out) => colors.setValue(JSON.parse(out || "[]")))
+    .catch(() => print("no colorpicker cache found"));
 
 export default () =>
     PanelButton({
@@ -30,7 +30,7 @@ export default () =>
                         Utils.writeFile(
                             JSON.stringify(list, null, 2),
                             COLORS_CACHE,
-                        );
+                        ).catch((err) => console.error(err));
                     }
 
                     btn._id = Notifications.Notify(

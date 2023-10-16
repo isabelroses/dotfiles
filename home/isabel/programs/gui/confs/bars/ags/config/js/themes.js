@@ -1,5 +1,6 @@
-// common
-const WP = `/home/${ags.Utils.USER}/media/pictures/wallpapers/`;
+import { Utils } from "./imports.js";
+
+const WP = `/home/${Utils.USER}/media/pictures/wallpapers/`;
 
 const mocha_colors = {
     bg_color: "#1e1e2e",

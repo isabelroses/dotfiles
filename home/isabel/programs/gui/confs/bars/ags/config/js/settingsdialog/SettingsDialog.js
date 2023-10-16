@@ -227,33 +227,29 @@ const Layout = (pages) =>
             Widget.Box({
                 className: "headerbar",
                 valign: "start",
-                children: [
-                    Widget.Box({
-                        className: "tabs",
-                        children: [
-                            ...Object.keys(pages).map((page) => Tab(page)),
-                            Widget.Button({
-                                className: "tab",
-                                onClicked: () => Theme.reset(),
-                                child: Widget.Label("󰦛 Reset"),
-                                hexpand: true,
-                            }),
-                        ],
-                    }),
-                ],
+                child: Widget.Box({
+                    className: "tabs",
+                    children: [
+                        ...Object.keys(pages).map((page) => Tab(page)),
+                        Widget.Button({
+                            className: "tab",
+                            onClicked: () => Theme.reset(),
+                            child: Widget.Label("󰦛 Reset"),
+                            hexpand: true,
+                        }),
+                    ],
+                }),
             }),
             Widget.Box({
                 className: "content",
-                children: [
-                    Widget.Stack({
-                        transition: "slide_left_right",
-                        items: Object.keys(pages).map((page) => [
-                            page,
-                            pages[page],
-                        ]),
-                        binds: [["shown", page]],
-                    }),
-                ],
+                child: Widget.Stack({
+                    transition: "slide_left_right",
+                    items: Object.keys(pages).map((page) => [
+                        page,
+                        pages[page],
+                    ]),
+                    binds: [["shown", page]],
+                }),
             }),
             Widget.Label({
                 wrap: true,
