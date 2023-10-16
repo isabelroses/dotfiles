@@ -46,7 +46,9 @@ in {
         group = "git";
       };
 
-      isabelroses-web-env = {};
+      isabelroses-web-env = {
+        mode = "777";
+      };
 
       # vaultwarden
       vaultwarden-env = {};
@@ -62,6 +64,8 @@ in {
         owner = "matrix-synapse";
         mode = "400";
       };
+
+      docker-hub = {};
 
       #wakapi
       wakapi = mkIf services.wakapi.enable {

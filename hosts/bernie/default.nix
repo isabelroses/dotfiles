@@ -38,7 +38,7 @@ _: {
 
       virtualization = {
         enable = true;
-        docker.enable = true;
+        docker.enable = false;
         qemu.enable = false;
         podman.enable = false;
         distrobox.enable = false;
