@@ -5,13 +5,33 @@
   ...
 }:
 with lib; let
-  device = config.modules.device;
-  acceptedTypes = ["server" "hybrid"];
   cfg = config.modules.services.gitea;
-  domain = "git.isabelroses.com";
+  inherit (config.networking) domain;
+  gitea_domain = "git.${domain}";
+
+  # stole this from https://git.winston.sh/winston/deployment-flake/src/branch/main/config/services/gitea.nix who stole it from https://github.com/getchoo
+  theme = pkgs.fetchzip {
+    url = "https://github.com/catppuccin/gitea/releases/download/v0.4.1/catppuccin-gitea.tar.gz";
+    sha256 = "sha256-14XqO1ZhhPS7VDBSzqW55kh6n5cFZGZmvRCtMEh8JPI=";
+    stripRoot = false;
+  };
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && cfg.enable) {
+  config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [config.services.gitea.settings.server.HTTP_PORT];
+
+    systemd.services = {
+      gitea = {
+        after = ["sops-nix.service"];
+        preStart = let
+          inherit (config.services.gitea) stateDir;
+        in
+          lib.mkAfter ''
+            rm -rf ${stateDir}/custom/public
+            mkdir -p ${stateDir}/custom/public
+            ln -sf ${theme} ${stateDir}/custom/public/css
+          '';
+      };
+    };
 
     services = {
       gitea = {
@@ -20,10 +40,12 @@ in {
         appName = "iztea";
         lfs.enable = true;
         user = "git";
+        group = "git";
         database.user = "git";
         stateDir = "/srv/storage/gitea/data";
 
-        mailerPasswordFile = config.sops.secrets.mailserver-gitea.path;
+        mailerPasswordFile = config.sops.secrets.mailserver-gitea-nohash.path;
+
         dump = {
           enable = true;
           backupDir = "/srv/storage/gitea/dump";
@@ -33,13 +55,13 @@ in {
 
         settings = {
           server = {
-            ROOT_URL = "https://${domain}";
+            ROOT_URL = "https://${gitea_domain}";
             HTTP_PORT = 7000;
-            DOMAIN = "${domain}";
+            DOMAIN = "${gitea_domain}";
 
             START_SSH_SERVER = false;
             BUILTIN_SSH_SERVER_USER = "git";
-            SSH_PORT = 22;
+            SSH_PORT = 30;
             DISABLE_ROUTER_LOG = true;
             SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
             LANDING_PAGE = "/explore/repos";
@@ -47,7 +69,15 @@ in {
 
           attachment.ALLOWED_TYPES = "*/*";
           service.DISABLE_REGISTRATION = true;
-          ui.DEFAULT_THEME = "arc-green";
+          ui = {
+            DEFAULT_THEME = "catppuccin-mocha-sapphire";
+            THEMES =
+              builtins.concatStringsSep
+              ","
+              (["auto,forgejo-auto,forgejo-dark,forgejo-light,arc-gree,gitea"]
+                ++ (map (name: lib.removePrefix "theme-" (lib.removeSuffix ".css" name))
+                  (builtins.attrNames (builtins.readDir theme))));
+          };
           migrations.ALLOWED_DOMAINS = "github.com, *.github.com, gitlab.com, *.gitlab.com";
           packages.ENABLED = false;
           repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
@@ -60,8 +90,9 @@ in {
           mailer = {
             ENABLED = true;
             PROTOCOL = "smtps";
-            SMTP_ADDR = "mail.isabelroses.com";
-            USER = "gitea@isabelroses.com";
+            SUBJECT_PREFIX = "iztea Gitea: ";
+            SMTP_ADDR = "mail.${domain}";
+            USER = "gitea@${domain}";
           };
         };
       };

@@ -17,11 +17,7 @@ in {
 
     xdg.portal = {
       extraPortals = [
-        (inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland.override {
-          hyprland-share-picker = inputs'.xdg-portal-hyprland.packages.hyprland-share-picker.override {
-            hyprland = inputs'.hyprland.packages.default;
-          };
-        })
+        inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland
       ];
     };
   };

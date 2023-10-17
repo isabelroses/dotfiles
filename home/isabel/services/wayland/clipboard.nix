@@ -3,20 +3,16 @@
   pkgs,
   osConfig,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  video = osConfig.modules.system.video;
-  env = osConfig.modules.usrEnv;
-
+}: let
+  inherit (lib) mkIf isAcceptedDevice isWayland mkGraphicalService getExe;
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (video.enable && env.isWayland)) {
+  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig)) {
     systemd.user.services = {
-      cliphist = lib.mkGraphicalService {
+      cliphist = mkGraphicalService {
         Unit.Description = "Clipboard history service";
         Service = {
-          ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${lib.getExe pkgs.cliphist} store";
+          ExecStart = "${pkgs.wl-clipboard}/bin/wl-paste --watch ${getExe pkgs.cliphist} store";
           Restart = "always";
         };
       };

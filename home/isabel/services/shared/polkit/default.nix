@@ -3,18 +3,17 @@
   osConfig,
   pkgs,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  video = osConfig.modules.system.video;
-  env = osConfig.modules.usrEnv;
-
+}: let
+  inherit (lib) mkIf isAcceptedDevice mkGraphicalService;
+  inherit (osConfig.modules.system) video;
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (video.enable && env.isWayland)) {
+  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && video.enable) {
     # gnome polkit agent
-    systemd.user.services.polkit-gnome-authentication-agent-1 = lib.mkGraphicalService {
+    systemd.user.services.polkit-gnome-authentication-agent-1 = mkGraphicalService {
       Service.ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      # pantheon alternate, probaly runs lighter
+      # Service.ExecStart = "${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit";
     };
   };
 }

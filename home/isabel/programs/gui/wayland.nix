@@ -3,19 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
-  env = osConfig.modules.usrEnv;
-  programs = osConfig.modules.programs;
-  sys = osConfig.modules.system;
+}: let
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf (env.isWayland && programs.gui.enable && sys.video.enable) {
-    home.packages = with pkgs; [
-      swappy
-      #swaynotificationcenter
-      wlsunset
-      wl-gammactl
-      pavucontrol
-    ];
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.programs.gui.enable) {
+    home.packages = with pkgs;
+      [
+        swappy # used for screenshot area selection
+        # swaynotificationcenter
+        wlsunset # reduce blue light at night
+        wl-gammactl
+      ]
+      ++ lib.optionals osConfig.modules.system.sound.enable [pavucontrol];
   };
 }

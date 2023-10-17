@@ -1,11 +1,14 @@
 _: {
   imports = [
-    ./hardware # hardware - i.e bluetooth, sound, tpm etc.
-    ./media # enable multimedia
-    ./boot # boot and bootloader configurations
-    ./os # system configurations
-    ./smb # host and recive smb shares
     ./activation # activation system for nixos-rebuild
-    ./virtualization # hypervisor and virtualisation related options - docker, QEMU, waydroid etc.
+    ./emulation # emulation setup
+    ./encryption # keeping my stuff hidden from you strange people
+    ./hardware # hardware - bluetooth etc.
+    ./media # sound and video
+    ./nix # nix the package manger options
+    ./os # system configurations
+    ./security # keeping the system safe
+    ./smb # host and recive smb shares TODO move
+    ./virtualization # docker, QEMU, waydroid etc.
   ];
 }

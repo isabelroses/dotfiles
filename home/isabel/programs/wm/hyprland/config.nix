@@ -10,30 +10,6 @@
   pointer = config.home.pointerCursor;
   dev = osConfig.modules.device;
   inherit (osConfig.modules.device) monitors;
-
-  mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
-      if monitor == "DP-1"
-      then "1920x1080@144"
-      else "preferred"
-    },${toString (i * 1920)}x0,1'') monitors);
-
-  mapMonitorsToWs = builtins.concatStringsSep "\n" (
-    builtins.genList (
-      x: ''
-        workspace = ${toString (x + 1)}, monitor:${
-          if (x + 1) <= 5
-          then "${builtins.elemAt monitors 0} ${
-            if (x + 1) == 1
-            then ", default:true"
-            else ""
-          }"
-          else "${builtins.elemAt monitors 1}"
-        }
-
-      ''
-    )
-    10
-  );
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -59,7 +35,7 @@ in {
           "waybar"
         ]
         ++ optionals (defaults.bar == "ags") [
-          "ags"
+          "ags -b hypr"
         ];
 
       input = {
@@ -69,8 +45,9 @@ in {
         touchpad = {
           tap-to-click = true;
           natural_scroll = false; # this is not natrual
-          disable_while_typing = false;
+          disable_while_typing = false; # this is annoying
         };
+        numlock_by_default = true; # numlock enable
       };
 
       gestures.workspace_swipe = dev.type == "laptop" || dev.type == "hybrid";
@@ -85,8 +62,23 @@ in {
 
         "col.active_border" = "$sapphire";
         "col.inactive_border" = "$surface0";
-        "col.group_border_active" = "$blue";
-        "col.group_border" = "$surface0";
+      };
+
+      group = {
+        insert_after_current = true;
+        # focus on the window that has just been moved out of the group
+        focus_removed_window = true;
+
+        "col.border_active" = "$blue";
+        "col.border_inactive" = "$surface0";
+
+        groupbar = {
+          gradients = false;
+          font_size = 12;
+
+          render_titles = false;
+          scrolling = true; # change focused window with scroll
+        };
       };
 
       misc = {
@@ -105,7 +97,6 @@ in {
 
       decoration = {
         rounding = 10;
-        multisample_edges = true;
 
         active_opacity = 1.0;
         inactive_opacity = 1.0;
@@ -128,7 +119,7 @@ in {
       };
 
       animations = {
-        enabled = !(dev.type == "laptop");
+        enabled = dev.type != "laptop";
 
         bezier = [
           "overshot, 0.05, 0.9, 0.1, 1.1"
@@ -185,7 +176,7 @@ in {
           "$mod, E, exec, ${defaults.fileManager}"
           "$mod, C, exec, ${defaults.editor}"
           "$mod, Return, exec, ${defaults.terminal}"
-          "$mod, L, exec, ${defaults.screenLock}"
+          "$mod, L, exec, ${defaults.screenLocker}"
           "$mod, O, exec, obsidian"
 
           # window managment
@@ -224,16 +215,17 @@ in {
         ]
         ++ optionals (defaults.bar == "waybar") [
           "$mod, D, exec, rofi -show drun"
+          ", XF86AudioMute, exec, pamixer -t"
           "$mod, escape, exec, wlogout"
           "$mod, period, exec, killall rofi || rofi -show emoji -emoji-format '{emoji}' -modi emoji"
         ]
         ++ optionals (defaults.bar == "ags") [
-          "$mod, D, exec, ags toggle-window applauncher"
-          "$mod, escape, exec, ags toggle-window powermenu"
-          "$mod SHIFT, R, exec, ags quit ; ags"
+          "$mod, D, exec, ags -b hypr -t applauncher"
+          "$mod, escape, exec, ags -b hypr -t powermenu"
+          "$mod SHIFT, R, exec, ags -b hypr --quit ; ags -b hypr"
+          ", Xf86AudioMute, exec, ags -b hypr -r 'volume.master.toggleMute(); indicator.display()'"
         ]
         ++ optionals (defaults.bar != "eww") [
-          ", XF86AudioMute, exec, pamixer -t"
           ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
           "$mod, V, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
         ]
@@ -244,24 +236,20 @@ in {
           ", XF86AudioPrev, exec, playerctl previous"
         ];
 
-      bindle =
-        []
-        ++ optionals (defaults.bar == "ags") [
-          ", XF86MonBrightnessUp, exec, ags run-js 'ags.Service.Brightness.screen += 0.02; ags.Service.Indicator.display()'"
-          ", XF86MonBrightnessDown, exec, ags run-js 'ags.Service.Brightness.screen -= 0.02; ags.Service.Indicator.display()'"
-          ", XF86AudioRaiseVolume, exec, ags run-js 'ags.Service.Audio.speaker.volume += 0.05; ags.Service.Indicator.speaker()'"
-          ", XF86AudioLowerVolume, exec, ags run-js 'ags.Service.Audio.speaker.volume -= 0.05; ags.Service.Indicator.speaker()'"
-        ];
+      bindle = optionals (defaults.bar == "ags") [
+        ", XF86MonBrightnessUp, exec, ags -b hypr -r 'brightness.screen += 0.05; indicator.display()'"
+        ", XF86MonBrightnessDown, exec, ags -b hypr -r 'brightness.screen -= 0.05; indicator.display()'"
+        ", XF86AudioRaiseVolume, exec, ags -b hypr -r 'audio.speaker.volume += 0.05; indicator.speaker()'"
+        ", XF86AudioLowerVolume, exec, ags -b hypr -r 'audio.speaker.volume -= 0.05; indicator.speaker()'"
+      ];
 
-      bindl =
-        []
-        ++ optionals (defaults.bar == "ags") [
-          ", XF86AudioPlay, exec, ags run-js `ags.Service.Mpris.getPlayer()?.playPause()`"
-          ", XF86AudioStop, exec, ags run-js `ags.Service.Mpris.getPlayer()?.stop()`"
-          ", XF86AudioPause, exec, ags run-js `ags.Service.Mpris.getPlayer()?.pause()`"
-          ", XF86AudioPrev, exec, ags run-js `ags.Service.Mpris.getPlayer()?.previous()`"
-          ", XF86AudioNext, exec, ags run-js `ags.Service.Mpris.getPlayer()?.next()`"
-        ];
+      bindl = optionals (defaults.bar == "ags") [
+        ", XF86AudioPlay, exec, ags -b hypr -r 'mpris.players.pop()?.playPause()'"
+        ", XF86AudioStop, exec, ags -b hypr -r 'mpris.players.pop()?.stop()'"
+        ", XF86AudioPause, exec, ags -b hypr -r 'mpris.players.pop()?.pause()'"
+        ", XF86AudioPrev, exec, ags -b hypr -r 'mpris.players.pop()?.previous()'"
+        ", XF86AudioNext, exec, ags -b hypr -r 'mpris.players.pop()?.next()'"
+      ];
 
       # mouse binds
       bindm = [
@@ -271,8 +259,7 @@ in {
 
       # hold to repeat action buttons
       binde =
-        []
-        ++ optionals (defaults.bar == "eww") [
+        optionals (defaults.bar == "eww") [
           ", XF86AudioRaiseVolume, exec, ~/.config/eww/scripts/volume up"
           ", XF86AudioLowerVolume, exec, ~/.config/eww/scripts/volume down"
           ", XF86MonBrightnessUp, exec, ~/.config/eww/scripts/brightness up"
@@ -286,7 +273,30 @@ in {
         ];
     };
 
-    extraConfig = ''
+    extraConfig = let
+      mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
+          if monitor == "DP-1"
+          then "1920x1080@144"
+          else "preferred"
+        },${toString (i * 1920)}x0,1'') monitors);
+
+      mapMonitorsToWs = builtins.concatStringsSep "\n" (
+        builtins.genList (
+          x: ''
+            workspace = ${toString (x + 1)}, monitor:${
+              if (x + 1) <= 5
+              then "${builtins.elemAt monitors 0} ${
+                if (x + 1) == 1
+                then ", default:true"
+                else ""
+              }"
+              else "${builtins.elemAt monitors 1}"
+            }
+          ''
+        )
+        10
+      );
+    in ''
       ${mapMonitors}
       ${optionalString (builtins.length monitors != 1) "${mapMonitorsToWs}"}
 

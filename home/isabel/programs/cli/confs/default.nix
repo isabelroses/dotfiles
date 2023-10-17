@@ -1,9 +1,7 @@
 _: {
   imports = [
-    ./fish
-    ./nushell
-
     ./bat.nix
+    ./eza.nix
     ./git.nix
     ./nix-shell.nix
     ./starship.nix
