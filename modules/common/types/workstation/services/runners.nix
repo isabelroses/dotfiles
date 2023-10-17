@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (config.modules) device;
+  device = config.modules.device;
 in {
   imports = [inputs.nix-ld.nixosModules.nix-ld];
 
@@ -22,27 +22,16 @@ in {
 
     # run unpatched linux binaries with nix-ld
     programs.nix-ld.dev = {
-      enable = true;
+      enable = false;
       libraries = with pkgs; [
-        stdenv.cc.cc
         openssl
         curl
         glib
+        gjs
         util-linux
         glibc
-        icu
-        libunwind
-        libuuid
-        zlib
-        libsecret
-        # graphical
-        freetype
-        libglvnd
         libnotify
-        SDL2
-        vulkan-loader
         gdk-pixbuf
-        xorg.libX11
       ];
     };
   };

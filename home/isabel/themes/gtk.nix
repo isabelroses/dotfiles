@@ -12,7 +12,7 @@
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
+  config = mkIf (builtins.elem device.type acceptedTypes && (sys.video.enable)) {
     xdg.systemDirs.data = let
       schema = pkgs.gsettings-desktop-schemas;
     in ["${schema}/share/gsettings-schemas/${schema.name}"];
@@ -28,7 +28,7 @@ in {
         # set GTK theme to the name specified by the gtk package
         GTK_THEME = "${cfg.gtk.theme.name}";
 
-        # gtk applications should use xdg specified settings
+        # gtk applications should use filepickers specified by xdg
         GTK_USE_PORTAL = "${with lib; toString (boolToNum cfg.gtk.usePortal)}";
       };
     };

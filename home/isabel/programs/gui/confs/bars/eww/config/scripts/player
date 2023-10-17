@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 function loop {
-	LOOPSTATUS=$(playerctl -p $1 loop)
-	if [[ $LOOPSTATUS == 'None'     ]]; then playerctl -p $1 loop Track; fi
-	if [[ $LOOPSTATUS == 'Track'    ]]; then playerctl -p $1 loop Playlist; fi
-	if [[ $LOOPSTATUS == 'Playlist' ]]; then playerctl -p $1 loop None; fi
+    LOOPSTATUS=$(playerctl -p $1 loop)
+    if [[ $LOOPSTATUS == 'None'     ]]; then playerctl -p $1 loop Track; fi
+    if [[ $LOOPSTATUS == 'Track'    ]]; then playerctl -p $1 loop Playlist; fi
+    if [[ $LOOPSTATUS == 'Playlist' ]]; then playerctl -p $1 loop None; fi
 }
 
 if [[ $2 == 'up'                     ]]; then playerctl -p $1 next; fi

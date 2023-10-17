@@ -32,8 +32,8 @@ function set_screen {
 
 function get {
 	echo "{
-		\"screen\": { \"level\": \"$(screen_level)\", \"icon\": \"$(screen_icon)\" }
-	}"
+        \"screen\": { \"level\": \"$(screen_level)\", \"icon\": \"$(screen_icon)\" }
+    }"
 }
 
 if [[ $1 == 'get' ]]; then get; fi

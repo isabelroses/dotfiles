@@ -2,10 +2,14 @@
   osConfig,
   lib,
   ...
-}: let
+}:
+with lib; let
+  programs = osConfig.modules.programs;
+  device = osConfig.modules.device;
+
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isModernShell osConfig) {
+  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.cli.enable)) {
     programs.bat = {
       enable = true;
       catppuccin.enable = true;

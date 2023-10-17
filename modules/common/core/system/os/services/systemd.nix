@@ -16,6 +16,7 @@
     }
     // lib.optionalAttrs config.security.auditd.enable {
       # a systemd timer to clean /var/log/audit.log daily
+      # this can probably be weekly, but daily means we get to clean it every 2-3 days instead of once a week
       timers."clean-audit-log" = {
         description = "Periodically clean audit log";
         wantedBy = ["timers.target"];

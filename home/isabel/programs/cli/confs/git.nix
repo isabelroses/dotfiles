@@ -10,14 +10,14 @@ in {
     home.packages = with pkgs; [
       gist # manage github gists
       act # local github actions
-      gitflow # Extend git with the Gitflow branching model
+      gitflow
     ];
 
     programs = {
       # github cli
       gh = {
         enable = true;
-        gitCredentialHelper.enable = false; # i use sops for this anyways
+        gitCredentialHelper.enable = false;
         extensions = with pkgs; [
           gh-cal # github activity stats in the CLI
           gh-dash # dashboard with pull requests and issues
@@ -39,7 +39,6 @@ in {
           key = cfg.signingKey;
           signByDefault = true;
         };
-        lfs.enable = true;
         ignores = [
           "*.bak"
           "*.swp"
@@ -57,7 +56,7 @@ in {
           "result-*"
         ];
         extraConfig = {
-          init.defaultBranch = "main"; # warning the AUR hates this
+          init.defaultBranch = "main";
 
           branch.autosetupmerge = "true";
           pull.ff = "only";
@@ -100,20 +99,21 @@ in {
             "ssh://git@codeberg.org/".pushInsteadOf = "codeberg:";
           };
         };
-
+        lfs.enable = true;
         aliases = {
-          st = "status";
           br = "branch";
           c = "commit -m";
           ca = "commit -am";
           co = "checkout";
           d = "diff";
           df = "!git hist | peco | awk '{print $2}' | xargs -I {} git diff {}^ {}";
+          edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`";
           fuck = "commit --amend -m";
           graph = "log --all --decorate --graph";
           ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)";
           pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)";
           af = "!git add $(git ls-files -m -o --exclude-standard | fzf -m)";
+          st = "status";
           hist = ''
             log --pretty=format:"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)" --graph --date=relative --decorate --all
           '';

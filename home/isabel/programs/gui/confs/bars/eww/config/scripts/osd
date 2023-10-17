@@ -3,10 +3,10 @@
 STATE=$(eww windows | grep osd | awk '{print substr ($0, 0, 1)}')
 
 if [[ $1 == 'close' ]]; then
-	if [[ $STATE == '*' ]]; then eww close osd; fi
+    if [[ $STATE == '*' ]]; then eww close osd; fi
 else
-	eww update osd="{ \"icon\": \"$1\", \"value\": \"$2\" }"
-	if [[ $STATE != '*' ]]; then eww open osd; fi
-	sleep 4
-	if [[ $STATE == '*' ]]; then eww close osd; fi
+    eww update osd="{ \"icon\": \"$1\", \"value\": \"$2\" }"
+    if [[ $STATE != '*' ]]; then eww open osd; fi
+    sleep 4
+    if [[ $STATE == '*' ]]; then eww close osd; fi
 fi

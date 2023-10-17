@@ -9,6 +9,7 @@ with lib; let
 in {
   imports = [
     ./recive
+    ./host
   ];
 
   config = mkIf (smb.enable) {

@@ -8,7 +8,6 @@
     ...
   } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} ({withSystem, ...}: {
-      # The system archtecitures, more can be added as needed
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -20,95 +19,89 @@
         inputs.flake-parts.flakeModules.easyOverlay
         inputs.treefmt-nix.flakeModule
 
-        # flake parts
-        ./flake/makeSys.nix # args that is passsed to the flake, moved away from the main file
-        #./flake/checks.nix # checks for the flake
-
-        # flake part programs
-        ./flake/programs/pre-commit.nix # pre-commit hooks
-        ./flake/programs/treefmt.nix # treefmt configuration
-
-        ./flake/pkgs # packages exposed to the flake
-        ./flake/overlays # overlays that make the system that bit cleaner
-        ./flake/templates # programing templates for the quick setup of new programing enviorments
-        ./flake/schemas # nix schemas. whenever they actually work
-        ./flake/modules # nixos and home-manager modules
+        ./parts/makeSys # args that is passsed to the flake, moved away from the main file
       ];
 
       flake = let
-        # extended nixpkgs lib, with additonal features
+        # extended nixpkgs lib, contains my custom functions
         lib = import ./lib {inherit nixpkgs inputs;};
       in {
+        # entry-point for nixos configurations
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
 
+        nixosModules = {
+          # extends the steam module from nixpkgs/nixos to add a STEAM_COMPAT_TOOLS option
+          steam-compat = ./modules/extra/shared/nixos/steam;
+
+          # we do not want to provide a default module
+          default = null;
+        };
+
+        homeManagerModules = {
+          gtklock = ./modules/extra/shared/home-manager/gtklock;
+
+          default = null;
+        };
+
         # build with `nix build .#images.<hostname>`
-        # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
         images = import ./hosts/images.nix {inherit inputs self lib;};
       };
 
       perSystem = {
         config,
+        inputs',
         pkgs,
         ...
       }: {
         imports = [{_module.args.pkgs = config.legacyPackages;}];
 
-        # formatter for nix fmt
+        # provide the formatter for nix fmt
         formatter = pkgs.alejandra;
 
-        devShells.default = pkgs.mkShell {
-          name = "dotfiles";
-          meta.description = "Devlopment shell for this configuration";
+        devShells.default = let
+          extra = import ./parts/devShell;
+        in
+          inputs'.devshell.legacyPackages.mkShell {
+            name = "setup";
+            commands = extra.shellCommands;
+            env = extra.shellEnv;
+            packages = with pkgs; [
+              config.treefmt.build.wrapper # treewide formatter
+              nil # nix ls
+              alejandra # nix formatter
+              git # flakes require git, and so do I
+              glow # markdown viewer
+              statix # lints and suggestions
+              deadnix # clean up unused nix code
+            ];
+          };
 
-          shellHook = ''
-            ${config.pre-commit.installationScript}
-          '';
+        # configure treefmt
+        treefmt = {
+          projectRootFile = "flake.nix";
 
-          # tell direnv to shut up
-          DIRENV_LOG_FORMAT = "";
-
-          packages = with pkgs; [
-            config.treefmt.build.wrapper # treewide formatter
-            nil # nix language server
-            alejandra # nix formatter
-            git # flakes require git
-            glow # fancy markdown viewer
-            statix # lints and suggestions
-            deadnix # clean up unused nix code
-            (pkgs.writeShellApplication {
-              name = "update";
-              text = ''
-                ${pkgs.runtimeShell}
-                nix flake update && git commit flake.lock -m "flake: bump inputs"
-              '';
-            })
-          ];
-
-          inputsFrom = [
-            config.treefmt.build.devShell
-          ];
+          programs = {
+            alejandra.enable = true;
+            deadnix.enable = false;
+            shellcheck.enable = true;
+            shfmt = {
+              enable = true;
+              # https://flake.parts/options/treefmt-nix.html#opt-perSystem.treefmt.programs.shfmt.indent_size
+              # 0 causes shfmt to use tabs
+              indent_size = 0;
+            };
+          };
         };
       };
     });
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
-
-    # too hard to explain
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Nix helper
     nh = {
@@ -116,14 +109,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Run unpatched dynamic binaries on NixOS
     nix-ld = {
       url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index-db = {
-      url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -145,12 +132,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Packages for Wayland
+    # Automated, pre-built packages for Wayland
     nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nix gaming packages
     nix-gaming = {
       url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -175,11 +163,10 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
 
-    # Amazing themeing & tools
+    # Amazing themeing
     catppuccin.url = "github:isabelroses/ctp-nix";
-    catppuccin-toolbox.url = "github:catppuccin/toolbox";
 
-    # Secrets, shhh
+    # Secrets
     sops = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -196,12 +183,6 @@
 
     xdg-portal-hyprland = {
       url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # More up to date auto-cpufreq
-    auto-cpufreq = {
-      url = "github:AdnanHodzic/auto-cpufreq";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -223,28 +204,28 @@
     # mailserver on nixos
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
 
-    # Highly customisable nixos neovim flake
-    neovim-flake = {
-      url = "github:NotAShelf/neovim-flake";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nil.follows = "nil";
-        flake-utils.follows = "flake-utils";
-        flake-parts.follows = "flake-parts";
-      };
+    # nushell scripts
+    nu_scripts = {
+      type = "git";
+      url = "https://github.com/nushell/nu_scripts";
+      submodules = true;
+      flake = false;
+    };
+
+    # my nvim conf
+    isabel-nvim = {
+      type = "git";
+      url = "https://github.com/isabelroses/nvim";
+      submodules = false;
+      flake = false;
     };
 
     # nur's
     nur.url = "github:nix-community/nur";
     bella-nur.url = "github:isabelroses/nur";
     nekowinston-nur.url = "github:nekowinston/nur";
-
-    # Schemas
-    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
-    nixSchemas.url = "github:DeterminateSystems/nix/flake-schemas";
   };
 
-  # This allows for the gathering of prebuilt binaries, making building much faster
   nixConfig = {
     extra-substituters = [
       "https://nix-community.cachix.org"

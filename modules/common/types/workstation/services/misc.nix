@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (lib) mkIf;
-  inherit (config.modules) device;
+}:
+with lib; let
+  device = config.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
@@ -15,9 +15,6 @@ in {
 
       # thumbnail support on thunar
       tumbler.enable = true;
-
-      # storage daemon required for udiskie auto-mount
-      udisks2.enable = true;
 
       dbus = {
         packages = with pkgs; [dconf gcr udisks2];
@@ -38,7 +35,7 @@ in {
     in {
       inherit extraConfig;
       user = {inherit extraConfig;};
-      services."getty@tty1".enable = false; # if you want to use tty1 enable
+      services."getty@tty1".enable = false;
       services."autovt@tty1".enable = false;
       services."getty@tty7".enable = false;
       services."autovt@tty7".enable = false;
