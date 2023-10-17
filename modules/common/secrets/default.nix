@@ -46,9 +46,7 @@ in {
         group = "git";
       };
 
-      isabelroses-web-env = {
-        mode = "777";
-      };
+      isabelroses-web-env = {};
 
       # vaultwarden
       vaultwarden-env = {};
