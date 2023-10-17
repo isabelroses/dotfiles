@@ -103,11 +103,24 @@ in {
       loginAccounts = {
         "isabel@${domain}" = {
           hashedPasswordFile = config.sops.secrets.mailserver-isabel.path;
-          aliases = ["isabel" "isabelroses" "isabelroses@${domain}" "bell" "bell@${domain}" "me@${domain}" "admin" "admin@${domain}" "root" "root@${domain}" "postmaster" "postmaster@${domain}"];
+          aliases = [
+            "isabel"
+            "isabelroses"
+            "isabelroses@${domain}"
+            "bell"
+            "bell@${domain}"
+            "me@${domain}"
+            "admin"
+            "admin@${domain}"
+            "root"
+            "root@${domain}"
+            "postmaster"
+            "postmaster@${domain}"
+          ];
         };
 
-        "gitea@${domain}" = {
-          aliases = ["gitea" "git" "git@${domain}"];
+        "git@${domain}" = {
+          aliases = ["git" "git@${domain}"];
           hashedPasswordFile = config.sops.secrets.mailserver-gitea.path;
         };
 
