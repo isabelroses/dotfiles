@@ -3,14 +3,16 @@
   inputs,
   ...
 }: let
+  # inherit self from inputs
   inherit (inputs) self;
 
-  # just an alias to nixpkgs.lib.nixosSystem
+  # just an alias to nixpkgs.lib.nixosSystem, lets me avoid adding
+  # nixpkgs to the scope in the file it is used in
   mkSystem = lib.nixosSystem;
 
-  # mkNixosSystem wraps mkSystem (or lib.nixosSystem) with flake-parts' withSystem to give us inputs' and self' from flake-parts
-  # which can also be used as a template for nixos hosts with system type and modules to be imported with ease
-  # specialArgs is also defined here to avoid defining them for each host
+  # mkNixosSystem wraps mkSystem (a.k.a lib.nixosSystem) with flake-parts' withSystem to provide inputs' and self' from flake-parts
+  # it also acts as a template for my nixos hosts with system type and modules being imported beforehand
+  # specialArgs is also defined here to avoid defining them for each host and lazily merged if the host defines any other args
   mkNixosSystem = {
     modules,
     system,
@@ -27,8 +29,9 @@
         specialArgs = {inherit lib inputs self inputs' self';} // args.specialArgs or {};
       });
 
-  # mkIso is should be a set that extends mkSystem (again) with necessary modules to create an Iso image
-  # don't use mkNixosSystem as it is complelty overkill for an iso and will have too much data, we need a light weight image
+  # mkIso is should be a set that extends mkSystem with necessary modules
+  # to create an Iso image
+  # we do not use mkNixosSystem because it overcomplicates things, an ISO does not require what we get in return for those complications
   mkNixosIso = {
     modules,
     system,

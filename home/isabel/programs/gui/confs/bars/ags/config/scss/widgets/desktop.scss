@@ -1,23 +1,51 @@
 window.corner .corner {
-	background-color: if($screen_corners, $bg_color, transparent);
-	border-radius: if($screen_corners, $radii * 2, 0);
+    background-color: if($screen_corners, $bg_color, transparent);
+    border-radius: if($screen_corners, $radii*2, 0);
+}
+
+.desktop {
+    @if $bar_style =='normal' {
+        border-radius: if($screen_corners, $popover_radius, 0);
+        box-shadow: inset 0 0 $spacing 0 $shadow;
+    }
+
+    @if $drop_shadow {
+        label {
+            text-shadow: $text_shadow;
+        }
+    }
+
+    @else {
+
+        .separator {
+            border: $border;
+        }
+
+        label {
+            @include text_border;
+        }
+    }
 }
 
 window.indicator .progress {
-	@include floating_widget;
-	padding: $spacing/2;
+    @include floating_widget;
+    padding: $spacing/2;
 
-	.fill {
-		border-radius: max($popover_radius - $spacing/2, 0);
-		background-color: $accent;
-		color: $accent_fg;
+    .fill {
+        border-radius: max($popover_radius - $spacing/2, 0);
+        background-color: $accent;
+        color: $accent_fg;
 
-		image {
-			-gtk-icon-transform: scale(0.7);
-		}
+        image {
+            -gtk-icon-transform: scale(0.7);
+        }
 
-		.font-icon {
-			font-size: 34px;
-		}
-	}
+        .icon overlay {
+            font-size: 34px;
+
+            label {
+                font-size: 34px;
+            }
+        }
+    }
 }

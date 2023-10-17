@@ -2,48 +2,35 @@
   lib,
   config,
   pkgs,
-  inputs,
   ...
-}: let
-  inherit (lib) mkIf mkDefault;
-  inherit (pkgs.stdenv) hostPlatform;
-
-  isx86Linux = hostPlatform.isLinux && hostPlatform.isx86;
-
+}:
+with lib; let
   cfg = config.modules.system.sound;
-  inherit (config.modules) device;
+  device = config.modules.device;
 in {
-  imports = [inputs.nix-gaming.nixosModules.pipewireLowLatency];
-
   config = mkIf (cfg.enable && device.hasSound) {
     # enable sound support and media keys if device has sound
     sound = {
       enable = true;
       mediaKeys.enable = true;
     };
-
     # able to change scheduling policies, e.g. to SCHED_RR
     security.rtkit.enable = config.services.pipewire.enable;
 
-    # pipewire is newer and just better
+    # we replace pulseaudio with the incredibly based pipewire
     services.pipewire = {
       enable = mkDefault true;
-      wireplumber.enable = true;
-      pulse.enable = true;
-      jack.enable = true;
       alsa = {
         enable = true;
-        support32Bit = isx86Linux;
+        support32Bit = with pkgs; (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86);
       };
-
-      lowLatency = {
-        enable = true;
-        quantum = 64;
-        rate = 48000;
-      };
+      pulse.enable = true;
+      jack.enable = true;
+      wireplumber.enable = true;
     };
 
-    # pulseaudio backup
+    # if for some reason pipewire is disabled, we may enable pulseaudio as backup
+    # I don't like PA, but I won't discard it altogether
     hardware.pulseaudio.enable = !config.services.pipewire.enable;
     # write bluetooth rules if and only if pipewire is enabled AND the device has bluetooth
     environment.etc = mkIf (config.services.pipewire.enable && device.hasBluetooth) {

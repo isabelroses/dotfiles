@@ -3,17 +3,17 @@
   lib,
   ...
 }: let
-  inherit (config.networking) domain;
+  inherit (lib) mkIf;
+
   cfg = config.modules.services.vaultwarden;
+  device = config.modules.device;
+  acceptedTypes = ["server" "hybrid"];
 in {
-  config = lib.mkIf cfg.enable {
+  config = mkIf (builtins.elem device.type acceptedTypes && cfg.enable) {
     # this forces the system to create backup folder
-    systemd.services = {
-      vaultwarden.after = ["sops-nix.service"];
-      backup-vaultwarden.serviceConfig = {
-        User = "root";
-        Group = "root";
-      };
+    systemd.services.backup-vaultwarden.serviceConfig = {
+      User = "root";
+      Group = "root";
     };
 
     services.vaultwarden = {
@@ -21,7 +21,7 @@ in {
       environmentFile = config.sops.secrets.vaultwarden-env.path;
       backupDir = "/srv/storage/vaultwarden/backup";
       config = {
-        DOMAIN = "https://vault.${domain}";
+        DOMAIN = "https://vault.isabelroses.com";
         SIGNUPS_ALLOWED = false;
         ROCKET_ADDRESS = "127.0.0.1";
         ROCKET_PORT = 8222;
@@ -31,12 +31,12 @@ in {
         logLevel = "warn";
         showPasswordHint = false;
         signupsAllowed = false;
-        signupsDomainsWhitelist = "${domain}";
+        signupsDomainsWhitelist = "isabelroses.com";
         signupsVerify = true;
         smtpAuthMechanism = "Login";
-        smtpFrom = "vaultwarden@${domain}";
-        smtpFromName = "Isabelroses's Vaultwarden Service";
-        smtpHost = "mail.${domain}";
+        smtpFrom = "vaultwarden@isabelroses.com";
+        smtpFromName = "isabelroses's Vaultwarden Service";
+        smtpHost = "mail.isabelroses.com";
         smtpPort = 465;
         smtpSecurity = "force_tls";
         dataDir = "/srv/storage/vaultwarden";
