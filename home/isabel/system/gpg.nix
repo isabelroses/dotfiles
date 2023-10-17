@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  inherit (osConfig.modules.system) video;
+  sys = osConfig.modules.system;
 in {
   imports = [inputs.sops.homeManagerModules.sops];
 
@@ -13,7 +13,7 @@ in {
     gpg-agent = {
       enable = true;
       pinentryFlavor =
-        if (video.enable)
+        if (sys.video.enable)
         then "gnome3"
         else "curses";
       enableSshSupport = true;
@@ -25,7 +25,7 @@ in {
     };
   };
 
-  # Allow manually restarting gpg-agent if it fails
+  # Allow manually restarting gpg-agent in case of failure
   systemd.user.services.gpg-agent.Unit.RefuseManualStart = lib.mkForce false;
 
   sops.gnupg.home = config.programs.gpg.homedir;

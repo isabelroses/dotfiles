@@ -3,11 +3,12 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+with lib; let
   sys = config.modules.system;
 in {
-  config = lib.mkIf sys.printing.enable {
-    # enable cups and some drivers for common printers
+  config = mkIf (sys.printing.enable) {
+    # enable cups and add some drivers for common printers
     services = {
       printing = {
         enable = true;
@@ -20,7 +21,9 @@ in {
       # required for network discovery of printers
       avahi = {
         enable = true;
+        # resolve .local domains for printers
         nssmdns = true;
+        # pass avahi port(s) to the firewall
         openFirewall = true;
       };
     };

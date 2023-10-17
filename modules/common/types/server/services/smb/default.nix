@@ -4,9 +4,11 @@
   ...
 }: let
   inherit (lib) mkIf;
+  device = config.modules.device;
   cfg = config.modules.services.smb;
+  acceptedTypes = ["server" "hybrid"];
 in {
-  config = mkIf cfg.enable {
+  config = mkIf (builtins.elem device.type acceptedTypes && cfg.enable) {
     services = {
       # https://nixos.wiki/wiki/Samba
       # make shares visible for windows 10 clients

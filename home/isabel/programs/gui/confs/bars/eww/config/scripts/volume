@@ -3,89 +3,89 @@ VOLUME=$(pamixer --get-volume)
 MUTED=$(pamixer --get-mute)
 
 function icon {
-	if [[ $MUTED == false ]]; then
-		if [[ $VOLUME -ge 66 ]]; then
-			echo '󰕾'
-		elif [[ $VOLUME -ge 33 ]]; then
-			echo '󰖀'
-		elif [[ $VOLUME -ge 1 ]]; then
-			echo '󰕿'
-		else
-			echo '󰝟'
-		fi
-	else
-		echo '󰝟'
-	fi
+  if [[ $MUTED == false ]]; then
+    if [[ $VOLUME -ge 66 ]]; then
+      echo '󰕾'
+    elif [[ $VOLUME -ge 33 ]]; then
+      echo '󰖀'
+    elif [[ $VOLUME -ge 1 ]]; then
+      echo '󰕿'
+    else
+      echo '󰝟'
+    fi
+  else
+    echo '󰝟'
+  fi
 }
 
 function level {
-	if [[ $MUTED == true ]]; then
-		echo 0
-	else
-		echo $VOLUME
-	fi
+  if [[ $MUTED == true ]]; then
+    echo 0
+  else
+    echo $VOLUME
+  fi
 }
 
 function lower {
-	pamixer -d 5
-	update
+  pamixer -d 5
+  update
 }
 
 function raise {
-	pamixer -i 5
-	update
+  pamixer -i 5
+  update
 }
 
 function mute {
-	pamixer --toggle-mute
+  pamixer --toggle-mute
 }
 
 function update {
-	eww update volume="$(get)"
-	~/.config/eww/scripts/osd $(icon) $(level)
+  eww update volume="$(get)"
+  ~/.config/eww/scripts/osd $(icon) $(level)
 }
 
 function type_icon {
-	echo "󰋋"
-	#else
-	#  echo "󰓃"
-	#fi
+  echo "󰋋"
+  #else
+  #  echo "󰓃"
+  #fi
 }
 
 function mic_mute_state {
-	STATE=$(pamixer --default-source --get-mute)
-	if [[ $STATE == false ]]; then
-		echo 'off'
-	else echo 'on'; fi
+  STATE=$(pamixer --default-source --get-mute)
+  if [[ $STATE == false ]]; then
+    echo 'off'
+  else echo 'on'; fi
 }
 
 function mic_mute_icon {
-	STATE=$(mic_mute_state)
-	if [[ $STATE == 'off' ]]; then
-		echo '󰍬'
-	else echo '󰍭'; fi
+  STATE=$(mic_mute_state)
+  if [[ $STATE == 'off' ]]; then
+    echo '󰍬'
+  else echo '󰍭'; fi
 }
 
 function mute_mic {
-	pamixer --default-source -t
-	eww update volume="$(get)"
+  pamixer --default-source -t
+  eww update volume="$(get)"
 }
 
 function set {
-	pamixer --set-volume $1
-	eww update volume="$(get)"
+  pamixer --set-volume $1
+  eww update volume="$(get)"
 }
 
 function get {
-	echo "{
-		\"level\": \"$(level)\",
-		\"icon\": \"$(icon)\",
-		\"type_icon\": \"$(type_icon)\",
-		\"mute\": {
-		\"state\": \"$(mic_mute_state)\",
-		\"icon\": \"$(mic_mute_icon)\"
-		}
-	}"
+  echo "{
+  \"level\": \"$(level)\",
+  \"icon\": \"$(icon)\",
+  \"type_icon\": \"$(type_icon)\",
+  \"mute\": {
+  \"state\": \"$(mic_mute_state)\",
+  \"icon\": \"$(mic_mute_icon)\"
+}
+}"
 }
 
 if [[ $1 == 'mute_mic' ]]; then mute_mic; fi

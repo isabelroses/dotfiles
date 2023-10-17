@@ -8,7 +8,7 @@ with lib; let
   device = config.modules.device;
 in {
   config = mkIf (device.gpu == "amd" || device.gpu == "hybrid-amd") {
-    # enable amdgpu xorg drivers
+    # enable amdgpu xorg drivers in case Hyprland breaks again
     services.xserver.videoDrivers = ["amdgpu"];
 
     # enable amdgpu kernel module

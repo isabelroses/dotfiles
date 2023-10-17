@@ -51,6 +51,7 @@ in {
         "net.ipv4.tcp_congestion_control" = "bbr";
         "net.core.default_qdisc" = "cake";
 
+        # Other stuff I am too lazy to document
         "net.core.optmem_max" = 65536;
         "net.core.rmem_default" = 1048576;
         "net.core.rmem_max" = 16777216;

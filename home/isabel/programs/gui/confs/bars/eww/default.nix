@@ -6,16 +6,20 @@
   defaults,
   ...
 }: let
-  inherit (lib) isWayland;
+  inherit (lib) mkIf;
 
   ewwPackage =
-    if isWayland osConfig
+    if env.isWayland
     then pkgs.eww-wayland
     else pkgs.eww;
 
+  device = osConfig.modules.device;
+  env = osConfig.modules.usrEnv;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
+  programs = osConfig.modules.programs;
+  sys = osConfig.modules.system;
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig) && osConfig.modules.programs.gui.enable && defaults.bar == "eww") {
+  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && defaults.bar == "eww") {
     home.packages = with pkgs; [
       socat
       jaq

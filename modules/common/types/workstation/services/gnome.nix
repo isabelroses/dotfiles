@@ -3,11 +3,12 @@
   pkgs,
   lib,
   ...
-}: let
-  inherit (config.modules) device;
+}:
+with lib; let
+  device = config.modules.device;
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
 in {
-  config = lib.mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     services = {
       udev.packages = with pkgs; [
         gnome.gnome-settings-daemon
@@ -15,10 +16,13 @@ in {
 
       gnome = {
         evolution-data-server.enable = true;
+        # optional to use google/nextcloud calendar
         gnome-online-accounts.enable = true;
+        # optional to use google/nextcloud calendar
         gnome-keyring.enable = true;
-
-        # stupid thing i want disabled
+        # hard fails rebuilds for whatever reason, PLEASE stay disabled
+        # spoiler: it didn't - building gnome-control-center still breaks rebuilds
+        # entirely because of gnome-remote-desktop
         gnome-remote-desktop.enable = lib.mkForce false;
       };
     };

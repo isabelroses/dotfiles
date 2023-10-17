@@ -21,7 +21,8 @@ in {
     };
 
     programs = {
-      # home-manager is so strange and needs these declared muliple times
+      # home-manager is quirky as ever, and wants this to be set in system config
+      # instead of just home-manager
       fish.enable = true;
 
       # type "fuck" to fix the last command that made you go "fuck"
@@ -29,18 +30,10 @@ in {
 
       # help manage android devices via command line
       adb.enable = true;
-
-      # direnv is cool
-      direnv = {
-        enable = true;
-        silent = true;
-
-        # faster, persistent
-        nix-direnv.enable = true;
-      };
     };
 
-    # determine which version of wine to use
+    # determine which version of wine to be used
+    # then add it to systemPackages
     environment.systemPackages = with pkgs; let
       winePackage =
         if (env.isWayland)

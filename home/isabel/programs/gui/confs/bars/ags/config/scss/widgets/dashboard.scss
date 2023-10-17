@@ -1,151 +1,68 @@
-@mixin calendar {
-	@include widget;
-	padding: $spacing * 2 $spacing * 2 0;
-
-	calendar {
-		all: unset;
-
-		&.button {
-			@include button($flat: true);
-			margin: 1em;
-		}
-
-		&:selected {
-			@include button($flat: false);
-		}
-
-		&.header {
-			background-color: transparent;
-			border: none;
-			color: transparentize($fg_color, 0.5);
-		}
-
-		&.highlight {
-			background-color: transparent;
-			color: transparentize($accent, 0.5);
-		}
-
-		&:indeterminate {
-			color: transparentize($fg_color, 0.9);
-		}
-
-		font-size: 1.1em;
-		padding: 0.2em;
-	}
-}
-
 window#dashboard .dashboard {
-	@include floating_widget;
+    @include floating_widget;
 
-	.notifications {
-		min-width: 450px;
+    .notifications {
+        @include notifications;
+        min-width: 450px;
 
-		.header {
-			padding-left: 0.3em;
-			margin-bottom: $spacing;
+        .header {
+            padding-left: .3em;
+            margin-bottom: $spacing;
+        }
 
-			label {
-				font-size: 1.2em;
-			}
+        .notification-list-box {
+            @include widget;
 
-			button {
-				@include button;
-				padding: $spacing/2 $spacing;
+            .wallpaper {
+                border-radius: max($radii - $border_width, 0);
+                background-position: bottom right;
 
-				label {
-					font-size: 1.2em;
-				}
-			}
-		}
+                @if $drop_shadow {
+                    box-shadow: inset 0 0 $spacing 0 $shadow;
+                }
+            }
+        }
 
-		.notification-scrollable {
-			@include scrollbar;
+        .notification-list {
+                padding: $spacing/2;
 
-			scrollbar,
-			scrollbar:hover {
-				border-radius: max($radii - $border_width, 0);
-				border-top-left-radius: 0;
-				border-bottom-left-radius: 0;
-			}
+            .notification>box {
+                @include floating_widget;
+                border-radius: $radii;
+                padding: $spacing;
+                margin: $spacing/2;
+            }
+        }
 
-			.notification {
-				@include notification;
+        .placeholder {
+            color: $wallpaper_fg;
 
-				> box {
-					@include widget;
-					margin: $spacing/2 0;
-					padding: $spacing;
-				}
-			}
-		}
+            .icon {
+                font-size: 7em
+            }
 
-		.placeholder {
-			color: $wallpaper_fg;
+            label {
+                @if $drop_shadow {
+                    text-shadow: $text_shadow;
+                }
 
-			image {
-				font-size: 7em;
-			}
+                @else {
+                    @include text_border;
+                }
 
-			label {
-				font-size: 1.2em;
-			}
+            }
+        }
+    }
 
-			label,
-			image {
-				@if $drop_shadow {
-					text-shadow: $text_shadow;
-					-gtk-icon-shadow: $text_shadow;
-				} @else {
-					@include text_border;
-				}
-			}
-		}
-	}
+    .separator {
+        background-color: transparentize($fg_color, 0.94);
+        min-width: 2px;
+        border-radius: $radii;
+        margin: 0 $spacing;
+    }
 
-	separator {
-		background-color: $popover_border_color;
-		min-width: 2px;
-		border-radius: $radii;
-		margin: 0 $spacing;
-	}
+    .datemenu {
+        @include datemenu;
+    }
 
-	.clock {
-		font-size: 5em;
-	}
-
-	.uptime {
-		font-size: 2em;
-		color: transparentize($fg_color, 0.2);
-	}
-
-	.calendar {
-		@include calendar;
-
-		margin-top: $spacing * 2;
-	}
-
-	.circular-progress-box {
-		@include widget;
-		margin-top: $spacing;
-		margin-right: $spacing;
-
-		&:last-child {
-			margin-right: 0;
-		}
-
-		padding: $spacing;
-
-		.circular-progress {
-			min-height: $spacing * 8;
-			min-width: $spacing * 8;
-			margin: $spacing/2;
-			font-size: $spacing;
-			background-color: $bg_color;
-			color: $accent;
-
-			image {
-				font-size: 1.8em;
-			}
-		}
-	}
 }

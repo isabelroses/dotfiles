@@ -3,17 +3,25 @@
   lib,
   osConfig,
   ...
-}: let
+}:
+with lib; let
+  programs = osConfig.modules.programs;
+
+  device = osConfig.modules.device;
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
+  sys = osConfig.modules.system;
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable) {
+  config = mkIf ((programs.gui.enable && sys.video.enable) && (builtins.elem device.type acceptedTypes)) {
     home.packages = with pkgs; [
-      bitwarden # password manager
-      obsidian # note taking with markdown
-      pamixer # move evntually
-      # jellyfin-media-player
+      bitwarden
+      obsidian
+      #zoom-us # I hate this
+      xfce.thunar
+      pamixer # move
+      jellyfin-media-player
       mangal # tui manga finder + reader
-      # insomnia # rest client
+      insomnia # rest client
+      libreoffice # office apps
     ];
   };
 }
