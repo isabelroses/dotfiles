@@ -67,8 +67,10 @@ in {
             LANDING_PAGE = "/explore/repos";
           };
 
+          default.APP_NAME = "iztea";
           attachment.ALLOWED_TYPES = "*/*";
           service.DISABLE_REGISTRATION = true;
+
           ui = {
             DEFAULT_THEME = "catppuccin-mocha-sapphire";
             THEMES =
@@ -78,6 +80,13 @@ in {
                 ++ (map (name: lib.removePrefix "theme-" (lib.removeSuffix ".css" name))
                   (builtins.attrNames (builtins.readDir theme))));
           };
+
+          "ui.meta" = {
+            AUTHOR = "Isabel Roses";
+            DESCRIPTION = "A great place to hide my code from you";
+            KEYWORDS = "git,self-hosted,gitea,isabelroses,catppuccin,open-source,forgejo";
+          };
+
           migrations.ALLOWED_DOMAINS = "github.com, *.github.com, gitlab.com, *.gitlab.com";
           packages.ENABLED = false;
           repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
@@ -90,9 +99,8 @@ in {
           mailer = {
             ENABLED = true;
             PROTOCOL = "smtps";
-            SUBJECT_PREFIX = "iztea Gitea: ";
             SMTP_ADDR = "mail.${domain}";
-            USER = "gitea@${domain}";
+            USER = "git@${domain}";
           };
         };
       };
