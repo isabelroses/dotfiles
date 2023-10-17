@@ -13,8 +13,8 @@ in {
     };
 
     browser = mkOption {
-      type = types.enum ["firefox" "chromium"];
-      default = "chromium";
+      type = types.enum ["schizofox" "chromium"];
+      default = "schizofox";
     };
 
     editor = mkOption {
