@@ -20,7 +20,6 @@ _: {
     shellAbbrs = {};
     shellInit = ''
       starship init fish | source
-      direnv hook fish | source
       set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
       set TERM "xterm-256color"
       set fish_greeting
