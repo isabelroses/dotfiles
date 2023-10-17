@@ -13,15 +13,15 @@ imports.gi.versions.NM = '1.0'
 imports.gi.versions.GdkPixbuf = '2.0'
 
 imports.package.init({
-  name: 'host',
-  version: '0.1.0',
-  prefix: '/usr/local',
-  libdir: '/run/current-system/sw/lib',
+	name: 'host',
+	version: '0.1.0',
+	prefix: '/usr/local',
+	libdir: '/run/current-system/sw/lib',
 });
 
 imports.package.require({
-  'Gtk': '3.0',
-  'Gio': '2.0'
+	'Gtk': '3.0',
+	'Gio': '2.0'
 });
 
 main([programInvocationName, ...programArgs])

@@ -4,35 +4,35 @@ screenshot=/tmp/screenshot.png
 path=~/media/pictures/screenshots
 
 window() {
-  grimblast save active $screenshot
+	grimblast save active $screenshot
 }
 
 area() {
-  grim -g "$(slurp)" $screenshot
+	grim -g "$(slurp)" $screenshot
 }
 
 screen() {
-  grim $screenshot
+	grim $screenshot
 }
 
 preview() {
-  $HOME/.config/eww/scripts/launcher toggle_menu previewshot
+	$HOME/.config/eww/scripts/launcher toggle_menu previewshot
 }
 
 discard() {
-  rm "${screenshot}"
+	rm "${screenshot}"
 }
 
 save() {
-  name="screenshot-$(date +%h-%m-%s_%d-%m-%y).png"
-  mkdir -p $path
-  cp $screenshot $path/$name
-  notify-send "screenshot saved!" "saved to ${path}/${name}" -i $screenshot
+	name="screenshot-$(date +%h-%m-%s_%d-%m-%y).png"
+	mkdir -p $path
+	cp $screenshot $path/$name
+	notify-send "screenshot saved!" "saved to ${path}/${name}" -i $screenshot
 }
 
 copy() {
-  wl-copy <$screenshot
-  notify-send "screenshot copied!" -i $screenshot
+	wl-copy <$screenshot
+	notify-send "screenshot copied!" -i $screenshot
 }
 
 case $1 in

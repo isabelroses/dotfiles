@@ -23,9 +23,9 @@ function get {
 	icon='󱎖'
 	if [[ $(state) == 'on' ]]; then icon='󰃛'; fi
 	echo "{
-        \"state\": \"$(state)\",
-        \"icon\": \"$icon\" 
-    }"
+		\"state\": \"$(state)\",
+		\"icon\": \"$icon\" 
+	}"
 }
 
 if [[ $1 == 'toggle' ]]; then toggle; fi

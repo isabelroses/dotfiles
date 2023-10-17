@@ -1,93 +1,69 @@
-{
-  lib,
-  config,
-  ...
-}: {
-  imports = [./hardware-configuration.nix];
-  config = {
-    modules = {
-      device = {
-        type = "server";
-        cpu = null;
-        gpu = null;
-        hasTPM = false;
-        hasBluetooth = false;
-        hasSound = false;
+_: {
+  imports = [
+    ./hardware-configuration.nix
+    ./mount.nix
+    ./overrides.nix
+    ./services.nix
+  ];
+
+  config.modules = {
+    device = {
+      type = "server";
+      cpu = "amd";
+      gpu = null;
+      hasTPM = false;
+      hasBluetooth = false;
+      hasSound = false;
+    };
+    system = {
+      mainUser = "isabel";
+      hostname = "bernie";
+
+      boot = {
+        loader = "grub";
+        enableKernelTweaks = true;
+        enableInitrdTweaks = true;
+        loadRecommendedModules = true;
       };
-      system = {
-        mainUser = "isabel";
 
-        hostname = "bernie";
+      fs = ["btrfs" "vfat" "exfat"];
+      video.enable = false;
+      sound.enable = false;
+      bluetooth.enable = false;
+      printing.enable = false;
 
-        boot = {
-          loader = "grub";
-          device = lib.mkForce "/dev/sda15";
-          enableKernelTweaks = true;
-          enableInitrdTweaks = true;
-          loadRecommendedModules = true;
-        };
-
-        video.enable = false;
-        sound.enable = false;
-        bluetooth.enable = false;
-        printing.enable = false;
-
-        networking = {
-          optimizeTcp = false;
-        };
-
-        virtualization = {
-          enable = true;
-          docker.enable = true;
-          qemu.enable = false;
-          podman.enable = false;
-          distrobox.enable = false;
-        };
+      networking = {
+        optimizeTcp = false;
       };
-      usrEnv = {
-        isWayland = false;
-        useHomeManager = true;
-      };
-      services = {
-        smb = {
-          enable = true;
-        };
-        vscode-server.enable = true;
-        mailserver.enable = true;
-        gitea.enable = true;
-        vaultwarden.enable = true;
-      };
-      programs = {
-        git.signingKey = "";
 
-        cli.enable = true;
-        gui.enable = false;
-
-        nur = {
-          enable = true;
-          bella = true;
-          nekowinston = true;
-        };
+      virtualization = {
+        enable = true;
+        docker.enable = false;
+        qemu.enable = false;
+        podman.enable = false;
+        distrobox.enable = false;
       };
     };
-
-    zramSwap.enable = true;
-    services.openssh.enable = true;
-    users.users.root.openssh.authorizedKeys.keys = [
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDQhSDXRDS5ABDyCPOZ2B3bl455Mlzb32vmofdkXJCNXW98jUeCyaZk8XHRta06KeADFMvpwDEzjGz6Zb+NJIfMkh20mVdOpTHrA80cER1F2SlNf9fmZIgOyCzSUOSGqXHsWppikHmKzv1hPifQYoqWdRXN7bD9Jk5JjgxGcaXkICcV93s/tRy5Yl5l5LhM00fUDXUF85xnmqU3Ujepx0gknE0qaqgT+kFRe0hy7HIkjrEjMqy5nfHFlJG/XAxrHKK9p/BvvCgO/xiRimK2UgfH/5jml20EytVeZ6fIAeyVLvWA/FtLyaafoLqmETV6BhUnk8PtdAxjGQTQXZmUOv2D0Lvmxo1GqjYVPOfhINBprUaRwxIFM57SpwmXmGVWOlyTgTtBoPewUQ/QwT5cVV+a8ASeEhrFB4TzHxK4RM8++zL0eVtESW+L+/rsmfUHIIEXnLvVmnb8t0AWpWxQWaEe7YaNS9VNtm6gK0wl12PZXqN5K4eCXIyrsCbUdaldnts= root"
-    ];
-
-    boot = {
-      growPartition = !config.boot.initrd.systemd.enable;
-      kernelParams = ["net.ifnames=0"];
-      kernel = {
-        sysctl = {
-          "net.ipv4.ip_forward" = true;
-          "net.ipv6.conf.all.forwarding" = true;
-        };
-      };
+    usrEnv = {
+      isWayland = false;
+      useHomeManager = true;
     };
 
-    nix.settings.system-features = ["nixos-test" "benchmark" "big-parallel" "kvm" "gccarch-armv8-a"];
+    programs = {
+      git.signingKey = "B4D9D513B1560D99";
+
+      cli = {
+        enable = true;
+        modernShell.enable = true;
+      };
+      tui.enable = true;
+      gui.enable = false;
+
+      nur = {
+        enable = true;
+        bella = true;
+        nekowinston = true;
+      };
+    };
   };
 }

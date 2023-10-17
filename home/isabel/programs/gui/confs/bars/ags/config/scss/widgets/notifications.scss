@@ -1,113 +1,94 @@
 @mixin notification() {
-    &.critical > box {
-        box-shadow: inset 0 0 .5em 0 $red;
-    }
+	&.critical > box {
+		box-shadow: inset 0 0 0.5em 0 $red;
+	}
 
-    > box {
-        border-radius: $radii/2;
-        padding: $spacing;
-    }
+	> box {
+		border-radius: $radii/2;
+		padding: $spacing;
+	}
 
-    &:hover {
-        .close-button{
-            @include button_hover;
-            background-color: transparentize($red, .5);
-        }
-    }
+	&:hover {
+		.close-button {
+			@include button_hover;
+			background-color: transparentize($red, 0.5);
+		}
+	}
 
-    .title {
-        margin-right: $spacing;
-        color: $fg_color;
-        font-size: 1.1em;
-    }
+	.content {
+		.title {
+			margin-right: $spacing;
+			color: $fg_color;
+			font-size: 1.1em;
+		}
 
-    .time {
-        color: transparentize($fg_color, .2);
-    }
+		.time {
+			color: transparentize($fg_color, 0.2);
+		}
 
-    .description {
-        font-size: .9em;
-        color: transparentize($fg_color, .2);
-    }
+		.description {
+			font-size: 0.9em;
+			color: transparentize($fg_color, 0.2);
+		}
 
-    .icon {
-        border-radius: $radii*0.8;
-        margin-right: $spacing;
+		.icon {
+			border-radius: $radii * 0.8;
+			margin-right: $spacing;
 
-        &.img {
-            border: $border;
-        }
-    }
+			&.img {
+				border: $border;
+			}
+		}
+	}
 
-    .actions button {
-        @include button;
-        border-radius: $radii*0.8;
-        font-size: 1.2em;
-        padding: $spacing/2 $spacing;
-        margin: $spacing $spacing/2 0;
+	.actions {
+		padding-top: $spacing;
 
-        &:first-child {
-            margin-left: 0;
-        }
+		button {
+			@include button;
+			border-radius: $radii * 0.8;
+			font-size: 1.2em;
+			padding: $spacing/2 0;
+			margin: 0 $spacing/2 0;
 
-        &:last-child {
-            margin-right: 0;
-        }
-    }
+			&:first-child {
+				margin-left: 0;
+			}
 
-    button.close-button {
-        @include button($flat: true);
-        margin-left: $spacing;
-        border-radius: $radii*0.8;
-        min-width: 1.2em;
-        min-height: 1.2em;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
 
-        &:hover {
-            background-color: transparentize($red, .5);
-        }
+	button.close-button {
+		@include button($flat: true);
+		margin-left: $spacing;
+		border-radius: $radii * 0.8;
+		min-width: 1.2em;
+		min-height: 1.2em;
 
-        &:active {
-            background-image: linear-gradient($red, $red);
-        }
-    }
+		&:hover {
+			background-color: transparentize($red, 0.5);
+		}
+
+		&:active {
+			background-image: linear-gradient($red, $red);
+		}
+	}
 }
 
-@mixin notifications {
-    .header {
-        label {
-            font-size: 1.2em;
-        }
+.notifications-popup-list {
+	.notification {
+		@include notification;
 
-        button {
-            @include button;
-            padding: $spacing/2 $spacing;
+		> box {
+			@include floating_widget;
+			border-radius: $radii;
+		}
 
-            label {
-                font-size: 1.2em;
-            }
-        }
-    }
-
-    .notification-list {
-        @include scrollbar;
-
-        .notification {
-            @include notification;
-        }
-    }
-}
-
-.notifications-popup-list{
-    .notification {
-        @include notification;
-
-        > box {
-            @include floating_widget;
-            border-radius: $radii;
-        }
-
-        .description {
-            min-width: 350px;
-        }
-    }
+		.description {
+			min-width: 350px;
+		}
+	}
 }

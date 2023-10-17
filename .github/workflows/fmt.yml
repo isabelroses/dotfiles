@@ -1,18 +1,14 @@
-name: Formatting Check
+name: Validate Flake Formatting
 
-on: [push, pull_request, workflow_dispatch]
+on: [push, workflow_dispatch]
 
 jobs:
-  checks:
-    name: Check expressions
+  check-formatting:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v18
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v23
         with:
-          install_url: https://nixos.org/nix/install
-          extra_nix_config: |
-            auto-optimise-store = true
-            experimental-features = nix-command flakes
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - run: nix run nixpkgs#alejandra -- -c .

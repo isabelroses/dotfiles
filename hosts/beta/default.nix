@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}: {
+{config, ...}: {
   imports = [./hardware-configuration.nix];
   config = {
     modules = {
@@ -16,7 +12,6 @@
       };
       system = {
         mainUser = "isabel";
-
         hostname = "beta";
 
         boot = {
@@ -47,13 +42,7 @@
         isWayland = false;
         useHomeManager = true;
       };
-      services = {
-        smb = {
-          enable = true;
-        };
-        vscode-server.enable = true;
-        mailserver.enable = true;
-      };
+
       programs = {
         git.signingKey = "";
 
@@ -65,6 +54,14 @@
           bella = true;
           nekowinston = true;
         };
+      };
+
+      services = {
+        smb = {
+          enable = true;
+        };
+        vscode-server.enable = true;
+        mailserver.enable = true;
       };
     };
 

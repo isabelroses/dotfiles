@@ -1,243 +1,192 @@
 window#quicksettings .quicksettings {
-    @include floating_widget;
+	@include floating_widget;
 
-    .header {
-        > box:last-child {
-            @include widget;
-            padding: $spacing;
-        }
+	.row {
+		margin-top: $spacing;
+		&:first-child {
+			margin-top: 0;
+		}
+	}
 
-        .avatar {
-            @include widget;
-            margin-right: $spacing;
-            min-width: $spacing*7 + 38px;
+	.header {
+		.avatar {
+			@include widget;
+			margin-right: $spacing;
+			min-width: $spacing * 7 + 38px;
 
-            .shader {
-                @include shader;
-            }
-        }
+			.shader {
+				@include shader;
+			}
+		}
 
-        .user {
-            font-size: 1.2em;
-            color: transparentize($fg_color, 0.2);
-            margin: $spacing/2;
-        }
+		.battery-progress {
+			label {
+				margin-top: $spacing;
+				color: $accent_fg;
+				font-size: $spacing * 2;
+				font-weight: bold;
+			}
 
-        .battery-progress {
-            progressbar {
-                @include slider($width: $spacing*3.4);
-                margin-top: $spacing;
-            }
+			&.half label {
+				color: $fg_color;
+			}
 
-            label {
-                margin-top: $spacing;
-                color: $accent_fg;
-                font-size: $spacing*2;
-                font-weight: bold;
-            }
+			progressbar {
+				@include slider($width: $spacing * 3.4);
+				margin-top: $spacing;
+				min-height: 20px;
+			}
 
-            &.half label { color: $fg_color; }
-        }
+			&.low progressbar {
+				@include slider(
+					$width: $spacing * 3.4,
+					$gradient: linear-gradient(to right, $red, $red)
+				);
+				margin-top: $spacing;
+				min-height: 20px;
+			}
+		}
 
-        .system {
-            button, .uptime {
-                @include button;
-                padding: $spacing;
-                margin-left: $spacing;
-                font-weight: bold;
-                &:first-child { margin-left: 0; }
-            }
-        }
-    }
+		.system-box {
+			@include widget;
+			padding: $spacing;
 
-    .volume-box {
-        @include widget;
-        margin-top: $spacing;
-        
-        scale {
-            @include slider;
-            margin-right: $spacing;
-        }
+			button,
+			.uptime {
+				@include button;
+				padding: $spacing;
+				font-weight: bold;
+				margin-left: $spacing;
+				&:first-child {
+					margin-left: 0;
+				}
+				min-height: 20px;
+				min-width: 20px;
 
-        button {
-            @include button($flat: true);
-            padding: $spacing/2;
-            margin: $spacing/2;
-        }
-        
-        .menu {
-            all: unset;
-            border-top: 1px solid $widget_bg;
-            padding: $spacing;
+				image {
+					font-size: 1.2em;
+				}
+			}
+		}
+	}
 
-            .separator {
-                min-height: 1px;
-                margin: $spacing/2 0;
-                background-color: $widget_bg;
-            }
+	.slider-box {
+		@include widget;
+		padding: $spacing;
 
-            button {
-                @include button($flat: true);
-                border-radius: $radii*.7;
-                padding: $spacing/2;
-                margin-top: $spacing / 2;
-                &:first-child { margin-top: 0; }
+		> box:last-child {
+			margin-bottom: 0;
+		}
 
-                image {
-                    margin-right: $spacing/2;
-                }
-            }
-        }
-    }
+		.slider > * {
+			margin-left: $spacing;
+			&:first-child {
+				margin-left: 0;
+			}
+		}
 
-    .brightness {
-        @include widget;
-        margin-top: $spacing;
-        padding-right: $spacing;
+		button,
+		.icon {
+			@include button($flat: true);
+			padding: $spacing/2;
+		}
 
-        scale {
-            @include slider;
-            margin: 0 $spacing;
-            margin-left: 0;
-        }
+		scale {
+			@include slider;
 
-        button {
-            @include button($flat: true);
-            padding: $spacing/2;
-            margin: $spacing/2;
-        }
-    }
+			&:last-child {
+				margin-right: $spacing/2;
+			}
+		}
 
-    .toggles-box {
-        margin-top: $spacing;
+		.menu {
+			background-color: $bg_color;
+			border: $border_width solid $popover_border_color;
+			border-radius: $radii;
+		}
+	}
 
-        .small-toggles {
-            @include widget;
-            padding: $spacing/2;
+	.mixer-item {
+		margin: 0 $spacing;
+		scale {
+			@include slider($width: 7px);
+		}
+		> box {
+			padding: $spacing;
+		}
+		label:last-child {
+			min-width: 3em;
+		}
+		image {
+			font-size: 20px;
+		}
+	}
 
-            .toggle {
-                @include button;
-                margin: $spacing/2;
-                padding: $spacing;
-            }
-        }
+	.menu {
+		@include widget;
+		margin-top: $spacing;
+		padding: $spacing;
 
-        .arrow-toggles {
-            @include widget;
-            padding: $spacing/2;
-            margin-right: $spacing;
+		separator {
+			background-color: $border_color;
+			margin: $spacing $spacing/2;
+		}
 
-            .toggle.arrow {
-                @include button;
-                margin: $spacing/2;
+		label {
+			margin-left: $spacing;
+		}
 
-                label {
-                    margin-left: $spacing/2;
-                    font-weight: bold;
-                }
+		button {
+			@include button($flat: true);
+			padding: $spacing/2;
+		}
 
-                button {
-                    @include button($flat: true);
-                    padding: $spacing;
+		switch {
+			@include switch;
+		}
+	}
 
-                    &:first-child {
-                        border-top-right-radius: 0;
-                        border-bottom-right-radius: 0;
-                    }
+	.toggle-button {
+		@include button;
+		margin-right: $spacing;
+		font-weight: bold;
 
-                    &:last-child {
-                        border-top-left-radius: 0;
-                        border-bottom-left-radius: 0;
-                    }
-                }
+		label {
+			margin-left: $spacing/2;
+		}
 
-                &.active {
-                    background-color: $accent;
+		button {
+			@include button($flat: true);
+			padding: $spacing;
 
-                    label, image {
-                        color: $accent_fg;
-                    }
-                }
-            }
-        }
-    }
+			&:first-child {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
 
-    .submenu {
-        @include widget;
-        margin-top: $spacing;
+			&:last-child {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+		}
 
-        .title {
-            > *:first-child {
-                margin: $spacing;
-            }
+		&.active {
+			background-color: $accent;
 
-            label {
-                font-weight: bold;
-                font-size: 1.2em;
-            }
-        }
+			label,
+			image {
+				color: $accent_fg;
+			}
+		}
+	}
 
-        .content {
-            border-top: 1px solid $widget_bg;
-            padding: $spacing;
-        }
+	.simple-toggle {
+		@include button;
+		padding: $spacing;
+	}
 
-        &.app-mixer .content {
-            scale {
-                @include slider;
-            }
-
-            > box {
-                padding: $spacing;
-            }
-
-            label:last-child {
-                min-width: 3em;
-            }
-
-            image {
-                margin-right: $spacing;
-            }
-        }
-
-        &.network .content, &.theme, .content {
-            button {
-                @include button($flat: true);
-                border-radius: $radii*0.8;
-                padding: $spacing/2;
-                margin-top: $spacing / 2;
-                &:first-child { margin-top: 0; }
-            }
-
-            image {
-                margin-right: $spacing/2;
-            }
-        }
-
-        &.bluetooth .content {
-            > box {
-                padding: $spacing/2;
-            }
-
-            switch {
-                @include switch;
-            }
-        }
-    }
-
-    .media {
-        .mediabox{
-            @include widget;
-            @include media;
-            margin-top: $spacing;
-
-            .cover-art-bg {
-                border-radius: max($radii - $border_width, 0);
-            }
-
-            .shader {
-                border-radius: max($radii - $border_width, 0);
-            }
-        }
-    }
+	.media .player {
+		@include media;
+		margin-top: $spacing;
+	}
 }

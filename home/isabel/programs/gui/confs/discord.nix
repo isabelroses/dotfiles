@@ -2,19 +2,19 @@
   osConfig,
   lib,
   pkgs,
+  self,
   ...
-}:
-with lib; let
-  device = osConfig.modules.device;
-  programs = osConfig.modules.programs;
-  sys = osConfig.modules.system;
+}: let
+  inherit (osConfig.modules.system) video;
   acceptedTypes = ["laptop" "desktop" "hybrid"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable) {
     home.packages = with pkgs; [
       ((discord.override {
+          nss = pkgs.nss_latest;
           withOpenASAR = true;
           withVencord = true;
+          withTTS = false;
         })
         .overrideAttrs (old: {
           libPath = old.libPath + ":${pkgs.libglvnd}/lib";

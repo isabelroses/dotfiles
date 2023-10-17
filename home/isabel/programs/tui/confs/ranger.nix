@@ -4,13 +4,10 @@
   osConfig,
   lib,
   ...
-}:
-with lib; let
-  inherit (osConfig.modules) programs device;
-
+}: let
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.tui.enable)) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (osConfig.modules.programs.tui.enable)) {
     home.packages = with pkgs; [
       ranger
     ];
@@ -18,7 +15,7 @@ in {
     # TODO: more file preview methods
     xdg.configFile."ranger/rc.conf".text = ''
       set preview_images true
-      ${(optionalString config.programs.kitty.enable "set preview_images_method kitty")}
+      ${(lib.optionalString config.programs.kitty.enable "set preview_images_method kitty")}
     '';
   };
 }
