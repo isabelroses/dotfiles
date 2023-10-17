@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   environment = {
     systemPackages = with pkgs; [
       # packages necessery for thunar thumbnails
@@ -24,12 +20,13 @@
       ];
     };
 
+    # registry for linux, thanks to gnome
     dconf.enable = true;
 
     # gnome's keyring manager
     seahorse.enable = true;
 
-    # networkmanager tray uility, pretty useful actually
-    nm-applet.enable = config.modules.programs.defaults.bar == "waybar";
+    # networkmanager tray uility
+    nm-applet.enable = true;
   };
 }

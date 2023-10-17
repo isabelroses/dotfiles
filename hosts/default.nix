@@ -7,47 +7,58 @@
   inherit (self) inputs;
   inherit (lib) concatLists mkNixosSystem mkNixosIso;
 
-  # home manager modules from inputs
-  hm = inputs.home-manager.nixosModules.home-manager;
+  modulePath = ../modules;
+
+  # common modules, to be shared across all systems
+  commonModules = modulePath + /common; # the path where common modules reside
+  core = commonModules + /core; # the self-proclaimed sane defaults for all my systems
+  options = commonModules + /options; # the module that provides the options for my system configuration
+  secrets = commonModules + /secrets;
+
+  # system types, split up per system
+  deviceType = commonModules + /types; # the path where device type modules reside
+  server = deviceType + /server; # for devices that are of the server type - provides online services
+  laptop = deviceType + /laptop; # for devices that are of the laptop type - provides power optimizations
+  workstation = deviceType + /workstation; # for devices that are of workstation type - any device that is for daily use
+  hybrid = [server laptop];
+
+  # extra modules, likely optional but possibly critical
+  extraModules = modulePath + /extra; # the path where extra modules reside
+  sharedModules = extraModules + /shared; # shared modules
+
+  ## home-manager ##
+  home = ../home; # home-manager configurations for hosts that need home-manager
+  homes = [hm home]; # combine hm flake input and the home module to be imported together
+
+  ## flake inputs ##
+  hm = inputs.home-manager.nixosModules.home-manager; # home-manager nixos module
   cat = inputs.catppuccin.nixosModules.catppuccin;
 
-  # modules
-  modulePath = ../modules; # the base module path
-  options = modulePath + /options; # the module options for quick configuration
-
-  # common modules, these are shared across all systems
-  commonModules = modulePath + /common; # the base directory for the common module
-  core = commonModules + /core; # defaults for all systems
-  secrets = commonModules + /secrets; # shhh
-
-  # hardware types, providing improved defaults and system preformance improvements
-  deviceType = commonModules + /types; # the base directory for the types module
-  server = deviceType + /server; # for server type configurations
-  laptop = deviceType + /laptop; # for laptop type configurations
-  desktop = deviceType + /desktop; # for desktop type configurations
-  workstation = deviceType + /workstation; # for server type configurations
-  #hybrid = [server laptop]; # combine the server and laptop configurations for the best of both worlds
-
-  # extra modules
-  extraModules = modulePath + /extra; # the base directory for the extra module
-  sharedModules = extraModules + /shared; # the base directory for the shared module
-
-  ## home-manager
-  home = ../home; # home-manager configurations, used if hm is enabled
-  homes = [hm home]; # combine hm input module and the home module, confiuration modules
-
-  # a list of shared modules
+  # a list of shared modules that ALL systems need
   shared = [
-    core # default shared across all system configuratons
-    options # amazing quick settings module
-    sharedModules # sharing is careing, this mainly contains: hm and nixos (if any) modules
-    cat # catppucin for the quick themeing
-    secrets # shh
+    core # the "sane" default shared across systems
+    options
+    sharedModules
+    cat # for the quick themeing
+    secrets
   ];
 
-  # extraSpecialArgs that are on all machines
+  # extraSpecialArgs that all hosts need
   sharedArgs = {inherit inputs self lib;};
 in {
+  # fuck nvidia - Linus "the linux" Torvalds
+  amatarasu = mkNixosSystem {
+    inherit withSystem;
+    system = "x86_64-linux";
+    modules =
+      [
+        ./amatarasu
+        workstation
+      ]
+      ++ concatLists [shared homes];
+    specialArgs = sharedArgs;
+  };
+
   hydra = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -55,34 +66,14 @@ in {
       [
         ./hydra
         workstation
-        laptop
       ]
-      ++ concatLists [
-        shared
-        homes
-        /*
-        hybrid
-        */
-      ];
-    specialArgs = sharedArgs;
-  };
-
-  amatarasu = mkNixosSystem {
-    inherit withSystem;
-    system = "x86_64-linux";
-    modules =
-      [
-        ./amatarasu
-        desktop
-        workstation
-      ]
-      ++ concatLists [shared homes];
+      ++ concatLists [shared homes hybrid];
     specialArgs = sharedArgs;
   };
 
   bernie = mkNixosSystem {
     inherit withSystem;
-    system = "x86_64-linux";
+    system = "aarch64-linux";
     modules =
       [
         ./bernie
@@ -91,19 +82,6 @@ in {
       ++ concatLists [shared homes];
     specialArgs = sharedArgs;
   };
-
-  /*
-  beta = mkNixosSystem {
-    inherit withSystem;
-    system = "x86_64-linux";
-    modules = [
-      ./beta
-      server
-    ]
-    ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
-  };
-  */
 
   lilith = mkNixosIso {
     system = "x86_64-linux";

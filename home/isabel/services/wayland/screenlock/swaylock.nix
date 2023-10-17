@@ -6,10 +6,15 @@
   defaults,
   ...
 }: let
-  inherit (lib) mkIf isWayland isAcceptedDevice;
+  inherit (lib) mkIf;
+
+  dev = osConfig.modules.device;
+  vid = osConfig.modules.system.video;
+  env = osConfig.modules.usrEnv;
+
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig) && defaults.screenLocker == "swaylock") {
+  config = mkIf ((builtins.elem dev.type acceptedTypes && defaults.screenLock == "swaylock") && (vid.enable && env.isWayland)) {
     home.packages = with pkgs; [swaylock-effects];
 
     programs.swaylock = {

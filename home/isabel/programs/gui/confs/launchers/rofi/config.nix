@@ -1,14 +1,10 @@
-{
-  config,
-  defaults,
-  ...
-}: {
+{config, ...}: {
   programs.rofi = {
     extraConfig = {
       modi = "drun";
       icon-theme = "Papirus-Dark";
       show-icons = true;
-      terminal = defaults.terminal;
+      terminal = "alacritty";
       location = 0;
       disable-history = false;
       hide-scrollbar = true;

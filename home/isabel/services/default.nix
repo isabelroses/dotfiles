@@ -1,9 +1,7 @@
 _: {
   imports = [
-    ./shared # Always on services
-    ./wayland # wayland-only services
-    #./x11 # x11-only services
-
-    ./nix-index.nix
+    ./wayland # services that are wayland-only
+    ./x11 # services that are x11-only
+    ./shared # services that should be enabled regardless
   ];
 }

@@ -10,37 +10,34 @@
 
 ### config layout
 
-- 🏠 [home](../home/)
+- 🏠 [home](../home)
 - 🖥️ [hosts](../hosts/)
-  - ☀️ [amatarasu](../hosts/amatarasu/) My high end gameing machine
-  - 👴 [bernie](../hosts/bernie/) A server configuration for some of my infastrucior
-  - 🇧[beta](../hosts/beta/) A consept configuration for a new local server
   - 🐉 [hydra](../hosts/hydra/) A super mid spec laptop
-  - ⚸ [lilith](../hosts/lilith/) A nixos iso image that can be qickly deployed and acessed via ssh
-- 📖 [lib](../lib/) Useful repeated functions
-- 🧩 [parts](../parts/) Nixos parts breaking down the complex confiuration into smaller more managable chuncks
+  - ☀️ [amatarasu](../hosts/amatarasu/) My high end gameing machine
 - 🔌 [modules](../modules/)
   - [common](../modules/common/) Common configuration settings
     - [core](../modules/common/core/) Core parts of the configuration
-    - [secrets](../modules/common/secrets/) Sops secured system secrets
-    - [types](../modules/common/types/) System type configurations (e.g. laptop, servers, desktop)
+    - [options](../modules/common/options/) Selecteable settings that can be used to toggle certain settings
+    - [system](../modules/common/system/) System configurations
   - [extra](../modules/extra/) Prebuilt configrations & spare parts
-  - [options](../modules/common/options/) Selecteable settings that can be used to toggle certain settings
+    - [desktop](../modules/extra/desktop/) Default desktop config
+    - [server](../modules/extra/server/) Deafult server config
+    - [virtualization](../modules/extra/virtualization/) Settings for virtualization
 
 <details>
 <summary> Hyprland Shortcuts </summary>
 
-| Shortcut                        | What it does               |
-| ------------------------------- | -------------------------- |
-| <kbd>SUPER+RETURN</kbd>         | open terminal              |
-| <kbd>SUPER+B</kbd>              | open browser               |
-| <kbd>SUPER+C</kbd>              | open editor                |
-| <kbd>SUPER+O</kbd>              | open notes                 |
-| <kbd>SUPER+E</kbd>              | open file manager          |
-| <kbd>SUPER+Q</kbd>              | quit                       |
-| <kbd>SUPER+D</kbd>              | launcher                   |
-| <kbd>SUPER+F</kbd>              | fullscreen                 |
-| <kbd>SUPER+[number]</kbd>       | open workspace [number]    |
+| Shortcut | What it does |
+|---|---|
+| <kbd>SUPER+RETURN</kbd> | open terminal |
+| <kbd>SUPER+B</kbd> | open browser |
+| <kbd>SUPER+C</kbd> | open editor |
+| <kbd>SUPER+O</kbd> | open notes |
+| <kbd>SUPER+E</kbd> | open file manager |
+| <kbd>SUPER+Q</kbd> | quit |
+| <kbd>SUPER+D</kbd> | launcher |
+| <kbd>SUPER+F</kbd> | fullscreen |
+| <kbd>SUPER+[number]</kbd> | open workspace [number] |
 | <kbd>SUPER+SHIFT+[number]</kbd> | move to workspace [number] |
 
 </details>
@@ -48,7 +45,5 @@
 ### credits
 
 - [numtide/srvos](https://github.com/numtide/srvos)
-- [nullishamy](https://github.com/nullishamy/derivation-station)
+- [nullishamy](https://github.com/nullishamy/derivation-station/)
 - [nekowinston](https://github.com/nekowinston/dotfiles)
-- [getchoo](https://github.com/getchoo)
-- [BlankParticle](https://github.com/BlankParticle/nixos-flake/blob/d4976617aaa2d2b1f9362fde547f835a4e3bed57/pkgs/discord-krisp-patcher/default.nix)

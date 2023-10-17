@@ -2,16 +2,13 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
-} @ args: let
-  inherit (lib) mkDefault mkIf;
-  inherit (config.modules) device;
+} @ args:
+with lib; let
+  device = config.modules.device;
 
   MHz = x: x * 1000;
 in {
-  imports = [inputs.auto-cpufreq.nixosModules.default];
-
   config = mkIf (device.type == "laptop" || device.type == "hybrid") {
     hardware.acpilight.enable = true;
 
@@ -20,29 +17,10 @@ in {
       powertop
     ];
 
-    programs.auto-cpufreq = {
-      enable = true;
-      settings = {
-        battery = {
-          governor = "powersave";
-          scaling_min_freq = mkDefault (MHz 1200);
-          scaling_max_freq = mkDefault (MHz 1800);
-          turbo = "never";
-        };
-        charger = {
-          governor = "performance";
-          scaling_min_freq = mkDefault (MHz 1800);
-          scaling_max_freq = mkDefault (MHz 3000);
-          turbo = "auto";
-        };
-      };
-    };
-
     services = {
-      # handle ACPI events
-      acpid.enable = true;
+      # superior power management
+      auto-cpufreq.enable = true;
 
-      # a very cool user-selected power profiles helping my system not die 5 mins into my lecture
       power-profiles-daemon.enable = true;
 
       # temperature target on battery
@@ -50,10 +28,6 @@ in {
         tempBat = 65; # deg C
         package = pkgs.undervolt;
       };
-
-      /*
-      # superior power management
-      auto-cpufreq.enable = true;
 
       auto-cpufreq.settings = {
         battery = {
@@ -69,7 +43,6 @@ in {
           turbo = "auto";
         };
       };
-      */
 
       # DBus service that provides power management support to applications.
       upower = {
@@ -90,12 +63,11 @@ in {
     };
     boot = {
       kernelModules = ["acpi_call"];
-      extraModulePackages = with config.boot.kernelPackages;
-        [
-          acpi_call
-          cpupower
-        ]
-        ++ [pkgs.cpupower-gui];
+      extraModulePackages = with config.boot.kernelPackages; [
+        acpi_call
+        cpupower
+        pkgs.cpupower-gui
+      ];
     };
   };
 }
