@@ -51,6 +51,10 @@
 
   # check if modernshell and cli are both enabled
   isModernShell = conf: conf.modules.programs.cli.enable && conf.modules.programs.cli.modernShell.enable;
+
+  # ifOneEnabled takes a parent option and 3 child options and checks if at least one of them is enabled
+  # `ifOneEnabled config.modules.services "service1" "service2" "service3"`
+  ifOneEnabled = cfg: a: b: c: (cfg.a || cfg.b || cfg.c);
 in {
-  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland isModernShell indexOf;
+  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland isModernShell indexOf ifOneEnabled;
 }
