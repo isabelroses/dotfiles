@@ -26,7 +26,7 @@ in {
         ROCKET_ADDRESS = "127.0.0.1";
         ROCKET_PORT = 8222;
         extendedLogging = true;
-        invitationsAllowed = false;
+        invitationsAllowed = true;
         useSyslog = true;
         logLevel = "warn";
         showPasswordHint = false;
