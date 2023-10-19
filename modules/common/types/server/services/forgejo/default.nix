@@ -66,6 +66,8 @@ in {
             SSH_LISTEN_PORT = 2222;
           };
 
+          api.ENABLE_SWAGGER = false;
+
           default.APP_NAME = "iztea";
           attachment.ALLOWED_TYPES = "*/*";
 
@@ -78,6 +80,12 @@ in {
                 ++ (map (name: lib.removePrefix "theme-" (lib.removeSuffix ".css" name))
                   (builtins.attrNames (builtins.readDir theme))));
           };
+
+          # "ui.meta" = {
+          #   AUTHOR = "Isabel Roses";
+          #   DESCRIPTION = "A super cool place to host git repos";
+          #   KEYWORDS = "git,self-hosted,gitea,forgejo,isabelroses,catppuccin,open-source,nix,nixos";
+          # };
 
           actions = {
             ENABLED = true;
@@ -98,7 +106,17 @@ in {
             HOST = "redis://:forgejo@localhost:6371";
           };
 
-          service.DISABLE_REGISTRATION = true;
+          service = {
+            DISABLE_REGISTRATION = true;
+            EMAIL_DOMAIN_ALLOWLIST = "isabelroses.com";
+          };
+
+          other = {
+            SHOW_FOOTER_VERSION = false;
+            SHOW_FOOTER_TEMPLATE_LOAD_TIME = false;
+            ENABLE_FEED = false;
+          };
+
           migrations.ALLOWED_DOMAINS = "github.com, *.github.com, gitlab.com, *.gitlab.com";
           packages.ENABLED = false;
           repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
