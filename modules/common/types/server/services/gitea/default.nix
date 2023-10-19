@@ -17,7 +17,15 @@ with lib; let
   };
 in {
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [config.services.gitea.settings.server.HTTP_PORT];
+    networking.firewall.allowedTCPPorts = [
+      config.services.gitea.settings.server.HTTP_PORT
+      config.services.forgejo.settings.server.SSH_PORT
+    ];
+
+    modules.system.services.database = {
+      redis.enable = true;
+      postgresql.enable = true;
+    };
 
     systemd.services = {
       gitea = {
@@ -38,20 +46,9 @@ in {
         enable = true;
         package = pkgs.forgejo;
         appName = "iztea";
-        lfs.enable = true;
-        user = "git";
-        group = "git";
-        database.user = "git";
         stateDir = "/srv/storage/gitea/data";
 
         mailerPasswordFile = config.sops.secrets.mailserver-gitea-nohash.path;
-
-        dump = {
-          enable = true;
-          backupDir = "/srv/storage/gitea/dump";
-          interval = "06:00";
-          type = "tar.zst";
-        };
 
         settings = {
           server = {
@@ -81,10 +78,23 @@ in {
                   (builtins.attrNames (builtins.readDir theme))));
           };
 
-          "ui.meta" = {
-            AUTHOR = "Isabel Roses";
-            DESCRIPTION = "A great place to hide my code from you";
-            KEYWORDS = "git,self-hosted,gitea,isabelroses,catppuccin,open-source,forgejo";
+          actions = {
+            ENABLED = true;
+            DEFAULT_ACTIONS_URL = "https://code.forgejo.org";
+          };
+
+          database = {
+            DB_TYPE = lib.mkForce "postgres";
+            HOST = "/run/postgresql";
+            NAME = "gitea";
+            USER = "gitea";
+            PASSWD = "gitea";
+          };
+
+          cache = {
+            ENABLED = true;
+            ADAPTER = "redis";
+            HOST = "redis://:gitea@localhost:6371";
           };
 
           migrations.ALLOWED_DOMAINS = "github.com, *.github.com, gitlab.com, *.gitlab.com";
@@ -103,15 +113,14 @@ in {
             USER = "git@${domain}";
           };
         };
-      };
 
-      openssh = {
-        extraConfig = ''
-          Match User git
-            AuthorizedKeysCommandUser git
-            AuthorizedKeysCommand ${lib.getExe pkgs.forgejo} keys -e git -u %u -t %t -k %k
-          Match all
-        '';
+        # backup
+        dump = {
+          enable = true;
+          backupDir = "/srv/storage/forgejo/dump";
+          interval = "06:00";
+          type = "tar.zst";
+        };
       };
     };
   };
