@@ -3,7 +3,7 @@ _: {
     vscode-server.enable = false;
     miniflux.enable = false;
     matrix.enable = true;
-    gitea.enable = true;
+    forgejo.enable = true;
     vaultwarden.enable = true;
     isabelroses-web.enable = true;
     nginx.enable = true;
@@ -22,6 +22,7 @@ _: {
       mysql.enable = false;
       mongodb.enable = false;
       postgresql.enable = true;
+      redis.enable = true;
     };
   };
 }

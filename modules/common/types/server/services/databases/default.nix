@@ -3,5 +3,6 @@ _: {
     ./mongodb
     ./postgresql
     ./mysql
+    ./redis
   ];
 }

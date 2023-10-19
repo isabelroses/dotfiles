@@ -18,7 +18,7 @@ in {
   options.modules.services = {
     matrix.enable = mkEnableOption "Enable matrix server";
     miniflux.enable = mkEnableOption "Enable miniflux rss news aggreator service";
-    gitea.enable = mkEnableOption "Enable the gitea service";
+    forgejo.enable = mkEnableOption "Enable the forgejo service";
     cyberchef.enable = mkEnableOption "Enable the cyberchef website";
     vaultwarden.enable = mkEnableOption "Enable the vaultwarden service";
     photoprism.enable = mkEnableOption "Enable the photoprism service";
@@ -48,6 +48,7 @@ in {
       mysql.enable = mkEnableOption "MySQL database service";
       mongodb.enable = mkEnableOption "MongoDB service";
       postgresql.enable = mkEnableOption "Postgresql service";
+      redis.enable = mkEnableOption "Redis service";
     };
 
     smb = {
