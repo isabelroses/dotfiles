@@ -5,19 +5,19 @@
 }: let
   inherit (lib) mkIf;
 
-  cfg = config.modules.services.database.redis;
+  cfg = config.modules.services;
 in {
-  config = mkIf cfg.enable {
+  config = mkIf cfg.database.redis.enable {
     services.redis = {
       vmOverCommit = true;
       servers = {
-        gitea = mkIf cfg.gitea.enable {
+        forgejo = mkIf cfg.forgejo.enable {
           enable = true;
-          user = "gitea";
+          user = "forgejo";
           port = 6371;
           databases = 16;
           logLevel = "debug";
-          requirePass = "gitea";
+          requirePass = "forgejo";
         };
 
         searxng = mkIf cfg.searxng.enable {

@@ -40,10 +40,10 @@ in {
         group = "grafana";
       };
 
-      mailserver-gitea = {};
-      mailserver-gitea-nohash = mkIf services.gitea.enable {
-        owner = "git";
-        group = "git";
+      mailserver-git = {};
+      mailserver-git-nohash = mkIf services.forgejo.enable {
+        owner = "forgejo";
+        group = "forgejo";
       };
 
       isabelroses-web-env = {};

@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.services.gitea;
+  cfg = config.modules.services.forgejo;
   inherit (config.networking) domain;
-  gitea_domain = "git.${domain}";
+  forgejo_domain = "git.${domain}";
 
   # stole this from https://git.winston.sh/winston/deployment-flake/src/branch/main/config/services/gitea.nix who stole it from https://github.com/getchoo
   theme = pkgs.fetchzip {
@@ -18,20 +18,20 @@ with lib; let
 in {
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [
-      config.services.gitea.settings.server.HTTP_PORT
+      config.services.forgejo.settings.server.HTTP_PORT
       config.services.forgejo.settings.server.SSH_PORT
     ];
 
-    modules.system.services.database = {
+    modules.services.database = {
       redis.enable = true;
       postgresql.enable = true;
     };
 
     systemd.services = {
-      gitea = {
+      forgejo = {
         after = ["sops-nix.service"];
         preStart = let
-          inherit (config.services.gitea) stateDir;
+          inherit (config.services.forgejo) stateDir;
         in
           lib.mkAfter ''
             rm -rf ${stateDir}/custom/public
@@ -42,31 +42,32 @@ in {
     };
 
     services = {
-      gitea = {
+      forgejo = {
         enable = true;
         package = pkgs.forgejo;
-        appName = "iztea";
-        stateDir = "/srv/storage/gitea/data";
+        stateDir = "/srv/storage/forgejo/data";
+        lfs.enable = true;
 
-        mailerPasswordFile = config.sops.secrets.mailserver-gitea-nohash.path;
+        mailerPasswordFile = config.sops.secrets.mailserver-git-nohash.path;
 
         settings = {
           server = {
-            ROOT_URL = "https://${gitea_domain}";
+            ROOT_URL = "https://${forgejo_domain}";
             HTTP_PORT = 7000;
-            DOMAIN = "${gitea_domain}";
+            DOMAIN = "${forgejo_domain}";
 
-            START_SSH_SERVER = false;
             BUILTIN_SSH_SERVER_USER = "git";
-            SSH_PORT = 30;
             DISABLE_ROUTER_LOG = true;
-            SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
             LANDING_PAGE = "/explore/repos";
+
+            START_SSH_SERVER = true;
+            SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
+            SSH_PORT = 2222;
+            SSH_LISTEN_PORT = 2222;
           };
 
           default.APP_NAME = "iztea";
           attachment.ALLOWED_TYPES = "*/*";
-          service.DISABLE_REGISTRATION = true;
 
           ui = {
             DEFAULT_THEME = "catppuccin-mocha-sapphire";
@@ -86,17 +87,18 @@ in {
           database = {
             DB_TYPE = lib.mkForce "postgres";
             HOST = "/run/postgresql";
-            NAME = "gitea";
-            USER = "gitea";
-            PASSWD = "gitea";
+            NAME = "forgejo";
+            USER = "forgejo";
+            PASSWD = "forgejo";
           };
 
           cache = {
             ENABLED = true;
             ADAPTER = "redis";
-            HOST = "redis://:gitea@localhost:6371";
+            HOST = "redis://:forgejo@localhost:6371";
           };
 
+          service.DISABLE_REGISTRATION = true;
           migrations.ALLOWED_DOMAINS = "github.com, *.github.com, gitlab.com, *.gitlab.com";
           packages.ENABLED = false;
           repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";

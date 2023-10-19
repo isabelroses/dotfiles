@@ -62,26 +62,25 @@ in {
 
       waydroid.enable = cfg.waydroid.enable;
       lxd.enable = mkDefault config.virtualisation.waydroid.enable;
-
-      systemd.user = mkIf cfg.distrobox.enable {
-        timers."distrobox-update" = {
-          enable = true;
-          wantedBy = ["timers.target"];
-          timerConfig = {
-            OnBootSec = "1h";
-            OnUnitActiveSec = "1d";
-            Unit = "distrobox-update.service";
-          };
+    };
+    systemd.user = mkIf cfg.distrobox.enable {
+      timers."distrobox-update" = {
+        enable = true;
+        wantedBy = ["timers.target"];
+        timerConfig = {
+          OnBootSec = "1h";
+          OnUnitActiveSec = "1d";
+          Unit = "distrobox-update.service";
         };
+      };
 
-        services."distrobox-update" = {
-          enable = true;
-          script = ''
-            ${pkgs.distrobox}/bin/distrobox upgrade --all
-          '';
-          serviceConfig = {
-            Type = "oneshot";
-          };
+      services."distrobox-update" = {
+        enable = true;
+        script = ''
+          ${pkgs.distrobox}/bin/distrobox upgrade --all
+        '';
+        serviceConfig = {
+          Type = "oneshot";
         };
       };
     };

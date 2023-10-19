@@ -49,9 +49,9 @@ in {
           };
         };
 
-        # gitea
-        "git.${domain}" = mkIf cfg.gitea.enable {
-          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.gitea.settings.server.HTTP_PORT}";
+        # forgejo
+        "git.${domain}" = mkIf cfg.forgejo.enable {
+          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
           forceSSL = true;
           enableACME = true;
         };

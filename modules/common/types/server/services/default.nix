@@ -4,7 +4,7 @@ _: {
     ./containers
     ./cyberchef
     ./databases
-    ./gitea
+    ./forgejo
     ./jellyfin
     ./mailserver
     ./matrix

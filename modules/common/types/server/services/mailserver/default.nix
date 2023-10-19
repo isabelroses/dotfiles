@@ -121,7 +121,7 @@ in {
 
         "git@${domain}" = {
           aliases = ["git" "git@${domain}"];
-          hashedPasswordFile = config.sops.secrets.mailserver-gitea.path;
+          hashedPasswordFile = config.sops.secrets.mailserver-git.path;
         };
 
         "vaultwarden@${domain}" = {

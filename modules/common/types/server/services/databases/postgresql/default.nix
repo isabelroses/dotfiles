@@ -29,7 +29,7 @@ in {
 
       ensureDatabases = [
         "miniflux"
-        "gitea"
+        "forgejo"
         "grafana"
         "vaultwarden"
       ];
@@ -43,8 +43,8 @@ in {
           ensurePermissions."ALL TABLES IN SCHEMA public" = "ALL PRIVILEGES";
         }
         {
-          name = "gitea";
-          ensurePermissions."DATABASE gitea" = "ALL PRIVILEGES";
+          name = "forgejo";
+          ensurePermissions."DATABASE forgejo" = "ALL PRIVILEGES";
         }
         {
           name = "grafana";
