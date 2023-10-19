@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./grafana.nix
-    ./prometheus.nix
+    ./grafana
+    ./prometheus
   ];
 }
