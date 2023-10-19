@@ -122,18 +122,6 @@ in {
         path = sshDir + "/nixos.pub";
         owner = mainUser;
       };
-
-      # my local servers / clients
-      /*
-      alpha-key = {
-        path = sshDir + "/alpha";
-        owner = mainUser;
-      };
-      alpha-key-pub = {
-        path = sshDir + "/alpha.pub";
-        owner = mainUser;
-      };
-      */
     };
   };
 }
