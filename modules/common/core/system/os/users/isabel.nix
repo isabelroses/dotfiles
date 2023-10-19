@@ -5,7 +5,7 @@
   ...
 }: let
   keys = [
-    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEtTMRG9pfuOjlLmq/NybTZCIKL66tLNSM4CBILYda3 isabel@isabelroses.com''
+    ''ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2 isabel@isabelroses.com''
   ];
 in {
   boot.initrd.network.ssh.authorizedKeys = keys;
