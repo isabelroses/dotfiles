@@ -1,6 +1,6 @@
 {
-  config,
   lib,
+  self',
   pkgs,
   osConfig,
   defaults,
@@ -31,7 +31,7 @@ in {
       harfbuzz
       gdk-pixbuf
       glib
-      nur.repos.bella.gjs # patched gjs version
+      self'.packages.gjs # patched gjs version
     ];
 
     programs.eww = {

@@ -38,11 +38,5 @@ in {
       steam.enable = mkEnableOption "Enable Steam" // {default = cfg.enable;};
       mangohud.enable = mkEnableOption "Enable MangoHud" // {default = cfg.enable;};
     };
-
-    nur = {
-      enable = mkEnableOption "Use nur for extra packages";
-      bella = mkEnableOption "Enable the isabelroses nur extra packages";
-      nekowinston = mkEnableOption "Enables the nekowinston nur extra packages";
-    };
   };
 }

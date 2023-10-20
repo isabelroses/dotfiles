@@ -58,12 +58,6 @@ _: {
       };
       tui.enable = true;
       gui.enable = false;
-
-      nur = {
-        enable = true;
-        bella = true;
-        nekowinston = true;
-      };
     };
   };
 }
