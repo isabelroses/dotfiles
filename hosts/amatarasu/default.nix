@@ -78,12 +78,6 @@ in {
         defaults = {
           bar = "ags";
         };
-
-        nur = {
-          enable = true;
-          bella = true;
-          nekowinston = true;
-        };
       };
 
       services = {

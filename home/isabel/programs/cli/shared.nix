@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs',
+  self',
   ...
 }: let
   inherit (lib) mkIf optionals;
@@ -20,10 +21,8 @@ in {
         nitch
         hyfetch
         cached-nix-shell
-      ]
-      ++ lib.optionals (cfg.nur.enable && cfg.nur.bella) [
-        nur.repos.bella.bellado
-        nur.repos.bella.catppuccinifier-cli
+        self'.packages.bellado
+        self'.packages.catppuccinifier-cli
       ]
       ++ optionals cfg.cli.modernShell.enable [
         ripgrep

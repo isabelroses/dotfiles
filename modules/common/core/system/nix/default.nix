@@ -37,27 +37,13 @@
       permittedInsecurePackages = [];
     };
 
-    overlays = let
-      nurOpt = config.modules.programs.nur;
-    in
-      [
-        inputs.rust-overlay.overlays.default
-        (_: _: {
-          nixSchemas = inputs'.nixSchemas.packages.default;
-        })
-      ]
-      ++ lib.optionals nurOpt.enable [
-        (_: prev: {
-          nur = import inputs.nur {
-            nurpkgs = prev;
-            pkgs = prev;
-            repoOverrides =
-              {}
-              // lib.optionalAttrs nurOpt.bella {bella = inputs'.bella-nur.packages;}
-              // lib.optionalAttrs nurOpt.nekowinston {nekowinston = inputs'.nekowinston-nur.packages;};
-          };
-        })
-      ];
+    overlays = [
+      inputs.rust-overlay.overlays.default
+
+      (_: _: {
+        nixSchemas = inputs'.nixSchemas.packages.default;
+      })
+    ];
   };
 
   # faster rebuilding, plus i don't use the docs anyways
