@@ -214,6 +214,21 @@
       };
     };
 
+    # cool bars
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # lovely app
+    bellado.url = "github:isabelroses/bellado";
+
+    # cool wallpaper maker
+    catppuccinifier = {
+      url = "github:lighttigerXIV/catppuccinifier";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # secure-boot on nixos
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
@@ -235,9 +250,8 @@
     };
 
     # nur's
-    nur.url = "github:nix-community/nur";
-    bella-nur.url = "github:isabelroses/nur";
-    nekowinston-nur.url = "github:nekowinston/nur";
+    # nur.url = "github:nix-community/nur";
+    # nekowinston-nur.url = "github:nekowinston/nur";
 
     # Schemas
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";
