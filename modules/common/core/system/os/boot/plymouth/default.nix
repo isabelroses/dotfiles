@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  self',
   pkgs,
   ...
 }: let
@@ -16,7 +17,7 @@ in {
       }
       // lib.optionalAttrs cfg.withThemes {
         theme = "catppuccin-mocha";
-        themePackages = [pkgs.nur.repos.nekowinston.plymouth-theme-catppuccin];
+        themePackages = [self'.packages.plymouth-theme-catppuccin];
       };
 
     # make plymouth work with sleep

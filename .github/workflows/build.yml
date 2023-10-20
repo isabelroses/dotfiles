@@ -25,6 +25,7 @@ jobs:
           - lutgen-rs
           - patched-gjs
           - ags
+          - plymouth-theme-catppuccin
 
     steps:
       - uses: easimon/maximize-build-space@v8
