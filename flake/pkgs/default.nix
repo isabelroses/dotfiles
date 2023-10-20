@@ -14,6 +14,7 @@ _: {
       # https://github.com/NixOS/nixpkgs/issues/195512
       lutgen-rs = pkgs.callPackage ./lutgen-rs.nix {};
       patched-gjs = pkgs.callPackage ./patched-gjs.nix {};
+      plymouth-theme-catppuccin = pkgs.callPackage ./plymouth-theme-catppuccin.nix {};
 
       bellado = inputs'.bellado.packages.default;
       catppuccinifier-cli = inputs'.catppuccinifier.packages.cli;
