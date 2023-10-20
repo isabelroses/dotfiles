@@ -26,7 +26,9 @@
         markdown-inline
       ];
 
-      extraPlugins = with pkgs.vimPlugins; {
+      extraPlugins = let
+        inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree;
+      in {
         friendly-snippets = {package = friendly-snippets;};
 
         aerial = {
