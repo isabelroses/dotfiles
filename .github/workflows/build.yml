@@ -1,0 +1,59 @@
+name: Build and populate cache
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - .github/**
+      - assets/**
+      - .gitignore
+      - docs/**
+      - README.md
+    schedule:
+      - cron: "25 1 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+          - bellado
+          - catppuccinifier-cli
+          - lutgen-rs
+          - patched-gjs
+          - ags
+
+    steps:
+      - uses: easimon/maximize-build-space@v8
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-haskell: true
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v23
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            auto-optimise-store = true
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup cachix
+        uses: cachix/cachix-action@v12
+        with:
+          name: isabelroses
+          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+          authToken: "${{ secrets.CACHIX_TOKEN }}"
+
+      - name: Set default git branch (to reduce log spam)
+        run: git config --global init.defaultBranch main
+
+      - name: Build from the matrix
+        run: nix build -L .#${{ matrix.package }}
