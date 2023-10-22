@@ -4,6 +4,7 @@
   config,
   osConfig,
   defaults,
+  inputs',
   ...
 }: let
   inherit (osConfig.modules) system;
@@ -12,6 +13,7 @@ in {
   config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.programs.gui.enable && defaults.bar == "ags") {
     home = {
       packages = with pkgs; [
+        inputs'.ags.packages.default
         socat
         sassc
         networkmanagerapplet
