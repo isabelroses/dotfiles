@@ -133,6 +133,16 @@ in {
           aliases = ["grafana" "monitor" "monitor@${domain}"];
           hashedPasswordFile = config.sops.secrets.mailserver-grafana.path;
         };
+
+        "noreply@${domain}" = {
+          aliases = ["noreply"];
+          hashedPasswordFile = config.sops.secrets.mailserver-noreply.path;
+        };
+
+        "spam@${domain}" = {
+          aliases = ["spam" "shush" "shush@${domain}" "stfu" "stfu@${domain}"];
+          hashedPasswordFile = config.sops.secrets.mailserver-spam.path;
+        };
       };
 
       mailboxes = {

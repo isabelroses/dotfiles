@@ -34,13 +34,15 @@ in {
       mailserver-vaultwarden = {};
       mailserver-database = {};
       mailserver-grafana = {};
+      mailserver-git = {};
+      mailserver-noreply = {};
+      mailserver-spam = {};
 
       mailserver-grafana-nohash = mkIf services.monitoring.grafana.enable {
         owner = "grafana";
         group = "grafana";
       };
 
-      mailserver-git = {};
       mailserver-git-nohash = mkIf services.forgejo.enable {
         owner = "forgejo";
         group = "forgejo";
