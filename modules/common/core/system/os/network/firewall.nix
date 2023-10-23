@@ -4,11 +4,11 @@
   config,
   ...
 }: let
-  inherit (lib) mkDefault mkForce;
+  inherit (lib) mkDefault mkForce mkIf;
   inherit (config.modules) device;
 in {
   environment.etc."fail2ban/filter.d/vaultwarden.conf" = {
-    enable = config.services.vaultwarden.enable;
+    inherit (config.services.vaultwarden) enable;
     text = ''
       [INCLUDES]
       before = common.conf
@@ -19,7 +19,7 @@ in {
   };
 
   environment.etc."fail2ban/filter.d/vaultwarden-admin.conf" = {
-    enable = config.services.vaultwarden.enable;
+    inherit (config.services.vaultwarden) enable;
     text = ''
       [INCLUDES]
       before = common.conf
@@ -93,13 +93,13 @@ in {
         8080
       ];
       allowedUDPPorts = [];
-      allowedTCPPortRanges = [
+      allowedTCPPortRanges = mkIf (device.type != "server") [
         {
           from = 1714;
           to = 1764;
         } #KDEconnect
       ];
-      allowedUDPPortRanges = [
+      allowedUDPPortRanges = mkIf (device.type != "server") [
         {
           from = 1714;
           to = 1764;
