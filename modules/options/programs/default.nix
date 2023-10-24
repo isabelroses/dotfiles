@@ -1,12 +1,9 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{lib, ...}: let
   inherit (lib) mkEnableOption mkOption types;
 in {
   imports = [
     ./defaults
+    ./gaming.nix
   ];
 
   options.modules.programs = {
@@ -25,18 +22,6 @@ in {
         default = "";
         description = "The default gpg key used for signing commits";
       };
-    };
-
-    gaming = let
-      cfg = config.modules.programs.gaming;
-    in {
-      enable = mkEnableOption "Enable packages required for the device to be gaming-ready";
-      emulation.enable = mkEnableOption "Enable programs required to emulate other platforms";
-      minecraft.enable = mkEnableOption "Enable minecraft";
-
-      gamescope.enable = mkEnableOption "Gamescope compositing manager" // {default = cfg.enable;};
-      steam.enable = mkEnableOption "Enable Steam" // {default = cfg.enable;};
-      mangohud.enable = mkEnableOption "Enable MangoHud" // {default = cfg.enable;};
     };
   };
 }
