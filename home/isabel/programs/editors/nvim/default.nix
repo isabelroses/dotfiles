@@ -27,7 +27,7 @@
       ];
 
       extraPlugins = let
-        inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree;
+        inherit (pkgs.vimPlugins) friendly-snippets aerial-nvim nvim-surround undotree harpoon;
       in {
         friendly-snippets = {package = friendly-snippets;};
 
@@ -36,17 +36,15 @@
           setup = "require('aerial').setup {}";
         };
 
-        /*
         harpoon = {
           package = harpoon;
           setup = "require('harpoon').setup {}";
           after = ["aerial"];
         };
-        */
 
         nvim-surround = {
           package = nvim-surround;
-          setup = "require('nvim-surround').setup{}";
+          setup = "require('nvim-surround').setup {}";
         };
 
         undotree = {
