@@ -26,9 +26,25 @@ in {
     services = {
       roundcube = {
         enable = true;
+
+        package = pkgs.roundcube.withPlugins (
+          plugins:
+            with plugins; [
+              persistent_login
+              # carddav
+            ]
+        );
+
         database.username = "roundcube";
         maxAttachmentSize = 50;
+
         dicts = with pkgs.aspellDicts; [en];
+
+        plugins = [
+          # "carddav"
+          "persistent_login"
+        ];
+
         # this is the url of the vhost, not necessarily the same as the fqdn of the mailserver
         hostName = "webmail.${domain}";
         extraConfig = ''
