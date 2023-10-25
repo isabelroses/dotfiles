@@ -5,6 +5,7 @@
   ...
 }: let
   sys = config.modules.system;
+  inherit (lib) optionals concatLists;
 in {
   security = {
     protectKernelImage = true;
@@ -85,12 +86,14 @@ in {
       "fbcon=nodefer"
     ];
 
-    blacklistedKernelModules =
+    blacklistedKernelModules = concatLists [
       [
         # Obscure network protocols
         "ax25"
         "netrom"
         "rose"
+      ]
+      [
         # Old or rare or insufficiently audited filesystems
         "adfs"
         "affs"
@@ -125,14 +128,15 @@ in {
         "qnx6"
         "sysv"
       ]
-      ++ lib.optionals (!sys.security.fixWebcam) [
+      (optionals (!sys.security.fixWebcam) [
         "uvcvideo" # this is why your webcam no worky
-      ]
-      ++ lib.optionals (!sys.bluetooth.enable) [
+      ])
+      (optionals (!sys.bluetooth.enable) [
         "btusb" # let bluetooth dongles work
-      ]
-      ++ lib.optionals (!config.modules.services.smb.enable) [
+      ])
+      (optionals (!config.modules.services.smb.enable) [
         "cifs" # allows smb to work
-      ];
+      ])
+    ];
   };
 }
