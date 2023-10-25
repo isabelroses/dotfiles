@@ -23,7 +23,7 @@ _: {
           enable = true;
           # https://flake.parts/options/treefmt-nix.html#opt-perSystem.treefmt.programs.shfmt.indent_size
           # 0 causes shfmt to use tabs
-          indent_size = 0;
+          indent_size = 2;
         };
       };
     };
