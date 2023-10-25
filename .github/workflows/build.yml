@@ -11,8 +11,8 @@ on:
       - .gitignore
       - docs/**
       - README.md
-    schedule:
-      - cron: "25 1 * * *"
+  schedule:
+    - cron: "25 1 * * *"
 
 jobs:
   build:
