@@ -1,5 +1,6 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [cloudflared];
+_: {
+  # {pkgs, ...}: {
+  # home.packages = with pkgs; [cloudflared];
   programs = {
     ssh = {
       enable = true;

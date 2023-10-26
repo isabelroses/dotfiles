@@ -11,6 +11,12 @@ in {
     services.redis = {
       vmOverCommit = true;
       servers = {
+        nextcloud = mkIf cfg.nextcloud.enable {
+          enable = true;
+          user = "nextcloud";
+          port = 0;
+        };
+
         forgejo = mkIf cfg.forgejo.enable {
           enable = true;
           user = "forgejo";
