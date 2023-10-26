@@ -1,6 +1,6 @@
 _: {
   modules.services = {
-    # nextcloud.enable = true;
+    nextcloud.enable = true;
     vscode-server.enable = false;
     miniflux.enable = false;
     matrix.enable = true;

@@ -29,16 +29,11 @@ in {
 
       ensureDatabases = [
         "nextcloud"
-        "miniflux"
         "forgejo"
         "grafana"
         "vaultwarden"
       ];
       ensureUsers = [
-        {
-          name = "miniflux";
-          ensurePermissions."DATABASE miniflux" = "ALL PRIVILEGES";
-        }
         {
           name = "postgres";
           ensurePermissions."ALL TABLES IN SCHEMA public" = "ALL PRIVILEGES";
