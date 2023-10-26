@@ -10,6 +10,7 @@ _: {
     ./matrix
     ./miniflux
     ./monitoring
+    ./nextcloud
     ./nginx
     ./photoprism
     ./vaultwarden
