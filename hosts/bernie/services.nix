@@ -1,5 +1,6 @@
 _: {
   modules.services = {
+    # nextcloud.enable = true;
     vscode-server.enable = false;
     miniflux.enable = false;
     matrix.enable = true;
@@ -7,6 +8,7 @@ _: {
     vaultwarden.enable = true;
     isabelroses-web.enable = true;
     nginx.enable = true;
+    cloudflared.enable = false;
 
     mailserver = {
       enable = true;

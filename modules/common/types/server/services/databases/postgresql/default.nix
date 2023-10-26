@@ -28,6 +28,7 @@ in {
       };
 
       ensureDatabases = [
+        "nextcloud"
         "miniflux"
         "forgejo"
         "grafana"
@@ -49,6 +50,10 @@ in {
         {
           name = "grafana";
           ensurePermissions."DATABASE grafana" = "ALL PRIVILEGES";
+        }
+        {
+          name = "nextcloud";
+          ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
         }
         {
           name = "vaultwarden";

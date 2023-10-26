@@ -50,6 +50,11 @@ in {
 
       isabelroses-web-env = {};
 
+      nextcloud-passwd = {
+        owner = "nextcloud";
+        group = "nextcloud";
+      };
+
       # vaultwarden
       vaultwarden-env = {};
 

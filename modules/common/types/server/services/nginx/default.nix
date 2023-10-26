@@ -56,6 +56,11 @@ in {
           enableACME = true;
         };
 
+        "cloud.${domain}" = {
+          forceSSL = true;
+          enableACME = true;
+        };
+
         # mailserver
         "mail.${domain}" = mkIf cfg.mailserver.enable {
           forceSSL = true;
