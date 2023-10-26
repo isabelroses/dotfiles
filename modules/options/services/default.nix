@@ -6,16 +6,11 @@
   inherit (lib) mkEnableOption;
   cfg = config.modules.services;
 
-  # stolen the functions https://github.com/NotAShelf/nyx/blob/614c3b0ee09b41a21bbd2395d1294bb55028657b/modules/common/options/system/services.nix
-
-  # ifOneEnabled takes a parent option and 3 child options and checks if at least one of them is enabled
-  # => ifOneEnabled config.modules.services "service1" "service2" "service3"
-  # ifOneEnabled = cfg: a: b: c: cfg.a || cfg.b || cfg.c;
-
   # mkEnableOption is the same as mkEnableOption but with the default value being equal to cfg.monitoring.enable
   mkEnableOption' = desc: mkEnableOption "${desc}" // {default = cfg.monitoring.enable;};
 in {
   options.modules.services = {
+    nextcloud.enable = mkEnableOption "Nextcloud service";
     matrix.enable = mkEnableOption "Enable matrix server";
     miniflux.enable = mkEnableOption "Enable miniflux rss news aggreator service";
     forgejo.enable = mkEnableOption "Enable the forgejo service";
