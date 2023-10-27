@@ -3,9 +3,7 @@
   pkgs,
   ...
 }: {
-  imports = [
-    inputs.neovim-flake.homeManagerModules.default
-  ];
+  imports = [inputs.neovim-flake.homeManagerModules.default];
 
   # https://notashelf.github.io/neovim-flake/
   programs.neovim-flake = {
@@ -105,6 +103,7 @@
         lspSignature.enable = true;
         nvimCodeActionMenu.enable = true;
         trouble.enable = false;
+        nvim-docs-view.enable = true;
       };
 
       debugMode = {
