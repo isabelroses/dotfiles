@@ -6,14 +6,10 @@
   defaults,
   ...
 }: let
-  inherit (lib) mkIf;
-  dev = osConfig.modules.device;
-  vid = osConfig.modules.system.video;
-  env = osConfig.modules.usrEnv;
-
+  inherit (lib) mkIf isAcceptedDevice isWayland;
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem dev.type acceptedTypes && defaults.screenLock == "gtklock") && (vid.enable && env.isWayland)) {
+  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig) && defaults.screenLocker == "gtklock") {
     programs.gtklock = {
       enable = true;
       package = pkgs.gtklock;

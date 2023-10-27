@@ -3,11 +3,8 @@
   lib,
   osConfig,
   ...
-}: let
-  inherit (lib) mkIf;
-  inherit (osConfig.modules) programs;
-in {
-  config.programs.lazygit = mkIf (programs.tui.enable) {
+}: {
+  config.programs.lazygit = lib.mkIf (osConfig.modules.programs.tui.enable) {
     enable = true;
     catppuccin.enable = true;
   };

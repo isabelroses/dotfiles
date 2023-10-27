@@ -4,9 +4,31 @@
   config,
   ...
 }: let
-  inherit (lib) mkDefault mkForce;
-  device = config.modules.device;
+  inherit (lib) mkDefault mkForce mkIf;
+  inherit (config.modules) device;
 in {
+  environment.etc."fail2ban/filter.d/vaultwarden.conf" = {
+    inherit (config.services.vaultwarden) enable;
+    text = ''
+      [INCLUDES]
+      before = common.conf
+      [Definition]
+      failregex = ^.*Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$
+      ignoreregex =
+    '';
+  };
+
+  environment.etc."fail2ban/filter.d/vaultwarden-admin.conf" = {
+    inherit (config.services.vaultwarden) enable;
+    text = ''
+      [INCLUDES]
+      before = common.conf
+      [Definition]
+      failregex = ^.*Invalid admin token\. IP: <ADDR>.*$
+      ignoreregex =
+    '';
+  };
+
   services = {
     # enable opensnitch firewall
     # inactive until opensnitch UI is opened
@@ -19,6 +41,7 @@ in {
       maxretry = 7;
       ignoreIP = [
         "127.0.0.0/8"
+        "10.0.0.0/8"
         "192.168.86.0/16"
       ];
 
@@ -27,6 +50,27 @@ in {
           enabled = true
           port = 22
           mode = aggressive
+        '';
+
+        vaultwarden = ''
+          enabled = true
+          port = 80,443,8822
+          filter = vaultwarden
+          banaction = %(banaction_allports)s
+          logpath = /var/log/vaultwarden.log
+          maxretry = 3
+          bantime = 14400
+          findtime = 14400
+        '';
+        vaultwarden-admin = ''
+          enabled = true
+          port = 80,443
+          filter = vaultwarden-admin
+          banaction = %(banaction_allports)s
+          logpath = /var/log/vaultwarden.log
+          maxretry = 3
+          bantime = 14400
+          findtime = 14400
         '';
       };
 
@@ -44,15 +88,18 @@ in {
     firewall = {
       enable = mkDefault true;
       package = mkDefault pkgs.iptables-nftables-compat;
-      allowedTCPPorts = [];
+      allowedTCPPorts = [
+        443
+        8080
+      ];
       allowedUDPPorts = [];
-      allowedTCPPortRanges = [
+      allowedTCPPortRanges = mkIf (device.type != "server") [
         {
           from = 1714;
           to = 1764;
         } #KDEconnect
       ];
-      allowedUDPPortRanges = [
+      allowedUDPPortRanges = mkIf (device.type != "server") [
         {
           from = 1714;
           to = 1764;

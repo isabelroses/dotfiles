@@ -21,11 +21,11 @@ in {
       };
       system = {
         mainUser = "isabel";
-
         hostname = "amatarasu";
 
         boot = {
           loader = "systemd-boot";
+          secureBoot = false;
           plymouth = {
             enable = true;
             withThemes = true;
@@ -35,10 +35,15 @@ in {
           loadRecommendedModules = true;
         };
 
+        fs = ["ext4" "vfat"];
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;
         printing.enable = false;
+
+        security = {
+          auditd.enable = true;
+        };
 
         networking = {
           optimizeTcp = true;
@@ -57,32 +62,33 @@ in {
         desktop = "Hyprland";
         useHomeManager = true;
       };
-      services = {
-        smb = {
-          enable = true;
-          recive = {
-            media = true;
-            general = true;
-          };
-        };
-        photoprism.enable = true;
-        vscode-server.enable = true;
-      };
+
       programs = {
         git.signingKey = "7F2F6BD6997FCDF7";
 
-        cli.enable = true;
+        cli = {
+          enable = true;
+          modernShell.enable = true;
+        };
+        tui.enable = true;
         gui.enable = true;
 
-        default = {
+        zathura.enable = true;
+
+        defaults = {
           bar = "ags";
         };
+      };
 
-        nur = {
-          enable = true;
-          bella = true;
-          nekowinston = true;
+      services = {
+        smb = {
+          enable = false;
+          recive = {
+            media = false;
+            general = false;
+          };
         };
+        vscode-server.enable = true;
       };
     };
 

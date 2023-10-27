@@ -1,25 +1,21 @@
 {
-  config,
   lib,
+  self',
   pkgs,
   osConfig,
   defaults,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) isWayland;
 
   ewwPackage =
-    if env.isWayland
+    if isWayland osConfig
     then pkgs.eww-wayland
     else pkgs.eww;
 
-  device = osConfig.modules.device;
-  env = osConfig.modules.usrEnv;
   acceptedTypes = ["desktop" "laptop" "hybrid"];
-  programs = osConfig.modules.programs;
-  sys = osConfig.modules.system;
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && programs.gui.enable && sys.video.enable && defaults.bar == "eww") {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig) && osConfig.modules.programs.gui.enable && defaults.bar == "eww") {
     home.packages = with pkgs; [
       socat
       jaq
@@ -35,7 +31,7 @@ in {
       harfbuzz
       gdk-pixbuf
       glib
-      nur.repos.bella.gjs # patched gjs version
+      self'.packages.gjs # patched gjs version
     ];
 
     programs.eww = {

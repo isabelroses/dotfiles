@@ -2,14 +2,10 @@
   osConfig,
   lib,
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
-  device = osConfig.modules.device;
-
+}: let
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((builtins.elem device.type acceptedTypes) && (programs.cli.enable)) {
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isModernShell osConfig) {
     programs.tealdeer = {
       enable = true;
       settings = {

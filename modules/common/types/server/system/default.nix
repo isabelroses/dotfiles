@@ -1,5 +1,8 @@
 _: {
   imports = [
-    ./users.nix
+    ./users
+
+    ./enviroment.nix
+    ./systemd.nix
   ];
 }

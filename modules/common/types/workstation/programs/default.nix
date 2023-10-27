@@ -1,5 +1,6 @@
 _: {
   imports = [
+    ./ccache
     ./flatpak
     ./xdg-ninja
 
