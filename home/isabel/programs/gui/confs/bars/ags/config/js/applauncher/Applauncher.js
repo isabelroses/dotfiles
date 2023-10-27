@@ -2,6 +2,7 @@ import { Widget, App, Applications } from "../imports.js";
 import Separator from "../misc/Separator.js";
 import PopupWindow from "../misc/PopupWindow.js";
 import icons from "../icons.js";
+import { launchApp } from "../utils.js";
 
 const WINDOW_NAME = "applauncher";
 
@@ -10,7 +11,7 @@ const AppItem = (app) =>
         className: "app",
         onClicked: () => {
             App.closeWindow(WINDOW_NAME);
-            app.launch();
+            launchApp(app);
         },
         child: Widget.Box({
             children: [
@@ -58,7 +59,7 @@ const Applauncher = () => {
             const list = Applications.query(text);
             if (list[0]) {
                 App.toggleWindow(WINDOW_NAME);
-                list[0].launch();
+                launchApp(list[0]);
             }
         },
         onChange: ({ text }) => {

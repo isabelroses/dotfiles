@@ -21,7 +21,11 @@ class ThemeService extends Service {
 
     constructor() {
         super();
-        Utils.exec("swww init");
+        try {
+            Utils.exec("swww init");
+        } catch (error) {
+            print("missing dependancy: swww");
+        }
         this.setup();
     }
 
@@ -72,7 +76,7 @@ class ThemeService extends Service {
 
     setupWallpaper() {
         Utils.execAsync(["swww", "img", this.getSetting("wallpaper")]).catch(
-            print,
+            (err) => console.error(err),
         );
     }
 
@@ -92,7 +96,7 @@ class ThemeService extends Service {
         const settings = this.settings;
         settings[prop] = value;
         Utils.writeFile(JSON.stringify(settings, null, 2), THEME_CACHE).catch(
-            print,
+            (err) => console.error(err),
         );
         this._settings = settings;
         this.emit("changed");

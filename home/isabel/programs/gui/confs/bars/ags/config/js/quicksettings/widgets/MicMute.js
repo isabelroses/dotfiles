@@ -11,7 +11,7 @@ export default () =>
                     (icon) => {
                         icon.icon = Audio.microphone?.isMuted
                             ? icons.audio.mic.muted
-                            : icons.audio.mic.unmuted;
+                            : icons.audio.mic.high;
                     },
                     "microphone-changed",
                 ],

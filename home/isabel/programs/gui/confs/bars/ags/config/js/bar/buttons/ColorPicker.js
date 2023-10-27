@@ -3,8 +3,10 @@ import { Notifications, Utils, Widget, Variable } from "../../imports.js";
 import Gdk from "gi://Gdk";
 
 const COLORS_CACHE = Utils.CACHE_DIR + "/colorpicker.json";
-const wlCopy = (color) => Utils.execAsync(["wl-copy", color]).catch(print);
-
+const wlCopy = (color) =>
+    Utils.execAsync(["wl-copy", color]).catch(() =>
+        print("no colorpicker cache found"),
+    );
 const colors = Variable([]);
 Utils.readFileAsync(COLORS_CACHE)
     .then((out) => colors.setValue(JSON.parse(out || "[]")))
@@ -43,7 +45,7 @@ export default () =>
                         {},
                     );
                 })
-                .catch(print),
+                .catch((err) => console.error(err)),
         onSecondaryClick: (btn) =>
             colors.value.length > 0
                 ? Widget.Menu({
