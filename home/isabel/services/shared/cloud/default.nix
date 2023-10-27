@@ -4,9 +4,10 @@
   pkgs,
   ...
 }: let
+  inherit (lib) mkIf isAcceptedDevice isWayland;
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig)) {
+  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig)) {
     /*
     services = {
       nextcloud-client.enable = true;
