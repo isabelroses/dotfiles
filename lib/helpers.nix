@@ -1,8 +1,6 @@
 {lib, ...}: let
   inherit (lib) lists mapAttrsToList filterAttrs hasSuffix;
 
-  primaryMonitor = config: builtins.elemAt config.modules.device.monitors 0;
-
   # filter files for the .nix suffix
   filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
 
@@ -41,20 +39,6 @@
     targetStrings,
   }:
     builtins.all (s: builtins.any (x: x == s) list) targetStrings;
-
-  # the following are quick checks to find if they meet the criteria with less repetion
-  # takes config and a list of accepted device types
-  isAcceptedDevice = conf: acceptedTypes: builtins.elem conf.modules.device.type acceptedTypes;
-
-  # if the device is wayland by checking video and isWayland options
-  isWayland = conf: conf.modules.system.video.enable && conf.modules.usrEnv.isWayland;
-
-  # check if modernshell and cli are both enabled
-  isModernShell = conf: conf.modules.programs.cli.enable && conf.modules.programs.cli.modernShell.enable;
-
-  # ifOneEnabled takes a parent option and 3 child options and checks if at least one of them is enabled
-  # `ifOneEnabled config.modules.services "service1" "service2" "service3"`
-  ifOneEnabled = cfg: a: b: c: (cfg.a || cfg.b || cfg.c);
 in {
-  inherit primaryMonitor filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme isAcceptedDevice isWayland isModernShell indexOf ifOneEnabled;
+  inherit filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme indexOf;
 }
