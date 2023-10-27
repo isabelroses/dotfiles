@@ -1,6 +1,11 @@
 import Header from "./widgets/Header.js";
 import PopupWindow from "../misc/PopupWindow.js";
-import { Volume, SinkSelector, AppMixer } from "./widgets/Volume.js";
+import {
+    Volume,
+    Microphone,
+    SinkSelector,
+    AppMixer,
+} from "./widgets/Volume.js";
 import { NetworkToggle, WifiSelection } from "./widgets/Network.js";
 import { BluetoothToggle, BluetoothDevices } from "./widgets/Bluetooth.js";
 import { ThemeToggle, ThemeSelector } from "./widgets/Theme.js";
@@ -44,6 +49,7 @@ export default () =>
                         vertical: true,
                         children: [
                             Row([Volume()], [SinkSelector(), AppMixer()]),
+                            Row([Microphone()]),
                             Row([Brightness()]),
                         ],
                     }),

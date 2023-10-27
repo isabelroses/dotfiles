@@ -5,7 +5,7 @@ import icons from "../../icons.js";
 import { App, Widget } from "../../imports.js";
 import { Bluetooth, Audio, Notifications, Network } from "../../imports.js";
 
-const MicrophoneMuteIndicator = () =>
+const MicrophoneIndicator = () =>
     Widget.Icon({
         icon: icons.audio.mic.muted,
         connections: [
@@ -139,12 +139,12 @@ export default () =>
         ],
         child: Widget.Box({
             children: [
-                MicrophoneMuteIndicator(),
                 DNDIndicator(),
                 BluetoothDevicesIndicator(),
                 BluetoothIndicator(),
                 NetworkIndicator(),
                 AudioIndicator(),
+                MicrophoneIndicator(),
             ],
         }),
     });

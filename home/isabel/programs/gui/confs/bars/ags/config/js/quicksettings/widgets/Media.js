@@ -89,30 +89,15 @@ export default () =>
     Widget.Box({
         vertical: true,
         className: "media",
-        properties: [["players", new Map()]],
-        connections: [
+        binds: [
             [
+                "children",
                 Mpris,
-                (box, busName) => {
-                    if (!busName || box._players.has(busName)) return;
-
-                    const player = Mpris.getPlayer(busName);
-                    if (blackList.includes(player.identity)) return;
-
-                    box._players.set(busName, PlayerBox(player));
-                    box.children = Array.from(box._players.values());
-                },
-                "player-added",
-            ],
-            [
-                Mpris,
-                (box, busName) => {
-                    if (!busName || !box._players.has(busName)) return;
-
-                    box._players.delete(busName);
-                    box.children = Array.from(box._players.values());
-                },
-                "player-closed",
+                "players",
+                (ps) =>
+                    ps
+                        .filter((p) => !blackList.includes(p.identity))
+                        .map(PlayerBox),
             ],
         ],
     });

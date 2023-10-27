@@ -6,39 +6,43 @@ import { Arrow } from "../ToggleButton.js";
 import { Menu } from "../ToggleButton.js";
 import { Audio, Widget, Utils } from "../../imports.js";
 
-const TypeIndicator = () =>
+const VolumeIndicator = (type = "speaker") =>
     Widget.Button({
-        onClicked: () => (Audio.speaker.isMuted = !Audio.speaker.isMuted),
+        onClicked: () => (Audio[type].isMuted = !Audio[type].isMuted),
         child: Widget.Icon({
             connections: [
                 [
                     Audio,
                     (icon) => {
-                        if (!Audio.speaker) return;
+                        if (!Audio[type]) return;
 
-                        icon.icon = getAudioTypeIcon(Audio.speaker.iconName);
+                        icon.icon =
+                            type === "speaker"
+                                ? getAudioTypeIcon(Audio[type].iconName)
+                                : icons.audio.mic.high;
+
                         icon.tooltipText = `Volume ${Math.floor(
-                            Audio.speaker.volume * 100,
+                            Audio[type].volume * 100,
                         )}%`;
                     },
-                    "speaker-changed",
+                    `${type}-changed`,
                 ],
             ],
         }),
     });
 
-const VolumeSlider = () =>
+const VolumeSlider = (type = "speaker") =>
     Widget.Slider({
         hexpand: true,
         drawValue: false,
-        onChange: ({ value }) => (Audio.speaker.volume = value),
+        onChange: ({ value }) => (Audio[type].volume = value),
         connections: [
             [
                 Audio,
                 (slider) => {
-                    slider.value = Audio.speaker?.volume;
+                    slider.value = Audio[type].volume;
                 },
-                "speaker-changed",
+                `${type}-changed`,
             ],
         ],
     });
@@ -47,8 +51,8 @@ export const Volume = () =>
     Widget.Box({
         className: "slider",
         children: [
-            TypeIndicator(),
-            VolumeSlider(),
+            VolumeIndicator("speaker"),
+            VolumeSlider("speaker"),
             Arrow("sink-selector"),
             Widget.Box({
                 child: Arrow("app-mixer"),
@@ -56,12 +60,19 @@ export const Volume = () =>
                     [
                         Audio,
                         (box) => {
-                            box.visible = Array.from(Audio.apps).length > 0;
+                            box.visible = Audio.apps.length > 0;
                         },
                     ],
                 ],
             }),
         ],
+    });
+
+export const Microphone = () =>
+    Widget.Box({
+        className: "slider",
+        binds: [["visible", Audio, "recorders", (r) => r.length > 0]],
+        children: [VolumeIndicator("microphone"), VolumeSlider("microphone")],
     });
 
 const MixerItem = (stream) =>
@@ -190,14 +201,8 @@ export const SinkSelector = () =>
             children: [
                 Widget.Box({
                     vertical: true,
-                    connections: [
-                        [
-                            Audio,
-                            (box) => {
-                                box.children = Audio.speakers.map(SinkItem);
-                            },
-                            "notify::speaker",
-                        ],
+                    binds: [
+                        ["children", Audio, "speakers", (s) => s.map(SinkItem)],
                     ],
                 }),
                 Separator({ orientation: "horizontal" }),

@@ -27,14 +27,18 @@ class Brightness extends Service {
                 this._screen = percent;
                 this.changed("screen");
             })
-            .catch(print);
+            .catch(console.error);
     }
 
     constructor() {
         super();
-        this._screen =
-            Number(Utils.exec("brightnessctl g")) /
-            Number(Utils.exec("brightnessctl m"));
+        try {
+            this._screen =
+                Number(Utils.exec("brightnessctl g")) /
+                Number(Utils.exec("brightnessctl m"));
+        } catch (error) {
+            console.error("missing dependancy: brightnessctl");
+        }
     }
 }
 

@@ -9,9 +9,7 @@ const Corner = (place) =>
         vexpand: true,
         halign: place.includes("left") ? "start" : "end",
         valign: place.includes("top") ? "start" : "end",
-        setup: (widget) => {
-            widget.set_size_request(0, 0);
-        },
+        setup: (widget) => widget.set_size_request(32, 32),
         connections: [
             [
                 "draw",
@@ -52,6 +50,7 @@ const Corner = (place) =>
                     cr.closePath();
                     cr.setSourceRGBA(c.red, c.green, c.blue, c.alpha);
                     cr.fill();
+                    cr.$dispose();
                 },
             ],
         ],

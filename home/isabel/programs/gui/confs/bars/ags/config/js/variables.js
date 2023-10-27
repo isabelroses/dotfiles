@@ -1,19 +1,16 @@
 import options from "./options.js";
 import { Variable, Utils } from "./imports.js";
 
-const prettyUptime = (str) => {
-    if (str.length >= 4) return str;
-
-    if (str.length === 1) return "0:0" + str;
-
-    if (str.length === 2) return "0:" + str;
-};
-
-export const uptime = Variable(0, {
+export const uptime = Variable("", {
     poll: [
         60_000,
-        "uptime",
-        (line) => prettyUptime(line.split(/\s+/)[2].replace(",", "")),
+        "cat /proc/uptime",
+        (line) => {
+            const uptime = Number.parseInt(line.split(".")[0]) / 60;
+            const h = Math.floor(uptime / 60);
+            const s = Math.floor(uptime % 60);
+            return `${h}:${s < 10 ? "0" + s : s}`;
+        },
     ],
 });
 
@@ -54,7 +51,7 @@ export const cpu = Variable(0, {
                 out
                     .split("\n")
                     .find((line) => line.includes("Cpu(s)"))
-                    .split(/\s+/)[1]
+                    ?.split(/\s+/)[1]
                     .replace(",", "."),
             ]),
     ],
@@ -69,7 +66,7 @@ export const ram = Variable(0, {
                 out
                     .split("\n")
                     .find((line) => line.includes("Mem:"))
-                    .split(/\s+/)
+                    ?.split(/\s+/)
                     .splice(1, 2),
             ),
     ],

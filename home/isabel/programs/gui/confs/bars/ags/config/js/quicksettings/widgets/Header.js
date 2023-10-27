@@ -55,7 +55,7 @@ export default () =>
     Widget.Box({
         className: "header",
         children: [
-            Avatar({ shader: false }),
+            Avatar(),
             Widget.Box({
                 className: "system-box",
                 vertical: true,

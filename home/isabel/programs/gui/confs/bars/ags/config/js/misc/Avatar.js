@@ -1,7 +1,7 @@
 import Theme from "../services/theme/theme.js";
 import { Widget } from "../imports.js";
 
-export default ({ shader = true, ...props } = {}) =>
+export default (props) =>
     Widget.Box({
         ...props,
         className: "avatar",
@@ -15,13 +15,5 @@ export default ({ shader = true, ...props } = {}) =>
         `);
                 },
             ],
-        ],
-        children: [
-            shader &&
-                Widget.Box({
-                    className: "shader",
-                    vexpand: true,
-                    hexpand: true,
-                }),
         ],
     });
