@@ -1,5 +1,6 @@
 _: {
   imports = [
+    ./cloud
     ./polkit
 
     ./kdeconnect.nix
