@@ -13,6 +13,8 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
+        with:
+          logger: pretty
 
       - name: Update Lockfile
         uses: DeterminateSystems/update-flake-lock@main

@@ -38,13 +38,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install nix
-        uses: cachix/install-nix-action@v23
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
         with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            auto-optimise-store = true
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          logger: pretty
 
       - name: Setup cachix
         uses: cachix/cachix-action@v12
