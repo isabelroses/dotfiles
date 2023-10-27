@@ -4,32 +4,27 @@
   osConfig,
   inputs',
   ...
-}:
-with lib; let
-  hyprpicker = inputs'.hyprpicker.packages.default;
-  hyprland-share-picker = inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland;
+}: let
+  inherit (osConfig.modules) device usrEnv;
 
-  env = osConfig.modules.usrEnv;
-  device = osConfig.modules.device;
-  sys = osConfig.modules.system;
-  programs = osConfig.modules.programs;
+  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   imports = [./config.nix];
-  config = mkIf ((sys.video.enable) && (env.isWayland && (env.desktop == "Hyprland"))) {
-    home.packages = with pkgs;
-      [
-        grim
-        hyprpicker
-        hyprland-share-picker
-      ]
-      ++ optionals (programs.nur.enable && programs.nur.bella) [
-        nur.repos.bella.catppuccin-hyprland
-      ];
+  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isWayland osConfig && usrEnv.desktop == "Hyprland") {
+    home.packages = with pkgs; [
+      grim
+      inputs'.hyprpicker.packages.default
+    ];
+
     wayland.windowManager.hyprland = {
       enable = true;
-      systemdIntegration = true;
-      package = inputs'.hyprland.packages.default.override {
-        enableNvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
+      package = inputs'.hyprland.packages.default;
+      enableNvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
+      xwayland.enable = true;
+
+      systemd = {
+        enable = true;
+        variables = ["--all"];
       };
     };
   };

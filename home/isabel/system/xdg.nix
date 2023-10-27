@@ -3,7 +3,8 @@
   pkgs,
   ...
 }: let
-  browser = ["chromium.desktop"];
+  # browser = ["chromium.desktop"];
+  browser = ["Schizofox.desktop"];
   zathura = ["org.pwmt.zathura.desktop"];
   filemanager = ["thunar.desktop"];
 

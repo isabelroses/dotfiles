@@ -6,5 +6,7 @@ _: {
     ./misc.nix
     ./printing.nix
     ./runners.nix
+    ./tor.nix
+    ./xserver.nix
   ];
 }

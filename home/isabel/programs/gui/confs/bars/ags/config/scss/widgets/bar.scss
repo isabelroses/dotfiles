@@ -1,301 +1,293 @@
-$float: 5px;
+$float: $spacing * 0.7;
 
 @mixin panel_button($flat: false, $reactive: true) {
-    all: unset;
+	all: unset;
 
-    @if $bar_style =='separated' {
-        transition: $transition;
+	@if $bar_style == "separated" {
+		transition: $transition;
 
-        >* {
-            @include floating_widget;
-            border-radius: $radii;
-            margin: $wm_gaps $float;
-            transition: $transition;
-        }
+		> * {
+			@include floating_widget;
+			border-radius: $radii;
+			margin: $wm_gaps $float;
+			transition: $transition;
+		}
 
-        &:hover>* {
-            color: $hover_fg;
+		&:hover > * {
+			color: $hover_fg;
 
-            @if $drop_shadow {
-                box-shadow: 0 0 $wm_gaps/2 0 $shadow,
-                    inset 0 0 0 99px $hover;
-            }
+			@if $drop_shadow {
+				box-shadow:
+					0 0 min(6px, $spacing/2) 0 $shadow,
+					inset 0 0 0 99px $hover;
+			} @else {
+				box-shadow: inset 0 0 0 99px $hover;
+			}
+		}
 
-            @else {
-                box-shadow: inset 0 0 0 99px $hover;
-            }
-        }
+		&:active > *,
+		&.active > * {
+			label,
+			image {
+				color: $accent_fg;
+			}
 
-        &:active>*,
-        &.active>* {
+			background-image: $active_gradient;
+			background-color: $accent;
+		}
+	} @else {
+		@include accs_button($flat, $reactive);
 
-            label,
-            image {
-                color: $accent_fg;
-            }
+		> * {
+			margin: $float;
+		}
+	}
 
-            background-image: $active_gradient;
-            background-color: $accent;
-        }
-    }
+	label {
+		font-size: $font-size;
+		font-weight: bold;
+	}
 
-    @else {
-        @include accs_button($flat, $reactive);
+	image {
+		font-size: $font-size * 1.2;
+	}
 
-        >* {
-            margin: $float;
-        }
-    }
-
-    label {
-        font-weight: bold;
-    }
-
-    image {
-        font-size: $font-size * 1.2;
-    }
-
-    >* {
-        padding: .3em .5em;
-    }
+	> * {
+		padding: 0.3em 0.5em;
+	}
 }
 
 .panel {
-    @if $bar_style =='normal' {
-        background-color: $bg_color;
-    }
+	@if $bar_style == "normal" {
+		background-color: $bg_color;
+	}
 
-    @if not $screen_corners and $bar_style =='normal' {
-        border-bottom: $border;
-    }
+	@if not $screen_corners and $bar_style == "normal" {
+		@if $layout == "bottombar" {
+			border-top: $border;
+		} @else {
+			border-bottom: $border;
+		}
+	}
 
-    @if $bar_style =='floating' {
-        @include floating_widget;
-        margin: $wm_gaps;
-        padding: 0;
-    }
+	@if $bar_style == "floating" {
+		@include floating_widget;
+		margin: $wm_gaps;
+		padding: 0;
+	}
 
-    @if $bar_style =='separated' {
-        >.end button:last-child>* {
-            margin-right: $wm_gaps;
-        }
+	@if $bar_style == "separated" {
+		> .end > button:last-child > * {
+			margin-right: $wm_gaps;
+		}
 
-        >.start button:first-child>* {
-            margin-left: $wm_gaps;
-        }
-    }
+		> .start > button:first-child > * {
+			margin-left: $wm_gaps;
+		}
+	}
 
-    .panel-button {
-        @include panel_button($flat: true);
-    }
+	.panel-button {
+		@include panel_button($flat: true);
+	}
 
-    .quicksettings>box>* {
-        @if $layout !='leftbar' {
-            margin: 0 $spacing/2;
+	separator {
+		background-color: transparentize($fg_color, 0.98);
+		border-radius: $radii;
+		min-height: 5px;
+		min-width: 5px;
+	}
 
-            &:last-child {
-                margin-right: 0;
-            }
+	.quicksettings > box > * {
+		margin: 0 $spacing/2;
 
-            &:first-child {
-                margin-left: 0;
-            }
-        }
+		&:last-child {
+			margin-right: 0;
+		}
 
-        @else {
-            margin: $spacing/2 0;
+		&:first-child {
+			margin-left: 0;
+		}
+	}
 
-            &:last-child {
-                margin-right: 0;
-            }
+	.applauncher {
+		label {
+			color: transparentize($accent, 0.2);
+		}
 
-            &:first-child {
-                margin-left: 0;
-            }
-        }
-    }
+		&:hover label {
+			color: $accent;
+		}
 
-    .separator {
-        @if $bar_style =='separated' {
-            background-color: transparent;
-        }
+		&:active label,
+		&.active label {
+			color: $accent_fg;
+		}
+	}
 
-        @else {
-            background-color: transparentize($fg_color, 0.7);
-        }
+	.powermenu {
+		image {
+			color: transparentize($red, 0.3);
+		}
 
-        @if $layout =='leftbar' {
-            min-height: 5px;
-            min-width: 22px;
-        }
+		&:hover image {
+			color: transparentize($red, 0.15);
+		}
 
-        @else {
-            min-height: 22px;
-            min-width: 5px;
-        }
+		&:active image {
+			color: $red;
+		}
+	}
 
-        border-radius: $radii;
+	/* stylelint-disable-next-line selector-not-notation */
+	.quicksettings:not(.active):not(:active) {
+		.bluetooth {
+			color: $blue;
+		}
 
-    }
+		.battery {
+			&.low {
+				color: $red;
+			}
 
-    .launcher {
-        label {
-            color: transparentize($accent, 0.2);
-        }
+			&.charged,
+			&.charging {
+				color: $green;
+			}
+		}
+	}
 
-        &:hover label {
-            color: $accent;
-        }
+	.media {
+		&.spotify image {
+			color: $green;
+		}
 
-        &:active label,
-        &.active label {
-            color: $accent_fg;
-        }
-    }
+		&.firefox image {
+			color: $orange;
+		}
 
-    .powermenu {
-        image {
-            color: transparentize($red, 0.3);
-        }
+		&.mpv image {
+			color: $magenta;
+		}
+	}
 
-        &:hover image {
-            color: transparentize($red, 0.15);
-        }
+	.notifications {
+		image {
+			color: $yellow;
+		}
+	}
 
-        &:active image {
-            color: $red;
-        }
-    }
+	.battery-bar {
+		image {
+			margin-right: $spacing/2;
+		}
 
-    .quicksettings:not(.active) .battery {
-        &.low {
-            color: $red;
-        }
+		.font-icon {
+			font-size: 1.3em;
+		}
 
-        &.charged,
-        &.charging {
-            color: $green;
-        }
-    }
+		levelbar trough {
+			@include widget;
+			min-width: 60px;
+			min-height: 14px;
 
-    .workspaces {
-        >* {
-            padding: 0;
-        }
+			block.filled {
+				border-radius: max($radii - $border_width, 0);
+				background-image: $active_gradient;
+			}
+		}
 
-        @if $layout =='leftbar' {
-            padding-left: 4px;
-        }
+		@mixin color($color) {
+			image,
+			label {
+				color: $color;
+			}
 
-        .eventbox {
-            transition: $transition;
+			block.filled {
+				background-image: linear-gradient(
+					to right,
+					$color,
+					lighten($color, 6%)
+				);
+			}
+		}
 
-            @if $bar_style =='separated' {
-                border-radius: max($radii - $border_width, 0);
+		.medium {
+			@include color($yellow);
+		}
 
-                &:hover {
-                    background-color: $hover;
-                }
-            }
+		.low {
+			@include color($red);
+		}
 
-            @else {
-                @include button;
-            }
-        }
+		.charging {
+			@include color($green);
+		}
 
-        button {
-            all: unset;
+		&:active {
+			@include color($accent_fg);
+		}
+	}
 
-            .indicator {
-                min-width: 10px;
-                min-height: 10px;
-                border-radius: $radii*0.6;
-                border: 2px solid transparent;
-                transition: border-color $transition;
+	.workspaces {
+		> * {
+			padding: 0;
+		}
 
-                @if $layout =='leftbar' {
-                    margin: $spacing/2 $spacing/1.5;
-                }
+		.eventbox {
+			transition: $transition;
 
-                @else {
-                    margin: 0 $spacing/2;
-                }
+			@if $bar_style == "separated" {
+				border-radius: max($radii - $border_width, 0);
 
-                .fill {
-                    transition: background-color $transition;
-                    margin: 2px;
-                    min-width: 6px;
-                    min-height: 6px;
-                    border-radius: max($radii*0.7 - 4px, 0);
-                }
-            }
+				&:hover {
+					background-color: $hover;
+				}
+			} @else {
+				@include button($flat: true);
+			}
+		}
 
-            @if $layout !='leftbar' {
-                &:last-child .indicator {
-                    margin-right: $spacing;
-                }
+		button {
+			all: unset;
 
-                &:first-child .indicator {
-                    margin-left: $spacing;
-                }
-            }
+			.indicator {
+				font-size: 0;
+				min-width: 6px;
+				min-height: 6px;
+				border-radius: $radii * 0.6;
+				border: $border;
+				margin: 0 $spacing/2;
+				transition: $transition/2;
+				background-color: transparentize($fg_color, 0.8);
+			}
 
-            @else {
-                &:last-child .indicator {
-                    margin-bottom: $spacing;
-                }
+			&:last-child .indicator {
+				margin-right: $spacing;
+			}
 
-                &:first-child .indicator {
-                    margin-top: $spacing;
-                }
-            }
+			&:first-child .indicator {
+				margin-left: $spacing;
+			}
 
-            &.empty .indicator {
-                border-color: transparentize($fg_color, 0.3);
-            }
+			&.occupied .indicator {
+				background-color: transparentize($fg_color, 0.2);
+				min-width: 8px;
+				min-height: 8px;
+			}
 
-            &.occupied .indicator {
-                border-color: transparentize($fg_color, 0.1);
+			&:hover .indicator {
+				box-shadow: inset 0 0 0 10px transparentize($fg_color, 0.8);
+			}
 
-                .fill {
-                    background-color: transparentize($fg_color, 0.1)
-                }
-            }
+			&.active .indicator,
+			&:active .indicator {
+				background-color: $accent;
+			}
 
-            &:hover .indicator {
-                border-color: transparentize($accent, 0.2);
-
-                .fill {
-                    background-color: transparentize($accent, 0.2)
-                }
-            }
-
-            &.active .indicator,
-            &:active .indicator {
-                border-color: $accent;
-
-                .fill {
-                    background-color: $accent
-                }
-            }
-
-            &.empty .indicator .fill {
-                background-color: transparent;
-            }
-        }
-    }
-
-    .media {
-        &.spotify .icon {
-            color: $green;
-        }
-
-        &.firefox .icon {
-            color: $orange;
-        }
-
-        &.mpv .icon {
-            color: $magenta;
-        }
-    }
+			&.active .indicator {
+				min-width: 24px;
+				min-height: 12px;
+			}
+		}
+	}
 }

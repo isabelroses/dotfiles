@@ -2,27 +2,31 @@
   osConfig,
   lib,
   pkgs,
+  inputs',
+  self',
   ...
-}:
-with lib; let
-  programs = osConfig.modules.programs;
+}: let
+  inherit (lib) mkIf optionals;
+  cfg = osConfig.modules.programs;
 in {
-  config = mkIf (programs.cli.enable) {
+  config = mkIf cfg.cli.enable {
     home.packages = with pkgs;
       [
         # CLI packages from nixpkgs
         unzip
-        ripgrep
         rsync
         fd
         jq
         dconf
         nitch
-        exa
+        hyfetch
+        cached-nix-shell
+        self'.packages.bellado
+        self'.packages.catppuccinifier-cli
       ]
-      ++ optionals (programs.nur.enable && programs.nur.bella) [
-        nur.repos.bella.bellado
-        nur.repos.bella.catppuccinifier-cli
+      ++ optionals cfg.cli.modernShell.enable [
+        ripgrep
+        inputs'.catppuccin-toolbox.packages.catwalk
       ];
   };
 }

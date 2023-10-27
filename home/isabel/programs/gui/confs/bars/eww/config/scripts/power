@@ -36,9 +36,9 @@ function toggle {
 
 function get {
 	echo "{
-        \"state\": \"$(state)\",
-        \"icon\": \"$(icon)\"
-}"
+		\"state\": \"$(state)\",
+		\"icon\": \"$(icon)\"
+	}"
 }
 
 if [[ $1 == 'get' ]]; then get; fi

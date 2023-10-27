@@ -1,9 +1,13 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
-}: {
+}: let
+  inherit (lib) mkIf;
+  inherit (config.modules) services;
+in {
   imports = [inputs.sops.nixosModules.sops];
 
   environment.systemPackages = with pkgs; [sops age];
@@ -14,30 +18,71 @@
     age.keyFile = "/home/${config.modules.system.mainUser}/.config/sops/age/keys.txt";
 
     secrets = let
-      mainUser = config.modules.system.mainUser;
+      inherit (config.modules.system) mainUser;
       homeDir = config.home-manager.users.${mainUser}.home.homeDirectory;
       sshDir = homeDir + "/.ssh";
-
-      ### servers ###
-      secretsPath = "/run/secrets.d/";
-      mailserverPath = secretsPath + "/mailserver";
     in {
-      ### server ###
-      cloudflared-hydra = {
-        #path = secretsPath + "/cloudflared/hydra";
-        owner = mainUser;
+      # server
+      cloudflared-hydra = mkIf services.cloudflared.enable {
+        owner = "cloudflared";
         group = "cloudflared";
       };
 
       # mailserver
-      mailserver-isabel.path = mailserverPath + "/isabel";
-      mailserver-gitea.path = mailserverPath + "/gitea";
-      mailserver-vaultwarden.path = mailserverPath + "/vaultwarden";
+      rspamd-web = {};
+      mailserver-isabel = {};
+      mailserver-vaultwarden = {};
+      mailserver-database = {};
+      mailserver-grafana = {};
+      mailserver-git = {};
+      mailserver-noreply = {};
+      mailserver-spam = {};
+
+      mailserver-grafana-nohash = mkIf services.monitoring.grafana.enable {
+        owner = "grafana";
+        group = "grafana";
+      };
+
+      mailserver-git-nohash = mkIf services.forgejo.enable {
+        owner = "forgejo";
+        group = "forgejo";
+      };
+
+      isabelroses-web-env = {};
+
+      nextcloud-passwd = mkIf services.nextcloud.enable {
+        owner = "nextcloud";
+        group = "nextcloud";
+      };
 
       # vaultwarden
-      vaultwarden-env.path = secretsPath + "/vaultwarden/env";
+      vaultwarden-env = {};
 
-      ### user ###
+      # miniflux
+      miniflux-env = mkIf services.miniflux.enable {
+        owner = "miniflux";
+        group = "miniflux";
+      };
+
+      # matrix
+      matrix = mkIf services.matrix.enable {
+        owner = "matrix-synapse";
+        mode = "400";
+      };
+
+      docker-hub = {};
+
+      #wakapi
+      wakapi = mkIf services.wakapi.enable {
+        owner = "wakapi";
+        group = "wakapi";
+      };
+
+      mongodb-passwd = mkIf services.database.mongodb.enable {
+        mode = "400";
+      };
+
+      # user
       git-credentials = {
         path = homeDir + "/.git-credentials";
         owner = mainUser;
@@ -66,11 +111,8 @@
         path = sshDir + "/openvpn";
         owner = mainUser;
       };
-      # Luz and Edalyn are now dead replaced by bernie
-      #luz-key.path = sshDir + "/luz";
-      #edalyn-key.path = sshDir + "/edalyn";
-      bernie-key = {
-        path = sshDir + "/bernie";
+      amity-key = {
+        path = sshDir + "/amity";
         owner = mainUser;
       };
       king-key = {
@@ -78,21 +120,13 @@
         owner = mainUser;
       };
 
-      # my local servers / clients
-      alpha-key = {
-        path = sshDir + "/alpha";
+      # All nixos machines
+      nixos-key = {
+        path = sshDir + "/nixos";
         owner = mainUser;
       };
-      alpha-key-pub = {
-        path = sshDir + "/alpha.pub";
-        owner = mainUser;
-      };
-      hydra-key = {
-        path = sshDir + "/hydra";
-        owner = mainUser;
-      };
-      hydra-key-pub = {
-        path = sshDir + "/hydra.pub";
+      nixos-key-pub = {
+        path = sshDir + "/nixos.pub";
         owner = mainUser;
       };
     };
