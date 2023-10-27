@@ -19,8 +19,6 @@ in {
     ./services
     # Application themeing
     ./themes
-    # Other data that can't be organized as easly
-    ./misc
   ];
   config = {
     # reload system units when changing configs
