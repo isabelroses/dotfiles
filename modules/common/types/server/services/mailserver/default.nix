@@ -79,12 +79,6 @@ in {
           10.0.0.0/8 OK
           192.168.0.0/16 OK
         '';
-        headerChecks = [
-          {
-            action = "IGNORE";
-            pattern = "/^User-Agent.*Roundcube Webmail/";
-          }
-        ];
 
         config = {
           smtp_helo_name = config.mailserver.fqdn;
