@@ -14,6 +14,7 @@ in {
       # jellyfin-media-player
       mangal # tui manga finder + reader
       # insomnia # rest client
+      nextcloud-client # cloud storage
     ];
   };
 }
