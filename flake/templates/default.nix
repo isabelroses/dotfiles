@@ -19,5 +19,10 @@ _: {
       path = ./go; # golang
       description = "Development environment for Golang";
     };
+
+    python = {
+      path = ./python; # Python
+      description = "Development environment for Python";
+    };
   };
 }
