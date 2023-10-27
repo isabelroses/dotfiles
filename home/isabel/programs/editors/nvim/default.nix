@@ -103,7 +103,7 @@
         lspSignature.enable = true;
         nvimCodeActionMenu.enable = true;
         trouble.enable = false;
-        nvim-docs-view.enable = true;
+        # nvim-docs-view.enable = true;
       };
 
       debugMode = {
