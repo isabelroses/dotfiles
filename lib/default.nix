@@ -9,5 +9,6 @@
   services = import ./services.nix {inherit lib;};
   validators = import ./validators.nix {inherit lib;};
   helpers = import ./helpers.nix {inherit lib;};
+  hardware = import ./hardware.nix {inherit lib;};
 in
-  nixpkgs.lib.extend (_: _: builders // services // validators // helpers)
+  nixpkgs.lib.extend (_: _: builders // services // validators // helpers // hardware)

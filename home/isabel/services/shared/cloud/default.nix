@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf isAcceptedDevice isWayland;
+  inherit (lib) mkIf isAcceptedDevice mkGraphicalService;
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig)) {
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes) {
     /*
     services = {
       nextcloud-client.enable = true;
@@ -17,8 +17,12 @@ in {
 
     home.packages = [pkgs.nextcloud-client];
 
-    systemd.user.services.nextcloud = lib.mkGraphicalService {
-      Unit.Description = "Nextcloud client service";
+    systemd.user.services.nextcloud = mkGraphicalService {
+      Unit = {
+        Description = "Nextcloud sync client service";
+        After = "network-online.target";
+      };
+
       Service = {
         ExecStart = "${pkgs.nextcloud-client}/bin/nextcloud --background";
         Restart = "always";
