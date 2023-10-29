@@ -31,13 +31,13 @@ in {
           redis = {
             enable = true;
             openFirewall = true;
-            port = 9002;
+            port = 9102;
           };
 
           postgres = {
             enable = true;
             openFirewall = true;
-            port = 9003;
+            port = 9103;
           };
         };
 
@@ -45,22 +45,22 @@ in {
           {
             job_name = "prometheus";
             scrape_interval = "30s";
-            static_configs = [{targets = ["localhost:9090"];}];
+            static_configs = [{targets = ["localhost:9100"];}];
           }
           {
             job_name = "node";
             scrape_interval = "30s";
-            static_configs = [{targets = ["localhost:9100"];}];
+            static_configs = [{targets = ["localhost:9101"];}];
           }
           {
             job_name = "redis_exporter";
             scrape_interval = "30s";
-            static_configs = [{targets = ["localhost:9002"];}];
+            static_configs = [{targets = ["localhost:9102"];}];
           }
           {
             job_name = "postgres";
             scrape_interval = "30s";
-            static_configs = [{targets = ["localhost:9003"];}];
+            static_configs = [{targets = ["localhost:9103"];}];
           }
         ];
       };
