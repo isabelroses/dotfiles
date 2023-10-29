@@ -13,7 +13,7 @@ in {
     gpg-agent = {
       enable = true;
       pinentryFlavor =
-        if (video.enable)
+        if video.enable
         then "gnome3"
         else "curses";
       enableSshSupport = true;
