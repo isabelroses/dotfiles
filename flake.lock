@@ -112,15 +112,15 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1697225301,
-        "narHash": "sha256-EKKclzHBNgRmnZPMuzVbX5KAqkBdxMutDDauqLWOhf4=",
-        "owner": "isabelroses",
+        "lastModified": 1698002908,
+        "narHash": "sha256-Bge0FHsAQx1SQZyzpFl0EdgLC/RaYEToU2YVUMDlFvw=",
+        "owner": "Stonks3141",
         "repo": "ctp-nix",
-        "rev": "8c39bd3d2adeb68b541fa174bf0163d4365ecbd5",
+        "rev": "5713b478b10c5ef703fd921d96ca6a3057c457b5",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
+        "owner": "Stonks3141",
         "repo": "ctp-nix",
         "type": "github"
       }
