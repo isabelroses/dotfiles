@@ -93,23 +93,46 @@ in {
 
     mailserver = {
       enable = true;
+      openFirewall = true;
+
       # make sure the perms here is
       # /srv/storage/mail/ # 775
       mailDirectory = "/srv/storage/mail/vmail"; # 770
       dkimKeyDirectory = "/srv/storage/mail/dkim"; # 775
       sieveDirectory = "/srv/storage/mail/sieve"; # 770
-      openFirewall = true;
+
+      # Enable STARTTLS
       enableImap = true;
       enableImapSsl = true;
+
+      # eww
       enablePop3 = false;
       enablePop3Ssl = false;
+
       enableSubmission = false;
       enableSubmissionSsl = true;
+
+      # Enable ManageSieve so that we don't need to change the config to update sieves
+      enableManageSieve = true;
+
+      # DKIM Settings
+      dkimBodyCanonicalization = "relaxed";
+      dkimHeaderCanonicalization = "relaxed";
+      dkimKeyBits = 4096;
+      dkimSelector = "mail";
+      dkimSigning = true;
+
       hierarchySeparator = "/";
       localDnsResolver = false;
       fqdn = "mail.${domain}";
       certificateScheme = "acme-nginx";
       domains = ["${domain}"];
+
+      # Set all no-reply addresses
+      rejectRecipients = [
+        "noreply@${domain}"
+      ];
+
       loginAccounts = {
         "isabel@${domain}" = {
           hashedPasswordFile = config.sops.secrets.mailserver-isabel.path;
