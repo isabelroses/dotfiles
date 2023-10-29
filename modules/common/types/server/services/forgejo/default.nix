@@ -58,7 +58,7 @@ in {
 
             BUILTIN_SSH_SERVER_USER = "git";
             DISABLE_ROUTER_LOG = true;
-            LANDING_PAGE = "/explore/repos";
+            # LANDING_PAGE = "/explore/repos";
 
             START_SSH_SERVER = true;
             SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
@@ -81,11 +81,11 @@ in {
                   (builtins.attrNames (builtins.readDir theme))));
           };
 
-          # "ui.meta" = {
-          #   AUTHOR = "Isabel Roses";
-          #   DESCRIPTION = "A super cool place to host git repos";
-          #   KEYWORDS = "git,self-hosted,gitea,forgejo,isabelroses,catppuccin,open-source,nix,nixos";
-          # };
+          "ui.meta" = {
+            AUTHOR = "Isabel Roses";
+            DESCRIPTION = "A super cool place to host git repos";
+            KEYWORDS = "git,self-hosted,gitea,forgejo,isabelroses,catppuccin,open-source,nix,nixos";
+          };
 
           actions = {
             ENABLED = true;
@@ -109,6 +109,12 @@ in {
           service = {
             DISABLE_REGISTRATION = true;
             EMAIL_DOMAIN_ALLOWLIST = "isabelroses.com";
+          };
+
+          session = {
+            COOKIE_SECURE = true;
+            # Sessions last for 1 week
+            SESSION_LIFE_TIME = 86400 * 7;
           };
 
           other = {
