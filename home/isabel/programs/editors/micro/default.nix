@@ -1,13 +1,12 @@
 {
   lib,
-  config,
   defaults,
   ...
 }: {
   config = lib.mkIf (defaults.editor == "micro") {
     programs.micro = {
       enable = true;
-      catppuccin.enable = true;
+      # catppuccin.enable = true;
       settings = {
         "autosu" = true;
         "clipboard" = "terminal";
