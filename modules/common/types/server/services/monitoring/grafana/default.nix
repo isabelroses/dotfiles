@@ -56,13 +56,14 @@ in {
           startTLS_policy = "MandatoryStartTLS";
         };
       };
+
       provision = {
         datasources.settings = {
           datasources = [
             {
               name = "Prometheus";
               type = "prometheus";
-              url = "http://localhost:9090";
+              url = "http://localhost:9100";
               orgId = 1;
             }
           ];
