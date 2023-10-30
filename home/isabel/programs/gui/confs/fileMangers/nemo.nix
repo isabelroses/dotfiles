@@ -2,13 +2,9 @@
   osConfig,
   lib,
   pkgs,
-  defaults,
   ...
-}: let
-  inherit (osConfig.modules.system) video;
-  acceptedTypes = ["laptop" "desktop" "hybrid"];
-in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable && defaults.fileManager == "nemo") {
+}: {
+  config = lib.mkIf osConfig.modules.programs.fileManagers.nemo.enable {
     home.packages = with pkgs; [
       cinnamon.nemo-with-extensions
       cinnamon.nemo-fileroller

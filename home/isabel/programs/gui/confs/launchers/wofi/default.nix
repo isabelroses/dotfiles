@@ -2,13 +2,10 @@
   config,
   lib,
   osConfig,
-  defaults,
   ...
-}: let
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
-in {
+}: {
   imports = [./config.nix];
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.programs.gui.enable && defaults.launcher == "wofi") {
+  config = lib.mkIf osConfig.modules.programs.launchers.wofi.enable {
     programs.wofi.enable = true;
   };
 }
