@@ -28,7 +28,7 @@ in {
       harfbuzz
       gdk-pixbuf
       glib
-      self'.packages.gjs # patched gjs version
+      self'.packages.patched-gjs # patched gjs version
     ];
 
     programs.eww = {
