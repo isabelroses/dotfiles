@@ -11,15 +11,21 @@ in {
   config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable && defaults.browser == "chromium") {
     programs.chromium = {
       enable = true;
-      extensions = [
-        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-        "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
-        "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
-        "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-        "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
-        "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
-        "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
-      ];
+      extensions =
+        [
+          "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+          "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
+          "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
+          "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+          "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
+          "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
+          "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
+          "jaoafjdoijdconemdmodhbfpianehlon" # skip redirect
+        ]
+        ++ lib.optionals osConfig.modules.programs.gaming.enable [
+          "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
+          "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
+        ];
       package = pkgs.ungoogled-chromium.override {
         nss = pkgs.nss_latest;
         commandLineArgs =
