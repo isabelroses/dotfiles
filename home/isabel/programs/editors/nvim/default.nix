@@ -86,7 +86,7 @@
         };
 
         clang = {
-          enable = false;
+          enable = true;
           lsp = {
             enable = true;
             server = "clangd";
