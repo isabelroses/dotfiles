@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   lib,
   defaults,
   ...
