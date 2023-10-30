@@ -1,12 +1,14 @@
 {
+  osConfig,
   inputs,
+  lib,
   pkgs,
   ...
 }: {
   imports = [inputs.neovim-flake.homeManagerModules.default];
 
   # https://notashelf.github.io/neovim-flake/
-  programs.neovim-flake = {
+  programs.neovim-flake = lib.mkIf osConfig.modules.programs.editors.neovim.enable {
     enable = true;
     settings.vim = {
       package = pkgs.neovim-unwrapped;

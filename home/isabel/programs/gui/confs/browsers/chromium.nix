@@ -2,13 +2,11 @@
   lib,
   pkgs,
   osConfig,
-  defaults,
   ...
 }: let
-  inherit (osConfig.modules.system) video;
-  acceptedTypes = ["laptop" "desktop" "hybrid"];
+  progs = osConfig.modules.programs;
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable && defaults.browser == "chromium") {
+  config = lib.mkIf progs.browsers.chromium.enable {
     programs.chromium = {
       enable = true;
       extensions =
@@ -22,7 +20,7 @@ in {
           "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
           "jaoafjdoijdconemdmodhbfpianehlon" # skip redirect
         ]
-        ++ lib.optionals osConfig.modules.programs.gaming.enable [
+        ++ lib.optionals progs.gaming.enable [
           "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
           "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
         ];
