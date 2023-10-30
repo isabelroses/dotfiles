@@ -2,15 +2,13 @@
   pkgs,
   lib,
   osConfig,
-  defaults,
   ...
 }: let
   inherit (lib) optionalString;
   sys = osConfig.modules.system;
   cfg = osConfig.modules.programs;
-  acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isWayland osConfig && defaults.bar == "waybar") {
+  config = lib.mkIf (lib.isWayland osConfig && osConfig.modules.programs.bars.waybar.enable) {
     home.packages = with pkgs; [wlogout];
 
     programs.waybar = {

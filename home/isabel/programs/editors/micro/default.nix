@@ -1,9 +1,9 @@
 {
   lib,
-  defaults,
+  osConfig,
   ...
 }: {
-  config = lib.mkIf (defaults.editor == "micro") {
+  config = lib.mkIf osConfig.modules.programs.editors.micro.enable {
     programs.micro = {
       enable = true;
       # catppuccin.enable = true;

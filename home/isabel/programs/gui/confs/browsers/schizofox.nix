@@ -2,14 +2,12 @@
   lib,
   inputs,
   osConfig,
-  defaults,
   ...
 }: let
-  inherit (osConfig.modules.system) video;
-  acceptedTypes = ["desktop" "laptop" "hybrid"];
+  cfg = osConfig.modules.programs.browsers.firefox;
 in {
   imports = [inputs.schizofox.homeManagerModule];
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable && defaults.browser == "schizofox") {
+  config = lib.mkIf (cfg.enable && cfg.schizofox) {
     programs.schizofox = {
       enable = true;
 

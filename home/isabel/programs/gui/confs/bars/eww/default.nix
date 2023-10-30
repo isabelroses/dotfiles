@@ -3,7 +3,6 @@
   self',
   pkgs,
   osConfig,
-  defaults,
   ...
 }: let
   inherit (lib) isWayland;
@@ -12,10 +11,8 @@
     if isWayland osConfig
     then pkgs.eww-wayland
     else pkgs.eww;
-
-  acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig) && osConfig.modules.programs.gui.enable && defaults.bar == "eww") {
+  config = lib.mkIf ((isWayland osConfig) && osConfig.modules.programs.bars.eww.enable) {
     home.packages = with pkgs; [
       socat
       jaq
@@ -31,7 +28,7 @@ in {
       harfbuzz
       gdk-pixbuf
       glib
-      self'.packages.gjs # patched gjs version
+      self'.packages.patched-gjs # patched gjs version
     ];
 
     programs.eww = {

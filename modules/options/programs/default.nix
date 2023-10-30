@@ -1,27 +1,20 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib) mkEnableOption;
 in {
   imports = [
     ./defaults
+    ./per-program
+
     ./gaming.nix
   ];
 
   options.modules.programs = {
     cli = {
-      enable = mkEnableOption "Enable CLI programs";
+      enable = mkEnableOption "Enable CLI programs" // {default = true;};
       modernShell.enable = mkEnableOption "Enable modern shell programs";
     };
-    tui.enable = mkEnableOption "Enable TUI programs";
+
+    tui.enable = mkEnableOption "Enable TUI programs" // {default = true;};
     gui.enable = mkEnableOption "Enable GUI programs";
-
-    zathura.enable = mkEnableOption "Enable zathura PDF reader";
-
-    git = {
-      signingKey = mkOption {
-        type = types.str;
-        default = "";
-        description = "The default gpg key used for signing commits";
-      };
-    };
   };
 }
