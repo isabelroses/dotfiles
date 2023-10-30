@@ -4,7 +4,7 @@ in {
   options.modules.programs.browsers = {
     chromium = {
       enable = mkEnableOption "Chromium browser";
-      ungoogle = mkOption {
+      ungoogled = mkOption {
         type = types.bool;
         default = true;
         description = "Enable ungoogled-chromium features";

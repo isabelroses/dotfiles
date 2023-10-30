@@ -12,7 +12,7 @@ in {
     editors = {
       neovim.enable = mkDefault true;
       vscode.enable = mkDefault false;
-      micro = mkDefault false;
+      micro.enable = mkDefault false;
     };
 
     fileManagers = {
