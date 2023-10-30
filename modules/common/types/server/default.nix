@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./options
+    ./programs
     ./services
     ./system
   ];

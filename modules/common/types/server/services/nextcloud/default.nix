@@ -20,6 +20,21 @@ in {
       nextcloud = {
         enable = true;
         package = pkgs.nextcloud27;
+
+        # webs stuff
+        https = true;
+        nginx.recommendedHttpHeaders = true;
+        hostName = nextcloud_domain;
+
+        home = "/srv/storage/nextcloud";
+        maxUploadSize = "4G";
+        enableImagemagick = true;
+
+        autoUpdateApps = {
+          enable = true;
+          startAt = "02:00";
+        };
+
         caching.redis = true;
         extraOptions = {
           redis = {
@@ -27,16 +42,6 @@ in {
             dbindex = 0;
             timeout = 1.5;
           };
-        };
-
-        hostName = nextcloud_domain;
-        home = "/opt/nextcloud";
-        maxUploadSize = "4G";
-        enableImagemagick = true;
-
-        autoUpdateApps = {
-          enable = true;
-          startAt = "02:00";
         };
 
         config = {
@@ -52,8 +57,6 @@ in {
           dbhost = "/run/postgresql";
           dbname = "nextcloud";
         };
-        nginx.recommendedHttpHeaders = true;
-        https = true;
       };
     };
 
