@@ -1,1 +1,5 @@
-_: {}
+_: {
+  imports = [
+    ./programs
+  ];
+}
