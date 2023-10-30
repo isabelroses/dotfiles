@@ -176,7 +176,7 @@
     };
 
     # Amazing themeing & tools
-    catppuccin.url = "github:isabelroses/ctp-nix";
+    catppuccin.url = "github:Stonks3141/ctp-nix";
     catppuccin-toolbox.url = "github:catppuccin/toolbox";
 
     # Secrets, shhh

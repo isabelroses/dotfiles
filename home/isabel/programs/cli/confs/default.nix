@@ -6,5 +6,6 @@ _: {
     ./nix-shell.nix
     ./starship.nix
     ./tealdear.nix
+    ./zoxide.nix
   ];
 }

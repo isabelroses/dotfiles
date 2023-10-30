@@ -6,9 +6,13 @@
   programs.starship = {
     inherit (osConfig.modules.programs.cli) enable;
     catppuccin.enable = true;
+    enableFishIntegration = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+
     settings = {
       add_newline = true;
-      format = lib.strings.concatStrings [
+      format = lib.concatStrings [
         "[╭╴](238)$os"
         "$all[╰─󰁔](237)$character"
       ];
@@ -122,17 +126,17 @@
         style = "bold green";
       };
       git_status = {
-        format = "[($all_status$ahead_behind)]($style) ";
+        format = "[\\($all_status$ahead_behind\\)]($style) ";
         style = "bold green";
         conflicted = "🏳";
         up_to_date = " ";
         untracked = " ";
-        ahead = "⇡$count";
-        diverged = "⇕⇡$ahead_count⇣$behind_count";
-        behind = "⇣$count";
+        ahead = "⇡\${count}";
+        diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
+        behind = "⇣\${count}";
         stashed = "󰏗 ";
         modified = " ";
-        staged = "[++($count)](green)";
+        staged = "[++\\($count\\)](green)";
         renamed = "󰖷 ";
         deleted = " ";
       };
