@@ -7,7 +7,7 @@
   cfg = osConfig.modules.programs.browsers.firefox;
 in {
   imports = [inputs.schizofox.homeManagerModule];
-  config = lib.mkIf (cfg.enable && cfg.schizofox.enable) {
+  config = lib.mkIf (cfg.enable && cfg.schizofox) {
     programs.schizofox = {
       enable = true;
 
