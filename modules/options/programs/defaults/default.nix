@@ -23,12 +23,12 @@ in {
     };
 
     launcher = mkOption {
-      type = types.enum ["rofi" "wofi"];
+      type = with types; nullOr (enum ["rofi" "wofi"]);
       default = "rofi";
     };
 
     bar = mkOption {
-      type = types.enum ["eww" "waybar" "ags"];
+      type = with types; nullOr (enum ["eww" "waybar" "ags"]);
       default = "eww";
     };
 
