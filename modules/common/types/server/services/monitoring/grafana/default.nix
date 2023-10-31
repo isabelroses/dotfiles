@@ -13,7 +13,7 @@ in {
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [port];
 
-    modules.system.services.database = {
+    modules.services.database = {
       postgresql.enable = true;
     };
 
