@@ -65,13 +65,15 @@ in {
         work_mem = "32 MB";
         maintenance_work_mem = "320 MB";
         huge_pages = "off";
-        effective_cache_size = "2 GB";
+        effective_cache_size = "3 GB";
         effective_io_concurrency = 100; # concurrent IO only really activated if OS supports posix_fadvise function;
         random_page_cost = 1.25; # speed of random disk access relative to sequential access (1.0);
+
         # Monitoring;
-        shared_preload_libraries = "pg_stat_statements,auto_explain"; # per statement resource usage stats & log explain statements for slow queries
+        shared_preload_libraries = "pg_stat_statements"; # per statement resource usage stats
         track_io_timing = "on"; # measure exact block IO times;
         track_functions = "pl"; # track execution times of pl-language procedures if any;
+
         # Replication;
         wal_level = "replica"; # consider using at least "replica";
         max_wal_senders = 0;
@@ -96,10 +98,10 @@ in {
         bgwriter_flush_after = 0;
 
         # Parallel queries: ;
-        max_worker_processes = 6;
-        max_parallel_workers_per_gather = 3;
-        max_parallel_maintenance_workers = 3;
-        max_parallel_workers = 6;
+        max_worker_processes = 3;
+        max_parallel_workers_per_gather = 2;
+        max_parallel_maintenance_workers = 2;
+        max_parallel_workers = 3;
         parallel_leader_participation = "on";
 
         # Advanced features ;

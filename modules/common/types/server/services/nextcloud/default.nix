@@ -34,6 +34,10 @@ in {
         maxUploadSize = "4G";
         enableImagemagick = true;
 
+        extraApps = with config.services.nextcloud.package.packages.apps; {
+          inherit news contacts calendar;
+        };
+
         autoUpdateApps = {
           enable = true;
           startAt = "02:00";
