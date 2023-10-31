@@ -13,6 +13,10 @@ in {
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [port];
 
+    modules.system.services.database = {
+      postgresql.enable = true;
+    };
+
     services.grafana = {
       enable = true;
       settings = {
