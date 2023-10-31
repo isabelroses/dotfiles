@@ -35,7 +35,10 @@ in {
             ]
         );
 
-        database.username = "roundcube";
+        # database = {
+        #   host = "/run/postgresql";
+        #   password = "";
+        # };
         maxAttachmentSize = 50;
 
         dicts = with pkgs.aspellDicts; [en];
