@@ -29,6 +29,10 @@ in {
   config = mkIf cfg.matrix.enable {
     networking.firewall.allowedTCPPorts = [port];
 
+    modules.services.database = {
+      postgresql.enable = true;
+    };
+
     services = {
       postgresql = {
         enable = true;
