@@ -13,7 +13,7 @@ in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.database.postgresql.enable) {
     services.postgresql = {
       enable = true;
-      package = pkgs.postgresql;
+      package = pkgs.postgresql_14;
       dataDir = "/srv/storage/postgresql/${config.services.postgresql.package.psqlSchema}";
 
       ensureDatabases = [
