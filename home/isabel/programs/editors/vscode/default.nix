@@ -8,7 +8,7 @@
   acceptedTypes = ["laptop" "desktop" "hybrid"];
   inherit (osConfig.modules.system) flakePath mainUser;
 in {
-  programs.vscode = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable) {
+  programs.vscode = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.editors.vscode.enable) {
     enable = true;
     package = pkgs.vscodium;
     extensions = with pkgs.vscode-extensions; [

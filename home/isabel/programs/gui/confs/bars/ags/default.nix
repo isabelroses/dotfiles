@@ -3,14 +3,12 @@
   lib,
   config,
   osConfig,
-  defaults,
   inputs',
   ...
 }: let
   inherit (osConfig.modules) system;
-  acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && (lib.isWayland osConfig) && osConfig.modules.programs.gui.enable && defaults.bar == "ags") {
+  config = lib.mkIf ((lib.isWayland osConfig) && osConfig.modules.programs.bars.ags.enable) {
     home = {
       packages = with pkgs; [
         inputs'.ags.packages.default

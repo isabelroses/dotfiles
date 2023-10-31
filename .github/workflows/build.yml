@@ -3,16 +3,11 @@ name: Build and populate cache
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
-    paths-ignore:
-      - .github/**
-      - assets/**
-      - .gitignore
-      - docs/**
-      - README.md
+    paths:
+      - "flake/pkgs"
+      - "**.lock"
   schedule:
-    - cron: "25 1 * * *"
+    - cron: "0 1 * * *"
 
 jobs:
   build:

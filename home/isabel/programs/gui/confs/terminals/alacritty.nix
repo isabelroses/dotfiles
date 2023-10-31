@@ -1,13 +1,9 @@
 {
   osConfig,
   lib,
-  defaults,
   ...
-}: let
-  inherit (osConfig.modules.system) video;
-  acceptedTypes = ["laptop" "desktop" "hybrid"];
-in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable && defaults.terminal == "alacritty") {
+}: {
+  config = lib.mkIf osConfig.modules.programs.terminals.alacritty.enable {
     programs.alacritty = {
       enable = true;
       catppuccin.enable = true;
