@@ -20,6 +20,21 @@ in {
       nextcloud = {
         enable = true;
         package = pkgs.nextcloud27;
+
+        # webs stuff
+        https = true;
+        nginx.recommendedHttpHeaders = true;
+        hostName = nextcloud_domain;
+
+        home = "/srv/storage/nextcloud";
+        maxUploadSize = "4G";
+        enableImagemagick = true;
+
+        autoUpdateApps = {
+          enable = true;
+          startAt = "02:00";
+        };
+
         caching.redis = true;
         extraOptions = {
           redis = {
@@ -28,11 +43,6 @@ in {
             timeout = 1.5;
           };
         };
-
-        hostName = nextcloud_domain;
-        home = "/opt/nextcloud";
-        maxUploadSize = "4G";
-        enableImagemagick = true;
 
         extraApps = with config.services.nextcloud.package.packages.apps; {
           inherit news contacts calendar;
@@ -56,8 +66,6 @@ in {
           dbhost = "/run/postgresql";
           dbname = "nextcloud";
         };
-        nginx.recommendedHttpHeaders = true;
-        https = true;
       };
     };
 

@@ -36,12 +36,6 @@ _: {
           identityFile = "~/.ssh/openvpn";
         };
 
-        "king" = {
-          hostname = "150.230.117.215";
-          user = "ubuntu";
-          identityFile = "~/.ssh/king";
-        };
-
         "amity" =
           base
           // {

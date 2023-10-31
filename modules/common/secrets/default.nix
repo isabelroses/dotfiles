@@ -115,10 +115,6 @@ in {
         path = sshDir + "/amity";
         owner = mainUser;
       };
-      king-key = {
-        path = sshDir + "/king";
-        owner = mainUser;
-      };
 
       # All nixos machines
       nixos-key = {
