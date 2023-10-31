@@ -30,11 +30,6 @@ in {
         maxUploadSize = "4G";
         enableImagemagick = true;
 
-        autoUpdateApps = {
-          enable = true;
-          startAt = "02:00";
-        };
-
         caching.redis = true;
         extraOptions = {
           redis = {
