@@ -11,15 +11,16 @@ in {
     ./systemd.nix
     inputs.vscode-server.nixosModules.default
   ];
-  services = {
-    # compress half of the ram to use as swap
-    # basically, get more memory per memory
-    zramSwap = {
-      enable = true;
-      algorithm = "zstd";
-      memoryPercent = 90; # defaults to 50
-    };
 
+  # compress half of the ram to use as swap
+  # basically, get more memory per memory
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+    memoryPercent = 90; # defaults to 50
+  };
+
+  services = {
     # enable the vscode server
     vscode-server.enable = config.modules.services.vscode-server.enable;
     # monitor and control temparature
