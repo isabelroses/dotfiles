@@ -3,12 +3,24 @@
   inputs,
   lib,
   ...
-}: {
+}: let
+  inherit (lib) mkIf mkDefault;
+  inherit (config.modules) device;
+in {
   imports = [
     ./systemd.nix
     inputs.vscode-server.nixosModules.default
   ];
   services = {
+    # compress half of the ram to use as swap
+    # basically, get more memory per memory
+    zramSwap = {
+      enable = true;
+      algorithm = "zstd";
+      memoryPercent = 90; # defaults to 50
+    };
+
+    # enable the vscode server
     vscode-server.enable = config.modules.services.vscode-server.enable;
     # monitor and control temparature
     thermald.enable = true;
@@ -17,11 +29,12 @@
     # firmware updater for machine hardware
     fwupd.enable = true;
     # Not using lvm
-    lvm.enable = lib.mkDefault false;
+    lvm.enable = mkDefault false;
     # enable smartd monitoering
     smartd.enable = true;
     # limit systemd journal size
-    journald.extraConfig = ''
+    # https://wiki.archlinux.org/title/Systemd/Journal#Persistent_journals
+    journald.extraConfig = mkIf (device.type != "server") ''
       SystemMaxUse=100M
       RuntimeMaxUse=50M
       SystemMaxFileSize=50M

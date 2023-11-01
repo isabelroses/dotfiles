@@ -9,11 +9,21 @@
 in {
   config = mkIf cfg.enable {
     # mildly improves performance for the disk encryption
-    boot.initrd.availableKernelModules = [
-      "aesni_intel"
-      "cryptd"
-      "usb_storage"
-    ];
+    boot = {
+      # mildly improves performance for the disk encryption
+      initrd.availableKernelModules = [
+        "aesni_intel"
+        "cryptd"
+        "usb_storage"
+      ];
+
+      kernelParams = [
+        # Disable password timeout
+        "luks.options=timeout=0"
+        "rd.luks.options=timeout=0"
+        "rootflags=x-systemd.device-timeout=0"
+      ];
+    };
 
     services.lvm.enable = true;
 
@@ -28,7 +38,7 @@ in {
       keyFileSize = cfg.keySize;
 
       # if keyfile is not there, fall back to cryptsetup password
-      fallbackToPassword = cfg.fallbackToPassword; # IMPLIED BY config.boot.initrd.systemd.enable
+      inherit (cfg) fallbackToPassword; # IMPLIED BY config.boot.initrd.systemd.enable
     };
   };
 }

@@ -36,7 +36,7 @@ in {
       "kernel.sysrq" = 0;
       # Restrict ptrace() usage to processes with a pre-defined relationship
       # (e.g., parent/child)
-      "kernel.yama.ptrace_scope" = 2;
+      # "kernel.yama.ptrace_scope" = 2;
       # Hide kptrs even for processes with CAP_SYSLOG
       "kernel.kptr_restrict" = 2;
       # Disable bpf() JIT (to eliminate spray attacks)
@@ -89,9 +89,25 @@ in {
     blacklistedKernelModules = concatLists [
       [
         # Obscure network protocols
-        "ax25"
-        "netrom"
-        "rose"
+        "dccp" # Datagram Congestion Control Protocol
+        "sctp" # Stream Control Transmission Protocol
+        "rds" # Reliable Datagram Sockets
+        "tipc" # Transparent Inter-Process Communication
+        "n-hdlc" # High-level Data Link Control
+        "netrom" # NetRom
+        "x25" # X.25
+        "ax25" # Amatuer X.25
+        "rose" # ROSE
+        "decnet" # DECnet
+        "econet" # Econet
+        "af_802154" # IEEE 802.15.4
+        "ipx" # Internetwork Packet Exchange
+        "appletalk" # Appletalk
+        "psnap" # SubnetworkAccess Protocol
+        "p8022" # IEEE 802.3
+        "p8023" # Novell raw IEEE 802.3
+        "can" # Controller Area Network
+        "atm" # ATM
       ]
       [
         # Old or rare or insufficiently audited filesystems
@@ -127,11 +143,13 @@ in {
         "qnx4"
         "qnx6"
         "sysv"
+        "vivid" # Video Test Driver (unnecessary)
       ]
       (optionals (!sys.security.fixWebcam) [
         "uvcvideo" # this is why your webcam no worky
       ])
       (optionals (!sys.bluetooth.enable) [
+        "bluetooth" # let bluetooth work
         "btusb" # let bluetooth dongles work
       ])
       (optionals (!config.modules.services.smb.enable) [
