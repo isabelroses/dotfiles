@@ -15,8 +15,8 @@
   modulePath = ../modules; # the base module path
 
   # base modules, are the basis of this system configuration and are shared across all systems
-  baseModules = modulePath + /common; # the base directory for the common module
-  base = baseModules + /base; # defaults for all systems
+  baseModules = modulePath + /base; # the base directory for the common module
+  common = baseModules + /common; # defaults for all systems
   options = baseModules + /options; # the module options for quick configuration
 
   # profiles are hardware based, system optimised defaults
@@ -36,7 +36,7 @@
 
   # a list of shared modules
   shared = [
-    base # default shared across all system configuratons
+    common # default shared across all system configuratons
     options # amazing quick settings module
     sharedModules # sharing is careing, this mainly contains: hm and nixos (if any) modules
     cat # catppucin for the quick themeing
