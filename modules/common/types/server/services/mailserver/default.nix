@@ -152,7 +152,7 @@ in {
           plugins:
             with plugins; [
               persistent_login
-              # carddav
+              carddav
             ]
         );
 
@@ -165,7 +165,7 @@ in {
         dicts = with pkgs.aspellDicts; [en];
 
         plugins = [
-          # "carddav"
+          "carddav"
           "persistent_login"
         ];
 
