@@ -10,7 +10,6 @@ in {
       enable = true;
       catppuccin.enable = true;
       settings = {
-        color_theme = "catppuccin_mocha";
         vim_keys = true;
         rounded_corners = true;
       };

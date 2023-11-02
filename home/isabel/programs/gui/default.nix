@@ -1,6 +1,6 @@
 _: {
   imports = [
-    ./confs
+    ./gaming
 
     ./shared.nix
     ./wayland.nix
