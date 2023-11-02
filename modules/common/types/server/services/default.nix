@@ -4,6 +4,7 @@ _: {
     ./containers
     ./cyberchef
     ./databases
+    ./dns
     ./forgejo
     ./jellyfin
     ./mailserver

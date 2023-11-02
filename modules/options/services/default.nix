@@ -46,6 +46,11 @@ in {
       redis.enable = mkEnableOption "Redis service";
     };
 
+    dns = {
+      nextdns.enable = mkEnableOption "Enables the nextdns dns services";
+      adguardhome.enable = mkEnableOption "Enables the adguardhome dns service";
+    };
+
     smb = {
       enable = mkEnableOption "Enables smb shares";
       host.enable = mkEnableOption "Enables hosting of smb shares";
