@@ -6,13 +6,14 @@
   ...
 }: let
   inherit (config.networking) domain;
+  inherit (lib) mkIf sslTemplate;
   cfg = config.modules.services.mailserver;
 in {
   imports = [
     inputs.simple-nixos-mailserver.nixosModule
   ];
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     # required for roundcube
     networking.firewall.allowedTCPPorts = [80 443];
 
@@ -21,77 +22,6 @@ in {
     in {
       roundcube = template;
       mailserver = template;
-    };
-
-    services = {
-      roundcube = {
-        enable = true;
-
-        package = pkgs.roundcube.withPlugins (
-          plugins:
-            with plugins; [
-              persistent_login
-              # carddav
-            ]
-        );
-
-        # database = {
-        #   host = "/run/postgresql";
-        #   password = "";
-        # };
-        maxAttachmentSize = 50;
-
-        dicts = with pkgs.aspellDicts; [en];
-
-        plugins = [
-          # "carddav"
-          "persistent_login"
-        ];
-
-        # this is the url of the vhost, not necessarily the same as the fqdn of the mailserver
-        hostName = "webmail.${domain}";
-        extraConfig = ''
-          $config['imap_host'] = array(
-            'ssl://${config.mailserver.fqdn}' => "Isabelroses's Mail Server",
-            'ssl://imap.gmail.com:993' => 'Google Mail',
-          );
-          $config['username_domain'] = array(
-            '${config.mailserver.fqdn}' => '${domain}',
-            'mail.gmail.com' => 'gmail.com',
-          );
-          $config['x_frame_options'] = false;
-          # starttls needed for authentication, so the fqdn required to match
-          # the certificate
-          $config['smtp_host'] = "ssl://${config.mailserver.fqdn}";
-          $config['smtp_user'] = "%u";
-          $config['smtp_pass'] = "%p";
-        '';
-      };
-
-      postfix = {
-        dnsBlacklists = [
-          "all.s5h.net"
-          "b.barracudacentral.org"
-          "bl.spamcop.net"
-          "blacklist.woody.ch"
-        ];
-        dnsBlacklistOverrides = ''
-          ${domain} OK
-          ${config.mailserver.fqdn} OK
-          127.0.0.0/8 OK
-          10.0.0.0/8 OK
-          192.168.0.0/16 OK
-        '';
-
-        config = {
-          smtp_helo_name = config.mailserver.fqdn;
-        };
-      };
-
-      phpfpm.pools.roundcube.settings = {
-        "listen.owner" = config.services.nginx.user;
-        "listen.group" = config.services.nginx.group;
-      };
     };
 
     mailserver = {
@@ -211,6 +141,88 @@ in {
         # this only applies to plain text attachments, binary attachments are never indexed
         indexAttachments = true;
         enforced = "body";
+      };
+    };
+
+    services = {
+      roundcube = {
+        enable = true;
+
+        package = pkgs.roundcube.withPlugins (
+          plugins:
+            with plugins; [
+              persistent_login
+              # carddav
+            ]
+        );
+
+        # database = {
+        #   host = "/run/postgresql";
+        #   password = "";
+        # };
+        maxAttachmentSize = 50;
+
+        dicts = with pkgs.aspellDicts; [en];
+
+        plugins = [
+          # "carddav"
+          "persistent_login"
+        ];
+
+        # this is the url of the vhost, not necessarily the same as the fqdn of the mailserver
+        hostName = "webmail.${domain}";
+        extraConfig = ''
+          $config['imap_host'] = array(
+            'ssl://${config.mailserver.fqdn}' => "Isabelroses's Mail Server",
+            'ssl://imap.gmail.com:993' => 'Google Mail',
+          );
+          $config['username_domain'] = array(
+            '${config.mailserver.fqdn}' => '${domain}',
+            'mail.gmail.com' => 'gmail.com',
+          );
+          $config['x_frame_options'] = false;
+          # starttls needed for authentication, so the fqdn required to match
+          # the certificate
+          $config['smtp_host'] = "ssl://${config.mailserver.fqdn}";
+          $config['smtp_user'] = "%u";
+          $config['smtp_pass'] = "%p";
+        '';
+      };
+
+      postfix = {
+        dnsBlacklists = [
+          "all.s5h.net"
+          "b.barracudacentral.org"
+          "bl.spamcop.net"
+          "blacklist.woody.ch"
+        ];
+        dnsBlacklistOverrides = ''
+          ${domain} OK
+          ${config.mailserver.fqdn} OK
+          127.0.0.0/8 OK
+          10.0.0.0/8 OK
+          192.168.0.0/16 OK
+        '';
+
+        config = {
+          smtp_helo_name = config.mailserver.fqdn;
+        };
+      };
+
+      phpfpm.pools.roundcube.settings = {
+        "listen.owner" = config.services.nginx.user;
+        "listen.group" = config.services.nginx.group;
+      };
+
+      nginx.virtualHosts = {
+        ${config.mailserver.fqdn} = sslTemplate;
+        "webmail.${domain}" = sslTemplate;
+        # "rspamd.${domain}" = mkIf (cfg.mailserver.enable && cfg.mailserver.rspamd-web.enable) {
+        #   forceSSL = true;
+        #   enableACME = true;
+        #   basicAuthFile = config.sops.secrets.rspamd-web.path;
+        #   locations."/".proxyPass = "http://unix:/run/rspamd/worker-controller.sock:/";
+        # };
       };
     };
   };

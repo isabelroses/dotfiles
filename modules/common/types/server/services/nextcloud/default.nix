@@ -3,10 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
   inherit (config.networking) domain;
   nextcloud_domain = "cloud.${domain}";
+
+  inherit (lib) mkIf sslTemplate;
 
   cfg = config.modules.services;
 in {
@@ -62,6 +63,8 @@ in {
           dbname = "nextcloud";
         };
       };
+
+      nginx.virtualHosts.${nextcloud_domain} = sslTemplate;
     };
 
     systemd.services = {
