@@ -16,7 +16,5 @@ _: {
     ./photoprism
     ./vaultwarden
     ./wakatime
-
-    ./defaults.nix
   ];
 }

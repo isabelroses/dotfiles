@@ -26,7 +26,6 @@ in {
       ]
       ++ optionals cfg.cli.modernShell.enable [
         ripgrep
-        inputs'.catppuccin-toolbox.packages.catwalk
       ];
   };
 }
