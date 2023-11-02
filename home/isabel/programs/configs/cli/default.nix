@@ -1,5 +1,7 @@
 _: {
   imports = [
+    ./shells
+
     ./bat.nix
     ./eza.nix
     ./git.nix
