@@ -3,11 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
   cfg = config.modules.services.forgejo;
   inherit (config.networking) domain;
   forgejo_domain = "git.${domain}";
+
+  inherit (lib) mkIf sslTemplate;
 
   # stole this from https://git.winston.sh/winston/deployment-flake/src/branch/main/config/services/gitea.nix who stole it from https://github.com/getchoo
   theme = pkgs.fetchzip {
@@ -148,6 +149,12 @@ in {
           type = "tar.zst";
         };
       };
+
+      nginx.virtualHosts.${forgejo_domain} =
+        {
+          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+        }
+        // sslTemplate;
     };
   };
 }

@@ -4,10 +4,10 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf sslTemplate;
   inherit (config.networking) domain;
 
-  cfg = config.modules.services;
+  cfg = config.modules.services.matrix;
 
   port = 8008;
   bindAddress = "::1";
@@ -26,7 +26,7 @@
     return 200 '${builtins.toJSON data}';
   '';
 in {
-  config = mkIf cfg.matrix.enable {
+  config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [port];
 
     modules.services.database = {
@@ -46,7 +46,7 @@ in {
       };
 
       nginx.virtualHosts = {
-        "${domain}" = {
+        ${domain} = {
           locations = {
             "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
             "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
@@ -54,6 +54,11 @@ in {
             "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString port}";
           };
         };
+        "matrix.${domain}" =
+          {
+            locations."/".proxyPass = "http://127.0.0.1:8008";
+          }
+          // sslTemplate;
       };
 
       matrix-synapse = {
