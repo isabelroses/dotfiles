@@ -13,41 +13,39 @@
 
   # modules
   modulePath = ../modules; # the base module path
-  options = modulePath + /options; # the module options for quick configuration
 
-  # common modules, these are shared across all systems
-  commonModules = modulePath + /common; # the base directory for the common module
-  core = commonModules + /core; # defaults for all systems
-  secrets = commonModules + /secrets; # shhh
+  # base modules, are the basis of this system configuration and are shared across all systems
+  baseModules = modulePath + /base; # the base directory for the common module
+  common = baseModules + /common; # defaults for all systems
+  options = baseModules + /options; # the module options for quick configuration
 
-  # hardware types, providing improved defaults and system preformance improvements
-  deviceType = commonModules + /types; # the base directory for the types module
-  server = deviceType + /server; # for server type configurations
-  laptop = deviceType + /laptop; # for laptop type configurations
-  desktop = deviceType + /desktop; # for desktop type configurations
-  workstation = deviceType + /workstation; # for server type configurations
-  #hybrid = [server laptop]; # combine the server and laptop configurations for the best of both worlds
+  # profiles are hardware based, system optimised defaults
+  profilesModule = modulePath + /profiles; # the base directory for the types module
+  server = profilesModule + /server; # for server type configurations
+  laptop = profilesModule + /laptop; # for laptop type configurations
+  desktop = profilesModule + /desktop; # for desktop type configurations
+  workstation = profilesModule + /workstation; # for server type configurations
 
   # extra modules
   extraModules = modulePath + /extra; # the base directory for the extra module
   sharedModules = extraModules + /shared; # the base directory for the shared module
 
-  ## home-manager
+  # home-manager
   home = ../home; # home-manager configurations, used if hm is enabled
   homes = [hm home]; # combine hm input module and the home module, confiuration modules
 
   # a list of shared modules
   shared = [
-    core # default shared across all system configuratons
+    common # default shared across all system configuratons
     options # amazing quick settings module
     sharedModules # sharing is careing, this mainly contains: hm and nixos (if any) modules
     cat # catppucin for the quick themeing
-    secrets # shh
   ];
 
   # extraSpecialArgs that are on all machines
   sharedArgs = {inherit inputs self lib;};
 in {
+  # super rubbish laptop
   hydra = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -60,13 +58,11 @@ in {
       ++ concatLists [
         shared
         homes
-        /*
-        hybrid
-        */
       ];
     specialArgs = sharedArgs;
   };
 
+  # super cool gamer pc
   amatarasu = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
@@ -80,6 +76,7 @@ in {
     specialArgs = sharedArgs;
   };
 
+  # hertzner cloud computer
   bernie = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
