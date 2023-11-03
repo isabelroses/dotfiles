@@ -19,6 +19,9 @@
   # a basic function to fetch a specified user's public keys from github .keys url
   fetchKeys = username: (builtins.fetchurl "https://github.com/${username}.keys");
 
+  # convert a list of integers to a list of string
+  # `intListToStringList [1 2 3]` -> ["1" "2" "3"]
+  intListToStringList = list: map (toString list);
   indexOf = list: elem: let
     f = f: i:
       if i == (builtins.length list)
@@ -40,5 +43,5 @@
   }:
     builtins.all (s: builtins.any (x: x == s) list) targetStrings;
 in {
-  inherit filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme indexOf;
+  inherit filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme indexOf intListToStringList;
 }
