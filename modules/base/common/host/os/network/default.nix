@@ -8,11 +8,17 @@
   dev = config.modules.device;
 in {
   imports = [
+    ./firewall
+
     ./blocker.nix
-    ./firewall.nix
     ./ssh.nix
     ./optimise.nix
   ];
+
+  users = {
+    groups.tcpcryptd = {};
+    users.tcpcryptd.group = "tcpcryptd";
+  };
 
   services = {
     # systemd DNS resolver daemon
@@ -21,15 +27,22 @@ in {
 
   networking = {
     # generate a host ID by hashing the hostname
-    hostId = builtins.substring 0 8 (
-      builtins.hashString "md5" config.networking.hostName
-    );
+    hostId = builtins.substring 0 8 (builtins.hashString "md5" config.networking.hostName);
 
     hostName = config.modules.system.hostname;
     # global dhcp has been deprecated upstream, so we use networkd instead
     # however individual interfaces are still managed through dhcp in hardware configurations
-    useDHCP = mkDefault false;
-    useNetworkd = mkDefault true;
+    useDHCP = mkForce false;
+    useNetworkd = mkForce true;
+
+    # interfaces are assigned names that contain topology information (e.g. wlp3s0) and thus should be consistent across reboots
+    # this already defaults to true, we set it in case it changes upstream
+    usePredictableInterfaceNames = mkDefault true;
+
+    # enable opportunistic TCP encryption
+    # this is NOT a pancea, however, if the receiver supports encryption and the attacker is passive
+    # privacy will be more plausible (but not guaranteed, unlike what the option docs suggest)
+    tcpcrypt.enable = true;
 
     # dns
     nameservers = [
@@ -45,13 +58,14 @@ in {
       unmanaged = ["docker0" "rndis0"];
 
       wifi = {
+        # backend = "iwd";
         # The below is disabled as my uni hated me for it
         # macAddress = "random"; # use a random mac address on every boot, this can scew with static ip
         powersave = true;
         scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
       };
 
-      ethernet.macAddress = mkIf (dev.type != "server") "random";
+      ethernet.macAddress = mkIf (dev.type != "server") "random"; # causes server to be unreachable over SSH
     };
   };
 

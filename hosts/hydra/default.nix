@@ -6,7 +6,7 @@ _: {
         type = "laptop";
         cpu = "intel";
         gpu = null;
-        monitors = ["eDP-1"];
+        monitors = ["HDMI-A-1" "eDP-1"];
         hasTPM = true;
         hasBluetooth = true;
         hasSound = true;

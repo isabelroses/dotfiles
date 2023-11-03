@@ -1,5 +1,5 @@
 {config, ...}: let
-  device = config.modules.device;
+  inherit (config.modules) device;
 in {
   # remove stupid sites that i just don't want to see
   networking.stevenblack = {
