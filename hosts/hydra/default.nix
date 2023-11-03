@@ -6,7 +6,7 @@ _: {
         type = "laptop";
         cpu = "intel";
         gpu = null;
-        monitors = ["HDMI-A-1" "eDP-1"];
+        monitors = ["eDP-1"];
         hasTPM = true;
         hasBluetooth = true;
         hasSound = true;
@@ -28,6 +28,7 @@ _: {
         sound.enable = true;
         bluetooth.enable = true;
         printing.enable = false;
+        yubikeySupport.enable = true;
 
         security = {
           fixWebcam = false;

@@ -70,6 +70,15 @@ in {
       description = "The path to the configuration";
     };
 
+    yubikeySupport = {
+      enable = mkEnableOption "yubikey support";
+      deviceType = mkOption {
+        type = with types; nullOr enum ["NFC5" "nano"];
+        default = null;
+        description = "A list of devices to enable Yubikey support for";
+      };
+    };
+
     sound = {
       enable = mkEnableOption "sound";
       description = "Does the device have sound and its related programs be enabled";

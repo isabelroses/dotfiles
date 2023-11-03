@@ -40,6 +40,7 @@ in {
         sound.enable = true;
         bluetooth.enable = false;
         printing.enable = false;
+        yubikeySupport.enable = true;
 
         security = {
           auditd.enable = true;
