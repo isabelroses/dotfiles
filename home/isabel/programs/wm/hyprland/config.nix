@@ -275,8 +275,8 @@ in {
 
     extraConfig = let
       mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
-          if monitor == "DP-1"
-          then "1920x1080@144"
+          if monitor == "eDP-1"
+          then "1920x1080@60"
           else "preferred"
         },${toString (i * 1920)}x0,1'') monitors);
 
