@@ -4,7 +4,7 @@ import { Widget, Notifications } from "../imports.js";
 
 const ClearButton = () =>
     Widget.Button({
-        onClicked: () => Notifications.clear(),
+        on_clicked: () => Notifications.clear(),
         binds: [
             ["sensitive", Notifications, "notifications", (n) => n.length > 0],
         ],
@@ -30,7 +30,7 @@ const ClearButton = () =>
 
 const Header = () =>
     Widget.Box({
-        className: "header",
+        class_name: "header",
         children: [
             Widget.Label({ label: "Notifications", hexpand: true, xalign: 0 }),
             ClearButton(),
@@ -57,10 +57,10 @@ const NotificationList = () =>
 
 const Placeholder = () =>
     Widget.Box({
-        className: "placeholder",
+        class_name: "placeholder",
         vertical: true,
-        valign: "center",
-        halign: "center",
+        vpack: "center",
+        hpack: "center",
         vexpand: true,
         hexpand: true,
         children: [
@@ -74,17 +74,17 @@ const Placeholder = () =>
 
 export default () =>
     Widget.Box({
-        className: "notifications",
+        class_name: "notifications",
         vertical: true,
         children: [
             Header(),
             Widget.Scrollable({
                 vexpand: true,
-                className: "notification-scrollable",
+                class_name: "notification-scrollable",
                 hscroll: "never",
                 vscroll: "automatic",
                 child: Widget.Box({
-                    className: "notification-list",
+                    class_name: "notification-list",
                     vertical: true,
                     children: [NotificationList(), Placeholder()],
                 }),

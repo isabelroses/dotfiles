@@ -5,7 +5,7 @@ import { App } from "../../imports.js";
 
 export default () =>
     PanelButton({
-        className: "applauncher",
+        class_name: "applauncher",
         connections: [
             [
                 App,
@@ -17,6 +17,6 @@ export default () =>
                 },
             ],
         ],
-        onClicked: () => App.toggleWindow("applauncher"),
+        on_clicked: () => App.toggleWindow("applauncher"),
         content: FontIcon(distroIcon),
     });

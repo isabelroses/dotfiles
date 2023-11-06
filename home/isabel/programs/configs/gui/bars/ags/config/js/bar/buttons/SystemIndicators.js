@@ -32,9 +32,9 @@ const BluetoothDevicesIndicator = () =>
                 Bluetooth,
                 (box) => {
                     box.children = Bluetooth.connectedDevices.map(
-                        ({ iconName, name }) =>
+                        ({ icon_name, name }) =>
                             HoverRevealer({
-                                indicator: Widget.Icon(iconName + "-symbolic"),
+                                indicator: Widget.Icon(icon_name + "-symbolic"),
                                 child: Widget.Label(name),
                             }),
                     );
@@ -48,7 +48,7 @@ const BluetoothDevicesIndicator = () =>
 
 const BluetoothIndicator = () =>
     Widget.Icon({
-        className: "bluetooth",
+        class_name: "bluetooth",
         icon: icons.bluetooth.enabled,
         binds: [["visible", Bluetooth, "enabled"]],
     });
@@ -63,7 +63,7 @@ const NetworkIndicator = () =>
                         [
                             Network,
                             (icon) => {
-                                icon.icon = Network.wifi?.iconName;
+                                icon.icon = Network.wifi?.icon_name;
                             },
                         ],
                     ],
@@ -76,7 +76,7 @@ const NetworkIndicator = () =>
                         [
                             Network,
                             (icon) => {
-                                icon.icon = Network.wired?.iconName;
+                                icon.icon = Network.wired?.icon_name;
                             },
                         ],
                     ],
@@ -116,8 +116,8 @@ const AudioIndicator = () =>
 
 export default () =>
     PanelButton({
-        className: "quicksettings panel-button",
-        onClicked: () => App.toggleWindow("quicksettings"),
+        class_name: "quicksettings panel-button",
+        on_clicked: () => App.toggleWindow("quicksettings"),
         onScrollUp: () => {
             Audio.speaker.volume += 0.02;
             Indicator.speaker();

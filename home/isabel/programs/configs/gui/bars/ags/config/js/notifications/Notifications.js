@@ -9,7 +9,7 @@ const Popups = () => {
 
         if (map.get(id)._hovered.value && !force) return;
 
-        if (map.size - 1 === 0) box.get_parent().revealChild = false;
+        if (map.size - 1 === 0) box.get_parent().reveal_child = false;
 
         Utils.timeout(200, () => {
             map.get(id)?.destroy();
@@ -24,7 +24,7 @@ const Popups = () => {
         map.set(id, Notification(Notifications.getNotification(id)));
         box.children = Array.from(map.values()).reverse();
         Utils.timeout(10, () => {
-            box.get_parent().revealChild = true;
+            box.get_parent().reveal_child = true;
         });
     };
 
@@ -40,8 +40,8 @@ const Popups = () => {
 
 const PopupList = ({ transition = "slide_down" } = {}) =>
     Widget.Box({
-        className: "notifications-popup-list",
-        style: "padding: 1px",
+        class_name: "notifications-popup-list",
+        css: "padding: 1px",
         children: [
             Widget.Revealer({
                 transition,

@@ -5,7 +5,7 @@ import { Widget } from "../imports.js";
 
 const SysButton = (action, label) =>
     Widget.Button({
-        onClicked: () => PowerMenu.action(action),
+        on_clicked: () => PowerMenu.action(action),
         child: Widget.Box({
             vertical: true,
             children: [
@@ -20,7 +20,7 @@ export default () =>
         name: "powermenu",
         expand: true,
         content: Widget.Box({
-            className: "powermenu",
+            class_name: "powermenu",
             homogeneous: true,
             children: [
                 SysButton("sleep", "Sleep"),

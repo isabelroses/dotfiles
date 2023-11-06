@@ -4,10 +4,10 @@ import GLib from "gi://GLib";
 const NotificationIcon = ({ appEntry, appIcon, image }) => {
     if (image) {
         return Widget.Box({
-            valign: "start",
+            vpack: "start",
             hexpand: false,
-            className: "icon img",
-            style: `
+            class_name: "icon img",
+            css: `
                 background-image: url("${image}");
                 background-size: contain;
                 background-repeat: no-repeat;
@@ -24,19 +24,19 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
     if (Utils.lookUpIcon(appEntry)) icon = appEntry;
 
     return Widget.Box({
-        valign: "start",
+        vpack: "start",
         hexpand: false,
-        className: "icon",
-        style: `
+        class_name: "icon",
+        css: `
             min-width: 78px;
             min-height: 78px;
         `,
         child: Widget.Icon({
             icon,
             size: 58,
-            halign: "center",
+            hpack: "center",
             hexpand: true,
-            valign: "center",
+            vpack: "center",
             vexpand: true,
         }),
     });
@@ -62,7 +62,7 @@ export default (notification) => {
         });
 
     const content = Widget.Box({
-        className: "content",
+        class_name: "content",
         children: [
             NotificationIcon(notification),
             Widget.Box({
@@ -72,34 +72,34 @@ export default (notification) => {
                     Widget.Box({
                         children: [
                             Widget.Label({
-                                className: "title",
+                                class_name: "title",
                                 xalign: 0,
                                 justification: "left",
                                 hexpand: true,
-                                maxWidthChars: 24,
+                                max_width_chars: 24,
                                 truncate: "end",
                                 wrap: true,
                                 label: notification.summary,
                                 useMarkup: notification.summary.startsWith("<"),
                             }),
                             Widget.Label({
-                                className: "time",
-                                valign: "start",
+                                class_name: "time",
+                                vpack: "start",
                                 label: GLib.DateTime.new_from_unix_local(
                                     notification.time,
                                 ).format("%H:%M"),
                             }),
                             Widget.Button({
-                                onHover: hover,
-                                className: "close-button",
-                                valign: "start",
+                                on_hover: hover,
+                                class_name: "close-button",
+                                vpack: "start",
                                 child: Widget.Icon("window-close-symbolic"),
-                                onClicked: () => notification.close(),
+                                on_clicked: () => notification.close(),
                             }),
                         ],
                     }),
                     Widget.Label({
-                        className: "description",
+                        class_name: "description",
                         hexpand: true,
                         useMarkup: true,
                         xalign: 0,
@@ -114,16 +114,16 @@ export default (notification) => {
 
     const actionsbox = Widget.Revealer({
         transition: "slide_down",
-        binds: [["revealChild", hovered]],
+        binds: [["reveal_child", hovered]],
         child: Widget.EventBox({
-            onHover: hover,
+            on_hover: hover,
             child: Widget.Box({
-                className: "actions",
+                class_name: "actions",
                 children: notification.actions.map((action) =>
                     Widget.Button({
-                        onHover: hover,
-                        className: "action-button",
-                        onClicked: () => notification.invoke(action.id),
+                        on_hover: hover,
+                        class_name: "action-button",
+                        on_clicked: () => notification.invoke(action.id),
                         hexpand: true,
                         child: Widget.Label(action.label),
                     }),
@@ -133,15 +133,15 @@ export default (notification) => {
     });
 
     return Widget.EventBox({
-        className: `notification ${notification.urgency}`,
+        class_name: `notification ${notification.urgency}`,
         vexpand: false,
         onPrimaryClick: () => {
             hovered.value = false;
             notification.dismiss();
         },
         properties: [["hovered", hovered]],
-        onHover: hover,
-        onHoverLost: hoverLost,
+        on_hover: hover,
+        on_hover_lost: hoverLost,
         child: Widget.Box({
             vertical: true,
             children: [content, notification.actions.length > 0 && actionsbox],

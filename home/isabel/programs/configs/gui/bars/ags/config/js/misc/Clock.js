@@ -7,7 +7,7 @@ export default ({
     ...props
 } = {}) =>
     Widget.Label({
-        className: "clock",
+        class_name: "clock",
         ...props,
         connections: [
             [

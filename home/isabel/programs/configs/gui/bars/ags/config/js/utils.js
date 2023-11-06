@@ -2,14 +2,12 @@ import Cairo from "cairo";
 import options from "./options.js";
 import icons from "./icons.js";
 import Theme from "./services/theme/theme.js";
+import Gdk from "gi://Gdk";
 import { Utils, App, Battery, Mpris, Audio } from "./imports.js";
 
-/** @type {function((id: number) => typeof Gtk.Widget): typeof Gtk.Widget[]}*/
 export function forMonitors(widget) {
-    const ws = JSON.parse(Utils.exec("hyprctl -j monitors"));
-    return ws.map((/** @type {Record<string, number>} */ mon) =>
-        widget(mon.id),
-    );
+    const n = Gdk.Display.get_default().get_n_monitors();
+    return range(n).map(widget);
 }
 
 export function range(length, start = 1) {
@@ -102,6 +100,6 @@ export async function globalServices() {
 }
 
 export function launchApp(app) {
-    Utils.execAsync(`hyprctl dispatch exec ${app.executable}`);
+    Utils.execAsync(["hyprctl", "dispatch", "exec", `sh -c ${app.executable}`]);
     app.frequency += 1;
 }

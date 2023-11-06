@@ -2,7 +2,6 @@ import Theme from "../../services/theme/theme.js";
 import { ArrowToggleButton, Menu, opened } from "../ToggleButton.js";
 import themes from "../../themes.js";
 import icons from "../../icons.js";
-import Separator from "../../misc/Separator.js";
 import { Widget } from "../../imports.js";
 
 const prettyName = (name) =>
@@ -50,7 +49,7 @@ export const ThemeSelector = () =>
             children: themes
                 .map(({ name, icon }) =>
                     Widget.Button({
-                        onClicked: () => Theme.setSetting("theme", name),
+                        on_clicked: () => Theme.setSetting("theme", name),
                         child: Widget.Box({
                             children: [
                                 Widget.Label(icon),
@@ -58,7 +57,7 @@ export const ThemeSelector = () =>
                                 Widget.Icon({
                                     icon: icons.tick,
                                     hexpand: true,
-                                    halign: "end",
+                                    hpack: "end",
                                     connections: [
                                         [
                                             Theme,
@@ -76,9 +75,9 @@ export const ThemeSelector = () =>
                     }),
                 )
                 .concat([
-                    Separator({ orientation: "horizontal" }),
+                    Widget.Separator(),
                     Widget.Button({
-                        onClicked: () => Theme.openSettings(),
+                        on_clicked: () => Theme.openSettings(),
                         child: Widget.Box({
                             children: [
                                 Widget.Icon(icons.settings),

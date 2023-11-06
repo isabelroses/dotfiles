@@ -3,7 +3,7 @@ import { App, Widget } from "../imports.js";
 
 const Padding = (windowName) =>
     Widget.EventBox({
-        className: "padding",
+        class_name: "padding",
         hexpand: true,
         vexpand: true,
         connections: [
@@ -13,11 +13,11 @@ const Padding = (windowName) =>
 
 const PopupRevealer = (windowName, transition, child) =>
     Widget.Box({
-        style: "padding: 1px;",
+        css: "padding: 1px;",
         child: Widget.Revealer({
             transition,
             child,
-            transitionDuration: options.windowAnimationDuration,
+            transition_duration: options.windowAnimationDuration,
             connections: [
                 [
                     App,
@@ -33,8 +33,8 @@ const PopupRevealer = (windowName, transition, child) =>
 const layouts = {
     center: (windowName, child, expand) =>
         Widget.CenterBox({
-            className: "shader",
-            style: expand ? "min-width: 5000px; min-height: 3000px;" : "",
+            class_name: "shader",
+            css: expand ? "min-width: 5000px; min-height: 3000px;" : "",
             children: [
                 Padding(windowName),
                 Widget.CenterBox({
