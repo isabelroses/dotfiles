@@ -1,5 +1,8 @@
 _: {
-  imports = [./hardware-configuration.nix];
+  imports = [
+    ./hardware-configuration.nix
+    ./encryption.nix
+  ];
   config = {
     modules = {
       device = {
@@ -11,16 +14,19 @@ _: {
         hasBluetooth = true;
         hasSound = true;
       };
+
       system = {
         mainUser = "isabel";
         hostname = "hydra";
 
         boot = {
+          plymouth.enable = true;
           loader = "systemd-boot";
           secureBoot = false;
           enableKernelTweaks = true;
           enableInitrdTweaks = true;
           loadRecommendedModules = true;
+          tmpOnTmpfs = true;
         };
 
         fs = ["ext4" "vfat"];
@@ -29,6 +35,13 @@ _: {
         bluetooth.enable = true;
         printing.enable = false;
         yubikeySupport.enable = true;
+
+        # autoLogin = true;
+
+        encryption = {
+          enable = true;
+          device = "crypt";
+        };
 
         security = {
           fixWebcam = false;
@@ -54,7 +67,7 @@ _: {
       };
 
       programs = {
-        git.signingKey = "CFF897835DD77813";
+        git.signingKey = "0xAE22E70709810C07";
 
         cli = {
           enable = true;
