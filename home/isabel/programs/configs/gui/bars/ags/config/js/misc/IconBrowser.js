@@ -1,19 +1,19 @@
+import RegularWindow from "./RegularWindow.js";
 import { Widget } from "../imports.js";
 import Gtk from "gi://Gtk";
 
 export default () => {
     const selected = Widget.Label({
-        style: "font-size: 1.2em;",
+        css: "font-size: 1.2em;",
     });
 
-    const flowbox = Widget({
-        type: Gtk.FlowBox,
+    const flowbox = Widget.FlowBox({
         min_children_per_line: 10,
         connections: [
             [
                 "child-activated",
                 (_, { child }) => {
-                    selected.label = child.iconName;
+                    selected.label = child.icon_name;
                 },
             ],
         ],
@@ -37,18 +37,17 @@ export default () => {
     });
 
     const entry = Widget.Entry({
-        onChange: ({ text }) =>
+        on_change: ({ text }) =>
             flowbox.get_children().forEach((child) => {
-                child.visible = child.child.iconName.includes(text);
+                child.visible = child.child.icon_name.includes(text);
             }),
     });
 
-    return Widget({
+    return RegularWindow({
         name: "icons",
-        type: Gtk.Window,
         visible: true,
         child: Widget.Box({
-            style: "padding: 30px;",
+            css: "padding: 30px;",
             spacing: 20,
             vertical: true,
             children: [
@@ -58,7 +57,7 @@ export default () => {
                     vscroll: "always",
                     hexpand: true,
                     vexpand: true,
-                    style: "min-width: 500px;" + "min-height: 500px;",
+                    css: "min-width: 500px;" + "min-height: 500px;",
                     child: flowbox,
                 }),
                 selected,

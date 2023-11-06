@@ -63,7 +63,7 @@ export const BluetoothDevices = () =>
                                 Widget.Box({
                                     children: [
                                         Widget.Icon(
-                                            device.iconName + "-symbolic",
+                                            device.icon_name + "-symbolic",
                                         ),
                                         Widget.Label(device.name),
                                         device.batteryPercentage > 0 &&
@@ -73,8 +73,7 @@ export const BluetoothDevices = () =>
                                         Widget.Box({ hexpand: true }),
                                         device.connecting
                                             ? Spinner()
-                                            : Widget({
-                                                  type: Gtk.Switch,
+                                            : Widget.Switch({
                                                   active: device.connected,
                                                   connections: [
                                                       [

@@ -7,7 +7,7 @@ import { Battery, Widget } from "../../imports.js";
 
 export const BatteryProgress = () =>
     Widget.Box({
-        className: "battery-progress",
+        class_name: "battery-progress",
         vexpand: true,
         binds: [["visible", Battery, "available"]],
         connections: [
@@ -53,25 +53,25 @@ export const BatteryProgress = () =>
 
 export default () =>
     Widget.Box({
-        className: "header",
+        class_name: "header",
         children: [
             Avatar(),
             Widget.Box({
-                className: "system-box",
+                class_name: "system-box",
                 vertical: true,
                 hexpand: true,
                 children: [
                     Widget.Box({
                         children: [
                             Widget.Button({
-                                valign: "center",
-                                onClicked: () => Theme.openSettings(),
+                                vpack: "center",
+                                on_clicked: () => Theme.openSettings(),
                                 child: Widget.Icon(icons.settings),
                             }),
                             Widget.Label({
-                                className: "uptime",
+                                class_name: "uptime",
                                 hexpand: true,
-                                valign: "center",
+                                vpack: "center",
                                 connections: [
                                     [
                                         uptime,
@@ -82,8 +82,8 @@ export default () =>
                                 ],
                             }),
                             Widget.Button({
-                                valign: "center",
-                                onClicked: () => PowerMenu.action("shutdown"),
+                                vpack: "center",
+                                on_clicked: () => PowerMenu.action("shutdown"),
                                 child: Widget.Icon(icons.powermenu.shutdown),
                             }),
                         ],

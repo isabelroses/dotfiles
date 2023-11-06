@@ -4,7 +4,7 @@ import { Widget, Notifications, Utils, App } from "../../imports.js";
 
 export default ({ direction = "left" } = {}) =>
     HoverRevealer({
-        className: "notifications panel-button",
+        class_name: "notifications panel-button",
         eventboxConnections: [
             ["button-press-event", () => App.openWindow("dashboard")],
             [
@@ -23,9 +23,9 @@ export default ({ direction = "left" } = {}) =>
                     if (revealer._title === title) return;
 
                     revealer._title = title;
-                    revealer.revealChild = true;
+                    revealer.reveal_child = true;
                     Utils.timeout(3000, () => {
-                        revealer.revealChild = false;
+                        revealer.reveal_child = false;
                     });
                 },
             ],
@@ -46,7 +46,7 @@ export default ({ direction = "left" } = {}) =>
         }),
         child: Widget.Label({
             truncate: "end",
-            maxWidthChars: 40,
+            max_width_chars: 40,
             binds: [
                 [
                     "label",

@@ -1,6 +1,6 @@
 import icons from "../../icons.js";
 import { Menu, ArrowToggleButton } from "../ToggleButton.js";
-import { Network, Widget } from "../../imports.js";
+import { Network, Utils, Widget } from "../../imports.js";
 
 export const NetworkToggle = () =>
     ArrowToggleButton({
@@ -10,7 +10,7 @@ export const NetworkToggle = () =>
                 [
                     Network,
                     (icon) => {
-                        icon.icon = Network.wifi?.iconName || "";
+                        icon.icon = Network.wifi?.icon_name || "";
                     },
                 ],
             ],
@@ -42,7 +42,7 @@ export const WifiSelection = () =>
                 [
                     Network,
                     (icon) => {
-                        icon.icon = Network.wifi?.iconName;
+                        icon.icon = Network.wifi?.icon_name;
                     },
                 ],
             ],
@@ -54,18 +54,21 @@ export const WifiSelection = () =>
                 [
                     Network,
                     (box) =>
-                        (box.children = Network.wifi?.accessPoints.map((ap) =>
+                        (box.children = Network.wifi?.access_points.map((ap) =>
                             Widget.Button({
-                                onClicked: `nmcli device wifi connect ${ap.bssid}`,
+                                on_clicked: () =>
+                                    Utils.execAsync(
+                                        `nmcli device wifi connect ${ap.bssid}`,
+                                    ),
                                 child: Widget.Box({
                                     children: [
-                                        Widget.Icon(ap.iconName),
-                                        Widget.Label(ap.ssid),
+                                        Widget.Icon(ap.icon_name),
+                                        Widget.Label(ap.ssid || ""),
                                         ap.active &&
                                             Widget.Icon({
                                                 icon: icons.tick,
                                                 hexpand: true,
-                                                halign: "end",
+                                                hpack: "end",
                                             }),
                                     ],
                                 }),

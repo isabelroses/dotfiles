@@ -7,7 +7,6 @@ import SysTray from "./buttons/SysTray.js";
 import ColorPicker from "./buttons/ColorPicker.js";
 import SystemIndicators from "./buttons/SystemIndicators.js";
 import PowerMenu from "./buttons/PowerMenu.js";
-import Separator from "../misc/Separator.js";
 import BatteryBar from "./buttons/BatteryBar.js";
 import SubMenu from "./buttons/SubMenu.js";
 import { SystemTray, Widget, Variable } from "../imports.js";
@@ -19,22 +18,24 @@ SystemTray.connect("changed", () => {
 });
 
 const SeparatorDot = (service, condition) =>
-    Separator({
-        orientation: "vertical",
-        valign: "center",
-        connections: service && [
-            [
-                service,
-                (dot) => {
-                    dot.visible = condition(service);
-                },
-            ],
-        ],
+    Widget.Separator({
+        orientation: 0,
+        vpack: "center",
+        connections: !service
+            ? []
+            : [
+                  [
+                      service,
+                      (dot) => {
+                          dot.visible = condition(service);
+                      },
+                  ],
+              ],
     });
 
 const Start = () =>
     Widget.Box({
-        className: "start",
+        class_name: "start",
         children: [
             ApplauncherButton(),
             SeparatorDot(),
@@ -51,13 +52,13 @@ const Start = () =>
 
 const Center = () =>
     Widget.Box({
-        className: "center",
+        class_name: "center",
         children: [DateButton()],
     });
 
 const End = () =>
     Widget.Box({
-        className: "end",
+        class_name: "end",
         children: [
             SeparatorDot(Mpris, (m) => m.players.length > 0),
             MediaIndicator(),
@@ -83,9 +84,9 @@ export default (monitor) =>
         monitor,
         anchor: ["top", "left", "right"],
         child: Widget.CenterBox({
-            className: "panel",
-            startWidget: Start(),
-            centerWidget: Center(),
-            endWidget: End(),
+            class_name: "panel",
+            start_widget: Start(),
+            center_widget: Center(),
+            end_widget: End(),
         }),
     });

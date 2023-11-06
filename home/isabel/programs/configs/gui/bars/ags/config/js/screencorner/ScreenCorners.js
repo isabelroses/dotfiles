@@ -2,13 +2,12 @@ import Gtk from "gi://Gtk";
 import { Widget } from "../imports.js";
 
 const Corner = (place) =>
-    Widget({
-        type: Gtk.DrawingArea,
-        className: "corner",
+    Widget.DrawingArea({
+        class_name: "corner",
         hexpand: true,
         vexpand: true,
-        halign: place.includes("left") ? "start" : "end",
-        valign: place.includes("top") ? "start" : "end",
+        hpack: place.includes("left") ? "start" : "end",
+        vpack: place.includes("top") ? "start" : "end",
         setup: (widget) => widget.set_size_request(32, 32),
         connections: [
             [
@@ -62,7 +61,7 @@ export default (monitor) =>
         Widget.Window({
             name: `corner${monitor}${place}`,
             monitor,
-            className: "corner",
+            class_name: "corner",
             anchor: [
                 place.includes("top") ? "top" : "bottom",
                 place.includes("right") ? "right" : "left",

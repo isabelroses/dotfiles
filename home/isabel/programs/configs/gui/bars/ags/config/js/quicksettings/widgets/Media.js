@@ -5,10 +5,10 @@ const blackList = ["Caprine"];
 
 const Footer = (player) =>
     Widget.CenterBox({
-        className: "footer-box",
+        class_name: "footer-box",
         children: [
             Widget.Box({
-                className: "position",
+                class_name: "position",
                 children: [
                     mpris.PositionLabel(player),
                     mpris.Slash(player),
@@ -16,7 +16,7 @@ const Footer = (player) =>
                 ],
             }),
             Widget.Box({
-                className: "controls",
+                class_name: "controls",
                 children: [
                     mpris.ShuffleButton(player),
                     mpris.PreviousButton(player),
@@ -28,7 +28,7 @@ const Footer = (player) =>
             mpris.PlayerIcon(player, {
                 symbolic: false,
                 hexpand: true,
-                halign: "end",
+                hpack: "end",
             }),
         ],
     });
@@ -37,17 +37,17 @@ const TextBox = (player) =>
     Widget.Box({
         children: [
             mpris.CoverArt(player, {
-                halign: "end",
+                hpack: "end",
                 hexpand: false,
                 child: Widget.Box({
-                    className: "shader",
+                    class_name: "shader",
                     hexpand: true,
                 }),
             }),
             Widget.Box({
                 hexpand: true,
                 vertical: true,
-                className: "labels",
+                class_name: "labels",
                 children: [
                     mpris.TitleLabel(player, {
                         xalign: 0,
@@ -66,13 +66,13 @@ const TextBox = (player) =>
 
 const PlayerBox = (player) =>
     Widget.Box({
-        className: `player ${player.name}`,
+        class_name: `player ${player.name}`,
         child: mpris.BlurredCoverArt(player, {
-            className: "cover-art-bg",
+            class_name: "cover-art-bg",
             hexpand: true,
             children: [
                 Widget.Box({
-                    className: "shader",
+                    class_name: "shader",
                     hexpand: true,
                     vertical: true,
                     children: [
@@ -88,7 +88,7 @@ const PlayerBox = (player) =>
 export default () =>
     Widget.Box({
         vertical: true,
-        className: "media",
+        class_name: "media",
         binds: [
             [
                 "children",

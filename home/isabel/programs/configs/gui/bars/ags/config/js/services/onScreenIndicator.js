@@ -27,7 +27,7 @@ class Indicator extends Service {
     speaker() {
         this.popup(
             Audio.speaker.volume,
-            getAudioTypeIcon(Audio.speaker.iconName),
+            getAudioTypeIcon(Audio.speaker.icon_name),
         );
     }
 

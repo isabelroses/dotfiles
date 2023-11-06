@@ -1,5 +1,3 @@
-"use strict";
-
 import TopBar from "./js/bar/TopBar.js";
 import ScreenCorners from "./js/screencorner/ScreenCorners.js";
 import Dashboard from "./js/dashboard/Dashboard.js";
@@ -18,22 +16,24 @@ setup.scssWatcher();
 setup.globalServices();
 setup.activePlayer();
 
+const windows = () => [
+    forMonitors(TopBar),
+    forMonitors(ScreenCorners),
+    forMonitors(OSD),
+    forMonitors(Notifications),
+    Applauncher(),
+    Dashboard(),
+    QuickSettings(),
+    PowerMenu(),
+    Verification(),
+];
+
 export default {
+    windows: windows().flat(2),
     maxStreamVolume: 1.05,
     cacheNotificationActions: true,
     closeWindowDelay: {
         quicksettings: options.windowAnimationDuration,
         dashboard: options.windowAnimationDuration,
     },
-    windows: [
-        forMonitors(TopBar),
-        forMonitors(ScreenCorners),
-        forMonitors(OSD),
-        forMonitors(Notifications),
-        Applauncher(),
-        Dashboard(),
-        QuickSettings(),
-        PowerMenu(),
-        Verification(),
-    ].flat(2),
 };

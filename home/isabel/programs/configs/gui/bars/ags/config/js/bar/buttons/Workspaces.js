@@ -11,11 +11,11 @@ const Workspaces = () =>
         children: range(ws || 20).map((i) =>
             Widget.Button({
                 setup: (btn) => (btn.id = i),
-                onClicked: dispatch(i),
+                on_clicked: dispatch(i),
                 child: Widget.Label({
                     label: `${i}`,
-                    className: "indicator",
-                    valign: "center",
+                    class_name: "indicator",
+                    vpack: "center",
                 }),
                 connections: [
                     [
@@ -51,13 +51,13 @@ const Workspaces = () =>
 
 export default () =>
     Widget.Box({
-        className: "workspaces panel-button",
+        class_name: "workspaces panel-button",
         child: Widget.Box({
             // its nested like this to keep it consistent with other PanelButton widgets
             child: Widget.EventBox({
                 onScrollUp: dispatch("m+1"),
                 onScrollDown: dispatch("m-1"),
-                className: "eventbox",
+                class_name: "eventbox",
                 child: Workspaces(),
             }),
         }),
