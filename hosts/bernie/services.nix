@@ -18,6 +18,7 @@ _: {
     monitoring = {
       grafana.enable = true;
       prometheus.enable = true;
+      loki.enable = true;
     };
 
     database = {
