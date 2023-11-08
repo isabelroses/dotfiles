@@ -186,6 +186,16 @@
       inputs.nixpkgs-stable.follows = "nixpkgs";
     };
 
+    # More up to date minecraft launcher
+    prism-launcher = {
+      url = "github:PrismLauncher/PrismLauncher";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+      };
+    };
+
     # Hyprland packages
     hyprland.url = "github:hyprwm/Hyprland";
 

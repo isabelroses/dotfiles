@@ -2,6 +2,7 @@
   lib,
   pkgs,
   osConfig,
+  inputs',
   ...
 }: let
   catppuccin-mocha = pkgs.fetchzip {
@@ -32,8 +33,11 @@ in {
       };
 
       packages = [
-        (pkgs.prismlauncher.override {
+        (inputs'.prism-launcher.packages.prismlauncher.override {
+          # get java versions required by various minecraft versions
+          # "write once run everywhere" my ass
           jdks = javaPackages;
+          additionalPrograms = with pkgs; [gamemode mangohud];
         })
       ];
     };

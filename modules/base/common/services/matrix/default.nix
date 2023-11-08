@@ -13,7 +13,7 @@
   bindAddress = "::1";
   serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
   clientConfig = {
-    "m.homeserver".base_url = "https://${config.networking.hostName}${domain}";
+    "m.homeserver".base_url = "https://${domain}";
     "m.identity_server" = {};
   };
 
@@ -46,14 +46,17 @@ in {
       };
 
       nginx.virtualHosts = {
-        ${domain} = {
-          locations = {
-            "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
-            "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
-            "/_matrix".proxyPass = "http://[${bindAddress}]:${toString port}";
-            "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString port}";
-          };
-        };
+        ${domain} =
+          {
+            locations = {
+              "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
+              "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
+              "/_matrix".proxyPass = "http://[${bindAddress}]:${toString port}";
+              "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString port}";
+            };
+          }
+          // sslTemplate;
+
         "matrix.${domain}" =
           {
             locations."/".proxyPass = "http://127.0.0.1:8008";

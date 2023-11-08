@@ -31,7 +31,12 @@ in {
         maxUploadSize = "4G";
         enableImagemagick = true;
 
-        caching.redis = true;
+        caching = {
+          apcu = true;
+          memcached = true;
+          redis = true;
+        };
+
         extraOptions = {
           redis = {
             host = "/run/redis-default/redis.sock";
@@ -53,6 +58,7 @@ in {
           overwriteProtocol = "https";
           extraTrustedDomains = ["https://${toString nextcloud_domain}"];
           trustedProxies = ["https://${toString nextcloud_domain}"];
+
           adminuser = "isabel";
           adminpassFile = config.sops.secrets.nextcloud-passwd.path;
           defaultPhoneRegion = "UK";
@@ -61,6 +67,11 @@ in {
           dbtype = "pgsql";
           dbhost = "/run/postgresql";
           dbname = "nextcloud";
+        };
+
+        phpOptions = {
+          # fix the opcache "buffer is almost full" error in admin overview
+          "opcache.interned_strings_buffer" = "16";
         };
       };
 
