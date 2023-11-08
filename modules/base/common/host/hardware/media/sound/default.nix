@@ -5,13 +5,9 @@
   inputs,
   ...
 }: let
-  inherit (lib) mkIf mkDefault;
-  inherit (pkgs.stdenv) hostPlatform;
-
-  isx86Linux = hostPlatform.isLinux && hostPlatform.isx86;
-
-  cfg = config.modules.system.sound;
+  inherit (lib) mkIf mkDefault isx86Linux;
   inherit (config.modules) device;
+  cfg = config.modules.system.sound;
 in {
   imports = [inputs.nix-gaming.nixosModules.pipewireLowLatency];
 
@@ -33,7 +29,7 @@ in {
       jack.enable = true;
       alsa = {
         enable = true;
-        support32Bit = isx86Linux;
+        support32Bit = isx86Linux pkgs;
       };
 
       lowLatency = {
