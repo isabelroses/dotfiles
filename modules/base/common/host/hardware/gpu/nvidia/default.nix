@@ -56,8 +56,8 @@ in {
 
         (mkIf env.isWayland {
           WLR_NO_HARDWARE_CURSORS = "1";
-          __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-          GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently (not that i use it lol)
+          # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+          # GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
         })
 
         (mkIf (env.isWayland && device.gpu == "hybrid-nv") {
