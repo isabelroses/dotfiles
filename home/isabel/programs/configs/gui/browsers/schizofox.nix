@@ -1,6 +1,7 @@
 {
   lib,
   inputs,
+  pkgs,
   osConfig,
   ...
 }: let
@@ -10,6 +11,7 @@ in {
   config = lib.mkIf (cfg.enable && cfg.schizofox) {
     programs.schizofox = {
       enable = true;
+      package = pkgs.firefox-esr-115-unwrapped;
 
       theme = {
         background-darker = "181825";
@@ -26,7 +28,7 @@ in {
         defaultSearchEngine = "Searx";
         removeEngines = ["Google" "Bing" "Amazon.com" "eBay" "Twitter" "Wikipedia"];
         searxUrl = "https://search.isabelroses.com";
-        # searxQuery = "https://search.isabelroses.com/search?q={searchTerms}&categories=general";
+        searxQuery = "https://search.isabelroses.com/search?q={searchTerms}&categories=general";
         addEngines = [];
       };
 
