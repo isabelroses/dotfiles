@@ -4,11 +4,11 @@ _: prev: {
     then
       prev.symlinkJoin {
         inherit (prev.ranger) passthru;
-        name = "btop-nodesktop";
+        name = "ranger-nodesktop";
         paths = [prev.ranger];
         postBuild = ''
           rm $out/share/applications/ranger.desktop
         '';
       }
-    else prev.btop;
+    else prev.ranger;
 }

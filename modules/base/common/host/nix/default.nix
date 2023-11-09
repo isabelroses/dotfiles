@@ -38,6 +38,7 @@
     };
 
     overlays = [
+      self.overlays.defaults
       inputs.rust-overlay.overlays.default
 
       (_: _: {

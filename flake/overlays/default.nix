@@ -1,8 +1,15 @@
-{lib, ...}: {
-  flake.overlays.default = lib.composeManyExtensions [
-    (import ./btop.nix)
-    (import ./fish.nix)
-    (import ./neovim.nix)
-    (import ./ranger.nix)
-  ];
+{
+  flake.overlays.defaults = final: prev:
+    prev.lib.composeManyExtensions
+    (
+      prev.lib.pipe ./. [
+        builtins.readDir
+        builtins.attrNames
+
+        (builtins.filter (n: n != "default.nix"))
+        (map (f: import ./${f}))
+      ]
+    )
+    final
+    prev;
 }
