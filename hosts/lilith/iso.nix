@@ -17,5 +17,9 @@
 
     # faster compression in exchange for larger iso size
     squashfsCompression = "gzip -Xcompression-level 1";
+
+    # hopefully makes the ISO bootable over ventoy
+    makeEfiBootable = true;
+    makeUsbBootable = true;
   };
 }

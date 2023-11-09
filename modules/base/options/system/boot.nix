@@ -31,9 +31,9 @@ in {
     };
 
     silentBoot =
-      mkEnableOption (lib.mdDoc ''
+      mkEnableOption ''
         almost entirely silent boot process through `quiet` kernel parameter
-      '')
+      ''
       // {default = config.modules.system.boot.plymouth.enable;};
 
     extraKernelParams = mkOption {
@@ -53,10 +53,12 @@ in {
       description = "The bootloader that should be used for the device.";
     };
 
-    device = mkOption {
-      type = with types; nullOr str;
-      default = "nodev";
-      description = "The device to install the bootloader to.";
+    grub = {
+      device = mkOption {
+        type = with types; nullOr str;
+        default = "nodev";
+        description = "The device to install the bootloader to.";
+      };
     };
 
     memtest = {

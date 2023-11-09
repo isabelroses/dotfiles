@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkOption mkEnableOption types mdDoc;
+  inherit (lib) mkOption mkEnableOption types;
   cfg = config.modules.style;
 in {
   imports = [./gtk.nix ./qt.nix];
@@ -27,7 +27,7 @@ in {
           slug = mkOption {
             type = types.str;
             default = lib.serializeTheme "${cfg.colorScheme.name}";
-            description = mdDoc ''
+            description = ''
               The serialized slug for the colorScheme you are using. Defaults to a lowercased version of the theme name with spaces
               replaced with hyphens. Only change if the slug is expected to be different."
             '';

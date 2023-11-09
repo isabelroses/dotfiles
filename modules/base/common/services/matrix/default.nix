@@ -54,12 +54,7 @@ in {
               "/_matrix".proxyPass = "http://[${bindAddress}]:${toString port}";
               "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString port}";
             };
-          }
-          // sslTemplate;
-
-        "matrix.${domain}" =
-          {
-            locations."/".proxyPass = "http://127.0.0.1:8008";
+            serverAliases = ["matrix.${domain}"];
           }
           // sslTemplate;
       };

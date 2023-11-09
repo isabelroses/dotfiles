@@ -4,15 +4,27 @@
   config,
   ...
 }: let
-  inherit (lib) mkDefault mkForce mkIf;
+  inherit (lib) mkForce mkIf;
   inherit (config.modules) device;
+
+  cfg = config.networking.nftables;
 in {
   imports = [
     ./fail2ban.nix
     ./nftables.nix
   ];
 
-  config = {
+  config = let
+    check-results =
+      pkgs.runCommand "check-nft-ruleset" {
+        ruleset = pkgs.writeText "nft-ruleset" cfg.ruleset;
+      } ''
+        mkdir -p $out
+        ${pkgs.nftables}/bin/nft -c -f $ruleset 2>&1 > $out/message \
+          && echo false > $out/assertion \
+          || echo true > $out/assertion
+      '';
+  in {
     services = {
       # enable opensnitch firewall
       # inactive until opensnitch UI is opened
@@ -21,8 +33,11 @@ in {
 
     networking = {
       firewall = {
-        enable = mkDefault true;
-        package = mkDefault pkgs.iptables-nftables-compat;
+        enable = !cfg.enable;
+        package =
+          if cfg.enable
+          then pkgs.iptables-nftables-compat
+          else pkgs.iptables;
         allowedTCPPorts = [
           443
           8080
@@ -48,5 +63,17 @@ in {
         checkReversePath = mkForce false; # Don't filter DHCP packets, according to nixops-libvirtd
       };
     };
+
+    assertions = [
+      {
+        message = ''
+          Bad config:
+          ${builtins.readFile "${check-results}/message"}
+        '';
+        assertion = import "${check-results}/assertion";
+      }
+    ];
+
+    system.extraDependencies = [check-results]; # pin IFD as a system dependency
   };
 }

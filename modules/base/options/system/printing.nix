@@ -4,7 +4,7 @@ in {
   options.modules.system.printing = {
     enable = mkEnableOption "printing";
 
-    drivers = mkOption {
+    extraDrivers = mkOption {
       type = with types; listOf str;
       default = [];
       description = "A list of additional drivers to install for printing";

@@ -6,6 +6,7 @@
   inherit (lib) mkIf mkDefault mkForce genAttrs;
 
   dev = config.modules.device;
+  sys = config.modules.system;
 in {
   imports = [
     ./firewall
@@ -15,7 +16,7 @@ in {
     ./optimise.nix
   ];
 
-  users = {
+  users = mkIf config.networking.tcpcrypt.enable {
     groups.tcpcryptd = {};
     users.tcpcryptd = {
       isSystemUser = true;
@@ -26,6 +27,19 @@ in {
   services = {
     # systemd DNS resolver daemon
     resolved.enable = true;
+  };
+
+  wireless = {
+    enable = sys.networking.wirelessBackend == "wpa_supplicant";
+    userControlled.enable = true;
+    iwd = {
+      enable = sys.networking.wirelessBackend == "iwd";
+      settings = {
+        Settings = {
+          AutoConnect = true;
+        };
+      };
+    };
   };
 
   networking = {
@@ -61,7 +75,7 @@ in {
       unmanaged = ["docker0" "rndis0"];
 
       wifi = {
-        # backend = "iwd";
+        backend = sys.networking.wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_s until iwd support is stable
         # The below is disabled as my uni hated me for it
         # macAddress = "random"; # use a random mac address on every boot, this can scew with static ip
         powersave = true;

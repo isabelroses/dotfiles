@@ -8,7 +8,7 @@
 with lib; {
   imports = [
     "${modulesPath}/profiles/minimal.nix"
-    "${modulesPath}/installer/cd-dvd/installation-cd-base.nix"
+    "${modulesPath}/installer/cd-dvd/iso-image.nix"
 
     ./boot.nix
     ./iso.nix
@@ -16,11 +16,17 @@ with lib; {
     ./nix.nix
   ];
 
-  # FIXME: for some reason, we cannot boot off ventoy
-  # and have to burn the iso to an entire USB with dd
-  # dd if=result/iso/*.iso of=/dev/sdX status=progress
-
   users.extraUsers.root.password = "";
+
+  users.users = {
+    nixos = {
+      uid = 1000;
+      password = "nixos";
+      description = "default";
+      isNormalUser = true;
+      extraGroups = ["wheel"];
+    };
+  };
 
   console = let
     variant = "u24n";
