@@ -29,19 +29,6 @@ in {
     resolved.enable = true;
   };
 
-  wireless = {
-    enable = sys.networking.wirelessBackend == "wpa_supplicant";
-    userControlled.enable = true;
-    iwd = {
-      enable = sys.networking.wirelessBackend == "iwd";
-      settings = {
-        Settings = {
-          AutoConnect = true;
-        };
-      };
-    };
-  };
-
   networking = {
     # generate a host ID by hashing the hostname
     hostId = builtins.substring 0 8 (builtins.hashString "md5" config.networking.hostName);
@@ -67,6 +54,19 @@ in {
       "1.0.0.1"
       "9.9.9.9"
     ];
+
+    wireless = {
+      enable = sys.networking.wirelessBackend == "wpa_supplicant";
+      userControlled.enable = true;
+      iwd = {
+        enable = sys.networking.wirelessBackend == "iwd";
+        settings = {
+          Settings = {
+            AutoConnect = true;
+          };
+        };
+      };
+    };
 
     networkmanager = {
       enable = true;

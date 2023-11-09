@@ -14,7 +14,7 @@ in {
         useOSProber = true;
         efiSupport = true;
         enableCryptodisk = mkDefault false;
-        device = cfg.boot.device;
+        device = cfg.boot.grub.device;
         theme = null;
         backgroundColor = null;
         splashImage = null;
