@@ -1,5 +1,5 @@
 _: prev: {
-  btop =
+  ranger =
     if prev.stdenv.isLinux
     then
       prev.symlinkJoin {
