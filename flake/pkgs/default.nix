@@ -1,9 +1,4 @@
 _: {
-  systems = [
-    "x86_64-linux"
-    "aarch64-linux"
-  ];
-
   perSystem = {
     pkgs,
     inputs',
@@ -11,7 +6,6 @@ _: {
   }: {
     packages = {
       cybershef = pkgs.callPackage ./cyberchef.nix {};
-      # https://github.com/NixOS/nixpkgs/issues/195512
       lutgen-rs = pkgs.callPackage ./lutgen-rs.nix {};
       patched-gjs = pkgs.callPackage ./patched-gjs.nix {};
       plymouth-theme-catppuccin = pkgs.callPackage ./plymouth-theme-catppuccin.nix {};
