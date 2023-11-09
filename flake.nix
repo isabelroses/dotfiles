@@ -18,11 +18,9 @@
         {config._module.args._inputs = inputs // {inherit (inputs) self;};}
 
         inputs.flake-parts.flakeModules.easyOverlay
-        inputs.treefmt-nix.flakeModule
 
         # flake parts
         ./flake/makeSys.nix # args that is passsed to the flake, moved away from the main file
-        #./flake/checks.nix # checks for the flake
 
         # flake part programs
         ./flake/programs/pre-commit.nix # pre-commit hooks
@@ -68,20 +66,12 @@
           DIRENV_LOG_FORMAT = "";
 
           packages = with pkgs; [
-            config.treefmt.build.wrapper # treewide formatter
-            nil # nix language server
-            alejandra # nix formatter
             git # flakes require git
-            glow # fancy markdown viewer
+            nil # nix language server
             statix # lints and suggestions
             deadnix # clean up unused nix code
-            (pkgs.writeShellApplication {
-              name = "update";
-              text = ''
-                ${pkgs.runtimeShell}
-                nix flake update && git commit flake.lock -m "flake: bump inputs"
-              '';
-            })
+            alejandra # nix formatter
+            config.treefmt.build.wrapper # treewide formatter
           ];
 
           inputsFrom = [
@@ -92,58 +82,8 @@
     });
 
   inputs = {
+    # choose our nixpkgs version
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-
-    flake-utils.url = "github:numtide/flake-utils";
-
-    # too hard to explain
-    pre-commit-hooks = {
-      url = "github:cachix/pre-commit-hooks.nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
-    # Nix helper
-    nh = {
-      url = "github:viperML/nh";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Run unpatched dynamic binaries on NixOS
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nix-index-db = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # a tree-wide formatter
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # project shells
-    devshell = {
-      url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # remote ssh vscode server
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Packages for Wayland
     nixpkgs-wayland = {
@@ -162,6 +102,31 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    # project shells
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # too hard to explain
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+      };
+    };
+
+    nix-index-db = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Rust overlay
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
@@ -175,24 +140,33 @@
       inputs.rust-overlay.follows = "rust-overlay";
     };
 
-    # Amazing themeing & tools
-    catppuccin.url = "github:Stonks3141/ctp-nix";
-    catppuccin-toolbox.url = "github:catppuccin/toolbox";
+    # mailserver on nixos
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+
+    # remote ssh vscode server
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # secure-boot on nixos
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        pre-commit-hooks-nix.follows = "pre-commit-hooks";
+        flake-utils.follows = "pre-commit-hooks/flake-utils";
+        flake-compat.follows = "pre-commit-hooks/flake-compat";
+      };
+    };
 
     # Secrets, shhh
     sops = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-    };
-
-    # More up to date minecraft launcher
-    prism-launcher = {
-      url = "github:PrismLauncher/PrismLauncher";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        pre-commit-hooks.follows = "pre-commit-hooks";
+        nixpkgs-stable.follows = "nixpkgs";
       };
     };
 
@@ -209,11 +183,49 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Highly customisable nixos neovim flake
+    neovim-flake = {
+      url = "github:NotAShelf/neovim-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nil.follows = "nil";
+        flake-parts.follows = "flake-parts";
+        flake-utils.follows = "pre-commit-hooks/flake-utils";
+      };
+    };
+
+    # a tree-wide formatter
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # More up to date auto-cpufreq
     auto-cpufreq = {
       url = "github:AdnanHodzic/auto-cpufreq";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # cool bars
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Nix helper
+    nh = {
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Run unpatched dynamic binaries on NixOS
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # lovely app
+    bellado.url = "github:isabelroses/bellado";
 
     # Firefox but really locked down and air tight
     schizofox = {
@@ -224,44 +236,40 @@
       };
     };
 
-    # cool bars
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
+    # More up to date minecraft launcher
+    prism-launcher = {
+      url = "github:PrismLauncher/PrismLauncher";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        pre-commit-hooks.follows = "pre-commit-hooks";
+        flake-compat.follows = "pre-commit-hooks/flake-compat";
+      };
     };
-
-    # lovely app
-    bellado.url = "github:isabelroses/bellado";
 
     # cool wallpaper maker
     catppuccinifier = {
       url = "github:lighttigerXIV/catppuccinifier";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # secure-boot on nixos
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # mailserver on nixos
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
-
-    # Highly customisable nixos neovim flake
-    neovim-flake = {
-      url = "github:NotAShelf/neovim-flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nil.follows = "nil";
-        flake-utils.follows = "flake-utils";
-        flake-parts.follows = "flake-parts";
+        flake-utils.follows = "pre-commit-hooks/flake-utils";
       };
     };
 
-    # nur's
-    # nur.url = "github:nix-community/nur";
-    # nekowinston-nur.url = "github:nekowinston/nur";
+    # cool tools
+    catppuccin-toolbox = {
+      url = "github:catppuccin/toolbox";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Amazing themeing
+    catppuccin = {
+      url = "github:Stonks3141/ctp-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
 
     # Schemas
     flake-schemas.url = "github:DeterminateSystems/flake-schemas";

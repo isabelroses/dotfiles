@@ -1,5 +1,5 @@
-_: {
-  systems = ["x86_64-linux" "aarch64-linux"];
+{inputs, ...}: {
+  imports = [inputs.treefmt-nix.flakeModule];
 
   perSystem = {pkgs, ...}: {
     treefmt = {

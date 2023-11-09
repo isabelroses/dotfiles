@@ -22,6 +22,8 @@
         alejandra = mkHook "Alejandra" {enable = true;};
         actionlint = mkHook "actionlint" {enable = true;};
         prettier = mkHook "prettier" {enable = true;};
+        commitizen = mkHook "commitizen" {enable = true;};
+        #nil = mkHook "nil" {enable = true;};
         editorconfig-checker = mkHook "editorconfig" {
           enable = false;
           always_run = true;
