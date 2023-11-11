@@ -6,13 +6,13 @@
 }:
 with lib; let
   # only the newest nvidia package
-  nvStable = config.boot.kernelPackages.nvidiaPackages.stable.version;
-  nvBeta = config.boot.kernelPackages.nvidiaPackages.beta.version;
+  nvStable = config.boot.kernelPackages.nvidiaPackages.stable;
+  nvBeta = config.boot.kernelPackages.nvidiaPackages.beta;
 
   nvidiaPackage =
-    if (versionOlder nvBeta nvStable)
-    then config.boot.kernelPackages.nvidiaPackages.stable
-    else config.boot.kernelPackages.nvidiaPackages.beta;
+    if (versionOlder nvBeta.version nvStable.version)
+    then nvStable
+    else nvBeta;
 
   inherit (config.modules) device;
   env = config.modules.usrEnv;
