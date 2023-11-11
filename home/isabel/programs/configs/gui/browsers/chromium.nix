@@ -24,6 +24,22 @@ in {
           "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
           "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
         ];
+
+      extraOpts = {
+        "AutofillAddressEnabled" = false;
+        "AutofillCreditCardEnabled" = false;
+        "BuiltInDnsClientEnabled" = false;
+        "DeviceMetricsReportingEnabled" = true;
+        "ReportDeviceCrashReportInfo" = false;
+        "PasswordManagerEnabled" = false;
+        "SpellcheckEnabled" = true;
+        "SpellcheckLanguage" = [
+          "en-GB"
+          "en-US"
+        ];
+        "VoiceInteractionHotwordEnabled" = false;
+      };
+
       package = pkgs.ungoogled-chromium.override {
         nss = pkgs.nss_latest;
         commandLineArgs =
