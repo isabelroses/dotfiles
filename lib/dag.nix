@@ -19,7 +19,7 @@
           };
 
           before = mkOption {
-            type = with lib; listOf str;
+            type = with lib.types; listOf str;
             default = [];
             description = "Entries to guarantee before.";
           };

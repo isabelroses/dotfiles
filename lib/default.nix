@@ -1,23 +1,36 @@
-{
-  nixpkgs,
-  inputs,
-  ...
-}: let
-  inherit (nixpkgs) lib;
+{inputs, ...}: let
+  inherit (inputs.nixpkgs) lib;
   inherit (lib) foldl recursiveUpdate;
 
-  # a modified version of NUR's dag type
-  dag = import ./dag.nix {inherit lib;};
+  # wrap the import with a pre-inherited lib to avoid typing it over and over again
+  # credits to @nrabulinski
+  import' = path: let
+    func = import path;
+    args = lib.functionArgs func;
+    requiredArgs = lib.filterAttrs (_: val: !val) args;
+    defaultArgs = (lib.mapAttrs (_: _: null) requiredArgs) // {inherit lib;};
+    functor = {__functor = _: attrs: func (defaultArgs // attrs);};
+  in
+    (func defaultArgs) // functor;
 
-  builders = import ./builders.nix {inherit lib inputs nixpkgs;};
-  services = import ./services.nix {inherit lib;};
-  validators = import ./validators.nix {inherit lib;};
-  helpers = import ./helpers.nix {inherit lib;};
-  hardware = import ./hardware.nix {inherit lib;};
-  aliases = import ./aliases.nix {inherit lib;};
-  firewall = import ./firewall.nix {inherit lib dag;};
+  # a modified version of NUR's dag type
+  dag = import' ./dag.nix;
+
+  builders = import' ./builders.nix {inherit inputs;};
+  services = import' ./services.nix;
+  validators = import' ./validators.nix;
+  helpers = import' ./helpers.nix;
+  hardware = import' ./hardware.nix;
+
+  # abstractions over networking functions
+  firewall = import' ./networking/firewall.nix {inherit dag;};
+  namespacing = import' ./networking/namespacing.nix;
+
+  # aliases for commonly used strings or functions
+  aliases = import' ./aliases.nix;
 
   # recursively merges two attribute sets
   mergeRecursively = lhs: rhs: recursiveUpdate lhs rhs;
+  importedLibs = [builders services validators helpers hardware aliases firewall namespacing dag];
 in
-  lib.extend (_: _: foldl mergeRecursively {} [builders services validators helpers hardware aliases firewall dag])
+  lib.extend (_: _: foldl mergeRecursively {} importedLibs)
