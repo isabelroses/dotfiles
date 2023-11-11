@@ -56,12 +56,10 @@ in {
 
         (mkIf env.isWayland {
           WLR_NO_HARDWARE_CURSORS = "1";
-          # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
           # GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
         })
 
         (mkIf (env.isWayland && device.gpu == "hybrid-nv") {
-          #__NV_PRIME_RENDER_OFFLOAD = "1";
           #WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
         })
       ];
