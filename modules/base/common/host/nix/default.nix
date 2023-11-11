@@ -143,6 +143,7 @@
         "https://isabelroses.cachix.org" # precompiled binarys from my NUR
         "https://neovim-flake.cachix.org" # a cache for notashelf's neovim flake
         "https://catppuccin.cachix.org" # a cache for ctp nix
+        "https://pre-commit-hooks.cachix.org" # pre commit hooks
       ];
 
       trusted-public-keys = [
@@ -157,6 +158,7 @@
         "isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM="
         "neovim-flake.cachix.org-1:iyQ6lHFhnB5UkVpxhQqLJbneWBTzM8LBYOFPLNH4qZw="
         "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
+        "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
       ];
     };
   };
