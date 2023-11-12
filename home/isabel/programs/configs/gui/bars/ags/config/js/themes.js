@@ -57,7 +57,7 @@ const misc_colors = {
 
 // themes
 const mocha = {
-    wallpaper: WP + "tempest.png",
+    wallpaper: WP + "catgirl.jpg",
     name: "mocha",
     color_scheme: "dark",
     icon: "",
@@ -67,7 +67,7 @@ const mocha = {
 };
 
 const latte = {
-    wallpaper: WP + "coke.jpg",
+    wallpaper: WP + "card_after_training.png",
     name: "latte",
     color_scheme: "light",
     icon: "",
