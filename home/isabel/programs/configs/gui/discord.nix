@@ -2,7 +2,6 @@
   osConfig,
   lib,
   pkgs,
-  self,
   ...
 }: let
   inherit (osConfig.modules.system) video;
