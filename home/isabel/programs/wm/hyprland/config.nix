@@ -144,20 +144,21 @@ in {
       };
 
       windowrule = [
+        "float, Bitwarden"
         "float, ^(Rofi)$"
         "float, ^(eww)$"
         "float, ^(pavucontrol)$"
         "float, ^(nm-connection-editor)$"
         "float, ^(blueberry.py)$"
-        "float, ^(org.gnome.Settings)$"
-        "float, ^(org.gnome.design.Palette)$"
         "float, ^(Color Picker)$"
         "float, ^(Network)$"
+        "float, ^(ags)$"
         "float, ^(xdg-desktop-portal)$"
         "float, ^(xdg-desktop-portal-gnome)$"
+        "float, title:^(Picture-in-Picture)$"
         "float, ^(transmission-gtk)$"
-        "float, ^(ags)$"
-        "float, Bitwarden"
+        "float, class:^(Viewnior)$"
+        "float, class:^(download)$"
         "size 800 600,class:Bitwarden"
       ];
 
