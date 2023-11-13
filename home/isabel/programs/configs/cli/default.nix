@@ -2,6 +2,7 @@ _: {
   imports = [
     ./shells
 
+    ./atuin.nix
     ./bat.nix
     ./eza.nix
     ./git.nix

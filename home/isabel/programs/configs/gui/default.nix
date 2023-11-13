@@ -7,6 +7,7 @@ _: {
     ./terminals
 
     ./discord.nix
+    ./viewnior.nix
     ./zathura.nix
   ];
 }
