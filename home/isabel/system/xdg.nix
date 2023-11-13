@@ -24,7 +24,7 @@
 
     "audio/*" = ["mpv.desktop"];
     "video/*" = ["mpv.dekstop"];
-    "image/*" = ["imv.desktop"];
+    "image/*" = ["viewnoir.desktop"];
     "application/json" = browser;
     "application/pdf" = zathura;
     "x-scheme-handler/spotify" = ["spotify.desktop"];
