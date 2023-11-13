@@ -10,6 +10,11 @@
   pointer = config.home.pointerCursor;
   dev = osConfig.modules.device;
   inherit (osConfig.modules.device) monitors;
+
+  ags = "ags -b hypr";
+  eags = "exec, ${ags}";
+  eww = "~/.config/eww/scripts";
+  eeww = "exec, ${eww}";
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -29,13 +34,13 @@ in {
           "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
         ]
         ++ optionals (defaults.bar == "eww") [
-          "~/.config/eww/scripts/init"
+          "${eww}/init"
         ]
         ++ optionals (defaults.bar == "waybar") [
           "waybar"
         ]
         ++ optionals (defaults.bar == "ags") [
-          "ags -b hypr"
+          ags
         ];
 
       input = {
@@ -155,14 +160,15 @@ in {
         "float, ^(ags)$"
         "float, ^(xdg-desktop-portal)$"
         "float, ^(xdg-desktop-portal-gnome)$"
-        "float, title:^(Picture-in-Picture)$"
         "float, ^(transmission-gtk)$"
-        "float, class:^(Viewnior)$"
-        "float, class:^(download)$"
         "size 800 600,class:Bitwarden"
       ];
 
       windowrulev2 = [
+        "float, title:^(Picture-in-Picture)$"
+        "float, class:^(Viewnior)$"
+        "float, class:^(download)$"
+
         "workspace 6, title:^(.*(Disc|WebC)ord.*)$"
 
         # throw sharing indicators away
@@ -202,17 +208,17 @@ in {
           "$mod, mouse_up, workspace, e-1"
         ]
         ++ optionals (defaults.bar == "eww") [
-          "$mod, D, exec, ~/.config/eww/scripts/launcher toggle_menu app_launcher"
-          "$mod SHIFT, R, exec, ~/.config/eww/scripts/init"
-          "$mod, V, exec, ~/.config/eww/scripts/launcher clipboard"
-          "$mod, escape, exec, ~/.config/eww/scripts/launcher toggle_menu powermenu"
-          "$mod shift, d, exec, ~/.config/eww/scripts/notifications closeLatest"
-          ", XF86AudioMute, exec, ~/.config/eww/scripts/volume mute"
+          "$mod, D, ${eeww}/launcher toggle_menu app_launcher"
+          "$mod SHIFT, R, ${eeww}/init"
+          "$mod, V, ${eeww}/launcher clipboard"
+          "$mod, escape, ${eeww}/launcher toggle_menu powermenu"
+          "$mod shift, d, ${eeww}/notifications closeLatest"
+          ", XF86AudioMute, ${eeww}/volume mute"
 
           # screenshot
-          ", PRINT, exec, ~/.config/eww/scripts/launcher toggle_menu takeshot"
-          "shift, PRINT, exec, ~/.config/eww/scripts/screenshot screen-quiet"
-          "super shift, S, exec, ~/.config/eww/scripts/screenshot area-quiet"
+          ", PRINT, ${eeww}/launcher toggle_menu takeshot"
+          "shift, PRINT, ${eeww}/screenshot screen-quiet"
+          "super shift, S, ${eeww}/screenshot area-quiet"
         ]
         ++ optionals (defaults.bar == "waybar") [
           "$mod, D, exec, rofi -show drun"
@@ -221,10 +227,10 @@ in {
           "$mod, period, exec, killall rofi || rofi -show emoji -emoji-format '{emoji}' -modi emoji"
         ]
         ++ optionals (defaults.bar == "ags") [
-          "$mod, D, exec, ags -b hypr -t applauncher"
-          "$mod, escape, exec, ags -b hypr -t powermenu"
-          "$mod SHIFT, R, exec, ags -b hypr --quit ; ags -b hypr"
-          ", Xf86AudioMute, exec, ags -b hypr -r 'volume.master.toggleMute(); indicator.display()'"
+          "$mod, D, ${eags} -t applauncher"
+          "$mod, escape, ${eags} -t powermenu"
+          "$mod SHIFT, R, ${eags} --quit ; ${ags}"
+          ", Xf86AudioMute, ${eags} -r 'volume.master.toggleMute(); indicator.display()'"
         ]
         ++ optionals (defaults.bar != "eww") [
           ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
@@ -238,18 +244,18 @@ in {
         ];
 
       bindle = optionals (defaults.bar == "ags") [
-        ", XF86MonBrightnessUp, exec, ags -b hypr -r 'brightness.screen += 0.05; indicator.display()'"
-        ", XF86MonBrightnessDown, exec, ags -b hypr -r 'brightness.screen -= 0.05; indicator.display()'"
-        ", XF86AudioRaiseVolume, exec, ags -b hypr -r 'audio.speaker.volume += 0.05; indicator.speaker()'"
-        ", XF86AudioLowerVolume, exec, ags -b hypr -r 'audio.speaker.volume -= 0.05; indicator.speaker()'"
+        ", XF86MonBrightnessUp, ${eags} -r 'brightness.screen += 0.05; indicator.display()'"
+        ", XF86MonBrightnessDown, ${eags} -r 'brightness.screen -= 0.05; indicator.display()'"
+        ", XF86AudioRaiseVolume, ${eags} -r 'audio.speaker.volume += 0.05; indicator.speaker()'"
+        ", XF86AudioLowerVolume, ${eags} -r 'audio.speaker.volume -= 0.05; indicator.speaker()'"
       ];
 
       bindl = optionals (defaults.bar == "ags") [
-        ", XF86AudioPlay, exec, ags -b hypr -r 'mpris.players.pop()?.playPause()'"
-        ", XF86AudioStop, exec, ags -b hypr -r 'mpris.players.pop()?.stop()'"
-        ", XF86AudioPause, exec, ags -b hypr -r 'mpris.players.pop()?.pause()'"
-        ", XF86AudioPrev, exec, ags -b hypr -r 'mpris.players.pop()?.previous()'"
-        ", XF86AudioNext, exec, ags -b hypr -r 'mpris.players.pop()?.next()'"
+        ", XF86AudioPlay, ${eags} -r 'mpris?.playPause()'"
+        ", XF86AudioStop, ${eags} -r 'mpris?.stop()'"
+        ", XF86AudioPause, ${eags} -r 'mpris?.pause()'"
+        ", XF86AudioPrev, ${eags} -r 'mpris.?.previous()'"
+        ", XF86AudioNext, ${eags} -r 'mpris.?.next()'"
       ];
 
       # mouse binds
@@ -261,10 +267,10 @@ in {
       # hold to repeat action buttons
       binde =
         optionals (defaults.bar == "eww") [
-          ", XF86AudioRaiseVolume, exec, ~/.config/eww/scripts/volume up"
-          ", XF86AudioLowerVolume, exec, ~/.config/eww/scripts/volume down"
-          ", XF86MonBrightnessUp, exec, ~/.config/eww/scripts/brightness up"
-          ", XF86MonBrightnessDown, exec, ~/.config/eww/scripts/brightness down"
+          ", XF86AudioRaiseVolume, ${eeww}/volume up"
+          ", XF86AudioLowerVolume, ${eeww}/volume down"
+          ", XF86MonBrightnessUp, ${eeww}/brightness up"
+          ", XF86MonBrightnessDown, ${eeww}/brightness down"
         ]
         ++ optionals (defaults.bar == "waybar") [
           ", XF86AudioRaiseVolume, exec, pamixer -i 5"
