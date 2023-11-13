@@ -1,8 +1,11 @@
+import Mpris from "resource:///com/github/Aylur/ags/service/mpris.js";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import * as mpris from "../../misc/mpris.js";
-import { Mpris, Widget } from "../../imports.js";
+import options from "../../options.js";
 
-const blackList = ["Caprine"];
+const { blackList } = options.mpris;
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 const Footer = (player) =>
     Widget.CenterBox({
         class_name: "footer-box",
@@ -33,6 +36,7 @@ const Footer = (player) =>
         ],
     });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 const TextBox = (player) =>
     Widget.Box({
         children: [
@@ -64,31 +68,30 @@ const TextBox = (player) =>
         ],
     });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 const PlayerBox = (player) =>
     Widget.Box({
         class_name: `player ${player.name}`,
         child: mpris.BlurredCoverArt(player, {
             class_name: "cover-art-bg",
             hexpand: true,
-            children: [
-                Widget.Box({
-                    class_name: "shader",
-                    hexpand: true,
-                    vertical: true,
-                    children: [
-                        TextBox(player),
-                        mpris.PositionSlider(player),
-                        Footer(player),
-                    ],
-                }),
-            ],
+            child: Widget.Box({
+                class_name: "shader",
+                hexpand: true,
+                vertical: true,
+                children: [
+                    TextBox(player),
+                    mpris.PositionSlider(player),
+                    Footer(player),
+                ],
+            }),
         }),
     });
 
 export default () =>
     Widget.Box({
         vertical: true,
-        class_name: "media",
+        class_name: "media vertical",
         binds: [
             [
                 "children",
@@ -96,7 +99,7 @@ export default () =>
                 "players",
                 (ps) =>
                     ps
-                        .filter((p) => !blackList.includes(p.identity))
+                        .filter((p) => !blackList.value.includes(p.identity))
                         .map(PlayerBox),
             ],
         ],

@@ -1,9 +1,11 @@
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Battery from "resource:///com/github/Aylur/ags/service/battery.js";
 import icons from "../../icons.js";
 import PowerMenu from "../../services/powermenu.js";
-import Theme from "../../services/theme/theme.js";
 import Avatar from "../../misc/Avatar.js";
 import { uptime } from "../../variables.js";
-import { Battery, Widget } from "../../imports.js";
+import options from "../../options.js";
+import { openSettings } from "../../settings/theme.js";
 
 export const BatteryProgress = () =>
     Widget.Box({
@@ -14,8 +16,19 @@ export const BatteryProgress = () =>
             [
                 Battery,
                 (w) => {
-                    w.toggleClassName("half", Battery.percent < 46);
-                    w.toggleClassName("low", Battery.percent < 30);
+                    w.toggleClassName(
+                        "charging",
+                        Battery.charging || Battery.charged,
+                    );
+                    w.toggleClassName(
+                        "medium",
+                        Battery.percent < options.battery.medium.value,
+                    );
+                    w.toggleClassName(
+                        "low",
+                        Battery.percent < options.battery.low.value,
+                    );
+                    w.toggleClassName("half", Battery.percent < 48);
                 },
             ],
         ],
@@ -53,7 +66,7 @@ export const BatteryProgress = () =>
 
 export default () =>
     Widget.Box({
-        class_name: "header",
+        class_name: "header horizontal",
         children: [
             Avatar(),
             Widget.Box({
@@ -65,7 +78,7 @@ export default () =>
                         children: [
                             Widget.Button({
                                 vpack: "center",
-                                on_clicked: () => Theme.openSettings(),
+                                on_clicked: openSettings,
                                 child: Widget.Icon(icons.settings),
                             }),
                             Widget.Label({

@@ -1,0 +1,19 @@
+$hover: transparentize($_widget-bg, ($widget-opacity * 0.9) / 100);
+$widget-bg: transparentize($_widget-bg, $widget-opacity / 100);
+$active-gradient: linear-gradient($accent-gradient);
+
+$border_color: transparentize($_border_color, $border_opacity / 100);
+$border: $border-width solid $border-color;
+
+$text-shadow: 2px 2px 2px $shadow;
+
+$popover-border-color: transparentize(
+	$_border-color,
+	max(($border-opacity - 1) / 100, 0)
+);
+$popover-padding: $padding * $popover-padding-multiplier;
+$popover-radius: if($radii ==0, 0, $radii + $popover-padding);
+
+* {
+	font-size: $font-size;
+}

@@ -1,8 +1,9 @@
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Battery from "resource:///com/github/Aylur/ags/service/battery.js";
 import icons from "../../icons.js";
 import FontIcon from "../../misc/FontIcon.js";
 import options from "../../options.js";
 import PanelButton from "../PanelButton.js";
-import { Battery, Widget } from "../../imports.js";
 
 const Indicator = () =>
     Widget.Stack({
@@ -23,7 +24,7 @@ const Indicator = () =>
 const PercentLabel = () =>
     Widget.Revealer({
         transition: "slide_right",
-        reveal_child: options.battaryBar.showPercentage,
+        binds: [["reveal-child", options.battery.showPercentage]],
         child: Widget.Label({
             binds: [["label", Battery, "percent", (p) => `${p}%`]],
         }),
@@ -40,7 +41,10 @@ export default () => {
 
     return PanelButton({
         class_name: "battery-bar",
-        on_clicked: () => (revaler.reveal_child = !revaler.reveal_child),
+        on_clicked: () => {
+            const v = options.battery.showPercentage.value;
+            options.battery.showPercentage.value = !v;
+        },
         content: Widget.Box({
             binds: [["visible", Battery, "available"]],
             connections: [
@@ -53,16 +57,17 @@ export default () => {
                         );
                         w.toggleClassName(
                             "medium",
-                            Battery.percent < options.battaryBar.medium,
+                            Battery.percent < options.battery.medium.value,
                         );
                         w.toggleClassName(
                             "low",
-                            Battery.percent < options.battaryBar.low,
+                            Battery.percent < options.battery.low.value,
                         );
+                        w.toggleClassName("half", Battery.percent < 48);
                     },
                 ],
             ],
-            children: [Indicator(), revaler, LevelBar()],
+            children: [Indicator(), Widget.Box({ child: revaler }), LevelBar()],
         }),
     });
 };

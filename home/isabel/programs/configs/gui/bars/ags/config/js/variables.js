@@ -1,5 +1,8 @@
+import Variable from "resource:///com/github/Aylur/ags/variable.js";
+import GLib from "gi://GLib";
 import options from "./options.js";
-import { Variable, Utils } from "./imports.js";
+
+const interval = options.systemFetchInterval;
 
 export const uptime = Variable("", {
     poll: [
@@ -14,10 +17,7 @@ export const uptime = Variable("", {
     ],
 });
 
-export const distro = Utils.exec("cat /etc/os-release")
-    .split("\n")
-    .find((line) => line.startsWith("ID"))
-    .split("=")[1];
+export const distro = GLib.get_os_info("ID");
 
 export const distroIcon = (() => {
     switch (distro) {
@@ -40,10 +40,12 @@ export const distroIcon = (() => {
     }
 })();
 
+/** @type {function([string, string] | string[]): number} */
 const divide = ([total, free]) => free / total;
+
 export const cpu = Variable(0, {
     poll: [
-        options.systemFetchInterval,
+        interval,
         "top -b -n 1",
         (out) =>
             divide([
@@ -59,7 +61,7 @@ export const cpu = Variable(0, {
 
 export const ram = Variable(0, {
     poll: [
-        options.systemFetchInterval,
+        interval,
         "free",
         (out) =>
             divide(
@@ -73,9 +75,5 @@ export const ram = Variable(0, {
 });
 
 export const temp = Variable(0, {
-    poll: [
-        options.systemFetchInterval,
-        "cat " + options.temperature,
-        (n) => n / 100_000,
-    ],
+    poll: [interval, "cat " + options.temperature, (n) => n / 100_000],
 });

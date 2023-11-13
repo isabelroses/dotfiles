@@ -1,19 +1,26 @@
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Mpris from "resource:///com/github/Aylur/ags/service/mpris.js";
+import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import HoverRevealer from "../../misc/HoverRevealer.js";
 import * as mpris from "../../misc/mpris.js";
 import options from "../../options.js";
-import { Widget, Mpris, Utils } from "../../imports.js";
 
-export const getPlayer = (name = options.preferredMpris) =>
+export const getPlayer = (name = options.mpris.preferred.value) =>
     Mpris.getPlayer(name) || Mpris.players[0] || null;
 
-const Indicator = ({ player, direction = "right" } = {}) =>
+/**
+ * @param {Object} o
+ * @param {import('types/service/mpris').MprisPlayer} o.player
+ * @param {import('../../misc/HoverRevealer').HoverRevealProps['direction']=} o.direction
+ */
+const Indicator = ({ player, direction = "right" }) =>
     HoverRevealer({
         class_name: `media panel-button ${player.name}`,
         direction,
-        onPrimaryClick: () => player.playPause(),
-        onScrollUp: () => player.next(),
-        onScrollDown: () => player.previous(),
-        onSecondaryClick: () => player.playPause(),
+        on_primary_click: () => player.playPause(),
+        on_scroll_up: () => player.next(),
+        on_scroll_down: () => player.previous(),
+        on_secondary_click: () => player.playPause(),
         indicator: mpris.PlayerIcon(player),
         child: Widget.Label({
             vexpand: true,
@@ -23,8 +30,8 @@ const Indicator = ({ player, direction = "right" } = {}) =>
                 [
                     player,
                     (label) => {
-                        label.label = `${player.trackArtists.join(", ")} - ${
-                            player.trackTitle
+                        label.label = `${player.track_artists.join(", ")} - ${
+                            player.track_title
                         }`;
                     },
                 ],
@@ -34,9 +41,9 @@ const Indicator = ({ player, direction = "right" } = {}) =>
             [
                 player,
                 (revealer) => {
-                    if (revealer._current === player.trackTitle) return;
+                    if (revealer._current === player.track_title) return;
 
-                    revealer._current = player.trackTitle;
+                    revealer._current = player.track_title;
                     revealer.reveal_child = true;
                     Utils.timeout(3000, () => {
                         revealer.reveal_child = false;
@@ -46,8 +53,13 @@ const Indicator = ({ player, direction = "right" } = {}) =>
         ],
     });
 
-export default ({ direction } = {}) =>
-    Widget.Box({
+/**
+ * @param {Object} o
+ * @param {import('../../misc/HoverRevealer').HoverRevealProps['direction']=} o.direction
+ */
+export default ({ direction = "right" } = {}) => {
+    let current = null;
+    return Widget.Box({
         connections: [
             [
                 Mpris,
@@ -56,16 +68,17 @@ export default ({ direction } = {}) =>
                     box.visible = !!player;
 
                     if (!player) {
-                        box._player = null;
+                        current = null;
                         return;
                     }
 
                     if (box._player === player) return;
 
-                    box._player = player;
+                    current = player;
                     box.children = [Indicator({ player, direction })];
                 },
                 "notify::players",
             ],
         ],
     });
+};

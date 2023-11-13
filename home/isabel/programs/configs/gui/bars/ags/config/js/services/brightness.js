@@ -1,4 +1,5 @@
-import { Service, Utils } from "../imports.js";
+import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
+import Service from "resource:///com/github/Aylur/ags/service.js";
 
 class Brightness extends Service {
     static {
@@ -11,10 +12,10 @@ class Brightness extends Service {
         );
     }
 
-    _screen = 0;
+    #screen = 0;
 
     get screen() {
-        return this._screen;
+        return this.#screen;
     }
 
     set screen(percent) {
@@ -24,7 +25,7 @@ class Brightness extends Service {
 
         Utils.execAsync(`brightnessctl s ${percent * 100}% -q`)
             .then(() => {
-                this._screen = percent;
+                this.#screen = percent;
                 this.changed("screen");
             })
             .catch(console.error);
@@ -33,7 +34,7 @@ class Brightness extends Service {
     constructor() {
         super();
         try {
-            this._screen =
+            this.#screen =
                 Number(Utils.exec("brightnessctl g")) /
                 Number(Utils.exec("brightnessctl m"));
         } catch (error) {

@@ -1,4 +1,5 @@
-import { App, Service } from "../imports.js";
+import App from "resource:///com/github/Aylur/ags/app.js";
+import Service from "resource:///com/github/Aylur/ags/service.js";
 
 class PowerMenu extends Service {
     static {
@@ -12,15 +13,19 @@ class PowerMenu extends Service {
         );
     }
 
+    #title = "";
+    #cmd = "";
+
     get title() {
-        return this._title || "";
+        return this.#title;
     }
     get cmd() {
-        return this._cmd || "";
+        return this.#cmd;
     }
 
+    /** @param {'sleep' | 'reboot' | 'logout' | 'shutdown'} action */
     action(action) {
-        [this._cmd, this._title] = {
+        [this.#cmd, this.#title] = {
             sleep: ["systemctl suspend", "Sleep"],
             reboot: ["systemctl reboot", "Reboot"],
             logout: ["pkill Hyprland", "Log Out"],

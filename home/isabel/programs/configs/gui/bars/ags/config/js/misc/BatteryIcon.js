@@ -1,4 +1,5 @@
-import { Battery, Widget } from "../imports.js";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Battery from "resource:///com/github/Aylur/ags/service/battery.js";
 
 export default () =>
     Widget.Icon({
@@ -7,12 +8,10 @@ export default () =>
         connections: [
             [
                 Battery,
-                (stack) => {
-                    const { charging, charged } = Battery;
-                    stack.shown = `${charging || charged}`;
-                    stack.toggleClassName("charging", Battery.charging);
-                    stack.toggleClassName("charged", Battery.charged);
-                    stack.toggleClassName("low", Battery.percent < 30);
+                (icon) => {
+                    icon.toggleClassName("charging", Battery.charging);
+                    icon.toggleClassName("charged", Battery.charged);
+                    icon.toggleClassName("low", Battery.percent < 30);
                 },
             ],
         ],

@@ -7,6 +7,7 @@ class FontIcon extends AgsLabel {
         GObject.registerClass(this);
     }
 
+    /** @param {string | import('types/widgets/label').Props & { icon?: string }} params */
     constructor(params = "") {
         const { icon = "", ...rest } = params;
         super(typeof params === "string" ? {} : rest);
@@ -31,13 +32,16 @@ class FontIcon extends AgsLabel {
         );
     }
 
+    /** @returns {[number, number]} */
     vfunc_get_preferred_height() {
         return [this.size, this.size];
     }
 
+    /** @returns {[number, number]} */
     vfunc_get_preferred_width() {
         return [this.size, this.size];
     }
 }
 
+/** @param {string | import('types/widgets/label').Props & { icon?: string }} params */
 export default (params) => new FontIcon(params);

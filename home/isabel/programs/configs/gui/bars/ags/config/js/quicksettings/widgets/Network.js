@@ -1,6 +1,9 @@
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Network from "resource:///com/github/Aylur/ags/service/network.js";
+import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import icons from "../../icons.js";
 import { Menu, ArrowToggleButton } from "../ToggleButton.js";
-import { Network, Utils, Widget } from "../../imports.js";
+import Applications from "resource:///com/github/Aylur/ags/service/applications.js";
 
 export const NetworkToggle = () =>
     ArrowToggleButton({
@@ -10,7 +13,7 @@ export const NetworkToggle = () =>
                 [
                     Network,
                     (icon) => {
-                        icon.icon = Network.wifi?.icon_name || "";
+                        icon.icon = Network.wifi.icon_name || "";
                     },
                 ],
             ],
@@ -21,12 +24,12 @@ export const NetworkToggle = () =>
                 [
                     Network,
                     (label) => {
-                        label.label = Network.wifi?.ssid || "Not Connected";
+                        label.label = Network.wifi.ssid || "Not Connected";
                     },
                 ],
             ],
         }),
-        connection: [Network, () => Network.wifi?.enabled],
+        connection: [Network, () => Network.wifi.enabled],
         deactivate: () => (Network.wifi.enabled = false),
         activate: () => {
             Network.wifi.enabled = true;
@@ -42,39 +45,53 @@ export const WifiSelection = () =>
                 [
                     Network,
                     (icon) => {
-                        icon.icon = Network.wifi?.icon_name;
+                        icon.icon = Network.wifi.icon_name;
                     },
                 ],
             ],
         }),
         title: Widget.Label("Wifi Selection"),
-        content: Widget.Box({
-            vertical: true,
-            connections: [
-                [
-                    Network,
-                    (box) =>
-                        (box.children = Network.wifi?.access_points.map((ap) =>
-                            Widget.Button({
-                                on_clicked: () =>
-                                    Utils.execAsync(
-                                        `nmcli device wifi connect ${ap.bssid}`,
-                                    ),
-                                child: Widget.Box({
-                                    children: [
-                                        Widget.Icon(ap.icon_name),
-                                        Widget.Label(ap.ssid || ""),
-                                        ap.active &&
-                                            Widget.Icon({
-                                                icon: icons.tick,
-                                                hexpand: true,
-                                                hpack: "end",
-                                            }),
-                                    ],
-                                }),
-                            }),
-                        )),
+        content: [
+            Widget.Box({
+                vertical: true,
+                connections: [
+                    [
+                        Network,
+                        (box) =>
+                            (box.children = Network.wifi?.access_points.map(
+                                (ap) =>
+                                    Widget.Button({
+                                        on_clicked: () =>
+                                            Utils.execAsync(
+                                                `nmcli device wifi connect ${ap.bssid}`,
+                                            ),
+                                        child: Widget.Box({
+                                            children: [
+                                                Widget.Icon(ap.iconName),
+                                                Widget.Label(ap.ssid || ""),
+                                                ap.active &&
+                                                    Widget.Icon({
+                                                        icon: icons.tick,
+                                                        hexpand: true,
+                                                        hpack: "end",
+                                                    }),
+                                            ],
+                                        }),
+                                    }),
+                            )),
+                    ],
                 ],
-            ],
-        }),
+            }),
+            Widget.Separator(),
+            Widget.Button({
+                on_clicked: () =>
+                    Applications.query("nm-connection-editor")?.[0].launch(),
+                child: Widget.Box({
+                    children: [
+                        Widget.Icon(icons.settings),
+                        Widget.Label("Network"),
+                    ],
+                }),
+            }),
+        ],
     });

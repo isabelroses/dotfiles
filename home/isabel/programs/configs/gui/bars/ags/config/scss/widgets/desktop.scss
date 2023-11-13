@@ -1,23 +1,79 @@
 window.corner .corner {
-	background-color: if($screen_corners, $bg_color, transparent);
-	border-radius: if($screen_corners, $radii * 2, 0);
+	background-color: if($screen-corners, $bg-color, transparent);
+	border-radius: if($screen-corners, $radii * 2, 0);
 }
 
-window.indicator .progress {
-	@include floating_widget;
-	padding: $spacing/2;
+window.desktop {
+	@if $bar-style == "normal" {
+		border-radius: if($screen-corners, $radii * 2, 0);
+		box-shadow: inset 0 0 $padding 0 $shadow;
+	}
 
-	.fill {
-		border-radius: max($popover_radius - $spacing/2, 0);
-		background-color: $accent;
-		color: $accent_fg;
+	.clock-box-shadow {
+		border: 5px solid $wallpaper-fg;
+		border-radius: $radii;
 
-		image {
-			-gtk-icon-transform: scale(0.7);
+		.clock-box {
+			border-radius: max($radii - 5px, 0);
+			padding: 0 14px;
+
+			.clock {
+				color: $wallpaper-fg;
+				font-size: 140px;
+				font-family: $mono-font;
+			}
+
+			.separator-box {
+				padding: 24px 12px;
+
+				separator {
+					border-radius: $radii;
+					min-width: 16px;
+					min-height: 16px;
+					background-color: $wallpaper-fg;
+				}
+			}
+		}
+	}
+
+	.date {
+		color: $wallpaper-fg;
+		font-size: 48px;
+	}
+
+	@if $drop-shadow {
+		.clock-box-shadow,
+		separator {
+			box-shadow: 2px 2px 2px 0 $shadow;
 		}
 
-		.font-icon {
-			font-size: 34px;
+		.clock-box {
+			box-shadow: inset 2px 2px 2px 0 $shadow;
 		}
+
+		label {
+			text-shadow: $text-shadow;
+		}
+	} @else {
+		.clock-box-shadow {
+			box-shadow:
+				0 0 0 $border-width $border-color,
+				inset 0 0 0 $border-width $border-color;
+		}
+
+		separator {
+			border: $border;
+		}
+
+		label {
+			@include text-border;
+		}
+	}
+}
+
+.desktop-menu {
+	image {
+		margin-left: -14px;
+		margin-right: 6px;
 	}
 }

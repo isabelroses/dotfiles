@@ -1,38 +1,15 @@
-import Theme from "../../services/theme/theme.js";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import { ArrowToggleButton, Menu, opened } from "../ToggleButton.js";
 import themes from "../../themes.js";
 import icons from "../../icons.js";
-import { Widget } from "../../imports.js";
-
-const prettyName = (name) =>
-    name
-        .split("_")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
-
-const ThemeIcon = () =>
-    Widget.Stack({
-        transition: "crossfade",
-        items: themes.map(({ name, icon }) => [name, Widget.Label(icon)]),
-        connections: [
-            [Theme, (stack) => (stack.shown = Theme.getSetting("theme"))],
-        ],
-    });
+import options from "../../options.js";
+import { setTheme, openSettings } from "../../settings/theme.js";
 
 export const ThemeToggle = () =>
     ArrowToggleButton({
         name: "theme",
-        icon: ThemeIcon(),
-        label: Widget.Label({
-            connections: [
-                [
-                    Theme,
-                    (label) => {
-                        label.label = prettyName(Theme.getSetting("theme"));
-                    },
-                ],
-            ],
-        }),
+        icon: Widget.Label({ binds: [["label", options.theme.icon]] }),
+        label: Widget.Label({ binds: [["label", options.theme.name]] }),
         connection: [opened, () => opened.value === "theme"],
         activate: () => opened.setValue("theme"),
         activateOnArrow: false,
@@ -42,49 +19,43 @@ export const ThemeToggle = () =>
 export const ThemeSelector = () =>
     Menu({
         name: "theme",
-        icon: ThemeIcon(),
-        title: Widget.Label("Theme Selector"),
-        content: Widget.Box({
-            vertical: true,
-            children: themes
-                .map(({ name, icon }) =>
-                    Widget.Button({
-                        on_clicked: () => Theme.setSetting("theme", name),
-                        child: Widget.Box({
-                            children: [
-                                Widget.Label(icon),
-                                Widget.Label(prettyName(name)),
-                                Widget.Icon({
-                                    icon: icons.tick,
-                                    hexpand: true,
-                                    hpack: "end",
-                                    connections: [
-                                        [
-                                            Theme,
-                                            (icon) => {
-                                                icon.visible =
-                                                    Theme.getSetting(
-                                                        "theme",
-                                                    ) === name;
-                                            },
-                                        ],
-                                    ],
-                                }),
-                            ],
-                        }),
-                    }),
-                )
-                .concat([
-                    Widget.Separator(),
-                    Widget.Button({
-                        on_clicked: () => Theme.openSettings(),
-                        child: Widget.Box({
-                            children: [
-                                Widget.Icon(icons.settings),
-                                Widget.Label("Theme Settings"),
-                            ],
-                        }),
-                    }),
-                ]),
+        icon: Widget.Label({
+            binds: [["label", options.theme.icon]],
         }),
+        content: [
+            ...themes.map(({ name, icon }) =>
+                Widget.Button({
+                    on_clicked: () => setTheme(name),
+                    child: Widget.Box({
+                        children: [
+                            Widget.Label(icon),
+                            Widget.Label(name),
+                            Widget.Icon({
+                                icon: icons.tick,
+                                hexpand: true,
+                                hpack: "end",
+                                binds: [
+                                    [
+                                        "visible",
+                                        options.theme.name,
+                                        "value",
+                                        (v) => v === name,
+                                    ],
+                                ],
+                            }),
+                        ],
+                    }),
+                }),
+            ),
+            Widget.Separator(),
+            Widget.Button({
+                on_clicked: openSettings,
+                child: Widget.Box({
+                    children: [
+                        Widget.Icon(icons.settings),
+                        Widget.Label("Theme Settings"),
+                    ],
+                }),
+            }),
+        ],
     });

@@ -1,9 +1,14 @@
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import icons from "../icons.js";
-import { Utils, Widget } from "../imports.js";
 import GLib from "gi://GLib";
 
 const MEDIA_CACHE_PATH = Utils.CACHE_DIR + "/media";
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/box').BoxProps=} props
+ */
 export const CoverArt = (player, props) =>
     Widget.Box({
         ...props,
@@ -18,6 +23,10 @@ export const CoverArt = (player, props) =>
         ],
     });
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/box').BoxProps=} props
+ */
 export const BlurredCoverArt = (player, props) =>
     Widget.Box({
         ...props,
@@ -26,7 +35,7 @@ export const BlurredCoverArt = (player, props) =>
             [
                 player,
                 (box) => {
-                    const url = player.coverPath;
+                    const url = player.cover_path;
                     if (!url) return;
 
                     const blurredPath = MEDIA_CACHE_PATH + "/blurred";
@@ -50,6 +59,10 @@ export const BlurredCoverArt = (player, props) =>
         ],
     });
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/label').Props=} props
+ */
 export const TitleLabel = (player, props) =>
     Widget.Label({
         ...props,
@@ -57,6 +70,10 @@ export const TitleLabel = (player, props) =>
         binds: [["label", player, "track-title"]],
     });
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/label').Props=} props
+ */
 export const ArtistLabel = (player, props) =>
     Widget.Label({
         ...props,
@@ -64,11 +81,15 @@ export const ArtistLabel = (player, props) =>
         binds: [["label", player, "track-artists", (a) => a.join(", ") || ""]],
     });
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/icon').Props & { symbolic?: boolean }=} props
+ */
 export const PlayerIcon = (player, { symbolic = true, ...props } = {}) =>
     Widget.Icon({
         ...props,
         class_name: "player-icon",
-        tooltipText: player.identity || "",
+        tooltip_text: player.identity || "",
         connections: [
             [
                 player,
@@ -84,6 +105,10 @@ export const PlayerIcon = (player, { symbolic = true, ...props } = {}) =>
         ],
     });
 
+/**
+ * @param {import('types/service/mpris').MprisPlayer} player
+ * @param {import('types/widgets/slider').SliderProps=} props
+ */
 export const PositionSlider = (player, props) =>
     Widget.Slider({
         ...props,
@@ -111,6 +136,7 @@ export const PositionSlider = (player, props) =>
         ],
     });
 
+/** @param {number} length */
 function lengthStr(length) {
     const min = Math.floor(length / 60);
     const sec = Math.floor(length % 60);
@@ -118,6 +144,7 @@ function lengthStr(length) {
     return `${min}:${sec0}${sec}`;
 }
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const PositionLabel = (player) =>
     Widget.Label({
         properties: [
@@ -136,6 +163,7 @@ export const PositionLabel = (player) =>
         ],
     });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const LengthLabel = (player) =>
     Widget.Label({
         connections: [
@@ -150,6 +178,7 @@ export const LengthLabel = (player) =>
         ],
     });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const Slash = (player) =>
     Widget.Label({
         label: "/",
@@ -163,6 +192,15 @@ export const Slash = (player) =>
         ],
     });
 
+/**
+ * @param {Object} o
+ * @param {import('types/service/mpris').MprisPlayer} o.player
+ * @param {import('types/widgets/stack').StackProps['items']} o.items
+ * @param {'shuffle' | 'loop' | 'playPause' | 'previous' | 'next'} o.onClick
+ * @param {string} o.prop
+ * @param {string} o.canProp
+ * @param {any} o.cantValue
+ */
 const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) =>
     Widget.Button({
         child: Widget.Stack({
@@ -173,6 +211,7 @@ const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) =>
         binds: [["visible", player, canProp, (c) => c !== cantValue]],
     });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const ShuffleButton = (player) =>
     PlayerButton({
         player,
@@ -198,6 +237,7 @@ export const ShuffleButton = (player) =>
         cantValue: null,
     });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const LoopButton = (player) =>
     PlayerButton({
         player,
@@ -230,6 +270,7 @@ export const LoopButton = (player) =>
         cantValue: null,
     });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const PlayPauseButton = (player) =>
     PlayerButton({
         player,
@@ -262,6 +303,7 @@ export const PlayPauseButton = (player) =>
         cantValue: false,
     });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const PreviousButton = (player) =>
     PlayerButton({
         player,
@@ -280,6 +322,7 @@ export const PreviousButton = (player) =>
         cantValue: false,
     });
 
+/** @param {import('types/service/mpris').MprisPlayer} player */
 export const NextButton = (player) =>
     PlayerButton({
         player,

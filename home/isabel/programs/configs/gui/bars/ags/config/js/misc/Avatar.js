@@ -1,18 +1,25 @@
-import Theme from "../services/theme/theme.js";
-import { Widget } from "../imports.js";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import options from "../options.js";
 
+/** @param {import('types/widgets/box').BoxProps=} props */
 export default (props) =>
     Widget.Box({
         ...props,
         class_name: "avatar",
         connections: [
             [
-                Theme,
-                (box) => {
+                options.avatar,
+                (box) =>
                     box.setCss(`
-            background-image: url('${Theme.getSetting("avatar")}');
+            background-image: url('${options.avatar.value}');
             background-size: cover;
-        `);
+        `),
+            ],
+            [
+                "draw",
+                (box) => {
+                    const h = box.get_allocated_height();
+                    box.set_size_request(h, -1);
                 },
             ],
         ],

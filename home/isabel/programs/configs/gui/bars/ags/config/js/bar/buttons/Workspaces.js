@@ -1,17 +1,20 @@
-import { Hyprland, Widget, Utils } from "../../imports.js";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Hyprland from "resource:///com/github/Aylur/ags/service/hyprland.js";
+import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import options from "../../options.js";
 import { range } from "../../utils.js";
 
-const ws = options.workspaces;
+/** @param {any} arg */
 const dispatch = (arg) => () =>
     Utils.execAsync(`hyprctl dispatch workspace ${arg}`);
 
-const Workspaces = () =>
-    Widget.Box({
+const Workspaces = () => {
+    const ws = options.workspaces.value;
+    return Widget.Box({
         children: range(ws || 20).map((i) =>
             Widget.Button({
                 setup: (btn) => (btn.id = i),
-                on_clicked: dispatch(i),
+                on_clicked: () => dispatch(i),
                 child: Widget.Label({
                     label: `${i}`,
                     class_name: "indicator",
@@ -48,6 +51,7 @@ const Workspaces = () =>
                   ],
               ],
     });
+};
 
 export default () =>
     Widget.Box({
@@ -55,10 +59,10 @@ export default () =>
         child: Widget.Box({
             // its nested like this to keep it consistent with other PanelButton widgets
             child: Widget.EventBox({
-                onScrollUp: dispatch("m+1"),
-                onScrollDown: dispatch("m-1"),
+                on_scroll_up: () => dispatch("m+1"),
+                on_scroll_down: () => dispatch("m-1"),
                 class_name: "eventbox",
-                child: Workspaces(),
+                binds: [["child", options.workspaces, "value", Workspaces]],
             }),
         }),
     });

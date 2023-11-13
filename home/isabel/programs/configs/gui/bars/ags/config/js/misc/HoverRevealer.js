@@ -1,5 +1,19 @@
-import { Widget, Utils } from "../imports.js";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 
+/**
+ * @typedef {import('types/widgets/eventbox').EventBoxProps & {
+ *    indicator?: import('types/widgets/box').BoxProps['child']
+ *    direction?: 'left' | 'right' | 'down' | 'up'
+ *    duration?: number
+ *    eventboxConnections?: import('types/widgets/box').BoxProps['connections']
+ *    connections?: import('types/widgets/revealer').RevealerProps['connections']
+ * }} HoverRevealProps
+ */
+
+/**
+ * @param {HoverRevealProps} props
+ */
 export default ({
     indicator,
     child,
@@ -23,7 +37,7 @@ export default ({
         child,
     });
 
-    const box = Widget.EventBox({
+    const eventbox = Widget.EventBox({
         ...rest,
         connections: eventboxConnections,
         on_hover: () => {
@@ -45,6 +59,6 @@ export default ({
     });
 
     return Widget.Box({
-        children: [box],
+        children: [eventbox],
     });
 };

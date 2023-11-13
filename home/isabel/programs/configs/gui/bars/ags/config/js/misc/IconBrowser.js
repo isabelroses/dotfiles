@@ -1,5 +1,5 @@
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import RegularWindow from "./RegularWindow.js";
-import { Widget } from "../imports.js";
 import Gtk from "gi://Gtk";
 
 export default () => {
@@ -9,15 +9,11 @@ export default () => {
 
     const flowbox = Widget.FlowBox({
         min_children_per_line: 10,
-        connections: [
-            [
-                "child-activated",
-                (_, { child }) => {
-                    selected.label = child.icon_name;
-                },
-            ],
-        ],
         setup: (self) => {
+            self.connect("child-activated", (_, child) => {
+                selected.label = child.get_child().iconName;
+            });
+
             Gtk.IconTheme.get_default()
                 .list_icons(null)
                 .sort()
@@ -39,7 +35,7 @@ export default () => {
     const entry = Widget.Entry({
         on_change: ({ text }) =>
             flowbox.get_children().forEach((child) => {
-                child.visible = child.child.icon_name.includes(text);
+                child.visible = child.get_child().iconName.includes(text);
             }),
     });
 

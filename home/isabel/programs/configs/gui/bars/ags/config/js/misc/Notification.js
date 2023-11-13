@@ -1,7 +1,10 @@
-import { Utils, Widget, Variable } from "../imports.js";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Variable from "resource:///com/github/Aylur/ags/variable.js";
+import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import GLib from "gi://GLib";
 
-const NotificationIcon = ({ appEntry, appIcon, image }) => {
+/** @param {import('types/service/notifications').Notification} n */
+const NotificationIcon = ({ app_entry, app_icon, image }) => {
     if (image) {
         return Widget.Box({
             vpack: "start",
@@ -19,9 +22,9 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
     }
 
     let icon = "dialog-information-symbolic";
-    if (Utils.lookUpIcon(appIcon)) icon = appIcon;
+    if (Utils.lookUpIcon(app_icon)) icon = app_icon;
 
-    if (Utils.lookUpIcon(appEntry)) icon = appEntry;
+    if (Utils.lookUpIcon(app_entry || "")) icon = app_entry || "";
 
     return Widget.Box({
         vpack: "start",
@@ -42,19 +45,21 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
     });
 };
 
+/** @param {import('types/service/notifications').Notification} notification */
 export default (notification) => {
     const hovered = Variable(false);
+    let block = false;
 
     const hover = () => {
         hovered.value = true;
-        hovered._block = true;
+        block = true;
 
-        Utils.timeout(100, () => (hovered._block = false));
+        Utils.timeout(100, () => (block = false));
     };
 
     const hoverLost = () =>
         GLib.idle_add(0, () => {
-            if (hovered._block) return GLib.SOURCE_REMOVE;
+            if (block) return GLib.SOURCE_REMOVE;
 
             hovered.value = false;
             notification.dismiss();
@@ -80,7 +85,7 @@ export default (notification) => {
                                 truncate: "end",
                                 wrap: true,
                                 label: notification.summary,
-                                useMarkup: notification.summary.startsWith("<"),
+                                use_markup: true,
                             }),
                             Widget.Label({
                                 class_name: "time",
@@ -101,7 +106,7 @@ export default (notification) => {
                     Widget.Label({
                         class_name: "description",
                         hexpand: true,
-                        useMarkup: true,
+                        use_markup: true,
                         xalign: 0,
                         justification: "left",
                         label: notification.body,
@@ -118,7 +123,7 @@ export default (notification) => {
         child: Widget.EventBox({
             on_hover: hover,
             child: Widget.Box({
-                class_name: "actions",
+                class_name: "actions horizontal",
                 children: notification.actions.map((action) =>
                     Widget.Button({
                         on_hover: hover,
@@ -135,7 +140,7 @@ export default (notification) => {
     return Widget.EventBox({
         class_name: `notification ${notification.urgency}`,
         vexpand: false,
-        onPrimaryClick: () => {
+        on_primary_click: () => {
             hovered.value = false;
             notification.dismiss();
         },

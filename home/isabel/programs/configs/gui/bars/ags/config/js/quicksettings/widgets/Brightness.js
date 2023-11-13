@@ -1,6 +1,6 @@
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import icons from "../../icons.js";
 import Brightness from "../../services/brightness.js";
-import { Widget } from "../../imports.js";
 
 const BrightnessSlider = () =>
     Widget.Slider({
@@ -12,11 +12,9 @@ const BrightnessSlider = () =>
 
 export default () =>
     Widget.Box({
-        class_name: "slider",
         children: [
-            Widget.Icon({
-                icon: icons.brightness.indicator,
-                class_name: "icon",
+            Widget.Button({
+                child: Widget.Icon(icons.brightness.indicator),
                 binds: [
                     [
                         "tooltip-text",
