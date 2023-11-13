@@ -2,7 +2,6 @@
   osConfig,
   lib,
   pkgs,
-  inputs',
   self',
   ...
 }: let
@@ -19,7 +18,6 @@ in {
         jq
         dconf
         nitch
-        hyfetch
         cached-nix-shell
         self'.packages.bellado
         self'.packages.catppuccinifier-cli
