@@ -13,9 +13,6 @@
   in
     (func defaultArgs) // functor;
 
-  # a modified version of NUR's dag type
-  dag = import' ./dag.nix;
-
   builders = import' ./builders.nix {inherit inputs;};
   services = import' ./services.nix;
   validators = import' ./validators.nix;
@@ -23,6 +20,9 @@
   hardware = import' ./hardware.nix;
 
   # abstractions over networking functions
+  # dag library is a modified version of the one found in
+  # rycee's NUR repository
+  dag = import' ./networking/dag.nix;
   firewall = import' ./networking/firewall.nix {inherit dag;};
   namespacing = import' ./networking/namespacing.nix;
 

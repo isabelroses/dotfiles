@@ -8,30 +8,33 @@
 #  - the addition of the function `entryBefore` indicating a
 #    "wanted by" relationship.
 {lib, ...}: let
-  inherit (lib) mkOption filterAttrs mapAttrsToList toposort mapAttrs any;
-  types = {
-    dagOf = subType:
-      types.attrsOf (types.submodule {
-        options = {
-          data = mkOption {
-            type = subType;
-            description = "Entry value.";
-          };
+  inherit (lib) mkOption filterAttrs mapAttrsToList toposort mapAttrs any types;
 
-          before = mkOption {
-            type = with lib.types; listOf str;
-            default = [];
-            description = "Entries to guarantee before.";
-          };
+  types' =
+    types
+    // {
+      dagOf = subType:
+        types.attrsOf (types.submodule {
+          options = {
+            data = mkOption {
+              type = subType;
+              description = "Entry value.";
+            };
 
-          after = mkOption {
-            type = with lib.types; listOf str;
-            default = [];
-            description = "Entries to guarantee after.";
+            before = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "Entries to guarantee before.";
+            };
+
+            after = mkOption {
+              type = types.listOf types.str;
+              default = [];
+              description = "Entries to guarantee after.";
+            };
           };
-        };
-      });
-  };
+        });
+    };
 
   dag = {
     # Takes an attribute set containing entries built by
@@ -132,5 +135,6 @@
     };
   };
 in {
-  inherit (dag) entryBefore entryBetween entryAfter entryAnywhere;
+  inherit (dag) entryBefore entryBetween entryAfter entryAnywhere topoSort;
+  inherit (types') dagOf;
 }

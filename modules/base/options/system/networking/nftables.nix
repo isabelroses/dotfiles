@@ -3,6 +3,44 @@
 in {
   options.networking.nftables.rules = {
     # man nft(8)
+    netdev = mkTable "netdev address family netfilter table" {
+      filter.ingress = mkIngressChain "netdev";
+    };
+
+    bridge = mkTable "bridge address family netfilter table" {
+      filter = {
+        prerouting = mkPrerouteChain "bridge";
+        input = mkInputChain "bridge";
+        forward = mkForwardChain "bridge";
+        output = mkOutputChain "bridge";
+        postrouting = mkPostrouteChain "bridge";
+      };
+    };
+
+    inet = mkTable "internet (IPv4/IPv6) address family netfilter table" {
+      filter = {
+        prerouting = mkPrerouteChain "inet";
+        input = mkInputChain "inet";
+        forward = mkForwardChain "inet";
+        output = mkOutputChain "inet";
+        postrouting = mkPostrouteChain "inet";
+      };
+
+      nat = {
+        prerouting = mkPrerouteChain "inet";
+        input = mkInputChain "inet";
+        output = mkOutputChain "inet";
+        postrouting = mkPostrouteChain "inet";
+      };
+    };
+
+    arp = mkTable "ARP (IPv4) address family netfilter table" {
+      filter = {
+        input = mkInputChain "arp";
+        output = mkOutputChain "arp";
+      };
+    };
+
     ip = mkTable "internet (IPv4) address family netfilter table" {
       filter = {
         prerouting = mkPrerouteChain "ip";
@@ -21,6 +59,7 @@ in {
 
       route.output = mkForwardChain "ip";
     };
+
     ip6 = mkTable "internet (IPv6) address family netfilter table" {
       filter = {
         prerouting = mkPrerouteChain "ip6";
@@ -38,40 +77,6 @@ in {
       };
 
       route.output = mkForwardChain "ip6";
-    };
-    inet = mkTable "internet (IPv4/IPv6) address family netfilter table" {
-      filter = {
-        prerouting = mkPrerouteChain "inet";
-        input = mkInputChain "inet";
-        output = mkOutputChain "inet";
-        postrouting = mkPostrouteChain "inet";
-      };
-
-      nat = {
-        prerouting = mkPrerouteChain "inet";
-        input = mkInputChain "inet";
-        output = mkOutputChain "inet";
-      };
-    };
-    arp = mkTable "ARP (IPv4) address family netfilter table" {
-      filter = {
-        input = mkInputChain "arp";
-        output = mkOutputChain "arp";
-      };
-    };
-
-    bridge = mkTable "bridge address family netfilter table" {
-      filter = {
-        prerouting = mkPrerouteChain "bridge";
-        input = mkInputChain "bridge";
-        forward = mkForwardChain "bridge";
-        output = mkOutputChain "bridge";
-        postrouting = mkPostrouteChain "bridge";
-      };
-    };
-
-    netdev = mkTable "netdev address family netfilter table" {
-      filter.ingress = mkIngressChain "netdev";
     };
   };
 }
