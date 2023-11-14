@@ -15,6 +15,6 @@ _: {
     ./nginx
     ./photoprism
     ./vaultwarden
-    ./wakatime
+    ./wakapi
   ];
 }

@@ -20,8 +20,6 @@ in {
         port = 15912;
         nginx.enable = true;
 
-        stateDirectory = "/srv/storage/wakatime";
-
         db = {
           host = "/run/postgresql";
         };

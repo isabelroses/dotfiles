@@ -17,6 +17,7 @@
   userConfig = {
     users.users.wakapi = {
       inherit group;
+      createHome = false;
       isSystemUser = true;
     };
     users.groups.wakapi = {};
@@ -46,8 +47,6 @@
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-        StateDirectory = "${cfg.stateDirectory}";
-        WorkingDirectory = "/var/lib/${cfg.stateDirectory}";
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX"];
@@ -58,10 +57,6 @@
         Restart = "always";
       };
     };
-
-    systemd.tmpfiles.rules = [
-      "D /var/lib/${cfg.stateDirectory}/data 755 ${user} ${group} - -"
-    ];
 
     services.wakapi.settings = {
       env = lib.mkDefault "production";
@@ -139,13 +134,6 @@ in {
         The FQDN of the domain to serve Wakapi on.
         This is used to configure nginx.
       '';
-    };
-
-    stateDirectory = lib.mkOption {
-      type = types.str;
-      default = "wakapi";
-      defaultText = lib.literalExpression "wakapi";
-      description = "The state directory for the systemd service. Will be located in /var/lib";
     };
 
     db = {
