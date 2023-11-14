@@ -89,7 +89,7 @@ in {
       };
 
       wakapi-cfg = {
-        path = homeDir + "/.wakatime.cfg";
+        path = homeDir + "/.local/share/wakatime/.wakatime.cfg";
         owner = mainUser;
       };
 
