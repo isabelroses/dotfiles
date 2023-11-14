@@ -7,6 +7,7 @@ _: {
     forgejo.enable = true;
     vaultwarden.enable = true;
     isabelroses-web.enable = true;
+    wakapi.enable = true;
     nginx.enable = true;
     cloudflared.enable = false;
 

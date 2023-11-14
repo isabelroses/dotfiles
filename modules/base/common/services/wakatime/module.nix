@@ -4,12 +4,23 @@
   pkgs,
   ...
 }: let
-  # stolen from https://git.winston.sh/winston/deployment-flake/src/branch/main/modules/wakapi.nix
+  # modified from https://git.winston.sh/winston/deployment-flake/src/branch/main/modules/wakapi.nix
   cfg = config.services.wakapi;
+  user = config.users.users.wakapi.name;
+  group = config.users.groups.wakapi.name;
+
   settingsFormat = pkgs.formats.yaml {};
   inherit (lib) types;
 
   settingsFile = settingsFormat.generate "wakapi-settings" cfg.settings;
+
+  userConfig = {
+    users.users.wakapi = {
+      inherit group;
+      isSystemUser = true;
+    };
+    users.groups.wakapi = {};
+  };
 
   serviceConfig = {
     systemd.services.wakapi = {
@@ -26,8 +37,8 @@
         Environment = lib.mkIf (cfg.passwordSalt != null) "WAKAPI_PASSWORD_SALT=${cfg.passwordSalt}";
         EnvironmentFile = lib.mkIf (cfg.passwordSaltFile != null) cfg.passwordSaltFile;
 
-        User = "wakapi";
-        Group = "wakapi";
+        User = user;
+        Group = group;
 
         DynamicUser = true;
         ProtectHome = true;
@@ -35,14 +46,22 @@
         ProtectKernelLogs = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
+        StateDirectory = "${cfg.stateDirectory}";
+        WorkingDirectory = "/var/lib/${cfg.stateDirectory}";
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX"];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
+        StateDirectoryMode = "0700";
+        Restart = "always";
       };
     };
+
+    systemd.tmpfiles.rules = [
+      "D /var/lib/${cfg.stateDirectory}/data 755 ${user} ${group} - -"
+    ];
 
     services.wakapi.settings = {
       env = lib.mkDefault "production";
@@ -122,6 +141,13 @@ in {
       '';
     };
 
+    stateDirectory = lib.mkOption {
+      type = types.str;
+      default = "wakapi";
+      defaultText = lib.literalExpression "wakapi";
+      description = "The state directory for the systemd service. Will be located in /var/lib";
+    };
+
     db = {
       host = lib.mkOption {
         type = types.str;
@@ -189,6 +215,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
+    userConfig
     databaseConfig
     nginxConfig
     serviceConfig
