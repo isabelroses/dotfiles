@@ -50,8 +50,12 @@ _: {
 
         networking = {
           optimizeTcp = true;
-          tailscale.client.enable = true;
           nftables.enable = true;
+
+          tailscale = {
+            enable = true;
+            client.enable = true;
+          };
         };
 
         virtualization = {

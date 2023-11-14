@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (config.services.tailscale) interfaceName port;
-  inherit (lib) mkIf optionals;
+  inherit (lib) mkIf;
 
   cfg = config.modules.system.networking.tailscale;
 in {
@@ -26,17 +26,15 @@ in {
 
     services.tailscale = {
       enable = true;
+      permitCertUid = mkIf cfg.client.enable "root";
       useRoutingFeatures =
         if cfg.server.enable
         then "server"
         else "client";
-      extraUpFlags =
-        [
-          "--ssh"
-        ]
-        ++ optionals cfg.server.enable [
-          "--advertise-exit-node"
-        ];
+      extraUpFlags = mkIf cfg.server.enable [
+        "--ssh"
+        "--advertise-exit-node"
+      ];
     };
   };
 }
