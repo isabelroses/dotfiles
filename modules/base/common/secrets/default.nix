@@ -88,7 +88,7 @@ in {
         owner = mainUser;
       };
 
-      wakapi-cfg = {
+      wakatime = {
         path = homeDir + "/.local/share/wakatime/.wakatime.cfg";
         owner = mainUser;
       };
