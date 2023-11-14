@@ -24,6 +24,7 @@ in {
     cloudflared.enable = mkEnableOption "Enables cloudflared tunnels";
     wakapi.enable = mkEnableOption "Enables wakapi";
     jellyfin.enable = mkEnableOption "Enables the jellyfin service";
+    headscale.enable = mkEnableOption "Headscale service";
 
     mailserver = {
       enable = mkEnableOption "Enable the mailserver service";

@@ -22,6 +22,7 @@ in {
         "grafana"
         "vaultwarden"
         "roundcube"
+        "headscale"
       ];
       ensureUsers = [
         {
@@ -47,6 +48,10 @@ in {
         {
           name = "roundcube";
           ensurePermissions."DATABASE roundcube" = "ALL PRIVILEGES";
+        }
+        {
+          name = "headscale";
+          ensurePermissions."DATABASE headscale" = "ALL PRIVILEGES";
         }
       ];
 

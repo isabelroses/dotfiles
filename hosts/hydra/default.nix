@@ -50,6 +50,7 @@ _: {
 
         networking = {
           optimizeTcp = true;
+          tailscale.client.enable = true;
           nftables.enable = true;
         };
 

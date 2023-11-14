@@ -10,6 +10,7 @@ _: {
     wakapi.enable = true;
     nginx.enable = true;
     cloudflared.enable = false;
+    headscale.enable = true;
 
     mailserver = {
       enable = true;

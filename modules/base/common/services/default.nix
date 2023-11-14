@@ -6,6 +6,7 @@ _: {
     ./databases
     ./dns
     ./forgejo
+    ./headscale
     ./jellyfin
     ./mailserver
     ./matrix
@@ -14,6 +15,7 @@ _: {
     ./nextcloud
     ./nginx
     ./photoprism
+    ./tailscale
     ./vaultwarden
     ./wakapi
   ];
