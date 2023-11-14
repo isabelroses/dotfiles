@@ -290,7 +290,10 @@
         diffview-nvim.enable = true;
         surround.enable = true; # quick delimters altering
 
-        # TODO wakatime
+        vim-wakatime = {
+          enable = true;
+          cli-package = pkgs.wakatime;
+        };
 
         motion = {
           hop.enable = true;

@@ -27,6 +27,7 @@ in {
       ms-vscode-remote.remote-ssh
       ms-vscode.live-server
       vscodevim.vim #yes i hate myself
+      wakatime.vscode-wakatime
 
       # LANGUAGES BASED EXTENSIONS
       ## NIX

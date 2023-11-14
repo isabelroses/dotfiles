@@ -88,6 +88,11 @@ in {
         owner = mainUser;
       };
 
+      wakapi-cfg = {
+        path = homeDir + "/.wakatime.cfg";
+        owner = mainUser;
+      };
+
       # git ssh keys
       gh-key = {
         path = sshDir + "/github";
