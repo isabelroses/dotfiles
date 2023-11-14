@@ -18,6 +18,7 @@ in {
         jq
         dconf
         nitch
+        wakatime
         cached-nix-shell
         self'.packages.bellado
         self'.packages.catppuccinifier-cli
