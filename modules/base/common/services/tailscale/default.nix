@@ -18,12 +18,6 @@ in {
       allowedUDPPorts = [port];
     };
 
-    # https://tailscale.com/kb/1019/subnets/?tab=linux#step-1-install-the-tailscale-client
-    boot.kernel.sysctl = mkIf cfg.server.enable {
-      "net.ipv4.ip_forward" = true;
-      "net.ipv6.conf.all.forwarding" = true;
-    };
-
     services.tailscale = {
       enable = true;
       permitCertUid = mkIf cfg.client.enable "root";
