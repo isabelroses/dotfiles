@@ -23,6 +23,10 @@ in {
           node = {
             enable = true;
             port = 9101;
+            enabledCollectors = [
+              "logind"
+              "systemd"
+            ];
           };
 
           redis = {
