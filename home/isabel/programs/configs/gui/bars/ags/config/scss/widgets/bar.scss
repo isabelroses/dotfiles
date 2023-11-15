@@ -68,7 +68,6 @@ $bar-spacing: $spacing / 1.5;
 
 	@if $bar-style == "floating" {
 		@include floating-widget;
-		border-radius: $radii * 1.5;
 		margin: $wm-gaps;
 		padding: 0;
 	}

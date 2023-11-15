@@ -24,7 +24,7 @@ export default {
 
     spacing: Option(9),
     padding: Option(8),
-    radii: Option(9),
+    radii: Option(15),
     transition: Option(200, { unit: "ms" }),
 
     font: {
