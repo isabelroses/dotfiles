@@ -19,12 +19,7 @@ in {
   wayland.windowManager.hyprland = {
     settings = {
       "$mod" = "SUPER";
-      "$teal" = "0xff94e2d5";
-      "$sky" = "0xff89dceb";
-      "$sapphire" = "0xff74c7ec";
-      "$blue" = "0xff89b4fa";
-      "$surface1" = "0xff45475a";
-      "$surface0" = "0xff313244";
+      "$inactive" = "0xff45475a"; # ctp surface1
 
       exec-once =
         [
@@ -60,13 +55,13 @@ in {
       general = {
         layout = "master";
 
-        gaps_in = 5;
-        gaps_out = 5;
-        border_size = 2;
+        gaps_in = 8;
+        gaps_out = 8;
+        border_size = 3;
         no_border_on_floating = true;
 
-        "col.active_border" = "$sapphire";
-        "col.inactive_border" = "$surface0";
+        "col.active_border" = "rgba(cba6f7ff) rgba(89b4faff) rgba(94e2d5ff) 10deg";
+        "col.inactive_border" = "$inactive";
       };
 
       group = {
@@ -74,8 +69,8 @@ in {
         # focus on the window that has just been moved out of the group
         focus_removed_window = true;
 
-        "col.border_active" = "$blue";
-        "col.border_inactive" = "$surface0";
+        "col.border_active" = "0xff89dceb";
+        "col.border_inactive" = "$inactive";
 
         groupbar = {
           gradients = false;
@@ -101,7 +96,7 @@ in {
       };
 
       decoration = {
-        rounding = 10;
+        rounding = 15;
 
         active_opacity = 1.0;
         inactive_opacity = 1.0;
@@ -119,21 +114,23 @@ in {
         ];
 
         drop_shadow = true;
-        "col.shadow" = "$surface1";
-        "col.shadow_inactive" = "$surface1";
+        "col.shadow" = "0x33000000";
+        "col.shadow_inactive" = "0x22000000";
       };
 
       animations = {
-        enabled = dev.type != "laptop";
+        enabled = true;
+        # enabled = dev.type != "laptop";
 
         bezier = [
-          "overshot, 0.05, 0.9, 0.1, 1.1"
+          "overshot,0.13,0.99,0.29,1.1"
         ];
 
         animation = [
-          "windows, 1, 8, overshot, popin"
-          # "fade, 1, 8, overshot"
-          "workspaces, 1, 8, overshot, slide"
+          "windows,1,4,overshot,slide"
+          "border,1,10,default"
+          "fade,1,10,default"
+          "workspaces,1,6,overshot,slidevert"
         ];
       };
 
@@ -149,8 +146,8 @@ in {
       };
 
       windowrule = [
-        "float, Bitwarden"
-        "float, ^(Rofi)$"
+        "float, bitwarden"
+        "float, ^(rofi)$"
         "float, ^(eww)$"
         "float, ^(pavucontrol)$"
         "float, ^(nm-connection-editor)$"
