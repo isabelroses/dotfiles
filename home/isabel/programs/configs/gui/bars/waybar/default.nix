@@ -20,28 +20,31 @@ in {
         mainBar = {
           layer = "top";
           position = "top";
+          height = 50;
+
           exclusive = true;
           passthrough = false;
           gtk-layer-shell = true;
-          margin-left = 2;
-          margin-right = 2;
-          height = 0;
+
+          spacing = 5;
+          margin-bottom = -11;
+
           modules-left = [
-            "custom/launcher"
+            "hyprland/workspaces"
           ];
           modules-center = [
-            "hyprland/workspaces"
+            "custom/dynamic_pill"
           ];
           modules-right = [
             "tray"
             "backlight"
             (optionalString sys.bluetooth.enable "bluetooth")
             (optionalString cfg.gaming.enable "gamemode")
-            "pulseaudio"
             "battery"
             "clock"
-            "custom/logout"
           ];
+
+          # modules
           "wlr/taskbar" = {
             "format" = "{icon}";
             "icon-size" = 20;
