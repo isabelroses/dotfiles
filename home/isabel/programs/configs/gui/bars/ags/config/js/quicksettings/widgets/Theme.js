@@ -52,7 +52,7 @@ export const ThemeSelector = () =>
                 on_clicked: openSettings,
                 child: Widget.Box({
                     children: [
-                        Widget.Icon(icons.settings),
+                        Widget.Icon(icons.ui.settings),
                         Widget.Label("Theme Settings"),
                     ],
                 }),

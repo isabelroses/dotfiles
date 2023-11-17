@@ -4,11 +4,12 @@ export default [
     Theme({
         name: "Mocha",
         icon: "",
+        "desktop.wallpaper.img": WP + "catgirl.jpg",
     }),
     Theme({
         name: "Latte",
         icon: "",
-        "desktop.wallpaper": WP + "card_after_training.png",
+        "desktop.wallpaper.img": WP + "card_after_training.png",
         ...lightColors,
     }),
 ];

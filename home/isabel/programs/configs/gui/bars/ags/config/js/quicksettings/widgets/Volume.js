@@ -76,7 +76,7 @@ export const Volume = () =>
 
 export const Microhone = () =>
     Widget.Box({
-        class_name: "slider",
+        class_name: "slider horizontal",
         binds: [["visible", Audio, "recorders", (r) => r.length > 0]],
         children: [VolumeIndicator("microphone"), VolumeSlider("microphone")],
     });
@@ -166,7 +166,10 @@ const SettingsButton = () =>
         on_clicked: () => Utils.execAsync("pavucontrol"),
         hexpand: true,
         child: Widget.Box({
-            children: [Widget.Icon(icons.settings), Widget.Label("Settings")],
+            children: [
+                Widget.Icon(icons.ui.settings),
+                Widget.Label("Settings"),
+            ],
         }),
     });
 

@@ -21,7 +21,7 @@ export function setTheme(name) {
 export const WP = `/home/${USER}/media/pictures/wallpapers/`;
 
 export const lightColors = {
-    "color.scheme": "light",
+    "theme.scheme": "light",
     "color.red": "#d20f39",
     "color.green": "#40a02b",
     "color.yellow": "#df8e1d",
@@ -29,10 +29,8 @@ export const lightColors = {
     "color.magenta": "#8839ef",
     "color.teal": "#179299",
     "color.orange": "#fe640b",
-    "color.bg": "#eff1f5",
-    "color.fg": "#4c4f69",
-    hover_fg: "#4c4f69",
-    "border.color": "#e6e9ef",
+    "theme.bg": "#eff1f5",
+    "theme.fg": "#4c4f69",
 };
 
 export const Theme = ({ name, icon = " ", ...options }) => ({
@@ -45,6 +43,14 @@ export const Theme = ({ name, icon = " ", ...options }) => ({
     },
 });
 
-export function openSettings() {
-    App.openWindow("settings-dialog");
+let settingsDialog;
+export async function openSettings() {
+    if (settingsDialog) return settingsDialog.present();
+
+    try {
+        settingsDialog = (await import("./SettingsDialog.js")).default;
+        settingsDialog.present();
+    } catch (error) {
+        if (error instanceof Error) console.error(error.message);
+    }
 }

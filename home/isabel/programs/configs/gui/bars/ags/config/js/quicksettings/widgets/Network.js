@@ -88,7 +88,7 @@ export const WifiSelection = () =>
                     Applications.query("nm-connection-editor")?.[0].launch(),
                 child: Widget.Box({
                     children: [
-                        Widget.Icon(icons.settings),
+                        Widget.Icon(icons.ui.settings),
                         Widget.Label("Network"),
                     ],
                 }),

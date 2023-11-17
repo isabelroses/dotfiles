@@ -1,60 +1,73 @@
 import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
-import App from "resource:///com/github/Aylur/ags/app.js";
 import Battery from "resource:///com/github/Aylur/ags/service/battery.js";
-import Mpris from "resource:///com/github/Aylur/ags/service/mpris.js";
 import Notifications from "resource:///com/github/Aylur/ags/service/notifications.js";
 import options from "../options.js";
 import icons from "../icons.js";
-import { reloadScss } from "./scss.js";
-import { timeout } from "resource:///com/github/Aylur/ags/utils.js";
+import { scssWatcher } from "./scss.js";
 import { setTheme } from "./theme.js";
-import IconBrowser from "../misc/IconBrowser.js";
 import { initWallpaper } from "./wallpaper.js";
+import { setupHyprland } from "./hyprland.js";
+import { globals } from "./globals.js";
+import Gtk from "gi://Gtk";
 
 export function init() {
     initWallpaper();
     notificationBlacklist();
     warnOnLowBattery();
+    gtkFontSettings();
     globals();
     gsettigsColorScheme();
     scssWatcher();
+    dependandOptions();
 
-    timeout(50, () => {
+    Utils.timeout(200, () => {
         setTheme(options.theme.name.value);
+    });
+
+    Utils.timeout(500, () => {
+        setupHyprland();
     });
 }
 
-function scssWatcher() {
-    return Utils.subprocess(
-        [
-            "inotifywait",
-            "--recursive",
-            "--event",
-            "create,modify",
-            "-m",
-            App.configDir + "/scss",
-        ],
-        reloadScss,
-        () => print("missing dependancy for css hotreload: inotify-tools"),
-    );
+function dependandOptions() {
+    options.bar.style.connect("changed", ({ value }) => {
+        if (value !== "normal")
+            options.desktop.screen_corners.setValue(false, true);
+    });
 }
 
 function gsettigsColorScheme() {
     if (!Utils.exec("which gsettings")) return;
 
-    options.color.scheme.connect("changed", ({ value }) => {
+    options.theme.scheme.connect("changed", ({ value }) => {
         const gsettings =
             "gsettings set org.gnome.desktop.interface color-scheme";
-        Utils.execAsync(
-            `${gsettings} "prefer-${value ? "dark" : "light"}"`,
-        ).catch((err) => console.error(err.message));
+        Utils.execAsync(`${gsettings} "prefer-${value}"`).catch((err) =>
+            console.error(err.message),
+        );
     });
+}
+
+function gtkFontSettings() {
+    const settings = Gtk.Settings.get_default();
+    if (!settings) {
+        console.error(Error("Gtk.Settings unavailable"));
+        return;
+    }
+
+    const callback = () => {
+        const { size, font } = options.font;
+        settings.gtk_font_name = `${font.value} ${size.value}`;
+    };
+
+    options.font.font.connect("notify::value", callback);
+    options.font.size.connect("notify::value", callback);
 }
 
 function notificationBlacklist() {
     Notifications.connect("notified", (_, id) => {
         const n = Notifications.getNotification(id);
-        options.notifications.blackList.value.forEach((item) => {
+        options.notifications.black_list.value.forEach((item) => {
             if (n?.app_name.includes(item) || n?.app_entry?.includes(item))
                 n.close();
         });
@@ -79,25 +92,5 @@ function warnOnLowBattery() {
             "-u",
             "critical",
         ]);
-    });
-}
-
-async function globals() {
-    globalThis.options = options;
-    globalThis.iconBrowser = () => IconBrowser();
-    globalThis.app = (
-        await import("resource:///com/github/Aylur/ags/app.js")
-    ).default;
-    globalThis.audio = (
-        await import("resource:///com/github/Aylur/ags/service/audio.js")
-    ).default;
-    globalThis.brightness = (await import("../services/brightness.js")).default;
-    globalThis.indicator = (
-        await import("../services/onScreenIndicator.js")
-    ).default;
-    Mpris.connect("player-added", (mpris, bus) => {
-        mpris.getPlayer(bus)?.connect("changed", (player) => {
-            globalThis.mpris = player || Mpris.players[0];
-        });
     });
 }

@@ -7,12 +7,14 @@ export function initWallpaper() {
     } catch (error) {
         print("missing dependancy: swww");
     }
+
+    options.desktop.wallpaper.img.connect("changed", wallpaper);
 }
 
 export function wallpaper() {
     if (!exec("which swww")) return print("missing dependancy: swww");
 
-    execAsync(["swww", "img", options.desktop.wallpaper.value]).catch((err) =>
-        console.error(err),
+    execAsync(["swww", "img", options.desktop.wallpaper.img.value]).catch(
+        (err) => console.error(err),
     );
 }

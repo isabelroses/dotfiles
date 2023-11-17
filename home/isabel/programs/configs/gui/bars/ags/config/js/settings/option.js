@@ -18,15 +18,18 @@ let cacheObj = JSON.parse(readFile(CACHE_FILE) || "{}");
  * @typedef {Object} OptionConfig
  * @property {string=} scss - name of scss variable set to "exclude" to not include it in the generated scss file
  * @property {string=} unit - unit on numbers, default is "px"
- * @property {string=} summary
- * @property {string=} description
- * @property {boolean=} noReload
+ * @property {string=} title
+ * @property {string=} note
+ * @property {string=} category
+ * @property {boolean=} noReload - don't reload css & hyprland on change
  * @property {boolean=} persist - ignore reset call
+ * @property {'object' | 'string' | 'img' | 'number' | 'float' | 'font' | 'enum' =} type
+ * @property {Array<string> =} enums
  * @property {(value: T) => any=} format
  */
 
 /** @template T */
-class Opt extends Service {
+export class Opt extends Service {
     static {
         Service.register(
             this,
@@ -42,7 +45,16 @@ class Opt extends Service {
     noReload = false;
     id = "";
     scss = "";
-    /** @type {(v: T) => any} */ format = (v) => v;
+    title = "";
+    note = "";
+    type = "";
+    category = "";
+
+    /** @type {Array<string>} */
+    enums = [];
+
+    /** @type {(v: T) => any} */
+    format = (v) => v;
 
     /**
      * @param {T} value
@@ -52,19 +64,30 @@ class Opt extends Service {
         super();
         this.#value = value;
         this.defaultValue = value;
+        this.type = typeof value;
 
         if (config) Object.keys(config).forEach((c) => (this[c] = config[c]));
 
-        import("../options.js").then(() => {
-            getOptions(); // sets the ids as a side effect
+        import("../options.js").then(this.#init.bind(this));
+    }
 
-            if (cacheObj[this.id] !== undefined)
-                this.setValue(cacheObj[this.id]);
+    #init() {
+        getOptions(); // sets the ids as a side effect
 
-            this.connect("changed", () => {
-                cacheObj[this.id] = this.value;
-                writeFile(JSON.stringify(cacheObj, null, 2), CACHE_FILE);
-            });
+        if (cacheObj[this.id] !== undefined) this.setValue(cacheObj[this.id]);
+
+        const words = this.id
+            .split(".")
+            .flatMap((w) => w.split("_"))
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+
+        this.title ||= words.join(" ");
+        this.category ||=
+            words.length === 1 ? "General" : words.at(0) || "General";
+
+        this.connect("changed", () => {
+            cacheObj[this.id] = this.value;
+            writeFile(JSON.stringify(cacheObj, null, 2), CACHE_FILE);
         });
     }
 
@@ -77,19 +100,31 @@ class Opt extends Service {
 
     /** @param {T} value  */
     setValue(value, reload = false) {
+        if (typeof value !== typeof this.defaultValue) {
+            console.error(
+                Error(
+                    `WrongType: Option "${this.id}" can't be set to ${value}, ` +
+                        `expected "${typeof this
+                            .defaultValue}", but got "${typeof value}"`,
+                ),
+            );
+
+            return;
+        }
+
         if (this.value !== value) {
             this.#value = value;
             this.changed("value");
-        }
 
-        if (reload && !this.noReload) {
-            reloadScss();
-            setupHyprland();
+            if (reload && !this.noReload) {
+                reloadScss();
+                setupHyprland();
+            }
         }
     }
 
-    reset() {
-        this.setValue(this.defaultValue);
+    reset(reload = false) {
+        this.setValue(this.defaultValue, reload);
     }
 }
 
@@ -129,7 +164,9 @@ export function resetOptions() {
 
 export function getValues() {
     const obj = {};
-    for (const opt of getOptions()) obj[opt.id] = opt.value;
+    for (const opt of getOptions()) {
+        if (opt.category !== "exclude") obj[opt.id] = opt.value;
+    }
 
     return JSON.stringify(obj, null, 2);
 }

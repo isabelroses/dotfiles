@@ -8,12 +8,12 @@ export default (props) =>
         class_name: "avatar",
         connections: [
             [
-                options.avatar,
+                options.desktop.avatar,
                 (box) =>
                     box.setCss(`
-            background-image: url('${options.avatar.value}');
-            background-size: cover;
-        `),
+                    background-image: url('${options.desktop.avatar.value}');
+                    background-size: cover;
+                `),
             ],
             [
                 "draw",
