@@ -26,10 +26,10 @@ stdenv.mkDerivation rec {
     cp -r $out/CyberChef_v${version}.html $out/index.html
   '';
 
-  meta = with lib; {
+  meta = {
     description = " The Cyber Swiss Army Knife - a web app for encryption, encoding, compression and data analysis";
     homepage = "https://gchq.github.io/CyberChef";
-    license = licenses.mit;
-    maintainers = with maintainers; [isabelroses];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [isabelroses];
   };
 }

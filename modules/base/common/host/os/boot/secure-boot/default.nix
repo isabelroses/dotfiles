@@ -4,8 +4,8 @@
   lib,
   inputs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf mkForce;
   sys = config.modules.system.boot;
 in {
   imports = [
@@ -19,7 +19,7 @@ in {
     ];
 
     # Lanzaboote replaces the systemd-boot module.
-    boot.loader.systemd-boot.enable = lib.mkForce false;
+    boot.loader.systemd-boot.enable = mkForce false;
 
     boot = {
       bootspec.enable = true;

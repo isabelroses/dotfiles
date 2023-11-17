@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
+}: let
   # only the newest nvidia package
   nvStable = config.boot.kernelPackages.nvidiaPackages.stable;
   nvBeta = config.boot.kernelPackages.nvidiaPackages.beta;
@@ -15,6 +14,7 @@ with lib; let
     else nvBeta;
 
   inherit (config.modules) device;
+  inherit (lib) mkIf mkMerge mkDefault versionOlder;
   env = config.modules.usrEnv;
 in {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {

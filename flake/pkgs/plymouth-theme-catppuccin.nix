@@ -24,10 +24,10 @@ stdenvNoCC.mkDerivation {
     done
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Soothing pastel theme for Plymouth";
     homepage = "https://github.com/catppuccin/plymouth";
-    license = licenses.mit;
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
   };
 }

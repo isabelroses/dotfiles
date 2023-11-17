@@ -3,12 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-with lib; let
+}: let
   device = config.modules.device;
   acceptedTypes = ["server" "desktop" "laptop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = lib.mkIf (builtins.elem device.type acceptedTypes) {
     fonts = {
       enableDefaultPackages = false;
 

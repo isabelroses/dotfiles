@@ -3,15 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
   smb = config.modules.services.smb;
 in {
   imports = [
     ./recive
   ];
 
-  config = mkIf (smb.enable) {
+  config = lib.mkIf (smb.enable) {
     environment.systemPackages = [pkgs.cifs-utils];
   };
 }

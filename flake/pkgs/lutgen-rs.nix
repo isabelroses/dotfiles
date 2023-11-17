@@ -18,11 +18,11 @@ in
 
     cargoSha256 = "sha256-StVgZBZ36fTneTtZAg5rlpqG0JVFlEDYFeBpk+8Hg+o=";
 
-    meta = with lib; {
+    meta = {
       description = "A blazingly fast interpolated LUT generator and applicator for arbitrary and popular color palettes. Theme any image to your dekstop colorscheme!";
       homepage = "https://github.com/ozwaldorf/lutgen-rs";
-      license = licenses.mit;
-      maintainers = with maintainers; [isabelroses];
-      platforms = platforms.linux;
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [isabelroses];
+      platforms = lib.platforms.linux;
     };
   }

@@ -2,8 +2,8 @@
   config,
   lib,
   ...
-} @ args:
-with lib; let
+} @ args: let
+  inherit (lib) mkIf;
   inherit (config.modules) device;
 in {
   config = mkIf (device.type == "laptop" || device.type == "hybrid") {

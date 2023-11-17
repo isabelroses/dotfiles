@@ -161,11 +161,11 @@ in
       };
     };
 
-    meta = with lib; {
+    meta = {
       description = "JavaScript bindings for GNOME";
       homepage = "https://gitlab.gnome.org/GNOME/gjs/blob/master/doc/Home.md";
-      license = licenses.lgpl2Plus;
-      maintainers = teams.gnome.members;
-      platforms = platforms.unix;
+      license = lib.licenses.lgpl2Plus;
+      maintainers = lib.teams.gnome.members;
+      platforms = lib.platforms.unix;
     };
   }

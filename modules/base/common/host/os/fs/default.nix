@@ -2,8 +2,8 @@
   lib,
   config,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf mkMerge;
   sys = config.modules.system;
 in {
   config = mkMerge [

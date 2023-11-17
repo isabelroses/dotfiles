@@ -3,8 +3,8 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
   device = config.modules.device;
 in {
   config = mkIf (device.gpu == "intel" || device.gpu == "hybrid-nv") {

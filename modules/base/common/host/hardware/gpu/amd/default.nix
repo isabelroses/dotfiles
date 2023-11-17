@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-with lib; let
+}: let
   device = config.modules.device;
 in {
-  config = mkIf (device.gpu == "amd" || device.gpu == "hybrid-amd") {
+  config = lib.mkIf (device.gpu == "amd" || device.gpu == "hybrid-amd") {
     # enable amdgpu xorg drivers
     services.xserver.videoDrivers = ["amdgpu"];
 

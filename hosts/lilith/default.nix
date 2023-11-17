@@ -4,8 +4,9 @@
   pkgs,
   modulesPath,
   ...
-}:
-with lib; {
+}: let
+  inherit (lib) optionalString mkForce mkDefault;
+in {
   imports = [
     "${modulesPath}/profiles/minimal.nix"
     "${modulesPath}/installer/cd-dvd/iso-image.nix"
@@ -89,7 +90,7 @@ with lib; {
   };
 
   # disable fontConfig to save space, not like we have a GUI anyways
-  fonts.fontconfig.enable = lib.mkForce false;
+  fonts.fontconfig.enable = mkForce false;
 
   # disable sound related programs, saving more space
   sound.enable = false;

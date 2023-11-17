@@ -31,7 +31,7 @@
       wantedBy = ["multi-user.target"];
 
       script = ''
-        exec ${lib.getExe pkgs.wakapi} -config ${settingsFile}
+        exec ${pkgs.wakapi}/bin/wakapi -config ${settingsFile}
       '';
 
       serviceConfig = {

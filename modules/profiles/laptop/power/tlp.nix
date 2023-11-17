@@ -2,10 +2,9 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkIf;
   device = config.modules.device;
-
   MHz = x: x * 1000;
 in {
   config = mkIf (device.type == "laptop" || device.type == "hybrid") {

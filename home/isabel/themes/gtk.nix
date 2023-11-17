@@ -5,7 +5,7 @@
   osConfig,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf boolToNum;
   inherit (osConfig.modules) device;
   cfg = osConfig.modules.style;
   sys = osConfig.modules.system;
@@ -29,7 +29,7 @@ in {
         GTK_THEME = "${cfg.gtk.theme.name}";
 
         # gtk applications should use xdg specified settings
-        GTK_USE_PORTAL = "${with lib; toString (boolToNum cfg.gtk.usePortal)}";
+        GTK_USE_PORTAL = "${toString (boolToNum cfg.gtk.usePortal)}";
       };
     };
 

@@ -3,11 +3,10 @@
   lib,
   config,
   ...
-}:
-with lib; let
+}: let
   sys = config.modules.system;
 in {
-  config = mkIf (sys.video.enable) {
+  config = lib.mkIf (sys.video.enable) {
     hardware = {
       opengl = {
         enable = true;

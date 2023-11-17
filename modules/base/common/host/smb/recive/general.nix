@@ -2,11 +2,10 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
   smb = config.modules.services.smb;
 in {
-  config = mkIf ((smb.enable) && (smb.recive.general)) {
+  config = lib.mkIf ((smb.enable) && (smb.recive.general)) {
     fileSystems."/mnt/general" = {
       device = "//192.168.86.4/sharedata";
       fsType = "cifs";

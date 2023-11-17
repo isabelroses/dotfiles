@@ -2,8 +2,8 @@
   config,
   lib,
   ...
-}:
-with lib; let
+}: let
+  inherit (lib) mkDefault mkIf;
   device = config.modules.device;
 in {
   config = mkIf (device.hasTPM) {

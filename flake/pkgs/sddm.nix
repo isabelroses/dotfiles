@@ -21,11 +21,11 @@ in
       cp -R $src/src/catppuccin-mocha/* $out/
     '';
 
-    meta = with lib; {
+    meta = {
       description = "Catppucin for SDDM";
       homepage = "https://github.com/catppuccin/sddm";
-      license = licenses.mit;
-      maintainers = with maintainers; [isabelroses];
-      platforms = platforms.linux;
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [isabelroses];
+      platforms = lib.platforms.linux;
     };
   }
