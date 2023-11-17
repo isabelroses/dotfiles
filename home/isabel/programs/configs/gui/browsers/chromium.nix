@@ -19,7 +19,6 @@ in {
           "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
           "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
           "jaoafjdoijdconemdmodhbfpianehlon" # skip redirect
-          "jnbbnacmeggbgdjgaoojpmhdlkkpblgi" # wakapi
         ]
         ++ lib.optionals progs.gaming.enable [
           "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
