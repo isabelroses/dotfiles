@@ -105,7 +105,7 @@
         lspSignature.enable = true;
         nvimCodeActionMenu.enable = true;
         trouble.enable = false;
-        # nvim-docs-view.enable = true;
+        nvim-docs-view.enable = true;
       };
 
       debugMode = {
@@ -131,11 +131,6 @@
           fillChar = null;
           eolChar = null;
           showCurrContext = true;
-        };
-
-        cursorline = {
-          enable = true;
-          lineTimeout = 0;
         };
       };
 
