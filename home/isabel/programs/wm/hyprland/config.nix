@@ -154,7 +154,7 @@ in {
         "float, ^(blueberry.py)$"
         "float, ^(Color Picker)$"
         "float, ^(Network)$"
-        "float, ^(ags)$"
+        "float, ^(com.github.Aylur.ags)$"
         "float, ^(xdg-desktop-portal)$"
         "float, ^(xdg-desktop-portal-gnome)$"
         "float, ^(transmission-gtk)$"
