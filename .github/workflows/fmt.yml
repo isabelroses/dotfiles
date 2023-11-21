@@ -11,11 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
         with:
           logger: pretty
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
       - run: nix run nixpkgs#alejandra -- -c .

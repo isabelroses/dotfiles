@@ -23,7 +23,8 @@ jobs:
           - plymouth-theme-catppuccin
 
     steps:
-      - uses: easimon/maximize-build-space@v8
+      - name: Maximize Space
+        uses: easimon/maximize-build-space@v8
         with:
           overprovision-lvm: true
           remove-android: true
@@ -37,6 +38,9 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@main
         with:
           logger: pretty
+
+      - name: Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Setup cachix
         uses: cachix/cachix-action@v12
