@@ -6,7 +6,6 @@
 	"explorer.confirmDragAndDrop": false,
 	"files.autoSave": "onWindowChange",
 	"editor.multiCursorModifier": "ctrlCmd",
-	"workbench.editor.untitled.hint": "hidden",
 	"git.autofetch": true,
 	"git.confirmSync": false,
 	"git.ignoreRebaseWarning": true,
