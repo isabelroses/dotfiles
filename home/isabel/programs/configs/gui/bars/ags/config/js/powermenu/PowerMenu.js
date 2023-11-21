@@ -1,7 +1,7 @@
 import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import icons from "../icons.js";
 import PowerMenu from "../services/powermenu.js";
-import PopupWindow from "../misc/PopupWindow.js";
+import ShadedPopup from "./ShadedPopup.js";
 
 /**
  * @param {'sleep' | 'reboot' | 'logout' | 'shutdown'} action
@@ -20,10 +20,10 @@ const SysButton = (action, label) =>
     });
 
 export default () =>
-    PopupWindow({
+    ShadedPopup({
         name: "powermenu",
         expand: true,
-        content: Widget.Box({
+        child: Widget.Box({
             children: [
                 SysButton("sleep", "Sleep"),
                 SysButton("reboot", "Reboot"),

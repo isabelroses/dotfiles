@@ -69,7 +69,8 @@ const Applauncher = () => {
 };
 
 export default () =>
-    PopopWindow({
+    PopupWindow({
         name: WINDOW_NAME,
-        content: Applauncher(),
+        transition: "slide_down",
+        child: Applauncher(),
     });

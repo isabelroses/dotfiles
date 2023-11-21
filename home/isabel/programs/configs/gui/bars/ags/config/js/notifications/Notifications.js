@@ -67,6 +67,6 @@ export default (monitor) =>
         monitor,
         class_name: "notifications",
         name: `notifications${monitor}`,
-        anchor: ["top"],
+        binds: [["anchor", options.notifications.position]],
         child: PopupList(),
     });

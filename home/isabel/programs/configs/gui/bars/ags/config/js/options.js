@@ -136,10 +136,10 @@ export default {
     drop_shadow: Option(true, { scss: "drop-shadow" }),
 
     hypr: {
-        wm_gaps_multiplier: Option(2.4, {
+        wm_gaps: Option(8, {
             category: "General",
-            scss: "wm-gaps-multiplier",
-            note: "wm-gaps: padding × this",
+            scss: "wm-gaps",
+            note: "wm-gaps",
             type: "float",
             unit: "",
         }),
@@ -158,9 +158,7 @@ export default {
     },
 
     bar: {
-        // TODO: implement better PopupWindow
         position: Option("top", {
-            category: "exclude",
             enums: ["top", "bottom"],
             type: "enum",
         }),
@@ -192,23 +190,24 @@ export default {
         wallpaper: {
             fg: Option("#fff", { scss: "wallpaper-fg" }),
             img: Option(themes[0].options["desktop.wallpaper.img"], {
-                format: (v) => `"${v}"`,
+                scssFormat: (v) => `"${v}"`,
                 type: "img",
             }),
         },
         avatar: Option(`/home/${USER}/media/pictures/pfps/avatar`, {
-            format: (v) => `"${v}"`,
+            scssFormat: (v) => `"${v}"`,
             type: "img",
             note: "displayed in quicksettings and locksreen",
         }),
-        screen_corners: Option(true, { scss: "screen-corners" }),
+        screen_corners: Option(false, { scss: "screen-corners" }),
         drop_shadow: Option(true, { scss: "drop-shadow" }),
         shadow: Option("rgba(0, 0, 0, .6)", { scss: "shadow" }),
     },
 
     notifications: {
-        black_list: Option(["Spotify"], { category: "Desktop" }), // app-name | app-entry
-        width: Option(450, { category: "Desktop" }),
+        black_list: Option(["Spotify"], { note: "app-name | entry" }),
+        position: Option(["top"], { note: "anchor" }),
+        width: Option(450),
     },
 
     dashboard: {

@@ -1,12 +1,12 @@
+import App from "resource:///com/github/Aylur/ags/app.js";
 import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import Battery from "resource:///com/github/Aylur/ags/service/battery.js";
 import Notifications from "resource:///com/github/Aylur/ags/service/notifications.js";
 import options from "../options.js";
 import icons from "../icons.js";
-import { scssWatcher } from "./scss.js";
-import { setTheme } from "./theme.js";
-import { initWallpaper } from "./wallpaper.js";
-import { setupHyprland } from "./hyprland.js";
+import { reloadScss, scssWatcher } from "./scss.js";
+import { initWallpaper, wallpaper } from "./wallpaper.js";
+import { hyprlandInit } from "./hyprland.js";
 import { globals } from "./globals.js";
 import Gtk from "gi://Gtk";
 
@@ -20,12 +20,10 @@ export function init() {
     scssWatcher();
     dependandOptions();
 
-    Utils.timeout(200, () => {
-        setTheme(options.theme.name.value);
-    });
-
-    Utils.timeout(500, () => {
-        setupHyprland();
+    App.connect("config-parsed", () => {
+        reloadScss();
+        hyprlandInit();
+        wallpaper();
     });
 }
 

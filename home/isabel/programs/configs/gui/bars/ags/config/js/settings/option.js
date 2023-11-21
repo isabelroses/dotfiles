@@ -26,6 +26,7 @@ let cacheObj = JSON.parse(readFile(CACHE_FILE) || "{}");
  * @property {'object' | 'string' | 'img' | 'number' | 'float' | 'font' | 'enum' =} type
  * @property {Array<string> =} enums
  * @property {(value: T) => any=} format
+ * @property {(value: T) => any=} scssFormat
  */
 
 /** @template T */
@@ -41,10 +42,10 @@ export class Opt extends Service {
     }
 
     #value;
+    #scss = "";
     unit = "px";
     noReload = false;
     id = "";
-    scss = "";
     title = "";
     note = "";
     type = "";
@@ -55,6 +56,9 @@ export class Opt extends Service {
 
     /** @type {(v: T) => any} */
     format = (v) => v;
+
+    /** @type {(v: T) => any} */
+    scssFormat = (v) => v;
 
     /**
      * @param {T} value
@@ -69,6 +73,13 @@ export class Opt extends Service {
         if (config) Object.keys(config).forEach((c) => (this[c] = config[c]));
 
         import("../options.js").then(this.#init.bind(this));
+    }
+
+    set scss(scss) {
+        this.#scss = scss;
+    }
+    get scss() {
+        return this.#scss || this.id.split(".").join("-").split("_").join("-");
     }
 
     #init() {
@@ -113,7 +124,7 @@ export class Opt extends Service {
         }
 
         if (this.value !== value) {
-            this.#value = value;
+            this.#value = this.format(value);
             this.changed("value");
 
             if (reload && !this.noReload) {
