@@ -172,12 +172,7 @@
 
     # Hyprland packages
     hyprland.url = "github:hyprwm/Hyprland";
-
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    hyprpicker.url = "github:hyprwm/hyprpicker";
     xdg-portal-hyprland = {
       url = "github:hyprwm/xdg-desktop-portal-hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
