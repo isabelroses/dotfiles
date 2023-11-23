@@ -93,7 +93,7 @@
       min-free = "${toString (5 * 1024 * 1024 * 1024)}";
       max-free = "${toString (20 * 1024 * 1024 * 1024)}";
       # automatically optimise symlinks
-      auto-optimise-store = true;
+      auto-optimise-store = pkgs.stdenv.isLinux;
       # allow sudo users to mark the following values as trusted
       allowed-users = ["@wheel"];
       # only allow sudo users to manage the nix store
@@ -103,7 +103,6 @@
       # build inside sandboxed environments
       sandbox = true;
       # supported system features
-      # TODO: "gccarch-core2" "gccarch-haswell"
       system-features = ["nixos-test" "kvm" "recursive-nix" "big-parallel"];
       extra-platforms = config.boot.binfmt.emulatedSystems;
       # continue building derivations even if one fails
@@ -144,6 +143,7 @@
         "https://neovim-flake.cachix.org" # a cache for notashelf's neovim flake
         "https://catppuccin.cachix.org" # a cache for ctp nix
         "https://pre-commit-hooks.cachix.org" # pre commit hooks
+        "https://cache.garnix.io" # extra things here and there
       ];
 
       trusted-public-keys = [
@@ -159,6 +159,7 @@
         "neovim-flake.cachix.org-1:iyQ6lHFhnB5UkVpxhQqLJbneWBTzM8LBYOFPLNH4qZw="
         "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
         "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
     };
   };
