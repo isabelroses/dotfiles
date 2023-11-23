@@ -5,21 +5,17 @@ import OSD from "./js/osd/OSD.js";
 import PowerMenu from "./js/powermenu/PowerMenu.js";
 import QuickSettings from "./js/quicksettings/QuickSettings.js";
 import ScreenCorners from "./js/screencorner/ScreenCorners.js";
-import SettingsDialog from "./js/settings/SettingsDialog.js";
 import TopBar from "./js/bar/TopBar.js";
 import Verification from "./js/powermenu/Verification.js";
 import options from "./js/options.js";
 import { init } from "./js/settings/setup.js";
 import { forMonitors } from "./js/utils.js";
 
-init();
-
 const windows = () => [
     forMonitors(TopBar),
     forMonitors(ScreenCorners),
     forMonitors(OSD),
     forMonitors(Notifications),
-    SettingsDialog(),
     Applauncher(),
     Dashboard(),
     QuickSettings(),
@@ -28,6 +24,7 @@ const windows = () => [
 ];
 
 export default {
+    onConfigParsed: init,
     windows: windows().flat(1),
     maxStreamVolume: 1.05,
     cacheNotificationActions: true,

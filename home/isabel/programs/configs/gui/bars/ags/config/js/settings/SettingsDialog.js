@@ -198,19 +198,11 @@ const sidebar = Widget.Revealer({
         children: [
             Widget.Box({
                 class_name: "sidebar-header",
-                children: [
-                    Widget.Button({
-                        hexpand: true,
-                        label: icons.dialog.Search + " Search",
-                        on_clicked: () =>
-                            (showSearch.value = !showSearch.value),
-                    }),
-                    Widget.Button({
-                        hpack: "end",
-                        child: Widget.Icon(icons.ui.info),
-                        on_clicked: () => App.toggleWindow("about"),
-                    }),
-                ],
+                child: Widget.Button({
+                    hexpand: true,
+                    label: icons.dialog.Search + " Search",
+                    on_clicked: () => (showSearch.value = !showSearch.value),
+                }),
             }),
             Widget.Scrollable({
                 vexpand: true,
@@ -242,7 +234,7 @@ const sidebar = Widget.Revealer({
                 child: Widget.Button({
                     class_name: "copy",
                     child: Widget.Label({
-                        label: " Copy",
+                        label: " Save",
                         xalign: 0,
                     }),
                     hexpand: true,
@@ -254,6 +246,7 @@ const sidebar = Widget.Revealer({
                             "-i",
                             "preferences-desktop-theme-symbolic",
                             "Theme copied to clipboard",
+                            'To save it permanently, make a new theme in <span weight="bold">themes.js</span>',
                         ]);
                     },
                 }),

@@ -1,16 +1,7 @@
 import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
-import Cairo from "cairo";
+import cairo from "cairo";
 import icons from "./icons.js";
 import Gdk from "gi://Gdk";
-
-/**
- * @param {(monitor: number) => any} widget
- * @returns {Array<import('types/widgets/window').default>}
- */
-export function forMonitors(widget) {
-    const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
-    return range(n).map(widget).flat(1);
-}
 
 /**
  * @param {number} length
@@ -31,17 +22,26 @@ export function substitute(collection, item) {
 }
 
 /**
+ * @param {(monitor: number) => any} widget
+ * @returns {Array<import('types/widgets/window').default>}
+ */
+export function forMonitors(widget) {
+    const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
+    return range(n, 0).map(widget).flat(1);
+}
+
+/**
  * @param {import('gi://Gtk').Gtk.Widget} widget
  * @returns {any} - missing cairo type
  */
 export function createSurfaceFromWidget(widget) {
     const alloc = widget.get_allocation();
-    const surface = new Cairo.ImageSurface(
-        Cairo.Format.ARGB32,
+    const surface = new cairo.ImageSurface(
+        cairo.Format.ARGB32,
         alloc.width,
         alloc.height,
     );
-    const cr = new Cairo.Context(surface);
+    const cr = new cairo.Context(surface);
     cr.setSourceRGBA(255, 255, 255, 0);
     cr.rectangle(0, 0, alloc.width, alloc.height);
     cr.fill();

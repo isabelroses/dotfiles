@@ -3,7 +3,7 @@ import App from "resource:///com/github/Aylur/ags/app.js";
 import Applications from "resource:///com/github/Aylur/ags/service/applications.js";
 import AppItem from "./AppItem.js";
 import { launchApp } from "../utils.js";
-import PopopWindow from "../misc/PopupWindow.js";
+import PopupWindow from "../misc/PopupWindow.js";
 import icons from "../icons.js";
 
 const WINDOW_NAME = "applauncher";

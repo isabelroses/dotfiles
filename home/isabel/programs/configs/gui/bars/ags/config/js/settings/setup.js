@@ -6,23 +6,24 @@ import options from "../options.js";
 import icons from "../icons.js";
 import { reloadScss, scssWatcher } from "./scss.js";
 import { initWallpaper, wallpaper } from "./wallpaper.js";
-import { hyprlandInit } from "./hyprland.js";
+import { hyprlandInit, setupHyprland } from "./hyprland.js";
 import { globals } from "./globals.js";
 import Gtk from "gi://Gtk";
 
 export function init() {
-    initWallpaper();
-    notificationBlacklist();
-    warnOnLowBattery();
-    gtkFontSettings();
-    globals();
-    gsettigsColorScheme();
-    scssWatcher();
-    dependandOptions();
-
     App.connect("config-parsed", () => {
+        initWallpaper();
+        notificationBlacklist();
+        warnOnLowBattery();
+        globals();
+        gsettigsColorScheme();
+        gtkFontSettings();
+        scssWatcher();
+        dependandOptions();
+
         reloadScss();
         hyprlandInit();
+        setupHyprland();
         wallpaper();
     });
 }

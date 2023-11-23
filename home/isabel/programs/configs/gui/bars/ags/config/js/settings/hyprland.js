@@ -12,9 +12,7 @@ function sendBatch(batch) {
         .map((x) => `keyword ${x}`)
         .join("; ");
 
-    Hyprland.sendMessage(`[[BATCH]]/${cmd}`)
-        .then(print)
-        .catch((err) => console.error(`Hyprland.sendMessage: ${err.message}`));
+    Hyprland.sendMessage(`[[BATCH]]/${cmd}`);
 }
 
 export function hyprlandInit() {

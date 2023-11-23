@@ -9,11 +9,9 @@ import options from "../options.js";
  * @param {import('types/widgets/window').WindowProps['anchor']=} o.anchor
  * @param {import('../misc/PopupWindow.js').PopopWindowProps['layout']=} o.layout
  */
-export default ({ anchor = ["top"], layout = "top" } = {}) =>
+export default () =>
     PopupWindow({
         name: "dashboard",
-        layout,
-        anchor,
         connections: [
             [
                 options.bar.position,
