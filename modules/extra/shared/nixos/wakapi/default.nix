@@ -80,9 +80,7 @@
       ensureDatabases = lib.singleton cfg.settings.db.name;
       ensureUsers = lib.singleton {
         name = cfg.settings.db.user;
-        ensurePermissions = {
-          "DATABASE ${cfg.settings.db.name}" = "ALL PRIVILEGES";
-        };
+        ensureDBOwnership = true;
       };
       authentication = ''
         host ${cfg.settings.db.name} ${cfg.settings.db.user} 127.0.0.1/32 trust
