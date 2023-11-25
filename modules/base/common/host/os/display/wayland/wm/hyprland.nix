@@ -15,10 +15,8 @@ in {
   config = mkIf (sys.video.enable && (env.desktop == "Hyprland" && env.isWayland)) {
     services.xserver.displayManager.sessionPackages = [inputs'.hyprland.packages.default];
 
-    xdg.portal = {
-      extraPortals = [
-        inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland
-      ];
-    };
+    xdg.portal.configPackages = [
+      inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland
+    ];
   };
 }

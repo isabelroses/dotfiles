@@ -11,8 +11,9 @@ in {
   config = mkIf sys.video.enable {
     xdg.portal = {
       enable = true;
+      config.common.default = "*";
 
-      extraPortals = with pkgs; [
+      configPackages = with pkgs; [
         xdg-desktop-portal-gtk
       ];
 
