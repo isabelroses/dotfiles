@@ -13,7 +13,7 @@ in {
   config = mkIf ((builtins.elem dev.type acceptedTypes) && cfg.database.postgresql.enable) {
     services.postgresql = {
       enable = true;
-      package = pkgs.postgresql_14;
+      package = pkgs.postgresql_15;
       dataDir = "/srv/storage/postgresql/${config.services.postgresql.package.psqlSchema}";
 
       ensureDatabases = [
@@ -23,6 +23,7 @@ in {
         "vaultwarden"
         "roundcube"
         "headscale"
+        "wakapi"
       ];
       ensureUsers = [
         {
@@ -57,6 +58,10 @@ in {
         }
         {
           name = "headscale";
+          ensureDBOwnership = true;
+        }
+        {
+          name = "wakapi";
           ensureDBOwnership = true;
         }
       ];
