@@ -138,3 +138,4 @@ in {
   inherit (dag) entryBefore entryBetween entryAfter entryAnywhere topoSort;
   inherit (types') dagOf;
 }
+

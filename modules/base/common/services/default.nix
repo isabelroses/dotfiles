@@ -15,7 +15,6 @@ _: {
     ./nextcloud
     ./nginx
     ./photoprism
-    ./tailscale
     ./vaultwarden
     ./wakapi
   ];
