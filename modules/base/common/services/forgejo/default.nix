@@ -53,6 +53,7 @@ in {
 
         settings = {
           server = {
+            PROTOCOL = "http+unix";
             ROOT_URL = "https://${forgejo_domain}";
             HTTP_PORT = 7000;
             DOMAIN = "${forgejo_domain}";
@@ -152,7 +153,10 @@ in {
 
       nginx.virtualHosts.${forgejo_domain} =
         {
-          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.forgejo.settings.server.HTTP_PORT}";
+          locations."/" = {
+            recommendedProxySettings = true;
+            proxyPass = "http://unix:/run/forgejo/forgejo.sock";
+          };
         }
         // sslTemplate;
     };

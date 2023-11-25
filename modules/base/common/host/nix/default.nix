@@ -117,6 +117,9 @@
         "ca-derivations"
         "repl-flake"
         "auto-allocate-uids"
+        "cgroups"
+        # "git-hashing"
+        # "verified-fetches"
       ];
       # ignore dirty working tree
       warn-dirty = false;
@@ -124,6 +127,8 @@
       http-connections = 50;
       # whether to accept nix configuration from a flake without prompting
       accept-flake-config = true;
+      # execute builds inside cgroups
+      use-cgroups = true;
 
       # for direnv GC roots
       keep-derivations = true;

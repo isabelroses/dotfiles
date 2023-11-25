@@ -27,31 +27,37 @@ in {
       ensureUsers = [
         {
           name = "postgres";
-          ensurePermissions."ALL TABLES IN SCHEMA public" = "ALL PRIVILEGES";
+          ensureClauses = {
+            superuser = true;
+            login = true; # not implied by superuser
+            createrole = true;
+            createdb = true;
+            replication = true;
+          };
         }
         {
           name = "forgejo";
-          ensurePermissions."DATABASE forgejo" = "ALL PRIVILEGES";
+          ensureDBOwnership = true;
         }
         {
           name = "grafana";
-          ensurePermissions."DATABASE grafana" = "ALL PRIVILEGES";
+          ensureDBOwnership = true;
         }
         {
           name = "nextcloud";
-          ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
+          ensureDBOwnership = true;
         }
         {
           name = "vaultwarden";
-          ensurePermissions."DATABASE vaultwarden" = "ALL PRIVILEGES";
+          ensureDBOwnership = true;
         }
         {
           name = "roundcube";
-          ensurePermissions."DATABASE roundcube" = "ALL PRIVILEGES";
+          ensureDBOwnership = true;
         }
         {
           name = "headscale";
-          ensurePermissions."DATABASE headscale" = "ALL PRIVILEGES";
+          ensureDBOwnership = true;
         }
       ];
 
