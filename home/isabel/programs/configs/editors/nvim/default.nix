@@ -130,7 +130,7 @@
           enable = true;
           fillChar = null;
           eolChar = null;
-          showCurrContext = true;
+          scope.enabled = true;
         };
       };
 
