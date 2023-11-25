@@ -52,9 +52,11 @@ _: {
           optimizeTcp = true;
           nftables.enable = true;
 
+          wirelessBackend = "iwd";
+
           tailscale = {
             enable = true;
-            client.enable = true;
+            isClient = true;
           };
         };
 

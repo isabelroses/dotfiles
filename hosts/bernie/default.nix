@@ -34,6 +34,12 @@ _: {
 
       networking = {
         optimizeTcp = false;
+
+        tailscale = {
+          enable = true;
+          isServer = true;
+          isClient = false;
+        };
       };
 
       virtualization = {

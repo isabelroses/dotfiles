@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  self',
   ...
 }: let
   inherit (lib) mkIf;
@@ -10,6 +11,10 @@
 in {
   config = mkIf cfg.enable {
     environment.systemPackages = [config.services.headscale.package];
+
+    networking.firewall = {
+      allowedUDPPorts = [config.services.headscale.port];
+    };
 
     services = {
       headscale = {
@@ -22,12 +27,10 @@ in {
 
           dns_config = {
             override_local_dns = true;
-            base_domain = domain;
+            base_domain = "${domain}";
             magic_dns = true;
             domains = ["hs.${domain}"];
             nameservers = [
-              "1.1.1.1"
-              "1.0.0.1"
               "9.9.9.9"
             ];
           };
@@ -50,6 +53,8 @@ in {
           logtail = {
             enabled = false;
           };
+
+          disable_check_updates = true;
         };
       };
 
@@ -59,6 +64,10 @@ in {
             recommendedProxySettings = true;
             proxyPass = "http://localhost:${toString config.services.headscale.port}";
             proxyWebsockets = true;
+          };
+
+          locations."/web" = {
+            root = "${self'.packages.headscale-ui}/share";
           };
         }
         // lib.sslTemplate;

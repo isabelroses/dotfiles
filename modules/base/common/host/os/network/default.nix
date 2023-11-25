@@ -14,6 +14,7 @@ in {
     ./blocker.nix
     ./ssh.nix
     ./optimise.nix
+    ./tailscale.nix
   ];
 
   users = mkIf config.networking.tcpcrypt.enable {
