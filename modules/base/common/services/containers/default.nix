@@ -15,9 +15,6 @@ in {
         "isabelroses-com" = {
           image = "docker.io/isabelroses/isabelroses.com:latest";
           ports = ["3000:3000"];
-          extraOptions = [
-            "--pull=newer"
-          ];
           environmentFiles = [
             config.sops.secrets.isabelroses-web-env.path
           ];
