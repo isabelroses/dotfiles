@@ -7,11 +7,7 @@ system: let
   XDG_BIN_HOME = "\${HOME}/.local/bin";
 in {
   glEnv = {
-    XDG_CACHE_HOME = "\${HOME}/.cache";
-    XDG_CONFIG_HOME = "\${HOME}/.config";
-    XDG_STATE_HOME = "\${HOME}/.local/state";
-    XDG_DATA_HOME = "\${HOME}/.local/share";
-    XDG_BIN_HOME = "\${HOME}/.local/bin";
+    inherit XDG_DATA_HOME XDG_CONFIG_HOME XDG_CACHE_HOME XDG_STATE_HOME XDG_RUNTIME_DIR XDG_BIN_HOME;
     PATH = ["\${XDG_BIN_HOME}"];
   };
   sysEnv = {
@@ -33,7 +29,7 @@ in {
       else "${XDG_CONFIG_HOME}/python/pythonrc";
     STEPPATH = "${XDG_DATA_HOME}/step";
     #VSCODE_EXTENSIONS = "${XDG_DATA_HOME}/code/extensions";
-    WAKATIME_HOME = "${XDG_DATA_HOME}/wakatime";
+    WAKATIME_HOME = "${XDG_CONFIG_HOME}/wakatime";
     XCOMPOSECACHE = "${XDG_CACHE_HOME}/X11/xcompose";
     INPUTRC = "${XDG_CONFIG_HOME}/readline/inputrc";
     GOPATH = "${XDG_DATA_HOME}/go";

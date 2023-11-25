@@ -89,7 +89,7 @@ in {
       };
 
       wakatime = {
-        path = homeDir + "/.local/share/wakatime/.wakatime.cfg";
+        path = homeDir + "/.config/wakatime/.wakatime.cfg";
         owner = mainUser;
       };
 
