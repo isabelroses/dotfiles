@@ -3,7 +3,7 @@ _: prev: {
     if prev.stdenv.isLinux
     then
       prev.symlinkJoin {
-        inherit (prev.fish) passthru;
+        inherit (prev.fish) passthru meta;
         name = "fish-nodesktop";
         paths = [prev.fish];
         postBuild = ''
