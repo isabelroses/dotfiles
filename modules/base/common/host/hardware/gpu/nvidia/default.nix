@@ -64,9 +64,18 @@ in {
         })
       ];
       systemPackages = with pkgs; [
+        nvtop-amd
+
+        # mesa
+        mesa
+
+        # vulkan
         vulkan-tools
         vulkan-loader
         vulkan-validation-layers
+        vulkan-extension-layer
+
+        # libva
         libva
         libva-utils
       ];
