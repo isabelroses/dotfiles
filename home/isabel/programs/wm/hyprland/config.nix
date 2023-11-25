@@ -119,8 +119,7 @@ in {
       };
 
       animations = {
-        enabled = true;
-        # enabled = dev.type != "laptop";
+        enabled = dev.type != "laptop";
 
         bezier = [
           "overshot,0.13,0.99,0.29,1.1"
@@ -130,7 +129,7 @@ in {
           "windows,1,4,overshot,slide"
           "border,1,10,default"
           "fade,1,10,default"
-          "workspaces,1,6,overshot,slidevert"
+          "workspaces,1,6,overshot,slide"
         ];
       };
 
