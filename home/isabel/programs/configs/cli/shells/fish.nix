@@ -1,8 +1,9 @@
-_: {
+{defaults, ...}: {
   programs.fish = {
     enable = true;
     catppuccin.enable = true;
     plugins = [];
+
     functions = {
       bj = "nohup $argv </dev/null &>/dev/null &";
       "." = ''
@@ -18,14 +19,19 @@ _: {
       '';
     };
     shellAbbrs = {};
+
     shellInit = ''
-      starship init fish | source
       set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
-      set TERM "xterm-256color"
-      set fish_greeting
-      set TERMINAL "alacritty"
-      export "MICRO_TRUECOLOR=1"
+      set TERMINAL "${defaults.terminal}"
       export GPG_TTY=$(tty)
+
+      # themeing
+      set fish_greeting
+      export "MICRO_TRUECOLOR=1"
+      starship init fish | source
+      set -g theme_display_date no
+      set -g theme_nerd_fonts yes
+      set -g theme_newline_cursor yes
     '';
   };
 }
