@@ -7,6 +7,9 @@
 }: {
   networking.hostName = lib.mkImageMediaOverride "lilith";
 
+  # disallow rebuild switches
+  system.switch.enable = false;
+
   isoImage = let
     rev = self.shortRev or "dirty";
   in {
@@ -21,5 +24,13 @@
     # hopefully makes the ISO bootable over ventoy
     makeEfiBootable = true;
     makeUsbBootable = true;
+
+    # include memtest86+ in the ISO
+    contents = [
+      {
+        source = pkgs.memtest86plus + "/memtest.bin";
+        target = "boot/memtest.bin";
+      }
+    ];
   };
 }
