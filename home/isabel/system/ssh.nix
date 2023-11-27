@@ -44,7 +44,7 @@ _: {
           };
 
         # hetzner cloud vps
-        "bernie" =
+        "luz" =
           template
           // {
             hostname = "91.107.198.173";

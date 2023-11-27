@@ -13,7 +13,7 @@
 - 🏠 [home](../home/)
 - 🖥️ [hosts](../hosts/)
   - ☀️ [amatarasu](../hosts/amatarasu/) My high end gameing machine
-  - 👴 [bernie](../hosts/bernie/) A server configuration for some of my infastrucior
+  - 🪄 [luz](../hosts/luz/) A server configuration for some of my infastrucior
   - 🇧[beta](../hosts/beta/) A consept configuration for a new local server
   - 🐉 [hydra](../hosts/hydra/) A super mid spec laptop
   - ⚸ [lilith](../hosts/lilith/) A nixos iso image that can be qickly deployed and acessed via ssh
