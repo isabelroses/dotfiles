@@ -65,6 +65,7 @@ in {
           push = {
             default = "current";
             followTags = true;
+            autoSetupRemote = true;
           };
 
           merge = {
