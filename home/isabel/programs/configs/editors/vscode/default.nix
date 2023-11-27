@@ -14,18 +14,17 @@ in {
       extensions = with pkgs.vscode-extensions; [
         # THEMEING
         catppuccin.catppuccin-vsc-icons
-        catppuccin.catppuccin
-        # (pkgs.catppuccin-vsc.override {
-        #   accentColor = "sapphire";
-        #   boldKeywords = true;
-        #   italicComments = true;
-        #   italicKeywords = true;
-        #   extraBordersEnabled = false;
-        #   workbenchMode = "flat";
-        #   bracketMode = "rainbow";
-        #   colorOverrides = {};
-        #   customUIColors = {};
-        # })
+        (pkgs.catppuccin-vsc.override {
+          accentColor = "sapphire";
+          boldKeywords = true;
+          italicComments = true;
+          italicKeywords = true;
+          extraBordersEnabled = false;
+          workbenchMode = "flat";
+          bracketMode = "rainbow";
+          colorOverrides = {};
+          customUIColors = {};
+        })
 
         # GIT
         github.copilot
