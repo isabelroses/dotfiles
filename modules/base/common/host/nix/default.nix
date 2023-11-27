@@ -40,6 +40,7 @@
     overlays = [
       self.overlays.defaults
       inputs.rust-overlay.overlays.default
+      inputs.catppuccin-vsc.overlays.default
 
       (_: _: {
         nixSchemas = inputs'.nixSchemas.packages.default;

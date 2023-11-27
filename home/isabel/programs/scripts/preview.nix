@@ -1,10 +1,10 @@
 {
   lib,
   pkgs,
+  inputs',
   ...
 }: ''
-  #> Syntax: bash
-  # Copied from Elkowar
+  # modified from Elkowar
 
   case "$1" in
     -*) exit 0;;
@@ -14,7 +14,10 @@
     *text*)
       ${lib.getExe pkgs.bat} --color always --plain "$1"
       ;;
-    *image* | *pdf)
+    *image*)
+      ${lib.getExe inputs'.icat-wrapper.packages.default} "$1"
+      ;;
+    *pdf)
       ${lib.getExe pkgs.catimg} -w 100 -r 2 "$1"
       ;;
     *directory*)

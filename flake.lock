@@ -151,6 +151,26 @@
         "type": "github"
       }
     },
+    "catppuccin-vsc": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1701094251,
+        "narHash": "sha256-WjGzRRJqOTgm5B65w4t1cSLS3nuzkahfKEc1crykZa0=",
+        "owner": "catppuccin",
+        "repo": "vscode",
+        "rev": "235693bc9ba9d1e05801e5a6954af1bb5accd659",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "vscode",
+        "type": "github"
+      }
+    },
     "catppuccin_2": {
       "flake": false,
       "locked": {
@@ -1304,6 +1324,26 @@
       "original": {
         "owner": "hyprwm",
         "repo": "hyprpicker",
+        "type": "github"
+      }
+    },
+    "icat-wrapper": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1689446829,
+        "narHash": "sha256-ouOU4MuqpngtSwcmlVRnuoECiRPpVIMY4QpC0EWjNEg=",
+        "owner": "nekowinston",
+        "repo": "icat",
+        "rev": "4c3497a35d4f5a665c25b6ad468025f4126eaa40",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nekowinston",
+        "repo": "icat",
         "type": "github"
       }
     },
@@ -2922,6 +2962,7 @@
         "bellado": "bellado",
         "catppuccin": "catppuccin",
         "catppuccin-toolbox": "catppuccin-toolbox",
+        "catppuccin-vsc": "catppuccin-vsc",
         "catppuccinifier": "catppuccinifier",
         "devshell": "devshell",
         "flake-parts": "flake-parts",
@@ -2929,6 +2970,7 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "hyprpicker": "hyprpicker",
+        "icat-wrapper": "icat-wrapper",
         "lanzaboote": "lanzaboote",
         "neovim-flake": "neovim-flake",
         "nh": "nh",

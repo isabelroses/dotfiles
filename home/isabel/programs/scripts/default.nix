@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs',
   lib,
   ...
 }: {
@@ -10,16 +11,20 @@
     ];
 
     file = {
+      # Preview files script for fzf tab
       ".local/bin/preview" = {
-        # Preview files script for fzf tab
-        executable = true;
-        text = import ./preview.nix {inherit lib pkgs;};
+        source = lib.getExe (pkgs.writeShellApplication {
+          name = "preview";
+          text = import ./preview.nix {inherit inputs' lib pkgs;};
+        });
       };
 
+      # Extract the compressed file with the correct tool based on the extension
       ".local/bin/extract" = {
-        # Extract the compressed file with the correct tool based on the extension
-        executable = true;
-        text = import ./extract.nix {inherit lib pkgs;};
+        source = lib.getExe (pkgs.writeShellApplication {
+          name = "extract";
+          text = import ./extract.nix {inherit lib pkgs;};
+        });
       };
     };
   };
