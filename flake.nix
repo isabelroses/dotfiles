@@ -35,7 +35,7 @@
 
       flake = let
         # extended nixpkgs lib, with additonal features
-        lib = import ./lib {inherit nixpkgs inputs;};
+        lib = import ./lib {inherit inputs;};
       in {
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
 
