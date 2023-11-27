@@ -1,11 +1,10 @@
 _: {
   imports = [
-    ./ccache
-    ./flatpak
-    ./xdg-ninja
-
+    ./ccache.nix
     ./cli.nix
     ./defaults.nix
+    ./flatpak.nix
     ./gui.nix
+    ./xdg.nix
   ];
 }
