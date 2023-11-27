@@ -5,7 +5,7 @@
   inputs',
   ...
 }: let
-  inherit (osConfig.modules) device usrEnv;
+  inherit (osConfig.modules) usrEnv;
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
@@ -19,7 +19,6 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       package = inputs'.hyprland.packages.default;
-      enableNvidiaPatches = (device.gpu == "nvidia") || (device.gpu == "hybrid-nv");
       xwayland.enable = true;
 
       systemd = {

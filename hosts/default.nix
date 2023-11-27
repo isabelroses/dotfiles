@@ -77,12 +77,12 @@ in {
   };
 
   # hertzner cloud computer
-  bernie = mkNixosSystem {
+  luz = mkNixosSystem {
     inherit withSystem;
     system = "x86_64-linux";
     modules =
       [
-        ./bernie
+        ./luz
         server
       ]
       ++ concatLists [shared homes];
