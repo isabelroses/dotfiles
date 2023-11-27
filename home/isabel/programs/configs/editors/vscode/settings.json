@@ -1,5 +1,4 @@
 {
-	"workbench.preferredLightColorTheme": "Catppuccin Mocha",
 	"security.workspace.trust.untrustedFiles": "open",
 	"editor.suggestSelection": "first",
 	"editor.formatOnPaste": true,
@@ -25,11 +24,8 @@
 	"markdown-preview-enhanced.liveUpdate": true,
 	"editor.formatOnSave": true,
 	"explorer.confirmDelete": false,
-	"catppuccin.accentColor": "sapphire",
-	"catppuccin.workbenchMode": "flat",
 	"workbench.settings.applyToAllProfiles": [],
 	"workbench.iconTheme": "catppuccin-mocha",
-	"workbench.colorTheme": "Catppuccin Mocha",
 	"window.titleBarStyle": "custom",
 	"nix.enableLanguageServer": true,
 	"nix.serverPath": "nil",
@@ -43,5 +39,10 @@
 			}
 		}
 	},
-	"workbench.editor.empty.hint": "hidden"
+	"workbench.editor.empty.hint": "hidden",
+	"arduino.useArduinoCli": true,
+	"arduino.enableUSBDetection": true,
+	"[css]": {
+		"editor.defaultFormatter": "stylelint.vscode-stylelint"
+	}
 }

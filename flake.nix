@@ -242,7 +242,7 @@
       };
     };
 
-    # cool wallpaper maker
+    # catppuccin related items
     catppuccinifier = {
       url = "github:lighttigerXIV/catppuccinifier";
       inputs = {
@@ -250,20 +250,26 @@
         flake-utils.follows = "pre-commit-hooks/flake-utils";
       };
     };
-
-    # cool tools
-    catppuccin-toolbox = {
-      url = "github:catppuccin/toolbox";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Amazing themeing
     catppuccin = {
       url = "github:Stonks3141/ctp-nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
       };
+    };
+    catppuccin-vsc = {
+      url = "github:catppuccin/vscode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    catppuccin-toolbox = {
+      url = "github:catppuccin/toolbox";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # icat wrapper
+    icat-wrapper = {
+      url = "github:nekowinston/icat";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Schemas
