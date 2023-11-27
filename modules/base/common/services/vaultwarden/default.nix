@@ -8,7 +8,7 @@
 
   cfg = config.modules.services.vaultwarden;
 
-  inherit (lib) mkIf sslTemplate;
+  inherit (lib) mkIf template;
 in {
   config = mkIf cfg.enable {
     # this forces the system to create backup folder
@@ -55,7 +55,7 @@ in {
             extraConfig = "proxy_pass_header Authorization;";
           };
         }
-        // sslTemplate;
+        // template.ssl;
     };
   };
 }

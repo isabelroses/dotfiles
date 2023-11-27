@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (lib) mkIf sslTemplate;
+  inherit (lib) mkIf template;
   inherit (config.networking) domain;
 
   sys = config.modules.services;
@@ -113,7 +113,7 @@ in {
             proxyWebsockets = true;
           };
         }
-        // sslTemplate;
+        // template.ssl;
     };
   };
 }

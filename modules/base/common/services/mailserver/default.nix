@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (config.networking) domain;
-  inherit (lib) mkIf sslTemplate;
+  inherit (lib) mkIf template;
   cfg = config.modules.services.mailserver;
 in {
   imports = [
@@ -215,8 +215,8 @@ in {
       };
 
       nginx.virtualHosts = {
-        ${config.mailserver.fqdn} = sslTemplate;
-        "webmail.${domain}" = sslTemplate;
+        ${config.mailserver.fqdn} = template.ssl;
+        "webmail.${domain}" = template.ssl;
         # "rspamd.${domain}" = mkIf (cfg.mailserver.enable && cfg.mailserver.rspamd-web.enable) {
         #   forceSSL = true;
         #   enableACME = true;

@@ -35,7 +35,7 @@ in {
         };
       };
 
-      nginx.virtualHosts.${config.services.wakapi.domain} = lib.sslTemplate;
+      nginx.virtualHosts.${config.services.wakapi.domain} = lib.template.ssl;
     };
   };
 }

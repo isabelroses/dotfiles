@@ -1,4 +1,5 @@
 {
+  lib,
   config,
   pkgs,
   ...
@@ -31,12 +32,16 @@
     "x-scheme-handler/discord" = ["Discord.desktop"];
     "inode/directory" = filemanager;
   };
+
+  template = import lib.template.xdg "home-manager";
 in {
   home.packages = with pkgs; [xdg-utils];
   xdg = {
     enable = true;
+
     userDirs = {
       enable = true;
+
       createDirectories = true;
       documents = "$HOME/documents";
       download = "$HOME/downloads";
@@ -57,6 +62,11 @@ in {
       enable = true;
       associations.added = associations;
       defaultApplications = associations;
+    };
+
+    configFile = {
+      "npm/npmrc" = template.npmrc;
+      "python/pythonrc" = template.pythonrc;
     };
   };
 }

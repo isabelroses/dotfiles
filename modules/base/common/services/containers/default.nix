@@ -5,7 +5,7 @@
 }: let
   cfg = config.modules.services;
   inherit (config.networking) domain;
-  inherit (lib) mkIf sslTemplate;
+  inherit (lib) mkIf template;
 in {
   config = mkIf cfg.isabelroses-web.enable {
     virtualisation.oci-containers = {
@@ -31,6 +31,6 @@ in {
       {
         locations."/".proxyPass = "http://127.0.0.1:3000";
       }
-      // sslTemplate;
+      // template.ssl;
   };
 }

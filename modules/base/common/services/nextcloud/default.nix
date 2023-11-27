@@ -7,7 +7,7 @@
   inherit (config.networking) domain;
   nextcloud_domain = "cloud.${domain}";
 
-  inherit (lib) mkIf sslTemplate;
+  inherit (lib) mkIf template;
 
   cfg = config.modules.services;
 in {
@@ -75,7 +75,7 @@ in {
         };
       };
 
-      nginx.virtualHosts.${nextcloud_domain} = sslTemplate;
+      nginx.virtualHosts.${nextcloud_domain} = template.ssl;
     };
 
     systemd.services = {

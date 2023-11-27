@@ -26,11 +26,11 @@
   firewall = import' ./networking/firewall.nix {inherit dag;};
   namespacing = import' ./networking/namespacing.nix;
 
-  # aliases for commonly used strings or functions
-  aliases = import' ./aliases.nix;
+  # templates, selections of code and etc that are repeated
+  template = import' ./template;
 
   # recursively merges two attribute sets
   mergeRecursively = lhs: rhs: recursiveUpdate lhs rhs;
-  importedLibs = [builders services validators helpers hardware aliases firewall namespacing dag];
+  importedLibs = [builders services validators helpers hardware template firewall namespacing dag];
 in
   lib.extend (_: _: foldl mergeRecursively {} importedLibs)

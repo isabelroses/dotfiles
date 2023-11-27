@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf sslTemplate;
+  inherit (lib) mkIf template;
   inherit (config.networking) domain;
 
   cfg = config.modules.services.matrix;
@@ -56,7 +56,7 @@ in {
             };
             serverAliases = ["matrix.${domain}"];
           }
-          // sslTemplate;
+          // template.ssl;
       };
 
       matrix-synapse = {

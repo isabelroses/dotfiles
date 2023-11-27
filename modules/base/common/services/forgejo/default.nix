@@ -8,7 +8,7 @@
   inherit (config.networking) domain;
   forgejo_domain = "git.${domain}";
 
-  inherit (lib) mkIf sslTemplate;
+  inherit (lib) mkIf template;
 
   # stole this from https://git.winston.sh/winston/deployment-flake/src/branch/main/config/services/gitea.nix who stole it from https://github.com/getchoo
   theme = pkgs.fetchzip {
@@ -158,7 +158,7 @@ in {
             proxyPass = "http://unix:/run/forgejo/forgejo.sock";
           };
         }
-        // sslTemplate;
+        // template.ssl;
     };
   };
 }
