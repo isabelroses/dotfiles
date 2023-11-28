@@ -71,9 +71,16 @@ in {
 
     networkmanager = {
       enable = true;
-      plugins = [];
+      plugins = mkForce [];
       dns = "systemd-resolved";
-      unmanaged = ["docker0" "rndis0"];
+      unmanaged = [
+        "docker0"
+        "rndis0"
+        "interface-name:br-*"
+        "interface-name:docker*"
+        "interface-name:virbr*"
+        "driver:wireguard" # don't manage wireguard, we want to do it outselves
+      ];
 
       wifi = {
         backend = sys.networking.wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_s until iwd support is stable
