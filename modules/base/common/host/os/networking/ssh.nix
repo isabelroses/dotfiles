@@ -3,9 +3,17 @@
     enable = true;
     startWhenNeeded = true;
     settings = {
-      PermitRootLogin = lib.mkForce "no";
+      # Don't allow root  login
+      PermitRootLogin = "no";
+
+      # only allow key based logins and not password
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = lib.mkDefault false;
+      AuthenticationMethods = "publickey";
+      PubkeyAuthentication = "yes";
+      ChallengeResponseAuthentication = "no";
+      UsePAM = "no";
+
       UseDns = false;
       X11Forwarding = false;
 
@@ -18,6 +26,10 @@
         "diffie-hellman-group18-sha512"
         "sntrup761x25519-sha512@openssh.com"
       ];
+
+      # kick out inactive sessions
+      ClientAliveCountMax = 5;
+      ClientAliveInterval = 60;
     };
 
     openFirewall = true;

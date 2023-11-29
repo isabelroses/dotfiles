@@ -6,15 +6,21 @@
   inherit (lib) mkIf;
 
   cfg = config.modules.services.monitoring.loki;
+  lcfg = config.services.loki;
 in {
   config = mkIf cfg.enable {
     # https://gist.github.com/rickhull/895b0cb38fdd537c1078a858cf15d63e
     services.loki = {
       enable = true;
       dataDir = "/srv/storage/loki";
+      extraFlags = ["--config.expand-env=true"];
 
       configuration = {
-        server.http_listen_port = 3030;
+        server = {
+          http_listen_port = 3030;
+          log_level = "warn";
+        };
+
         auth_enabled = false;
 
         ingester = {
@@ -34,31 +40,28 @@ in {
           max_transfer_retries = 0;
         };
 
-        schema_config = {
-          configs = [
-            {
-              from = "2022-06-06";
-              store = "boltdb-shipper";
-              object_store = "filesystem";
-              schema = "v11";
-              index = {
-                prefix = "index_";
-                period = "24h";
-              };
-            }
-          ];
-        };
+        schema_config.configs = [
+          {
+            from = "2022-06-06";
+            store = "boltdb-shipper";
+            object_store = "filesystem";
+            schema = "v11";
+            index = {
+              prefix = "index_";
+              period = "24h";
+            };
+          }
+        ];
 
         storage_config = {
+          boltdb.directory = "${lcfg.dataDir}/boltdb-index";
+          filesystem.directory = "${lcfg.dataDir}/storage-chunks";
+
           boltdb_shipper = {
-            active_index_directory = "/srv/storage/loki/boltdb-shipper-active";
-            cache_location = "/srv/storage/loki/boltdb-shipper-cache";
+            active_index_directory = "${lcfg.dataDir}/boltdb-shipper-active";
+            cache_location = "${lcfg.dataDir}/boltdb-shipper-cache";
             cache_ttl = "24h";
             shared_store = "filesystem";
-          };
-
-          filesystem = {
-            directory = "/srv/storage/loki/chunks";
           };
         };
 
@@ -77,7 +80,7 @@ in {
         };
 
         compactor = {
-          working_directory = "/srv/storage/loki";
+          working_directory = "${lcfg.dataDir}/compactor-work";
           shared_store = "filesystem";
           compactor_ring = {
             kvstore = {
