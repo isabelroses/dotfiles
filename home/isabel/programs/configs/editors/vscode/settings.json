@@ -44,5 +44,6 @@
 	"arduino.enableUSBDetection": true,
 	"[css]": {
 		"editor.defaultFormatter": "stylelint.vscode-stylelint"
-	}
+	},
+	"workbench.colorTheme": "Catppuccin Mocha"
 }
