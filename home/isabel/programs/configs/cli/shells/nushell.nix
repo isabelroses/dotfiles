@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   osConfig,
   ...
 }: let
@@ -30,12 +29,12 @@ in {
       }
 
       # If multiple shells are open, exit current one. If this is the last one, exit completely.
-      def-env x [] {
+      def --env x [] {
         if (shells | length) == 1 { exit } else { dexit }
       }
 
       # Go to system configuration flake, and open editor.
-      def-env fk [] {
+      def --env fk [] {
         enter ${system.flakePath}
         commandline -i ($env.EDITOR + " ./")
       }
@@ -273,8 +272,8 @@ in {
       source = pkgs.fetchFromGitHub {
         owner = "nushell";
         repo = "nu_scripts";
-        rev = "85da8c2fb5967a7f575d8f63ebeb8d49d36fc139";
-        hash = "sha256-tT/BTnIXEgcMoyfujzWMFlOM7EclWT9LL/dt5jj7Y2M=";
+        rev = "c65ae517d029f5d57d009dc2b36325da264d43f3";
+        hash = "sha256-y5Yl1/b9XDG2gFsIV8Jlw22OtGcZDhRiA7ycl5SNV/4=";
       };
     };
   };
