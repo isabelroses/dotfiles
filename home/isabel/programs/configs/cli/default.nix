@@ -4,6 +4,7 @@ _: {
 
     ./atuin.nix
     ./bat.nix
+    ./bellado.nix
     ./eza.nix
     ./git.nix
     ./hyfetch.nix
