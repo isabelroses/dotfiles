@@ -61,15 +61,16 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1696727195,
-        "narHash": "sha256-R+4eaviYu0SrW9xr8ZrYjemLamzWOdwoOrrkGOtXEUY=",
+        "lastModified": 1701381470,
+        "narHash": "sha256-nYcKntlyc4a6nrMvKhSKSK8AnAMNyRRPZANd4cXKyq0=",
         "owner": "isabelroses",
         "repo": "bellado",
-        "rev": "4fa6b3ca680b647a912a8f6198148a3cd222a704",
+        "rev": "b325fdfc0645f0ca363e8c015ff7c1d1028ae17e",
         "type": "github"
       },
       "original": {
         "owner": "isabelroses",
+        "ref": "0.3.0",
         "repo": "bellado",
         "type": "github"
       }
@@ -2023,16 +2024,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1701053011,
-        "narHash": "sha256-8QQ7rFbKFqgKgLoaXVJRh7Ik5LtI3pyBBCfOnNOGkF0=",
+        "lastModified": 1701263465,
+        "narHash": "sha256-lNXUIlkfyDyp9Ox21hr+wsEf/IBklLvb6bYcyeXbdRc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5b528f99f73c4fad127118a8c1126b5e003b01a9",
+        "rev": "50aa30a13c4ab5e7ba282da460a3e3d44e9d0eb3",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-23.05",
+        "ref": "nixos-23.11",
         "repo": "nixpkgs",
         "type": "github"
       }

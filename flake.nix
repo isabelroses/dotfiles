@@ -220,7 +220,7 @@
     };
 
     # lovely app
-    bellado.url = "github:isabelroses/bellado";
+    bellado.url = "github:isabelroses/bellado/0.3.0";
 
     # Firefox but really locked down and air tight
     schizofox = {
