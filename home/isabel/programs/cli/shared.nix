@@ -21,7 +21,6 @@ in {
         wakatime
         arduino-cli
         cached-nix-shell
-        self'.packages.bellado
         self'.packages.catppuccinifier-cli
       ]
       ++ optionals cfg.cli.modernShell.enable [
