@@ -45,5 +45,6 @@
 	"[css]": {
 		"editor.defaultFormatter": "stylelint.vscode-stylelint"
 	},
-	"workbench.colorTheme": "Catppuccin Mocha"
+	"workbench.colorTheme": "Catppuccin Mocha",
+	"catppuccin.accentColor": "sapphire"
 }
