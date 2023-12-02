@@ -14,7 +14,7 @@ in {
   config = mkIf (cfg.enable && device.hasSound) {
     # enable sound support and media keys if device has sound
     sound = {
-      enable = true;
+      enable = mkDefault false; # this just enables ALSA
       mediaKeys.enable = true;
     };
 
@@ -23,7 +23,15 @@ in {
 
     # pipewire is newer and just better
     services.pipewire = {
-      enable = mkDefault true;
+      enable = true;
+
+      lowLatency = {
+        enable = true;
+        quantum = 64;
+        rate = 48000;
+      };
+
+      audio.enable = true;
       wireplumber.enable = true;
       pulse.enable = true;
       jack.enable = true;
@@ -31,16 +39,11 @@ in {
         enable = true;
         support32Bit = isx86Linux pkgs;
       };
-
-      lowLatency = {
-        enable = true;
-        quantum = 64;
-        rate = 48000;
-      };
     };
 
     # pulseaudio backup
     hardware.pulseaudio.enable = !config.services.pipewire.enable;
+
     # write bluetooth rules if and only if pipewire is enabled AND the device has bluetooth
     environment.etc = mkIf (config.services.pipewire.enable && device.hasBluetooth) {
       "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
@@ -52,6 +55,7 @@ in {
         }
       '';
     };
+
     systemd.user.services = {
       pipewire.wantedBy = ["default.target"];
       pipewire-pulse.wantedBy = ["default.target"];
