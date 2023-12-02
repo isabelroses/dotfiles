@@ -1,8 +1,8 @@
 _: {
   imports = [
-    ./mongodb
-    ./postgresql
-    ./mysql
-    ./redis
+    ./mongodb.nix
+    ./postgresql.nix
+    ./mysql.nix
+    ./redis.nix
   ];
 }
