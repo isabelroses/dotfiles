@@ -9,7 +9,10 @@ import TopBar from "./js/bar/TopBar.js";
 import Verification from "./js/powermenu/Verification.js";
 import options from "./js/options.js";
 import { init } from "./js/settings/setup.js";
+import { initWallpaper } from "./js/settings/wallpaper.js";
 import { forMonitors } from "./js/utils.js";
+
+initWallpaper();
 
 const windows = () => [
     forMonitors(TopBar),
