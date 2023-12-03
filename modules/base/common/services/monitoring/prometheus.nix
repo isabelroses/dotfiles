@@ -57,31 +57,51 @@ in {
           };
         };
 
-        scrapeConfigs = [
+        scrapeConfigs = let
+          exp = config.services.prometheus.exporters;
+        in [
           {
             job_name = "prometheus";
             scrape_interval = "30s";
-            static_configs = [{targets = ["localhost:9100"];}];
+            static_configs = [{targets = ["localhost:${toString config.services.prometheus.port}"];}];
           }
           {
             job_name = "node";
             scrape_interval = "30s";
-            static_configs = [{targets = ["localhost:9101"];}];
+            static_configs = [{targets = ["localhost:${toString exp.node.port}"];}];
           }
           {
             job_name = "redis";
             scrape_interval = "30s";
-            static_configs = [{targets = ["localhost:9102"];}];
+            static_configs = [{targets = ["localhost:${toString exp.redis.port}"];}];
           }
           {
             job_name = "postgres";
             scrape_interval = "30s";
-            static_configs = [{targets = ["localhost:9103"];}];
+            static_configs = [{targets = ["localhost:${toString exp.postgres.port}"];}];
           }
           {
             job_name = "nginx";
             scrape_interval = "30s";
-            static_configs = [{targets = ["localhost:9104"];}];
+            static_configs = [{targets = ["localhost:${toString exp.nginx.port}"];}];
+          }
+          {
+            job_name = "uptime-kuma";
+            scrape_interval = "30s";
+            scrape_timeout = "10s";
+            metrics_path = "/metrics";
+            static_configs = [
+              {
+                targets = [
+                  "localhost:3500"
+                ];
+              }
+            ];
+          }
+          {
+            job_name = "smartctl";
+            scrape_interval = "30s";
+            static_configs = [{targets = ["localhost:${toString exp.smartctl.port}"];}];
           }
         ];
       };

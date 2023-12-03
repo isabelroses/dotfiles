@@ -21,6 +21,7 @@ _: {
       grafana.enable = true;
       prometheus.enable = true;
       loki.enable = true;
+      uptime-kuma.enable = true;
     };
 
     database = {

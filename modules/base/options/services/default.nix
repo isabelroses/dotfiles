@@ -33,10 +33,11 @@ in {
 
     # monitoring tools
     monitoring = {
-      enable = mkEnableOption "system monitoring services"; # // {default = ifOneEnabled cfg "grafana" "prometheus" "loki";};
+      enable = mkEnableOption "system monitoring services";
       prometheus.enable = mkEnableOption' "Prometheus monitoring service";
       grafana.enable = mkEnableOption' "Grafana monitoring service";
       loki.enable = mkEnableOption' "Loki monitoring service";
+      uptime-kuma.enable = mkEnableOption' "Uptime Kuma monitoring service";
     };
 
     # database backends
