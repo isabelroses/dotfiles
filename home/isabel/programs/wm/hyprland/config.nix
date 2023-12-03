@@ -57,7 +57,7 @@ in {
 
         gaps_in = 8;
         gaps_out = 8;
-        border_size = 3;
+        border_size = 2;
         no_border_on_floating = true;
 
         "col.active_border" = "rgba(cba6f7ff) rgba(89b4faff) rgba(94e2d5ff) 10deg";
@@ -106,6 +106,7 @@ in {
           passes = 1;
           size = 2;
           new_optimizations = true;
+          xray = true;
         };
 
         blurls = [
