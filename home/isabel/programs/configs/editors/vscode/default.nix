@@ -10,12 +10,12 @@ in {
   config = lib.mkIf osConfig.modules.programs.editors.vscode.enable {
     programs.vscode = {
       enable = true;
-      package = pkgs.vscodium;
+      package = pkgs.vscode;
       extensions = with pkgs.vscode-extensions; [
         # THEMEING
         catppuccin.catppuccin-vsc-icons
         (pkgs.catppuccin-vsc.override {
-          accentColor = "sapphire";
+          accent = "sapphire";
           boldKeywords = true;
           italicComments = true;
           italicKeywords = true;
@@ -76,8 +76,8 @@ in {
     };
 
     xdg.configFile = {
-      "VSCodium/User/keybindings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/programs/configs/editors/vscode/keybindings.json";
-      "VSCodium/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/programs/configs/editors/vscode/settings.json";
+      "VSCode/User/keybindings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/programs/configs/editors/vscode/keybindings.json";
+      "VSCode/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/programs/configs/editors/vscode/settings.json";
     };
   };
 }
