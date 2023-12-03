@@ -4,5 +4,6 @@ _: {
 
     ./loki.nix
     ./prometheus.nix
+    ./uptime-kuma.nix
   ];
 }
