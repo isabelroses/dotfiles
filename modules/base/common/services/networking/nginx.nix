@@ -22,7 +22,7 @@ in {
       commonHttpConfig = ''
         # real_ip_header CF-Connecting-IP;
         add_header 'Referrer-Policy' 'origin-when-cross-origin';
-        # add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Frame-Options "SAMEORIGIN" always;
         add_header X-Content-Type-Options nosniff;
       '';
 
