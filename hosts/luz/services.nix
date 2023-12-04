@@ -25,6 +25,7 @@ _: {
     };
 
     database = {
+      influxdb.enable = false;
       mysql.enable = false;
       mongodb.enable = false;
       postgresql.enable = true;
