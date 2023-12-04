@@ -257,10 +257,10 @@
         home-manager.follows = "home-manager";
       };
     };
-    catppuccin-vsc = {
-      url = "github:catppuccin/vscode";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # catppuccin-vsc = {
+    #   url = "github:catppuccin/vscode";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     catppuccin-toolbox = {
       url = "github:catppuccin/toolbox";
       inputs.nixpkgs.follows = "nixpkgs";
