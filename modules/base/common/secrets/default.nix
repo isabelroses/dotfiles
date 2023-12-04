@@ -82,6 +82,14 @@ in {
         mode = "400";
       };
 
+      # users passwords
+      user-isabel-password = {
+        neededForUsers = true;
+      };
+      user-root-password = {
+        neededForUsers = true;
+      };
+
       # user
       git-credentials = {
         path = homeDir + "/.git-credentials";

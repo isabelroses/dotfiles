@@ -38,7 +38,7 @@ in {
       ];
     uid = 1000;
     shell = pkgs.fish;
-    initialPassword = "changeme";
+    hashedPasswordFile = config.sops.secrets.user-isabel-password.path;
     openssh.authorizedKeys.keys = keys;
   };
 }
