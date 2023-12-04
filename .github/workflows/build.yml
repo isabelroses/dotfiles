@@ -49,7 +49,7 @@ jobs:
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_TOKEN }}"
 
-      - name: Set default git branch (to reduce log spam)
+      - name: Set default git branch
         run: git config --global init.defaultBranch main
 
       - name: Build from the matrix
