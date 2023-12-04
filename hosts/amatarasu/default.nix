@@ -14,7 +14,7 @@ in {
         cpu = "intel";
         gpu = "nvidia";
         hasTPM = true;
-        monitors = ["HDMI-1"];
+        monitors = ["HDMI-1" "DP-1"];
         hasBluetooth = true;
         hasSound = true;
         keyboard = "us";

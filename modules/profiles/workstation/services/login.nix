@@ -80,8 +80,8 @@ in {
 
       logind = {
         lidSwitch = "ignore";
-        lidSwitchDocked = "lock";
-        lidSwitchExternalPower = "lock";
+        lidSwitchDocked = "ignore";
+        lidSwitchExternalPower = "ignore";
         powerKey = "suspend-then-hibernate";
       };
     };
