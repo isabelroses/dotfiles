@@ -25,12 +25,28 @@ in {
         };
 
         passwordSaltFile = config.sops.secrets.wakapi.path;
+        smtpPasswordFile = config.sops.secrets.wakapi-mailer.path;
+
         settings = {
           app.avatar_url_template = "https://www.gravatar.com/avatar/{email_hash}.png";
-          mail.enabled = false;
+
           security = {
-            allow_signup = false;
+            allow_signup = true;
             disable_frontpage = true;
+          };
+
+          mail = let
+            mailer = "noreply@${domain}";
+          in {
+            enabled = true;
+            sender = "<${mailer}>";
+            provider = "smtp";
+            smtp = {
+              host = "mail.${domain}";
+              port = 465;
+              username = mailer;
+              tls = true;
+            };
           };
         };
       };
