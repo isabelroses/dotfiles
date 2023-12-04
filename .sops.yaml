@@ -1,7 +1,11 @@
 keys:
-  - &isabel age1882yv8el2gg07yfzsd0ul46qpvarn39g45za8uxx03v2ww56vdyqa37qcp
+  - &isabel age1w98qzycsw5jk9hpy4yg5ld05qqdvs2vxctdypx0tqppvxrk579yshzctus
+  - &hydra age10rpacvj009f9eklhp5esmjakdvzk0zdazcu2q4zpr098dxlksqws4hxy8x
+  - &luz age1c28zh0wrj567uzhj8echy684srjgcpksj0c6m0rhjx09wcxgtp8sxdyw4q
 creation_rules:
   - path_regex: modules/base/common/secrets/[^/]+\.yaml$
-  - key_groups:
+    key_groups:
       - age:
           - *isabel
+          - *hydra
+          - *luz

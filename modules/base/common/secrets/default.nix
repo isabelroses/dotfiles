@@ -14,8 +14,8 @@ in {
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-
-    age.keyFile = "/home/${config.modules.system.mainUser}/.config/sops/age/keys.txt";
+    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
+    # age.keyFile = "/home/${config.modules.system.mainUser}/.config/sops/age/keys.txt";
 
     secrets = let
       inherit (config.modules.system) mainUser;
