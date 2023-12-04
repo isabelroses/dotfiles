@@ -28,7 +28,7 @@
   };
 
   nixpkgs = {
-    #pkgs = self.legacyPackages.${config.nixpkgs.system};
+    # pkgs = self.legacyPackages.${config.nixpkgs.system};
 
     config = {
       allowUnfree = true;
@@ -40,7 +40,7 @@
     overlays = [
       self.overlays.defaults
       inputs.rust-overlay.overlays.default
-      inputs.catppuccin-vsc.overlays.default
+      # inputs.catppuccin-vsc.overlays.default
 
       (_: _: {
         nixSchemas = inputs'.nixSchemas.packages.default;
