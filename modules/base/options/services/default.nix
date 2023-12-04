@@ -42,6 +42,7 @@ in {
 
     # database backends
     database = {
+      influxdb.enable = mkEnableOption "Influxdb service";
       mysql.enable = mkEnableOption "MySQL database service";
       mongodb.enable = mkEnableOption "MongoDB service";
       postgresql.enable = mkEnableOption "Postgresql service";
