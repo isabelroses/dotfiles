@@ -10,7 +10,7 @@
   group = config.users.groups.wakapi.name;
 
   settingsFormat = pkgs.formats.yaml {};
-  inherit (lib) types;
+  inherit (lib) mkOption mkEnableOption mkPackageOption types mkIf optional mkMerge mkDoc mkDefault singleton;
 
   settingsFile = settingsFormat.generate "wakapi-settings" cfg.settings;
 
@@ -35,8 +35,14 @@
       '';
 
       serviceConfig = {
-        Environment = lib.mkIf (cfg.passwordSalt != null) "WAKAPI_PASSWORD_SALT=${cfg.passwordSalt}";
-        EnvironmentFile = lib.mkIf (cfg.passwordSaltFile != null) cfg.passwordSaltFile;
+        Environment = mkMerge [
+          (mkIf (cfg.passwordSalt != null) "WAKAPI_PASSWORD_SALT=${cfg.passwordSalt}")
+          (mkIf (cfg.smtpPassword != null) "WAKAPI_MAIL_SMTP_PASS=${cfg.smtpPassword}")
+        ];
+        EnvironmentFile = [
+          (optional (cfg.passwordSaltFile != null) cfg.passwordSaltFile)
+          (optional (cfg.smtpPasswordFile != null) cfg.smtpPasswordFile)
+        ];
 
         User = user;
         Group = group;
@@ -71,14 +77,18 @@
         assertion = cfg.passwordSalt != null || cfg.passwordSaltFile != null;
         message = "Either `passwordSalt` or `passwordSaltFile` must be set.";
       }
+      # {
+      #   assertion = cfg.smtpPassword != null && cfg.smtpPasswordFile != null;
+      #   message = "Both `smtpPassword` or `smtpPasswordFile` should not be set at the same time.";
+      # }
     ];
   };
 
   databaseConfig = {
     services.postgresql = {
       enable = true;
-      ensureDatabases = lib.singleton cfg.settings.db.name;
-      ensureUsers = lib.singleton {
+      ensureDatabases = singleton cfg.settings.db.name;
+      ensureUsers = singleton {
         name = cfg.settings.db.user;
         ensureDBOwnership = true;
       };
@@ -97,27 +107,27 @@
     };
   };
 
-  nginxConfig = lib.mkIf cfg.nginx.enable {
+  nginxConfig = mkIf cfg.nginx.enable {
     services.nginx = {
       enable = true;
       virtualHosts.${cfg.domain} = {
         locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
 
-        enableACME = lib.mkDefault true;
-        forceSSL = lib.mkDefault true;
+        enableACME = mkDefault true;
+        forceSSL = mkDefault true;
       };
     };
 
     services.wakapi.settings.server = {
-      public_url = lib.mkDefault cfg.domain;
+      public_url = mkDefault cfg.domain;
     };
   };
 in {
   options.services.wakapi = {
-    enable = lib.mkEnableOption "Wakapi";
-    package = lib.mkPackageOption pkgs "wakapi" {};
+    enable = mkEnableOption "Wakapi";
+    package = mkPackageOption pkgs "wakapi" {};
 
-    port = lib.mkOption {
+    port = mkOption {
       type = types.int;
       default = 3000;
       description = ''
@@ -125,7 +135,7 @@ in {
         This is used to configure nginx.
       '';
     };
-    domain = lib.mkOption {
+    domain = mkOption {
       type = types.nullOr types.str;
       default = null;
       description = ''
@@ -135,35 +145,35 @@ in {
     };
 
     db = {
-      host = lib.mkOption {
+      host = mkOption {
         type = types.str;
         default = "127.0.0.1";
         description = ''
           The database host to use for Wakapi.
         '';
       };
-      port = lib.mkOption {
+      port = mkOption {
         type = types.int;
         default = 5432;
         description = ''
           The port to use for the database.
         '';
       };
-      name = lib.mkOption {
+      name = mkOption {
         type = types.str;
         default = "wakapi";
         description = ''
           The database name to use for Wakapi.
         '';
       };
-      user = lib.mkOption {
+      user = mkOption {
         type = types.str;
         default = "wakapi";
         description = ''
           The database user to use for Wakapi.
         '';
       };
-      password = lib.mkOption {
+      password = mkOption {
         type = types.nullOr types.str;
         default = null;
         description = ''
@@ -172,16 +182,16 @@ in {
       };
     };
 
-    nginx.enable = lib.mkEnableOption "Wakapi Nginx";
+    nginx.enable = mkEnableOption "Wakapi Nginx";
 
-    passwordSalt = lib.mkOption {
+    passwordSalt = mkOption {
       type = types.nullOr types.str;
       default = null;
       description = ''
         The password salt to use for Wakapi.
       '';
     };
-    passwordSaltFile = lib.mkOption {
+    passwordSaltFile = mkOption {
       type = types.nullOr types.path;
       default = null;
       description = ''
@@ -189,10 +199,25 @@ in {
       '';
     };
 
-    settings = lib.mkOption {
+    smtpPassword = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = ''
+        The password used for the smtp mailed to used by Wakapi.
+      '';
+    };
+    smtpPasswordFile = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      description = ''
+        The path to a file containing the password for the smtp mailer used by Wakapi.
+      '';
+    };
+
+    settings = mkOption {
       inherit (settingsFormat) type;
       default = {};
-      description = lib.mkDoc ''
+      description = mkDoc ''
         Settings for Wakapi.
 
         See [config.default.yml](https://github.com/muety/wakapi/blob/master/config.default.yml) for a list of all possible options.
@@ -200,7 +225,7 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
+  config = mkIf cfg.enable (mkMerge [
     userConfig
     databaseConfig
     nginxConfig

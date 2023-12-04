@@ -78,6 +78,11 @@ in {
         group = "wakapi";
       };
 
+      wakapi-mailer = mkIf services.wakapi.enable {
+        owner = "wakapi";
+        group = "wakapi";
+      };
+
       mongodb-passwd = mkIf services.database.mongodb.enable {
         mode = "400";
       };
