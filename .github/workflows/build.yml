@@ -43,7 +43,7 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Setup cachix
-        uses: cachix/cachix-action@v12
+        uses: cachix/cachix-action@v13
         with:
           name: isabelroses
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
