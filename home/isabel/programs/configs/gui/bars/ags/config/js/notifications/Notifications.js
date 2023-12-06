@@ -11,7 +11,7 @@ const Popups = (parent) => {
     const onDismissed = (_, id, force = false) => {
         if (!id || !map.has(id)) return;
 
-        if (map.get(id)._hovered.value && !force) return;
+        if (map.get(id).isHovered() && !force) return;
 
         if (map.size - 1 === 0) parent.reveal_child = false;
 

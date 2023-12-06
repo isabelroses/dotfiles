@@ -4,7 +4,7 @@ export default [
     Theme({
         name: "Mocha",
         icon: "",
-        "desktop.wallpaper.img": WP + "catgirl.jpg",
+        "desktop.wallpaper.img": WP + "walking.png",
     }),
     Theme({
         name: "Latte",

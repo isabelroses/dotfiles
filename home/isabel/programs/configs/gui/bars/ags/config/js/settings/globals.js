@@ -18,4 +18,7 @@ export async function globals() {
             globalThis.mpris = player || Mpris.players[0];
         });
     });
+    Mpris.connect("player-closed", () => {
+        globalThis.mpris = Mpris.players[0];
+    });
 }

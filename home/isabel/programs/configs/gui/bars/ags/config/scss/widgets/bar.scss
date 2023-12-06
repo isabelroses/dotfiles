@@ -1,4 +1,9 @@
 $bar-spacing: $spacing / 1.5;
+$button-radius: if(
+	$bar-style == "floating",
+	max(0, $radii - $bar-spacing),
+	$radii
+);
 
 @mixin panel-button($flat: $bar-flat-buttons, $reactive: true) {
 	@include unset;
@@ -40,6 +45,7 @@ $bar-spacing: $spacing / 1.5;
 
 		> * {
 			margin: $bar-spacing;
+			border-radius: $button-radius;
 		}
 	}
 
@@ -68,6 +74,7 @@ $bar-spacing: $spacing / 1.5;
 
 	@if $bar-style == "floating" {
 		@include floating-widget;
+		border-radius: $radii;
 		margin: $wm-gaps;
 		padding: 0;
 	}
@@ -224,66 +231,45 @@ $bar-spacing: $spacing / 1.5;
 		}
 	}
 
-	.workspaces {
-		> * {
-			padding: 0;
+	.workspaces button {
+		all: unset;
+
+		.indicator {
+			font-size: 0;
+			min-width: 8px;
+			min-height: 8px;
+			border-radius: $radii * 0.6;
+			box-shadow: inset 0 0 0 $border-width $border-color;
+			margin: 0 $padding/2;
+			transition: $transition/2;
+			background-color: transparentize($fg-color, 0.8);
 		}
 
-		.eventbox {
-			transition: $transition;
-
-			@if $bar-style == "separated" {
-				border-radius: max($radii - $border-width, 0);
-
-				&:hover {
-					background-color: $hover;
-				}
-			} @else {
-				@include button($flat: true);
-			}
+		&:last-child .indicator {
+			margin-right: $padding;
+		}
+		&:first-child .indicator {
+			margin-left: $padding;
 		}
 
-		button {
-			all: unset;
+		&.occupied .indicator {
+			background-color: transparentize($fg-color, 0.2);
+			min-width: 10px;
+			min-height: 10px;
+		}
 
-			.indicator {
-				font-size: 0;
-				min-width: 6px;
-				min-height: 6px;
-				border-radius: $radii * 0.6;
-				border: $border;
-				margin: 0 $padding/2;
-				transition: $transition/2;
-				background-color: transparentize($fg-color, 0.8);
-			}
+		&:hover .indicator {
+			box-shadow: inset 0 0 0 10px transparentize($fg-color, 0.8);
+		}
 
-			&:last-child .indicator {
-				margin-right: $padding;
-			}
+		&.active .indicator,
+		&:active .indicator {
+			background-color: $accent;
+		}
 
-			&:first-child .indicator {
-				margin-left: $padding;
-			}
-
-			&.occupied .indicator {
-				background-color: transparentize($fg-color, 0.2);
-				min-width: 8px;
-				min-height: 8px;
-			}
-
-			&:hover .indicator {
-				box-shadow: inset 0 0 0 10px transparentize($fg-color, 0.8);
-			}
-
-			&.active .indicator,
-			&:active .indicator {
-				background-color: $accent;
-			}
-
-			&.active .indicator {
-				min-width: 24px;
-				min-height: 12px;
-			}
+		&.active .indicator {
+			min-width: 24px;
+			min-height: 16px;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import Service from "resource:///com/github/Aylur/ags/service.js";
+import { dependencies } from "../utils.js";
 
 class Brightness extends Service {
     static {
@@ -19,6 +20,8 @@ class Brightness extends Service {
     }
 
     set screen(percent) {
+        if (!dependencies(["brightnessctl"])) return;
+
         if (percent < 0) percent = 0;
 
         if (percent > 1) percent = 1;
@@ -33,12 +36,10 @@ class Brightness extends Service {
 
     constructor() {
         super();
-        try {
+        if (dependencies(["brightnessctl"])) {
             this.#screen =
                 Number(Utils.exec("brightnessctl g")) /
                 Number(Utils.exec("brightnessctl m"));
-        } catch (error) {
-            console.error("missing dependancy: brightnessctl");
         }
     }
 }

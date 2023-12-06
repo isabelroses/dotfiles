@@ -2,7 +2,7 @@ import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import GLib from "gi://GLib";
 
 /**
- * @param {import('types/widgets/label').LabelProps & {
+ * @param {import('types/widgets/label').Props & {
  *   format?: string,
  *   interval?: number,
  * }} o
@@ -20,7 +20,8 @@ export default ({
                 interval,
                 (label) =>
                     (label.label =
-                        GLib.DateTime.new_now_local().format(format)),
+                        GLib.DateTime.new_now_local().format(format) ||
+                        "wrong format"),
             ],
         ],
     });
