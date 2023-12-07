@@ -21,6 +21,7 @@ in {
           qt5ct, org.kde.dolphin, org.kde.kalendar, org.qbittorrent.qBittorrent, hyprland-share-picker, dolphin-emu, Nextcloud, nextcloud, cantata, org.kde.kid3-qt
         '';
       };
+
       "Kvantum/catppuccin/catppuccin.kvconfig".source = builtins.fetchurl {
         url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Sapphire/Catppuccin-Mocha-Sapphire.kvconfig";
         sha256 = "0n9f5hysr4k1sf9fd3sgd9fvqwrxrpcvj6vajqmb5c5ji8nv2w3c";
@@ -37,7 +38,7 @@ in {
       platformTheme = mkIf cfg.forceGtk "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
       style = mkIf (!cfg.forceGtk) {
         name = "${cfg.qt.theme.name}";
-        inherit (cfg.qt.theme) package;
+        package = cfg.qt.theme.package;
       };
     };
 
