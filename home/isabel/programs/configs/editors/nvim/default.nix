@@ -76,6 +76,7 @@
         elixir.enable = false;
         svelte.enable = false;
         php.enable = false;
+        bash.enable = true;
 
         lua = {
           enable = false;
@@ -307,7 +308,7 @@
         };
 
         obsidian = {
-          enable = true;
+          enable = false;
           dir = "~/documents/obsidian";
           completion.nvim_cmp = true;
         };
