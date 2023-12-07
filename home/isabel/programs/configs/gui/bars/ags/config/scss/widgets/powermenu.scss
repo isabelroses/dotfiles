@@ -1,35 +1,6 @@
-window#powermenu,
-window#verification {
+window#powermenu {
 	.shader {
 		background-color: rgba(0, 0, 0, 0.05);
-	}
-}
-
-window#verification .window-content {
-	@include floating-widget;
-	min-width: 300px;
-	min-height: 100px;
-
-	.text-box {
-		.title {
-			font-size: 1.6em;
-		}
-
-		.desc {
-			color: transparentize($fg-color, 0.1);
-			font-size: 1.1em;
-		}
-	}
-
-	.buttons {
-		@include spacing;
-		margin-top: $padding;
-
-		button {
-			@include button;
-			font-size: 1.5em;
-			padding: $padding;
-		}
 	}
 }
 

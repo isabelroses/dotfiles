@@ -1,11 +1,5 @@
-window.corner .corner {
-	background-color: if($screen-corners, $bg-color, transparent);
-	border-radius: if($screen-corners, $radii * 2, 0);
-}
-
 window.desktop {
 	@if $bar-style == "normal" {
-		border-radius: if($screen-corners, $radii * 2, 0);
 		box-shadow: inset 0 0 $padding 0 $shadow;
 	}
 

@@ -64,7 +64,7 @@ $button-radius: if(
 		background-color: $bg-color;
 	}
 
-	@if not $screen-corners and $bar-style == "normal" {
+	@if $bar-style == "normal" {
 		@if $bar-position == "bottom" {
 			border-top: $border;
 		} @else {
@@ -248,6 +248,7 @@ $button-radius: if(
 		&:last-child .indicator {
 			margin-right: $padding;
 		}
+
 		&:first-child .indicator {
 			margin-left: $padding;
 		}

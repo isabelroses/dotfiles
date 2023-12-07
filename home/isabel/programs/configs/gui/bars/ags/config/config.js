@@ -1,29 +1,27 @@
-import Applauncher from "./js/applauncher/Applauncher.js";
-import Dashboard from "./js/dashboard/Dashboard.js";
-import Notifications from "./js/notifications/Notifications.js";
-import OSD from "./js/osd/OSD.js";
-import PowerMenu from "./js/powermenu/PowerMenu.js";
-import QuickSettings from "./js/quicksettings/QuickSettings.js";
-import ScreenCorners from "./js/screencorner/ScreenCorners.js";
-import TopBar from "./js/bar/TopBar.js";
-import Verification from "./js/powermenu/Verification.js";
-import options from "./js/options.js";
-import { init } from "./js/settings/setup.js";
-import { initWallpaper } from "./js/settings/wallpaper.js";
-import { forMonitors } from "./js/utils.js";
+import Applauncher from "./windows/applauncher/Applauncher.js";
+import Dashboard from "./windows/dashboard/Dashboard.js";
+import Notifications from "./windows/notifications/Notifications.js";
+import PowerMenu from "./windows/powermenu/PowerMenu.js";
+import QuickSettings from "./windows/quicksettings/QuickSettings.js";
+import TopBar from "./windows/bar/TopBar.js";
+// import LeftBar from "./windows/bar/LeftBar.js";
+import OSD from "./misc/OSD.js";
+import { init } from "./settings/setup.js";
+import { initWallpaper } from "./settings/wallpaper.js";
+import { forMonitors } from "./utils.js";
+import options from "./options.js";
 
 initWallpaper();
 
 const windows = () => [
     forMonitors(TopBar),
-    forMonitors(ScreenCorners),
+    // forMonitors(LeftBar),
     forMonitors(OSD),
     forMonitors(Notifications),
     Applauncher(),
     Dashboard(),
     QuickSettings(),
     PowerMenu(),
-    Verification(),
 ];
 
 export default {
