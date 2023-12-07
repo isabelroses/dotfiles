@@ -57,6 +57,7 @@ in {
 
         gaps_in = 8;
         gaps_out = 8;
+        gaps_workspaces = 0;
         border_size = 2;
         no_border_on_floating = true;
 
@@ -84,6 +85,7 @@ in {
       misc = {
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
+        force_default_wallpaper = 0;
 
         # window swallowing
         enable_swallow = true; # hide windows that spawn other windows
@@ -103,7 +105,7 @@ in {
 
         blur = {
           enabled = true;
-          passes = 1;
+          passes = 2;
           size = 2;
           new_optimizations = true;
           xray = true;
@@ -121,6 +123,7 @@ in {
 
       animations = {
         enabled = dev.type != "laptop";
+        first_launch_animation = false;
 
         bezier = [
           "overshot,0.13,0.99,0.29,1.1"
