@@ -1,13 +1,20 @@
 {inputs, ...}: {
   imports = [inputs.nix-index-db.hmModules.nix-index];
 
-  config.programs = {
-    nix-index = {
-      enable = true;
-
-      # link nix-index database to ~/.cache/nix-index
-      symlinkToCacheHome = true;
+  config = {
+    home.sessionVariables = {
+      # auto-run programs using nix-index-database
+      NIX_AUTO_RUN = "1";
     };
-    nix-index-database.comma.enable = true;
+
+    programs = {
+      nix-index = {
+        enable = true;
+
+        # link nix-index database to ~/.cache/nix-index
+        symlinkToCacheHome = true;
+      };
+      nix-index-database.comma.enable = true;
+    };
   };
 }
