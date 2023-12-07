@@ -195,17 +195,16 @@ in {
       }
 
       # nu scripts
-      use "~/.config/nushell/scripts/custom-completions/nix/nix-completions.nu" *
-      use "~/.config/nushell/scripts/custom-completions/git/git-completions.nu" *
-      use "~/.config/nushell/scripts/custom-completions/npm/npm-completions.nu" *
-      use "~/.config/nushell/scripts/custom-completions/just/just-completions.nu" *
-      use "~/.config/nushell/scripts/custom-completions/tealdeer/tldr-completions.nu" *
-      use "~/.config/nushell/scripts/custom-completions/btm/btm-completions.nu" *
-      use "~/.config/nushell/scripts/custom-completions/make/make-completions.nu" *
+      use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/nix/nix-completions.nu" *
+      use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/git/git-completions.nu" *
+      use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/npm/npm-completions.nu" *
+      use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/yarn/yarn-completion.nu" *
+      use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/tealdeer/tldr-completions.nu" *
+      use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/make/make-completions.nu" *
 
       source ~/.cache/starship/init.nu
     '';
-    shellAliases = builtins.removeAttrs config.home.shellAliases ["o" "x" "fk" "mkdir" "nixclean"]; # are nu functions instead
+    shellAliases = builtins.removeAttrs config.home.shellAliases ["ls" "ll" "lla" "o" "x" "fk" "mkdir" "nixclean"]; # are nu functions instead
     envFile.text = ''
       mkdir ~/.cache/starship
       starship init nu | str replace "term size -c" "term size" | save -f ~/.cache/starship/init.nu
@@ -267,14 +266,6 @@ in {
           (lib.mapAttrsToList (k: v: "$env.${k} = ${v}")
             environmentVariables)}
       '';
-    };
-    "${config.xdg.configHome}/nushell/scripts" = {
-      source = pkgs.fetchFromGitHub {
-        owner = "nushell";
-        repo = "nu_scripts";
-        rev = "c65ae517d029f5d57d009dc2b36325da264d43f3";
-        hash = "sha256-y5Yl1/b9XDG2gFsIV8Jlw22OtGcZDhRiA7ycl5SNV/4=";
-      };
     };
   };
 }
