@@ -71,6 +71,7 @@
             statix # lints and suggestions
             deadnix # clean up unused nix code
             alejandra # nix formatter
+            nodejs # ags
             config.treefmt.build.wrapper # treewide formatter
           ];
 
