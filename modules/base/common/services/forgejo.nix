@@ -35,9 +35,9 @@ in {
           inherit (config.services.forgejo) stateDir;
         in
           lib.mkAfter ''
-            rm -rf ${stateDir}/custom/public
-            mkdir -p ${stateDir}/custom/public
-            ln -sf ${theme} ${stateDir}/custom/public/css
+            rm -rf ${stateDir}/custom/public/assets
+            mkdir -p ${stateDir}/custom/public/assets
+            ln -sf ${theme} ${stateDir}/custom/public/assets/css
           '';
       };
     };
