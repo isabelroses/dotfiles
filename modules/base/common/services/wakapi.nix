@@ -31,7 +31,7 @@ in {
           app.avatar_url_template = "https://www.gravatar.com/avatar/{email_hash}.png";
 
           security = {
-            allow_signup = true;
+            allow_signup = false;
             disable_frontpage = true;
           };
 
