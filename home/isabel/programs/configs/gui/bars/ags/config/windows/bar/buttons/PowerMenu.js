@@ -4,8 +4,8 @@ import icons from "../../../icons.js";
 import PanelButton from "../PanelButton.js";
 
 export default () =>
-    PanelButton({
-        class_name: "powermenu",
-        content: Widget.Icon(icons.powermenu.shutdown),
-        on_clicked: () => App.openWindow("powermenu"),
-    });
+  PanelButton({
+    class_name: "powermenu",
+    content: Widget.Icon(icons.powermenu.shutdown),
+    on_clicked: () => App.openWindow("powermenu"),
+  });

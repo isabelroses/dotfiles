@@ -1,50 +1,50 @@
 {
-	"security.workspace.trust.untrustedFiles": "open",
-	"editor.suggestSelection": "first",
-	"editor.formatOnPaste": true,
-	"explorer.confirmDragAndDrop": false,
-	"files.autoSave": "onWindowChange",
-	"editor.multiCursorModifier": "ctrlCmd",
-	"git.autofetch": true,
-	"git.confirmSync": false,
-	"git.ignoreRebaseWarning": true,
-	"git.enableSmartCommit": true,
-	"editor.guides.bracketPairs": true,
-	"editor.guides.bracketPairsHorizontal": true,
-	"emmet.triggerExpansionOnTab": true,
-	"editor.inlineSuggest.enabled": true,
-	"github.copilot.enable": {
-		"*": true
-	},
-	"editor.accessibilitySupport": "off",
-	"editor.fontFamily": "JetBrainsMono Nerd Font Mono",
-	"terminal.integrated.fontSize": 16,
-	"editor.linkedEditing": true,
-	"workbench.startupEditor": "none",
-	"markdown-preview-enhanced.liveUpdate": true,
-	"editor.formatOnSave": true,
-	"explorer.confirmDelete": false,
-	"workbench.settings.applyToAllProfiles": [],
-	"workbench.iconTheme": "catppuccin-mocha",
-	"window.titleBarStyle": "custom",
-	"nix.enableLanguageServer": true,
-	"nix.serverPath": "nil",
-	// using flakes with `formatter = pkgs.alejandra;`
-	"nix.formatterPath": ["nix", "fmt", "--", "-"],
-	"nix.serverSettings": {
-		// settings for 'nil' LSP
-		"nil": {
-			"formatting": {
-				"command": ["alejandra"]
-			}
-		}
-	},
-	"workbench.editor.empty.hint": "hidden",
-	"arduino.useArduinoCli": true,
-	"arduino.enableUSBDetection": true,
-	"[css]": {
-		"editor.defaultFormatter": "stylelint.vscode-stylelint"
-	},
-	"workbench.colorTheme": "Catppuccin Mocha",
-	"catppuccin.accentColor": "sapphire"
+  "security.workspace.trust.untrustedFiles": "open",
+  "editor.suggestSelection": "first",
+  "editor.formatOnPaste": true,
+  "explorer.confirmDragAndDrop": false,
+  "files.autoSave": "onWindowChange",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.ignoreRebaseWarning": true,
+  "git.enableSmartCommit": true,
+  "editor.guides.bracketPairs": true,
+  "editor.guides.bracketPairsHorizontal": true,
+  "emmet.triggerExpansionOnTab": true,
+  "editor.inlineSuggest.enabled": true,
+  "github.copilot.enable": {
+    "*": true
+  },
+  "editor.accessibilitySupport": "off",
+  "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "terminal.integrated.fontSize": 16,
+  "editor.linkedEditing": true,
+  "workbench.startupEditor": "none",
+  "markdown-preview-enhanced.liveUpdate": true,
+  "editor.formatOnSave": true,
+  "explorer.confirmDelete": false,
+  "workbench.settings.applyToAllProfiles": [],
+  "workbench.iconTheme": "catppuccin-mocha",
+  "window.titleBarStyle": "custom",
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nil",
+  // using flakes with `formatter = pkgs.alejandra;`
+  "nix.formatterPath": ["nix", "fmt", "--", "-"],
+  "nix.serverSettings": {
+    // settings for 'nil' LSP
+    "nil": {
+      "formatting": {
+        "command": ["alejandra"]
+      }
+    }
+  },
+  "workbench.editor.empty.hint": "hidden",
+  "arduino.useArduinoCli": true,
+  "arduino.enableUSBDetection": true,
+  "[css]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "catppuccin.accentColor": "sapphire"
 }

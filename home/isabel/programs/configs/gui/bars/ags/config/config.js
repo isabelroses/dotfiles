@@ -14,23 +14,23 @@ import options from "./options.js";
 initWallpaper();
 
 const windows = () => [
-    forMonitors(TopBar),
-    // forMonitors(LeftBar),
-    forMonitors(OSD),
-    forMonitors(Notifications),
-    Applauncher(),
-    Dashboard(),
-    QuickSettings(),
-    PowerMenu(),
+  forMonitors(TopBar),
+  // forMonitors(LeftBar),
+  forMonitors(OSD),
+  forMonitors(Notifications),
+  Applauncher(),
+  Dashboard(),
+  QuickSettings(),
+  PowerMenu(),
 ];
 
 export default {
-    onConfigParsed: init,
-    windows: windows().flat(1),
-    maxStreamVolume: 1.05,
-    cacheNotificationActions: true,
-    closeWindowDelay: {
-        quicksettings: options.transition.value,
-        dashboard: options.transition.value,
-    },
+  onConfigParsed: init,
+  windows: windows().flat(1),
+  maxStreamVolume: 1.05,
+  cacheNotificationActions: true,
+  closeWindowDelay: {
+    quicksettings: options.transition.value,
+    dashboard: options.transition.value,
+  },
 };

@@ -9,27 +9,24 @@ import ShadedPopup from "./ShadedPopup.js";
  * @param {string} label
  */
 const SysButton = (action, label) =>
-    Widget.Button({
-        on_clicked: () => PowerMenu.action(action) + Utils.exec(PowerMenu.cmd),
-        child: Widget.Box({
-            vertical: true,
-            children: [
-                Widget.Icon(icons.powermenu[action]),
-                Widget.Label(label),
-            ],
-        }),
-    });
+  Widget.Button({
+    on_clicked: () => PowerMenu.action(action) + Utils.exec(PowerMenu.cmd),
+    child: Widget.Box({
+      vertical: true,
+      children: [Widget.Icon(icons.powermenu[action]), Widget.Label(label)],
+    }),
+  });
 
 export default () =>
-    ShadedPopup({
-        name: "powermenu",
-        expand: true,
-        child: Widget.Box({
-            children: [
-                SysButton("sleep", "Sleep"),
-                SysButton("reboot", "Reboot"),
-                SysButton("logout", "Log Out"),
-                SysButton("shutdown", "Shutdown"),
-            ],
-        }),
-    });
+  ShadedPopup({
+    name: "powermenu",
+    expand: true,
+    child: Widget.Box({
+      children: [
+        SysButton("sleep", "Sleep"),
+        SysButton("reboot", "Reboot"),
+        SysButton("logout", "Log Out"),
+        SysButton("shutdown", "Shutdown"),
+      ],
+    }),
+  });

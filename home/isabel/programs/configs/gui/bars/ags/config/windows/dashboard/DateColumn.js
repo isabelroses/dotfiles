@@ -10,66 +10,59 @@ import options from "../../options.js";
  * @param {string} unit
  */
 const SysProgress = (type, title, unit) =>
-    Widget.Box({
-        class_name: `circular-progress-box ${type}`,
-        hexpand: true,
-        binds: [
-            [
-                "tooltipText",
-                vars[type],
-                "value",
-                (v) => `${title}: ${Math.floor(v * 100)}${unit}`,
-            ],
-        ],
-        child: Widget.CircularProgress({
-            hexpand: true,
-            class_name: `circular-progress ${type}`,
-            child: Widget.Icon(icons.system[type]),
-            start_at: 0.75,
-            binds: [
-                ["value", vars[type]],
-                ["rounded", options.radii, "value", (v) => v > 0],
-            ],
-        }),
-    });
+  Widget.Box({
+    class_name: `circular-progress-box ${type}`,
+    hexpand: true,
+    binds: [
+      [
+        "tooltipText",
+        vars[type],
+        "value",
+        (v) => `${title}: ${Math.floor(v * 100)}${unit}`,
+      ],
+    ],
+    child: Widget.CircularProgress({
+      hexpand: true,
+      class_name: `circular-progress ${type}`,
+      child: Widget.Icon(icons.system[type]),
+      start_at: 0.75,
+      binds: [
+        ["value", vars[type]],
+        ["rounded", options.radii, "value", (v) => v > 0],
+      ],
+    }),
+  });
 
 export default () =>
-    Widget.Box({
+  Widget.Box({
+    vertical: true,
+    class_name: "datemenu vertical",
+    children: [
+      Widget.Box({
+        class_name: "clock-box",
         vertical: true,
-        class_name: "datemenu vertical",
         children: [
-            Widget.Box({
-                class_name: "clock-box",
-                vertical: true,
-                children: [
-                    Clock({ format: "%I:%M" }),
-                    Widget.Label({
-                        class_name: "uptime",
-                        binds: [
-                            [
-                                "label",
-                                vars.uptime,
-                                "value",
-                                (t) => `uptime: ${t}`,
-                            ],
-                        ],
-                    }),
-                ],
-            }),
-            Widget.Box({
-                class_name: "calendar",
-                child: Widget.Calendar({
-                    hexpand: true,
-                    hpack: "center",
-                }),
-            }),
-            Widget.Box({
-                class_name: "system-info horizontal",
-                children: [
-                    SysProgress("cpu", "Cpu", "%"),
-                    SysProgress("ram", "Ram", "%"),
-                    SysProgress("temp", "Temperature", "°"),
-                ],
-            }),
+          Clock({ format: "%I:%M" }),
+          Widget.Label({
+            class_name: "uptime",
+            binds: [["label", vars.uptime, "value", (t) => `uptime: ${t}`]],
+          }),
         ],
-    });
+      }),
+      Widget.Box({
+        class_name: "calendar",
+        child: Widget.Calendar({
+          hexpand: true,
+          hpack: "center",
+        }),
+      }),
+      Widget.Box({
+        class_name: "system-info horizontal",
+        children: [
+          SysProgress("cpu", "Cpu", "%"),
+          SysProgress("ram", "Ram", "%"),
+          SysProgress("temp", "Temperature", "°"),
+        ],
+      }),
+    ],
+  });

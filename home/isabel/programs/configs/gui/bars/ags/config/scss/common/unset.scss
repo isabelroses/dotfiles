@@ -1,9 +1,9 @@
 @mixin unset($rec: false) {
-	all: unset;
+  all: unset;
 
-	@if $rec {
-		* {
-			all: unset;
-		}
-	}
+  @if $rec {
+    * {
+      all: unset;
+    }
+  }
 }

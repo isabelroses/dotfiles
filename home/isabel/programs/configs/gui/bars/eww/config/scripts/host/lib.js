@@ -8,12 +8,12 @@ imports.gi.versions.NM = "1.0";
 imports.gi.versions.GdkPixbuf = "2.0";
 
 export const {
-    Gtk,
-    Gio,
-    GLib,
-    GObject,
-    UPowerGlib,
-    GnomeBluetooth,
-    NM,
-    GdkPixbuf,
+  Gtk,
+  Gio,
+  GLib,
+  GObject,
+  UPowerGlib,
+  GnomeBluetooth,
+  NM,
+  GdkPixbuf,
 } = imports.gi;

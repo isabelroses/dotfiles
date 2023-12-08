@@ -12,62 +12,59 @@ import options from "../../options.js";
 import PopupWindow from "../../misc/PopupWindow.js";
 
 const Row = (toggles = [], menus = []) =>
-    Widget.Box({
-        vertical: true,
-        children: [
-            Widget.Box({
-                class_name: "row horizontal",
-                children: toggles,
-            }),
-            ...menus,
-        ],
-    });
+  Widget.Box({
+    vertical: true,
+    children: [
+      Widget.Box({
+        class_name: "row horizontal",
+        children: toggles,
+      }),
+      ...menus,
+    ],
+  });
 
 const Homogeneous = (toggles) =>
-    Widget.Box({
-        homogeneous: true,
-        children: toggles,
-    });
+  Widget.Box({
+    homogeneous: true,
+    children: toggles,
+  });
 
 export default () =>
-    PopupWindow({
-        name: "quicksettings",
-        connections: [
-            [
-                options.bar.position,
-                (self) => {
-                    self.anchor = ["right", options.bar.position.value];
-                    if (options.bar.position.value === "top")
-                        self.transition = "slide_down";
+  PopupWindow({
+    name: "quicksettings",
+    connections: [
+      [
+        options.bar.position,
+        (self) => {
+          self.anchor = ["right", options.bar.position.value];
+          if (options.bar.position.value === "top")
+            self.transition = "slide_down";
 
-                    if (options.bar.position.value === "bottom")
-                        self.transition = "slide_up";
-                },
-            ],
-        ],
-        child: Widget.Box({
-            vertical: true,
-            children: [
-                Header(),
-                Widget.Box({
-                    class_name: "sliders-box vertical",
-                    class_name: "slider-box",
-                    vertical: true,
-                    children: [
-                        Row([Volume()], [SinkSelector(), AppMixer()]),
-                        Microhone(),
-                        Brightness(),
-                    ],
-                }),
-                Row(
-                    [Homogeneous([NetworkToggle(), BluetoothToggle()]), DND()],
-                    [WifiSelection(), BluetoothDevices()],
-                ),
-                Row(
-                    [Homogeneous([ThemeToggle()]), MicMute()],
-                    [ThemeSelector()],
-                ),
-                Media(),
-            ],
+          if (options.bar.position.value === "bottom")
+            self.transition = "slide_up";
+        },
+      ],
+    ],
+    child: Widget.Box({
+      vertical: true,
+      children: [
+        Header(),
+        Widget.Box({
+          class_name: "sliders-box vertical",
+          class_name: "slider-box",
+          vertical: true,
+          children: [
+            Row([Volume()], [SinkSelector(), AppMixer()]),
+            Microhone(),
+            Brightness(),
+          ],
         }),
-    });
+        Row(
+          [Homogeneous([NetworkToggle(), BluetoothToggle()]), DND()],
+          [WifiSelection(), BluetoothDevices()],
+        ),
+        Row([Homogeneous([ThemeToggle()]), MicMute()], [ThemeSelector()]),
+        Media(),
+      ],
+    }),
+  });

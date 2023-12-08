@@ -1,73 +1,73 @@
 window#applauncher .window-content {
-	@include floating_widget;
+  @include floating_widget;
 
-	entry {
-		@include button;
-		padding: $padding;
-		margin-bottom: $spacing;
+  entry {
+    @include button;
+    padding: $padding;
+    margin-bottom: $spacing;
 
-		label,
-		image {
-			color: $fg-color;
-		}
-	}
+    label,
+    image {
+      color: $fg-color;
+    }
+  }
 
-	separator {
-		min-height: 1px;
-		background-color: $hover;
-	}
+  separator {
+    min-height: 1px;
+    background-color: $hover;
+  }
 
-	scrolledwindow {
-		@include scrollable;
-		min-width: $applauncher-width;
-		min-height: $applauncher-height;
-	}
+  scrolledwindow {
+    @include scrollable;
+    min-width: $applauncher-width;
+    min-height: $applauncher-height;
+  }
 
-	button.app-item {
-		@include button($flat: true, $reactive: false);
+  button.app-item {
+    @include button($flat: true, $reactive: false);
 
-		> box {
-			@include spacing(0.5);
-		}
+    > box {
+      @include spacing(0.5);
+    }
 
-		transition: $transition;
-		padding: $padding;
+    transition: $transition;
+    padding: $padding;
 
-		label {
-			transition: $transition;
+    label {
+      transition: $transition;
 
-			&.title {
-				color: $fg-color;
-			}
+      &.title {
+        color: $fg-color;
+      }
 
-			&.description {
-				color: transparentize($fg-color, 0.3);
-			}
-		}
+      &.description {
+        color: transparentize($fg-color, 0.3);
+      }
+    }
 
-		image {
-			transition: $transition;
-		}
+    image {
+      transition: $transition;
+    }
 
-		&:hover,
-		&:focus {
-			.title {
-				color: $accent;
-			}
+    &:hover,
+    &:focus {
+      .title {
+        color: $accent;
+      }
 
-			image {
-				-gtk-icon-shadow: 2px 2px $accent;
-			}
-		}
+      image {
+        -gtk-icon-shadow: 2px 2px $accent;
+      }
+    }
 
-		&:active {
-			background-color: transparentize($accent, 0.5);
-			border-radius: $radii;
-			box-shadow: inset 0 0 0 $border-width $border-color;
+    &:active {
+      background-color: transparentize($accent, 0.5);
+      border-radius: $radii;
+      box-shadow: inset 0 0 0 $border-width $border-color;
 
-			.title {
-				color: $fg-color;
-			}
-		}
-	}
+      .title {
+        color: $fg-color;
+      }
+    }
+  }
 }

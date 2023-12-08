@@ -1,19 +1,19 @@
 {
-	"name": "sample-nodejs",
-	"version": "0.0.1",
-	"description": "Sample node program",
-	"bin": {
-		"sample-node": "build/index.js"
-	},
-	"scripts": {
-		"build": "tsc",
-		"start": "npm run build && node build/index.js"
-	},
-	"author": "NotAShelf",
-	"license": "MIT",
-	"devDependencies": {
-		"@types/node": "^20.1.2",
-		"typescript": "^5.0.4",
-		"typescript-language-server": "^3.3.2"
-	}
+  "name": "sample-nodejs",
+  "version": "0.0.1",
+  "description": "Sample node program",
+  "bin": {
+    "sample-node": "build/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node build/index.js"
+  },
+  "author": "NotAShelf",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.1.2",
+    "typescript": "^5.0.4",
+    "typescript-language-server": "^3.3.2"
+  }
 }

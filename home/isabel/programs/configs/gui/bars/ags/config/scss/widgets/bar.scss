@@ -1,276 +1,276 @@
 $bar-spacing: $spacing / 1.5;
 $button-radius: if(
-	$bar-style == "floating",
-	max(0, $radii - $bar-spacing),
-	$radii
+  $bar-style == "floating",
+  max(0, $radii - $bar-spacing),
+  $radii
 );
 
 @mixin panel-button($flat: $bar-flat-buttons, $reactive: true) {
-	@include unset;
+  @include unset;
 
-	@if $bar-style == "separated" {
-		transition: $transition;
+  @if $bar-style == "separated" {
+    transition: $transition;
 
-		> * {
-			@include floating-widget;
-			border-radius: $radii;
-			margin: $wm-gaps $bar-spacing;
-			transition: $transition;
-		}
+    > * {
+      @include floating-widget;
+      border-radius: $radii;
+      margin: $wm-gaps $bar-spacing;
+      transition: $transition;
+    }
 
-		&:hover > * {
-			color: $hover-fg;
+    &:hover > * {
+      color: $hover-fg;
 
-			@if $drop-shadow {
-				box-shadow:
-					0 0 min(6px, $spacing/2) 0 $shadow,
-					inset 0 0 0 99px $hover;
-			} @else {
-				box-shadow: inset 0 0 0 99px $hover;
-			}
-		}
+      @if $drop-shadow {
+        box-shadow:
+          0 0 min(6px, $spacing/2) 0 $shadow,
+          inset 0 0 0 99px $hover;
+      } @else {
+        box-shadow: inset 0 0 0 99px $hover;
+      }
+    }
 
-		&:active > *,
-		&.active > * {
-			label,
-			image {
-				color: $accent-fg;
-			}
+    &:active > *,
+    &.active > * {
+      label,
+      image {
+        color: $accent-fg;
+      }
 
-			background-image: $active-gradient;
-			background-color: $accent;
-		}
-	} @else {
-		@include accs-button($flat, $reactive);
+      background-image: $active-gradient;
+      background-color: $accent;
+    }
+  } @else {
+    @include accs-button($flat, $reactive);
 
-		> * {
-			margin: $bar-spacing;
-			border-radius: $button-radius;
-		}
-	}
+    > * {
+      margin: $bar-spacing;
+      border-radius: $button-radius;
+    }
+  }
 
-	label,
-	image {
-		font-weight: bold;
-	}
+  label,
+  image {
+    font-weight: bold;
+  }
 
-	> * {
-		padding: $padding * 0.4 $padding * 0.7;
-	}
+  > * {
+    padding: $padding * 0.4 $padding * 0.7;
+  }
 }
 
 .panel {
-	@if $bar-style == "normal" {
-		background-color: $bg-color;
-	}
+  @if $bar-style == "normal" {
+    background-color: $bg-color;
+  }
 
-	@if $bar-style == "normal" {
-		@if $bar-position == "bottom" {
-			border-top: $border;
-		} @else {
-			border-bottom: $border;
-		}
-	}
+  @if $bar-style == "normal" {
+    @if $bar-position == "bottom" {
+      border-top: $border;
+    } @else {
+      border-bottom: $border;
+    }
+  }
 
-	@if $bar-style == "floating" {
-		@include floating-widget;
-		border-radius: $radii;
-		margin: $wm-gaps;
-		padding: 0;
-	}
+  @if $bar-style == "floating" {
+    @include floating-widget;
+    border-radius: $radii;
+    margin: $wm-gaps;
+    padding: 0;
+  }
 
-	@if $bar-style == "separated" {
-		> .end > button:last-child > * {
-			margin-right: $wm-gaps;
-		}
+  @if $bar-style == "separated" {
+    > .end > button:last-child > * {
+      margin-right: $wm-gaps;
+    }
 
-		> .start > button:first-child > * {
-			margin-left: $wm-gaps;
-		}
-	}
+    > .start > button:first-child > * {
+      margin-left: $wm-gaps;
+    }
+  }
 
-	.panel-button {
-		@include panel-button;
-	}
+  .panel-button {
+    @include panel-button;
+  }
 
-	.tray-item,
-	.color-picker {
-		@include panel-button($flat: true);
-	}
+  .tray-item,
+  .color-picker {
+    @include panel-button($flat: true);
+  }
 
-	separator {
-		background-color: transparentize($fg-color, 0.86);
-		border-radius: $radii;
-		min-height: 5px;
-		min-width: 5px;
-	}
+  separator {
+    background-color: transparentize($fg-color, 0.86);
+    border-radius: $radii;
+    min-height: 5px;
+    min-width: 5px;
+  }
 
-	.overview {
-		label {
-			color: transparentize($accent, 0.2);
-		}
+  .overview {
+    label {
+      color: transparentize($accent, 0.2);
+    }
 
-		&:hover label {
-			color: $accent;
-		}
+    &:hover label {
+      color: $accent;
+    }
 
-		&:active label,
-		&.active label {
-			color: $accent-fg;
-		}
-	}
+    &:active label,
+    &.active label {
+      color: $accent-fg;
+    }
+  }
 
-	.powermenu,
-	.recorder {
-		image {
-			color: transparentize($red, 0.3);
-		}
+  .powermenu,
+  .recorder {
+    image {
+      color: transparentize($red, 0.3);
+    }
 
-		&:hover image {
-			color: transparentize($red, 0.15);
-		}
+    &:hover image {
+      color: transparentize($red, 0.15);
+    }
 
-		&:active image {
-			color: $red;
-		}
-	}
+    &:active image {
+      color: $red;
+    }
+  }
 
-	.focused-client > box > box,
-	.quicksettings > box {
-		@include spacing(1, if($bar-spacing ==0, $padding / 2, $bar-spacing));
-	}
+  .focused-client > box > box,
+  .quicksettings > box {
+    @include spacing(1, if($bar-spacing ==0, $padding / 2, $bar-spacing));
+  }
 
-	/* stylelint-disable-next-line selector-not-notation */
-	.quicksettings:not(.active):not(:active) {
-		.bluetooth {
-			color: $blue;
-		}
+  /* stylelint-disable-next-line selector-not-notation */
+  .quicksettings:not(.active):not(:active) {
+    .bluetooth {
+      color: $blue;
+    }
 
-		.battery {
-			&.low {
-				color: $red;
-			}
+    .battery {
+      &.low {
+        color: $red;
+      }
 
-			&.charged,
-			&.charging {
-				color: $green;
-			}
-		}
-	}
+      &.charged,
+      &.charging {
+        color: $green;
+      }
+    }
+  }
 
-	.media {
-		&.spotify image {
-			color: $green;
-		}
+  .media {
+    &.spotify image {
+      color: $green;
+    }
 
-		&.firefox image {
-			color: $orange;
-		}
+    &.firefox image {
+      color: $orange;
+    }
 
-		&.mpv image {
-			color: $magenta;
-		}
-	}
+    &.mpv image {
+      color: $magenta;
+    }
+  }
 
-	.notifications {
-		image {
-			color: $yellow;
-		}
-	}
+  .notifications {
+    image {
+      color: $yellow;
+    }
+  }
 
-	.battery-bar {
-		.font-icon {
-			font-size: 1.3em;
-		}
+  .battery-bar {
+    .font-icon {
+      font-size: 1.3em;
+    }
 
-		image,
-		.font-icon {
-			margin-right: $bar-spacing * 0.5;
-		}
+    image,
+    .font-icon {
+      margin-right: $bar-spacing * 0.5;
+    }
 
-		levelbar trough {
-			@include widget;
-			min-width: $battery-bar-width;
-			min-height: $battery-bar-height;
+    levelbar trough {
+      @include widget;
+      min-width: $battery-bar-width;
+      min-height: $battery-bar-height;
 
-			block.filled {
-				border-radius: max($radii - $border-width, 0);
-				background-image: $active-gradient;
-			}
-		}
+      block.filled {
+        border-radius: max($radii - $border-width, 0);
+        background-image: $active-gradient;
+      }
+    }
 
-		@mixin color($color) {
-			image,
-			label {
-				color: $color;
-			}
+    @mixin color($color) {
+      image,
+      label {
+        color: $color;
+      }
 
-			block.filled {
-				background-image: linear-gradient(
-					to right,
-					$color,
-					lighten($color, 6%)
-				);
-			}
-		}
+      block.filled {
+        background-image: linear-gradient(
+          to right,
+          $color,
+          lighten($color, 6%)
+        );
+      }
+    }
 
-		.medium {
-			@include color($yellow);
-		}
+    .medium {
+      @include color($yellow);
+    }
 
-		.low {
-			@include color($red);
-		}
+    .low {
+      @include color($red);
+    }
 
-		.charging {
-			@include color($green);
-		}
+    .charging {
+      @include color($green);
+    }
 
-		&:active {
-			@include color($accent-fg);
-		}
-	}
+    &:active {
+      @include color($accent-fg);
+    }
+  }
 
-	.workspaces button {
-		all: unset;
+  .workspaces button {
+    all: unset;
 
-		.indicator {
-			font-size: 0;
-			min-width: 8px;
-			min-height: 8px;
-			border-radius: $radii * 0.6;
-			box-shadow: inset 0 0 0 $border-width $border-color;
-			margin: 0 $padding/2;
-			transition: $transition/2;
-			background-color: transparentize($fg-color, 0.8);
-		}
+    .indicator {
+      font-size: 0;
+      min-width: 8px;
+      min-height: 8px;
+      border-radius: $radii * 0.6;
+      box-shadow: inset 0 0 0 $border-width $border-color;
+      margin: 0 $padding/2;
+      transition: $transition/2;
+      background-color: transparentize($fg-color, 0.8);
+    }
 
-		&:last-child .indicator {
-			margin-right: $padding;
-		}
+    &:last-child .indicator {
+      margin-right: $padding;
+    }
 
-		&:first-child .indicator {
-			margin-left: $padding;
-		}
+    &:first-child .indicator {
+      margin-left: $padding;
+    }
 
-		&.occupied .indicator {
-			background-color: transparentize($fg-color, 0.2);
-			min-width: 10px;
-			min-height: 10px;
-		}
+    &.occupied .indicator {
+      background-color: transparentize($fg-color, 0.2);
+      min-width: 10px;
+      min-height: 10px;
+    }
 
-		&:hover .indicator {
-			box-shadow: inset 0 0 0 10px transparentize($fg-color, 0.8);
-		}
+    &:hover .indicator {
+      box-shadow: inset 0 0 0 10px transparentize($fg-color, 0.8);
+    }
 
-		&.active .indicator,
-		&:active .indicator {
-			background-color: $accent;
-		}
+    &.active .indicator,
+    &:active .indicator {
+      background-color: $accent;
+    }
 
-		&.active .indicator {
-			min-width: 24px;
-			min-height: 16px;
-		}
-	}
+    &.active .indicator {
+      min-width: 24px;
+      min-height: 16px;
+    }
+  }
 }

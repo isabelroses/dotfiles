@@ -17,7 +17,7 @@ import options from "../../options.js";
 
 const submenuItems = Variable(1);
 SystemTray.connect("changed", () => {
-    submenuItems.setValue(SystemTray.items.length + 1);
+  submenuItems.setValue(SystemTray.items.length + 1);
 });
 
 /**
@@ -26,81 +26,79 @@ SystemTray.connect("changed", () => {
  * @param {(self: T) => boolean=} condition
  */
 const SeparatorDot = (service, condition) => {
-    const visibility = (self) => {
-        if (!options.bar.separators.value) return (self.visible = false);
+  const visibility = (self) => {
+    if (!options.bar.separators.value) return (self.visible = false);
 
-        self.visible =
-            condition && service
-                ? condition(service)
-                : options.bar.separators.value;
-    };
+    self.visible =
+      condition && service ? condition(service) : options.bar.separators.value;
+  };
 
-    const conn = service ? [[service, visibility]] : [];
-    return Widget.Separator({
-        connections: [["draw", visibility], ...conn],
-        binds: [["visible", options.bar.separators]],
-        vpack: "center",
-    });
+  const conn = service ? [[service, visibility]] : [];
+  return Widget.Separator({
+    connections: [["draw", visibility], ...conn],
+    binds: [["visible", options.bar.separators]],
+    vpack: "center",
+  });
 };
 
 const Start = () =>
-    Widget.Box({
-        class_name: "start",
-        vertical: true,
-        children: [
-            ApplauncherButton(),
-            Workspaces(),
-            Widget.Box({ hexpand: true }),
-            NotificationIndicator(),
-        ],
-    });
+  Widget.Box({
+    class_name: "start",
+    vertical: true,
+    children: [
+      ApplauncherButton(),
+      Workspaces(),
+      Widget.Box({ hexpand: true }),
+      NotificationIndicator(),
+    ],
+  });
 
 const Center = () =>
-    Widget.Box({
-        class_name: "center",
-        vertical: true,
-        children: [DateButton()],
-    });
+  Widget.Box({
+    class_name: "center",
+    vertical: true,
+    children: [DateButton()],
+  });
 
 const End = () =>
-    Widget.Box({
-        class_name: "end",
-        vertical: true,
-        children: [
-            SeparatorDot(Mpris, (m) => m.players.length > 0),
-            MediaIndicator({ vertical: true }),
-            Widget.Box({ hexpand: true }),
+  Widget.Box({
+    class_name: "end",
+    vertical: true,
+    children: [
+      SeparatorDot(Mpris, (m) => m.players.length > 0),
+      MediaIndicator({ vertical: true }),
+      Widget.Box({ hexpand: true }),
 
-            SubMenu({
-                items: submenuItems,
-                children: [SysTray({ vertical: true }), ColorPicker()],
-            }),
-            SystemIndicators({ vertical: true }),
-            BatteryBar({ vertical: true }),
-            PowerMenu({ vertical: true }),
-        ],
-    });
+      SubMenu({
+        items: submenuItems,
+        children: [SysTray({ vertical: true }), ColorPicker()],
+      }),
+      SystemIndicators({ vertical: true }),
+      BatteryBar({ vertical: true }),
+      PowerMenu({ vertical: true }),
+    ],
+  });
 
 /** @param {number} monitor */
 export default (monitor) =>
-    Widget.Window({
-        name: `bar${monitor}`,
-        class_name: "transparent",
-        exclusivity: "exclusive",
-        monitor,
-        binds: [
-            [
-                "anchor",
-                options.bar.position,
-                "value",
-                (pos) => [pos, "left", "bottom"],
-            ],
-        ],
-        child: Widget.CenterBox({
-            class_name: "panel",
-            vertical: true,
-            start_widget: Start(),
-            center_widget: Center(),
-            end_widget: End(),
-        }),
-    });
+  Widget.Window({
+    name: `bar${monitor}`,
+    class_name: "transparent",
+    exclusivity: "exclusive",
+    monitor,
+    binds: [
+      [
+        "anchor",
+        options.bar.position,
+        "value",
+        (pos) => [pos, "left", "bottom"],
+      ],
+    ],
+    child: Widget.CenterBox({
+      class_name: "panel",
+      vertical: true,
+      start_widget: Start(),
+      center_widget: Center(),
+      end_widget: End(),
+    }),
+  });

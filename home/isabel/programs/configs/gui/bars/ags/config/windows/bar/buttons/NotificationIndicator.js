@@ -10,57 +10,49 @@ import HoverRevealer from "../../../misc/HoverRevealer.js";
  * @param {import('../../misc/HoverRevealer').HoverRevealProps['direction']=} o.direction
  */
 export default ({ direction = "left" } = {}) =>
-    HoverRevealer({
-        class_name: "notifications panel-button",
-        eventboxConnections: [
-            ["button-press-event", () => App.openWindow("dashboard")],
-            [
-                Notifications,
-                (box) =>
-                    (box.visible =
-                        Notifications.notifications.length > 0 ||
-                        Notifications.dnd),
-            ],
-        ],
-        connections: [
-            [
-                Notifications,
-                (revealer) => {
-                    const title = Notifications.notifications[0]?.summary;
-                    if (revealer._title === title) return;
+  HoverRevealer({
+    class_name: "notifications panel-button",
+    eventboxConnections: [
+      ["button-press-event", () => App.openWindow("dashboard")],
+      [
+        Notifications,
+        (box) =>
+          (box.visible =
+            Notifications.notifications.length > 0 || Notifications.dnd),
+      ],
+    ],
+    connections: [
+      [
+        Notifications,
+        (revealer) => {
+          const title = Notifications.notifications[0]?.summary;
+          if (revealer._title === title) return;
 
-                    revealer._title = title;
-                    revealer.reveal_child = true;
-                    Utils.timeout(3000, () => {
-                        revealer.reveal_child = false;
-                    });
-                },
-            ],
+          revealer._title = title;
+          revealer.reveal_child = true;
+          Utils.timeout(3000, () => {
+            revealer.reveal_child = false;
+          });
+        },
+      ],
+    ],
+    direction,
+    indicator: Widget.Icon({
+      binds: [
+        [
+          "icon",
+          Notifications,
+          "dnd",
+          (dnd) =>
+            dnd ? icons.notifications.silent : icons.notifications.noisy,
         ],
-        direction,
-        indicator: Widget.Icon({
-            binds: [
-                [
-                    "icon",
-                    Notifications,
-                    "dnd",
-                    (dnd) =>
-                        dnd
-                            ? icons.notifications.silent
-                            : icons.notifications.noisy,
-                ],
-            ],
-        }),
-        child: Widget.Label({
-            truncate: "end",
-            max_width_chars: 40,
-            binds: [
-                [
-                    "label",
-                    Notifications,
-                    "notifications",
-                    (n) => n[0]?.summary || "",
-                ],
-            ],
-        }),
-    });
+      ],
+    }),
+    child: Widget.Label({
+      truncate: "end",
+      max_width_chars: 40,
+      binds: [
+        ["label", Notifications, "notifications", (n) => n[0]?.summary || ""],
+      ],
+    }),
+  });

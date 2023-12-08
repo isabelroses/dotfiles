@@ -10,39 +10,39 @@ import options from "../../../options.js";
  * @param {import('types/variable').Variable} items
  */
 const Arrow = (revealer, direction, items) => {
-    let deg = 0;
+  let deg = 0;
 
-    const icon = Widget.Icon({
-        icon: icons.ui.arrow[direction],
-    });
+  const icon = Widget.Icon({
+    icon: icons.ui.arrow[direction],
+  });
 
-    const animate = () => {
-        const t = options.transition.value / 20;
-        const step = revealer.reveal_child ? 10 : -10;
-        for (let i = 0; i < 18; ++i) {
-            Utils.timeout(t * i, () => {
-                deg += step;
-                icon.setCss(`-gtk-icon-transform: rotate(${deg}deg);`);
-            });
-        }
-    };
+  const animate = () => {
+    const t = options.transition.value / 20;
+    const step = revealer.reveal_child ? 10 : -10;
+    for (let i = 0; i < 18; ++i) {
+      Utils.timeout(t * i, () => {
+        deg += step;
+        icon.setCss(`-gtk-icon-transform: rotate(${deg}deg);`);
+      });
+    }
+  };
 
-    return Widget.Button({
-        class_name: "panel-button sub-menu",
-        connections: [
-            [
-                items,
-                (btn) => {
-                    btn.tooltip_text = `${items.value} Items`;
-                },
-            ],
-        ],
-        on_clicked: () => {
-            animate();
-            revealer.reveal_child = !revealer.reveal_child;
+  return Widget.Button({
+    class_name: "panel-button sub-menu",
+    connections: [
+      [
+        items,
+        (btn) => {
+          btn.tooltip_text = `${items.value} Items`;
         },
-        child: icon,
-    });
+      ],
+    ],
+    on_clicked: () => {
+      animate();
+      revealer.reveal_child = !revealer.reveal_child;
+    },
+    child: icon,
+  });
 };
 
 /**
@@ -52,21 +52,21 @@ const Arrow = (revealer, direction, items) => {
  * @param {import('types/variable').Variable} o.items
  */
 export default ({ children, direction = "left", items = Variable(0) }) => {
-    const posStart = direction === "up" || direction === "left";
-    const posEnd = direction === "down" || direction === "right";
-    const revealer = Widget.Revealer({
-        transition: `slide_${direction}`,
-        child: Widget.Box({
-            children,
-        }),
-    });
+  const posStart = direction === "up" || direction === "left";
+  const posEnd = direction === "down" || direction === "right";
+  const revealer = Widget.Revealer({
+    transition: `slide_${direction}`,
+    child: Widget.Box({
+      children,
+    }),
+  });
 
-    return Widget.Box({
-        vertical: direction === "up" || direction === "down",
-        children: [
-            posStart && revealer,
-            Arrow(revealer, direction, items),
-            posEnd && revealer,
-        ],
-    });
+  return Widget.Box({
+    vertical: direction === "up" || direction === "down",
+    children: [
+      posStart && revealer,
+      Arrow(revealer, direction, items),
+      posEnd && revealer,
+    ],
+  });
 };

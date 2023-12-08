@@ -10,26 +10,26 @@ import options from "../../options.js";
  * @param {import('../../misc/PopupWindow.js').PopopWindowProps['layout']=} o.layout
  */
 export default () =>
-    PopupWindow({
-        name: "dashboard",
-        connections: [
-            [
-                options.bar.position,
-                (self) => {
-                    self.anchor = [options.bar.position.value];
-                    if (options.bar.position.value === "top")
-                        self.transition = "slide_down";
+  PopupWindow({
+    name: "dashboard",
+    connections: [
+      [
+        options.bar.position,
+        (self) => {
+          self.anchor = [options.bar.position.value];
+          if (options.bar.position.value === "top")
+            self.transition = "slide_down";
 
-                    if (options.bar.position.value === "bottom")
-                        self.transition = "slide_up";
-                },
-            ],
-        ],
-        child: Widget.Box({
-            children: [
-                NotificationColumn(),
-                Widget.Separator({ orientation: 1 }),
-                DateColumn(),
-            ],
-        }),
-    });
+          if (options.bar.position.value === "bottom")
+            self.transition = "slide_up";
+        },
+      ],
+    ],
+    child: Widget.Box({
+      children: [
+        NotificationColumn(),
+        Widget.Separator({ orientation: 1 }),
+        DateColumn(),
+      ],
+    }),
+  });

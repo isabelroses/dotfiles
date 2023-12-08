@@ -8,20 +8,19 @@ import GLib from "gi://GLib";
  * }} o
  */
 export default ({
-    format = "%H:%M:%S %B %e. %A",
-    interval = 1000,
-    ...rest
+  format = "%H:%M:%S %B %e. %A",
+  interval = 1000,
+  ...rest
 } = {}) =>
-    Widget.Label({
-        class_name: "clock",
-        ...rest,
-        connections: [
-            [
-                interval,
-                (label) =>
-                    (label.label =
-                        GLib.DateTime.new_now_local().format(format) ||
-                        "wrong format"),
-            ],
-        ],
-    });
+  Widget.Label({
+    class_name: "clock",
+    ...rest,
+    connections: [
+      [
+        interval,
+        (label) =>
+          (label.label =
+            GLib.DateTime.new_now_local().format(format) || "wrong format"),
+      ],
+    ],
+  });

@@ -4,18 +4,18 @@ import { getOptions } from "./option.js";
 import { dependencies } from "../utils.js";
 
 export function scssWatcher() {
-    return Utils.subprocess(
-        [
-            "inotifywait",
-            "--recursive",
-            "--event",
-            "create,modify",
-            "-m",
-            App.configDir + "/scss",
-        ],
-        reloadScss,
-        () => print("missing dependancy for css hotreload: inotify-tools"),
-    );
+  return Utils.subprocess(
+    [
+      "inotifywait",
+      "--recursive",
+      "--event",
+      "create,modify",
+      "-m",
+      App.configDir + "/scss",
+    ],
+    reloadScss,
+    () => print("missing dependancy for css hotreload: inotify-tools"),
+  );
 }
 
 /**
@@ -26,24 +26,24 @@ export function scssWatcher() {
  * options.bar.style.value => $bar-style
  */
 export async function reloadScss() {
-    if (!dependencies(["sassc"])) return;
+  if (!dependencies(["sassc"])) return;
 
-    const opts = getOptions();
-    const vars = opts.map((opt) => {
-        if (opt.scss === "exclude") return "";
+  const opts = getOptions();
+  const vars = opts.map((opt) => {
+    if (opt.scss === "exclude") return "";
 
-        const name = opt.id.split(".").join("-").split("_").join("-");
-        const unit = typeof opt.value === "number" ? opt.unit : "";
-        const value = opt.scssFormat ? opt.scssFormat(opt.value) : opt.value;
-        print(opt.scss, opt.id);
-        return `$${opt.scss || name}: ${value}${unit};`;
-    });
+    const name = opt.id.split(".").join("-").split("_").join("-");
+    const unit = typeof opt.value === "number" ? opt.unit : "";
+    const value = opt.scssFormat ? opt.scssFormat(opt.value) : opt.value;
+    print(opt.scss, opt.id);
+    return `$${opt.scss || name}: ${value}${unit};`;
+  });
 
-    const bar_style = opts.find((opt) => opt.id === "bar.style")?.value || "";
-    const additional =
-        bar_style === "normal"
-            ? "//"
-            : `
+  const bar_style = opts.find((opt) => opt.id === "bar.style")?.value || "";
+  const additional =
+    bar_style === "normal"
+      ? "//"
+      : `
         window#quicksettings .window-content {
             margin-right: $wm-gaps;
         }
@@ -53,19 +53,19 @@ export async function reloadScss() {
         }
     `;
 
-    try {
-        const tmp = "/tmp/ags/scss";
-        Utils.ensureDirectory(tmp);
-        await Utils.writeFile(vars.join("\n"), `${tmp}/options.scss`);
-        await Utils.writeFile(additional, `${tmp}/additional.scss`);
-        await Utils.execAsync(
-            `sassc ${App.configDir}/scss/main.scss ${tmp}/style.css`,
-        );
-        App.resetCss();
-        App.applyCss(`${tmp}/style.css`);
-    } catch (error) {
-        if (error instanceof Error) console.error(error.message);
+  try {
+    const tmp = "/tmp/ags/scss";
+    Utils.ensureDirectory(tmp);
+    await Utils.writeFile(vars.join("\n"), `${tmp}/options.scss`);
+    await Utils.writeFile(additional, `${tmp}/additional.scss`);
+    await Utils.execAsync(
+      `sassc ${App.configDir}/scss/main.scss ${tmp}/style.css`,
+    );
+    App.resetCss();
+    App.applyCss(`${tmp}/style.css`);
+  } catch (error) {
+    if (error instanceof Error) console.error(error.message);
 
-        if (typeof error === "string") console.error(error);
-    }
+    if (typeof error === "string") console.error(error);
+  }
 }

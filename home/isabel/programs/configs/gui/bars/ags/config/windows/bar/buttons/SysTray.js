@@ -5,39 +5,39 @@ import Gdk from "gi://Gdk";
 
 /** @param {import('types/service/systemtray').TrayItem} item */
 const SysTrayItem = (item) =>
-    PanelButton({
-        class_name: "tray-item",
-        content: Widget.Icon({ binds: [["icon", item, "icon"]] }),
-        binds: [["tooltipMarkup", item, "tooltip-markup"]],
-        setup: (btn) => {
-            const id = item.menu?.connect("popped-up", (menu) => {
-                btn.toggleClassName("active");
-                menu.connect("notify::visible", (menu) => {
-                    btn.toggleClassName("active", menu.visible);
-                });
-                menu.disconnect(id);
-            });
-        },
-        // @ts-expect-error popup_at_widget missing from types?
-        on_primary_click: (btn) =>
-            item.menu?.popup_at_widget(
-                btn,
-                Gdk.Gravity.SOUTH,
-                Gdk.Gravity.NORTH,
-                null,
-            ),
+  PanelButton({
+    class_name: "tray-item",
+    content: Widget.Icon({ binds: [["icon", item, "icon"]] }),
+    binds: [["tooltipMarkup", item, "tooltip-markup"]],
+    setup: (btn) => {
+      const id = item.menu?.connect("popped-up", (menu) => {
+        btn.toggleClassName("active");
+        menu.connect("notify::visible", (menu) => {
+          btn.toggleClassName("active", menu.visible);
+        });
+        menu.disconnect(id);
+      });
+    },
+    // @ts-expect-error popup_at_widget missing from types?
+    on_primary_click: (btn) =>
+      item.menu?.popup_at_widget(
+        btn,
+        Gdk.Gravity.SOUTH,
+        Gdk.Gravity.NORTH,
+        null,
+      ),
 
-        // @ts-expect-error popup_at_widget missing from types?
-        on_secondary_click: (btn) =>
-            item.menu?.popup_at_widget(
-                btn,
-                Gdk.Gravity.SOUTH,
-                Gdk.Gravity.NORTH,
-                null,
-            ),
-    });
+    // @ts-expect-error popup_at_widget missing from types?
+    on_secondary_click: (btn) =>
+      item.menu?.popup_at_widget(
+        btn,
+        Gdk.Gravity.SOUTH,
+        Gdk.Gravity.NORTH,
+        null,
+      ),
+  });
 
 export default () =>
-    Widget.Box({
-        binds: [["children", SystemTray, "items", (i) => i.map(SysTrayItem)]],
-    });
+  Widget.Box({
+    binds: [["children", SystemTray, "items", (i) => i.map(SysTrayItem)]],
+  });

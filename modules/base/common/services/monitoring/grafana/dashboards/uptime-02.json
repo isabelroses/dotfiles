@@ -1,282 +1,282 @@
 {
-	"annotations": {
-		"list": [
-			{
-				"builtIn": 1,
-				"datasource": {
-					"type": "grafana",
-					"uid": "-- Grafana --"
-				},
-				"enable": true,
-				"hide": true,
-				"iconColor": "rgba(0, 211, 255, 1)",
-				"name": "Annotations & Alerts",
-				"type": "dashboard"
-			}
-		]
-	},
-	"editable": true,
-	"fiscalYearStartMonth": 0,
-	"graphTooltip": 0,
-	"id": 1,
-	"links": [],
-	"liveNow": false,
-	"panels": [
-		{
-			"datasource": {
-				"type": "prometheus",
-				"uid": "PBFA97CFB590B2093"
-			},
-			"fieldConfig": {
-				"defaults": {
-					"color": {
-						"mode": "palette-classic"
-					},
-					"custom": {
-						"axisBorderShow": false,
-						"axisCenteredZero": false,
-						"axisColorMode": "text",
-						"axisLabel": "",
-						"axisPlacement": "auto",
-						"barAlignment": 0,
-						"drawStyle": "line",
-						"fillOpacity": 0,
-						"gradientMode": "none",
-						"hideFrom": {
-							"legend": false,
-							"tooltip": false,
-							"viz": false
-						},
-						"insertNulls": false,
-						"lineInterpolation": "linear",
-						"lineWidth": 4,
-						"pointSize": 5,
-						"scaleDistribution": {
-							"type": "linear"
-						},
-						"showPoints": "auto",
-						"spanNulls": false,
-						"stacking": {
-							"group": "A",
-							"mode": "none"
-						},
-						"thresholdsStyle": {
-							"mode": "off"
-						}
-					},
-					"mappings": [
-						{
-							"options": {
-								"from": 0.9,
-								"result": {
-									"color": "green",
-									"index": 0,
-									"text": "Active"
-								},
-								"to": 1
-							},
-							"type": "range"
-						},
-						{
-							"options": {
-								"from": 0.3,
-								"result": {
-									"color": "yellow",
-									"index": 1,
-									"text": "Intermitant"
-								},
-								"to": 0.9
-							},
-							"type": "range"
-						},
-						{
-							"options": {
-								"from": 0,
-								"result": {
-									"color": "red",
-									"index": 2,
-									"text": "Failing"
-								},
-								"to": 0.3
-							},
-							"type": "range"
-						}
-					],
-					"max": 1,
-					"min": 0,
-					"thresholds": {
-						"mode": "percentage",
-						"steps": [
-							{
-								"color": "red",
-								"value": null
-							},
-							{
-								"color": "green",
-								"value": 80
-							}
-						]
-					}
-				},
-				"overrides": []
-			},
-			"gridPos": {
-				"h": 12,
-				"w": 14,
-				"x": 0,
-				"y": 0
-			},
-			"id": 1,
-			"options": {
-				"legend": {
-					"calcs": [],
-					"displayMode": "list",
-					"placement": "bottom",
-					"showLegend": true
-				},
-				"tooltip": {
-					"mode": "single",
-					"sort": "none"
-				}
-			},
-			"targets": [
-				{
-					"datasource": {
-						"type": "prometheus",
-						"uid": "PBFA97CFB590B2093"
-					},
-					"disableTextWrap": false,
-					"editorMode": "builder",
-					"expr": "node_systemd_unit_state{name=\"docker-isabelroses-com.service\", state=\"active\"}",
-					"fullMetaSearch": false,
-					"includeNullMetadata": true,
-					"instant": false,
-					"legendFormat": "Isabelroses.com",
-					"range": true,
-					"refId": "Isabelroses.com",
-					"useBackend": false
-				},
-				{
-					"datasource": {
-						"type": "prometheus",
-						"uid": "PBFA97CFB590B2093"
-					},
-					"disableTextWrap": false,
-					"editorMode": "builder",
-					"expr": "node_systemd_unit_state{name=\"forgejo.service\", state=\"active\"}",
-					"fullMetaSearch": false,
-					"hide": false,
-					"includeNullMetadata": true,
-					"instant": false,
-					"legendFormat": "forgejo",
-					"range": true,
-					"refId": "forgejo",
-					"useBackend": false
-				},
-				{
-					"datasource": {
-						"type": "prometheus",
-						"uid": "PBFA97CFB590B2093"
-					},
-					"disableTextWrap": false,
-					"editorMode": "builder",
-					"expr": "node_systemd_unit_state{name=\"opendkim.service\", state=\"active\"}",
-					"fullMetaSearch": false,
-					"hide": false,
-					"includeNullMetadata": true,
-					"instant": false,
-					"legendFormat": "Mailserver",
-					"range": true,
-					"refId": "Mailserver",
-					"useBackend": false
-				},
-				{
-					"datasource": {
-						"type": "prometheus",
-						"uid": "PBFA97CFB590B2093"
-					},
-					"disableTextWrap": false,
-					"editorMode": "builder",
-					"expr": "node_systemd_unit_state{name=\"phpfpm-roundcube.service\", state=\"active\"}",
-					"fullMetaSearch": false,
-					"hide": false,
-					"includeNullMetadata": true,
-					"instant": false,
-					"legendFormat": "Webmail",
-					"range": true,
-					"refId": "Webmail",
-					"useBackend": false
-				},
-				{
-					"datasource": {
-						"type": "prometheus",
-						"uid": "PBFA97CFB590B2093"
-					},
-					"disableTextWrap": false,
-					"editorMode": "builder",
-					"expr": "node_systemd_unit_state{name=\"matrix-synapse.service\", state=\"active\"}",
-					"fullMetaSearch": false,
-					"hide": false,
-					"includeNullMetadata": true,
-					"instant": false,
-					"legendFormat": "Matrix",
-					"range": true,
-					"refId": "Matrix",
-					"useBackend": false
-				},
-				{
-					"datasource": {
-						"type": "prometheus",
-						"uid": "PBFA97CFB590B2093"
-					},
-					"disableTextWrap": false,
-					"editorMode": "builder",
-					"expr": "node_systemd_unit_state{name=\"vaultwarden.service\", state=\"active\"}",
-					"fullMetaSearch": false,
-					"hide": false,
-					"includeNullMetadata": true,
-					"instant": false,
-					"legendFormat": "Vaultwarden",
-					"range": true,
-					"refId": "Vaultwarden",
-					"useBackend": false
-				},
-				{
-					"datasource": {
-						"type": "prometheus",
-						"uid": "PBFA97CFB590B2093"
-					},
-					"disableTextWrap": false,
-					"editorMode": "builder",
-					"expr": "node_systemd_unit_state{name=\"phpfpm-nextcloud.service\", state=\"active\"}",
-					"fullMetaSearch": false,
-					"hide": false,
-					"includeNullMetadata": true,
-					"instant": false,
-					"legendFormat": "Nextcloud",
-					"range": true,
-					"refId": "Nextcloud",
-					"useBackend": false
-				}
-			],
-			"title": "Uptime",
-			"type": "timeseries"
-		}
-	],
-	"refresh": "",
-	"schemaVersion": 38,
-	"tags": [],
-	"templating": {
-		"list": []
-	},
-	"time": {
-		"from": "now-6h",
-		"to": "now"
-	},
-	"timepicker": {},
-	"timezone": "",
-	"title": "Uptime",
-	"uid": "b71552d2-05a6-45f6-8cc2-668da897b591",
-	"version": 3,
-	"weekStart": ""
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 4,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [
+            {
+              "options": {
+                "from": 0.9,
+                "result": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "Active"
+                },
+                "to": 1
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 0.3,
+                "result": {
+                  "color": "yellow",
+                  "index": 1,
+                  "text": "Intermitant"
+                },
+                "to": 0.9
+              },
+              "type": "range"
+            },
+            {
+              "options": {
+                "from": 0,
+                "result": {
+                  "color": "red",
+                  "index": 2,
+                  "text": "Failing"
+                },
+                "to": 0.3
+              },
+              "type": "range"
+            }
+          ],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 14,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_systemd_unit_state{name=\"docker-isabelroses-com.service\", state=\"active\"}",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Isabelroses.com",
+          "range": true,
+          "refId": "Isabelroses.com",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_systemd_unit_state{name=\"forgejo.service\", state=\"active\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "forgejo",
+          "range": true,
+          "refId": "forgejo",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_systemd_unit_state{name=\"opendkim.service\", state=\"active\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Mailserver",
+          "range": true,
+          "refId": "Mailserver",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_systemd_unit_state{name=\"phpfpm-roundcube.service\", state=\"active\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Webmail",
+          "range": true,
+          "refId": "Webmail",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_systemd_unit_state{name=\"matrix-synapse.service\", state=\"active\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Matrix",
+          "range": true,
+          "refId": "Matrix",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_systemd_unit_state{name=\"vaultwarden.service\", state=\"active\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Vaultwarden",
+          "range": true,
+          "refId": "Vaultwarden",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "node_systemd_unit_state{name=\"phpfpm-nextcloud.service\", state=\"active\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Nextcloud",
+          "range": true,
+          "refId": "Nextcloud",
+          "useBackend": false
+        }
+      ],
+      "title": "Uptime",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Uptime",
+  "uid": "b71552d2-05a6-45f6-8cc2-668da897b591",
+  "version": 3,
+  "weekStart": ""
 }

@@ -1,167 +1,167 @@
 window#quicksettings .window-content {
-	@include floating-widget;
-	@include spacing;
+  @include floating-widget;
+  @include spacing;
 
-	.avatar {
-		@include widget;
-	}
+  .avatar {
+    @include widget;
+  }
 
-	.header {
-		@include spacing;
-	}
+  .header {
+    @include spacing;
+  }
 
-	.system-box {
-		@include widget;
-		@include spacing($rec: true);
+  .system-box {
+    @include widget;
+    @include spacing($rec: true);
 
-		padding: $padding;
+    padding: $padding;
 
-		button,
-		.uptime {
-			@include button;
-			padding: $padding;
-			font-weight: bold;
-			min-height: 20px;
-			min-width: 20px;
+    button,
+    .uptime {
+      @include button;
+      padding: $padding;
+      font-weight: bold;
+      min-height: 20px;
+      min-width: 20px;
 
-			image {
-				font-size: 1.2em;
-			}
-		}
-	}
+      image {
+        font-size: 1.2em;
+      }
+    }
+  }
 
-	.battery-progress {
-		label {
-			color: $accent-fg;
-			font-weight: bold;
-		}
+  .battery-progress {
+    label {
+      color: $accent-fg;
+      font-weight: bold;
+    }
 
-		&.charging label {
-			font-size: $padding * 2;
-		}
+    &.charging label {
+      font-size: $padding * 2;
+    }
 
-		&.half label {
-			color: $fg-color;
-		}
+    &.half label {
+      color: $fg-color;
+    }
 
-		progressbar {
-			@include slider($width: $padding * 3.6);
-		}
+    progressbar {
+      @include slider($width: $padding * 3.6);
+    }
 
-		&.low progressbar {
-			@include slider(
-				$width: $padding * 3.6,
-				$gradient: linear-gradient(to right, $red, $red)
-			);
-		}
-	}
+    &.low progressbar {
+      @include slider(
+        $width: $padding * 3.6,
+        $gradient: linear-gradient(to right, $red, $red)
+      );
+    }
+  }
 
-	.sliders-box {
-		@include widget;
-		@include spacing($rec: true);
-		@include spacing(0);
-		padding: $padding;
+  .sliders-box {
+    @include widget;
+    @include spacing($rec: true);
+    @include spacing(0);
+    padding: $padding;
 
-		button {
-			@include button($flat: true);
-			padding: $padding / 2;
-		}
+    button {
+      @include button($flat: true);
+      padding: $padding / 2;
+    }
 
-		scale {
-			@include slider;
-			margin-left: $spacing * -0.5;
-		}
+    scale {
+      @include slider;
+      margin-left: $spacing * -0.5;
+    }
 
-		.menu {
-			margin: $spacing 0;
-			background-color: $bg-color;
-			border: $border-width solid $popover-border-color;
-			border-radius: $radii;
-		}
-	}
+    .menu {
+      margin: $spacing 0;
+      background-color: $bg-color;
+      border: $border-width solid $popover-border-color;
+      border-radius: $radii;
+    }
+  }
 
-	.mixer-item {
-		scale {
-			@include slider($width: 7px);
-		}
+  .mixer-item {
+    scale {
+      @include slider($width: 7px);
+    }
 
-		image {
-			font-size: 1.2em;
-		}
-	}
+    image {
+      font-size: 1.2em;
+    }
+  }
 
-	.row {
-		@include spacing($rec: true);
-	}
+  .row {
+    @include spacing($rec: true);
+  }
 
-	.menu {
-		@include unset;
-		@include widget;
-		@include spacing($rec: true);
-		padding: $padding;
-		margin-top: $spacing;
+  .menu {
+    @include unset;
+    @include widget;
+    @include spacing($rec: true);
+    padding: $padding;
+    margin-top: $spacing;
 
-		.title {
-			@include spacing(0.5);
-		}
+    .title {
+      @include spacing(0.5);
+    }
 
-		separator {
-			margin: 0 $radii / 2;
-		}
+    separator {
+      margin: 0 $radii / 2;
+    }
 
-		button {
-			@include button($flat: true);
-			padding: $padding / 2;
-		}
+    button {
+      @include button($flat: true);
+      padding: $padding / 2;
+    }
 
-		switch {
-			@include switch;
-		}
-	}
+    switch {
+      @include switch;
+    }
+  }
 
-	.toggle-button {
-		@include button;
-		font-weight: bold;
+  .toggle-button {
+    @include button;
+    font-weight: bold;
 
-		.label-box {
-			@include spacing(0.5);
-		}
+    .label-box {
+      @include spacing(0.5);
+    }
 
-		button {
-			@include button($flat: true);
-			padding: $padding;
+    button {
+      @include button($flat: true);
+      padding: $padding;
 
-			&:first-child {
-				border-top-right-radius: 0;
-				border-bottom-right-radius: 0;
-			}
+      &:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
 
-			&:last-child {
-				border-top-left-radius: 0;
-				border-bottom-left-radius: 0;
-			}
-		}
+      &:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
 
-		&.active {
-			background-color: $accent;
+    &.active {
+      background-color: $accent;
 
-			label,
-			image {
-				color: $accent-fg;
-			}
-		}
-	}
+      label,
+      image {
+        color: $accent-fg;
+      }
+    }
+  }
 
-	.simple-toggle {
-		@include button;
-		padding: $padding;
-	}
+  .simple-toggle {
+    @include button;
+    padding: $padding;
+  }
 
-	.media {
-		@include spacing;
+  .media {
+    @include spacing;
 
-		.player {
-			@include media;
-		}
-	}
+    .player {
+      @include media;
+    }
+  }
 }
