@@ -17,7 +17,6 @@ _: {
 
       system = {
         mainUser = "isabel";
-        hostname = "hydra";
 
         boot = {
           plymouth.enable = true;

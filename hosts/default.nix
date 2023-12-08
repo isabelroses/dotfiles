@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (self) inputs;
-  inherit (lib) concatLists mkNixosSystem mkNixosIso;
+  inherit (lib) mkMerge mapAttrs concatLists mkNixosSystem mkNixosIso;
 
   # home manager modules from inputs
   hm = inputs.home-manager.nixosModules.home-manager;
@@ -44,69 +44,52 @@
 
   # extraSpecialArgs that are on all machines
   sharedArgs = {inherit inputs self lib;};
-in {
-  # super rubbish laptop
-  hydra = mkNixosSystem {
-    inherit withSystem;
-    system = "x86_64-linux";
-    modules =
-      [
-        ./hydra
-        workstation
-        laptop
-      ]
-      ++ concatLists [
-        shared
-        homes
-      ];
-    specialArgs = sharedArgs;
-  };
+in
+  mkMerge [
+    (mapAttrs mkNixosSystem {
+      # super rubbish laptop
+      hydra = {
+        inherit withSystem;
+        system = "x86_64-linux";
+        modules =
+          [
+            workstation
+            laptop
+          ]
+          ++ concatLists [shared homes];
+        specialArgs = sharedArgs;
+      };
 
-  # super cool gamer pc
-  amatarasu = mkNixosSystem {
-    inherit withSystem;
-    system = "x86_64-linux";
-    modules =
-      [
-        ./amatarasu
-        desktop
-        workstation
-      ]
-      ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
-  };
+      # super cool gamer pc
+      amatarasu = {
+        inherit withSystem;
+        system = "x86_64-linux";
+        modules =
+          [
+            desktop
+            workstation
+          ]
+          ++ concatLists [shared homes];
+        specialArgs = sharedArgs;
+      };
 
-  # hertzner cloud computer
-  luz = mkNixosSystem {
-    inherit withSystem;
-    system = "x86_64-linux";
-    modules =
-      [
-        ./luz
-        server
-      ]
-      ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
-  };
+      # hertzner cloud computer
+      luz = {
+        inherit withSystem;
+        system = "x86_64-linux";
+        modules =
+          [
+            server
+          ]
+          ++ concatLists [shared homes];
+        specialArgs = sharedArgs;
+      };
+    })
 
-  /*
-  beta = mkNixosSystem {
-    inherit withSystem;
-    system = "x86_64-linux";
-    modules = [
-      ./beta
-      server
-    ]
-    ++ concatLists [shared homes];
-    specialArgs = sharedArgs;
-  };
-  */
-
-  lilith = mkNixosIso {
-    system = "x86_64-linux";
-    modules = [
-      ./lilith
-    ];
-    specialArgs = sharedArgs;
-  };
-}
+    (mapAttrs mkNixosIso {
+      lilith = {
+        system = "x86_64-linux";
+        specialArgs = sharedArgs;
+      };
+    })
+  ]

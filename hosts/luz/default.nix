@@ -17,7 +17,6 @@ _: {
     };
     system = {
       mainUser = "isabel";
-      hostname = "luz";
 
       boot = {
         loader = "grub";

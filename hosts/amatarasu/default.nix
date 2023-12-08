@@ -21,7 +21,6 @@ in {
       };
       system = {
         mainUser = "isabel";
-        hostname = "amatarasu";
 
         boot = {
           loader = "systemd-boot";
