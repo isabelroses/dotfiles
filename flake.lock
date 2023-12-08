@@ -152,6 +152,26 @@
         "type": "github"
       }
     },
+    "catppuccin-vsc": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1701997368,
+        "narHash": "sha256-JZ4K9muQHYqArTCZu4QsX+A08oQ7fH4omGaOgT2DOA0=",
+        "owner": "catppuccin",
+        "repo": "vscode",
+        "rev": "6d7abef0949faa6ddd7d2c87312f647742c48e04",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "vscode",
+        "type": "github"
+      }
+    },
     "catppuccin_2": {
       "flake": false,
       "locked": {
@@ -2890,6 +2910,7 @@
         "bellado": "bellado",
         "catppuccin": "catppuccin",
         "catppuccin-toolbox": "catppuccin-toolbox",
+        "catppuccin-vsc": "catppuccin-vsc",
         "catppuccinifier": "catppuccinifier",
         "devshell": "devshell",
         "flake-parts": "flake-parts",
