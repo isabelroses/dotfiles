@@ -39,6 +39,8 @@
       in {
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
 
+        deploy = import ./hosts/deploy.nix {inherit inputs self;};
+
         # build with `nix build .#images.<hostname>`
         # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
         images = import ./hosts/images.nix {inherit inputs self lib;};
@@ -46,6 +48,7 @@
 
       perSystem = {
         config,
+        inputs',
         pkgs,
         ...
       }: {
@@ -53,6 +56,8 @@
 
         # formatter for nix fmt
         formatter = pkgs.alejandra;
+
+        # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
 
         devShells.default = pkgs.mkShell {
           name = "dotfiles";
@@ -66,6 +71,7 @@
           DIRENV_LOG_FORMAT = "";
 
           packages = with pkgs; [
+            inputs'.deploy-rs.packages.deploy-rs # remote deployment
             git # flakes require git
             nil # nix language server
             statix # lints and suggestions
@@ -150,6 +156,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # deploy remote systems
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "pre-commit-hooks/flake-utils";
+        flake-compat.follows = "pre-commit-hooks/flake-compat";
+      };
+    };
+
     # secure-boot on nixos
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
@@ -180,12 +196,22 @@
     };
 
     # Highly customisable nixos neovim flake
-    neovim-flake = {
-      url = "github:NotAShelf/neovim-flake";
+    # neovim-flake = {
+    #   url = "github:NotAShelf/neovim-flake";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     nil.follows = "nil";
+    #     flake-parts.follows = "flake-parts";
+    #     flake-utils.follows = "pre-commit-hooks/flake-utils";
+    #   };
+    # };
+    neovim = {
+      url = "git+file:///home/isabel/dev/nvim";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nil.follows = "nil";
         flake-parts.follows = "flake-parts";
+        pre-commit-nix.follows = "pre-commit-hooks";
         flake-utils.follows = "pre-commit-hooks/flake-utils";
       };
     };
