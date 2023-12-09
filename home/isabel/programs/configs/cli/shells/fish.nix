@@ -29,15 +29,25 @@ in {
 
     shellInit = ''
       set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+
       ${optionalString (osConfig.modules.device != "server") ''
-        set TERMINAL ${defaults.terminal}
-        export GPG_TTY=$(tty)
+        set -gx TERMINAL ${defaults.terminal}
+        set -x GPG_TTY (tty)
       ''};
 
       ${optionalString (osConfig.modules.device == "server") ''
-        set TERMINAL dumb
-        set TERM dumb
+        set -gx TERMINAL dumb
       ''};
+
+      switch $TERM
+          case '*xte*'
+            set -gx TERM xterm-256color
+          case '*scree*'
+            set -gx TERM screen-256color
+          case '*rxvt*'
+            set -gx TERM rxvt-unicode-256color
+        end
+
 
       # themeing
       set fish_greeting
