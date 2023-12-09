@@ -1,4 +1,11 @@
-{defaults, ...}: {
+{
+  defaults,
+  osConfig,
+  lib,
+  ...
+}: let
+  inherit (lib) optionalString;
+in {
   programs.fish = {
     enable = true;
     catppuccin.enable = true;
@@ -22,8 +29,15 @@
 
     shellInit = ''
       set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
-      set TERMINAL "${defaults.terminal}"
-      export GPG_TTY=$(tty)
+      ${optionalString (osConfig.modules.device != "server") ''
+        set TERMINAL ${defaults.terminal}
+        export GPG_TTY=$(tty)
+      ''};
+
+      ${optionalString (osConfig.modules.device == "server") ''
+        set TERMINAL dumb
+        set TERM dumb
+      ''};
 
       # themeing
       set fish_greeting
