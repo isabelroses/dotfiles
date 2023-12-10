@@ -25,10 +25,6 @@ in {
     };
   };
 
-  sessionVariables = {
-    GPG_TTY = "$(tty)";
-  };
-
   # Allow manually restarting gpg-agent if it fails
   systemd.user.services.gpg-agent.Unit.RefuseManualStart = lib.mkForce false;
 
