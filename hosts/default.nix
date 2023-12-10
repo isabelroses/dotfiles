@@ -61,7 +61,7 @@ in
       };
 
       # super cool gamer pc
-      amatarasu = {
+      amaterasu = {
         inherit withSystem;
         system = "x86_64-linux";
         modules =
