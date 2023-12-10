@@ -1,6 +1,6 @@
 <div align="center">
 <h1>
-<img width="96" src="./assets/flake.svg"></img> <br>
+<img width=96 src="./assets/flake.svg"></img> <br>
   isabel's dotfiles
 </h1>
   <img src="https://img.shields.io/github/stars/isabelroses/dotfiles?color=f5c2e7&labelColor=303446&style=for-the-badge&logo=starship&logoColor=f5c2e7">
@@ -8,24 +8,22 @@
   <img src="https://img.shields.io/github/repo-size/isabelroses/dotfiles?color=fab387&labelColor=303446&style=for-the-badge&logo=github&logoColor=fab387">
 </div>
 
-### config layout
+### Config layout
 
 - 🏠 [home](../home/)
 - 🖥️ [hosts](../hosts/)
-  - ☀️ [amatarasu](../hosts/amatarasu/) My high end gameing machine
-  - 🪄 [luz](../hosts/luz/) A server configuration for some of my infastrucior
-  - 🇧[beta](../hosts/beta/) A consept configuration for a new local server
-  - 🐉 [hydra](../hosts/hydra/) A super mid spec laptop
-  - ⚸ [lilith](../hosts/lilith/) A nixos iso image that can be qickly deployed and acessed via ssh
+  - ☀️ [Amaterasu](../hosts/amatarasu/) My high-end gaming machine
+  - 🪄 [Luz](../hosts/luz/) A server configuration for some of my infrastructure
+  - 🐉 [Hydra](../hosts/hydra/) A super mid spec laptop
+  - ⚸ [Lilith](../hosts/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
 - 📖 [lib](../lib/) Useful repeated functions
-- 🧩 [parts](../parts/) Nixos parts breaking down the complex confiuration into smaller more managable chuncks
+- 🧩 [flake](../flake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
 - 🔌 [modules](../modules/)
-  - [common](../modules/common/) Common configuration settings
-    - [core](../modules/common/core/) Core parts of the configuration
-    - [secrets](../modules/common/secrets/) Sops secured system secrets
-    - [types](../modules/common/types/) System type configurations (e.g. laptop, servers, desktop)
-  - [extra](../modules/extra/) Prebuilt configrations & spare parts
-  - [options](../modules/common/options/) Selecteable settings that can be used to toggle certain settings
+  - [common](../modules/base/) The base configuration settings, which are common between all systems
+    - [base](../modules/base/common/) Core parts of the configuration
+    - [options](../modules/base/options/) Selectable settings that can be used to toggle certain settings
+  - [extra](../modules/extra) Extra configuration modules, for home-manager and NixOS
+  - [profiles](../modules/profiles/) System type configurations (e.g. laptop, servers, desktop)
 
 <details>
 <summary> Hyprland Shortcuts </summary>
@@ -39,16 +37,12 @@
 | <kbd>SUPER+E</kbd>              | open file manager          |
 | <kbd>SUPER+Q</kbd>              | quit                       |
 | <kbd>SUPER+D</kbd>              | launcher                   |
-| <kbd>SUPER+F</kbd>              | fullscreen                 |
+| <kbd>SUPER+F</kbd>              | full screen                |
 | <kbd>SUPER+[number]</kbd>       | open workspace [number]    |
 | <kbd>SUPER+SHIFT+[number]</kbd> | move to workspace [number] |
 
 </details>
 
-### credits
+### Some Awesome people
 
-- [NotAShelf](https://github.com/notashelf/nyx) - The carry (and basicly half this repo)
-- [numtide/srvos](https://github.com/numtide/srvos) - Server stuff
-- [nullishamy](https://github.com/nullishamy/derivation-station) - Home-Manager Stuff
-- [nekowinston](https://github.com/nekowinston/dotfiles) - Basicly answers all my questions
-- [getchoo](https://github.com/getchoo) - For several things here and there
+[NotAShelf](https://github.com/notashelf/nyx) - [numtide/srvos](https://github.com/numtide/srvos) - [nullishamy](https://github.com/nullishamy/derivation-station) - [nekowinston](https://github.com/nekowinston/dotfiles) - [getchoo](https://github.com/getchoo) - [nyxkrage](https://github.com/nyxkrage)
