@@ -117,8 +117,8 @@ in {
         ];
 
         drop_shadow = true;
-        "col.shadow" = "0x33000000";
-        "col.shadow_inactive" = "0x22000000";
+        "col.shadow" = "rgb(11111B)";
+        "col.shadow_inactive" = "rgba(11111B00)";
       };
 
       animations = {
