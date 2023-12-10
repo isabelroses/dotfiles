@@ -2,9 +2,10 @@
   defaults,
   osConfig,
   lib,
+  pkgs,
   ...
 }: let
-  inherit (lib) optionalString;
+  inherit (lib) optionalString getExe isModernShell;
 in {
   programs.fish = {
     enable = true;
@@ -32,12 +33,17 @@ in {
 
       ${optionalString (osConfig.modules.device != "server") ''
         set -gx TERMINAL ${defaults.terminal}
-        set -x GPG_TTY (tty)
       ''};
 
       ${optionalString (osConfig.modules.device == "server") ''
         set -gx TERMINAL dumb
       ''};
+
+      ${optionalString (isModernShell osConfig) ''
+        ${getExe pkgs.starship} init fish | source
+      ''};
+
+      ${getExe pkgs.nix-your-shell} fish | source
 
       switch $TERM
           case '*xte*'
@@ -46,13 +52,12 @@ in {
             set -gx TERM screen-256color
           case '*rxvt*'
             set -gx TERM rxvt-unicode-256color
-        end
+      end
 
 
       # themeing
       set fish_greeting
       export "MICRO_TRUECOLOR=1"
-      starship init fish | source
       set -g theme_display_date no
       set -g theme_nerd_fonts yes
       set -g theme_newline_cursor yes

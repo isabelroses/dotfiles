@@ -1,12 +1,15 @@
 {
+  osConfig,
   config,
   lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit (lib) mkIf isModernShell;
+in {
   programs.bash = {
     enable = true;
-    bashrcExtra = ''
+    bashrcExtra = mkIf (isModernShell osConfig) ''
       eval "$(${lib.getExe pkgs.starship} init bash)"
     '';
     historyFile = "${config.xdg.stateHome}/bash/history";
