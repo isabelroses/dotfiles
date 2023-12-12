@@ -48,17 +48,6 @@
     ];
   };
 
-  # faster rebuilding, plus i don't use the docs anyways
-  documentation = {
-    doc.enable = false;
-    nixos.enable = false;
-    info.enable = false;
-    man = {
-      enable = lib.mkDefault true;
-      generateCaches = lib.mkDefault true;
-    };
-  };
-
   nix = let
     mappedRegistry = lib.pipe inputs [
       (lib.filterAttrs (_: lib.isType "flake"))
