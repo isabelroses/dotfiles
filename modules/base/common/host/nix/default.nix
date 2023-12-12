@@ -66,7 +66,9 @@
       (x: x // {nixpkgs.flake = inputs.nixpkgs;})
     ];
   in {
-    package = pkgs.nixVersions.unstable;
+    # https://github.com/nix-community/home-manager/issues/4692#issuecomment-1848832609
+    # package = pkgs.nixVersions.unstable;
+    package = pkgs.nixVersions.nix_2_17;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = mappedRegistry;
