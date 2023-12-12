@@ -30,13 +30,24 @@ in {
       # help manage android devices via command line
       adb.enable = true;
 
-      # direnv is cool
+      # show network usage
+      bandwhich.enable = true;
+
+      # enable direnv integration
       direnv = {
         enable = true;
+        # shut up. SHUT UP
         silent = true;
+        # faster, persistent implementation of use_nix and use_flake
+        nix-direnv = {
+          enable = true;
+          package = pkgs.nix-direnv.override {
+            nix = config.nix.package;
+          };
+        };
 
-        # faster, persistent
-        nix-direnv.enable = true;
+        # enable loading direnv in nix-shell nix shell or nix develop
+        loadInNixShell = true;
       };
     };
 

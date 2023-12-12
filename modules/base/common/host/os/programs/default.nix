@@ -1,11 +1,14 @@
 {
+  config,
   pkgs,
   lib,
   ...
-}: {
+}: let
+  inherit (lib) mkIf isModernShell;
+in {
   programs = {
     bash = {
-      promptInit = ''
+      promptInit = mkIf (isModernShell config) ''
         eval "$(${lib.getExe pkgs.starship} init bash)"
       '';
     };

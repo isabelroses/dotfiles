@@ -49,6 +49,10 @@ in {
 
     # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
     kernelParams = [
+      # NixOS produces many wakeups per second, which is bad for battery life.
+      # This kernel parameter disables the timer tick on the last 4 cores
+      "nohz_full=4-7"
+
       # make stack-based attacks on the kernel harder
       "randomize_kstack_offset=on"
 
@@ -84,11 +88,14 @@ in {
 
       # prevent the kernel from blanking plymouth out of the fb
       "fbcon=nodefer"
+
+      # this is stupid but it will make your machine fast!!!
+      # "mitigations=off"
     ];
 
     blacklistedKernelModules = concatLists [
+      # Obscure network protocols
       [
-        # Obscure network protocols
         "dccp" # Datagram Congestion Control Protocol
         "sctp" # Stream Control Transmission Protocol
         "rds" # Reliable Datagram Sockets
@@ -109,51 +116,70 @@ in {
         "can" # Controller Area Network
         "atm" # ATM
       ]
+
+      # Old or rare or insufficiently audited filesystems
       [
-        # Old or rare or insufficiently audited filesystems
-        "adfs"
-        "affs"
-        "bfs"
-        "befs"
-        "cramfs"
-        "efs"
-        "erofs"
-        "exofs"
-        "freevxfs"
-        "f2fs"
-        "vivid"
-        "gfs2"
-        "ksmbd"
-        "nfsv4"
-        "nfsv3"
-        "cifs"
-        "nfs"
-        "cramfs"
-        "freevxfs"
-        "jffs2"
-        "hfs"
-        "hfsplus"
-        "squashfs"
-        "udf"
-        "hpfs"
-        "jfs"
-        "minix"
-        "nilfs2"
-        "omfs"
-        "qnx4"
-        "qnx6"
-        "sysv"
-        "vivid" # Video Test Driver (unnecessary)
+        "adfs" # Active Directory Federation Services
+        "affs" # Amiga Fast File System
+        "befs" # "Be File System"
+        "bfs" # BFS, used by SCO UnixWare OS for the /stand slice
+        "cramfs" # compressed ROM/RAM file system
+        "efs" # Extent File System
+        "erofs" # Enhanced Read-Only File System
+        "exofs" # EXtended Object File System
+        "freevxfs" # Veritas filesystem driver
+        "f2fs" # Flash-Friendly File System
+        "vivid" # Virtual Video Test Driver (unnecessary)
+        "gfs2" # Global File System 2
+        "hpfs" # High Performance File System (used by OS/2)
+        "hfs" # Hierarchical File System (Macintosh)
+        "hfsplus" # " same as above, but with extended attributes
+        "jffs2" # Journalling Flash File System (v2)
+        "jfs" # Journaled File System - only useful for VMWare sessions
+        "ksmbd" # SMB3 Kernel Server
+        "minix" # minix fs - used by the minix OS
+        "nfsv3" # " (v3)
+        "nfsv4" # Network File System (v4)
+        "nfs" # Network File System
+        "nilfs2" # New Implementation of a Log-structured File System
+        "omfs" # Optimized MPEG Filesystem
+        "qnx4" #  extent-based file system used by the QNX4 and QNX6 OSes
+        "qnx6" # ^
+        "squashfs" # compressed read-only file system (used by live CDs)
+        "sysv" # implements all of Xenix FS, SystemV/386 FS and Coherent FS.
+        "udf" # https://docs.kernel.org/5.15/filesystems/udf.html
       ]
+
+      # Just why
+      [
+        "cx88xx" # input driver for cx88 GPIO-based IR remote controls
+        "ivtv" # Hauppauge PVR-350 driver
+        "saa7134" # v4l2 driver module for saa7130/34 based TV cards
+        "em28xx" # Empia em28xx device driver
+        "dvb-usb" # USB DVB devices, you don't use this unless you plug a tv into your device using a usb
+      ]
+
+      # Disable pc speakers, does anyone actually use these
+      [
+        "pcspkr"
+        "snd_pcsp"
+      ]
+
+      # Disable Thunderbolt and FireWire to prevent DMA attacks
+      [
+        "thunderbolt"
+        "firewire-core"
+      ]
+
       (optionals (!sys.security.fixWebcam) [
         "uvcvideo" # this is why your webcam no worky
       ])
       (optionals (!sys.bluetooth.enable) [
-        "bluetooth" # let bluetooth work
-        "btusb" # let bluetooth dongles work
+        "bluetooth"
+        "btusb" # bluetooth dongles
       ])
       (optionals (!config.modules.services.smb.enable) [
-        "cifs" # allows smb to work
+        "cifs" # allows smb to work (Common Internet File System)
       ])
     ];
   };

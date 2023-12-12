@@ -28,7 +28,10 @@ in {
     # discard blocks that are not in use by the filesystem, good for SSDs
     fstrim.enable = true;
     # firmware updater for machine hardware
-    fwupd.enable = true;
+    fwupd = {
+      enable = true;
+      daemonSettings.EspLocation = config.boot.loader.efi.efiSysMountPoint;
+    };
     # Not using lvm
     lvm.enable = mkDefault false;
     # enable smartd monitoering

@@ -10,6 +10,8 @@
     sha256 = "8uRqCoe9iSIwNnK13d6S4XSX945g88mVyoY+LZSPBtQ=";
   };
 
+  env = osConfig.modules.usrEnv;
+
   javaPackages = with pkgs; [
     # Java 8
     temurin-jre-bin-8
@@ -32,12 +34,20 @@ in {
         recursive = true;
       };
 
-      packages = [
+      packages = let
+        glfw =
+          if env.isWayland
+          then pkgs.glfw-wayland-minecraft
+          else pkgs.glfw;
+      in [
         (inputs'.prism-launcher.packages.prismlauncher.override {
           # get java versions required by various minecraft versions
           # "write once run everywhere" my ass
           jdks = javaPackages;
-          additionalPrograms = with pkgs; [gamemode mangohud];
+          additionalPrograms = with pkgs; [gamemode mangohud jprofiler];
+
+          # prismlauncher's glfw version to properly support wayland
+          inherit glfw;
         })
       ];
     };

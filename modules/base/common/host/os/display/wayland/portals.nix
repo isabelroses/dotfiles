@@ -11,6 +11,7 @@ in {
   config = mkIf sys.video.enable {
     xdg.portal = {
       enable = true;
+      xdgOpenUsePortal = true;
       config.common.default = "*";
 
       configPackages = with pkgs; [

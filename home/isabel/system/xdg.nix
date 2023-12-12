@@ -5,11 +5,11 @@
   ...
 }: let
   # browser = ["chromium.desktop"];
-  browser = ["Schizofox.desktop"];
-  zathura = ["org.pwmt.zathura.desktop"];
-  filemanager = ["thunar.desktop"];
+  browser = ["Schizofox"];
+  zathura = ["org.pwmt.zathura"];
+  filemanager = ["thunar"];
 
-  associations = {
+  associations = builtins.mapAttrs (_: v: (map (e: "${e}.desktop") v)) {
     "text/html" = browser;
     "x-scheme-handler/http" = browser;
     "x-scheme-handler/https" = browser;
@@ -23,13 +23,13 @@
     "application/x-extension-xhtml" = browser;
     "application/x-extension-xht" = browser;
 
-    "audio/*" = ["mpv.desktop"];
-    "video/*" = ["mpv.dekstop"];
-    "image/*" = ["viewnoir.desktop"];
+    "audio/*" = ["mpv"];
+    "video/*" = ["mpv"];
+    "image/*" = ["viewnoir"];
     "application/json" = browser;
     "application/pdf" = zathura;
-    "x-scheme-handler/spotify" = ["spotify.desktop"];
-    "x-scheme-handler/discord" = ["Discord.desktop"];
+    "x-scheme-handler/spotify" = ["spotifyp"];
+    "x-scheme-handler/discord" = ["Discord"];
     "inode/directory" = filemanager;
   };
 

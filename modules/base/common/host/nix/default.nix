@@ -34,7 +34,7 @@
       allowUnfree = true;
       allowBroken = false;
       allowUnsupportedSystem = true;
-      permittedInsecurePackages = [];
+      permittedInsecurePackages = ["electron-25.9.0"];
     };
 
     overlays = [
@@ -60,10 +60,16 @@
   };
 
   nix = let
-    mappedRegistry = lib.mapAttrs (_: v: {flake = v;}) inputs;
+    mappedRegistry = lib.pipe inputs [
+      (lib.filterAttrs (_: lib.isType "flake"))
+      (lib.mapAttrs (_: flake: {inherit flake;}))
+      (x: x // {nixpkgs.flake = inputs.nixpkgs;})
+    ];
   in {
+    package = pkgs.nixVersions.unstable;
+
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
-    registry = mappedRegistry // {default = mappedRegistry.nixpkgs;};
+    registry = mappedRegistry;
 
     # We love legacy support (for now)
     nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
@@ -121,6 +127,7 @@
         "cgroups"
         # "git-hashing"
         # "verified-fetches"
+        # "configurable-impure-env"
       ];
       # ignore dirty working tree
       warn-dirty = false;
@@ -130,6 +137,8 @@
       accept-flake-config = true;
       # execute builds inside cgroups
       use-cgroups = true;
+      # build from source if the build fails from a binary source
+      # fallback = true;
 
       # for direnv GC roots
       keep-derivations = true;
