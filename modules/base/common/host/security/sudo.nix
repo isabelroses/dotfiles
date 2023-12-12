@@ -48,17 +48,18 @@ in {
               options = ["SETENV" "NOPASSWD"];
             }
             {
+              command = "${currentSystem}/sw/bin/nixos-rebuild";
+              options = ["NOPASSWD"];
+            }
+            {
               # let wheel group collect garbage without password
               command = "${currentSystem}/sw/bin/nix-collect-garbage";
               options = ["SETENV" "NOPASSWD"];
             }
             {
-              command = "${pkgs.nixos-rebuild}/bin/nixos-rebuild";
-              options = ["SETENV" "NOPASSWD"];
-            }
-            {
-              command = "/nix/var/nix/profiles/system/specialisation/*/bin/switch-to-configuration";
-              options = ["SETENV" "NOPASSWD"];
+              # let wheel group interact with systemd without password
+              command = "${currentSystem}/sw/bin/systemctl";
+              options = ["NOPASSWD"];
             }
           ];
         }
