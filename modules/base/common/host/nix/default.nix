@@ -150,6 +150,7 @@
         "https://catppuccin.cachix.org" # a cache for ctp nix
         "https://pre-commit-hooks.cachix.org" # pre commit hooks
         "https://cache.garnix.io" # extra things here and there
+        "https://ags.cachix.org" # ags
       ];
 
       trusted-public-keys = [
@@ -166,6 +167,7 @@
         "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
         "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "ags.cachix.org-1:6dgD1o7ce5ugVJ0U7PZ8XPnXdOv9JarKDkLP+TquBLM="
       ];
     };
   };

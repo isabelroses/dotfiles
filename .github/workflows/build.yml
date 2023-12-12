@@ -19,7 +19,6 @@ jobs:
           - catppuccinifier-cli
           - lutgen-rs
           - patched-gjs
-          - ags
           - plymouth-theme-catppuccin
 
     steps:

@@ -13,7 +13,6 @@ _: {
 
       bellado = inputs'.bellado.packages.default;
       catppuccinifier-cli = inputs'.catppuccinifier.packages.cli;
-      ags = inputs'.ags.packages.default;
     };
   };
 }
