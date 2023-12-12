@@ -1,8 +1,5 @@
 _: {
-  imports = [
-    ./hardware-configuration.nix
-    ./encryption.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
   config = {
     modules = {
       device = {
@@ -28,7 +25,7 @@ _: {
           tmpOnTmpfs = true;
         };
 
-        fs = ["ext4" "vfat"];
+        fs = ["btrfs" "vfat"];
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = true;
@@ -38,7 +35,7 @@ _: {
         # autoLogin = true;
 
         encryption = {
-          enable = true;
+          enable = false;
           device = "crypt";
         };
 
