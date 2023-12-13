@@ -1,5 +1,5 @@
 _: {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [./hardware-configuration.nix];
   config = {
     modules = {
       device = {
