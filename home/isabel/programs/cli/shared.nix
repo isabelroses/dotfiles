@@ -19,7 +19,6 @@ in {
         dconf
         nitch
         wakatime
-        arduino-cli
         cached-nix-shell
         self'.packages.catppuccinifier-cli
       ]
