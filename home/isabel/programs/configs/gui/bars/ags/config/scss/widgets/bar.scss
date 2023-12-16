@@ -55,7 +55,7 @@ $button-radius: if(
   }
 
   > * {
-    padding: $padding * 0.4 $padding * 0.7;
+    padding: $padding * 0.4 $padding * 0.8;
   }
 }
 
@@ -180,7 +180,13 @@ $button-radius: if(
 
   .battery-bar {
     .font-icon {
-      font-size: 1.3em;
+      font-size: 1.15em;
+    }
+
+    @if $battery-bar-full {
+      > box {
+        padding: 0;
+      }
     }
 
     image,
@@ -229,6 +235,24 @@ $button-radius: if(
     &:active {
       @include color($accent-fg);
     }
+
+    .whole-button {
+      label {
+        color: $fg-color;
+        text-shadow: $text-shadow;
+      }
+
+      trough,
+      block.filled {
+        border-radius: $button-radius;
+      }
+
+      @if $bar-style == "separated" {
+        trough {
+          border: none;
+        }
+      }
+    }
   }
 
   .workspaces button {
@@ -243,14 +267,6 @@ $button-radius: if(
       margin: 0 $padding/2;
       transition: $transition/2;
       background-color: transparentize($fg-color, 0.8);
-    }
-
-    &:last-child .indicator {
-      margin-right: $padding;
-    }
-
-    &:first-child .indicator {
-      margin-left: $padding;
     }
 
     &.occupied .indicator {

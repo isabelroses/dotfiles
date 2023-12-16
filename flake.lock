@@ -45,16 +45,15 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1702416609,
+        "lastModified": 1702690530,
         "narHash": "sha256-evko1/qE4oRXTMdCOGuwJRUkRm7Sxb5MhQCTLgx5Z+4=",
         "owner": "isabelroses",
         "repo": "bellado",
-        "rev": "549d357b115b0d4e7d6cace819d113dbba62b575",
+        "rev": "8b9bb4e19b06a35acd8b2d39830c2751246ff189",
         "type": "github"
       },
       "original": {
         "owner": "isabelroses",
-        "ref": "0.3.0",
         "repo": "bellado",
         "type": "github"
       }

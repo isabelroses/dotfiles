@@ -71,7 +71,7 @@
           DIRENV_LOG_FORMAT = "";
 
           packages = with pkgs; [
-            inputs'.deploy-rs.packages.deploy-rs # remote deployment
+            # inputs'.deploy-rs.packages.deploy-rs # remote deployment
             git # flakes require git
             nil # nix language server
             statix # lints and suggestions
@@ -248,7 +248,7 @@
     };
 
     # lovely app
-    bellado.url = "github:isabelroses/bellado/0.3.0";
+    bellado.url = "github:isabelroses/bellado";
 
     # Firefox but really locked down and air tight
     schizofox = {

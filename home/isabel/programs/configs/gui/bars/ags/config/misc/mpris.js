@@ -49,7 +49,7 @@ export const BlurredCoverArt = (player, props) =>
           Utils.ensureDirectory(blurredPath);
           Utils.execAsync(["convert", url, "-blur", "0x22", blurred])
             .then(() => box.setCss(`background-image: url("${blurred}")`))
-            .catch(() => {});
+            .catch((err) => console.error(err));
         },
         "notify::cover-path",
       ],
