@@ -48,7 +48,7 @@
 
       perSystem = {
         config,
-        inputs',
+        # inputs',
         pkgs,
         ...
       }: {
@@ -278,13 +278,7 @@
         flake-utils.follows = "pre-commit-hooks/flake-utils";
       };
     };
-    catppuccin = {
-      url = "github:Stonks3141/ctp-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
+    catppuccin.url = "github:Stonks3141/ctp-nix";
     catppuccin-vsc = {
       url = "github:catppuccin/vscode";
       inputs.nixpkgs.follows = "nixpkgs";

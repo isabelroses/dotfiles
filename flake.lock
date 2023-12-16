@@ -75,20 +75,12 @@
       }
     },
     "catppuccin": {
-      "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
       "locked": {
-        "lastModified": 1699141637,
-        "narHash": "sha256-gNW6jw/lzxIYdenbxN7ZPkdEy1dmFFXO206twDemprM=",
+        "lastModified": 1702770788,
+        "narHash": "sha256-38d1eWFtO3vdvoxtzrZCbvNV2vte3SAoHCE7RUcKH8c=",
         "owner": "Stonks3141",
         "repo": "ctp-nix",
-        "rev": "cceb51991e943e15b58d1d2483f93d5025ac1dd8",
+        "rev": "19c4ec606497e436d8b5dbf66e1b43b0095acbde",
         "type": "github"
       },
       "original": {
