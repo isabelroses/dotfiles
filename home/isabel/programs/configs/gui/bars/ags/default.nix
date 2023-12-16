@@ -17,6 +17,9 @@ in {
         networkmanagerapplet
         inotify-tools
         swww
+        libgtop
+        libsoup_3
+        gvfs
       ];
     };
     xdg.configFile = let

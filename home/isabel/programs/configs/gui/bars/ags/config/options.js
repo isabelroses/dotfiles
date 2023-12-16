@@ -8,7 +8,7 @@
  * ags -r "options.reset()"
  */
 
-import { Option, resetOptions, getValues, apply } from "./settings/option.js";
+import { apply, getValues, Option, resetOptions } from "./settings/option.js";
 import { USER } from "resource:///com/github/Aylur/ags/utils.js";
 import themes from "./themes.js";
 
@@ -178,6 +178,7 @@ export default {
     bar: {
       width: Option(70, { category: "Bar" }),
       height: Option(14, { category: "Bar" }),
+      full: Option(false, { category: "Bar" }),
     },
     low: Option(25, { category: "Bar" }),
     medium: Option(50, { category: "Bar" }),
