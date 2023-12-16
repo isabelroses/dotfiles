@@ -1,10 +1,11 @@
-{pkgs, ...}: {
+_: {
   imports = [
     ./micro
-    ./nvim # https://github.com/NotAShelf/neovim-flake/
+    ./nvim
     ./vscode
   ];
-  config.home.packages = with pkgs; [
-    arduino # need this one for uni
-  ];
+  # config.home.packages = with pkgs; [
+  #   arduino # need this one for uni
+  #   arduino-cli
+  # ];
 }
