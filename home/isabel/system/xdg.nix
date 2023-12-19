@@ -4,34 +4,54 @@
   pkgs,
   ...
 }: let
-  # browser = ["chromium.desktop"];
-  browser = ["Schizofox"];
-  zathura = ["org.pwmt.zathura"];
-  filemanager = ["thunar"];
+  browser = [
+    "text/html"
+    "x-scheme-handler/http"
+    "x-scheme-handler/https"
+    "x-scheme-handler/ftp"
+    "x-scheme-handler/about"
+    "x-scheme-handler/unknown"
+  ];
 
-  associations = builtins.mapAttrs (_: v: (map (e: "${e}.desktop") v)) {
-    "text/html" = browser;
-    "x-scheme-handler/http" = browser;
-    "x-scheme-handler/https" = browser;
-    "x-scheme-handler/ftp" = browser;
-    "x-scheme-handler/about" = browser;
-    "x-scheme-handler/unknown" = browser;
-    "application/x-extension-htm" = browser;
-    "application/x-extension-html" = browser;
-    "application/x-extension-shtml" = browser;
-    "application/xhtml+xml" = browser;
-    "application/x-extension-xhtml" = browser;
-    "application/x-extension-xht" = browser;
+  code = [
+    "application/json"
+    "text/english"
+    "text/plain"
+    "text/x-makefile"
+    "text/x-c++hdr"
+    "text/x-c++src"
+    "text/x-chdr"
+    "text/x-csrc"
+    "text/x-java"
+    "text/x-moc"
+    "text/x-pascal"
+    "text/x-tcl"
+    "text/x-tex"
+    "application/x-shellscript"
+    "text/x-c"
+    "text/x-c++"
+  ];
 
-    "audio/*" = ["mpv"];
-    "video/*" = ["mpv"];
-    "image/*" = ["viewnoir"];
-    "application/json" = browser;
-    "application/pdf" = zathura;
-    "x-scheme-handler/spotify" = ["spotifyp"];
-    "x-scheme-handler/discord" = ["Discord"];
-    "inode/directory" = filemanager;
-  };
+  media = [
+    "video/*"
+    "audio/*"
+  ];
+
+  images = [
+    "image/*"
+  ];
+
+  associations =
+    (lib.genAttrs code (_: ["nvim.desktop"]))
+    // (lib.genAttrs media (_: ["mpv.desktop"]))
+    // (lib.genAttrs images (_: ["viewnoir.desktop"]))
+    // (lib.genAttrs browser (_: ["Schizofox.desktop"]))
+    // {
+      "application/pdf" = ["org.pwmt.zathura.desktop"];
+      "x-scheme-handler/spotify" = ["spotify.desktop"];
+      "x-scheme-handler/discord" = ["Discord.desktop"];
+      "inode/directory" = ["thunar.desktop"];
+    };
 
   template = import lib.template.xdg "home-manager";
 in {
@@ -39,22 +59,27 @@ in {
   xdg = {
     enable = true;
 
+    cacheHome = "${config.home.homeDirectory}/.cache";
+    configHome = "${config.home.homeDirectory}/.config";
+    dataHome = "${config.home.homeDirectory}/.local/share";
+    stateHome = "${config.home.homeDirectory}/.local/state";
+
     userDirs = {
       enable = true;
-
       createDirectories = true;
-      documents = "$HOME/documents";
-      download = "$HOME/downloads";
-      videos = "$HOME/media/videos";
-      music = "$HOME/media/music";
-      pictures = "$HOME/media/pictures";
-      desktop = "$HOME/desktop";
-      publicShare = "$HOME/public/share";
-      templates = "$HOME/public/templates";
+
+      documents = "${config.home.homeDirectory}/documents";
+      download = "${config.home.homeDirectory}/downloads";
+      desktop = "${config.home.homeDirectory}/desktop";
+      videos = "${config.home.homeDirectory}/media/videos";
+      music = "${config.home.homeDirectory}/media/music";
+      pictures = "${config.home.homeDirectory}/media/pictures";
+      publicShare = "${config.home.homeDirectory}/public/share";
+      templates = "${config.home.homeDirectory}/public/templates";
 
       extraConfig = {
         XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/screenshots";
-        XDG_DEV_DIR = "$HOME/dev";
+        XDG_DEV_DIR = "${config.home.homeDirectory}/dev";
       };
     };
 
