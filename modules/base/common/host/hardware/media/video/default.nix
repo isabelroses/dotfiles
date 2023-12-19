@@ -4,14 +4,15 @@
   config,
   ...
 }: let
+  inherit (lib) mkIf isx86Linux;
   sys = config.modules.system;
 in {
-  config = lib.mkIf (sys.video.enable) {
+  config = mkIf sys.video.enable {
     hardware = {
       opengl = {
         enable = true;
         driSupport = true;
-        driSupport32Bit = true;
+        driSupport32Bit = isx86Linux pkgs;
       };
     };
 
