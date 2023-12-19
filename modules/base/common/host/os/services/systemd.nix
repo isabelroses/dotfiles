@@ -13,6 +13,13 @@
         enableUserServices = true;
         enableSystemSlice = true;
       };
+
+      tmpfiles.rules = [
+        # Enables storing of the kernel log (including stack trace) into pstore upon a panic or crash.
+        "w /sys/module/kernel/parameters/crash_kexec_post_notifiers - - - - Y"
+        # Enables storing of the kernel log upon a normal shutdown (shutdown, reboot, halt).
+        "w /sys/module/printk/parameters/always_kmsg_dump - - - - N"
+      ];
     }
     // lib.optionalAttrs config.security.auditd.enable {
       # a systemd timer to clean /var/log/audit.log daily
