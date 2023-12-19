@@ -30,7 +30,10 @@ in {
             withThemes = true;
           };
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd = {
+            enableTweaks = true;
+            optimizeCompressor = true;
+          };
           loadRecommendedModules = true;
         };
 

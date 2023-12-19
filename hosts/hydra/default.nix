@@ -16,11 +16,11 @@ _: {
         mainUser = "isabel";
 
         boot = {
-          plymouth.enable = true;
+          plymouth.enable = false;
           loader = "systemd-boot";
           secureBoot = false;
           enableKernelTweaks = true;
-          enableInitrdTweaks = true;
+          initrd.enableTweaks = true;
           loadRecommendedModules = true;
           tmpOnTmpfs = true;
         };
@@ -81,6 +81,11 @@ _: {
         gui.enable = true;
 
         zathura.enable = true;
+
+        # gaming = {
+        #   enable = true;
+        #   steam.enable = true;
+        # };
 
         defaults = {
           bar = "ags";

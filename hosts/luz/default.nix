@@ -21,7 +21,7 @@ _: {
       boot = {
         loader = "grub";
         enableKernelTweaks = true;
-        enableInitrdTweaks = true;
+        initrd.enableTweaks = true;
         loadRecommendedModules = true;
       };
 

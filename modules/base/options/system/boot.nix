@@ -4,11 +4,10 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkOption mkEnableOption types;
+  inherit (lib) literalExpression mkOption mkEnableOption types;
 in {
   options.modules.system.boot = {
     enableKernelTweaks = mkEnableOption "security and performance related kernel parameters";
-    enableInitrdTweaks = mkEnableOption "quality of life tweaks for the initrd stage";
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
     tmpOnTmpfs = mkEnableOption "`/tmp` living on tmpfs. false means it will be cleared manually on each reboot";
@@ -17,6 +16,17 @@ in {
       type = types.raw;
       default = pkgs.linuxPackages_latest;
       description = "The kernel to use for the system.";
+    };
+
+    initrd = {
+      enableTweaks = mkEnableOption "quality of life tweaks for the initrd stage";
+      optimizeCompressor = mkEnableOption ''
+        initrd compression algorithm optimizations for size.
+        Enabling this option will force initrd to use zstd (default) with
+        level 19 and -T0 (STDIN). This will reduce thee initrd size greatly
+        at the cost of compression speed.
+        Not recommended for low-end hardware.
+      '';
     };
 
     # https://nixos.wiki/wiki/Secure_Boot
@@ -43,7 +53,8 @@ in {
 
     extraModulePackages = mkOption {
       type = with types; listOf package;
-      default = with config.boot.kernelPackages; [acpi_call];
+      default = [];
+      example = literalExpression ''with config.boot.kernelPackages; [acpi_call]'';
       description = "Extra kernel modules to be loaded.";
     };
 
