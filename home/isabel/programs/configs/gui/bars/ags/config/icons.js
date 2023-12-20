@@ -24,17 +24,6 @@ export default {
     },
     mixer: "",
   },
-  asusctl: {
-    profile: {
-      Balanced: "power-profile-balanced-symbolic",
-      Quiet: "power-profile-power-saver-symbolic",
-      Performance: "power-profile-performance-symbolic",
-    },
-    mode: {
-      Integrated: "",
-      Hybrid: "󰢮",
-    },
-  },
   apps: {
     apps: "view-app-grid-symbolic",
     search: "folder-saved-search-symbolic",

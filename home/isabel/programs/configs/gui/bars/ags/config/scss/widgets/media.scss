@@ -116,6 +116,10 @@
     @include player-color($orange);
   }
 
+  &.chromium {
+    @include player-color($blue);
+  }
+
   &.mpv {
     @include player-color($magenta);
   }

@@ -167,6 +167,10 @@ $button-radius: if(
       color: $orange;
     }
 
+    &.chromium image {
+      color: $blue;
+    }
+
     &.mpv image {
       color: $magenta;
     }
