@@ -4,12 +4,12 @@ in {
   config.modules.programs = {
     browsers = {
       chromium = {
-        enable = mkDefault false;
-        ungoogled = mkDefault true;
+        enable = mkDefault true;
+        ungoogled = mkDefault false;
       };
 
       firefox = {
-        enable = mkDefault true;
+        enable = mkDefault false;
         schizofox = mkDefault true;
       };
     };

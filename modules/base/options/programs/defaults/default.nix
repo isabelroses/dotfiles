@@ -14,7 +14,7 @@ in {
 
     browser = mkOption {
       type = types.enum ["schizofox" "chromium"];
-      default = "schizofox";
+      default = "chromium";
     };
 
     editor = mkOption {

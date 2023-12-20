@@ -40,7 +40,7 @@ in {
       #   "VoiceInteractionHotwordEnabled" = false;
       # };
 
-      package = pkgs.ungoogled-chromium.override {
+      package = pkgs.chromium.override {
         nss = pkgs.nss_latest;
         commandLineArgs =
           [

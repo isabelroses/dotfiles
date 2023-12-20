@@ -45,7 +45,7 @@
     (lib.genAttrs code (_: ["nvim.desktop"]))
     // (lib.genAttrs media (_: ["mpv.desktop"]))
     // (lib.genAttrs images (_: ["viewnoir.desktop"]))
-    // (lib.genAttrs browser (_: ["Schizofox.desktop"]))
+    // (lib.genAttrs browser (_: ["chromium.desktop"]))
     // {
       "application/pdf" = ["org.pwmt.zathura.desktop"];
       "x-scheme-handler/spotify" = ["spotify.desktop"];
