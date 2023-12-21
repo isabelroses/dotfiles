@@ -164,4 +164,50 @@ window#quicksettings .window-content {
       @include media;
     }
   }
+
+  .notifications {
+    min-width: $notifications-width;
+
+    .header {
+      margin-bottom: $spacing;
+      margin-right: $spacing;
+
+      > label {
+        margin-left: $radii / 2;
+      }
+
+      button {
+        @include button;
+        padding: $padding/2 $padding;
+      }
+    }
+
+    .notification-scrollable {
+      @include scrollable;
+    }
+
+    .notification-list {
+      margin-right: $spacing;
+    }
+
+    .notification {
+      @include notification;
+
+      > box {
+        @include widget;
+        padding: $padding;
+        margin-bottom: $spacing;
+      }
+    }
+
+    .placeholder {
+      image {
+        font-size: 7em;
+      }
+
+      label {
+        font-size: 1.2em;
+      }
+    }
+  }
 }

@@ -5,7 +5,7 @@ import Mpris from "resource:///com/github/Aylur/ags/service/mpris.js";
 import ApplauncherButton from "./buttons/ApplauncherButton.js";
 import Workspaces from "./buttons/Workspaces.js";
 import MediaIndicator from "./buttons/MediaIndicator.js";
-import DateButton from "./buttons/DateButton.js";
+import Date from "./buttons/Date.js";
 import NotificationIndicator from "./buttons/NotificationIndicator.js";
 import SysTray from "./buttons/SysTray.js";
 import ColorPicker from "./buttons/ColorPicker.js";
@@ -55,7 +55,7 @@ const Start = () =>
 const Center = () =>
   Widget.Box({
     class_name: "center",
-    children: [DateButton()],
+    children: [Date()],
   });
 
 const End = () =>

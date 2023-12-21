@@ -1,5 +1,6 @@
 import Widget from "resource:///com/github/Aylur/ags/widget.js";
 import Battery from "resource:///com/github/Aylur/ags/service/battery.js";
+import App from "resource:///com/github/Aylur/ags/app.js";
 import icons from "../../../icons.js";
 import PowerMenu from "../../../services/powermenu.js";
 import Avatar from "../../../misc/Avatar.js";
@@ -17,6 +18,7 @@ export default () =>
         hexpand: true,
         children: [
           Widget.Box({
+            vertical: true,
             children: [
               Widget.Box({
                 class_name: "battery horizontal",
@@ -29,14 +31,19 @@ export default () =>
               }),
               Widget.Label({
                 class_name: "uptime",
-                binds: [["label", uptime, "value", (v) => `up: ${v}`]],
+                binds: [["label", uptime, "value", (v) => `uptime: ${v}`]],
               }),
+            ],
+          }),
+          Widget.Box({
+            vertical: true,
+            children: [
               Widget.Button({
                 on_clicked: openSettings,
                 child: Widget.Icon(icons.ui.settings),
               }),
               Widget.Button({
-                on_clicked: () => PowerMenu.action("shutdown"),
+                on_clicked: () => App.openWindow("powermenu"),
                 child: Widget.Icon(icons.powermenu.shutdown),
               }),
             ],

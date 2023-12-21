@@ -1,5 +1,4 @@
 import Applauncher from "./windows/applauncher/Applauncher.js";
-import Dashboard from "./windows/dashboard/Dashboard.js";
 import Notifications from "./windows/notifications/Notifications.js";
 import PowerMenu from "./windows/powermenu/PowerMenu.js";
 import QuickSettings from "./windows/quicksettings/QuickSettings.js";
@@ -19,7 +18,6 @@ const windows = () => [
   forMonitors(OSD),
   forMonitors(Notifications),
   Applauncher(),
-  Dashboard(),
   QuickSettings(),
   PowerMenu(),
 ];
