@@ -133,6 +133,7 @@ export default () =>
       ],
     ],
     child: Widget.Box({
+      spacing: 3,
       children: [
         DNDIndicator(),
         BluetoothDevicesIndicator(),

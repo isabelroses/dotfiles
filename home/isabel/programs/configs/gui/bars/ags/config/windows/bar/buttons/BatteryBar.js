@@ -11,6 +11,7 @@ const Indicator = () =>
       ["false", Widget.Icon({ binds: [["icon", Battery, "icon-name"]] })],
       ["true", FontIcon(icons.battery.charging)],
     ],
+    binds: [["visible", options.battery.bar.show_icon]],
     connections: [
       [
         Battery,

@@ -230,7 +230,6 @@ const sidebar = Widget.Revealer({
           hexpand: true,
           on_clicked: () => {
             Utils.execAsync(["wl-copy", getValues()]);
-            print(getValues());
             Utils.execAsync([
               "notify-send",
               "-i",

@@ -176,6 +176,7 @@ export default {
   battery: {
     show_percentage: Option(true, { noReload: false, category: "exclude" }),
     bar: {
+      show_icon: Option(true, { category: "Bar" }),
       width: Option(70, { category: "Bar" }),
       height: Option(14, { category: "Bar" }),
       full: Option(false, { category: "Bar" }),
