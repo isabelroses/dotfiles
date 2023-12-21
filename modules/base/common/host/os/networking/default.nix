@@ -15,15 +15,8 @@ in {
     ./ssh.nix
     ./optimise.nix
     ./tailscale.nix
+    ./tcpcrypt.nix
   ];
-
-  users = mkIf config.networking.tcpcrypt.enable {
-    groups.tcpcryptd = {};
-    users.tcpcryptd = {
-      isSystemUser = true;
-      group = "tcpcryptd";
-    };
-  };
 
   services = {
     # systemd DNS resolver daemon
@@ -43,11 +36,6 @@ in {
     # interfaces are assigned names that contain topology information (e.g. wlp3s0) and thus should be consistent across reboots
     # this already defaults to true, we set it in case it changes upstream
     usePredictableInterfaceNames = mkDefault true;
-
-    # enable opportunistic TCP encryption
-    # this is NOT a pancea, however, if the receiver supports encryption and the attacker is passive
-    # privacy will be more plausible (but not guaranteed, unlike what the option docs suggest)
-    tcpcrypt.enable = false;
 
     # dns
     nameservers = [

@@ -9,16 +9,9 @@
 in {
   imports = [
     ./systemd.nix
+    ./zram.nix
     inputs.vscode-server.nixosModules.default
   ];
-
-  # compress half of the ram to use as swap
-  # basically, get more memory per memory
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-    memoryPercent = 90; # defaults to 50
-  };
 
   services = {
     # enable the vscode server

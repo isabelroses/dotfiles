@@ -5,7 +5,6 @@ _: {
     ./defaults.nix
     ./flatpak.nix
     ./gui.nix
-    ./ld-link.nix
     ./xdg.nix
   ];
 }

@@ -4,25 +4,28 @@
   pkgs,
   inputs,
   ...
-} @ args: let
+}: let
   inherit (lib) mkDefault mkIf;
   inherit (config.modules) device;
 
-  MHz = x: x * 1000;
+  acceptedTypes = ["laptop" "hybrid"];
 in {
   imports = [inputs.auto-cpufreq.nixosModules.default];
 
-  config = mkIf (device.type == "laptop" || device.type == "hybrid") {
+  config = mkIf (builtins.elem device.type acceptedTypes) {
     hardware.acpilight.enable = true;
 
     environment.systemPackages = with pkgs; [
       acpi
       powertop
+      cpupower-gui
     ];
 
     programs.auto-cpufreq = {
       enable = true;
-      settings = {
+      settings = let
+        MHz = x: x * 1000;
+      in {
         battery = {
           governor = "powersave";
           scaling_min_freq = mkDefault (MHz 1200);
@@ -32,7 +35,7 @@ in {
         charger = {
           governor = "performance";
           scaling_min_freq = mkDefault (MHz 1800);
-          scaling_max_freq = mkDefault (MHz 3000);
+          scaling_max_freq = mkDefault (MHz 3800);
           turbo = "auto";
         };
       };
@@ -79,23 +82,14 @@ in {
         percentageAction = 3;
         criticalPowerAction = "Hibernate";
       };
-
-      udev.extraRules = let
-        inherit (import ./plugged.nix args) plugged unplugged;
-      in ''
-        # start/stop services on power (un)plug
-        SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${plugged}"
-        SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${unplugged}"
-      '';
     };
+
     boot = {
       kernelModules = ["acpi_call"];
-      extraModulePackages = with config.boot.kernelPackages;
-        [
-          acpi_call
-          cpupower
-        ]
-        ++ [pkgs.cpupower-gui];
+      extraModulePackages = with config.boot.kernelPackages; [
+        acpi_call
+        cpupower
+      ];
     };
   };
 }

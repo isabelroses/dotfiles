@@ -20,7 +20,7 @@ in {
     services = {
       nextcloud = {
         enable = true;
-        package = pkgs.nextcloud27;
+        package = pkgs.nextcloud28;
 
         # webs stuff
         https = true;
@@ -80,6 +80,7 @@ in {
 
     systemd.services = {
       phpfpm-nextcloud.aliases = ["nextcloud.service"];
+
       "nextcloud-setup" = {
         requires = ["postgresql.service"];
         after = ["postgresql.service"];
@@ -87,6 +88,15 @@ in {
           Restart = "on-failure";
           RestartSec = "10s";
         };
+      };
+
+      "nextcloud-preview" = {
+        description = "Generate previews for all images that haven't been rendered";
+        startAt = "01:00:00";
+        path = [config.services.nextcloud.occ];
+        script = ''
+          nextcloud-occ preview:pre-generate
+        '';
       };
     };
   };
