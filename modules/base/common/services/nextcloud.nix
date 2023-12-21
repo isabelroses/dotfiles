@@ -46,7 +46,7 @@ in {
         };
 
         extraApps = with config.services.nextcloud.package.packages.apps; {
-          inherit news contacts calendar;
+          inherit contacts calendar;
         };
 
         autoUpdateApps = {
