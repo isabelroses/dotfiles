@@ -11,6 +11,7 @@ _: {
     nginx.enable = true;
     cloudflared.enable = false;
     headscale.enable = true;
+    vikunja.enable = true;
 
     mailserver = {
       enable = true;

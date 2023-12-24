@@ -16,6 +16,7 @@ _: {
     ./nextcloud.nix
     ./photoprism.nix
     ./vaultwarden.nix
+    ./vikunja.nix
     ./wakapi.nix
   ];
 }

@@ -25,6 +25,7 @@ in {
     wakapi.enable = mkEnableOption "Enables wakapi";
     jellyfin.enable = mkEnableOption "Enables the jellyfin service";
     headscale.enable = mkEnableOption "Headscale service";
+    vikunja.enable = mkEnableOption "Enables Vikunja service";
 
     mailserver = {
       enable = mkEnableOption "Enable the mailserver service";
