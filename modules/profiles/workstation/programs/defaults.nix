@@ -9,7 +9,7 @@ in {
       };
 
       firefox = {
-        enable = mkDefault false;
+        enable = mkDefault true;
         schizofox = mkDefault true;
       };
     };

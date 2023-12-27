@@ -5,7 +5,7 @@
   ...
 }: let
   sys = config.modules.system;
-  inherit (lib) optionals concatLists;
+  inherit (lib) optionals concatLists isx86Linux;
 in {
   security = {
     protectKernelImage = true;
@@ -22,7 +22,7 @@ in {
 
     # apparmor configuration
     apparmor = {
-      enable = true;
+      enable = isx86Linux pkgs;
       killUnconfinedConfinables = true;
       packages = [pkgs.apparmor-profiles];
     };
@@ -84,7 +84,7 @@ in {
       "rootflags=noatime"
 
       # linux security modules
-      "lsm=landlock,lockdown,yama,apparmor,bpf"
+      "lsm=landlock,lockdown,yama,integrity,apparmor,bpf,tomoyo,selinux"
 
       # prevent the kernel from blanking plymouth out of the fb
       "fbcon=nodefer"

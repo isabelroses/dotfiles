@@ -2,14 +2,11 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: let
   inherit (lib) mkIf;
   inherit (config.modules) device;
 in {
-  imports = [inputs.nix-ld.nixosModules.nix-ld];
-
   config = mkIf (device.type != "server") {
     environment.systemPackages = [pkgs.appimage-run];
 
@@ -21,7 +18,7 @@ in {
     });
 
     # run unpatched linux binaries with nix-ld
-    programs.nix-ld.dev = {
+    programs.nix-ld = {
       enable = true;
       libraries = with pkgs; [
         stdenv.cc.cc
