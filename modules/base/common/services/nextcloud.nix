@@ -39,7 +39,7 @@ in {
 
         extraOptions = {
           redis = {
-            host = "/run/redis-default/redis.sock";
+            host = "/run/redis-nextcloud/redis.sock";
             dbindex = 0;
             timeout = 1.5;
           };
