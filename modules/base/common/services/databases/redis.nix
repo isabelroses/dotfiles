@@ -17,6 +17,15 @@ in {
           port = 0;
         };
 
+        searxng = mkIf cfg.searxng.enable {
+          enable = true;
+          user = "searx";
+          port = 6370;
+          databases = 16;
+          logLevel = "debug";
+          requirePass = "searxng";
+        };
+
         forgejo = mkIf cfg.forgejo.enable {
           enable = true;
           user = "forgejo";
@@ -26,14 +35,11 @@ in {
           requirePass = "forgejo";
         };
 
-        searxng = mkIf cfg.searxng.enable {
-          enable = true;
-          user = "searx";
-          port = 6370;
-          databases = 16;
-          logLevel = "debug";
-          requirePass = "searxng";
-        };
+        # vikunja = mkIf cfg.vikunja.enable {
+        #   enable = true;
+        #   user = "vikunja";
+        #   port = 6372;
+        # };
       };
     };
   };

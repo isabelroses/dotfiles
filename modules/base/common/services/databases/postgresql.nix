@@ -24,6 +24,7 @@ in {
         "roundcube"
         "headscale"
         "wakapi"
+        "vikunja-api"
       ];
       ensureUsers = [
         {
@@ -62,6 +63,10 @@ in {
         }
         {
           name = "wakapi";
+          ensureDBOwnership = true;
+        }
+        {
+          name = "vikunja-api";
           ensureDBOwnership = true;
         }
       ];

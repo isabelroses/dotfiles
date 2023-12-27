@@ -50,6 +50,11 @@ in {
 
       isabelroses-web-env = {};
 
+      vikunja-env = mkIf services.vikunja.enable {
+        owner = "vikunja-api";
+        group = "vikunja-api";
+      };
+
       nextcloud-passwd = mkIf services.nextcloud.enable {
         owner = "nextcloud";
         group = "nextcloud";
