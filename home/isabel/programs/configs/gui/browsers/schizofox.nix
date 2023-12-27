@@ -14,14 +14,14 @@ in {
       package = pkgs.firefox-esr-115-unwrapped;
 
       theme = {
-        background-darker = "181825";
-        background = "1e1e2e";
-        foreground = "cdd6f4";
         font = "RobotoMono Nerd Font";
-        simplefox.enable = true;
-        darkreader.enable = true;
-        extraCss = ''
-        '';
+
+        colors = {
+          foreground = "cdd6f4";
+          background = "1e1e2e";
+          background-darker = "181825";
+        };
+        # extraUserChrome = '''';
       };
 
       search = {
@@ -44,12 +44,17 @@ in {
         startPageURL = "https://dash.isabelroses.com";
       };
 
-      extensions.extraExtensions = {
-        # Addon IDs are in manifest.json or manifest-firefox.json
-        "{446900e4-71c2-419f-a6a7-df9c091e268b}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-        "sponsorBlocker@ajay.app".install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-        "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/refined-github-/latest.xpi";
-        "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/styl-us/latest.xpi";
+      extensions = {
+        simplefox.enable = true;
+        darkreader.enable = true;
+
+        extraExtensions = {
+          # Addon IDs are in manifest.json or manifest-firefox.json
+          "{446900e4-71c2-419f-a6a7-df9c091e268b}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+          "sponsorBlocker@ajay.app".install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
+          "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/refined-github-/latest.xpi";
+          "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/styl-us/latest.xpi";
+        };
       };
     };
   };
