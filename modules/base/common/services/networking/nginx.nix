@@ -14,8 +14,18 @@ in {
       acme = {
         acceptTerms = true;
         defaults.email = "isabel@${domain}";
+
+        certs.${domain} = {
+          extraDomainNames = [
+            "*.${domain}"
+          ];
+          dnsProvider = "cloudflare";
+          credentialsFile = config.sops.secrets."cloudflare-cert-api".path;
+        };
       };
     };
+
+    users.users.nginx.extraGroups = ["acme"];
 
     services.nginx = mkIf cfg.nginx.enable {
       enable = true;

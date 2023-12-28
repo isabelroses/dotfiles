@@ -55,7 +55,7 @@ in {
             extraConfig = "proxy_pass_header Authorization;";
           };
         }
-        // template.ssl;
+        // template.ssl domain;
     };
   };
 }

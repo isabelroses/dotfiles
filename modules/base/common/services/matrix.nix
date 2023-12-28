@@ -56,7 +56,7 @@ in {
             };
             serverAliases = ["matrix.${domain}"];
           }
-          // template.ssl;
+          // template.ssl domain;
       };
 
       matrix-synapse = {

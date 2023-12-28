@@ -158,7 +158,7 @@ in {
             proxyPass = "http://unix:/run/forgejo/forgejo.sock";
           };
         }
-        // template.ssl;
+        // template.ssl domain;
     };
   };
 }

@@ -40,13 +40,13 @@ in {
 
           mailer = {
             enabled = true;
-            host = "mail.isabelroses.com";
+            host = "mail.${domain}";
             port = 465;
             forcessl = true;
 
             authtype = "login";
-            fromemail = "noreply@isabelroses.com";
-            username = "noreply@isabelroses.com";
+            fromemail = "noreply@${domain}";
+            username = "noreply@${domain}";
           };
 
           # redis
@@ -58,7 +58,7 @@ in {
         };
       };
 
-      nginx.virtualHosts.${config.services.vikunja.frontendHostname} = template.ssl;
+      nginx.virtualHosts.${config.services.vikunja.frontendHostname} = template.ssl domain;
     };
 
     users = {

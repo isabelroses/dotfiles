@@ -28,6 +28,11 @@ in {
         group = "cloudflared";
       };
 
+      cloudflare-cert-api = mkIf services.nginx.enable {
+        owner = "nginx";
+        group = "nginx";
+      };
+
       # mailserver
       rspamd-web = {};
       mailserver-isabel = {};

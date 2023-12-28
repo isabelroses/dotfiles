@@ -70,7 +70,7 @@ in {
             root = "${self'.packages.headscale-ui}/share";
           };
         }
-        // lib.template.ssl;
+        // lib.template.ssl domain;
     };
   };
 }

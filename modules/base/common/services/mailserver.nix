@@ -215,8 +215,11 @@ in {
       };
 
       nginx.virtualHosts = {
-        ${config.mailserver.fqdn} = template.ssl;
-        "webmail.${domain}" = template.ssl;
+        ${config.mailserver.fqdn} = {
+          enableACME = true;
+          forceSSL = true;
+        };
+        "webmail.${domain}" = template.ssl domain;
         # "rspamd.${domain}" = mkIf (cfg.mailserver.enable && cfg.mailserver.rspamd-web.enable) {
         #   forceSSL = true;
         #   enableACME = true;

@@ -113,7 +113,7 @@ in {
             proxyWebsockets = true;
           };
         }
-        // template.ssl;
+        // template.ssl domain;
     };
   };
 }

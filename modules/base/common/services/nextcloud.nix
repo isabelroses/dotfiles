@@ -75,7 +75,7 @@ in {
         };
       };
 
-      nginx.virtualHosts.${nextcloud_domain} = template.ssl;
+      nginx.virtualHosts.${nextcloud_domain} = template.ssl domain;
     };
 
     systemd.services = {
