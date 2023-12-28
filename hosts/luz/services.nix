@@ -12,6 +12,7 @@ _: {
     cloudflared.enable = false;
     headscale.enable = true;
     vikunja.enable = true;
+    kanidm.enable = true;
 
     mailserver = {
       enable = true;

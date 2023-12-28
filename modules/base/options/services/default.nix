@@ -26,6 +26,7 @@ in {
     jellyfin.enable = mkEnableOption "Enables the jellyfin service";
     headscale.enable = mkEnableOption "Headscale service";
     vikunja.enable = mkEnableOption "Enables Vikunja service";
+    kanidm.enable = mkEnableOption "Enables kanidm service";
 
     mailserver = {
       enable = mkEnableOption "Enable the mailserver service";

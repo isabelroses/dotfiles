@@ -10,6 +10,7 @@
   cfg = sys.monitoring;
 
   port = 3100;
+  grafana_domain = "graph.${domain}";
 in {
   config = mkIf cfg.grafana.enable {
     networking.firewall.allowedTCPPorts = [port];
@@ -23,9 +24,10 @@ in {
         enable = true;
         settings = {
           server = {
+            root_url = "https://${grafana_domain}";
             http_port = port;
             http_addr = "0.0.0.0";
-            domain = "graph.${domain}";
+            domain = grafana_domain;
             enforce_domain = true;
           };
 
@@ -59,8 +61,28 @@ in {
             check_for_updates = false;
           };
 
+          auth = {
+            disable_login_form = false;
+          };
+
           "auth.anonymous".enabled = false;
           "auth.basic".enabled = false;
+
+          "auth.generic_oauth" = let
+            sso = "https://sso.${domain}";
+          in {
+            enabled = true;
+            auto_login = true;
+            name = "Kanidm";
+            client_id = "grafana";
+            use_pkce = true;
+            scopes = ["openid" "profile" "email"];
+            login_attribute_path = "prefered_username";
+            email_attribute_path = "email";
+            auth_url = "${sso}/ui/oauth2";
+            token_url = "${sso}/oauth2/token";
+            api_url = "${sso}/oauth2/openid/grafana/userinfo";
+          };
 
           users = {
             allow_signup = false;
@@ -106,7 +128,7 @@ in {
         };
       };
 
-      nginx.virtualHosts.${config.services.grafana.settings.server.domain} =
+      nginx.virtualHosts.${grafana_domain} =
         {
           locations."/" = {
             proxyPass = with config.services.grafana.settings.server; "http://${toString http_addr}:${toString http_port}/";

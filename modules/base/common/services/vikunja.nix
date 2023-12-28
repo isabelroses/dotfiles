@@ -4,6 +4,7 @@
   ...
 }: let
   inherit (config.networking) domain;
+  vikunja_domain = "todo.${domain}";
 
   cfg = config.modules.services.vikunja;
 
@@ -18,7 +19,7 @@ in {
       vikunja = {
         enable = true;
         setupNginx = true;
-        frontendHostname = "todo.${domain}";
+        frontendHostname = vikunja_domain;
         frontendScheme = "https";
 
         environmentFiles = [config.sops.secrets.vikunja-env.path];
@@ -49,6 +50,19 @@ in {
             username = "noreply@${domain}";
           };
 
+          openid = {
+            enabled = true;
+            redirecturl = "https://${vikunja_domain}/auth/openid/";
+            providers = [
+              {
+                name = "Isabel's SSO";
+                authurl = "https://sso.${domain}/oauth2/openid/vikunja/";
+                logouturl = "https://sso.${domain}/logout";
+                clientid = "vikunja";
+              }
+            ];
+          };
+
           # redis
           # redis = {
           #   enabled = true;
@@ -58,7 +72,7 @@ in {
         };
       };
 
-      nginx.virtualHosts.${config.services.vikunja.frontendHostname} = template.ssl domain;
+      nginx.virtualHosts.${vikunja_domain} = template.ssl domain;
     };
 
     users = {

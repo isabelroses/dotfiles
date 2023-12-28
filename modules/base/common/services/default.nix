@@ -10,6 +10,7 @@ _: {
     ./forgejo.nix
     ./headscale.nix
     ./jellyfin.nix
+    ./kanidm.nix
     ./mailserver.nix
     ./matrix.nix
     ./miniflux.nix
