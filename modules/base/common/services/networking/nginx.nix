@@ -7,7 +7,7 @@
   inherit (lib) mkIf;
   domain = "isabelroses.com";
 in {
-  config = {
+  config = mkIf cfg.nginx.enable {
     networking.domain = domain;
 
     security = {
@@ -27,7 +27,7 @@ in {
 
     users.users.nginx.extraGroups = ["acme"];
 
-    services.nginx = mkIf cfg.nginx.enable {
+    services.nginx = {
       enable = true;
       commonHttpConfig = ''
         # real_ip_header CF-Connecting-IP;
