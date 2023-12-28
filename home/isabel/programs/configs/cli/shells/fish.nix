@@ -1,11 +1,9 @@
 {
-  defaults,
-  osConfig,
   lib,
   pkgs,
   ...
 }: let
-  inherit (lib) optionalString getExe isModernShell;
+  inherit (lib) getExe;
 in {
   programs.fish = {
     enable = true;
@@ -29,31 +27,7 @@ in {
     shellAbbrs = {};
 
     shellInit = ''
-      set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
-
-      ${optionalString (osConfig.modules.device != "server") ''
-        set -gx TERMINAL ${defaults.terminal}
-      ''};
-
-      ${optionalString (osConfig.modules.device == "server") ''
-        set -gx TERMINAL dumb
-      ''};
-
-      ${optionalString (isModernShell osConfig) ''
-        ${getExe pkgs.starship} init fish | source
-      ''};
-
       ${getExe pkgs.nix-your-shell} fish | source
-
-      switch $TERM
-          case '*xte*'
-            set -gx TERM xterm-256color
-          case '*scree*'
-            set -gx TERM screen-256color
-          case '*rxvt*'
-            set -gx TERM rxvt-unicode-256color
-      end
-
 
       # themeing
       set fish_greeting

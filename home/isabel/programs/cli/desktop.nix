@@ -3,6 +3,7 @@
   lib,
   pkgs,
   inputs',
+  self',
   ...
 }: let
   inherit (lib) mkIf isAcceptedDevice optionals;
@@ -17,6 +18,7 @@ in {
         bitwarden-cli # bitwarden, my chosen package manager
         trash-cli # `rm` skips the "rubish bin", this cli tool uses that
         brightnessctl # brightness managed via cli
+        self'.packages.catppuccinifier-cli
       ]
       ++ optionals cfg.cli.modernShell.enable [
         inputs'.catppuccin-toolbox.packages.catwalk

@@ -2,7 +2,6 @@
   osConfig,
   lib,
   pkgs,
-  self',
   ...
 }: let
   inherit (lib) mkIf optionals;
@@ -17,10 +16,8 @@ in {
         fd
         jq
         dconf
-        nitch
         wakatime
         cached-nix-shell
-        self'.packages.catppuccinifier-cli
       ]
       ++ optionals cfg.cli.modernShell.enable [
         ripgrep

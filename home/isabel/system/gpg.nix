@@ -12,6 +12,8 @@ in {
   services = {
     gpg-agent = {
       enable = true;
+      enableFishIntegration = true;
+      enableBashIntegration = true;
       pinentryFlavor =
         if video.enable
         then "gnome3"

@@ -7,6 +7,10 @@
     programs.kitty = {
       enable = true;
       catppuccin.enable = true;
+      shellIntegration = {
+        enableBashIntegration = true;
+        enableFishIntegration = true;
+      };
       settings = {
         background_opacity = "0.85";
         font_family = "RobotoMono Nerd Font";

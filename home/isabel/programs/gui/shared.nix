@@ -12,7 +12,7 @@ in {
       obsidian # note taking with markdown
       pamixer # move evntually
       # jellyfin-media-player
-      mangal # tui manga finder + reader
+      # mangal # tui manga finder + reader
       # insomnia # rest client
       nextcloud-client # cloud storage
     ];

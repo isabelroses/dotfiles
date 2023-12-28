@@ -4,9 +4,9 @@
   ...
 }: let
   inherit (lib) mkDefault mkIf;
-  device = config.modules.device;
+  inherit (config.modules) device;
 in {
-  config = mkIf (device.hasTPM) {
+  config = mkIf device.hasTPM {
     security.tpm2 = {
       # enable Trusted Platform Module 2 support
       enable = mkDefault true;
