@@ -919,6 +919,34 @@
         "type": "github"
       }
     },
+    "nekowinston-nur": {
+      "inputs": {
+        "flake-utils": [
+          "neovim",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "neovim",
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "neovim"
+        ]
+      },
+      "locked": {
+        "lastModified": 1703833421,
+        "narHash": "sha256-rM6jnw08Z0AeCVY0CwClqgg9vuadCzpKl+MoIL8SDgc=",
+        "owner": "nekowinston",
+        "repo": "nur",
+        "rev": "6e220cb725bc01f9bfa2dbc866776ad20d33c058",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nekowinston",
+        "repo": "nur",
+        "type": "github"
+      }
+    },
     "neovim": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -929,6 +957,7 @@
           "pre-commit-hooks",
           "flake-utils"
         ],
+        "nekowinston-nur": "nekowinston-nur",
         "neovim-nix": "neovim-nix",
         "nil": [
           "nil"
@@ -941,11 +970,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1703791211,
-        "narHash": "sha256-HJN7mv1Uv3e7eY9Ccs5WBx6WW+0fop/0M+UTLLDPCwA=",
+        "lastModified": 1703868844,
+        "narHash": "sha256-Kwta1KWKePDz8Lj8R0QHiXAPXgiSiJ/YOLtQnGhUXXg=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "356f3a53162d1f1aa8ce925be1601f21a64f2f42",
+        "rev": "5976a5fe8f3729b2b8a8100b929eb5421ebede2c",
         "type": "github"
       },
       "original": {
