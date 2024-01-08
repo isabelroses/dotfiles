@@ -28,11 +28,13 @@ in {
       enable = true;
       openFirewall = true;
 
-      # make sure the perms here is
-      # /srv/storage/mail/ # 775
-      mailDirectory = "/srv/storage/mail/vmail"; # 770
-      dkimKeyDirectory = "/srv/storage/mail/dkim"; # 775
-      sieveDirectory = "/srv/storage/mail/sieve"; # 770
+      useFsLayout = true;
+      vmailUserName = "vmail";
+      vmailGroupName = "vmail";
+
+      mailDirectory = "/srv/storage/mail/vmail";
+      dkimKeyDirectory = "/srv/storage/mail/dkim";
+      sieveDirectory = "/srv/storage/mail/sieve";
 
       # Enable STARTTLS
       enableImap = true;

@@ -55,18 +55,21 @@ in {
         };
 
         config = {
-          overwriteProtocol = "https";
-          extraTrustedDomains = ["https://${toString nextcloud_domain}"];
-          trustedProxies = ["https://${toString nextcloud_domain}"];
-
           adminuser = "isabel";
           adminpassFile = config.sops.secrets.nextcloud-passwd.path;
-          defaultPhoneRegion = "UK";
 
           # database
           dbtype = "pgsql";
           dbhost = "/run/postgresql";
           dbname = "nextcloud";
+        };
+
+        extraOptions = {
+          defaultPhoneRegion = "UK";
+
+          overwriteProtocol = "https";
+          extraTrustedDomains = ["https://${toString nextcloud_domain}"];
+          trustedProxies = ["https://${toString nextcloud_domain}"];
         };
 
         phpOptions = {
