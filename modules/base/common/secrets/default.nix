@@ -109,6 +109,7 @@ in {
       git-credentials = {
         path = homeDir + "/.git-credentials";
         owner = mainUser;
+        group = "users";
       };
 
       wakatime = {
