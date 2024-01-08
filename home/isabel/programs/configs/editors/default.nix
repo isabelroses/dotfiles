@@ -4,8 +4,10 @@ _: {
     ./nvim
     ./vscode
   ];
+
+  # need this one for uni
   # config.home.packages = with pkgs; [
-  #   arduino # need this one for uni
+  #   arduino
   #   arduino-cli
   # ];
 }
