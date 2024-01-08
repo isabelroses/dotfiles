@@ -39,8 +39,6 @@
       in {
         nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
 
-        deploy = import ./hosts/deploy.nix {inherit inputs self;};
-
         # build with `nix build .#images.<hostname>`
         # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
         images = import ./hosts/images.nix {inherit inputs self lib;};
@@ -81,9 +79,7 @@
             config.treefmt.build.wrapper # treewide formatter
           ];
 
-          inputsFrom = [
-            config.treefmt.build.devShell
-          ];
+          inputsFrom = [config.treefmt.build.devShell];
         };
       };
     });
@@ -195,16 +191,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Highly customisable nixos neovim flake
-    # neovim-flake = {
-    #   url = "github:NotAShelf/neovim-flake";
-    #   inputs = {
-    #     nixpkgs.follows = "nixpkgs";
-    #     nil.follows = "nil";
-    #     flake-parts.follows = "flake-parts";
-    #     flake-utils.follows = "pre-commit-hooks/flake-utils";
-    #   };
-    # };
     neovim = {
       url = "github:isabelroses/nvim";
       # url = "git+file:///home/isabel/dev/nvim";
