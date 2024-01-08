@@ -1,18 +1,9 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: let
-  device = config.modules.device;
-  acceptedTypes = ["server" "desktop" "laptop" "hybrid" "lite"];
-in {
-  config = lib.mkIf (builtins.elem device.type acceptedTypes) {
+{pkgs, ...}: {
+  config = {
     fonts = {
       enableDefaultPackages = false;
 
       fontconfig = {
-        # this fixes emoji stuff
         enable = true;
 
         defaultFonts = {
@@ -30,7 +21,6 @@ in {
         decompressFonts = true;
       };
 
-      # font packages that should be installed
       packages = with pkgs; [
         corefonts
         material-icons
