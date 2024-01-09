@@ -1,4 +1,5 @@
 {
+  config,
   osConfig,
   lib,
   ...
@@ -8,9 +9,9 @@ in {
   config = mkIf (isModernShell osConfig) {
     programs.zoxide = {
       enable = true;
-      enableBashIntegration = true;
-      enableFishIntegration = true;
-      enableZshIntegration = true;
+      enableBashIntegration = config.programs.bash.enable;
+      enableFishIntegration = config.programs.fish.enable;
+      enableZshIntegration = config.programs.zsh.enable;
     };
   };
 }

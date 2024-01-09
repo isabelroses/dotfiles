@@ -12,8 +12,9 @@ in {
   services = {
     gpg-agent = {
       enable = true;
-      enableFishIntegration = true;
-      enableBashIntegration = true;
+      enableBashIntegration = config.programs.bash.enable;
+      enableFishIntegration = config.programs.fish.enable;
+      enableZshIntegration = config.programs.zsh.enable;
       pinentryFlavor =
         if video.enable
         then "gnome3"

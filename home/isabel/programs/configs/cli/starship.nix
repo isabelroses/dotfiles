@@ -1,4 +1,5 @@
 {
+  config,
   osConfig,
   lib,
   ...
@@ -6,9 +7,9 @@
   programs.starship = {
     inherit (osConfig.modules.programs.cli) enable;
     catppuccin.enable = true;
-    enableFishIntegration = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
+    enableBashIntegration = config.programs.bash.enable;
+    enableFishIntegration = config.programs.fish.enable;
+    enableZshIntegration = config.programs.zsh.enable;
 
     settings = {
       add_newline = true;

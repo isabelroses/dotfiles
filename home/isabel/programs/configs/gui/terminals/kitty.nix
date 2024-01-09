@@ -1,5 +1,6 @@
 {
   lib,
+  config,
   osConfig,
   ...
 }: {
@@ -8,8 +9,9 @@
       enable = true;
       catppuccin.enable = true;
       shellIntegration = {
-        enableBashIntegration = true;
-        enableFishIntegration = true;
+        enableBashIntegration = config.programs.bash.enable;
+        enableFishIntegration = config.programs.fish.enable;
+        enableZshIntegration = config.programs.zsh.enable;
       };
       settings = {
         background_opacity = "0.85";

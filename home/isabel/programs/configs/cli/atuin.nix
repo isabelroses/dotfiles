@@ -1,4 +1,5 @@
 {
+  config,
   osConfig,
   lib,
   ...
@@ -8,8 +9,11 @@ in {
   config = mkIf (isModernShell osConfig) {
     programs.atuin = {
       enable = true;
-      enableBashIntegration = true;
-      enableFishIntegration = true;
+
+      enableBashIntegration = config.programs.bash.enable;
+      enableFishIntegration = config.programs.fish.enable;
+      enableZshIntegration = config.programs.zsh.enable;
+
       settings = {
         dialect = "uk";
         show_preview = true;
