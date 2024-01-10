@@ -10,7 +10,7 @@
 
   cfg = config.modules.services;
 in {
-  config = mkIf cfg.kanidm.enable {
+  config = mkIf cfg.plausible.enable {
     modules.services.database = {
       postgresql.enable = true;
     };
@@ -19,16 +19,19 @@ in {
       plausible = {
         enable = true;
 
-        port = 2100;
-        baseUrl = "https://${plausible_domain}";
+        server = {
+          port = 2100;
+          baseUrl = "https://${plausible_domain}";
 
-        server.disableRegistration = true;
+          disableRegistration = true;
+          secretKeybaseFile = config.sops.secrets.plausible-key.path;
+        };
 
         adminUser = {
           activate = true;
           name = "isabel";
           email = "isabel@${domain}";
-          passwordFile = config.sops.secrets.plausible-admin;
+          passwordFile = config.sops.secrets.plausible-admin.path;
         };
 
         database.postgres = {
@@ -39,9 +42,19 @@ in {
 
       nginx.virtualHosts.${plausible_domain} =
         {
-          locations."/".proxyPass = "https://${config.services.plausible.port}";
+          locations."/".proxyPass = "http://127.0.0.1:${toString config.services.plausible.server.port}";
         }
         // lib.template.ssl domain;
+    };
+
+    users = {
+      groups.plausible = {};
+
+      users.plausible = {
+        group = "plausible";
+        createHome = false;
+        isSystemUser = true;
+      };
     };
   };
 }

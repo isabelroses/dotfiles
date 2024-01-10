@@ -853,6 +853,27 @@
         "type": "github"
       }
     },
+    "isabelroses-website": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1704922423,
+        "narHash": "sha256-21e61pHpJYyS5japa5kW0A22zwZv2TpZt61NuhiDyOs=",
+        "owner": "isabelroses",
+        "repo": "website",
+        "rev": "e656a986526d8178a66c0006362720eeee27e5ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "ref": "feat/go",
+        "repo": "website",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane_2",
@@ -1587,6 +1608,7 @@
         "hyprland": "hyprland",
         "hyprpicker": "hyprpicker",
         "icat-wrapper": "icat-wrapper",
+        "isabelroses-website": "isabelroses-website",
         "lanzaboote": "lanzaboote",
         "neovim": "neovim",
         "nh": "nh",
@@ -1605,7 +1627,6 @@
         "sops": "sops",
         "treefmt-nix": "treefmt-nix_2",
         "vscode-server": "vscode-server",
-        "website": "website",
         "xdg-portal-hyprland": "xdg-portal-hyprland"
       }
     },
@@ -1989,30 +2010,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixos-vscode-server",
-        "type": "github"
-      }
-    },
-    "website": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1704781073,
-        "narHash": "sha256-+J9D7offFI1nikZQr2T2+n11KvTV5GSGycND9gp6HTg=",
-        "owner": "isabelroses",
-        "repo": "website",
-        "rev": "9007b11b175de16d763f2f82fa81ccec5217b5d0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "ref": "feat/go",
-        "repo": "website",
         "type": "github"
       }
     },

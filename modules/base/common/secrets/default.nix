@@ -53,8 +53,6 @@ in {
         group = "forgejo";
       };
 
-      isabelroses-web-env = {};
-
       vikunja-env = mkIf services.vikunja.enable {
         owner = "vikunja-api";
         group = "vikunja-api";
@@ -81,6 +79,11 @@ in {
       };
 
       # plausable
+      plausible-key = mkIf services.plausible.enable {
+        owner = "plausible";
+        group = "plausible";
+      };
+
       plausible-admin = mkIf services.plausible.enable {
         owner = "plausible";
         group = "plausible";

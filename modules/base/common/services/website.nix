@@ -1,17 +1,18 @@
 {
   config,
   lib,
-  inputs',
+  inputs,
   ...
 }: let
   cfg = config.modules.services;
+
   inherit (config.networking) domain;
   inherit (lib) mkIf template;
 in {
-  config = mkIf cfg.isabelroses-web.enable {
-    systemd.services."isabelroses-web" = {
-      script = "./${inputs'.isabelroses-web.packages.default}/bin/isabelroses.com";
-    };
+  imports = [inputs.isabelroses-website.nixosModules.default];
+
+  config = mkIf cfg.isabelroses-website.enable {
+    services.isabelroses-website.enable = true;
 
     services.nginx.virtualHosts.${domain} =
       {

@@ -204,12 +204,9 @@
     };
 
     # my website
-    website = {
+    isabelroses-website = {
       url = "github:isabelroses/website/feat/go";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # a tree-wide formatter
