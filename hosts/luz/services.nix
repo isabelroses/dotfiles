@@ -6,7 +6,7 @@ _: {
     matrix.enable = true;
     forgejo.enable = true;
     vaultwarden.enable = true;
-    isabelroses-web.enable = false;
+    isabelroses-web.enable = true;
     wakapi.enable = true;
     nginx.enable = true;
     cloudflared.enable = false;
