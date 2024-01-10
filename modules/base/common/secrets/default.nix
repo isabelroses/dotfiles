@@ -80,6 +80,12 @@ in {
         mode = "400";
       };
 
+      # plausable
+      plausible-admin = mkIf services.plausible.enable {
+        owner = "plausible";
+        group = "plausible";
+      };
+
       docker-hub = {};
 
       #wakapi

@@ -13,6 +13,7 @@ _: {
     headscale.enable = true;
     vikunja.enable = true;
     kanidm.enable = true;
+    plausible.enable = true;
 
     mailserver = {
       enable = true;

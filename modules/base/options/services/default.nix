@@ -27,6 +27,7 @@ in {
     headscale.enable = mkEnableOption "Headscale service";
     vikunja.enable = mkEnableOption "Enables Vikunja service";
     kanidm.enable = mkEnableOption "Enables kanidm service";
+    plausible.enable = mkEnableOption "Enables plausible service";
 
     mailserver = {
       enable = mkEnableOption "Enable the mailserver service";
