@@ -203,6 +203,15 @@
       };
     };
 
+    # my website
+    website = {
+      url = "github:isabelroses/website/feat/go";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     # a tree-wide formatter
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
