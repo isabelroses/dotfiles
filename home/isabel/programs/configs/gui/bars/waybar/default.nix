@@ -8,7 +8,7 @@
   sys = osConfig.modules.system;
   cfg = osConfig.modules.programs;
 in {
-  config = lib.mkIf (lib.isWayland osConfig && osConfig.modules.programs.bars.waybar.enable) {
+  config = lib.mkIf (lib.isWayland osConfig && osConfig.modules.programs.gui.bars.waybar.enable) {
     home.packages = with pkgs; [wlogout];
 
     programs.waybar = {

@@ -6,14 +6,14 @@
 in {
   flake = {
     nixosModules = {
-      wakapi = mkModule /modules/extra/shared/nixos/wakapi;
+      wakapi = mkModule /modules/extra/nixos/wakapi;
 
       # i do not provide a default module, so throw an error
       default = builtins.throw "There is no default module.";
     };
 
     homeManagerModules = {
-      gtklock = mkModule /modules/extra/shared/home-manager/gtklock;
+      gtklock = mkModule /modules/extra/home-manager/gtklock;
 
       default = builtins.throw "There is no default module.";
     };

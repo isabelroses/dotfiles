@@ -17,7 +17,7 @@
   programs = {
     # the thunar file manager
     # we enable thunar here and add plugins instead of in systemPackages
-    thunar = lib.mkIf config.modules.programs.fileManagers.thunar.enable {
+    thunar = lib.mkIf config.modules.programs.gui.fileManagers.thunar.enable {
       enable = true;
       plugins = with pkgs.xfce; [
         thunar-archive-plugin
@@ -31,6 +31,6 @@
     seahorse.enable = true;
 
     # networkmanager tray uility, pretty useful actually
-    nm-applet.enable = config.modules.programs.defaults.bar == "waybar";
+    nm-applet.enable = config.programs.waybar.enable;
   };
 }

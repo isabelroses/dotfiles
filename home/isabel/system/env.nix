@@ -10,7 +10,7 @@
     TERMINAL = defaults.terminal;
     SYSTEMD_PAGERSECURE = "true";
     PAGER = "less -FR";
-    FLAKE = "${osConfig.modules.system.flakePath}";
+    FLAKE = "${osConfig.modules.environment.flakePath}";
     GPG_TTY = "$(tty)";
   };
 }

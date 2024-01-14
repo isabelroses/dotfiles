@@ -49,13 +49,11 @@ _: {
         distrobox.enable = false;
       };
     };
-    usrEnv = {
-      isWayland = false;
-      useHomeManager = true;
-    };
+
+    environment.useHomeManager = true;
 
     programs = {
-      git.signingKey = "B4D9D513B1560D99";
+      agnostic.git.signingKey = "B4D9D513B1560D99";
 
       cli = {
         enable = true;

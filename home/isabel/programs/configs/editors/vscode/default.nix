@@ -5,9 +5,10 @@
   config,
   ...
 }: let
-  inherit (osConfig.modules.system) flakePath mainUser;
+  inherit (osConfig.modules.environment) flakePath;
+  inherit (osConfig.modules.system) mainUser;
 in {
-  config = lib.mkIf osConfig.modules.programs.editors.vscode.enable {
+  config = lib.mkIf osConfig.modules.programs.agnostic.editors.vscode.enable {
     programs.vscode = {
       enable = true;
       package = pkgs.vscode;

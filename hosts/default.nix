@@ -7,47 +7,41 @@
   inherit (self) inputs;
   inherit (lib) mkMerge mapAttrs concatLists mkNixosSystem mkNixosIso;
 
-  # home manager modules from inputs
+  # home manager modules
   hm = inputs.home-manager.nixosModules.home-manager;
-  cat = inputs.catppuccin.nixosModules.catppuccin;
+  ctp = inputs.catppuccin.nixosModules.catppuccin;
 
   # modules
   modulePath = ../modules; # the base module path
 
-  # base modules, are the basis of this system configuration and are shared across all systems
-  baseModules = modulePath + /base; # the base directory for the common module
-  common = baseModules + /common; # defaults for all systems
-  options = baseModules + /options; # the module options for quick configuration
+  # base modules, are the base of this system configuration and are shared across all systems (so the basics)
+  base = modulePath + /base;
+
+  # extra modules, these add extra functionality to the system configuration, not provided by nixpkgs or another source
+  extra = modulePath + /extra;
+
+  # options module, these allow for quick configuration
+  options = modulePath + /options;
 
   # profiles are hardware based, system optimised defaults
-  profilesModule = modulePath + /profiles; # the base directory for the types module
-  server = profilesModule + /server; # for server type configurations
-  laptop = profilesModule + /laptop; # for laptop type configurations
-  desktop = profilesModule + /desktop; # for desktop type configurations
-  workstation = profilesModule + /workstation; # for server type configurations
-
-  # extra modules
-  extraModules = modulePath + /extra; # the base directory for the extra module
-  sharedModules = extraModules + /shared; # the base directory for the shared module
+  profilesPath = modulePath + /profiles; # the base directory for the types module
+  server = profilesPath + /server; # for server type configurations
+  laptop = profilesPath + /laptop; # for laptop type configurations
+  # desktop = profilesPath + /desktop; # for desktop type configurations
+  workstation = profilesPath + /workstation; # for server type configurations
 
   # home-manager
-  home = ../home; # home-manager configurations, used if hm is enabled
-  homes = [hm home]; # combine hm input module and the home module, confiuration modules
+  home = ../home; # home-manager configurations
+  homes = [hm home]; # combine hm input module and the home module
 
   # a list of shared modules
-  shared = [
-    common # default shared across all system configuratons
-    options # amazing quick settings module
-    sharedModules # sharing is careing, this mainly contains: hm and nixos (if any) modules
-    cat # catppucin for the quick themeing
-  ];
+  shared = [base options extra ctp];
 
-  # extraSpecialArgs that are on all machines
+  # extra specialArgs that are on all machines
   sharedArgs = {inherit inputs self lib;};
 in
   mkMerge [
     (mapAttrs mkNixosSystem {
-      # super rubbish laptop
       hydra = {
         inherit withSystem;
         system = "x86_64-linux";
@@ -60,20 +54,18 @@ in
         specialArgs = sharedArgs;
       };
 
-      # super cool gamer pc
       amaterasu = {
         inherit withSystem;
         system = "x86_64-linux";
         modules =
           [
-            desktop
+            # desktop
             workstation
           ]
           ++ concatLists [shared homes];
         specialArgs = sharedArgs;
       };
 
-      # hertzner cloud computer
       luz = {
         inherit withSystem;
         system = "x86_64-linux";

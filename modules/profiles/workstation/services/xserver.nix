@@ -5,17 +5,17 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (config.modules) device programs system;
+  inherit (config.modules) device system environment;
   acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
 in {
   config = mkIf (system.video.enable && builtins.elem device.type acceptedTypes) {
     services.xserver = {
-      enable = programs.defaults.loginManager != "greetd";
+      enable = environment.loginManager != "greetd";
       displayManager = {
-        gdm.enable = programs.defaults.loginManager == "gdm";
-        lightdm.enable = programs.defaults.loginManager == "lightdm";
+        gdm.enable = environment.loginManager == "gdm";
+        lightdm.enable = environment.loginManager == "lightdm";
         sddm = {
-          enable = programs.defaults.loginManager == "sddm";
+          enable = environment.loginManager == "sddm";
           wayland.enable = true;
           theme = "${import ../../../../../parts/pkgs/sddm.nix {inherit pkgs lib;}}";
           settings = {

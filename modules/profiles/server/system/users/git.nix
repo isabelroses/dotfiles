@@ -4,7 +4,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  cfg = config.modules.services.forgejo;
+  cfg = config.modules.services.dev.forgejo;
 in {
   users = mkIf cfg.enable {
     groups.git = {};

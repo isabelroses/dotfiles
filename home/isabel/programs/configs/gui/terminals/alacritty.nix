@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  config = lib.mkIf osConfig.modules.programs.terminals.alacritty.enable {
+  config = lib.mkIf osConfig.modules.programs.gui.terminals.alacritty.enable {
     programs.alacritty = {
       enable = true;
       catppuccin.enable = true;

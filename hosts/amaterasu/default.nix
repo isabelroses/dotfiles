@@ -60,38 +60,31 @@ in {
           distrobox.enable = false;
         };
       };
-      usrEnv = {
-        isWayland = true;
+
+      environment = {
         desktop = "Hyprland";
         useHomeManager = true;
       };
 
       programs = {
-        git.signingKey = "7F2F6BD6997FCDF7";
+        agnostic.git.signingKey = "7F2F6BD6997FCDF7";
 
         cli = {
           enable = true;
           modernShell.enable = true;
         };
-        tui.enable = true;
-        gui.enable = true;
 
-        zathura.enable = true;
+        tui.enable = true;
+
+        gui = {
+          enable = true;
+
+          zathura.enable = true;
+        };
 
         defaults = {
           bar = "ags";
         };
-      };
-
-      services = {
-        smb = {
-          enable = false;
-          recive = {
-            media = false;
-            general = false;
-          };
-        };
-        vscode-server.enable = true;
       };
     };
 

@@ -5,12 +5,10 @@
   inputs',
   ...
 }: let
-  inherit (osConfig.modules) usrEnv;
-
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+  inherit (osConfig.modules) environment;
 in {
   imports = [./config.nix];
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isWayland osConfig && usrEnv.desktop == "Hyprland") {
+  config = lib.mkIf (lib.isWayland osConfig && environment.desktop == "Hyprland") {
     home.packages = with pkgs; [
       grim
       inputs'.hyprpicker.packages.default

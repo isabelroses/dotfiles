@@ -1,0 +1,6 @@
+{
+  imports = [
+    ./nixos
+    ./home-manager
+  ];
+}

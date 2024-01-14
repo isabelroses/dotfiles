@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   osConfig,
@@ -12,7 +11,7 @@
 in {
   imports = [./config.nix];
 
-  config = lib.mkIf osConfig.modules.programs.launchers.rofi.enable {
+  config = lib.mkIf osConfig.modules.programs.gui.launchers.rofi.enable {
     programs.rofi = {
       enable = true;
       package = rofiPackage.override {

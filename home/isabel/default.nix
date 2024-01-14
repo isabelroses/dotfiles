@@ -11,7 +11,7 @@ in {
     inputs.catppuccin.homeManagerModules.catppuccin
     self.homeManagerModules.gtklock
 
-    # important system enviroment config
+    # important system environment config
     ./system
     # programs that are used, e.g. GUI apps
     ./programs

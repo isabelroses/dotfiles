@@ -1,14 +1,11 @@
 {
   pkgs,
+  lib,
   config,
   inputs,
   ...
-}: let
-  env = config.modules.usrEnv;
-in {
-  imports = [
-    inputs.nh.nixosModules.default
-  ];
+}: {
+  imports = [inputs.nh.nixosModules.default];
 
   config = {
     # nh nix helper
@@ -54,7 +51,7 @@ in {
     # determine which version of wine to use
     environment.systemPackages = with pkgs; let
       winePackage =
-        if (env.isWayland)
+        if (lib.isWayland config)
         then wineWowPackages.waylandFull
         else wineWowPackages.stableFull;
     in [winePackage];

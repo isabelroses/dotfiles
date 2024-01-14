@@ -5,7 +5,7 @@
   defaults,
   ...
 }: {
-  programs.rofi = lib.mkIf osConfig.modules.programs.launchers.rofi.enable {
+  programs.rofi = lib.mkIf osConfig.modules.programs.gui.launchers.rofi.enable {
     extraConfig = {
       modi = "drun";
       icon-theme = "Papirus-Dark";

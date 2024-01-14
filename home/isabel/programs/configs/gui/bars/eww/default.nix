@@ -12,7 +12,7 @@
     then pkgs.eww-wayland
     else pkgs.eww;
 in {
-  config = lib.mkIf ((isWayland osConfig) && osConfig.modules.programs.bars.eww.enable) {
+  config = lib.mkIf ((isWayland osConfig) && osConfig.modules.programs.gui.bars.eww.enable) {
     home.packages = with pkgs; [
       socat
       jaq

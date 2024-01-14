@@ -1,19 +1,27 @@
 _: {
   modules.services = {
-    nextcloud.enable = true;
-    vscode-server.enable = false;
-    miniflux.enable = false;
-    matrix.enable = true;
-    forgejo.enable = true;
     vaultwarden.enable = true;
     isabelroses-website.enable = true;
-    wakapi.enable = true;
-    nginx.enable = true;
-    cloudflared.enable = false;
-    headscale.enable = true;
     vikunja.enable = true;
     kanidm.enable = true;
-    plausible.enable = true;
+
+    networking = {
+      nginx.enable = true;
+      cloudflared.enable = false;
+      headscale.enable = true;
+    };
+
+    dev = {
+      forgejo.enable = true;
+      wakapi.enable = true;
+      vscode-server.enable = false;
+      plausible.enable = true;
+    };
+
+    media = {
+      matrix.enable = true;
+      nextcloud.enable = true;
+    };
 
     mailserver = {
       enable = true;

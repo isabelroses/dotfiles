@@ -32,13 +32,6 @@ _: {
         printing.enable = false;
         yubikeySupport.enable = true;
 
-        # autoLogin = true;
-
-        encryption = {
-          enable = false;
-          device = "crypt";
-        };
-
         security = {
           fixWebcam = false;
           auditd.enable = true;
@@ -64,46 +57,34 @@ _: {
           distrobox.enable = false;
         };
       };
-      usrEnv = {
-        isWayland = true;
+
+      environment = {
         desktop = "Hyprland";
         useHomeManager = true;
       };
 
       programs = {
-        git.signingKey = "0xAE22E70709810C07";
+        agnostic.git.signingKey = "0xAE22E70709810C07";
 
         cli = {
           enable = true;
           modernShell.enable = true;
         };
+
         tui.enable = true;
-        gui.enable = true;
 
-        zathura.enable = true;
+        gui = {
+          enable = true;
 
-        # gaming = {
-        #   enable = true;
-        #   steam.enable = true;
-        # };
+          zathura.enable = true;
+        };
 
         defaults = {
           bar = "ags";
         };
       };
 
-      services = {
-        smb = {
-          enable = false;
-          recive = {
-            media = false;
-            general = false;
-          };
-        };
-        vscode-server.enable = true;
-        cloudflared.enable = false;
-        jellyfin.enable = false;
-      };
+      services.dev.vscode-server.enable = true;
     };
 
     boot = {

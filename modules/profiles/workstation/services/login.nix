@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: let
-  inherit (config.modules) system usrEnv programs;
+  inherit (config.modules) system environment programs;
   inherit (lib) mkIf;
   sessionData = config.services.xserver.displayManager.sessionData.desktops;
   sessionPath = lib.concatStringsSep ":" [
@@ -24,7 +24,7 @@ in {
         };
       };
 
-      greetd = mkIf (programs.defaults.loginManager == "greetd") {
+      greetd = mkIf (environment.loginManager == "greetd") {
         gnupg.enable = true;
         enableGnomeKeyring = true;
       };
@@ -42,14 +42,14 @@ in {
       ];
 
       greetd = {
-        enable = programs.defaults.loginManager == "greetd";
+        enable = environment.loginManager == "greetd";
         vt = 2;
         restart = !system.autoLogin;
         settings = {
-          # pick up desktop variant (i.e Hyprland) and username from usrEnv
+          # pick up desktop variant (i.e Hyprland) and username from environment module
           # this option is usually defined in host/<hostname>/system.nix
           initial_session = mkIf system.autoLogin {
-            command = "${usrEnv.desktop}";
+            command = "${environment.desktop}";
             user = "${system.mainUser}";
           };
 
@@ -67,7 +67,7 @@ in {
               user = "greeter";
             }
             else {
-              command = "${usrEnv.desktop}";
+              command = "${environment.desktop}";
               user = "${system.mainUser}";
             };
         };

@@ -4,7 +4,7 @@
   osConfig,
   ...
 }: {
-  config = lib.mkIf osConfig.modules.programs.terminals.kitty.enable {
+  config = lib.mkIf osConfig.modules.programs.gui.terminals.kitty.enable {
     programs.kitty = {
       enable = true;
       catppuccin.enable = true;

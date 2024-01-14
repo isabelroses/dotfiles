@@ -6,7 +6,7 @@
   ...
 }: let
   inherit (lib) mkIf;
-  inherit (osConfig.modules) system;
+  inherit (osConfig.modules) environment;
 in {
   programs.nushell = {
     inherit (osConfig.modules.programs.cli) enable;
@@ -35,7 +35,7 @@ in {
 
       # Go to system configuration flake, and open editor.
       def --env fk [] {
-        enter ${system.flakePath}
+        enter ${environment.flakePath}
         commandline -i ($env.EDITOR + " ./")
       }
 

@@ -5,7 +5,7 @@
   osConfig,
   ...
 }: let
-  cfg = osConfig.modules.programs.browsers.firefox;
+  cfg = osConfig.modules.programs.gui.browsers.firefox;
 in {
   imports = [inputs.schizofox.homeManagerModule];
   config = lib.mkIf (cfg.enable && cfg.schizofox) {

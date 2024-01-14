@@ -18,7 +18,6 @@ in {
     environment.systemPackages = with pkgs; [
       acpi
       powertop
-      cpupower-gui
     ];
 
     programs.auto-cpufreq = {

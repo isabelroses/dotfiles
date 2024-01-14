@@ -5,8 +5,14 @@
   ...
 }: let
   progs = osConfig.modules.programs;
+  cfg = progs.gui.browsers.chromium;
+
+  chrome_pkg =
+    if cfg.ungoogled
+    then pkgs.ungoogled-chromium
+    else pkgs.chromium;
 in {
-  config = lib.mkIf progs.browsers.chromium.enable {
+  config = lib.mkIf cfg.enable {
     programs.chromium = {
       enable = true;
       extensions =
@@ -40,7 +46,7 @@ in {
       #   "VoiceInteractionHotwordEnabled" = false;
       # };
 
-      package = pkgs.chromium.override {
+      package = chrome_pkg.override {
         nss = pkgs.nss_latest;
         commandLineArgs =
           [

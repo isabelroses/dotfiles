@@ -5,12 +5,12 @@
   inputs',
   ...
 }: let
+  inherit (lib) isWayland mkIf;
+
   catppuccin-mocha = pkgs.fetchzip {
     url = "https://raw.githubusercontent.com/catppuccin/prismlauncher/main/themes/Mocha/Catppuccin-Mocha.zip";
     sha256 = "8uRqCoe9iSIwNnK13d6S4XSX945g88mVyoY+LZSPBtQ=";
   };
-
-  env = osConfig.modules.usrEnv;
 
   javaPackages = with pkgs; [
     # Java 8
@@ -26,7 +26,7 @@
     graalvm-ce
   ];
 in {
-  config = lib.mkIf osConfig.modules.programs.gaming.minecraft.enable {
+  config = mkIf osConfig.modules.programs.gaming.minecraft.enable {
     home = {
       # PrismLauncher now with a cool theme
       file.".local/share/PrismLauncher/themes/mocha" = {
@@ -36,7 +36,7 @@ in {
 
       packages = let
         glfw =
-          if env.isWayland
+          if (isWayland osConfig)
           then pkgs.glfw-wayland-minecraft
           else pkgs.glfw;
       in [

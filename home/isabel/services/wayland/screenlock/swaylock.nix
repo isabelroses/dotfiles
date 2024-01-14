@@ -1,15 +1,13 @@
 {
   pkgs,
   lib,
-  config,
   osConfig,
   defaults,
   ...
 }: let
-  inherit (lib) mkIf isWayland isAcceptedDevice;
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+  inherit (lib) mkIf isWayland;
 in {
-  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig) && defaults.screenLocker == "swaylock") {
+  config = mkIf (isWayland osConfig && defaults.screenLocker == "swaylock") {
     home.packages = with pkgs; [swaylock-effects];
 
     programs.swaylock = {

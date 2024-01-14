@@ -1,10 +1,9 @@
 {
   osConfig,
-  config,
   pkgs,
   ...
 }: let
-  cfg = osConfig.modules.programs.git;
+  cfg = osConfig.modules.programs.agnostic.git;
 in {
   config = {
     home.packages = with pkgs; [

@@ -2,7 +2,7 @@ _: {
   imports = [
     ./users
 
-    ./enviroment.nix
+    ./environment.nix
     ./systemd.nix
   ];
 }

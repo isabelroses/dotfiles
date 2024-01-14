@@ -4,7 +4,7 @@
   pkgs,
   ...
 }: {
-  config = lib.mkIf osConfig.modules.programs.fileManagers.nemo.enable {
+  config = lib.mkIf osConfig.modules.programs.gui.fileManagers.nemo.enable {
     home.packages = with pkgs; [
       cinnamon.nemo-with-extensions
       cinnamon.nemo-fileroller
