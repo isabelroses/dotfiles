@@ -864,16 +864,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1705173796,
+        "lastModified": 1705284732,
         "narHash": "sha256-WZOE7Dg6V5OUwRkpU/5X6sP+NbfdvvkGpJsHDsy5rXw=",
         "owner": "isabelroses",
         "repo": "website",
-        "rev": "376c03cecc6a9b126a34638bba10b7352b08ced8",
+        "rev": "63902dcfbe5207c72cccb8c49096a87a05359c79",
         "type": "github"
       },
       "original": {
         "owner": "isabelroses",
-        "ref": "feat/go",
         "repo": "website",
         "type": "github"
       }

@@ -205,7 +205,7 @@
 
     # my website
     isabelroses-website = {
-      url = "github:isabelroses/website/feat/go";
+      url = "github:isabelroses/website";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
