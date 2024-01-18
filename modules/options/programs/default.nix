@@ -4,6 +4,8 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkOption types;
+
+  cfg = config.modules.programs;
 in {
   imports = [
     ./defaults.nix
@@ -21,7 +23,7 @@ in {
 
       editors = {
         neovim.enable = mkEnableOption "Neovim editor" // {default = true;};
-        vscode.enable = mkEnableOption "VScode editor" // {default = config.modules.programs.gui.enable;};
+        vscode.enable = mkEnableOption "VScode editor" // {default = cfg.gui.enable;};
         micro.enable = mkEnableOption "Micro editor";
       };
     };
@@ -44,15 +46,14 @@ in {
       };
 
       bars = {
-        ags.enable = mkEnableOption "Enable ags bar/launcher" // {default = config.modules.programs.gui.enable;};
+        ags.enable = mkEnableOption "Enable ags bar/launcher" // {default = cfg.gui.enable;};
         eww.enable = mkEnableOption "Enable eww bar/launcher";
         waybar.enable = mkEnableOption "Enable waybar";
       };
 
       browsers = {
         chromium = {
-          enable = mkEnableOption "Chromium browser" // {default = config.modules.programs.gui.enable;};
-          # TODO: make this do smt
+          enable = mkEnableOption "Chromium browser" // {default = cfg.gui.enable;};
           ungoogled = mkEnableOption "Enable ungoogled-chromium Tweaks";
         };
 
@@ -63,13 +64,13 @@ in {
       };
 
       terminals = {
-        alacritty.enable = mkEnableOption "Alacritty terminal emulator" // {default = config.modules.programs.gui.enable;};
-        kitty.enable = mkEnableOption "Kitty terminal emulator";
+        kitty.enable = mkEnableOption "Kitty terminal emulator" // {default = cfg.gui.enable;};
+        alacritty.enable = mkEnableOption "Alacritty terminal emulator";
         # TODO: wezterm.enable = mkEnableOption "WezTerm terminal emulator";
       };
 
       fileManagers = {
-        thunar.enable = mkEnableOption "Enable thunar file manager" // {default = config.modules.programs.gui.enable;};
+        thunar.enable = mkEnableOption "Enable thunar file manager" // {default = cfg.gui.enable;};
         dolphin.enable = mkEnableOption "Enable dolphin file manager";
         nemo.enable = mkEnableOption "Enable nemo file manager";
       };
