@@ -1031,16 +1031,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1705458822,
-        "narHash": "sha256-u/hnnrHHFxTbkcgISkEhY2ZtCzxcy9+Ib61LqeE6EWQ=",
+        "lastModified": 1705320546,
+        "narHash": "sha256-iDixPH4JFja8GIWXj3uCq4v4KQUGbSVCG8KOODtYllo=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "2aa688488304f11f364173bc6c66bd761d6ba732",
+        "rev": "b7de8792760b480c9de1029ecc09185cd94225ac",
         "type": "github"
       },
       "original": {
         "owner": "isabelroses",
         "repo": "nvim",
+        "rev": "b7de8792760b480c9de1029ecc09185cd94225ac",
         "type": "github"
       }
     },
