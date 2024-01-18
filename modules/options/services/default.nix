@@ -70,6 +70,11 @@ in {
           domain = "git.${rdomain}";
         };
 
+        atuin = {
+          port = 43473;
+          domain = "atuin.${rdomain}";
+        };
+
         plausible = {
           port = 2100;
           domain = "p.${rdomain}";
