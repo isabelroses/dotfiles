@@ -1,3 +1,6 @@
+/*
+taken from upsteam and altered
+*/
 {
   fetchurl,
   lib,
@@ -129,7 +132,6 @@ in
     '';
 
     postInstall = ''
-      # TODO: make the glib setup hook handle moving the schemas in other outputs.
       installedTestsSchemaDatadir="$installedTests/share/gsettings-schemas/${pname}-${version}"
       mkdir -p "$installedTestsSchemaDatadir"
       mv "$installedTests/share/glib-2.0" "$installedTestsSchemaDatadir"
