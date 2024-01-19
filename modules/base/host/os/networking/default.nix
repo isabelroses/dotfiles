@@ -7,6 +7,8 @@
 
   dev = config.modules.device;
   sys = config.modules.system;
+
+  inherit (sys.networking) wirelessBackend;
 in {
   imports = [
     ./firewall
@@ -45,13 +47,25 @@ in {
     ];
 
     wireless = {
-      enable = sys.networking.wirelessBackend == "wpa_supplicant";
+      enable = wirelessBackend == "wpa_supplicant";
       userControlled.enable = true;
       iwd = {
-        enable = sys.networking.wirelessBackend == "iwd";
+        enable = wirelessBackend == "iwd";
         settings = {
           Settings = {
             AutoConnect = true;
+          };
+
+          General = {
+            # AddressRandomization = "network";
+            # AddressRandomizationRange = "full";
+            EnableNetworkConfiguration = true;
+            RoamRetryInterval = 15;
+          };
+
+          Network = {
+            EnableIPv6 = true;
+            RoutePriorityOffset = 300;
           };
         };
       };
@@ -71,7 +85,7 @@ in {
       ];
 
       wifi = {
-        backend = sys.networking.wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_s until iwd support is stable
+        backend = wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_s until iwd support is stable
         # The below is disabled as my uni hated me for it
         # macAddress = "random"; # use a random mac address on every boot, this can scew with static ip
         powersave = true;

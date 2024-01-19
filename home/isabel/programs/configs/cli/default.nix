@@ -6,6 +6,7 @@ _: {
     ./bat.nix
     ./bellado.nix
     ./eza.nix
+    ./fzf.nix
     ./git.nix
     ./hyfetch.nix
     ./nix-shell.nix

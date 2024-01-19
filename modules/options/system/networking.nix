@@ -8,11 +8,8 @@
   sys = config.modules.system;
   cfg = sys.networking.tailscale;
 in {
-  imports = [./nftables.nix];
-
   options.modules.system.networking = {
     optimizeTcp = mkEnableOption "Enable tcp optimizations";
-    nftables.enable = mkEnableOption "nftables firewall";
 
     wirelessBackend = mkOption {
       type = types.enum ["iwd" "wpa_supplicant"];

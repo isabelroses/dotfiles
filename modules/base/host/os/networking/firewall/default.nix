@@ -6,13 +6,8 @@
 }: let
   inherit (lib) mkForce mkIf;
   inherit (config.modules) device;
-
-  cfg = config.networking.nftables;
 in {
-  imports = [
-    ./fail2ban.nix
-    ./nftables.nix
-  ];
+  imports = [./fail2ban.nix];
 
   config = {
     # enable opensnitch firewall
@@ -21,11 +16,8 @@ in {
 
     networking = {
       firewall = {
-        enable = !cfg.enable;
-        package =
-          if cfg.enable
-          then pkgs.iptables-nftables-compat
-          else pkgs.iptables;
+        enable = true;
+        package = pkgs.iptables;
         allowedTCPPorts = [
           443
           8080

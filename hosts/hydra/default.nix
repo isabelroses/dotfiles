@@ -39,7 +39,6 @@ _: {
 
         networking = {
           optimizeTcp = true;
-          nftables.enable = true;
 
           wirelessBackend = "iwd";
 

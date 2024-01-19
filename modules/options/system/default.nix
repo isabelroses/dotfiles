@@ -6,12 +6,11 @@
   inherit (lib) mkOption mkEnableOption optionals types;
 in {
   imports = [
-    ./networking
-
     ./activation.nix
     ./boot.nix
     ./emulation.nix
     ./encryption.nix
+    ./networking.nix
     ./printing.nix
     ./security.nix
     ./virtualization.nix
