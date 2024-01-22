@@ -23,8 +23,8 @@
       "nixos/flake".source = self;
     };
 
-    # git is reqired for flakes
-    systemPackages = [pkgs.git];
+    # git is reqired for flakes, and cachix for binary substituters
+    systemPackages = with pkgs; [git cachix];
   };
 
   nixpkgs = {
@@ -93,7 +93,7 @@
       # automatically optimise symlinks
       auto-optimise-store = pkgs.stdenv.isLinux;
       # allow sudo users to mark the following values as trusted
-      allowed-users = ["@wheel"];
+      allowed-users = ["root" "@wheel"];
       # only allow sudo users to manage the nix store
       trusted-users = ["@wheel"];
       # let the system decide the number of max jobs
@@ -137,8 +137,7 @@
 
       # substituters to use
       substituters = [
-        "https://cache.ngi0.nixos.org" # content addressed nix cache
-        "https://cache.nixos.org" # funny binary cache
+        "https://cache.nixos.org/" # offical binary cache (yes the trailing slash is really neccacery)
         "https://nixpkgs-wayland.cachix.org" # some wayland packages
         "https://nix-community.cachix.org" # nix-community cache
         "https://hyprland.cachix.org" # hyprland
@@ -154,7 +153,6 @@
 
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
