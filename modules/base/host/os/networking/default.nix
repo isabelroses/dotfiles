@@ -57,6 +57,7 @@ in {
           };
 
           General = {
+            # more things that my uni hates me for
             # AddressRandomization = "network";
             # AddressRandomizationRange = "full";
             EnableNetworkConfiguration = true;
