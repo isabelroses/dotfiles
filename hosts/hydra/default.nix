@@ -75,6 +75,11 @@ _: {
         gui = {
           enable = true;
 
+          kdeconnect = {
+            enable = true;
+            indicator.enable = true;
+          };
+
           zathura.enable = true;
         };
 
