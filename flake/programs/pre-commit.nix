@@ -1,7 +1,12 @@
 {inputs, ...}: {
   imports = [inputs.pre-commit-hooks.flakeModule];
 
-  perSystem.pre-commit = let
+  perSystem = {
+    config,
+    pkgs,
+    ...
+  }: let
+    # don't format these
     excludes = ["flake.lock" "secrets.yaml"];
 
     mkHook = name: prev:
@@ -13,20 +18,33 @@
       }
       // prev;
   in {
-    check.enable = true;
+    pre-commit = {
+      check.enable = true;
 
-    settings = {
-      inherit excludes;
+      settings = {
+        inherit excludes;
 
-      hooks = {
-        alejandra = mkHook "Alejandra" {enable = true;};
-        actionlint = mkHook "actionlint" {enable = true;};
-        prettier = mkHook "prettier" {enable = true;};
-        commitizen = mkHook "commitizen" {enable = true;};
-        #nil = mkHook "nil" {enable = true;};
-        editorconfig-checker = mkHook "editorconfig" {
-          enable = false;
-          always_run = true;
+        hooks = {
+          alejandra = mkHook "Alejandra" {enable = true;};
+          actionlint = mkHook "actionlint" {enable = true;};
+          prettier = mkHook "prettier" {enable = true;};
+          commitizen = mkHook "commitizen" {enable = true;};
+          #nil = mkHook "nil" {enable = true;};
+          editorconfig-checker = mkHook "editorconfig" {
+            enable = false;
+            always_run = true;
+          };
+        };
+
+        settings = {
+          prettier = {
+            binPath = "${pkgs.prettierd}/bin/prettierd";
+            write = true;
+          };
+
+          treefmt = {
+            package = config.treefmt.build.wrapper;
+          };
         };
       };
     };
