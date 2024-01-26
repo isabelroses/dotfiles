@@ -197,7 +197,7 @@ in {
 
           # grouping
           "$mod, g, togglegroup"
-          "bind= $mod, tab, changegroupactive"
+          "$mod, tab, changegroupactive"
 
           # special workspace stuff
           "$mod, grave, togglespecialworkspace"
