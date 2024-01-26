@@ -26,6 +26,8 @@ in {
         vscode.enable = mkEnableOption "VScode editor" // {default = cfg.gui.enable;};
         micro.enable = mkEnableOption "Micro editor";
       };
+
+      wine.enable = mkEnableOption "Enable wine";
     };
 
     cli = {
@@ -39,6 +41,11 @@ in {
       enable = mkEnableOption "Enable GUI programs";
 
       zathura.enable = mkEnableOption "Enable zathura PDF reader";
+
+      kdeconnect = {
+        enable = mkEnableOption "Enable kdeconnect";
+        indicator.enable = mkEnableOption "Enable kdeconnect indicator";
+      };
 
       launchers = {
         rofi.enable = mkEnableOption "Enable rofi launcher";

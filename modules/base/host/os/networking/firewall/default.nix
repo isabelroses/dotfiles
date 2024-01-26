@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkForce mkIf;
-  inherit (config.modules) device;
+  inherit (config.modules) programs device;
 in {
   imports = [./fail2ban.nix];
 
@@ -23,16 +23,14 @@ in {
           8080
         ];
         allowedUDPPorts = [];
-        allowedTCPPortRanges = mkIf (device.type != "server") [
+        allowedTCPPortRanges = mkIf programs.gui.kdeconnect.enable [
           {
-            #KDEconnect
             from = 1714;
             to = 1764;
           }
         ];
-        allowedUDPPortRanges = mkIf (device.type != "server") [
+        allowedUDPPortRanges = mkIf programs.gui.kdeconnect.enable [
           {
-            #KDEconnect
             from = 1714;
             to = 1764;
           }
