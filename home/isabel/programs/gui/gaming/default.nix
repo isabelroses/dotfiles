@@ -5,13 +5,10 @@
   ...
 }: let
   inherit (osConfig.modules) programs;
-  acceptedTypes = ["laptop" "desktop" "lite"];
 in {
-  imports = [
-    ./minecraft
-  ];
+  imports = [./minecraft.nix];
 
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && programs.gaming.enable) {
+  config = lib.mkIf programs.gaming.enable {
     home = {
       packages = with pkgs; [
         gamescope
