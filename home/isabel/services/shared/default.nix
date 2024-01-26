@@ -1,9 +1,8 @@
 _: {
   imports = [
-    ./cloud
-    ./polkit
-
     ./kdeconnect.nix
+    ./nextcloud.nix
+    ./polkit.nix
     ./rnnoise.nix
     ./tray.nix
   ];
