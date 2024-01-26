@@ -33,7 +33,6 @@
       # enable direnv integration
       direnv = {
         enable = true;
-        # shut up. SHUT UP
         silent = true;
         # faster, persistent implementation of use_nix and use_flake
         nix-direnv = {
@@ -54,6 +53,7 @@
         if (lib.isWayland config)
         then wineWowPackages.waylandFull
         else wineWowPackages.stableFull;
-    in [winePackage];
+    in
+      lib.mkIf config.modules.programs.agnostic.wine.enable [winePackage];
   };
 }
