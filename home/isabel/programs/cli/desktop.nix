@@ -15,7 +15,7 @@ in {
     home.packages = with pkgs;
       [
         libnotify # needed for some notifcations
-        bitwarden-cli # bitwarden, my chosen package manager
+        bitwarden-cli # bitwarden, my chosen password manager
         trash-cli # `rm` skips the "rubish bin", this cli tool uses that
         brightnessctl # brightness managed via cli
         self'.packages.catppuccinifier-cli
