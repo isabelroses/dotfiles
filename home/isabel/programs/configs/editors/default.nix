@@ -1,4 +1,4 @@
-_: {
+{pkgs, ...}: {
   imports = [
     ./micro
     ./nvim
@@ -6,8 +6,9 @@ _: {
   ];
 
   # need this one for uni
-  # config.home.packages = with pkgs; [
-  #   arduino
-  #   arduino-cli
-  # ];
+  config.home.packages = with pkgs; [
+    jetbrains.idea-ultimate
+    # arduino
+    # arduino-cli
+  ];
 }
