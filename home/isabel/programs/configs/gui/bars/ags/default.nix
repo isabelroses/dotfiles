@@ -28,7 +28,7 @@ in {
         inherit recursive;
       };
     in {
-      "ags" = symlink "home/${system.mainUser}/programs/configs/gui/bars/ags/config" {
+      "ags" = symlink "home/${system.mainUser}/programs/configs/gui/bars/ags" {
         recursive = true;
       };
     };
