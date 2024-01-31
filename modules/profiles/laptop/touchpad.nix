@@ -1,11 +1,5 @@
 {
-  config,
-  lib,
-  ...
-}: let
-  inherit (config.modules) device;
-in {
-  config = lib.mkIf (device.type == "laptop" || device.type == "hybrid") {
+  config = {
     services = {
       # Input settings for libinput
       xserver.libinput = {

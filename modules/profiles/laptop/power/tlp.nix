@@ -4,16 +4,15 @@
   ...
 }: let
   inherit (lib) mkIf;
-  device = config.modules.device;
   MHz = x: x * 1000;
 in {
-  config = mkIf (device.type == "laptop" || device.type == "hybrid") {
+  config = {
     services = {
       # Enable the TLP daemon for laptop power management.
 
       tlp.enable = false;
       # don't get tlp settings evaluated if it's not enabled
-      tlp.settings = mkIf (config.services.tlp.enable) {
+      tlp.settings = mkIf config.services.tlp.enable {
         TLP_ENABLE = 1;
         TLP_DEFAULT_MODE = "BAT";
 

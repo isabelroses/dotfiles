@@ -1,18 +1,15 @@
 {
   config,
-  lib,
   pkgs,
+  lib,
   inputs,
   ...
 }: let
-  inherit (lib) mkDefault mkIf;
-  inherit (config.modules) device;
-
-  acceptedTypes = ["laptop" "hybrid"];
+  inherit (lib) mkDefault;
 in {
   imports = [inputs.auto-cpufreq.nixosModules.default];
 
-  config = mkIf (builtins.elem device.type acceptedTypes) {
+  config = {
     hardware.acpilight.enable = true;
 
     environment.systemPackages = with pkgs; [

@@ -1,12 +1,5 @@
-{
-  config,
-  lib,
-  ...
-} @ args: let
-  inherit (lib) mkIf;
-  inherit (config.modules) device;
-in {
-  config = mkIf (device.type == "laptop" || device.type == "hybrid") {
+args: {
+  config = {
     services = {
       udev.extraRules = let
         inherit (import ./plugged.nix args) plugged unplugged;
