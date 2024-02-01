@@ -22,6 +22,7 @@ in {
         gvfs
       ];
     };
+
     xdg.configFile = let
       symlink = fileName: {recursive ? false}: {
         source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/${fileName}";
