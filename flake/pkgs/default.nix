@@ -13,6 +13,7 @@ _: {
       bellado = inputs'.bellado.packages.default;
       isabelroses-website = inputs'.isabelroses-website.packages.default;
       catppuccinifier-cli = inputs'.catppuccinifier.packages.cli;
+      wezterm = inputs'.wezterm.packages.default;
     };
   };
 }
