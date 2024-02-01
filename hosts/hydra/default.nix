@@ -80,6 +80,8 @@ _: {
             indicator.enable = true;
           };
 
+          terminals.wezterm.enable = true;
+
           zathura.enable = true;
         };
 
