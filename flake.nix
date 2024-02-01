@@ -179,6 +179,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    wezterm = {
+      url = "github:wez/wezterm?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     neovim = {
       url = "github:isabelroses/nvim/b7de8792760b480c9de1029ecc09185cd94225ac";
       # url = "git+file:///home/isabel/dev/nvim";
