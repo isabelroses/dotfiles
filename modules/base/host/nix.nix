@@ -144,7 +144,8 @@
         "https://nix-gaming.cachix.org" # nix-gaming
         "https://nixpkgs-unfree.cachix.org" # unfree-package cache
         "https://numtide.cachix.org" # another unfree package cache
-        "https://isabelroses.cachix.org" # precompiled binarys from my NUR
+        "https://isabelroses.cachix.org" # precompiled binarys from flake
+        "https://nekowinston.cachix.org" # precompiled binarys from nekowinston NUR
         "https://catppuccin.cachix.org" # a cache for ctp nix
         "https://pre-commit-hooks.cachix.org" # pre commit hooks
         "https://cache.garnix.io" # extra things here and there
@@ -160,6 +161,7 @@
         "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
         "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
         "isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM="
+        "nekowinston.cachix.org-1:lucpmaO+JwtoZj16HCO1p1fOv68s/RL1gumpVzRHRDs="
         "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
         "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
