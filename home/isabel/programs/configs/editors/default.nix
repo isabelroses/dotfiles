@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{
+  osConfig,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./micro
     ./nvim
@@ -6,9 +11,9 @@
   ];
 
   # need this one for uni
-  config.home.packages = with pkgs; [
-    jetbrains.idea-ultimate
-    # arduino
-    # arduino-cli
-  ];
+  config.home.packages = with pkgs;
+    lib.optionals osConfig.modules.programs.gui.enable [
+      jetbrains.idea-ultimate
+      # arduino
+    ];
 }
