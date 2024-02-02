@@ -8,21 +8,22 @@ end
 
 -- theme
 require("catppuccin").apply_to_config(config)
-require("bar").apply_to_config(config)
 
 if utils.is_linux() then
-  config.window_background_opacity = 0.95
+  config.window_background_opacity = 0.90
+  config.enable_tab_bar = false
 else
   config.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\wallhaven-qzp8dr.png"
   config.window_background_image_hsb = {
     brightness = 0.02, -- make the bg darker so we can see what we are doing
   }
+  require("bar").apply_to_config(config)
 end
 
 -- shell
 -- fix windows stuff
 if utils.is_linux() then
-  config.default_prog = { "/usr/local/bin/fish", "-l" }
+  config.default_prog = { "fish", "-l" }
 elseif utils.is_windows() then
   config.launch_menu = {
     {
@@ -38,7 +39,7 @@ end
 
 -- window stuff
 config.window_decorations = "RESIZE"
-config.window_padding = { left = 0, right = 0, top = 20, bottom = 0 }
+config.window_padding = { left = 10, right = 0, top = 0, bottom = 0 }
 config.adjust_window_size_when_changing_font_size = false
 
 -- fonts
