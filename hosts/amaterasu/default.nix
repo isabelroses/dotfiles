@@ -35,6 +35,7 @@ in {
             optimizeCompressor = true;
           };
           loadRecommendedModules = true;
+          tmpOnTmpfs = true;
         };
 
         fs = ["ext4" "vfat"];

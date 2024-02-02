@@ -22,7 +22,7 @@ _: {
           enableKernelTweaks = true;
           initrd.enableTweaks = true;
           loadRecommendedModules = true;
-          tmpOnTmpfs = true;
+          tmpOnTmpfs = false;
         };
 
         fs = ["btrfs" "vfat"];
@@ -87,6 +87,7 @@ _: {
 
         defaults = {
           bar = "ags";
+          terminal = "wezterm";
         };
       };
 
