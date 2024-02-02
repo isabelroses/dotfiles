@@ -7,7 +7,7 @@
   inherit (self) inputs;
   inherit (lib) mkMerge mapAttrs concatLists mkNixosSystem mkNixosIso;
 
-  # home manager modules
+  # additional modules
   hm = inputs.home-manager.nixosModules.home-manager;
   ctp = inputs.catppuccin.nixosModules.catppuccin;
 
@@ -29,6 +29,7 @@
   laptop = profilesPath + /laptop; # for laptop type configurations
   # desktop = profilesPath + /desktop; # for desktop type configurations
   workstation = profilesPath + /workstation; # for server type configurations
+  wsl = profilesPath + /wsl; # for wsl systems
 
   # home-manager
   home = ../home; # home-manager configurations
@@ -63,6 +64,13 @@ in
             workstation
           ]
           ++ concatLists [shared homes];
+        specialArgs = sharedArgs;
+      };
+
+      valkyrie = {
+        inherit withSystem;
+        system = "x86_64-linux";
+        modules = [wsl] ++ concatLists [shared homes];
         specialArgs = sharedArgs;
       };
 

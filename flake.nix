@@ -104,6 +104,12 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    # nixos on wsl
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # too hard to explain
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
