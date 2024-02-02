@@ -20,17 +20,24 @@ const Workspaces = () => {
           class_name: "indicator",
           vpack: "center",
         }),
-        setup: self => self.hook(Hyprland, () => {
-          self.toggleClassName('active', Hyprland.active.workspace.id === i);
-          self.toggleClassName('occupied', (Hyprland.getWorkspace(i)?.windows || 0) > 0);
-        }),
-      }),
+        setup: (self) =>
+          self.hook(Hyprland, () => {
+            self.toggleClassName("active", Hyprland.active.workspace.id === i);
+            self.toggleClassName(
+              "occupied",
+              (Hyprland.getWorkspace(i)?.windows || 0) > 0,
+            );
+          }),
+      })
     ),
-    setup: box => {
-      if (ws > 0) {
-        box.hook(Hyprland.active.workspace, () => box.children.map(btn => {
-          btn.visible = Hyprland.workspaces.some(ws => ws.id === btn.attribute);
-        }));
+    setup: (box) => {
+      if (ws === 0) {
+        box.hook(Hyprland.active.workspace, () =>
+          box.children.map((btn) => {
+            btn.visible = Hyprland.workspaces.some((ws) =>
+              ws.id === btn.attribute
+            );
+          }));
       }
     },
   });
@@ -44,7 +51,7 @@ export default () =>
         on_scroll_up: () => dispatch("m+1"),
         on_scroll_down: () => dispatch("m-1"),
         class_name: "eventbox",
-        child: options.workspaces.bind('value').transform(Workspaces),
+        child: options.workspaces.bind("value").transform(Workspaces),
       }),
     }),
   });
