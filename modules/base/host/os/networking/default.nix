@@ -47,8 +47,12 @@ in {
     ];
 
     wireless = {
+      # wpa_supplicant
       enable = wirelessBackend == "wpa_supplicant";
       userControlled.enable = true;
+      allowAuxiliaryImperativeNetworks = true;
+
+      # iwd
       iwd = {
         enable = wirelessBackend == "iwd";
         settings = {
