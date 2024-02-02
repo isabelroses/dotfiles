@@ -15,7 +15,7 @@ if utils.is_linux() then
 else
   config.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\wallhaven-qzp8dr.png"
   config.window_background_image_hsb = {
-    brightness = 0.02, -- make the bg darker so we can see what we are doing
+    brightness = 0.03, -- make the bg darker so we can see what we are doing
   }
   require("bar").apply_to_config(config)
 end
