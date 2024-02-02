@@ -185,7 +185,7 @@
     };
 
     neovim = {
-      url = "github:isabelroses/nvim/b7de8792760b480c9de1029ecc09185cd94225ac";
+      url = "github:isabelroses/nvim";
       # url = "git+file:///home/isabel/dev/nvim";
       inputs = {
         nixpkgs.follows = "nixpkgs";
