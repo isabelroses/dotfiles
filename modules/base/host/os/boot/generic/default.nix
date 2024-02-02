@@ -38,6 +38,10 @@ in {
         # If not using tmpfs, which is naturally purged on reboot, we must clean
         # we have to clean /tmp
         cleanOnBoot = mkDefault (!config.boot.tmp.useTmpfs);
+
+        # this defaults to 50% of your ram
+        # but i want to build code sooo
+        tmpfsSize = mkDefault "75%";
       };
 
       # initrd and kernel tweaks
