@@ -179,9 +179,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nekowinston-nur = {
+      url = "github:nekowinston/nur";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "pre-commit-hooks/flake-utils";
+      };
     };
 
     neovim = {

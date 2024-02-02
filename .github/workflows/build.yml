@@ -21,7 +21,6 @@ jobs:
           - lutgen-rs
           - patched-gjs
           - plymouth-theme-catppuccin
-          - wezterm
 
     steps:
       - name: Maximize Space
