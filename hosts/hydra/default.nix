@@ -63,7 +63,7 @@ _: {
       };
 
       programs = {
-        agnostic.git.signingKey = "0xAE22E70709810C07";
+        agnostic.git.signingKey = "B4D9D513B1560D99";
 
         cli = {
           enable = true;
