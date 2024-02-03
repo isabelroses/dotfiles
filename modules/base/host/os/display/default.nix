@@ -2,6 +2,6 @@ _: {
   imports = [
     ./wayland
 
-    ./portals.nix
+    ./portals.nix # configuration for the xdg desktop portals
   ];
 }
