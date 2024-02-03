@@ -14,7 +14,7 @@ in {
   config = mkIf (isWayland config && env.desktop == "Hyprland") {
     services.xserver.displayManager.sessionPackages = [inputs'.hyprland.packages.default];
 
-    xdg.portal.configPackages = [
+    xdg.portal.extraPortals = [
       inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland
     ];
   };
