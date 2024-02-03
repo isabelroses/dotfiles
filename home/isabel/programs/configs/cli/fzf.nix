@@ -1,5 +1,6 @@
 {
   osConfig,
+  config,
   lib,
   ...
 }: let
@@ -8,6 +9,11 @@ in {
   config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isModernShell osConfig) {
     programs.fzf = {
       enable = true;
+
+      enableBashIntegration = config.programs.bash.enable;
+      enableZshIntegration = config.programs.zsh.enable;
+      enableFishIntegration = config.programs.fish.enable;
+
       colors = {
         fg = "#cdd6f4";
         "fg+" = "#cdd6f4";
