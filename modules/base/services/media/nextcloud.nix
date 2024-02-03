@@ -39,14 +39,6 @@ in {
           redis = true;
         };
 
-        extraOptions = {
-          redis = {
-            host = "/run/redis-nextcloud/redis.sock";
-            dbindex = 0;
-            timeout = 1.5;
-          };
-        };
-
         extraApps = with config.services.nextcloud.package.packages.apps; {
           inherit contacts calendar;
         };
@@ -66,12 +58,18 @@ in {
           dbname = "nextcloud";
         };
 
-        extraOptions = {
+        settings = {
           defaultPhoneRegion = "UK";
 
           overwriteProtocol = "https";
           extraTrustedDomains = ["https://${toString cfg.domain}"];
           trustedProxies = ["https://${toString cfg.domain}"];
+
+          redis = {
+            host = "/run/redis-nextcloud/redis.sock";
+            dbindex = 0;
+            timeout = 1.5;
+          };
         };
 
         phpOptions = {
