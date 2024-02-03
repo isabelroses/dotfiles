@@ -5,8 +5,8 @@ updates:
     schedule:
       interval: weekly
       time: "03:00"
-    open-pull-requests-limit: 10
-    reviewers:
-      - isabelroses
-    assignees:
-      - isabelroses
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
