@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkIf isAcceptedDevice mkGraphicalService;
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+  acceptedTypes = ["desktop" "laptop" "hybrid"];
 in {
   config = mkIf (isAcceptedDevice osConfig acceptedTypes) {
     home.packages = [pkgs.nextcloud-client];

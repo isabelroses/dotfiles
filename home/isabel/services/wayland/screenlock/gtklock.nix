@@ -5,10 +5,9 @@
   defaults,
   ...
 }: let
-  inherit (lib) mkIf isAcceptedDevice isWayland;
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+  inherit (lib) mkIf isWayland;
 in {
-  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && (isWayland osConfig) && defaults.screenLocker == "gtklock") {
+  config = mkIf ((isWayland osConfig) && defaults.screenLocker == "gtklock") {
     programs.gtklock = {
       enable = true;
       package = pkgs.gtklock;
