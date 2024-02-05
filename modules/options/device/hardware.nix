@@ -3,7 +3,7 @@
 in {
   options.modules.device = {
     type = mkOption {
-      type = types.enum ["laptop" "desktop" "server" "hybrid" "lite" "vm"];
+      type = types.enum ["laptop" "desktop" "server" "hybrid" "wsl" "lite" "vm"];
       default = "";
     };
 

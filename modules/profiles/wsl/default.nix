@@ -14,7 +14,11 @@ in {
       startMenuLaunchers = true;
     };
 
-    services.smartd.enable = mkForce false; # Unavailable - device lacks SMART capability.
+    services = {
+      smartd.enable = mkForce false; # Unavailable - device lacks SMART capability.
+      xserver.enable = false;
+    };
+
     networking.tcpcrypt.enable = mkForce false;
   };
 }

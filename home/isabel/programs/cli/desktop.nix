@@ -7,7 +7,7 @@
   ...
 }: let
   inherit (lib) mkIf isAcceptedDevice optionals;
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+  acceptedTypes = ["desktop" "laptop" "wsl" "lite" "hybrid"];
 
   cfg = osConfig.modules.programs;
 in {
@@ -18,10 +18,10 @@ in {
         bitwarden-cli # bitwarden, my chosen password manager
         trash-cli # `rm` skips the "rubish bin", this cli tool uses that
         brightnessctl # brightness managed via cli
-        self'.packages.catppuccinifier-cli
       ]
       ++ optionals cfg.cli.modernShell.enable [
         inputs'.catppuccin-toolbox.packages.catwalk
+        self'.packages.catppuccinifier-cli
       ];
   };
 }

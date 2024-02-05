@@ -6,7 +6,7 @@
 }: let
   inherit (lib) mkIf isAcceptedDevice mkGraphicalService;
   inherit (osConfig.modules.system) video;
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
+  acceptedTypes = ["desktop" "laptop" "wsl" "lite" "hybrid"];
 in {
   config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && video.enable) {
     # gnome polkit agent

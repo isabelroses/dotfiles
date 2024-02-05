@@ -6,7 +6,7 @@
 }: let
   inherit (lib) mkIf;
   inherit (config.modules) device;
-  acceptedTypes = ["desktop" "laptop" "hybrid" "lite"];
+  acceptedTypes = ["desktop" "laptop" "wsl" "hybrid" "lite"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes) {
     services = {
