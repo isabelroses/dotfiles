@@ -43,7 +43,7 @@ _: {
           wirelessBackend = "iwd";
 
           tailscale = {
-            enable = true;
+            enable = false;
             isClient = true;
           };
         };

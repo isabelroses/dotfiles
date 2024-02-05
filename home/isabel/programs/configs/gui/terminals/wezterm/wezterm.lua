@@ -54,5 +54,6 @@ config.adjust_window_size_when_changing_font_size = false
 config.audible_bell = "Disabled"
 config.default_cursor_style = "BlinkingBar"
 config.front_end = "WebGpu"
+config.window_close_confirmation = "NeverPrompt"
 
 return config
