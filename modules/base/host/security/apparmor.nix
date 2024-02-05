@@ -1,14 +1,13 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: {
   services.dbus.apparmor = "disabled";
 
   # apparmor configuration
   security.apparmor = {
-    enable = true; 
+    enable = true;
 
     # whether to enable the AppArmor cache
     # in /var/cache/apparmore
