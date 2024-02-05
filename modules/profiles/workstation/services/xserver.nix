@@ -11,6 +11,7 @@ in {
   config = mkIf (system.video.enable && builtins.elem device.type acceptedTypes) {
     services.xserver = {
       enable = environment.loginManager != "greetd";
+
       displayManager = {
         gdm.enable = environment.loginManager == "gdm";
         lightdm.enable = environment.loginManager == "lightdm";
@@ -23,6 +24,10 @@ in {
           };
         };
       };
+
+      excludePackages = [
+        pkgs.xterm
+      ];
     };
   };
 }
