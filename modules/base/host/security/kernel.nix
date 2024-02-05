@@ -1,11 +1,10 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   sys = config.modules.system;
-  inherit (lib) mkIf optionals concatLists isx86Linux;
+  inherit (lib) mkIf optionals concatLists;
 in {
   security = {
     protectKernelImage = true;
@@ -19,13 +18,6 @@ in {
 
     # Disable unprivileged user namespaces, unless containers are enabled
     unprivilegedUsernsClone = config.virtualisation.containers.enable;
-
-    # apparmor configuration
-    apparmor = {
-      enable = isx86Linux pkgs;
-      killUnconfinedConfinables = true;
-      packages = [pkgs.apparmor-profiles];
-    };
   };
 
   boot = {

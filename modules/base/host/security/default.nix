@@ -1,5 +1,6 @@
 _: {
   imports = [
+    ./apparmor.nix # apparmor
     ./auditd.nix # auditd
     ./clamav.nix # clamav antivirus
     ./kernel.nix # kernel hardening
