@@ -1,5 +1,4 @@
 {
-  inputs,
   lib,
   self,
   ...
@@ -8,7 +7,6 @@
 in {
   imports = [
     # imported home-manager modules
-    inputs.catppuccin.homeManagerModules.catppuccin
     self.homeManagerModules.gtklock
 
     # important system environment config

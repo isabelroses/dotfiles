@@ -1,6 +1,12 @@
-{osConfig, ...}: let
+{
+  osConfig,
+  inputs,
+  ...
+}: let
   cfg = osConfig.modules.style;
 in {
+  imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+
   # pointer / cursor theming
   home.pointerCursor = {
     name = cfg.pointerCursor.name;
