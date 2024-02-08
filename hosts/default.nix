@@ -4,12 +4,7 @@
   withSystem,
   ...
 }: let
-  inherit (self) inputs;
-  inherit (lib) mkMerge mapAttrs concatLists mkNixosSystem mkNixosIso;
-
-  # additional modules
-  hm = inputs.home-manager.nixosModules.home-manager;
-  ctp = inputs.catppuccin.nixosModules.catppuccin;
+  inherit (lib) mkMerge concatLists mkSystems mkNixosIsos;
 
   # modules
   modulePath = ../modules; # the base module path
@@ -32,18 +27,18 @@
   wsl = profilesPath + /wsl; # for wsl systems
 
   # home-manager
-  home = ../home; # home-manager configurations
-  homes = [hm home]; # combine hm input module and the home module
+  homes = ../home; # home-manager configurations
 
   # a list of shared modules
-  shared = [base options extra ctp];
+  shared = [base options extra homes];
 
   # extra specialArgs that are on all machines
-  sharedArgs = {inherit inputs self lib;};
+  sharedArgs = {inherit lib;};
 in
   mkMerge [
-    (mapAttrs mkNixosSystem {
-      hydra = {
+    (mkSystems [
+      {
+        host = "hydra";
         inherit withSystem;
         system = "x86_64-linux";
         modules =
@@ -51,11 +46,12 @@ in
             workstation
             laptop
           ]
-          ++ concatLists [shared homes];
+          ++ concatLists [shared];
         specialArgs = sharedArgs;
-      };
+      }
 
-      amaterasu = {
+      {
+        host = "amaterasu";
         inherit withSystem;
         system = "x86_64-linux";
         modules =
@@ -63,33 +59,33 @@ in
             # desktop
             workstation
           ]
-          ++ concatLists [shared homes];
+          ++ concatLists [shared];
         specialArgs = sharedArgs;
-      };
+      }
 
-      valkyrie = {
+      {
+        host = "valkyrie";
         inherit withSystem;
         system = "x86_64-linux";
-        modules = [wsl] ++ concatLists [shared homes];
+        modules = [wsl] ++ concatLists [shared];
         specialArgs = sharedArgs;
-      };
+      }
 
-      luz = {
+      {
+        host = "luz";
         inherit withSystem;
         system = "x86_64-linux";
-        modules =
-          [
-            server
-          ]
-          ++ concatLists [shared homes];
+        modules = [server] ++ concatLists [shared];
         specialArgs = sharedArgs;
-      };
-    })
+      }
+    ])
 
-    (mapAttrs mkNixosIso {
-      lilith = {
+    (mkNixosIsos [
+      {
+        host = "lilith";
         system = "x86_64-linux";
+        type = "iso";
         specialArgs = sharedArgs;
-      };
-    })
+      }
+    ])
   ]

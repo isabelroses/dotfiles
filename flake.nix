@@ -3,7 +3,6 @@
 
   outputs = {
     self,
-    nixpkgs,
     flake-parts,
     ...
   } @ inputs:
@@ -12,41 +11,34 @@
       systems = [
         "x86_64-linux"
         "aarch64-linux"
+        "aarch64-darwin"
       ];
 
       imports = [
+        # add self back to inputs to use as `inputs.self`
+        # I depend on inputs.self *at least* once
         {config._module.args._inputs = inputs // {inherit (inputs) self;};}
 
         inputs.flake-parts.flakeModules.easyOverlay
 
         # flake parts
         ./flake/makeSys.nix # args that is passsed to the flake, moved away from the main file
-
-        # flake part programs
-        ./flake/programs/pre-commit.nix # pre-commit hooks
-        ./flake/programs/treefmt.nix # treefmt configuration
-
-        ./flake/pkgs # packages exposed to the flake
-        ./flake/overlays # overlays that make the system that bit cleaner
-        ./flake/templates # programing templates for the quick setup of new programing enviorments
-        ./flake/schemas # nix schemas. whenever they actually work
         ./flake/modules # nixos and home-manager modules
+        ./flake/overlays # overlays that make the system that bit cleaner
+        ./flake/pkgs # packages exposed to the flake
+        ./flake/programs # programs that run in the dev shell
+        ./flake/schemas # nix schemas. whenever they actually work
+        ./flake/templates # programing templates for the quick setup of new programing enviorments
       ];
 
       flake = let
         # extended nixpkgs lib, with additonal features
         lib = import ./lib {inherit inputs;};
-      in {
-        nixosConfigurations = import ./hosts {inherit nixpkgs self lib withSystem;};
-
-        # build with `nix build .#images.<hostname>`
-        # alternatively hosts can be built with `nix build .#nixosConfigurations.hostName.config.system.build.isoImage`
-        images = import ./hosts/images.nix {inherit inputs self lib;};
-      };
+      in
+        import ./hosts {inherit self lib withSystem;};
 
       perSystem = {
         config,
-        # inputs',
         pkgs,
         ...
       }: {
@@ -88,8 +80,15 @@
     # choose our nixpkgs version
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
+    # darwin systems are important
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # nixos on wsl
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -104,9 +103,8 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    # nixos on wsl
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
+    nix-gaming = {
+      url = "github:fufexan/nix-gaming";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
