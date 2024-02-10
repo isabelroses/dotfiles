@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<!-- Created by GNU Texinfo 7.0.3, https://www.gnu.org/software/texinfo/ -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>nixos module options (Top)</title>
+
+<meta name="description" content="nixos module options (Top)">
+<meta name="keywords" content="nixos module options (Top)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2any">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<link href="index.html" rel="start" title="Top">
+<link href="index.html" rel="up" title="Top">
+<link href="darwin-module-options.html" rel="next" title="darwin module options">
+<link href="index.html" rel="prev" title="Top">
+<style type="text/css">
+<!--
+/*! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com*/
+
+*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:initial}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button;background-color:initial;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:initial}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]{display:none}*,::backdrop,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:#3b82f680;--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: }html{--ctp-rosewater:220,138,120;--ctp-flamingo:221,120,120;--ctp-pink:234,118,203;--ctp-mauve:136,57,239;--ctp-red:210,15,57;--ctp-maroon:230,69,83;--ctp-peach:254,100,11;--ctp-yellow:223,142,29;--ctp-green:64,160,43;--ctp-teal:23,146,153;--ctp-sky:4,165,229;--ctp-sapphire:32,159,181;--ctp-blue:30,102,245;--ctp-lavender:114,135,253;--ctp-text:76,79,105;--ctp-subtext1:92,95,119;--ctp-subtext0:108,111,133;--ctp-overlay2:124,127,147;--ctp-overlay1:140,143,161;--ctp-overlay0:156,160,176;--ctp-surface2:172,176,190;--ctp-surface1:188,192,204;--ctp-surface0:204,208,218;--ctp-base:239,241,245;--ctp-mantle:230,233,239;--ctp-crust:220,224,232}@media (prefers-color-scheme:dark){html{--ctp-rosewater:245,224,220;--ctp-flamingo:242,205,205;--ctp-pink:245,194,231;--ctp-mauve:203,166,247;--ctp-red:243,139,168;--ctp-maroon:235,160,172;--ctp-peach:250,179,135;--ctp-yellow:249,226,175;--ctp-green:166,227,161;--ctp-teal:148,226,213;--ctp-sky:137,220,235;--ctp-sapphire:116,199,236;--ctp-blue:137,180,250;--ctp-lavender:180,190,254;--ctp-text:205,214,244;--ctp-subtext1:186,194,222;--ctp-subtext0:166,173,200;--ctp-overlay2:147,153,178;--ctp-overlay1:127,132,156;--ctp-overlay0:108,112,134;--ctp-surface2:88,91,112;--ctp-surface1:69,71,90;--ctp-surface0:49,50,68;--ctp-base:30,30,46;--ctp-mantle:24,24,37;--ctp-crust:17,17,27}}html{background-color:rgba(var(--ctp-mantle),var(--tw-bg-opacity))}body,html{--tw-bg-opacity:1;--tw-text-opacity:1;color:rgba(var(--ctp-text),var(--tw-text-opacity))}body{max-width:48rem;background-color:rgba(var(--ctp-base),var(--tw-bg-opacity));margin-left:auto;margin-right:auto;border-left-width:1px;border-right-width:1px;--tw-border-opacity:1;border-color:rgba(var(--ctp-surface2),var(--tw-border-opacity));padding-left:1rem;padding-right:1rem}pre{border-width:1px;border-style:dotted;--tw-border-opacity:1;border-color:rgba(var(--ctp-surface2),var(--tw-border-opacity));--tw-bg-opacity:1;background-color:rgba(var(--ctp-mantle),var(--tw-bg-opacity));padding:.5rem}code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}h1,h2,h3,h4,h5{--tw-text-opacity:1;color:rgba(var(--ctp-pink),var(--tw-text-opacity));font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-weight:700;padding-top:.75rem;padding-bottom:.25rem}h2,h3,h4,h5{border-bottom-width:1px;border-style:dotted;--tw-border-opacity:1;border-color:rgba(var(--ctp-surface2),var(--tw-border-opacity))}h1{font-size:1.25rem}h1,h2{line-height:1.75rem}h2{font-size:1.125rem}h4{font-size:.875rem;line-height:1.25rem}h5{font-size:.75rem;line-height:1rem}a{--tw-text-opacity:1;color:rgba(var(--ctp-rosewater),var(--tw-text-opacity))}a:hover{text-decoration-line:underline}p{padding-top:.5rem;padding-bottom:.5rem}
+
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<div class="chapter-level-extent" id="nixos-module-options">
+<div class="nav-panel">
+<p>
+Next: <a href="darwin-module-options.html" accesskey="n" rel="next">darwin module options</a>, Previous: <a href="index.html" accesskey="p" rel="prev">Top</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; </p>
+</div>
+<h2 class="chapter" id="nixos-module-options-1">1 nixos module options</h2>
+<a class="anchor" id="g_t_0023nixos_002dmodule_002doptions"></a>
+
+<ul class="mini-toc">
+<li><a href="#serviceswakapienable" accesskey="1">services.wakapi.enable</a></li>
+<li><a href="#serviceswakapipackage" accesskey="2">services.wakapi.package</a></li>
+<li><a href="#serviceswakapidbhost" accesskey="3">services.wakapi.db.host</a></li>
+<li><a href="#serviceswakapidbname" accesskey="4">services.wakapi.db.name</a></li>
+<li><a href="#serviceswakapidbpassword" accesskey="5">services.wakapi.db.password</a></li>
+<li><a href="#serviceswakapidbport" accesskey="6">services.wakapi.db.port</a></li>
+<li><a href="#serviceswakapidbuser" accesskey="7">services.wakapi.db.user</a></li>
+<li><a href="#serviceswakapidomain" accesskey="8">services.wakapi.domain</a></li>
+<li><a href="#serviceswakapinginxenable" accesskey="9">services.wakapi.nginx.enable</a></li>
+<li><a href="#serviceswakapipasswordSalt">services.wakapi.passwordSalt</a></li>
+<li><a href="#serviceswakapipasswordSaltFile">services.wakapi.passwordSaltFile</a></li>
+<li><a href="#serviceswakapiport">services.wakapi.port</a></li>
+<li><a href="#serviceswakapisettings">services.wakapi.settings</a></li>
+<li><a href="#serviceswakapismtpPassword">services.wakapi.smtpPassword</a></li>
+<li><a href="#serviceswakapismtpPasswordFile">services.wakapi.smtpPasswordFile</a></li>
+</ul>
+<hr>
+<div class="section-level-extent" id="serviceswakapienable">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapipackage" accesskey="n" rel="next">services.wakapi.package</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002eenable">1.1 services.wakapi.enable</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002eenable"></a><p>Whether to enable Wakapi.
+</p>
+<p><em class="emph">Type:</em> boolean
+</p>
+<p><em class="emph">Default:</em> <code class="code">false</code>
+</p>
+<p><em class="emph">Example:</em> <code class="code">true</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapipackage">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapidbhost" accesskey="n" rel="next">services.wakapi.db.host</a>, Previous: <a href="#serviceswakapienable" accesskey="p" rel="prev">services.wakapi.enable</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002epackage">1.2 services.wakapi.package</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002epackage"></a><p>The wakapi package to use.
+</p>
+<p><em class="emph">Type:</em> package
+</p>
+<p><em class="emph">Default:</em> <code class="code">pkgs.wakapi</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapidbhost">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapidbname" accesskey="n" rel="next">services.wakapi.db.name</a>, Previous: <a href="#serviceswakapipackage" accesskey="p" rel="prev">services.wakapi.package</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002edb_002ehost">1.3 services.wakapi.db.host</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002edb_002ehost"></a><p>The database host to use for Wakapi.
+</p>
+<p><em class="emph">Type:</em> string
+</p>
+<p><em class="emph">Default:</em> <code class="code">&quot;127.0.0.1&quot;</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapidbname">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapidbpassword" accesskey="n" rel="next">services.wakapi.db.password</a>, Previous: <a href="#serviceswakapidbhost" accesskey="p" rel="prev">services.wakapi.db.host</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002edb_002ename">1.4 services.wakapi.db.name</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002edb_002ename"></a><p>The database name to use for Wakapi.
+</p>
+<p><em class="emph">Type:</em> string
+</p>
+<p><em class="emph">Default:</em> <code class="code">&quot;wakapi&quot;</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapidbpassword">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapidbport" accesskey="n" rel="next">services.wakapi.db.port</a>, Previous: <a href="#serviceswakapidbname" accesskey="p" rel="prev">services.wakapi.db.name</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002edb_002epassword">1.5 services.wakapi.db.password</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002edb_002epassword"></a><p>The database password to use for Wakapi.
+</p>
+<p><em class="emph">Type:</em> null or string
+</p>
+<p><em class="emph">Default:</em> <code class="code">null</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapidbport">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapidbuser" accesskey="n" rel="next">services.wakapi.db.user</a>, Previous: <a href="#serviceswakapidbpassword" accesskey="p" rel="prev">services.wakapi.db.password</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002edb_002eport">1.6 services.wakapi.db.port</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002edb_002eport"></a><p>The port to use for the database.
+</p>
+<p><em class="emph">Type:</em> signed integer
+</p>
+<p><em class="emph">Default:</em> <code class="code">5432</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapidbuser">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapidomain" accesskey="n" rel="next">services.wakapi.domain</a>, Previous: <a href="#serviceswakapidbport" accesskey="p" rel="prev">services.wakapi.db.port</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002edb_002euser">1.7 services.wakapi.db.user</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002edb_002euser"></a><p>The database user to use for Wakapi.
+</p>
+<p><em class="emph">Type:</em> string
+</p>
+<p><em class="emph">Default:</em> <code class="code">&quot;wakapi&quot;</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapidomain">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapinginxenable" accesskey="n" rel="next">services.wakapi.nginx.enable</a>, Previous: <a href="#serviceswakapidbuser" accesskey="p" rel="prev">services.wakapi.db.user</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002edomain">1.8 services.wakapi.domain</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002edomain"></a><p>The FQDN of the domain to serve Wakapi on. This is used to configure
+nginx.
+</p>
+<p><em class="emph">Type:</em> null or string
+</p>
+<p><em class="emph">Default:</em> <code class="code">null</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapinginxenable">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapipasswordSalt" accesskey="n" rel="next">services.wakapi.passwordSalt</a>, Previous: <a href="#serviceswakapidomain" accesskey="p" rel="prev">services.wakapi.domain</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002enginx_002eenable">1.9 services.wakapi.nginx.enable</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002enginx_002eenable"></a><p>Whether to enable Wakapi Nginx.
+</p>
+<p><em class="emph">Type:</em> boolean
+</p>
+<p><em class="emph">Default:</em> <code class="code">false</code>
+</p>
+<p><em class="emph">Example:</em> <code class="code">true</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapipasswordSalt">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapipasswordSaltFile" accesskey="n" rel="next">services.wakapi.passwordSaltFile</a>, Previous: <a href="#serviceswakapinginxenable" accesskey="p" rel="prev">services.wakapi.nginx.enable</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002epasswordSalt">1.10 services.wakapi.passwordSalt</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002epasswordsalt"></a><p>The password salt to use for Wakapi.
+</p>
+<p><em class="emph">Type:</em> null or string
+</p>
+<p><em class="emph">Default:</em> <code class="code">null</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapipasswordSaltFile">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapiport" accesskey="n" rel="next">services.wakapi.port</a>, Previous: <a href="#serviceswakapipasswordSalt" accesskey="p" rel="prev">services.wakapi.passwordSalt</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002epasswordSaltFile">1.11 services.wakapi.passwordSaltFile</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002epasswordsaltfile"></a><p>The path to a file containing the password salt to use for Wakapi.
+</p>
+<p><em class="emph">Type:</em> null or path
+</p>
+<p><em class="emph">Default:</em> <code class="code">null</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapiport">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapisettings" accesskey="n" rel="next">services.wakapi.settings</a>, Previous: <a href="#serviceswakapipasswordSaltFile" accesskey="p" rel="prev">services.wakapi.passwordSaltFile</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002eport">1.12 services.wakapi.port</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002eport"></a><p>The port to serve Wakapi on. This is used to configure nginx.
+</p>
+<p><em class="emph">Type:</em> signed integer
+</p>
+<p><em class="emph">Default:</em> <code class="code">3000</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapisettings">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapismtpPassword" accesskey="n" rel="next">services.wakapi.smtpPassword</a>, Previous: <a href="#serviceswakapiport" accesskey="p" rel="prev">services.wakapi.port</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002esettings">1.13 services.wakapi.settings</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002esettings"></a><p>Settings for Wakapi.
+</p>
+<p>See
+<a class="uref" href="https://github.com/muety/wakapi/blob/master/config.default.yml">config.default.yml</a>
+for a list of all possible options.
+</p>
+<p><em class="emph">Type:</em> YAML value
+</p>
+<p><em class="emph">Default:</em> <code class="code">{ }</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapismtpPassword">
+<div class="nav-panel">
+<p>
+Next: <a href="#serviceswakapismtpPasswordFile" accesskey="n" rel="next">services.wakapi.smtpPasswordFile</a>, Previous: <a href="#serviceswakapisettings" accesskey="p" rel="prev">services.wakapi.settings</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002esmtpPassword">1.14 services.wakapi.smtpPassword</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002esmtppassword"></a><p>The password used for the smtp mailed to used by Wakapi.
+</p>
+<p><em class="emph">Type:</em> null or string
+</p>
+<p><em class="emph">Default:</em> <code class="code">null</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="serviceswakapismtpPasswordFile">
+<div class="nav-panel">
+<p>
+Previous: <a href="#serviceswakapismtpPassword" accesskey="p" rel="prev">services.wakapi.smtpPassword</a>, Up: <a href="#nixos-module-options" accesskey="u" rel="up">nixos module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="services_002ewakapi_002esmtpPasswordFile">1.15 services.wakapi.smtpPasswordFile</h3>
+<a class="anchor" id="g_t_0023services_002ewakapi_002esmtppasswordfile"></a><p>The path to a file containing the password for the smtp mailer used by
+Wakapi.
+</p>
+<p><em class="emph">Type:</em> null or path
+</p>
+<p><em class="emph">Default:</em> <code class="code">null</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="file:///nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi">/nix/store/xfhvdnxs316wqddz014nl1kl45ih29hx-source/modules/extra/nixos/wakapi</a>
+</p>
+</div>
+</div>
+<hr>
+<div class="nav-panel">
+<p>
+Next: <a href="darwin-module-options.html" accesskey="n" rel="next">darwin module options</a>, Previous: <a href="index.html" accesskey="p" rel="prev">Top</a>, Up: <a href="index.html" accesskey="u" rel="up">Top</a> &nbsp; </p>
+</div>
+
+
+
+</body>
+</html>
