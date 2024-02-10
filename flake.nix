@@ -153,8 +153,8 @@
       url = "github:serokell/deploy-rs";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        utils.follows = "pre-commit-hooks/flake-utils";
-        flake-compat.follows = "pre-commit-hooks/flake-compat";
+        utils.follows = "neovim/flake-utils";
+        flake-compat.follows = "neovim/flake-compat";
       };
     };
 
@@ -165,8 +165,8 @@
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         pre-commit-hooks-nix.follows = "pre-commit-hooks";
-        flake-utils.follows = "pre-commit-hooks/flake-utils";
-        flake-compat.follows = "pre-commit-hooks/flake-compat";
+        flake-utils.follows = "neovim/flake-utils";
+        flake-compat.follows = "neovim/flake-compat";
       };
     };
 
@@ -191,7 +191,7 @@
       url = "github:nekowinston/nur";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "pre-commit-hooks/flake-utils";
+        flake-utils.follows = "neovim/flake-utils";
       };
     };
 
@@ -202,8 +202,8 @@
         nixpkgs.follows = "nixpkgs";
         nil.follows = "nil";
         flake-parts.follows = "flake-parts";
+        nekowinston-nur.follows = "nekowinston-nur";
         pre-commit-nix.follows = "pre-commit-hooks";
-        flake-utils.follows = "pre-commit-hooks/flake-utils";
       };
     };
 
@@ -262,7 +262,7 @@
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         pre-commit-hooks.follows = "pre-commit-hooks";
-        flake-compat.follows = "pre-commit-hooks/flake-compat";
+        flake-compat.follows = "neovim/flake-compat";
       };
     };
 
@@ -271,7 +271,7 @@
       url = "github:lighttigerXIV/catppuccinifier";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "pre-commit-hooks/flake-utils";
+        flake-utils.follows = "neovim/flake-utils";
       };
     };
     catppuccin.url = "github:Stonks3141/ctp-nix";
@@ -281,12 +281,6 @@
     };
     catppuccin-toolbox = {
       url = "github:catppuccin/toolbox";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # icat wrapper
-    icat-wrapper = {
-      url = "github:nekowinston/icat";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
