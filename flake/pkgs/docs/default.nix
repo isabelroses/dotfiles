@@ -22,6 +22,8 @@
 
   css = ./pandoc.css;
 
+  goBack = ../../..;
+
   mkDoc = name: options: let
     doc = pkgs.nixosOptionsDoc {
       options = lib.filterAttrs (n: _: n != "_module") options;
@@ -31,9 +33,9 @@
           declarations =
             map
             (decl:
-              if lib.hasPrefix (toString ../.) (toString decl)
+              if lib.hasPrefix (toString (goBack + /.)) (toString decl)
               then let
-                subpath = lib.removePrefix "/" (lib.removePrefix (toString ../.) (toString decl));
+                subpath = lib.removePrefix "/" (lib.removePrefix (toString (goBack + /.)) (toString decl));
               in {
                 url = "https://github.com/isabelroses/dotfiles/tree/main/${subpath}";
                 name = subpath;
@@ -59,7 +61,7 @@
       texi2any ./file.texi --html --split=chapter --css-include=./style.css --document-language=en -o $out
     '';
 
-  modulesPath = ../../../modules;
+  modulesPath = goBack + /modules;
   extraModulesPath = modulesPath + /extra;
 
   # interalEval = mkEval (import (modulesPath + /options));
