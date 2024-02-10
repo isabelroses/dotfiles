@@ -223,15 +223,11 @@ in {
         "listen.group" = config.services.nginx.group;
       };
 
-      nginx.virtualHosts = {
-        "webmail.${rdomain}" = template.ssl rdomain;
-        # "rspamd.${domain}" = mkIf (cfg.mailserver.enable && cfg.mailserver.rspamd-web.enable) {
-        #   forceSSL = true;
-        #   enableACME = true;
-        #   basicAuthFile = config.sops.secrets.rspamd-web.path;
-        #   locations."/".proxyPass = "http://unix:/run/rspamd/worker-controller.sock:/";
-        # };
-      };
+      nginx.virtualHosts."webmail.${rdomain}" =
+        {
+          locations."/".extraConfig = lib.mkForce "";
+        }
+        // template.ssl rdomain;
     };
   };
 }
