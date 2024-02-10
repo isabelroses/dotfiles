@@ -16,7 +16,7 @@ in {
 
     services = {
       smartd.enable = mkForce false; # Unavailable - device lacks SMART capability.
-      xserver.enable = false;
+      xserver.enable = mkForce false;
     };
 
     networking.tcpcrypt.enable = mkForce false;

@@ -23,8 +23,9 @@ in {
 
     tailscale = {
       enable = mkEnableOption "Tailscale VPN";
+
       defaultFlags = mkOption {
-        type = with types; list (list string);
+        type = with types; listOf str;
         default = ["--ssh"];
         description = ''
           A list of command-line flags that will be passed to the Tailscale daemon on startup

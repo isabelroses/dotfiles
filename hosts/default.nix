@@ -1,5 +1,4 @@
 {
-  self,
   lib,
   withSystem,
   ...
@@ -18,13 +17,22 @@
   # options module, these allow for quick configuration
   options = modulePath + /options;
 
-  # profiles are hardware based, system optimised defaults
+  # profiles module, these are sensible defaults for given hardware sets
+  # or meta profiles that are used to configure the system based on the requirements of the given machine
   profilesPath = modulePath + /profiles; # the base directory for the types module
-  server = profilesPath + /server; # for server type configurations
-  laptop = profilesPath + /laptop; # for laptop type configurations
-  # desktop = profilesPath + /desktop; # for desktop type configurations
-  workstation = profilesPath + /workstation; # for server type configurations
-  wsl = profilesPath + /wsl; # for wsl systems
+  hardwareProfilesPath = profilesPath + /hardware; # the base directory for the hardware profiles
+  metaProfilesPath = profilesPath + /meta; # the base directory for the meta profiles
+
+  # hardware profiles
+  laptop = hardwareProfilesPath + /laptop; # for laptop type configurations
+  # desktop = hardwareProfilesPath + /desktop; # for desktop type configurations
+  server = [(hardwareProfilesPath + /server) headless]; # for server type configurations
+  wsl = [(hardwareProfilesPath + /wsl) headless]; # for wsl systems
+
+  # meta profiles
+  workstation = metaProfilesPath + /workstation; # for server type configurations
+  headless = metaProfilesPath + /headless; # for headless systems
+  darwin = metaProfilesPath + /darwin; # for darwin systems (macOS)
 
   # home-manager
   homes = ../home; # home-manager configurations
@@ -67,7 +75,7 @@ in
         host = "valkyrie";
         inherit withSystem;
         system = "x86_64-linux";
-        modules = [wsl] ++ concatLists [shared];
+        modules = concatLists [wsl shared];
         specialArgs = sharedArgs;
       }
 
@@ -75,7 +83,15 @@ in
         host = "luz";
         inherit withSystem;
         system = "x86_64-linux";
-        modules = [server] ++ concatLists [shared];
+        modules = concatLists [server shared];
+        specialArgs = sharedArgs;
+      }
+
+      {
+        host = "tatsumaki";
+        inherit withSystem;
+        system = "aarch64-darwin";
+        modules = [workstation] ++ concatLists [darwin shared];
         specialArgs = sharedArgs;
       }
     ])
@@ -84,7 +100,7 @@ in
       {
         host = "lilith";
         system = "x86_64-linux";
-        type = "iso";
+        modules = [headless];
         specialArgs = sharedArgs;
       }
     ])

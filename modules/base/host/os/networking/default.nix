@@ -52,6 +52,10 @@ in {
       userControlled.enable = true;
       allowAuxiliaryImperativeNetworks = true;
 
+      extraConfig = ''
+        update_config=1
+      '';
+
       # iwd
       iwd = {
         enable = wirelessBackend == "iwd";

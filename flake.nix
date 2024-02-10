@@ -10,6 +10,7 @@
       # The system archtecitures, more can be added as needed
       systems = [
         "x86_64-linux"
+        "x86_64-darwin"
         "aarch64-linux"
         "aarch64-darwin"
       ];
@@ -38,8 +39,9 @@
         import ./hosts {inherit self lib withSystem;};
 
       perSystem = {
-        config,
         pkgs,
+        config,
+        inputs',
         ...
       }: {
         imports = [{_module.args.pkgs = config.legacyPackages;}];
@@ -60,16 +62,18 @@
           # tell direnv to shut up
           DIRENV_LOG_FORMAT = "";
 
-          packages = with pkgs; [
-            # inputs'.deploy-rs.packages.deploy-rs # remote deployment
-            git # flakes require git
-            nil # nix language server
-            statix # lints and suggestions
-            deadnix # clean up unused nix code
-            alejandra # nix formatter
-            nodejs # ags
-            config.treefmt.build.wrapper # treewide formatter
-          ];
+          packages = with pkgs;
+            [
+              # inputs'.deploy-rs.packages.deploy-rs # remote deployment
+              git # flakes require git
+              nil # nix language server
+              statix # lints and suggestions
+              deadnix # clean up unused nix code
+              alejandra # nix formatter
+              nodejs # ags
+              config.treefmt.build.wrapper # treewide formatter
+            ]
+            ++ lib.optionals stdenv.isDarwin [inputs'.darwin.packages.darwin-rebuild];
 
           inputsFrom = [config.treefmt.build.devShell];
         };

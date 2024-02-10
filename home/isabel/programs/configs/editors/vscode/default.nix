@@ -1,14 +1,20 @@
 {
   lib,
   pkgs,
-  osConfig,
   config,
+  osConfig,
   ...
 }: let
-  inherit (osConfig.modules.environment) flakePath;
-  inherit (osConfig.modules.system) mainUser;
+  inherit (pkgs.stdenv) isLinux isDarwin;
+  inherit (lib) mkIf;
+
+  mkLink = config.lib.file.mkOutOfStoreSymlink;
+
+  vscodeStore = "${osConfig.modules.environment.flakePath}/home/${osConfig.modules.system.mainUser}/programs/configs/editors/vscode";
+  keybindingsFile = mkLink "${vscodeStore}/keybindings.json";
+  settingsFile = mkLink "${vscodeStore}/settings.json";
 in {
-  config = lib.mkIf osConfig.modules.programs.agnostic.editors.vscode.enable {
+  config = mkIf osConfig.modules.programs.agnostic.editors.vscode.enable {
     programs.vscode = {
       enable = true;
       package = pkgs.vscode;
@@ -76,9 +82,14 @@ in {
       mutableExtensionsDir = true;
     };
 
-    xdg.configFile = {
-      "VSCode/User/keybindings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/programs/configs/editors/vscode/keybindings.json";
-      "VSCode/User/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${flakePath}/home/${mainUser}/programs/configs/editors/vscode/settings.json";
+    xdg.configFile = mkIf isLinux {
+      "VSCode/User/keybindings.json".source = keybindingsFile;
+      "VSCode/User/settings.json".source = settingsFile;
+    };
+
+    home.file = mkIf isDarwin {
+      "Library/Application Support/Code/User/keybindings.json".source = keybindingsFile;
+      "Library/Application Support/Code/User/settings.json".source = settingsFile;
     };
   };
 }

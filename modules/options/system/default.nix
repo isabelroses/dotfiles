@@ -16,14 +16,23 @@ in {
     ./virtualization.nix
   ];
 
-  options.modules.system = {
-    warnings = optionals (config.modules.system.users == []) [
+  config.warnings =
+    (optionals (config.modules.system.fs == []) [
+      ''
+        You have not added any filesystems to be supported by your system. You may end up with an unbootable system!
+
+        Consider setting {option}`config.modules.system.fs` in your configuration
+      ''
+    ])
+    ++ (optionals (config.modules.system.users == []) [
       ''
         You have not added any users to be supported by your system. You may end up with an unbootable system!
-        Consider setting `config.modules.system.users` in your configuration
-      ''
-    ];
 
+        Consider setting {option}`config.modules.system.users` in your configuration
+      ''
+    ]);
+
+  options.modules.system = {
     mainUser = mkOption {
       type = types.enum config.modules.system.users;
       description = "The username of the main user for your system";
@@ -67,25 +76,14 @@ in {
     yubikeySupport = {
       enable = mkEnableOption "yubikey support";
       deviceType = mkOption {
-        type = with types; nullOr enum ["NFC5" "nano"];
+        type = with types; nullOr (enum ["NFC5" "nano"]);
         default = null;
         description = "A list of devices to enable Yubikey support for";
       };
     };
 
-    sound = {
-      enable = mkEnableOption "sound";
-      description = "Does the device have sound and its related programs be enabled";
-    };
-
-    video = {
-      enable = mkEnableOption "video drivers";
-      description = "Does the device allow for graphical programs";
-    };
-
-    bluetooth = {
-      enable = mkEnableOption "bluetooth";
-      description = "should the device load bluetooth drivers and enable blueman";
-    };
+    sound.enable = mkEnableOption "Does the device have sound and its related programs be enabled";
+    video.enable = mkEnableOption "Does the device allow for graphical programs";
+    bluetooth.enable = mkEnableOption "Should the device load bluetooth drivers and enable blueman";
   };
 }

@@ -1,3 +1,6 @@
+# funny macos thing
+.DS_Store
+
 # Ingore nixos build outputs
 result
 .direnv/

@@ -1,69 +1,24 @@
 {
-  config,
-  pkgs,
   lib,
+  pkgs,
+  config,
   inputs,
-  inputs',
-  self,
   ...
-}: {
-  system = {
-    autoUpgrade.enable = false;
-    stateVersion = lib.mkDefault "23.05";
-  };
+}: let
+  inherit (builtins) attrValues mapAttrs;
+  inherit (lib) filterAttrs mkForce ldTernary;
 
-  environment = {
-    etc = with inputs; {
-      # set channels (backwards compatibility)
-      "nix/flake-channels/system".source = self;
-      "nix/flake-channels/nixpkgs".source = nixpkgs;
-      "nix/flake-channels/home-manager".source = home-manager;
-
-      # preserve current flake in /etc
-      "nixos/flake".source = self;
-    };
-
-    # git is reqired for flakes, and cachix for binary substituters
-    systemPackages = with pkgs; [git cachix];
-  };
-
-  nixpkgs = {
-    # pkgs = self.legacyPackages.${config.nixpkgs.system};
-
-    config = {
-      allowUnfree = true;
-      allowBroken = false;
-      allowUnsupportedSystem = true;
-      permittedInsecurePackages = ["electron-25.9.0"];
-    };
-
-    overlays = [
-      self.overlays.defaults
-      inputs.rust-overlay.overlays.default
-      inputs.catppuccin-vsc.overlays.default
-
-      (_: _: {
-        nixSchemas = inputs'.nixSchemas.packages.default;
-      })
-    ];
-  };
-
-  nix = let
-    mappedRegistry = lib.pipe inputs [
-      (lib.filterAttrs (_: lib.isType "flake"))
-      (lib.mapAttrs (_: flake: {inherit flake;}))
-      (x: x // {nixpkgs.flake = inputs.nixpkgs;})
-    ];
-  in {
+  flakeInputs = filterAttrs (name: value: (value ? outputs) && (name != "self")) inputs;
+in {
+  nix = {
     # https://github.com/nix-community/home-manager/issues/4692#issuecomment-1848832609
-    # package = pkgs.nixVersions.unstable;
-    package = pkgs.nixVersions.nix_2_17;
+    package = pkgs.nixVersions.unstable;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
-    registry = mappedRegistry;
+    registry = mapAttrs (_: v: {flake = v;}) flakeInputs;
 
     # We love legacy support (for now)
-    nixPath = lib.mapAttrsToList (key: _: "${key}=flake:${key}") config.nix.registry;
+    nixPath = ldTernary pkgs (attrValues (mapAttrs (k: v: "${k}=${v.outPath}") flakeInputs)) (mkForce (mapAttrs (_: v: v.outPath) flakeInputs));
 
     # Make builds run with a low priority, keeping the system fast
     daemonCPUSchedPolicy = "idle";
@@ -91,11 +46,13 @@
       min-free = "${toString (5 * 1024 * 1024 * 1024)}";
       max-free = "${toString (20 * 1024 * 1024 * 1024)}";
       # automatically optimise symlinks
+      # Disable auto-optimise-store because of this issue:
+      # https://github.com/NixOS/nix/issues/7273
       auto-optimise-store = pkgs.stdenv.isLinux;
       # allow sudo users to mark the following values as trusted
-      allowed-users = ["root" "@wheel"];
+      allowed-users = ["@wheel" "root" "isabel"];
       # only allow sudo users to manage the nix store
-      trusted-users = ["@wheel"];
+      trusted-users = ["@wheel" "root" "isabel"];
       # let the system decide the number of max jobs
       max-jobs = "auto";
       # build inside sandboxed environments

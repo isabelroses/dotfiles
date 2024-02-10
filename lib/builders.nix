@@ -4,8 +4,11 @@
   ...
 }: let
   inherit (inputs) self;
-  #
-  # mkNixosSystem wraps mkSystem with flake-parts' withSystem to give us inputs' and self' from flake-parts
+
+  # mkSystem is a helper function that wraps lib.nixosSystem
+  mkSystem = lib.nixosSystem;
+
+  # mkNixSystem wraps mkSystem with flake-parts' withSystem to give us inputs' and self' from flake-parts
   # which can also be used as a template for nixos hosts with system type and modules to be imported with ease
   # specialArgs is also defined here to avoid defining them for each host
   mkNixSystem = {
@@ -22,26 +25,29 @@
     }: let
       pkgs = inputs.nixpkgs.legacyPackages.${system};
 
+      # copied from ./hardware.nix but modified to use pkgs already
       ldTernary = l: d:
         if pkgs.stdenv.isLinux
         then l
         else if pkgs.stdenv.isDarwin
         then d
         else throw "Unsupported system";
-      mkSystem = with inputs; ldTernary nixpkgs.lib.nixosSystem darwin.lib.darwinSystem;
 
+      mkSystem' = ldTernary mkSystem inputs.darwin.lib.darwinSystem;
+      # this is used to determin the target system and modules that are going to be needed
+      # for this specific system
       target = ldTernary "nixosConfigurations" "darwinConfigurations";
       mod = ldTernary "nixosModules" "darwinModules";
 
       hm = inputs.home-manager.${mod}.home-manager;
     in {
-      ${target}.${args.host} = mkSystem {
+      ${target}.${args.host} = mkSystem' {
         inherit system;
         modules =
           [
             hm
-            "${self}/hosts/${host}"
-            {config.modules.system.hostname = host;}
+            "${self}/hosts/${args.host}"
+            {config.modules.system.hostname = args.host;}
           ]
           ++ args.modules or [];
         specialArgs = {inherit lib inputs self inputs' self';} // args.specialArgs or {};
@@ -53,9 +59,10 @@
   mkNixosIso = {
     host,
     system,
+    modules,
     ...
   } @ args: {
-    nixosConfigurations.${args.host} = lib.nixosSystem {
+    nixosConfigurations.${args.host} = mkSystem {
       inherit system;
       specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
       modules =
@@ -63,7 +70,9 @@
           # get an installer profile from nixpkgs to base the Isos off of
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-          "${self}/hosts/${host}"
+          "${self}/hosts/${args.host}"
+
+          {config.networking.hostName = args.host;}
         ]
         ++ args.modules or [];
     };
@@ -73,5 +82,5 @@
 
   mkNixosIsos = systems: lib.mkMerge (map mkNixosIso systems);
 in {
-  inherit mkSystems mkNixSystem mkNixosIsos mkNixosIso;
+  inherit mkSystems mkNixosIsos;
 }
