@@ -30,11 +30,9 @@
 - [Catppuccin](https://github.com/catppuccin/catppucin) everywhere
 
 <details>
-
 <summary>
 
 #### Hyprland Shortcuts
-
 </summary>
 
 | Shortcut                        | What it does               |
@@ -61,7 +59,7 @@
   - ⚸ [Lilith](../hosts/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
   - 🪄 [Luz](../hosts/luz/) A server configuration for some of my infrastructure
   - 𖤍 [Valkyrie](../hosts/valkyrie/) A WSL2 machine 
-  - 𖤍 [Tatsumaki](../hosts/tatsumaki/) A WIP macOS host 
+  - ⚠️ [Tatsumaki](../hosts/tatsumaki/) A WIP macOS host 
 - 📖 [lib](../lib/) Useful repeated functions
 - 🧩 [flake](../flake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
 - 🔌 [modules](../modules/)
