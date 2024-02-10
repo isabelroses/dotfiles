@@ -4,7 +4,12 @@ _: {
     inputs',
     ...
   }: {
-    packages = {
+    packages = let
+      docs = pkgs.callPackage ./docs {};
+    in {
+      docs-md = docs.md;
+      docs-html = docs.html;
+
       lutgen-rs = pkgs.callPackage ./lutgen-rs.nix {};
       patched-gjs = pkgs.callPackage ./patched-gjs.nix {};
       plymouth-theme-catppuccin = pkgs.callPackage ./plymouth-theme-catppuccin.nix {};

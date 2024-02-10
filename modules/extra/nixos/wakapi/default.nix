@@ -10,7 +10,7 @@
   group = config.users.groups.wakapi.name;
 
   settingsFormat = pkgs.formats.yaml {};
-  inherit (lib) mkOption mkEnableOption mkPackageOption types mkIf optional mkMerge mkDoc mkDefault singleton;
+  inherit (lib) mkOption mkEnableOption mkPackageOption types mkIf optional mkMerge mkDefault singleton;
 
   settingsFile = settingsFormat.generate "wakapi-settings" cfg.settings;
 
@@ -217,7 +217,7 @@ in {
     settings = mkOption {
       inherit (settingsFormat) type;
       default = {};
-      description = mkDoc ''
+      description = ''
         Settings for Wakapi.
 
         See [config.default.yml](https://github.com/muety/wakapi/blob/master/config.default.yml) for a list of all possible options.
