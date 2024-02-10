@@ -71,12 +71,6 @@
   darwin = mkDoc "darwin" darwinEval.options;
   hm = mkDoc "home-manager" hmEval.options;
 in {
-  html = convert [
-    # internal
-    nixos
-    darwin
-    hm
-  ];
-
+  html = convert [nixos darwin hm];
   md = pkgs.linkFarm "md" (lib.mapAttrsToList (name: path: {inherit name path;}) ["nixos" "darwin" "hm"]);
 }
