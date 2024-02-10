@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: let
@@ -13,7 +14,7 @@ in {
 
     flakePath = mkOption {
       type = types.str;
-      default = ldTernary "/home/${mainUser}/.config/flake" "/Users/${mainUser}/.config/flake";
+      default = ldTernary pkgs "/home/${mainUser}/.config/flake" "/Users/${mainUser}/.config/flake";
       description = "The path to the configuration";
     };
 
