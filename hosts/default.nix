@@ -11,9 +11,6 @@
   # base modules, are the base of this system configuration and are shared across all systems (so the basics)
   base = modulePath + /base;
 
-  # extra modules, these add extra functionality to the system configuration, not provided by nixpkgs or another source
-  extra = modulePath + /extra;
-
   # options module, these allow for quick configuration
   options = modulePath + /options;
 
@@ -38,7 +35,7 @@
   homes = ../home; # home-manager configurations
 
   # a list of shared modules
-  shared = [base options extra homes];
+  shared = [base options homes];
 
   # extra specialArgs that are on all machines
   sharedArgs = {inherit lib;};

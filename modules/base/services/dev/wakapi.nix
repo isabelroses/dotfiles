@@ -1,7 +1,8 @@
 {
-  config,
-  pkgs,
   lib,
+  pkgs,
+  self,
+  config,
   ...
 }: let
   inherit (lib) mkIf template;
@@ -9,6 +10,8 @@
   rdomain = config.networking.domain;
   cfg = config.modules.services.dev.wakapi;
 in {
+  imports = [self.nixosModules.wakapi];
+
   config = mkIf cfg.enable {
     modules.services = {
       networking.nginx.enable = true;

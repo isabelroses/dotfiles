@@ -12,6 +12,11 @@ in {
       default = builtins.throw "There is no default module.";
     };
 
+    # Currently there are no darwin modules
+    darwinModules = {
+      default = builtins.throw "There is no default module.";
+    };
+
     homeManagerModules = {
       gtklock = mkModule /modules/extra/home-manager/gtklock;
 
