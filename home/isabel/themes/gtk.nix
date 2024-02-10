@@ -37,18 +37,15 @@ in {
       enable = true;
 
       theme = {
-        name = cfg.gtk.theme.name;
-        package = cfg.gtk.theme.package;
+        inherit (cfg.gtk.theme) name package;
       };
 
       iconTheme = {
-        name = cfg.gtk.iconTheme.name;
-        package = cfg.gtk.iconTheme.package;
+        inherit (cfg.gtk.iconTheme) name package;
       };
 
       font = {
-        name = cfg.gtk.font.name;
-        size = cfg.gtk.font.size;
+        inherit (cfg.gtk.font) name size;
       };
 
       gtk2 = {
@@ -62,15 +59,42 @@ in {
       };
 
       gtk3.extraConfig = {
+        # make things look nice
+        gtk-application-prefer-dark-theme = true;
+
+        gtk-decoration-layout = "appmenu:none";
+
         gtk-xft-antialias = 1;
         gtk-xft-hinting = 1;
         gtk-xft-hintstyle = "hintslight";
-        gtk-xft-rgba = "rgb";
-        gtk-application-prefer-dark-theme = 1;
+
+        # stop annoying sounds
+        gtk-enable-event-sounds = 0;
+        gtk-enable-input-feedback-sounds = 0;
+        gtk-error-bell = 0;
+
+        # config that is not the same as gtk4
+        gtk-toolbar-style = "GTK_TOOLBAR_BOTH";
+        gtk-toolbar-icon-size = "GTK_ICON_SIZE_LARGE_TOOLBAR";
+
+        gtk-button-images = 1;
+        gtk-menu-images = 1;
       };
 
       gtk4.extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
+        # make things look nice
+        gtk-application-prefer-dark-theme = true;
+
+        gtk-decoration-layout = "appmenu:none";
+
+        gtk-xft-antialias = 1;
+        gtk-xft-hinting = 1;
+        gtk-xft-hintstyle = "hintslight";
+
+        # stop annoying sounds again
+        gtk-enable-event-sounds = 0;
+        gtk-enable-input-feedback-sounds = 0;
+        gtk-error-bell = 0;
       };
     };
   };
