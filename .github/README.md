@@ -1,12 +1,27 @@
 <div align="center">
-<h1>
-<img width=96 src="./assets/flake.svg"></img> <br>
-  isabel's dotfiles
-</h1>
+  <h1>isabel's dotfiles</h1>
+
   <img src="https://img.shields.io/github/stars/isabelroses/dotfiles?color=f5c2e7&labelColor=303446&style=for-the-badge&logo=starship&logoColor=f5c2e7">
   <img alt="ci" src="https://img.shields.io/github/actions/workflow/status/isabelroses/dotfiles/check.yml?label=build&color=a6e3a1&labelColor=303446&style=for-the-badge&logo=github&logoColor=a6e3a1" />
   <img src="https://img.shields.io/github/repo-size/isabelroses/dotfiles?color=fab387&labelColor=303446&style=for-the-badge&logo=github&logoColor=fab387">
 </div>
+
+### Install Notes
+
+#### Linux
+
+- Install [NixOS](https://nixos.org/download.html)
+- Clone this repository to `~/.config/flake`
+- Run `sudo nixos-rebuild switch --flake ~/.config/flake#<host>`
+
+#### MacOS
+
+- Install [homebrew](https://brew.sh/) 
+> `curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash`
+- Exclude nix from time machine backups 
+> `sudo tmutil addexclusion -v /nix`
+- `nix run nix-darwin -- switch --flake ~/.config/flake#<host> --experimental-features "nix-command flakes"`
+- Then good news you can use the `rebuild` alias that exists for the future
 
 ### Config layout
 
