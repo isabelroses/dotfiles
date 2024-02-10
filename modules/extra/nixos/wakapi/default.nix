@@ -77,10 +77,10 @@
         assertion = cfg.passwordSalt != null || cfg.passwordSaltFile != null;
         message = "Either `passwordSalt` or `passwordSaltFile` must be set.";
       }
-      # {
-      #   assertion = cfg.smtpPassword != null && cfg.smtpPasswordFile != null;
-      #   message = "Both `smtpPassword` or `smtpPasswordFile` should not be set at the same time.";
-      # }
+      {
+        assertion = cfg.smtpPassword != null -> cfg.smtpPasswordFile != null;
+        message = "Both `smtpPassword` or `smtpPasswordFile` should not be set at the same time.";
+      }
     ];
   };
 
