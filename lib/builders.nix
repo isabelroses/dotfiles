@@ -5,6 +5,8 @@
 }: let
   inherit (inputs) self;
 
+  inherit (import ./hardware.nix {inherit lib;}) ldTernary;
+
   # mkSystem is a helper function that wraps lib.nixosSystem
   mkSystem = lib.nixosSystem;
 
@@ -25,19 +27,11 @@
     }: let
       pkgs = inputs.nixpkgs.legacyPackages.${system};
 
-      # copied from ./hardware.nix but modified to use pkgs already
-      ldTernary = l: d:
-        if pkgs.stdenv.isLinux
-        then l
-        else if pkgs.stdenv.isDarwin
-        then d
-        else throw "Unsupported system";
-
-      mkSystem' = ldTernary mkSystem inputs.darwin.lib.darwinSystem;
+      mkSystem' = ldTernary pkgs mkSystem inputs.darwin.lib.darwinSystem;
       # this is used to determin the target system and modules that are going to be needed
       # for this specific system
-      target = ldTernary "nixosConfigurations" "darwinConfigurations";
-      mod = ldTernary "nixosModules" "darwinModules";
+      target = ldTernary pkgs "nixosConfigurations" "darwinConfigurations";
+      mod = ldTernary pkgs "nixosModules" "darwinModules";
 
       hm = inputs.home-manager.${mod}.home-manager;
     in {
