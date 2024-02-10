@@ -6,6 +6,8 @@
   <img alt="repo size" src="https://img.shields.io/github/repo-size/isabelroses/dotfiles?color=fab387&labelColor=303446&style=for-the-badge&logo=github&logoColor=fab387">
 </div>
 
+<br />
+
 <!--toc:start-->
 - [What does this repo provided](#what-does-this-repo-provided)
   - [Hyprland Shortcuts](#hyprland-shortcuts)
