@@ -52,6 +52,10 @@ in {
               options = ["NOPASSWD"];
             }
             {
+              command = "${currentSystem}/sw/bin/darwin-rebuild";
+              options = ["NOPASSWD"];
+            }
+            {
               # let wheel group collect garbage without password
               command = "${currentSystem}/sw/bin/nix-collect-garbage";
               options = ["SETENV" "NOPASSWD"];

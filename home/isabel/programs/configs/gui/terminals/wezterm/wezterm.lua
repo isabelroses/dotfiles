@@ -8,16 +8,15 @@ end
 
 -- theme
 require("catppuccin").apply_to_config(config)
+require("bar").apply_to_config(config)
 
 if utils.is_linux() then
   config.window_background_opacity = 0.90
-  config.enable_tab_bar = false
 else
   config.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\wallhaven-qzp8dr.png"
   config.window_background_image_hsb = {
     brightness = 0.03, -- make the bg darker so we can see what we are doing
   }
-  require("bar").apply_to_config(config)
 end
 
 -- shell
@@ -54,5 +53,7 @@ config.adjust_window_size_when_changing_font_size = false
 config.audible_bell = "Disabled"
 config.default_cursor_style = "BlinkingBar"
 config.front_end = "WebGpu"
+config.window_close_confirmation = "NeverPrompt"
+config.prefer_to_spawn_tabs = true
 
 return config

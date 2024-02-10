@@ -1,11 +1,20 @@
 {
-  osConfig,
+  lib,
   pkgs,
+  osConfig,
   ...
 }: let
   cfg = osConfig.modules.programs.agnostic.git;
 in {
   config = {
+    # `programs.git` will generate the config file: ~/.config/git/config
+    # to make git use this config file, `~/.gitconfig` should not exist!
+    home.activation = lib.mkIf pkgs.stdenv.isDarwin {
+      removeExistingGitconfig = lib.hm.dag.entryBefore ["checkLinkTargets"] ''
+        rm -f ~/.gitconfig
+      '';
+    };
+
     home.packages = with pkgs; [
       gist # manage github gists
       act # local github actions

@@ -4,6 +4,8 @@
   pkgs,
   ...
 }: let
+  inherit (pkgs.stdenv) isLinux;
+
   browser = [
     "text/html"
     "x-scheme-handler/http"
@@ -65,7 +67,7 @@ in {
     stateHome = "${config.home.homeDirectory}/.local/state";
 
     userDirs = {
-      enable = true;
+      enable = isLinux;
       createDirectories = true;
 
       documents = "${config.home.homeDirectory}/documents";
@@ -84,7 +86,7 @@ in {
     };
 
     mimeApps = {
-      enable = true;
+      enable = isLinux;
       associations.added = associations;
       defaultApplications = associations;
     };

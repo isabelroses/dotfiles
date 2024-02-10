@@ -1,15 +1,9 @@
 {
-  self,
   lib,
   withSystem,
   ...
 }: let
-  inherit (self) inputs;
-  inherit (lib) mkMerge mapAttrs concatLists mkNixosSystem mkNixosIso;
-
-  # additional modules
-  hm = inputs.home-manager.nixosModules.home-manager;
-  ctp = inputs.catppuccin.nixosModules.catppuccin;
+  inherit (lib) mkMerge concatLists mkSystems mkNixosIsos;
 
   # modules
   modulePath = ../modules; # the base module path
@@ -17,33 +11,36 @@
   # base modules, are the base of this system configuration and are shared across all systems (so the basics)
   base = modulePath + /base;
 
-  # extra modules, these add extra functionality to the system configuration, not provided by nixpkgs or another source
-  extra = modulePath + /extra;
-
-  # options module, these allow for quick configuration
-  options = modulePath + /options;
-
-  # profiles are hardware based, system optimised defaults
+  # profiles module, these are sensible defaults for given hardware sets
+  # or meta profiles that are used to configure the system based on the requirements of the given machine
   profilesPath = modulePath + /profiles; # the base directory for the types module
-  server = profilesPath + /server; # for server type configurations
-  laptop = profilesPath + /laptop; # for laptop type configurations
-  # desktop = profilesPath + /desktop; # for desktop type configurations
-  workstation = profilesPath + /workstation; # for server type configurations
-  wsl = profilesPath + /wsl; # for wsl systems
+  hardwareProfilesPath = profilesPath + /hardware; # the base directory for the hardware profiles
+  metaProfilesPath = profilesPath + /meta; # the base directory for the meta profiles
+
+  # hardware profiles
+  laptop = hardwareProfilesPath + /laptop; # for laptop type configurations
+  # desktop = hardwareProfilesPath + /desktop; # for desktop type configurations
+  server = [(hardwareProfilesPath + /server) headless]; # for server type configurations
+  wsl = [(hardwareProfilesPath + /wsl) headless]; # for wsl systems
+
+  # meta profiles
+  workstation = metaProfilesPath + /workstation; # for server type configurations
+  headless = metaProfilesPath + /headless; # for headless systems
+  darwin = metaProfilesPath + /darwin; # for darwin systems (macOS)
 
   # home-manager
-  home = ../home; # home-manager configurations
-  homes = [hm home]; # combine hm input module and the home module
+  homes = ../home; # home-manager configurations
 
   # a list of shared modules
-  shared = [base options extra ctp];
+  shared = [base homes];
 
   # extra specialArgs that are on all machines
-  sharedArgs = {inherit inputs self lib;};
+  sharedArgs = {inherit lib;};
 in
   mkMerge [
-    (mapAttrs mkNixosSystem {
-      hydra = {
+    (mkSystems [
+      {
+        host = "hydra";
         inherit withSystem;
         system = "x86_64-linux";
         modules =
@@ -51,11 +48,12 @@ in
             workstation
             laptop
           ]
-          ++ concatLists [shared homes];
+          ++ concatLists [shared];
         specialArgs = sharedArgs;
-      };
+      }
 
-      amaterasu = {
+      {
+        host = "amaterasu";
         inherit withSystem;
         system = "x86_64-linux";
         modules =
@@ -63,33 +61,41 @@ in
             # desktop
             workstation
           ]
-          ++ concatLists [shared homes];
+          ++ concatLists [shared];
         specialArgs = sharedArgs;
-      };
+      }
 
-      valkyrie = {
+      {
+        host = "valkyrie";
         inherit withSystem;
         system = "x86_64-linux";
-        modules = [wsl] ++ concatLists [shared homes];
+        modules = concatLists [wsl shared];
         specialArgs = sharedArgs;
-      };
+      }
 
-      luz = {
+      {
+        host = "luz";
         inherit withSystem;
         system = "x86_64-linux";
-        modules =
-          [
-            server
-          ]
-          ++ concatLists [shared homes];
+        modules = concatLists [server shared];
         specialArgs = sharedArgs;
-      };
-    })
+      }
 
-    (mapAttrs mkNixosIso {
-      lilith = {
-        system = "x86_64-linux";
+      {
+        host = "tatsumaki";
+        inherit withSystem;
+        system = "aarch64-darwin";
+        modules = [workstation] ++ concatLists [darwin shared];
         specialArgs = sharedArgs;
-      };
-    })
+      }
+    ])
+
+    (mkNixosIsos [
+      {
+        host = "lilith";
+        system = "x86_64-linux";
+        modules = [headless];
+        specialArgs = sharedArgs;
+      }
+    ])
   ]

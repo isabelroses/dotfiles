@@ -35,9 +35,9 @@ in {
 
     qt = {
       enable = true;
-      platformTheme = mkIf cfg.forceGtk "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
+      platformTheme = mkIf cfg.forceGtk "gtk"; # an override for QT_QPA_PLATFORMTHEME
       style = mkIf (!cfg.forceGtk) {
-        name = "${cfg.qt.theme.name}";
+        name = cfg.qt.theme.name;
         package = cfg.qt.theme.package;
       };
     };

@@ -15,7 +15,7 @@
       ${lib.getExe pkgs.bat} --color always --plain "$1"
       ;;
     *image*)
-      ${lib.getExe inputs'.icat-wrapper.packages.default} "$1"
+      ${lib.getExe inputs'.nekowinston-nur.packages.icat} "$1"
       ;;
     *pdf)
       ${lib.getExe pkgs.catimg} -w 100 -r 2 "$1"

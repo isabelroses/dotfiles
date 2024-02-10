@@ -1,10 +1,10 @@
-import { Theme, WP, lightColors } from "./settings/theme.js";
+import { lightColors, Theme, WP } from "./settings/theme.js";
 
 export default [
   Theme({
     name: "Mocha",
     icon: "",
-    "desktop.wallpaper.img": WP + "wallhaven-qzp8dr.png",
+    "desktop.wallpaper.img": WP + "00387.jpg",
   }),
   Theme({
     name: "Latte",

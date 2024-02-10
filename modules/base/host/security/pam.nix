@@ -1,4 +1,4 @@
-_: {
+{
   security = {
     pam = {
       # fix "too many files open" errors while writing a lot of data at once

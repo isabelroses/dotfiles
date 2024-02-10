@@ -2,7 +2,7 @@
   config = {
     modules = {
       device = {
-        type = "lite";
+        type = "wsl";
         cpu = "intel";
         gpu = null;
         hasTPM = true;
