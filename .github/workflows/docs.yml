@@ -1,8 +1,10 @@
 name: Build and deploy docs
 
 on:
+  workflow_dispatch:
   push:
-    branches: [master]
+    paths:
+      - "modules/extra/**/*"
 
 jobs:
   build:
