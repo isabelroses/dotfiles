@@ -75,7 +75,7 @@
     assertions = [
       {
         assertion = cfg.passwordSalt != null || cfg.passwordSaltFile != null;
-        message = "Either `passwordSalt` or `passwordSaltFile` must be set.";
+        message = "Either `services.wakapi.passwordSalt` or `services.wakapi.passwordSaltFile` must be set.";
       }
       # {
       #   assertion = cfg.smtpPassword != null && cfg.smtpPasswordFile != null;

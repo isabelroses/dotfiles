@@ -3,19 +3,22 @@
   config,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib) ldTernary mkEnableOption mkOption types;
+
+  inherit (config.modules.system) mainUser;
+  cfg = config.modules.environment;
 in {
   options.modules.environment = {
     useHomeManager = mkEnableOption "Whether to use home-manager or not." // {default = true;};
 
     flakePath = mkOption {
       type = types.str;
-      default = "/home/${config.modules.system.mainUser}/.config/flake";
+      default = ldTernary "/home/${mainUser}/.config/flake" "/Users/${mainUser}/.config/flake";
       description = "The path to the configuration";
     };
 
     desktop = mkOption {
-      type = types.enum ["Hyprland" "Sway"];
+      type = types.nullOr (types.enum ["Hyprland" "Sway"]);
       default = "Hyprland";
       description = "The desktop environment to be used.";
     };
@@ -26,7 +29,11 @@ in {
       description = "The login manager to be used by the system.";
     };
 
-    isWayland = mkEnableOption "Infered data based on the desktop environment." // {default = config.modules.environment.desktop == "Hyprland";};
+    isWayland =
+      mkEnableOption "Infered data based on the desktop environment."
+      // {
+        default = cfg.desktop == "Hyprland" || cfg.desktop == "Sway";
+      };
   };
 
   config.assertions = [
