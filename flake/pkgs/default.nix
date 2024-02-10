@@ -5,7 +5,7 @@ _: {
     ...
   }: {
     packages = let
-      docs = pkgs.callPackage ./docs {};
+      docs = pkgs.callPackage ../../docs {};
     in {
       # docs-md = docs.md;
       docs-html = docs.html;

@@ -1,5 +1,5 @@
-_: {
+{
   imports = [
-    ./wakapi
+    ./wakapi.nix
   ];
 }

@@ -11,9 +11,6 @@
   # base modules, are the base of this system configuration and are shared across all systems (so the basics)
   base = modulePath + /base;
 
-  # options module, these allow for quick configuration
-  options = modulePath + /options;
-
   # profiles module, these are sensible defaults for given hardware sets
   # or meta profiles that are used to configure the system based on the requirements of the given machine
   profilesPath = modulePath + /profiles; # the base directory for the types module
@@ -35,7 +32,7 @@
   homes = ../home; # home-manager configurations
 
   # a list of shared modules
-  shared = [base options homes];
+  shared = [base homes];
 
   # extra specialArgs that are on all machines
   sharedArgs = {inherit lib;};

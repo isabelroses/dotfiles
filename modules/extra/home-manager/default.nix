@@ -1,5 +1,5 @@
 {
   imports = [
-    ./gtklock
+    ./gtklock.nix
   ];
 }

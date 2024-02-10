@@ -59,13 +59,14 @@
   - ⚸ [Lilith](../hosts/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
   - 🪄 [Luz](../hosts/luz/) A server configuration for some of my infrastructure
   - 𖤍 [Valkyrie](../hosts/valkyrie/) A WSL2 machine 
-  - ⚠️ [Tatsumaki](../hosts/tatsumaki/) A WIP macOS host 
-- 📖 [lib](../lib/) Useful repeated functions
+  - 💮 [Tatsumaki](../hosts/tatsumaki/) A WIP macOS host
+- 📚 [lib](../lib/) Useful repeated functions
 - 🧩 [flake](../flake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
+- 📝 [docs](../docs/) Documentation for the configuration which can be found [here](https://isabelroses.github.io/dotfiles/)
 - 🔌 [modules](../modules/)
   - [base](../modules/base/) The base configuration settings, which are common between all systems
-  - [options](../modules/options/) Selectable settings that can be used to toggle certain settings
-  - [extra](../modules/extra) Extra configuration modules, for home-manager and NixOS
+    - [options](../modules/base/options/) Selectable settings that can be used to toggle certain settings
+  - [extra](../modules/extra) Extra configuration modules, for home-manager and Nix Darwin and NixOS
   - [profiles](../modules/profiles/) System type configurations (e.g. laptop, servers, desktop)
 
 ### Install Notes
