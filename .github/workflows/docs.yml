@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - "modules/extra/**/*"
+      - "flake/pkgs/docs/*"
 
 jobs:
   build:
