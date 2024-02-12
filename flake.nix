@@ -38,45 +38,8 @@
       in
         import ./hosts {inherit self lib withSystem;};
 
-      perSystem = {
-        pkgs,
-        config,
-        inputs',
-        ...
-      }: {
+      perSystem = {config, ...}: {
         imports = [{_module.args.pkgs = config.legacyPackages;}];
-
-        # formatter for nix fmt
-        formatter = pkgs.alejandra;
-
-        # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) inputs.deploy-rs.lib;
-
-        devShells.default = pkgs.mkShell {
-          name = "dotfiles";
-          meta.description = "Devlopment shell for this configuration";
-
-          shellHook = ''
-            ${config.pre-commit.installationScript}
-          '';
-
-          # tell direnv to shut up
-          DIRENV_LOG_FORMAT = "";
-
-          packages = with pkgs;
-            [
-              # inputs'.deploy-rs.packages.deploy-rs # remote deployment
-              git # flakes require git
-              nil # nix language server
-              statix # lints and suggestions
-              deadnix # clean up unused nix code
-              alejandra # nix formatter
-              nodejs # ags
-              config.treefmt.build.wrapper # treewide formatter
-            ]
-            ++ lib.optionals stdenv.isDarwin [inputs'.darwin.packages.darwin-rebuild];
-
-          inputsFrom = [config.treefmt.build.devShell];
-        };
       };
     });
 
