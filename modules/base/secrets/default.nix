@@ -1,15 +1,12 @@
 {
-  config,
-  pkgs,
   lib,
-  inputs,
+  pkgs,
+  config,
   ...
 }: let
   inherit (lib) mkIf;
   inherit (config.modules) services;
 in {
-  imports = [inputs.sops.nixosModules.sops];
-
   environment.systemPackages = with pkgs; [sops age];
 
   sops = {

@@ -5,14 +5,13 @@
 }: let
   inherit (inputs) self;
 
-  inherit (import ./hardware.nix {inherit lib;}) ldTernary;
+  inherit (import ./hardware.nix {inherit lib;}) ldTernary getModuleType;
 
   # mkSystem is a helper function that wraps lib.nixosSystem
   mkSystem = lib.nixosSystem;
 
-  # mkNixSystem wraps mkSystem with flake-parts' withSystem to give us inputs' and self' from flake-parts
-  # which can also be used as a template for nixos hosts with system type and modules to be imported with ease
-  # specialArgs is also defined here to avoid defining them for each host
+  # mkNixSystem is a function that uses withSystem to give us inputs' and self'
+  # it also assumes the the system type either nixos or darwin and uses the appropriate
   mkNixSystem = {
     host,
     modules,
@@ -27,20 +26,25 @@
     }: let
       pkgs = inputs.nixpkgs.legacyPackages.${system};
 
+      # yet another helper function that wraps lib.nixosSystem
+      # or lib.darwinSystem based on the system type
       mkSystem' = ldTernary pkgs mkSystem inputs.darwin.lib.darwinSystem;
+
       # this is used to determin the target system and modules that are going to be needed
       # for this specific system
       target = ldTernary pkgs "nixosConfigurations" "darwinConfigurations";
-      mod = ldTernary pkgs "nixosModules" "darwinModules";
 
-      hm = inputs.home-manager.${mod}.home-manager;
+      mod = getModuleType pkgs;
     in {
       ${target}.${args.host} = mkSystem' {
         inherit system;
         modules =
           [
-            hm
             "${self}/hosts/${args.host}"
+
+            inputs.home-manager.${mod}.home-manager
+            inputs.sops.${mod}.sops
+
             {config.modules.system.hostname = args.host;}
           ]
           ++ args.modules or [];
@@ -48,8 +52,8 @@
       };
     });
 
-  # mkIso is should be a set that extends mkSystem (again) with necessary modules to create an Iso image
-  # don't use mkNixSystem as it is complelty overkill for an iso and will have too much data, we need a light weight image
+  # mkNixosIso is a helper function that wraps mkSystem to create an iso
+  # DO NOT use mkNixSystem here as it is overkill for isos, futhermore we cannot use darwinSystem here
   mkNixosIso = {
     host,
     system,
@@ -65,15 +69,15 @@
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
           "${self}/hosts/${args.host}"
-
-          {config.networking.hostName = args.host;}
         ]
         ++ args.modules or [];
     };
   };
 
+  # mkSystems is a wrapper for mkNixSystem to create a list of systems
   mkSystems = systems: lib.mkMerge (map mkNixSystem systems);
 
+  # mkNixosIsos likewise to mkSystems is a wrapper for mkNixosIso to create a list of isos
   mkNixosIsos = systems: lib.mkMerge (map mkNixosIso systems);
 in {
   inherit mkSystems mkNixosIsos;

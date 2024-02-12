@@ -13,10 +13,14 @@ _: let
     then d
     else throw "Unsupported system: ${pkgs.stdenv.system}";
 
+  # get the module type based on the platform
+  # (getModuleType pkgs) -> nixosModules or darwinModules
+  getModuleType = pkgs: ldTernary pkgs "nixosModules" "darwinModules";
+
   # assume the first monitor in the list of monitors is primary
   # get its name from the list of monitors
   # `primaryMonitor osConfig` -> "DP-1"
   primaryMonitor = config: builtins.elemAt config.modules.device.monitors 0;
 in {
-  inherit isx86Linux primaryMonitor ldTernary;
+  inherit isx86Linux primaryMonitor ldTernary getModuleType;
 }

@@ -13,7 +13,6 @@ in {
 
   users.users.isabel =
     {
-      hashedPasswordFile = config.sops.secrets.user-isabel-password.path;
       openssh.authorizedKeys.keys = keys;
       home = ldTernary pkgs "/home/isabel" "/Users/isabel";
       shell = ldTernary pkgs pkgs.fish pkgs.zsh;
@@ -22,6 +21,7 @@ in {
       ldTernary pkgs {
         isNormalUser = true;
         uid = 1000;
+        hashedPasswordFile = config.sops.secrets.user-isabel-password.path;
         extraGroups =
           [
             "wheel"
