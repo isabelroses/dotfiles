@@ -1,12 +1,13 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: let
   inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals;
   sys = config.modules.system;
 in {
-  config = {
+  config = mkIf pkgs.stdenv.isLinux {
     boot = {
       consoleLogLevel = 0;
 

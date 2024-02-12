@@ -1,6 +1,7 @@
 {
-  config,
   lib,
+  pkgs,
+  config,
   inputs',
   ...
 }: let
@@ -11,7 +12,7 @@ in {
   # disables Nixpkgs Hyprland module to avoid conflicts
   disabledModules = ["programs/hyprland.nix"];
 
-  config = mkIf (isWayland config && env.desktop == "Hyprland") {
+  config = mkIf (isWayland config && env.desktop == "Hyprland" && pkgs.stdenv.isLinux) {
     services.xserver.displayManager.sessionPackages = [inputs'.hyprland.packages.default];
 
     xdg.portal.extraPortals = [

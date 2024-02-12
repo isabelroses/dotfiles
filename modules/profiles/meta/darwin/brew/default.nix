@@ -24,6 +24,7 @@
       masApps = {};
 
       taps = [
+        "homebrew/bundle"
         "homebrew/cask"
       ];
 
@@ -33,7 +34,9 @@
       ];
 
       # `brew install --cask`
-      casks = [];
+      casks = [
+        "zed"
+      ];
     };
   };
 }

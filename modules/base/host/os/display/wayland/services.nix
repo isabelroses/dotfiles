@@ -6,7 +6,7 @@
 }: let
   inherit (lib) mkIf getExe isWayland;
 in {
-  config = mkIf (isWayland config) {
+  config = mkIf (isWayland config && pkgs.stdenv.isLinux) {
     systemd.services.seatd = {
       enable = true;
       description = "Seat management daemon";

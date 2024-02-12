@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./hardware-configuration.nix
     ./mount.nix

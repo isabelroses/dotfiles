@@ -1,13 +1,14 @@
 {
-  config,
   lib,
+  pkgs,
+  config,
   ...
 }: let
   inherit (lib) mkIf isWayland optionalString;
 
   env = config.modules.environment;
 in {
-  config = mkIf (isWayland config) {
+  config = mkIf (isWayland config && pkgs.stdenv.isLinux) {
     environment = {
       etc."greetd/environments".text = mkIf config.services.greetd.enable ''
         ${optionalString (env.desktop == "Hyprland") "Hyprland"}
