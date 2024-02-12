@@ -3,7 +3,7 @@
   withSystem,
   ...
 }: let
-  inherit (lib) mkMerge concatLists mkSystems mkNixosIsos;
+  inherit (lib) mkMerge concatLists mkSystems mkNixosIsos mapNodes;
 
   # modules
   modulePath = ../modules; # the base module path
@@ -98,4 +98,12 @@ in
         specialArgs = sharedArgs;
       }
     ])
+
+    {
+      deploy = {
+        remoteBuild = true;
+        fastConnection = false;
+        nodes = mapNodes ["luz"];
+      };
+    }
   ]
