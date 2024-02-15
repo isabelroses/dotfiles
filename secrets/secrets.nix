@@ -1,11 +1,12 @@
 let
   users.isabel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2 isabel@isabelroses.com";
 
-  # hosts = {
-  #   hydra = "";
-  # };
+  hosts = {
+    # hydra = "";
+    luz = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGHXU5QFwqTAW/3MrHXfeqRlit4VrxhymLLb32RFSZjf";
+  };
 
-  default = [users.isabel];
+  default = [users.isabel hosts.luz];
 in {
   "git-credentials.age".publicKeys = default;
   "wakatime.age".publicKeys = default;
