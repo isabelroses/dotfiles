@@ -9,7 +9,7 @@
     networking = {
       nginx.enable = true;
       cloudflared.enable = false;
-      headscale.enable = true;
+      headscale.enable = false;
     };
 
     dev = {

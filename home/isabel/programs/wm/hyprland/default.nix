@@ -8,6 +8,7 @@
   inherit (osConfig.modules) environment;
 in {
   imports = [./config.nix];
+
   config = lib.mkIf (lib.isWayland osConfig && environment.desktop == "Hyprland") {
     home.packages = with pkgs; [
       grim

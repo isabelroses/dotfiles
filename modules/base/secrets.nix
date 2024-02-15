@@ -129,7 +129,7 @@ in {
           group = "cloudflared";
         };
 
-        cloudflare-cert-api = mkIf services.networking.nginx.enable {
+        cloudflare-cert-api = mkSecret services.networking.nginx.enable {
           file = "cloudflare-cert-api";
           owner = "nginx";
           group = "nginx";
@@ -169,7 +169,7 @@ in {
         };
 
         # vaultwarden
-        vaultwarden-env = mkSecret {
+        vaultwarden-env = mkSecret services.vaultwarden.enable {
           file = "vaultwarden-env";
         };
 

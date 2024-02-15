@@ -1663,18 +1663,16 @@
         "utils": "utils"
       },
       "locked": {
+        "dirtyRev": "9e36323ae3dde787f761420465c3ae560f3dbf29-dirty",
+        "dirtyShortRev": "9e36323-dirty",
         "lastModified": 1706742486,
-        "narHash": "sha256-sv/MISTeD0rqeVivpZJpynboMWJp6i62OmrZX1rGl38=",
-        "owner": "simple-nixos-mailserver",
-        "repo": "nixos-mailserver",
-        "rev": "9e36323ae3dde787f761420465c3ae560f3dbf29",
-        "type": "gitlab"
+        "narHash": "sha256-UKNtMjS833y9tPIPPmJFKWciFA2hG8whqkVFlADUKgk=",
+        "type": "git",
+        "url": "file:///home/isabel/dev/nixos-mailserver"
       },
       "original": {
-        "owner": "simple-nixos-mailserver",
-        "ref": "master",
-        "repo": "nixos-mailserver",
-        "type": "gitlab"
+        "type": "git",
+        "url": "file:///home/isabel/dev/nixos-mailserver"
       }
     },
     "systems": {

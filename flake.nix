@@ -103,7 +103,7 @@
     };
 
     # mailserver on nixos
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+    simple-nixos-mailserver.url = "git+file:///home/isabel/dev/nixos-mailserver";
 
     # remote ssh vscode server
     vscode-server = {
