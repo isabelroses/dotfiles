@@ -6,8 +6,6 @@
 in {
   flake = {
     nixosModules = {
-      internal = mkModule /modules/base;
-
       wakapi = mkModule /modules/extra/nixos/wakapi.nix;
 
       # i do not provide a default module, so throw an error

@@ -50,7 +50,10 @@
       };
     };
 
-    environment.useHomeManager = true;
+    environment = {
+      desktop = null;
+      useHomeManager = true;
+    };
 
     programs = {
       agnostic.git.signingKey = "B4D9D513B1560D99";
