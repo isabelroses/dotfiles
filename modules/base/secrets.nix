@@ -20,10 +20,23 @@
 
   mkSecret = cond: {
     file,
-    path ? "",
     owner ? "root",
     group ? ldTernary pkgs "root" "admin",
     mode ? "400",
+    ...
+  }:
+    mkIf cond {
+      file = "${self}/secrets/${file}.age";
+      inherit owner group mode;
+    };
+
+  mkSecretWithPath = cond: {
+    file,
+    path,
+    owner ? "root",
+    group ? ldTernary pkgs "root" "admin",
+    mode ? "400",
+    ...
   }:
     mkIf cond {
       file = "${self}/secrets/${file}.age";
@@ -45,14 +58,14 @@ in {
 
     secrets = mkMerge [
       {
-        git-credentials = mkSecret true {
+        git-credentials = mkSecretWithPath true {
           file = "git-credentials";
           path = homeDir + "/.git-credentials";
           owner = mainUser;
           group = userGroup;
         };
 
-        wakatime = mkSecret true {
+        wakatime = mkSecretWithPath true {
           file = "wakatime";
           path = homeDir + "/.config/wakatime/.wakatime.cfg";
           owner = mainUser;
@@ -62,25 +75,21 @@ in {
         # git ssh keys
         gh-key = mkSecret true {
           file = "gh-key";
-          path = sshDir + "/github";
           owner = mainUser;
           group = userGroup;
         };
         gh-key-pub = mkSecret true {
           file = "gh-key-pub";
-          path = sshDir + "/github.pub";
           owner = mainUser;
           group = userGroup;
         };
         aur-key = mkSecret true {
           file = "aur-key";
-          path = sshDir + "/aur";
           owner = mainUser;
           group = userGroup;
         };
         aur-key-pub = mkSecret true {
           file = "aur-key-pub";
-          path = sshDir + "/aur.pub";
           owner = mainUser;
           group = userGroup;
         };
@@ -88,25 +97,23 @@ in {
         # ORACLE vps'
         openvpn-key = mkSecret true {
           file = "openvpn-key";
-          path = sshDir + "/openvpn";
           owner = mainUser;
           group = userGroup;
         };
         amity-key = mkSecret true {
           file = "amity-key";
-          path = sshDir + "/amity";
           owner = mainUser;
           group = userGroup;
         };
 
         # All nixos machines
-        nixos-key = mkSecret true {
+        nixos-key = mkSecretWithPath true {
           file = "nixos-key";
           path = sshDir + "/id_ed25519";
           owner = mainUser;
           group = userGroup;
         };
-        nixos-key-pub = mkSecret true {
+        nixos-key-pub = mkSecretWithPath true {
           file = "nixos-key-pub";
           path = sshDir + "/id_ed25519.pub";
           owner = mainUser;
