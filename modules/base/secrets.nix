@@ -20,13 +20,13 @@
 
   mkSecret = cond: {
     file,
-    path,
+    path ? "",
     owner ? "root",
     group ? ldTernary pkgs "root" "admin",
     mode ? "400",
   }:
     mkIf cond {
-      file = "${self}/secrets/${file}";
+      file = "${self}/secrets/${file}.age";
       inherit path owner group mode;
     };
 in {
@@ -46,14 +46,14 @@ in {
     secrets = mkMerge [
       {
         git-credentials = mkSecret true {
-          file = "git-credentials.age";
+          file = "git-credentials";
           path = homeDir + "/.git-credentials";
           owner = mainUser;
           group = userGroup;
         };
 
         wakatime = mkSecret true {
-          file = "wakatime.age";
+          file = "wakatime";
           path = homeDir + "/.config/wakatime/.wakatime.cfg";
           owner = mainUser;
           group = userGroup;
@@ -61,25 +61,25 @@ in {
 
         # git ssh keys
         gh-key = mkSecret true {
-          file = "gh-key.age";
+          file = "gh-key";
           path = sshDir + "/github";
           owner = mainUser;
           group = userGroup;
         };
         gh-key-pub = mkSecret true {
-          file = "gh-key-pub.age";
+          file = "gh-key-pub";
           path = sshDir + "/github.pub";
           owner = mainUser;
           group = userGroup;
         };
         aur-key = mkSecret true {
-          file = "aur-key.age";
+          file = "aur-key";
           path = sshDir + "/aur";
           owner = mainUser;
           group = userGroup;
         };
         aur-key-pub = mkSecret true {
-          file = "aur-key-pub.age";
+          file = "aur-key-pub";
           path = sshDir + "/aur.pub";
           owner = mainUser;
           group = userGroup;
@@ -87,13 +87,13 @@ in {
 
         # ORACLE vps'
         openvpn-key = mkSecret true {
-          file = "openvpn-key.age";
+          file = "openvpn-key";
           path = sshDir + "/openvpn";
           owner = mainUser;
           group = userGroup;
         };
         amity-key = mkSecret true {
-          file = "amity-key.age";
+          file = "amity-key";
           path = sshDir + "/amity";
           owner = mainUser;
           group = userGroup;
@@ -101,13 +101,13 @@ in {
 
         # All nixos machines
         nixos-key = mkSecret true {
-          file = "nixos-key.age";
+          file = "nixos-key";
           path = sshDir + "/id_ed25519";
           owner = mainUser;
           group = userGroup;
         };
         nixos-key-pub = mkSecret true {
-          file = "nixos-key-pub.age";
+          file = "nixos-key-pub";
           path = sshDir + "/id_ed25519.pub";
           owner = mainUser;
           group = userGroup;
@@ -117,89 +117,89 @@ in {
       # server
       (mkIf (builtins.elem device.type ["server" "hybrid"]) {
         cloudflared-hydra = mkSecret services.networking.cloudflared.enable {
-          file = "cloudflared-hydra.age";
+          file = "cloudflared-hydra";
           owner = "cloudflared";
           group = "cloudflared";
         };
 
         cloudflare-cert-api = mkIf services.networking.nginx.enable {
-          file = "cloudflare-cert-api.age";
+          file = "cloudflare-cert-api";
           owner = "nginx";
           group = "nginx";
         };
 
         # mailserver
-        mailserver-isabel = mkSecret true {file = "mailserver-isabel.age";};
-        mailserver-vaultwarden = mkSecret true {file = "mailserver-vaultwarden.age";};
-        mailserver-database = mkSecret true {file = "mailserver-database.age";};
-        mailserver-grafana = mkSecret true {file = "mailserver-grafana.age";};
-        mailserver-git = mkSecret true {file = "mailserver-git.age";};
-        mailserver-noreply = mkSecret true {file = "mailserver-noreply.age";};
-        mailserver-spam = mkSecret true {file = "mailserver-spam.age";};
+        mailserver-isabel = mkSecret true {file = "mailserver-isabel";};
+        mailserver-vaultwarden = mkSecret true {file = "mailserver-vaultwarden";};
+        mailserver-database = mkSecret true {file = "mailserver-database";};
+        mailserver-grafana = mkSecret true {file = "mailserver-grafana";};
+        mailserver-git = mkSecret true {file = "mailserver-git";};
+        mailserver-noreply = mkSecret true {file = "mailserver-noreply";};
+        mailserver-spam = mkSecret true {file = "mailserver-spam";};
 
         mailserver-grafana-nohash = mkSecret services.monitoring.grafana.enable {
-          file = "mailserver-grafana-nohash.age";
+          file = "mailserver-grafana-nohash";
           owner = "grafana";
           group = "grafana";
         };
 
         mailserver-git-nohash = mkSecret services.dev.forgejo.enable {
-          file = "mailserver-git-nohash.age";
+          file = "mailserver-git-nohash";
           owner = "forgejo";
           group = "forgejo";
         };
 
         vikunja-env = mkSecret services.vikunja.enable {
-          file = "vikunja-env.age";
+          file = "vikunja-env";
           owner = "vikunja-api";
           group = "vikunja-api";
         };
 
         nextcloud-passwd = mkSecret services.media.nextcloud.enable {
-          file = "nextcloud-passwd.age";
+          file = "nextcloud-passwd";
           owner = "nextcloud";
           group = "nextcloud";
         };
 
         # vaultwarden
         vaultwarden-env = mkSecret {
-          file = "vaultwarden-env.age";
+          file = "vaultwarden-env";
         };
 
         # matrix
         matrix = mkSecret services.media.matrix.enable {
-          file = "matrix.age";
+          file = "matrix";
           owner = "matrix-synapse";
         };
 
         # plausable
         plausible-key = mkSecret services.dev.plausible.enable {
-          file = "plausible-key.age";
+          file = "plausible-key";
           owner = "plausible";
           group = "plausible";
         };
 
         plausible-admin = mkSecret services.dev.plausible.enable {
-          file = "plausible-admin.age";
+          file = "plausible-admin";
           owner = "plausible";
           group = "plausible";
         };
 
         #wakapi
         wakapi = mkSecret services.dev.wakapi.enable {
-          file = "wakapi.age";
+          file = "wakapi";
           owner = "wakapi";
           group = "wakapi";
         };
 
         wakapi-mailer = mkSecret services.dev.wakapi.enable {
-          file = "wakapi-mailer.age";
+          file = "wakapi-mailer";
           owner = "wakapi";
           group = "wakapi";
         };
 
         mongodb-passwd = mkSecret services.database.mongodb.enable {
-          file = "mongodb-passwd.age";
+          file = "mongodb-passwd";
         };
       })
     ];

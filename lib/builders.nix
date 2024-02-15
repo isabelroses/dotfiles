@@ -5,7 +5,7 @@
 }: let
   inherit (inputs) self;
 
-  inherit (import ./hardware.nix {inherit lib;}) ldTernary getModuleType;
+  inherit (import ./hardware.nix {inherit lib;}) ldTernary;
 
   # mkSystem is a helper function that wraps lib.nixosSystem
   mkSystem = lib.nixosSystem;
@@ -32,21 +32,19 @@
 
       # this is used to determin the target system and modules that are going to be needed
       # for this specific system
-      target = ldTernary pkgs "nixosConfigurations" "darwinConfigurations";
-
-      mod = getModuleType pkgs;
-
-      # depending on the base operating system we can only use some options therfore these
-      # options means that we can limit these options to only those given operating systems
-      hostOs = ldTernary pkgs "${self}/modules/linux" "${self}/modules/darwin";
+      target = ldTernary pkgs "nixos" "darwin";
     in {
-      ${target}.${args.host} = mkSystem' {
+      "${target}Configurations".${args.host} = mkSystem' {
         inherit system;
         modules =
           [
-            hostOs
+            # depending on the base operating system we can only use some options therfore these
+            # options means that we can limit these options to only those given operating systems
+            "${self}/modules/${target}"
+            inputs.home-manager."${target}Modules".home-manager
+
+            # configrations based on that are imported based hostname
             "${self}/hosts/${args.host}"
-            inputs.home-manager.${mod}.home-manager
             {config.modules.system.hostname = args.host;}
           ]
           ++ args.modules or [];
