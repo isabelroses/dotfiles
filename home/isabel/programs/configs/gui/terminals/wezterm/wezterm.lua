@@ -23,7 +23,7 @@ end
 
 -- shell
 -- fix windows stuff
-if utils.is_linux() then
+if utils.is_linux() or utils.is_darwin() then
   config.default_prog = { "fish", "-l" }
 elseif utils.is_windows() then
   config.launch_menu = {
