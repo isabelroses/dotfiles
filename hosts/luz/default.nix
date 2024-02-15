@@ -15,6 +15,7 @@
       hasBluetooth = false;
       hasSound = false;
     };
+
     system = {
       mainUser = "isabel";
 
@@ -62,6 +63,7 @@
         enable = true;
         modernShell.enable = true;
       };
+
       tui.enable = true;
       gui.enable = false;
     };
