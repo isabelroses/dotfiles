@@ -1,13 +1,9 @@
 {inputs, ...}: {
   imports = [inputs.pre-commit-hooks.flakeModule];
 
-  perSystem = {
-    config,
-    pkgs,
-    ...
-  }: let
+  perSystem = {config, ...}: let
     # don't format these
-    excludes = ["flake.lock" "secrets.yaml"];
+    excludes = ["flake.lock" "*.age"];
 
     mkHook = name: prev:
       {
@@ -29,7 +25,7 @@
           actionlint = mkHook "actionlint" {enable = true;};
           # prettier = mkHook "prettier" {enable = true;};
           commitizen = mkHook "commitizen" {enable = true;};
-          #nil = mkHook "nil" {enable = true;};
+          # nil = mkHook "nil" {enable = true;};
           editorconfig-checker = mkHook "editorconfig" {
             enable = false;
             always_run = true;
