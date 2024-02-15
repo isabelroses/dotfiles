@@ -171,6 +171,8 @@ in {
         # vaultwarden
         vaultwarden-env = mkSecret services.vaultwarden.enable {
           file = "vaultwarden-env";
+          owner = "vaultwarden";
+          group = "vaultwarden";
         };
 
         # matrix
