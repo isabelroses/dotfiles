@@ -14,7 +14,7 @@ in {
     {
       openssh.authorizedKeys.keys = keys;
       home = ldTernary pkgs "/home/isabel" "/Users/isabel";
-      shell = pkgs.fish;
+      shell = pkgs.bash;
     }
     // (
       ldTernary pkgs {
