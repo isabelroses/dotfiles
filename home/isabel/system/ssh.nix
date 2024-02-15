@@ -56,6 +56,12 @@
           // {
             hostname = "10.82.7.9";
           };
+
+        "tatsumaki" =
+          nixSystem
+          // {
+            hostname = "10.82.9.147";
+          };
       };
     };
   };
