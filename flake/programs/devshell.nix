@@ -25,6 +25,7 @@
           deadnix # clean up unused nix code
           self'.formatter # nix formatter
           config.treefmt.build.wrapper # treewide formatter
+          inputs'.agenix.packages.agenix # secrets
           inputs'.deploy-rs.packages.deploy-rs # remote deployment
         ]
         ++ lib.optionals stdenv.isDarwin [inputs'.darwin.packages.darwin-rebuild];

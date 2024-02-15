@@ -1,4 +1,4 @@
-_: {
+{
   # {pkgs, ...}: {
   # home.packages = with pkgs; [cloudflared];
   programs = {
@@ -13,7 +13,7 @@ _: {
         template =
           base
           // {
-            identityFile = "~/.ssh/nixos";
+            identityFile = "~/.ssh/id_ed25519";
           };
       in {
         # git clients
@@ -54,23 +54,8 @@ _: {
         "hydra" =
           template
           // {
-            hostname = "192.168.86.3";
+            hostname = "10.82.7.9";
           };
-
-        /*
-        "alpha" = {
-          hostname = "192.168.86.4";
-          user = "isabel";
-          identityFile = "~/.ssh/alpha";
-        };
-
-        "alpha-remote" = {
-          hostname = "ssh.isabelroses.com";
-          user = "isabel";
-          identityFile = "~/.ssh/alpha";
-          proxyCommand = "cloudflared access ssh --hostname %h";
-        };
-        */
       };
     };
   };

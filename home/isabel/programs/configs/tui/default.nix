@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./btop.nix
     ./lazygit.nix

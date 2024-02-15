@@ -10,7 +10,7 @@
 
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes) {
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.isLinux) {
     xdg.configFile."pipewire/pipewire.conf.d/99-input-denoising.conf" = {
       source = json.generate "99-input-denoising.conf" {
         "context.modules" = [

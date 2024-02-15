@@ -134,11 +134,11 @@
     };
 
     # Secrets, shhh
-    sops = {
-      url = "github:Mic92/sops-nix";
+    agenix = {
+      url = "github:ryantm/agenix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
       };
     };
 

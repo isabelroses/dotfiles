@@ -1,11 +1,9 @@
 {
-  osConfig,
   lib,
+  osConfig,
   ...
-}: let
-  acceptedTypes = ["desktop" "laptop" "wsl" "lite" "hybrid"];
-in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && lib.isModernShell osConfig) {
+}: {
+  config = lib.mkIf (lib.isModernShell osConfig) {
     programs.tealdeer = {
       enable = true;
       settings = {
@@ -13,7 +11,8 @@ in {
           compact = false;
           use_pager = true;
         };
-        updates.auto_update = true;
+
+        updates.auto_update = false;
       };
     };
   };

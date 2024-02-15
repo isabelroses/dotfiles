@@ -1,58 +1,9 @@
 {
   config.modules = {
-    device = {
-      type = "";
-      cpu = "";
-      gpu = null;
-      monitors = [];
-      hasTPM = true;
-      hasBluetooth = true;
-      hasSound = false;
-    };
+    device.type = "laptop";
 
     system = {
       mainUser = "isabel";
-
-      boot = {
-        plymouth.enable = false;
-        loader = "none";
-        secureBoot = false;
-        enableKernelTweaks = false;
-        initrd.enableTweaks = false;
-        loadRecommendedModules = false;
-        tmpOnTmpfs = false;
-      };
-
-      fs = [];
-      video.enable = true;
-      sound.enable = true;
-      bluetooth.enable = true;
-      printing.enable = false;
-      yubikeySupport.enable = true;
-
-      security = {
-        fixWebcam = false;
-        auditd.enable = false;
-      };
-
-      networking = {
-        optimizeTcp = true;
-
-        wirelessBackend = "none";
-
-        tailscale = {
-          enable = false;
-          isClient = false;
-        };
-      };
-
-      virtualization = {
-        enable = false;
-        docker.enable = false;
-        qemu.enable = false;
-        podman.enable = false;
-        distrobox.enable = false;
-      };
     };
 
     environment = {
@@ -61,7 +12,17 @@
     };
 
     programs = {
-      agnostic.git.signingKey = "7AFB9A49656E69F7";
+      agnostic = {
+        git.signingKey = "5A87C993E20D89A1";
+
+        editors = {
+          neovim.enable = true;
+          vscode.enable = false;
+          micro.enable = false;
+        };
+
+        wine.enable = false;
+      };
 
       cli = {
         enable = true;
@@ -71,17 +32,50 @@
       tui.enable = true;
 
       gui = {
-        enable = true;
+        enable = false;
 
-        kdeconnect.enable = false;
+        zathura.enable = false;
+        discord.enable = true;
 
-        terminals.wezterm.enable = true;
+        kdeconnect = {
+          enable = false;
+          indicator.enable = false;
+        };
 
-        zathura.enable = true;
-      };
+        launchers = {
+          rofi.enable = false;
+          wofi.enable = false;
+        };
 
-      defaults = {
-        terminal = "wezterm";
+        bars = {
+          ags.enable = false;
+          eww.enable = false;
+          waybar.enable = false;
+        };
+
+        browsers = {
+          chromium = {
+            enable = false;
+            ungoogled = false;
+          };
+
+          firefox = {
+            enable = false;
+            schizofox = false;
+          };
+        };
+
+        terminals = {
+          kitty.enable = false;
+          alacritty.enable = false;
+          wezterm.enable = true;
+        };
+
+        fileManagers = {
+          thunar.enable = false;
+          dolphin.enable = false;
+          nemo.enable = false;
+        };
       };
     };
   };

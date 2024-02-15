@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./gnome.nix
     ./location.nix

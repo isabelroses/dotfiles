@@ -12,7 +12,9 @@ require("bar").apply_to_config(config)
 
 if utils.is_linux() then
   config.window_background_opacity = 0.90
-else
+elseif utils.is_darwin() then
+  config.window_background_opacity = 0.95
+elseif utils.is_windows() then
   config.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\wallhaven-qzp8dr.png"
   config.window_background_image_hsb = {
     brightness = 0.03, -- make the bg darker so we can see what we are doing

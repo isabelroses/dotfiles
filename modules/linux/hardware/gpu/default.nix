@@ -1,0 +1,7 @@
+{
+  imports = [
+    ./intel
+    ./nvidia
+    ./amd
+  ];
+}

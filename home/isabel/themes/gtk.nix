@@ -1,6 +1,6 @@
 {
-  pkgs,
   lib,
+  pkgs,
   config,
   osConfig,
   ...
@@ -8,11 +8,10 @@
   inherit (lib) mkIf boolToNum;
   inherit (osConfig.modules) device;
   cfg = osConfig.modules.style;
-  sys = osConfig.modules.system;
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
+  config = mkIf (builtins.elem device.type acceptedTypes && pkgs.stdenv.isLinux) {
     xdg.systemDirs.data = let
       schema = pkgs.gsettings-desktop-schemas;
     in ["${schema}/share/gsettings-schemas/${schema.name}"];

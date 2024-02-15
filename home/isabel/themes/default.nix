@@ -4,9 +4,4 @@
     ./qt.nix
     ./global.nix
   ];
-
-  config.catppuccin = {
-    flavour = "mocha";
-    accent = "sapphire";
-  };
 }

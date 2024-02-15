@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./cli # command line interface app confurations
     ./editors # text editor / IDE configurations

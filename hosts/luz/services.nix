@@ -1,9 +1,10 @@
-_: {
+{
   modules.services = {
     vaultwarden.enable = true;
     isabelroses-website.enable = true;
     vikunja.enable = true;
     kanidm.enable = true;
+    mailserver.enable = true;
 
     networking = {
       nginx.enable = true;
@@ -22,11 +23,6 @@ _: {
     media = {
       matrix.enable = true;
       nextcloud.enable = true;
-    };
-
-    mailserver = {
-      enable = true;
-      rspamd-web.enable = false;
     };
 
     monitoring = {

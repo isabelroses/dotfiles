@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./bash.nix # bash configurations
     ./fish.nix # fish configurations

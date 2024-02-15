@@ -1,7 +1,7 @@
 {
   lib,
-  config,
   pkgs,
+  config,
   ...
 }: let
   inherit (pkgs.stdenv) isLinux;
@@ -57,7 +57,7 @@
 
   template = import lib.template.xdg "home-manager";
 in {
-  home.packages = with pkgs; [xdg-utils];
+  home.packages = with pkgs; lib.mkIf isLinux [xdg-utils];
   xdg = {
     enable = true;
 
@@ -66,8 +66,8 @@ in {
     dataHome = "${config.home.homeDirectory}/.local/share";
     stateHome = "${config.home.homeDirectory}/.local/state";
 
-    userDirs = {
-      enable = isLinux;
+    userDirs = lib.mkIf isLinux {
+      enable = true;
       createDirectories = true;
 
       documents = "${config.home.homeDirectory}/documents";

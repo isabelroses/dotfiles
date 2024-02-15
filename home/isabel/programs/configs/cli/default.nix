@@ -1,10 +1,11 @@
-_: {
+{
   imports = [
     ./shells
 
     ./atuin.nix
     ./bat.nix
     ./bellado.nix
+    ./direnv.nix
     ./eza.nix
     ./fzf.nix
     ./git.nix

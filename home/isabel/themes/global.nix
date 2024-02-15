@@ -1,18 +1,25 @@
 {
-  osConfig,
+  lib,
+  pkgs,
   inputs,
+  osConfig,
   ...
 }: let
   cfg = osConfig.modules.style;
 in {
   imports = [inputs.catppuccin.homeManagerModules.catppuccin];
 
-  # pointer / cursor theming
-  home.pointerCursor = {
-    name = cfg.pointerCursor.name;
-    package = cfg.pointerCursor.package;
-    size = cfg.pointerCursor.size;
-    gtk.enable = true;
-    x11.enable = true;
+  config = {
+    catppuccin = {
+      flavour = "mocha";
+      accent = "sapphire";
+    };
+
+    # pointer / cursor theming
+    home.pointerCursor = lib.mkIf pkgs.stdenv.isLinux {
+      inherit (cfg.pointerCursor) name package size;
+      gtk.enable = true;
+      x11.enable = true;
+    };
   };
 }

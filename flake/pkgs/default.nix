@@ -1,4 +1,4 @@
-_: {
+{
   perSystem = {
     pkgs,
     inputs',
@@ -7,7 +7,7 @@ _: {
     packages = let
       docs = pkgs.callPackage ../../docs {};
     in {
-      # docs-md = docs.md;
+      docs-md = docs.md;
       docs-html = docs.html;
 
       lutgen-rs = pkgs.callPackage ./lutgen-rs.nix {};

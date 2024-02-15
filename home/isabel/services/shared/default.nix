@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./kdeconnect.nix
     ./nextcloud.nix

@@ -1,9 +1,16 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  inherit (lib) ldTernary;
+in {
   home.packages = [pkgs.hyfetch];
+
   xdg.configFile = {
     "neofetch/config.conf".text = ''
       print_info() {
-      prin " \n \n ╭───────┤ $(color 5) NixOS $(color 15)├───────╮"
+      prin " \n \n ╭───────┤ $(color 5)${ldTernary pkgs " NixOS" " MacOS"} $(color 15)├───────╮"
       info " " kernel
       info " " wm
       info " " shell
@@ -34,10 +41,10 @@
       separator=""
 
       image_backend="ascii" # ascii kitty iterm2
-      image_source="/home/demeter/.config/neofetch/image.png" # auto /path/to/img /path/to/ascii
+      image_source=${ldTernary pkgs "/home/isabel/media/pictures" "/Users/isabel/Pictures"}/pfps/avatar # auto /path/to/img /path/to/ascii
       image_size="200px" # auto 00px 00% none
 
-      ascii_distro="NixOS_small"
+      ascii_distro=${ldTernary pkgs "NixOS" "Mac"}_small
       ascii_colors=(distro)
       ascii_bold="on"
 

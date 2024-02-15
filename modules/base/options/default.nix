@@ -2,11 +2,9 @@
   imports = [
     ./device
     ./programs
+    ./themes
     ./services
     ./system
-    ./themes
     ./environment
-
-    ./changed.nix
   ];
 }

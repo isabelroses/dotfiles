@@ -1,9 +1,11 @@
 {
   imports = [
-    ./host # host configurations
-    ./gaming # super cool procrastinations related things
-    ./options # options module, these allow for quick configuration
-    ./secrets # shhh
-    ./services # allows for per-system system services to be enabled
+    ./activation # activation system for nixos-rebuild
+    ./environment # basic system enviroment configuration i.e. shell aliases and environment variables
+    ./nix # all nix related configurations
+    ./options # options that occur on all systems
+    ./users # users of the machine
+
+    ./secrets.nix # shhh
   ];
 }

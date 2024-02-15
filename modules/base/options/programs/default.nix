@@ -41,6 +41,7 @@ in {
       enable = mkEnableOption "Enable GUI programs";
 
       zathura.enable = mkEnableOption "Enable zathura PDF reader";
+      discord.enable = mkEnableOption "Enable the discord client";
 
       kdeconnect = {
         enable = mkEnableOption "Enable kdeconnect";

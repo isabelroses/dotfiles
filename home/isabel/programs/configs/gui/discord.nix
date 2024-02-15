@@ -1,28 +1,33 @@
 {
-  osConfig,
   lib,
   pkgs,
+  osConfig,
   ...
-}: let
-  inherit (osConfig.modules.system) video;
-  acceptedTypes = ["laptop" "desktop" "hybrid"];
-in {
-  config = lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable && video.enable) {
-    home.packages = with pkgs; [
-      ((discord.override {
-          nss = pkgs.nss_latest;
+}: {
+  config = lib.mkIf osConfig.modules.programs.gui.discord.enable {
+    home.packages =
+      lib.ldTernary pkgs
+      [
+        ((pkgs.discord.override {
+            nss = pkgs.nss_latest;
+            withOpenASAR = true;
+            withVencord = true;
+            withTTS = false;
+          })
+          .overrideAttrs (old: {
+            libPath = old.libPath + ":${pkgs.libglvnd}/lib";
+            nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.makeWrapper];
+
+            postFixup = ''
+              wrapProgram $out/opt/Discord/Discord --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland}}"
+            '';
+          }))
+      ]
+      [
+        (pkgs.discord.override {
           withOpenASAR = true;
           withVencord = true;
-          withTTS = false;
         })
-        .overrideAttrs (old: {
-          libPath = old.libPath + ":${pkgs.libglvnd}/lib";
-          nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.makeWrapper];
-
-          postFixup = ''
-            wrapProgram $out/opt/Discord/Discord --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland}}"
-          '';
-        }))
-    ];
+      ];
   };
 }

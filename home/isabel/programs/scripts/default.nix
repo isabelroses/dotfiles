@@ -8,6 +8,7 @@
   home = {
     sessionPath = [
       "${config.home.homeDirectory}/.local/bin"
+      "/etc/profiles/per-user/isabel/bin" # needed for darwin
     ];
 
     file = {

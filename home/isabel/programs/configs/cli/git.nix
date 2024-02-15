@@ -25,7 +25,7 @@ in {
       # github cli
       gh = {
         enable = true;
-        gitCredentialHelper.enable = false; # i use sops for this anyways
+        gitCredentialHelper.enable = false; # i use agenix for this anyways
         extensions = with pkgs; [
           gh-cal # github activity stats in the CLI
           gh-dash # dashboard with pull requests and issues

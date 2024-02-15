@@ -35,16 +35,18 @@
       target = ldTernary pkgs "nixosConfigurations" "darwinConfigurations";
 
       mod = getModuleType pkgs;
+
+      # depending on the base operating system we can only use some options therfore these
+      # options means that we can limit these options to only those given operating systems
+      hostOs = ldTernary pkgs "${self}/modules/linux" "${self}/modules/darwin";
     in {
       ${target}.${args.host} = mkSystem' {
         inherit system;
         modules =
           [
+            hostOs
             "${self}/hosts/${args.host}"
-
             inputs.home-manager.${mod}.home-manager
-            inputs.sops.${mod}.sops
-
             {config.modules.system.hostname = args.host;}
           ]
           ++ args.modules or [];

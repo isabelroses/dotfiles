@@ -1,7 +1,7 @@
 {
+  lib,
   config,
   osConfig,
-  lib,
   ...
 }: {
   programs.starship = {
@@ -50,7 +50,7 @@
         ".config" = " ";
       };
       os = {
-        disabled = true;
+        # disabled = true;
         style = "bold white";
         format = "[$symbol]($style)";
       };

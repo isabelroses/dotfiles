@@ -8,7 +8,7 @@
   # modules
   modulePath = ../modules; # the base module path
 
-  # base modules, are the base of this system configuration and are shared across all systems (so the basics)
+  # base modules, is the base of this system configuration and are shared across all systems (so the basics)
   base = modulePath + /base;
 
   # profiles module, these are sensible defaults for given hardware sets
@@ -19,19 +19,18 @@
 
   # hardware profiles
   laptop = hardwareProfilesPath + /laptop; # for laptop type configurations
-  # desktop = hardwareProfilesPath + /desktop; # for desktop type configurations
+  desktop = hardwareProfilesPath + /desktop; # for desktop type configurations
   server = [(hardwareProfilesPath + /server) headless]; # for server type configurations
   wsl = [(hardwareProfilesPath + /wsl) headless]; # for wsl systems
 
   # meta profiles
   workstation = metaProfilesPath + /workstation; # for server type configurations
   headless = metaProfilesPath + /headless; # for headless systems
-  darwin = metaProfilesPath + /darwin; # for darwin systems (macOS)
 
   # home-manager
   homes = ../home; # home-manager configurations
 
-  # a list of shared modules
+  # a list of shared modules, that means they need to be in almost all configs
   shared = [base homes];
 
   # extra specialArgs that are on all machines
@@ -58,7 +57,7 @@ in
         system = "x86_64-linux";
         modules =
           [
-            # desktop
+            desktop
             workstation
           ]
           ++ concatLists [shared];
@@ -85,7 +84,7 @@ in
         host = "tatsumaki";
         inherit withSystem;
         system = "aarch64-darwin";
-        modules = [workstation] ++ concatLists [darwin shared];
+        modules = concatLists [shared];
         specialArgs = sharedArgs;
       }
     ])

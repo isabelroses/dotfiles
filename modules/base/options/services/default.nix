@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) mkEnableOption mkOption types mkMerge mapAttrs;
+  inherit (lib) mkEnableOption mkOption types mapAttrs;
 
   rdomain = "isabelroses.com";
 
@@ -52,13 +52,7 @@ in {
         domain = "sso.${rdomain}";
       };
 
-      mailserver = {
-        domain = "mail.${rdomain}";
-
-        extraConfig = {
-          rspamd-web.enable = mkEnableOption "Enable rspamd web ui";
-        };
-      };
+      mailserver.domain = "mail.${rdomain}";
     }
     // {
       dev = mapAttrs mkServiceOption {

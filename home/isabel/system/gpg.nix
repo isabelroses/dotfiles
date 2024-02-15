@@ -1,16 +1,13 @@
 {
   lib,
   pkgs,
-  inputs,
   config,
   osConfig,
   ...
 }: let
   inherit (osConfig.modules.system) video;
 in {
-  imports = [inputs.sops.homeManagerModules.sops];
-
-  services.gpg-agent = {
+  services.gpg-agent = lib.mkIf pkgs.stdenv.isLinux {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;
     enableFishIntegration = config.programs.fish.enable;
@@ -29,8 +26,6 @@ in {
 
   # Allow manually restarting gpg-agent if it fails
   systemd.user.services.gpg-agent.Unit.RefuseManualStart = lib.mkForce false;
-
-  sops.gnupg.home = config.programs.gpg.homedir;
 
   programs.gpg = {
     enable = true;

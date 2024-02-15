@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     ./env.nix
     ./gpg.nix

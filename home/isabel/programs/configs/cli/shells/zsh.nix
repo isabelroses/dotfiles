@@ -3,7 +3,7 @@
     enable = pkgs.stdenv.isDarwin;
 
     enableAutosuggestions = true;
-    enableCompletion = true;
+    # enableCompletion = true;
     syntaxHighlighting.enable = true;
 
     dotDir = ".config/zsh";

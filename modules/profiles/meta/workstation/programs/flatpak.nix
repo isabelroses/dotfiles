@@ -1,4 +1,4 @@
-_: {
+{
   # enable flatpak
   services.flatpak.enable = true;
 

@@ -21,6 +21,11 @@
       specialArgs = {inherit pkgs;};
     };
 
+  gitHubDeclaration = user: repo: subpath: {
+    url = "https://github.com/${user}/${repo}/blob/main/${subpath}";
+    name = subpath;
+  };
+
   mkDoc = name: options: let
     doc = pkgs.nixosOptionsDoc {
       options = filterAttrs (n: _: n != "_module") options;
@@ -32,12 +37,7 @@
             map
             (decl:
               if lib.hasPrefix (toString ../.) (toString decl)
-              then let
-                subpath = removePrefix "/" (removePrefix (toString ../.) (toString decl));
-              in {
-                url = "https://github.com/isabelroses/dotfiles/tree/main/${subpath}";
-                name = subpath;
-              }
+              then gitHubDeclaration "isabelroses" "dotfiles" (removePrefix "/" (removePrefix (toString ../.) (toString decl)))
               else decl)
             opt.declarations;
         };
@@ -54,9 +54,23 @@
   convert = md:
     pkgs.runCommand "isabelroses-dotfiles.html" {nativeBuildInputs = with pkgs; [pandoc texinfo];} ''
       mkdir $out
-      cp ${./pandoc.css} style.css
-      pandoc -o file.texi ${builtins.concatStringsSep " " md}
-      texi2any ./file.texi --html --split=chapter --css-include=./style.css --document-language=en -o $out
+
+      pandoc \
+        --from markdown \
+        --to texinfo \
+        -o file.texi \
+        ${builtins.concatStringsSep " " md}
+
+      sed -i "s/@top Top/@top isabelroses' modules/" file.texi
+
+      texi2any ./file.texi \
+        --html \
+        --split=chapter \
+        --css-include=${./pandoc.css} \
+        --document-language=en \
+        -o $out
+
+      substituteInPlace $out/index.html --replace "Top (isabelroses&rsquo; modules)" "isabelroses&rsquo; modules"
     '';
 
   modulesPath = ../modules;
@@ -73,5 +87,19 @@
   hm = mkDoc "home-manager" hmEval.options;
 in {
   html = convert [nixos darwin hm];
-  md = pkgs.linkFarm "md" (lib.mapAttrsToList (name: path: {inherit name path;}) ["nixos" "darwin" "hm"]);
+
+  md = pkgs.linkFarm "md" [
+    {
+      name = "nixos";
+      path = extraModulesPath + /nixos;
+    }
+    {
+      name = "darwin";
+      path = extraModulesPath + /darwin;
+    }
+    {
+      name = "home-manager";
+      path = extraModulesPath + /home-manager;
+    }
+  ];
 }

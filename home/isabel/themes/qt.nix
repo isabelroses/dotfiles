@@ -1,17 +1,16 @@
 {
-  pkgs,
   lib,
+  pkgs,
   osConfig,
   ...
 }: let
   inherit (lib) mkIf optionals;
   inherit (osConfig.modules) device;
-  sys = osConfig.modules.system;
   cfg = osConfig.modules.style;
 
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
-  config = mkIf (builtins.elem device.type acceptedTypes && sys.video.enable) {
+  config = mkIf (builtins.elem device.type acceptedTypes && pkgs.stdenv.isLinux) {
     xdg.configFile = {
       "kdeglobals".source = cfg.qt.kdeglobals.source;
 
