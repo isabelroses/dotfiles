@@ -6,15 +6,11 @@
       enable = true;
       hashKnownHosts = true;
       compression = true;
+
       matchBlocks = let
-        base = {
-          user = "isabel";
+        nixSystem = {
+          identityFile = secrets.nixos-key.path;
         };
-        nixSystem =
-          base
-          // {
-            identityFile = secrets.nixos-key.path;
-          };
       in {
         # git clients
         "aur.archlinux.org" = {
@@ -36,12 +32,10 @@
           identityFile = secrets.openvpn-key.path;
         };
 
-        "amity" =
-          base
-          // {
-            hostname = "143.47.240.116";
-            identityFile = secrets.amity-key.path;
-          };
+        "amity" = {
+          hostname = "143.47.240.116";
+          identityFile = secrets.amity-key.path;
+        };
 
         # hetzner cloud vps
         "luz" =
