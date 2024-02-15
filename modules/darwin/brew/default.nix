@@ -33,6 +33,7 @@
       # `brew install --cask`
       casks = [
         "zed"
+        "raycast"
       ];
     };
   };
