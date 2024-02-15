@@ -34,9 +34,10 @@
       sudo yabai --load-sa
 
       ${ignored ["JetBrains Toolbox" "Sip" "iStat Menus"]}
-      ${unmanaged ["Steam" "System Settings"]}
+      ${unmanaged ["Steam"]}
       yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
       yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+      yabai -m rule --add label="Arc" app="^Arc$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance|[Bb]itwarden)$" manage=off
 
       # etc.
       ${rule} manage=off app="CleanShot"
