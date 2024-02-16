@@ -1,6 +1,5 @@
 {
   lib,
-  self,
   withSystem,
   ...
 }: let
@@ -77,6 +76,7 @@ in
         host = "luz";
         inherit withSystem;
         system = "x86_64-linux";
+        deployable = true;
         modules = concatLists [server shared];
         specialArgs = sharedArgs;
       }
@@ -98,18 +98,4 @@ in
         specialArgs = sharedArgs;
       }
     ])
-
-    {
-      images = {
-        lilith = self.nixosConfigurations.lilith.config.system.build.isoImage;
-      };
-    }
-
-    {
-      deploy = {
-        remoteBuild = true;
-        fastConnection = false;
-        nodes = mapNodes ["luz"];
-      };
-    }
   ]

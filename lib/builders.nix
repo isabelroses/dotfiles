@@ -14,6 +14,7 @@
   # it also assumes the the system type either nixos or darwin and uses the appropriate
   mkNixSystem = {
     host,
+    deployable ? false,
     modules,
     system,
     withSystem,
@@ -35,7 +36,7 @@
       target = ldTernary pkgs "nixos" "darwin";
     in {
       "${target}Configurations".${args.host} = mkSystem' {
-        inherit system;
+        inherit (args) system;
         modules =
           [
             # depending on the base operating system we can only use some options therfore these
@@ -50,6 +51,16 @@
           ++ args.modules or [];
         specialArgs = {inherit lib inputs self inputs' self';} // args.specialArgs or {};
       };
+
+      # deploy-rs allows us to deploy to a remote system
+      # this is will enabled hosts if they are deployable
+      deploy.nodes.${args.host} = lib.mkIf args.deployable {
+        hostname = args.host;
+        skipChecks = true;
+        sshUser = "root";
+        user = "root";
+        profiles.system.path = inputs.deploy-rs.lib.${system}.activate.nixos self.nixosConfigurations.${args.host};
+      };
     });
 
   # mkNixosIso is a helper function that wraps mkSystem to create an iso
@@ -61,7 +72,7 @@
     ...
   } @ args: {
     nixosConfigurations.${args.host} = mkSystem {
-      inherit system;
+      inherit (args) system;
       specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
       modules =
         [
@@ -72,6 +83,8 @@
         ]
         ++ args.modules or [];
     };
+
+    images.${args.host} = self.nixosConfigurations.${args.host}.config.system.build.isoImage;
   };
 
   # mkSystems is a wrapper for mkNixSystem to create a list of systems

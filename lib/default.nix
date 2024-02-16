@@ -14,7 +14,6 @@
     (func defaultArgs) // functor;
 
   builders = import' ./builders.nix {inherit inputs;};
-  deployments = import' ./deployments.nix;
   services = import' ./services.nix;
   validators = import' ./validators.nix;
   helpers = import' ./helpers.nix;
@@ -25,6 +24,6 @@
 
   # recursively merges two attribute sets
   mergeRecursively = lhs: rhs: recursiveUpdate lhs rhs;
-  importedLibs = [builders deployments services validators helpers hardware template];
+  importedLibs = [builders services validators helpers hardware template];
 in
   lib.extend (_: _: foldl mergeRecursively {} importedLibs)
