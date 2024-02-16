@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   withSystem,
   ...
 }: let
@@ -97,6 +98,12 @@ in
         specialArgs = sharedArgs;
       }
     ])
+
+    {
+      images = {
+        lilith = self.nixosConfigurations.lilith.config.system.build.isoImage;
+      };
+    }
 
     {
       deploy = {
