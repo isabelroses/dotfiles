@@ -1,4 +1,3 @@
-# All credits to @nekowinston for this script
 # modfied from https://github.com/nekowinston/nur/blob/49cfefd3c252f4c56725df01f817d1a8b93447d8/docs/default.nix
 {
   lib,
@@ -88,7 +87,7 @@
         --document-language=en \
         -o $out
 
-      substituteInPlace $out/index.html --replace "Top (isabelroses&rsquo; modules)" "isabelroses&rsquo; modules"
+      substituteInPlace $out/index.html --replace-quiet "Top (isabelroses&rsquo; modules)" "isabelroses&rsquo; modules"
     '';
 
   modulesPath = ../modules;
