@@ -1,11 +1,11 @@
-{
+{self, ...}: {
   perSystem = {
     pkgs,
     inputs',
     ...
   }: {
     packages = let
-      docs = pkgs.callPackage ../../docs {};
+      docs = pkgs.callPackage ../../docs {inherit self;};
     in {
       docs-md = docs.md;
       docs-html = docs.html;
