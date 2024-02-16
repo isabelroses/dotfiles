@@ -3,7 +3,7 @@
 
   perSystem = {config, ...}: let
     # don't format these
-    excludes = ["flake.lock" "*.age"];
+    excludes = ["flake.lock" "r'.+\.age$'"];
 
     mkHook = name: prev:
       {
