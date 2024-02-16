@@ -9,11 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4.1.0
-
-      - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v26
+      - name: Prepare Environment
+        uses: ./.github/runners/common.yml
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update Lockfile
         uses: DeterminateSystems/update-flake-lock@main

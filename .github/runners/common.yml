@@ -1,0 +1,28 @@
+name: Common
+
+on:
+  workflow_call:
+    inputs:
+      platform:
+        default: "ubuntu-latest"
+        required: false
+        type: string
+      github_token:
+        required: true
+
+jobs:
+  common:
+    runs-on: ${{ inputs.platform }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ inputs.github_token }}
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          logger: pretty
+
+      - name: Nix Magic Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main

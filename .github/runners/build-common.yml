@@ -1,0 +1,26 @@
+name: Build Common
+
+on:
+  workflow_call:
+    inputs:
+      platform:
+        default: "ubuntu-latest"
+        required: false
+        type: string
+      github_token:
+        required: true
+
+jobs:
+  build-common:
+      - name: Maximize Space
+        uses: easimon/maximize-build-space@v10
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-haskell: true
+
+      - name: Common
+        uses: ./.github/runners/common.yml
+        with:
+          github_token: ${{ inputs.GITHUB_TOKEN }}

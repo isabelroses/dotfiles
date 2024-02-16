@@ -15,11 +15,10 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install nix
-        uses: cachix/install-nix-action@v25
+      - name: Prepare Environment
+        uses: ./.github/runners/common.yml
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Linux packages
         run: "nix build -L .#docs-html"
