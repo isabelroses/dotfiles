@@ -2,6 +2,11 @@
 #  Incomplete list of macOS `defaults` commands: https://macos-defaults.com/
 {
   system.defaults = {
+    loginwindow = {
+      GuestEnabled = false; # disable guest user
+      SHOWFULLNAME = false; # show full name in login window
+    };
+
     menuExtraClock = {
       Show24Hour = true; # show 12 hour clock
       IsAnalog = false; # show digital clock
@@ -16,9 +21,16 @@
 
     dock = {
       autohide = true;
-      autohide-delay = null; # autohide delay
-      autohide-time-modifier = null; # autohide animation duration
+      autohide-delay = 0.0; # autohide delay
+      autohide-time-modifier = 1.0; # autohide animation duration
+
+      orientation = "bottom"; # dock position
+      tilesize = 50; # dock icon size
+
+      static-only = false; # show running apps
       show-recents = false; # disable recent apps
+      showhidden = false; # show hidden apps
+      mru-spaces = false; # disable recent spaces
 
       # customize Hot Corners
       # wvous-tl-corner = 2; # top-left - Mission Control
@@ -48,10 +60,11 @@
       "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
       "com.apple.sound.beep.volume" = null; # disable beep sound
       "com.apple.keyboard.fnState" = true; # use function keys as standard function keys
+
       AppleInterfaceStyle = "Dark"; # dark mode
       AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
-      ApplePressAndHoldEnabled = true; # enable press and hold
 
+      ApplePressAndHoldEnabled = true; # enable press and hold
       # If you press and hold certain keyboard keys when in a text area, the key’s character begins to repeat.
       # This is very useful for vim users, they use `hjkl` to move cursor.
       # sets how long it takes before it starts repeating.

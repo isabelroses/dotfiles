@@ -49,9 +49,4 @@
     # Prevent Photos from opening automatically when devices are plugged in
     "com.apple.ImageCapture".disableHotPlug = true;
   };
-
-  # loginwindow = {
-  #   GuestEnabled = false; # disable guest user
-  #   SHOWFULLNAME = true; # show full name in login window
-  # };
 }
