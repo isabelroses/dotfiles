@@ -1,0 +1,25 @@
+name: Build and Release ISO Images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 1,15 * *" # Run on the 1st and 15th of every month at 3:00 AM
+
+jobs:
+  build-isos:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prepare Environment
+        uses: ./.github/runners/build-common.yml
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build Lilith Iso
+        shell: bash
+        run: nix build .#images.lilith -o lilith --print-build-logs
+
+      - name: Upload Release Artifacts
+        run: gh release upload --clobber isos ./lilith/iso/*.iso
+        env:
+          GH_TOKEN: ${{ github.token }}
