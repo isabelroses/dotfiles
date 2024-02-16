@@ -10,11 +10,11 @@
 
 <!--toc:start-->
 - [What does this repo provided](#what-does-this-repo-provided)
-  - [Hyprland Shortcuts](#hyprland-shortcuts)
+  - [Shortcuts](#shortcuts)
 - [Config layout](#config-layout)
 - [Install Notes](#install-notes)
-  - [Linux](#linux)
-  - [macOS (WIP)](#macos-wip)
+  - [NixOS](#nixos)
+  - [macOS](#macos)
 - [Some Awesome people](#some-awesome-people)
 <!--toc:end-->
 
@@ -32,21 +32,21 @@
 <details>
 <summary>
 
-#### Hyprland Shortcuts
+#### Shortcuts
 </summary>
 
-| Shortcut                        | What it does               |
-| ------------------------------- | -------------------------- |
-| <kbd>SUPER+RETURN</kbd>         | open terminal              |
-| <kbd>SUPER+B</kbd>              | open browser               |
-| <kbd>SUPER+C</kbd>              | open editor                |
-| <kbd>SUPER+O</kbd>              | open notes                 |
-| <kbd>SUPER+E</kbd>              | open file manager          |
-| <kbd>SUPER+Q</kbd>              | quit                       |
-| <kbd>SUPER+D</kbd>              | launcher                   |
-| <kbd>SUPER+F</kbd>              | full screen                |
-| <kbd>SUPER+[number]</kbd>       | open workspace [number]    |
-| <kbd>SUPER+SHIFT+[number]</kbd> | move to workspace [number] |
+| SKHD Shortcut                   | Hyprland Shortcut               | What it does               |
+| ------------------------------- | ------------------------------- | -------------------------- |
+| <kbd>CMD+RETURN</kbd>           | <kbd>SUPER+RETURN</kbd>         | open terminal              |
+|                                 | <kbd>SUPER+B</kbd>              | open browser               |
+|                                 | <kbd>SUPER+C</kbd>              | open editor                |
+|                                 | <kbd>SUPER+O</kbd>              | open notes                 |
+|                                 | <kbd>SUPER+E</kbd>              | open file manager          |
+| <kbd>CMD+Q</kbd>                | <kbd>SUPER+Q</kbd>              | quit                       |
+| <kbd>CMD+D</kbd>                | <kbd>SUPER+D</kbd>              | launcher                   |
+|                                 | <kbd>SUPER+F</kbd>              | full screen                |
+| <kbd>CMD+CTRL+[number]</kbd>    | <kbd>SUPER+[number]</kbd>       | open workspace [number]    |
+| <kbd>CMD+SHIFT+[number]</kbd>   | <kbd>SUPER+SHIFT+[number]</kbd> | move to workspace [number] |
 
 </details>
 
@@ -58,27 +58,33 @@
   - 🐉 [Hydra](../hosts/hydra/) A super mid spec laptop
   - ⚸ [Lilith](../hosts/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
   - 🪄 [Luz](../hosts/luz/) A server configuration for some of my infrastructure
-  - 𖤍 [Valkyrie](../hosts/valkyrie/) A WSL2 machine 
-  - 💮 [Tatsumaki](../hosts/tatsumaki/) A WIP macOS host
+  - 𖤍 [Valkyrie](../hosts/valkyrie/) A WSL2 host, designed to be a development environment on Windows
+  - 💮 [Tatsumaki](../hosts/tatsumaki/) A MacBook Air, configured to last a whole day of university
 - 📚 [lib](../lib/) Useful repeated functions
 - 🧩 [flake](../flake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
 - 📝 [docs](../docs/) Documentation for the configuration which can be found [here](https://isabelroses.github.io/dotfiles/)
 - 🔌 [modules](../modules/)
   - [base](../modules/base/) The base configuration settings, which are common between all systems
-    - [options](../modules/base/options/) Selectable settings that can be used to toggle certain settings
+  - [darwin](../modules/darwin/) Configuration modules for exclusivly darwin systems
+  - [nixos](../modules/nixos/) Configuration modules for exclusivly nixos systems
   - [extra](../modules/extra) Extra configuration modules, for home-manager and Nix Darwin and NixOS
   - [profiles](../modules/profiles/) System type configurations (e.g. laptop, servers, desktop)
 
 ### Install Notes
 
-#### Linux
+#### NixOS
 
-- Install [NixOS](https://nixos.org/download.html)
+- Install [NixOS](https://nixos.org/download)
+  - This can be done by building the [lilith](../hosts/lilith/) iso configuration
+    > `nix build .#images.lilith`
+  - Or following the [manual](https://nixos.org/manual/nixos/stable/index.html#sec-installation)
 - Clone this repository to `~/.config/flake`
 - Run `sudo nixos-rebuild switch --flake ~/.config/flake#<host>`
 
-#### macOS (WIP)
+#### macOS
 
+- Install [Nix](https://nixos.org/manual/nixos/stable/index.html#sec-installation) the package manager
+  > `sh <(curl -L https://nixos.org/nix/install)`
 - Install [homebrew](https://brew.sh/) 
   > `curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash`
 - Exclude nix from time machine backups 
