@@ -3,10 +3,12 @@
   pkgs,
   osConfig,
   ...
-}: {
-  config = lib.mkIf osConfig.modules.programs.gui.discord.enable {
+}: let
+  inherit (lib) mkIf isWayland ldTernary;
+in {
+  config = mkIf osConfig.modules.programs.gui.discord.enable {
     home.packages =
-      lib.ldTernary pkgs
+      ldTernary pkgs
       [
         ((pkgs.discord.override {
             nss = pkgs.nss_latest;
@@ -18,7 +20,7 @@
             libPath = old.libPath + ":${pkgs.libglvnd}/lib";
             nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.makeWrapper];
 
-            postFixup = ''
+            postFixup = mkIf (isWayland osConfig) ''
               wrapProgram $out/opt/Discord/Discord --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland}}"
             '';
           }))
