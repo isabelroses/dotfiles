@@ -23,10 +23,26 @@ jobs:
           - plymouth-theme-catppuccin
 
     steps:
-      - name: Prepare Environment
-        uses: ./.github/runners/build-common.yml
+      - name: Maximize Space
+        uses: easimon/maximize-build-space@v10
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-haskell: true
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          logger: pretty
+
+      - name: Nix Magic Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
       
       - name: Setup cachix
         uses: cachix/cachix-action@v14

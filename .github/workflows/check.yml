@@ -13,10 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Prepare Environment
-        uses: ./.github/runners/common.yml
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          logger: pretty
+
+      - name: Nix Magic Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
       
       - name: Check Flake
         run: nix flake check --accept-flake-config
