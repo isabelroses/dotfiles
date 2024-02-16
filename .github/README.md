@@ -15,7 +15,7 @@
 - [Install Notes](#install-notes)
   - [NixOS](#nixos)
   - [macOS](#macos)
-- [Some Awesome people](#some-awesome-people)
+- [Awesome people/projects](#awesome-peopleprojects)
 <!--toc:end-->
 
 ### What does this repo provided
@@ -74,10 +74,10 @@
 
 #### NixOS
 
-- Install [NixOS](https://nixos.org/download)
-  - This can be done by building the [lilith](../hosts/lilith/) iso configuration
-    > `nix build .#images.lilith`
-  - Or following the [manual](https://nixos.org/manual/nixos/stable/index.html#sec-installation)
+- Install [NixOS](https://nixos.org/download), you might need to follow the [manual](https://nixos.org/manual/nixos/stable/index.html#sec-installation)
+  You might want to use the [lilith iso configuration](../hosts/lilith/), provided in this repository
+  - To build it you can run `nix build .#images.lilith`.
+  - Or you can download it from the [release page](https://github.com/isabelroses/dotfiles/releases/tag/isos).
 - Clone this repository to `~/.config/flake`
 - Run `sudo nixos-rebuild switch --flake ~/.config/flake#<host>`
 
@@ -92,6 +92,6 @@
 - `nix run nix-darwin -- switch --flake ~/.config/flake#<host> --experimental-features "nix-command flakes"`
 - Then good news you can use the `rebuild` alias that exists for the future
 
-### Some Awesome people
+### Awesome people/projects
 
 [NotAShelf](https://github.com/notashelf/nyx) - [numtide/srvos](https://github.com/numtide/srvos) - [nullishamy](https://github.com/nullishamy/derivation-station) - [nekowinston](https://github.com/nekowinston/dotfiles) - [getchoo](https://github.com/getchoo) - [nyxkrage](https://github.com/nyxkrage)
