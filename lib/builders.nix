@@ -20,48 +20,55 @@
     withSystem,
     ...
   } @ args:
-    withSystem system ({
-      inputs',
-      self',
-      ...
-    }: let
-      pkgs = inputs.nixpkgs.legacyPackages.${system};
+    withSystem system (
+      {
+        inputs',
+        self',
+        ...
+      }: let
+        pkgs = inputs.nixpkgs.legacyPackages.${system};
 
-      # yet another helper function that wraps lib.nixosSystem
-      # or lib.darwinSystem based on the system type
-      mkSystem' = ldTernary pkgs mkSystem inputs.darwin.lib.darwinSystem;
+        # yet another helper function that wraps lib.nixosSystem
+        # or lib.darwinSystem based on the system type
+        mkSystem' = ldTernary pkgs mkSystem inputs.darwin.lib.darwinSystem;
 
-      # this is used to determin the target system and modules that are going to be needed
-      # for this specific system
-      target = ldTernary pkgs "nixos" "darwin";
-    in {
-      "${target}Configurations".${args.host} = mkSystem' {
-        inherit (args) system;
-        modules =
-          [
-            # depending on the base operating system we can only use some options therfore these
-            # options means that we can limit these options to only those given operating systems
-            "${self}/modules/${target}"
-            inputs.home-manager."${target}Modules".home-manager
+        # this is used to determin the target system and modules that are going to be needed
+        # for this specific system
+        target = ldTernary pkgs "nixos" "darwin";
+      in
+        lib.mkMerge [
+          {
+            "${target}Configurations".${args.host} = mkSystem' {
+              inherit (args) system;
+              modules =
+                [
+                  # depending on the base operating system we can only use some options therfore these
+                  # options means that we can limit these options to only those given operating systems
+                  "${self}/modules/${target}"
+                  inputs.home-manager."${target}Modules".home-manager
 
-            # configrations based on that are imported based hostname
-            "${self}/hosts/${args.host}"
-            {config.modules.system.hostname = args.host;}
-          ]
-          ++ args.modules or [];
-        specialArgs = {inherit lib inputs self inputs' self';} // args.specialArgs or {};
-      };
+                  # configrations based on that are imported based hostname
+                  "${self}/hosts/${args.host}"
+                  {config.modules.system.hostname = args.host;}
+                ]
+                ++ args.modules or [];
+              specialArgs = {inherit lib inputs self inputs' self';} // args.specialArgs or {};
+            };
+          }
 
-      # deploy-rs allows us to deploy to a remote system
-      # this is will enabled hosts if they are deployable
-      deploy.nodes.${args.host} = lib.mkIf deployable {
-        hostname = args.host;
-        skipChecks = true;
-        sshUser = "root";
-        user = "root";
-        profiles.system.path = inputs.deploy-rs.lib.${system}.activate.nixos inputs.self."${target}Configurations".${args.host};
-      };
-    });
+          # deploy-rs allows us to deploy to a remote system
+          # this is will enabled hosts if they are deployable
+          (lib.mkIf deployable {
+            deploy.nodes.${args.host} = {
+              hostname = args.host;
+              skipChecks = true;
+              sshUser = "root";
+              user = "root";
+              profiles.system.path = inputs.deploy-rs.lib.${system}.activate.nixos inputs.self.nixosConfigurations.${args.host};
+            };
+          })
+        ]
+    );
 
   # mkNixosIso is a helper function that wraps mkSystem to create an iso
   # DO NOT use mkNixSystem here as it is overkill for isos, futhermore we cannot use darwinSystem here
