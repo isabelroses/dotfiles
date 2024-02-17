@@ -12,9 +12,18 @@
   acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
 in {
   config = mkIf (builtins.elem device.type acceptedTypes && pkgs.stdenv.isLinux) {
-    xdg.systemDirs.data = let
-      schema = pkgs.gsettings-desktop-schemas;
-    in ["${schema}/share/gsettings-schemas/${schema.name}"];
+    xdg = {
+      # catppuccin's gtk repo says that we need to create a symlink to the gtk-4.0 folder
+      configFile = {
+        "gtk-4.0/assets".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
+        "gtk-4.0/gtk.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
+        "gtk-4.0/gtk-dark.css".source = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
+      };
+
+      systemDirs.data = let
+        schema = pkgs.gsettings-desktop-schemas;
+      in ["${schema}/share/gsettings-schemas/${schema.name}"];
+    };
 
     home = {
       packages = with pkgs; [
