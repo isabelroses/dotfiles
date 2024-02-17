@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  ocConfig,
+  osConfig,
   ...
 }: let
   inherit (osConfig.modules.environment) flakePath;

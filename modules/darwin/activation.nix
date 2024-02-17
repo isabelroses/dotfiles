@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  activationScripts = {
+  system.activationScripts = {
     # https://github.com/ryan4yin/nix-darwin-kickstarter/blob/main/minimal/modules/system.nix#L14-L19
     postUserActivation.text = let
       persistentApps =
