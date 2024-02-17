@@ -22,7 +22,6 @@ in {
         backupDir = "/srv/storage/vaultwarden/backup";
         config = {
           DOMAIN = "https://${cfg.domain}";
-          SIGNUPS_ALLOWED = false;
           ROCKET_ADDRESS = cfg.host;
           ROCKET_PORT = cfg.port;
           extendedLogging = true;
@@ -30,6 +29,7 @@ in {
           useSyslog = true;
           logLevel = "warn";
           showPasswordHint = false;
+          SIGNUPS_ALLOWED = false;
           signupsAllowed = false;
           signupsDomainsWhitelist = "${rdomain}";
           signupsVerify = true;
