@@ -4,7 +4,6 @@
   config,
   ...
 }: let
-  inherit (pkgs.stdenv) isDarwin;
   inherit (lib) mkIf;
 in {
   system.activationScripts = {
@@ -18,15 +17,6 @@ in {
           ${pkgs.nvd}/bin/nvd --nix-bin-dir='${config.nix.package}/bin' diff /run/current-system "$systemConfig"
           echo "=== end of the system diff ==="
         fi
-      '';
-    };
-
-    # https://github.com/ryan4yin/nix-darwin-kickstarter/blob/main/minimal/modules/system.nix#L14-L19
-    postUserActivation = mkIf isDarwin {
-      text = ''
-        # activateSettings -u will reload the settings from the database and apply them to the current session,
-        # so we do not need to logout and login again to make the changes take effect.
-        /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
       '';
     };
 
