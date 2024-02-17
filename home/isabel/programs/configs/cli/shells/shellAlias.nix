@@ -1,4 +1,11 @@
 {
+  lib,
+  pkgs,
+  ocConfig,
+  ...
+}: let
+  inherit (osConfig.modules.environment) flakePath;
+in {
   # This configuration creates the shell aliases across: bash, zsh and fish
   home.shellAliases = {
     mkdir = "mkdir -pv"; # always create pearent directory
@@ -11,5 +18,10 @@
     # Remap docker to podman
     docker = "podman";
     docker-compose = "podman-compose";
+
+    rebuild =
+      lib.ldTernary pkgs
+      "nix-store --verify; sudo nixos-rebuild switch --flake ${flakePath}"
+      "nix-store --verify; darwin-rebuild switch --flake ${flakePath}";
   };
 }
