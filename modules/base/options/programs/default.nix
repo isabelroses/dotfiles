@@ -28,6 +28,7 @@ in {
       };
 
       wine.enable = mkEnableOption "Enable wine";
+      pentesting.enable = mkEnableOption "Enable packages designed for pentesting";
     };
 
     cli = {
