@@ -59,12 +59,17 @@
           # deploy-rs allows us to deploy to a remote system
           # this is will enabled hosts if they are deployable
           (lib.mkIf deployable {
-            deploy.nodes.${args.host} = {
-              hostname = args.host;
-              skipChecks = true;
-              sshUser = "root";
-              user = "root";
-              profiles.system.path = inputs.deploy-rs.lib.${system}.activate.nixos inputs.self.nixosConfigurations.${args.host};
+            deploy = {
+              autoRollback = true;
+              magicRollback = true;
+
+              nodes.${args.host} = {
+                hostname = args.host;
+                skipChecks = true;
+                sshUser = "root";
+                user = "root";
+                profiles.system.path = inputs.deploy-rs.lib.${system}.activate.nixos inputs.self.nixosConfigurations.${args.host};
+              };
             };
           })
         ]
