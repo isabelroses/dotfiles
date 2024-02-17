@@ -1,7 +1,7 @@
 {
-  osConfig,
   lib,
   pkgs,
+  osConfig,
   ...
 }: {
   config = lib.mkIf osConfig.modules.programs.gui.fileManagers.dolphin.enable {

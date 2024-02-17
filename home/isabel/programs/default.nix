@@ -6,6 +6,8 @@
     ./scripts # useful shell scrips
     ./tui # terminal interface applications
     ./wm # window managers
-    # TODO DE's
+    # TODO: DE's
+
+    ./pentesting.nix # pentesting tools
   ];
 }

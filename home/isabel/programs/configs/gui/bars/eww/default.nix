@@ -34,7 +34,7 @@ in {
     programs.eww = {
       enable = true;
       package = ewwPackage;
-      configDir = ./config;
+      configDir = ./.;
     };
   };
 }

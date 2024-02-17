@@ -1,6 +1,6 @@
 {
-  pkgs,
   lib,
+  pkgs,
   osConfig,
   defaults,
   ...
@@ -12,7 +12,7 @@ in {
 
     programs.swaylock = {
       enable = true;
-      package = with pkgs; swaylock-effects;
+      package = pkgs.swaylock-effects;
       settings = {
         ignore-empty-password = true;
         show-failed-attempts = true;

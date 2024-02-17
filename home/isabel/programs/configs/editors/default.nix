@@ -1,13 +1,14 @@
 {
-  osConfig,
-  pkgs,
   lib,
+  pkgs,
+  osConfig,
   ...
 }: {
   imports = [
-    ./micro
-    ./nvim
     ./vscode
+
+    ./micro.nix
+    ./nvim.nix
   ];
 
   # need this one for uni
