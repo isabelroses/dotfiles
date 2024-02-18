@@ -103,7 +103,13 @@
     };
 
     # mailserver on nixos
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+    simple-nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        "nixpkgs-23_05".follows = "";
+      };
+    };
 
     # remote ssh vscode server
     vscode-server = {

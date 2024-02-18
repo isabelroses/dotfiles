@@ -1248,21 +1248,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-23_05": {
-      "locked": {
-        "lastModified": 1704290814,
-        "narHash": "sha256-LWvKHp7kGxk/GEtlrGYV68qIvPHkU9iToomNFGagixU=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "70bdadeb94ffc8806c0570eb5c2695ad29f0e421",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-23.05",
-        "type": "indirect"
-      }
-    },
     "nixpkgs-23_11": {
       "locked": {
         "lastModified": 1706098335,
@@ -1392,21 +1377,6 @@
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
-      }
-    },
-    "nixpkgs_6": {
-      "locked": {
-        "lastModified": 1705856552,
-        "narHash": "sha256-JXfnuEf5Yd6bhMs/uvM67/joxYKoysyE3M2k6T3eWbg=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "612f97239e2cc474c13c9dafa0df378058c5ad8d",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-unstable",
-        "type": "indirect"
       }
     },
     "pre-commit-hooks": {
@@ -1657,8 +1627,10 @@
       "inputs": {
         "blobs": "blobs",
         "flake-compat": "flake-compat_7",
-        "nixpkgs": "nixpkgs_6",
-        "nixpkgs-23_05": "nixpkgs-23_05",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-23_05": [],
         "nixpkgs-23_11": "nixpkgs-23_11",
         "utils": "utils"
       },
