@@ -89,9 +89,11 @@
       modules =
         [
           # get an installer profile from nixpkgs to base the Isos off of
-          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+          "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix"
           "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-          "${self}/hosts/${args.host}"
+
+          "${self}/modules/iso"
+          {config.networking.hostName = args.host;}
         ]
         ++ args.modules or [];
     };
@@ -103,7 +105,7 @@
   mkSystems = systems: lib.mkMerge (map mkNixSystem systems);
 
   # mkNixosIsos likewise to mkSystems is a wrapper for mkNixosIso to create a list of isos
-  mkNixosIsos = systems: lib.mkMerge (map mkNixosIso systems);
+  mkNixosIsos = isos: lib.mkMerge (map mkNixosIso isos);
 in {
   inherit mkSystems mkNixosIsos;
 }

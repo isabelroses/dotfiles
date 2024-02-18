@@ -1,15 +1,10 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   console = {
-    enable = lib.mkDefault true;
-    earlySetup = true;
-
-    keyMap = "en";
+    # hidpi terminal font
     font = "${pkgs.terminus_font}/share/consolefonts/ter-d18n.psf.gz";
+    keyMap = "en";
 
+    # make the terminal that bit more readable
     colors = [
       "1e1e2e"
       "585b70"
