@@ -1,6 +1,6 @@
 {
   imports = [
-    ./amd
-    ./intel
+    ./amd.nix
+    ./intel.nix
   ];
 }

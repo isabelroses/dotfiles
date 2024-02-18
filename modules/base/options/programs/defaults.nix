@@ -4,7 +4,7 @@ in {
   options.modules.programs.defaults = {
     terminal = mkOption {
       type = types.enum ["alacritty" "kitty" "wezterm" "foot"];
-      default = "kitty";
+      default = "wezterm";
     };
 
     fileManager = mkOption {
@@ -29,7 +29,7 @@ in {
 
     bar = mkOption {
       type = with types; nullOr (enum ["eww" "waybar" "ags"]);
-      default = "eww";
+      default = "ags";
     };
 
     screenLocker = mkOption {

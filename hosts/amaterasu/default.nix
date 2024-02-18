@@ -1,120 +1,102 @@
 {
-  config,
   lib,
+  config,
   ...
 }: let
-  inherit (lib) mkIf mkForce optionals;
+  inherit (lib) mkIf mkForce;
   inherit (config.modules) device;
 in {
-  imports = [./hardware-configuration.nix];
-  config = {
-    modules = {
-      device = {
-        type = "desktop";
-        cpu = "intel";
-        gpu = "nvidia";
-        hasTPM = true;
-        monitors = ["HDMI-1" "DP-1"];
-        hasBluetooth = true;
-        hasSound = true;
-        keyboard = "us";
-      };
-      system = {
-        mainUser = "isabel";
+  imports = [./hardware.nix];
 
-        boot = {
-          loader = "systemd-boot";
-          secureBoot = false;
-          plymouth = {
-            enable = true;
-            withThemes = true;
-          };
-          enableKernelTweaks = true;
-          initrd = {
-            enableTweaks = true;
-            optimizeCompressor = true;
-          };
-          loadRecommendedModules = true;
-          tmpOnTmpfs = true;
-        };
+  config.modules = {
+    device = {
+      type = "desktop";
+      cpu = "intel";
+      gpu = "nvidia";
+      hasTPM = true;
+      monitors = ["HDMI-1" "DP-1"];
+      hasBluetooth = true;
+      hasSound = true;
+      keyboard = "us";
+    };
+    system = {
+      mainUser = "isabel";
 
-        fs = ["ext4" "vfat"];
-        video.enable = true;
-        sound.enable = true;
-        bluetooth.enable = false;
-        printing.enable = false;
-        yubikeySupport.enable = true;
+      boot = {
+        loader = "systemd-boot";
+        secureBoot = false;
 
-        security = {
-          auditd.enable = true;
-        };
-
-        networking = {
-          optimizeTcp = true;
-        };
-
-        virtualization = {
-          enable = false;
-          docker.enable = false;
-          qemu.enable = false;
-          podman.enable = false;
-          distrobox.enable = false;
-        };
-      };
-
-      environment = {
-        desktop = "Hyprland";
-        useHomeManager = true;
-      };
-
-      programs = {
-        agnostic.git.signingKey = "7F2F6BD6997FCDF7";
-
-        cli = {
+        plymouth = {
           enable = true;
-          modernShell.enable = true;
+          withThemes = true;
         };
 
-        tui.enable = true;
+        enableKernelTweaks = true;
 
-        gui = {
-          enable = true;
-
-          zathura.enable = true;
+        initrd = {
+          enableTweaks = true;
+          optimizeCompressor = true;
         };
 
-        defaults = {
-          bar = "ags";
-        };
+        loadRecommendedModules = true;
+        tmpOnTmpfs = true;
+      };
+
+      fs = ["ext4" "vfat"];
+      video.enable = true;
+      sound.enable = true;
+      bluetooth.enable = false;
+      printing.enable = false;
+      yubikeySupport.enable = true;
+
+      security.auditd.enable = true;
+
+      networking.optimizeTcp = true;
+
+      virtualization = {
+        enable = false;
+        docker.enable = false;
+        qemu.enable = false;
+        podman.enable = false;
+        distrobox.enable = false;
       };
     };
 
-    hardware = {
-      nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
-        open = mkForce false;
+    environment = {
+      desktop = "Hyprland";
+      useHomeManager = true;
+    };
 
-        prime = {
-          offload.enable = true;
-          # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-          intelBusId = "PCI:0:2:0";
+    programs = {
+      agnostic.git.signingKey = "7F2F6BD6997FCDF7";
 
-          # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-          nvidiaBusId = "PCI:1:0:0";
-        };
+      cli = {
+        enable = true;
+        modernShell.enable = true;
+      };
+
+      tui.enable = true;
+
+      gui = {
+        enable = true;
+
+        zathura.enable = true;
       };
     };
+  };
 
-    boot = {
-      kernelParams =
-        [
-          "nohibernate"
-        ]
-        ++ optionals ((device.cpu == "intel") && (device.gpu != "hybrid-nv")) [
-          "i915.enable_fbc=1"
-          "i915.enable_psr=2"
-        ];
+  hardware = {
+    nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
+      open = mkForce false;
+
+      prime = {
+        offload.enable = true;
+        # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+        intelBusId = "PCI:0:2:0";
+
+        # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+        nvidiaBusId = "PCI:1:0:0";
+      };
     };
-
-    console.earlySetup = true;
   };
 }

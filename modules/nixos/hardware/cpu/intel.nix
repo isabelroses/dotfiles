@@ -1,13 +1,14 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }: let
-  device = config.modules.device;
+  inherit (config.modules) device;
 in {
   config = lib.mkIf (device.cpu == "intel" || device.cpu == "vm-intel") {
     hardware.cpu.intel.updateMicrocode = true;
+
     boot = {
       kernelModules = ["kvm-intel"];
       kernelParams = ["i915.fastboot=1" "enable_gvt=1"];

@@ -73,9 +73,9 @@ in {
       };
 
       terminals = {
-        kitty.enable = mkEnableOption "Kitty terminal emulator" // {default = cfg.gui.enable;};
+        wezterm.enable = mkEnableOption "WezTerm terminal emulator" // {default = cfg.gui.enable;};
+        kitty.enable = mkEnableOption "Kitty terminal emulator";
         alacritty.enable = mkEnableOption "Alacritty terminal emulator";
-        wezterm.enable = mkEnableOption "WezTerm terminal emulator";
       };
 
       fileManagers = {

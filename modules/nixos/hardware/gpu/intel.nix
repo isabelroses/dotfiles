@@ -1,11 +1,11 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }: let
   inherit (lib) mkIf;
-  device = config.modules.device;
+  inherit (config.modules) device;
 in {
   config = mkIf (device.gpu == "intel" || device.gpu == "hybrid-nv") {
     # i915 kernel module
@@ -13,8 +13,8 @@ in {
     # better performance than the actual Intel driver, lol
     services.xserver.videoDrivers = ["modesetting"];
 
+    # let me play youtube videos without h.264
     nixpkgs.config.packageOverrides = pkgs: {
-      # let me play youtube videos without h.264
       vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
     };
 

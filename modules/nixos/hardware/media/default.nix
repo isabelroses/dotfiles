@@ -1,6 +1,6 @@
 {
   imports = [
-    ./video
-    ./sound
+    ./sound.nix
+    ./video.nix
   ];
 }

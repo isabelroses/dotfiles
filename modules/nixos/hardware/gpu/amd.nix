@@ -1,10 +1,10 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }: let
-  device = config.modules.device;
+  inherit (config.modules) device;
 in {
   config = lib.mkIf (device.gpu == "amd" || device.gpu == "hybrid-amd") {
     # enable amdgpu xorg drivers
@@ -22,10 +22,5 @@ in {
       rocm-opencl-icd
       rocm-opencl-runtime
     ];
-
-    /*
-    hardware.opengl.extraPackages32 = with pkgs; [
-    ];
-    */
   };
 }
