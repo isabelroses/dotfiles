@@ -7,7 +7,7 @@
 }: let
   sys = config.modules.system;
   env = config.modules.environment;
-  inherit (lib) mkForce mkIf isWayland;
+  inherit (lib) mkForce mkIf isWayland optionals;
 in {
   config = mkIf (sys.video.enable && pkgs.stdenv.isLinux) {
     xdg.portal = {
