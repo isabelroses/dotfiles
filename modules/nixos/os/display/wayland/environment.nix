@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }: let
@@ -8,7 +7,7 @@
 
   env = config.modules.environment;
 in {
-  config = mkIf (isWayland config && pkgs.stdenv.isLinux) {
+  config = mkIf (isWayland config) {
     environment = {
       etc."greetd/environments".text = mkIf config.services.greetd.enable ''
         ${optionalString (env.desktop == "Hyprland") "Hyprland"}

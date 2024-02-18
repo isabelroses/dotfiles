@@ -1,15 +1,15 @@
 {
-  pkgs,
   lib,
-  osConfig,
+  pkgs,
   inputs',
+  osConfig,
   ...
 }: let
-  inherit (osConfig.modules) environment programs;
+  inherit (osConfig.modules) environment;
 in {
   imports = [./config.nix];
 
-  config = lib.mkIf (lib.isWayland osConfig && environment.desktop == "Hyprland" && programs.gui.enable) {
+  config = lib.mkIf (environment.desktop == "Hyprland") {
     home.packages = with pkgs; [
       grim
       inputs'.hyprpicker.packages.default

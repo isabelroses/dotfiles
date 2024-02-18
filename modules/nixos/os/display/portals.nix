@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs',
   ...
 }: let
   sys = config.modules.system;
@@ -12,17 +13,25 @@ in {
     xdg.portal = {
       enable = true;
       # xdgOpenUsePortal = true;
+
       config.common = {
-        default = "gtk";
+        default = [
+          "hyprland"
+          "gtk"
+        ];
 
         "org.freedesktop.impl.portal.Secret" = [
           "gnome-keyring"
         ];
       };
 
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-      ];
+      extraPortals = with pkgs;
+        [
+          xdg-desktop-portal-gtk
+        ]
+        ++ optionals (env.desktop == "Hyprland") [
+          inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland
+        ];
 
       wlr = {
         enable = mkForce (isWayland config && env.desktop != "Hyprland");

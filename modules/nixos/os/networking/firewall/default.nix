@@ -1,6 +1,6 @@
 {
-  pkgs,
   lib,
+  pkgs,
   config,
   ...
 }: let
@@ -12,7 +12,7 @@ in {
   config = {
     # enable opensnitch firewall
     # inactive until opensnitch UI is opened
-    services.opensnitch.enable = true;
+    services.opensnitch.enable = device.type != "server";
 
     networking = {
       firewall = {

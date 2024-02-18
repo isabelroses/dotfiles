@@ -1,7 +1,7 @@
 {
-  config,
-  pkgs,
   lib,
+  pkgs,
+  config,
   ...
 }: let
   # only the newest nvidia package
@@ -42,10 +42,8 @@ in {
       })
     ];
 
-    boot = {
-      # blacklist nouveau module as otherwise it conflicts with nvidia drm
-      blacklistedKernelModules = ["nouveau"];
-    };
+    # blacklist nouveau module as otherwise it conflicts with nvidia drm
+    boot.blacklistedKernelModules = ["nouveau"];
 
     environment = {
       sessionVariables = mkMerge [
@@ -62,6 +60,7 @@ in {
           #WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
         })
       ];
+
       systemPackages = with pkgs; [
         nvtop-amd
 
@@ -84,7 +83,9 @@ in {
       nvidia = {
         package = mkDefault nvidiaPackage;
         modesetting.enable = mkDefault true;
+
         prime.offload.enableOffloadCmd = device.gpu == "hybrid-nv";
+
         powerManagement = {
           enable = mkDefault true;
           finegrained = mkDefault true;
