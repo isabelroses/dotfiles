@@ -42,13 +42,17 @@ in {
         enable = true;
         package = pkgs.gitAndTools.gitFull;
         userName = "isabel";
-        userEmail = "isabel@isabelroses.com";
+        userEmail = "isabel" + "@" + "isabelroses" + "." + "com"; # obsfuscate email to prevent webscrapper spam
+
         signing = {
           key = cfg.signingKey;
           signByDefault = true;
         };
+
         lfs.enable = true;
+
         ignores = [
+          ".DS_Store"
           "*.bak"
           "*.swp"
           "*.swo"
@@ -64,11 +68,31 @@ in {
           "result"
           "result-*"
         ];
+
         extraConfig = {
           init.defaultBranch = "main"; # warning the AUR hates this
+          repack.usedeltabaseoffset = "true";
+          color.ui = "auto";
+          diff.algorithm = "histogram"; # a much better diff
+          help.autocorrect = 10; # 1 second warning to a typo'd command
 
-          branch.autosetupmerge = "true";
-          pull.ff = "only";
+          core = {
+            pager = "delta";
+            whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
+          };
+
+          interactive.diffFilter = "delta --color-only"; # provide sytax highlighting for code in "git add -p"
+
+          branch = {
+            autosetupmerge = "true";
+            sort = "committerdate";
+          };
+
+          commit.verbose = true;
+
+          fetch.prune = true;
+
+          pull.ff = "only"; # equivalent to --ff-only
 
           push = {
             default = "current";
@@ -78,13 +102,8 @@ in {
 
           merge = {
             stat = "true";
-            conflictstyle = "diff3";
+            conflictstyle = "zdiff3";
           };
-
-          core.whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
-          color.ui = "auto";
-
-          repack.usedeltabaseoffset = "true";
 
           rebase = {
             autoSquash = true;
@@ -92,9 +111,14 @@ in {
           };
 
           rerere = {
-            autoupdate = true;
             enabled = true;
+            autoupdate = true;
           };
+
+          # prevent data corruption
+          transfer.fsckObjects = true;
+          fetch.fsckObjects = true;
+          receive.fsckObjects = true;
 
           url = {
             "https://github.com/".insteadOf = "github:";
