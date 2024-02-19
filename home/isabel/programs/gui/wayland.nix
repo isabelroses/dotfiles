@@ -1,7 +1,7 @@
 {
-  osConfig,
   lib,
   pkgs,
+  osConfig,
   ...
 }: let
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
@@ -10,7 +10,6 @@ in {
     home.packages = with pkgs;
       [
         swappy # used for screenshot area selection
-        # swaynotificationcenter
         wlsunset # reduce blue light at night
         wl-gammactl
       ]

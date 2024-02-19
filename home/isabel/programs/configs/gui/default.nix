@@ -7,6 +7,7 @@
     ./terminals
 
     ./discord.nix
+    ./swaync.nix
     ./viewnior.nix
     ./zathura.nix
   ];

@@ -9,6 +9,7 @@ in {
   imports = [
     # imported home-manager modules
     self.homeManagerModules.gtklock
+    self.homeManagerModules.swaync
 
     # important system environment config
     ./system
