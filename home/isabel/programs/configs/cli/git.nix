@@ -17,7 +17,7 @@ in {
 
     home.packages = with pkgs; [
       gist # manage github gists
-      act # local github actions
+      # act # local github actions
       gitflow # Extend git with the Gitflow branching model
     ];
 
@@ -25,7 +25,7 @@ in {
       # github cli
       gh = {
         enable = true;
-        gitCredentialHelper.enable = false; # i use agenix for this anyways
+        gitCredentialHelper.enable = true;
         extensions = with pkgs; [
           gh-cal # github activity stats in the CLI
           gh-dash # dashboard with pull requests and issues
@@ -69,6 +69,17 @@ in {
           "result-*"
         ];
 
+        delta = {
+          enable = true;
+          options = {
+            features = "decorations side-by-side navigate";
+            navigate = true;
+            side-by-side = true;
+            line-numbers = true;
+            dark = true;
+          };
+        };
+
         extraConfig = {
           init.defaultBranch = "main"; # warning the AUR hates this
           repack.usedeltabaseoffset = "true";
@@ -76,12 +87,7 @@ in {
           diff.algorithm = "histogram"; # a much better diff
           help.autocorrect = 10; # 1 second warning to a typo'd command
 
-          core = {
-            pager = "delta";
-            whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
-          };
-
-          interactive.diffFilter = "delta --color-only"; # provide sytax highlighting for code in "git add -p"
+          core.whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
 
           branch = {
             autosetupmerge = "true";
@@ -103,6 +109,7 @@ in {
           merge = {
             stat = "true";
             conflictstyle = "zdiff3";
+            tool = "meld";
           };
 
           rebase = {
