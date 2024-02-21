@@ -10,12 +10,12 @@
         lib.concatMapStrings (x: ''"'' + x + ''" '')
         config.system.defaults.CustomUserPreferences."com.apple.dock".persistent-apps;
     in ''
+      # Choose and order dock icons
+      defaults write com.apple.dock persistent-apps -array ${persistentApps}
+
       # activateSettings -u will reload the settings from the database and apply them to the current session,
       # so we do not need to logout and login again to make the changes take effect.
       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-
-      # Choose and order dock icons
-      defaults write com.apple.dock persistent-apps -array ${persistentApps}
     '';
 
     # Settings that don't have an option in nix-darwin
