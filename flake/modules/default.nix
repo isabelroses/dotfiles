@@ -20,6 +20,8 @@ in {
     homeManagerModules = {
       gtklock = mkModule /modules/extra/home-manager/gtklock.nix;
 
+      hyfetch = mkModule /modules/extra/home-manager/hyfetch.nix;
+
       swaync = mkModule /modules/extra/home-manager/swaync.nix;
 
       default = builtins.throw "There is no default module.";

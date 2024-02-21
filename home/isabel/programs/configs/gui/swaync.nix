@@ -1,10 +1,13 @@
 {
   lib,
+  self,
   osConfig,
   ...
 }: let
   inherit (lib) mkIf;
 in {
+  imports = [self.homeManagerModules.swaync];
+
   services.swaync = mkIf osConfig.modules.programs.gui.bars.waybar.enable {
     enable = true;
     systemd.enable = true;

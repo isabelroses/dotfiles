@@ -1,12 +1,15 @@
 {
   lib,
   pkgs,
+  self,
   osConfig,
   defaults,
   ...
 }: let
   inherit (lib) mkIf isWayland;
 in {
+  imports = [self.homeManagerModules.gtklock];
+
   config = mkIf ((isWayland osConfig) && defaults.screenLocker == "gtklock") {
     programs.gtklock = {
       enable = true;
