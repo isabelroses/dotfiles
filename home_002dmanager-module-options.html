@@ -43,9 +43,13 @@ Previous: <a href="darwin-module-options.html" accesskey="p" rel="prev">darwin m
 <li><a href="#programsgtklockconfigmodules" accesskey="4">programs.gtklock.config.modules</a></li>
 <li><a href="#programsgtklockconfigstyle" accesskey="5">programs.gtklock.config.style</a></li>
 <li><a href="#programsgtklockextraConfig" accesskey="6">programs.gtklock.extraConfig</a></li>
-<li><a href="#servicesswayncenable" accesskey="7">services.swaync.enable</a></li>
-<li><a href="#servicesswayncpackage" accesskey="8">services.swaync.package</a></li>
-<li><a href="#servicesswayncschema" accesskey="9">services.swaync.schema</a></li>
+<li><a href="#programshyfetchenable" accesskey="7">programs.hyfetch.enable</a></li>
+<li><a href="#programshyfetchpackage" accesskey="8">programs.hyfetch.package</a></li>
+<li><a href="#programshyfetchneofetchConfig" accesskey="9">programs.hyfetch.neofetchConfig</a></li>
+<li><a href="#programshyfetchsettings">programs.hyfetch.settings</a></li>
+<li><a href="#servicesswayncenable">services.swaync.enable</a></li>
+<li><a href="#servicesswayncpackage">services.swaync.package</a></li>
+<li><a href="#servicesswayncschema">services.swaync.schema</a></li>
 <li><a href="#servicesswayncsettings">services.swaync.settings</a></li>
 <li><a href="#servicesswayncstyle">services.swaync.style</a></li>
 <li><a href="#servicesswayncsystemdenable">services.swaync.systemd.enable</a></li>
@@ -162,7 +166,7 @@ Next: <a href="#programsgtklockextraConfig" accesskey="n" rel="next">programs.gt
 <div class="section-level-extent" id="programsgtklockextraConfig">
 <div class="nav-panel">
 <p>
-Next: <a href="#servicesswayncenable" accesskey="n" rel="next">services.swaync.enable</a>, Previous: <a href="#programsgtklockconfigstyle" accesskey="p" rel="prev">programs.gtklock.config.style</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
+Next: <a href="#programshyfetchenable" accesskey="n" rel="next">programs.hyfetch.enable</a>, Previous: <a href="#programsgtklockconfigstyle" accesskey="p" rel="prev">programs.gtklock.config.style</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
 </div>
 <h3 class="section" id="programs_002egtklock_002eextraConfig">4.6 programs.gtklock.extraConfig</h3>
 <a class="anchor" id="g_t_0023programs_002egtklock_002eextraconfig"></a><p>Extra configuration to append to gtklock configuration file. Mostly used
@@ -193,12 +197,104 @@ for appending module configurations.
 </p>
 <hr>
 </div>
+<div class="section-level-extent" id="programshyfetchenable">
+<div class="nav-panel">
+<p>
+Next: <a href="#programshyfetchpackage" accesskey="n" rel="next">programs.hyfetch.package</a>, Previous: <a href="#programsgtklockextraConfig" accesskey="p" rel="prev">programs.gtklock.extraConfig</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="programs_002ehyfetch_002eenable">4.7 programs.hyfetch.enable</h3>
+<a class="anchor" id="g_t_0023programs_002ehyfetch_002eenable"></a><p>Whether to enable hyfetch.
+</p>
+<p><em class="emph">Type:</em> boolean
+</p>
+<p><em class="emph">Default:</em> <code class="code">false</code>
+</p>
+<p><em class="emph">Example:</em> <code class="code">true</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="https://github.com/isabelroses/dotfiles/blob/main/modules/extra/home-manager/hyfetch.nix">modules/extra/home-manager/hyfetch.nix</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="programshyfetchpackage">
+<div class="nav-panel">
+<p>
+Next: <a href="#programshyfetchneofetchConfig" accesskey="n" rel="next">programs.hyfetch.neofetchConfig</a>, Previous: <a href="#programshyfetchenable" accesskey="p" rel="prev">programs.hyfetch.enable</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="programs_002ehyfetch_002epackage">4.8 programs.hyfetch.package</h3>
+<a class="anchor" id="g_t_0023programs_002ehyfetch_002epackage"></a><p>The hyfetch package to use.
+</p>
+<p><em class="emph">Type:</em> package
+</p>
+<p><em class="emph">Default:</em> <code class="code">pkgs.hyfetch</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="https://github.com/isabelroses/dotfiles/blob/main/modules/extra/home-manager/hyfetch.nix">modules/extra/home-manager/hyfetch.nix</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="programshyfetchneofetchConfig">
+<div class="nav-panel">
+<p>
+Next: <a href="#programshyfetchsettings" accesskey="n" rel="next">programs.hyfetch.settings</a>, Previous: <a href="#programshyfetchpackage" accesskey="p" rel="prev">programs.hyfetch.package</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="programs_002ehyfetch_002eneofetchConfig">4.9 programs.hyfetch.neofetchConfig</h3>
+<a class="anchor" id="g_t_0023programs_002ehyfetch_002eneofetchconfig"></a><p>Configuration written to <code class="code">$XDG_CONFIG_HOME/neofetch/config.conf</code>.
+See https://github.com/dylanaraps/neofetch/blob/master/neofetch.1 for
+more help/
+</p>
+<p><em class="emph">Type:</em> null or path or strings concatenated with &ldquo;\n&rdquo;
+</p>
+<p><em class="emph">Default:</em> <code class="code">{ }</code>
+</p>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="https://github.com/isabelroses/dotfiles/blob/main/modules/extra/home-manager/hyfetch.nix">modules/extra/home-manager/hyfetch.nix</a>
+</p>
+<hr>
+</div>
+<div class="section-level-extent" id="programshyfetchsettings">
+<div class="nav-panel">
+<p>
+Next: <a href="#servicesswayncenable" accesskey="n" rel="next">services.swaync.enable</a>, Previous: <a href="#programshyfetchneofetchConfig" accesskey="p" rel="prev">programs.hyfetch.neofetchConfig</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
+</div>
+<h3 class="section" id="programs_002ehyfetch_002esettings">4.10 programs.hyfetch.settings</h3>
+<a class="anchor" id="g_t_0023programs_002ehyfetch_002esettings"></a><p>Configuration written to <code class="code">$XDG_CONFIG_HOME/hyfetch.json</code>. See
+https://github.com/hykilpikonna/hyfetch/blob/master/docs/hyfetch.1 for
+more help.
+</p>
+<p><em class="emph">Type:</em> JSON value
+</p>
+<p><em class="emph">Default:</em> <code class="code">{ }</code>
+</p>
+<p><em class="emph">Example:</em>
+</p>
+<pre class="verbatim">{
+    preset = &quot;lesbian&quot;;
+    mode = &quot;rgb&quot;;
+    light_dark = &quot;dark&quot;;
+    lightness = 0.56;
+    color_align = {
+        mode = &quot;horizontal&quot;;
+        custom_colors = [];
+        fore_back = null;
+    };
+    backend = &quot;neofetch&quot;;
+    distro = null;
+    pride_month_shown = [];
+    pride_month_disable = false;
+};
+</pre>
+<p><em class="emph">Declared by:</em> -
+<a class="uref" href="https://github.com/isabelroses/dotfiles/blob/main/modules/extra/home-manager/hyfetch.nix">modules/extra/home-manager/hyfetch.nix</a>
+</p>
+<hr>
+</div>
 <div class="section-level-extent" id="servicesswayncenable">
 <div class="nav-panel">
 <p>
-Next: <a href="#servicesswayncpackage" accesskey="n" rel="next">services.swaync.package</a>, Previous: <a href="#programsgtklockextraConfig" accesskey="p" rel="prev">programs.gtklock.extraConfig</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
+Next: <a href="#servicesswayncpackage" accesskey="n" rel="next">services.swaync.package</a>, Previous: <a href="#programshyfetchsettings" accesskey="p" rel="prev">programs.hyfetch.settings</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
 </div>
-<h3 class="section" id="services_002eswaync_002eenable">4.7 services.swaync.enable</h3>
+<h3 class="section" id="services_002eswaync_002eenable">4.11 services.swaync.enable</h3>
 <a class="anchor" id="g_t_0023services_002eswaync_002eenable"></a><p>Whether to enable Swaync notification daemon.
 </p>
 <p><em class="emph">Type:</em> boolean
@@ -217,7 +313,7 @@ Next: <a href="#servicesswayncpackage" accesskey="n" rel="next">services.swaync.
 <p>
 Next: <a href="#servicesswayncschema" accesskey="n" rel="next">services.swaync.schema</a>, Previous: <a href="#servicesswayncenable" accesskey="p" rel="prev">services.swaync.enable</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
 </div>
-<h3 class="section" id="services_002eswaync_002epackage">4.8 services.swaync.package</h3>
+<h3 class="section" id="services_002eswaync_002epackage">4.12 services.swaync.package</h3>
 <a class="anchor" id="g_t_0023services_002eswaync_002epackage"></a><p>The swaynotificationcenter package to use.
 </p>
 <p><em class="emph">Type:</em> package
@@ -234,7 +330,7 @@ Next: <a href="#servicesswayncschema" accesskey="n" rel="next">services.swaync.s
 <p>
 Next: <a href="#servicesswayncsettings" accesskey="n" rel="next">services.swaync.settings</a>, Previous: <a href="#servicesswayncpackage" accesskey="p" rel="prev">services.swaync.package</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
 </div>
-<h3 class="section" id="services_002eswaync_002eschema">4.9 services.swaync.schema</h3>
+<h3 class="section" id="services_002eswaync_002eschema">4.13 services.swaync.schema</h3>
 <a class="anchor" id="g_t_0023services_002eswaync_002eschema"></a><p>Schema to validate the configuration.
 </p>
 <p><em class="emph">Type:</em> path
@@ -252,7 +348,7 @@ Next: <a href="#servicesswayncsettings" accesskey="n" rel="next">services.swaync
 <p>
 Next: <a href="#servicesswayncstyle" accesskey="n" rel="next">services.swaync.style</a>, Previous: <a href="#servicesswayncschema" accesskey="p" rel="prev">services.swaync.schema</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
 </div>
-<h3 class="section" id="services_002eswaync_002esettings">4.10 services.swaync.settings</h3>
+<h3 class="section" id="services_002eswaync_002esettings">4.14 services.swaync.settings</h3>
 <a class="anchor" id="g_t_0023services_002eswaync_002esettings"></a><p>Configuration written to <code class="code">$XDG_CONFIG_HOME/swaync/config.json</code>. See
 https://github.com/ErikReider/SwayNotificationCenter/blob/main/src/configSchema.json
 for the documentation.
@@ -291,7 +387,7 @@ for the documentation.
 <p>
 Next: <a href="#servicesswayncsystemdenable" accesskey="n" rel="next">services.swaync.systemd.enable</a>, Previous: <a href="#servicesswayncsettings" accesskey="p" rel="prev">services.swaync.settings</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
 </div>
-<h3 class="section" id="services_002eswaync_002estyle">4.11 services.swaync.style</h3>
+<h3 class="section" id="services_002eswaync_002estyle">4.15 services.swaync.style</h3>
 <a class="anchor" id="g_t_0023services_002eswaync_002estyle"></a><p>CSS style of the bar. See
 https://github.com/ErikReider/SwayNotificationCenter/blob/main/src/style.css
 for the documentation.
@@ -334,7 +430,7 @@ CSS file.
 <p>
 Next: <a href="#servicesswayncsystemdtarget" accesskey="n" rel="next">services.swaync.systemd.target</a>, Previous: <a href="#servicesswayncstyle" accesskey="p" rel="prev">services.swaync.style</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
 </div>
-<h3 class="section" id="services_002eswaync_002esystemd_002eenable">4.12 services.swaync.systemd.enable</h3>
+<h3 class="section" id="services_002eswaync_002esystemd_002eenable">4.16 services.swaync.systemd.enable</h3>
 <a class="anchor" id="g_t_0023services_002eswaync_002esystemd_002eenable"></a><p>Whether to enable Systemd integration.
 </p>
 <p><em class="emph">Type:</em> boolean
@@ -353,7 +449,7 @@ Next: <a href="#servicesswayncsystemdtarget" accesskey="n" rel="next">services.s
 <p>
 Previous: <a href="#servicesswayncsystemdenable" accesskey="p" rel="prev">services.swaync.systemd.enable</a>, Up: <a href="#home_002dmanager-module-options" accesskey="u" rel="up">home-manager module options</a> &nbsp; </p>
 </div>
-<h3 class="section" id="services_002eswaync_002esystemd_002etarget">4.13 services.swaync.systemd.target</h3>
+<h3 class="section" id="services_002eswaync_002esystemd_002etarget">4.17 services.swaync.systemd.target</h3>
 <a class="anchor" id="g_t_0023services_002eswaync_002esystemd_002etarget"></a><p>Systemd target to bind to.
 </p>
 <p><em class="emph">Type:</em> string
