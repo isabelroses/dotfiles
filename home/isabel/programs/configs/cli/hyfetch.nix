@@ -1,14 +1,34 @@
 {
   lib,
   pkgs,
+  self,
   ...
 }: let
   inherit (lib) ldTernary;
 in {
-  home.packages = [pkgs.hyfetch];
+  imports = [self.homeManagerModules.hyfetch];
+  disabledModules = ["programs/hyfetch.nix"];
 
-  xdg.configFile = {
-    "neofetch/config.conf".text = ''
+  programs.hyfetch = {
+    enable = true;
+
+    settings = {
+      preset = "lesbian";
+      mode = "rgb";
+      light_dark = "dark";
+      lightness = 0.56;
+      color_align = {
+        mode = "horizontal";
+        custom_colors = [];
+        fore_back = null;
+      };
+      backend = "neofetch";
+      distro = null;
+      pride_month_shown = [];
+      pride_month_disable = false;
+    };
+
+    neofetchConfig = ''
       print_info() {
       prin " \n \n ╭───────┤ $(color 5)${ldTernary pkgs " NixOS" " MacOS"} $(color 15)├───────╮"
       info " " kernel
@@ -52,24 +72,6 @@ in {
       crop_mode="normal" # normal fit fill
       crop_offset="center" # northwest north northeast west center east southwest south southeast
       gap=1 # num -num
-    '';
-
-    "hyfetch.json".text = ''
-      {
-          "preset": "lesbian",
-          "mode": "rgb",
-          "light_dark": "dark",
-          "lightness": 0.56,
-          "color_align": {
-              "mode": "horizontal",
-              "custom_colors": [],
-              "fore_back": null
-          },
-          "backend": "neofetch",
-          "distro": null,
-          "pride_month_shown": [],
-          "pride_month_disable": false
-      }
     '';
   };
 }
