@@ -28,6 +28,8 @@
       # `brew install`
       brews = [
         "m-cli"
+        "coreutils"
+        "openjdk"
       ];
 
       # `brew install --cask`
@@ -35,6 +37,7 @@
         "arc"
         "zed"
         "raycast"
+        "intellij-idea"
       ];
     };
   };
