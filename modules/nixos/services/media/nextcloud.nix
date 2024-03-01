@@ -78,7 +78,7 @@ in {
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} = {http3.enable = true;} // template.ssl rdomain;
+      nginx.virtualHosts.${cfg.domain} = template.ssl rdomain;
     };
 
     systemd.services = {
