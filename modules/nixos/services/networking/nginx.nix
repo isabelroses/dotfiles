@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: let
@@ -28,6 +29,11 @@ in {
 
     services.nginx = {
       enable = true;
+
+      package = pkgs.nginxQuic.override {
+        withKTLS = true;
+      };
+
       commonHttpConfig = ''
         # real_ip_header CF-Connecting-IP;
         add_header 'Referrer-Policy' 'origin-when-cross-origin';
@@ -36,6 +42,7 @@ in {
       '';
 
       recommendedTlsSettings = true;
+      recommendedBrotliSettings = true;
       recommendedOptimisation = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
