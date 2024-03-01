@@ -33,18 +33,11 @@
       };
 
       # hetzner cloud vps
-      "luz" = {
-        hostname = "91.107.198.173";
-      };
+      "luz".hostname = "91.107.198.173";
 
       # my local servers / clients
-      "hydra" = {
-        hostname = "10.82.7.9";
-      };
-
-      "tatsumaki" = {
-        hostname = "10.82.9.147";
-      };
+      "hydra".hostname = "10.82.7.9";
+      "tatsumaki".hostname = "10.82.9.147";
     };
   };
 }
