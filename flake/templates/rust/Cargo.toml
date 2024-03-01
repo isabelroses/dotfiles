@@ -2,4 +2,5 @@
 name = "sample-rust"
 version = "0.0.1"
 license = "MIT"
+authors = ["Isabel Roses <isabel@isabelroses.com>"]
 edition = "2021"

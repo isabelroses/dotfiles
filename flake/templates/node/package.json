@@ -9,7 +9,7 @@
     "build": "tsc",
     "start": "npm run build && node build/index.js"
   },
-  "author": "NotAShelf",
+  "author": "isabelroses",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.1.2",
