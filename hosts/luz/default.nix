@@ -1,6 +1,5 @@
 {
   imports = [
-    ./hardware.nix
     ./mount.nix
     ./overrides.nix
     ./services.nix

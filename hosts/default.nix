@@ -3,7 +3,7 @@
   withSystem,
   ...
 }: let
-  inherit (lib) mkMerge concatLists mkSystems mkNixosIsos mapNodes;
+  inherit (lib) mkMerge concatLists mkSystems mkNixosIsos;
 
   # modules
   modulePath = ../modules; # the base module path

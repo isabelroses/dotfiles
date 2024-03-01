@@ -76,7 +76,7 @@
         enable = true;
 
         kdeconnect = {
-          enable = true;
+          enable = false;
           indicator.enable = true;
         };
 
