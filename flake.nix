@@ -24,6 +24,7 @@
 
         # flake parts
         ./flake/makeSys.nix # args that is passsed to the flake, moved away from the main file
+        ./flake/lib.nix # lib for the flake
         ./flake/modules # nixos and home-manager modules
         ./flake/overlays # overlays that make the system that bit cleaner
         ./flake/pkgs # packages exposed to the flake
@@ -36,11 +37,7 @@
         # extended nixpkgs lib, with additonal features
         lib = import ./lib {inherit inputs;};
       in
-        import ./hosts {inherit self lib withSystem;};
-
-      perSystem = {config, ...}: {
-        imports = [{_module.args.pkgs = config.legacyPackages;}];
-      };
+        import ./hosts {inherit lib withSystem;};
     });
 
   inputs = {
