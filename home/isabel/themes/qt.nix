@@ -22,13 +22,13 @@ in {
       };
 
       "Kvantum/catppuccin/catppuccin.kvconfig".source = builtins.fetchurl {
-        url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Sapphire/Catppuccin-Mocha-Sapphire.kvconfig";
-        sha256 = "0n9f5hysr4k1sf9fd3sgd9fvqwrxrpcvj6vajqmb5c5ji8nv2w3c";
+        url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Pink/Catppuccin-Mocha-Pink.kvconfig";
+        sha256 = "sha256-Lcz2HJddrT6gw9iIB4pTiJMtOeyYU7/u/uoGEv8ykY0=";
       };
 
       "Kvantum/catppuccin/catppuccin.svg".source = builtins.fetchurl {
-        url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Sapphire/Catppuccin-Mocha-Sapphire.svg";
-        sha256 = "1hq9h34178h0d288hgwb0ngqnixz24m9lk0ahc4dahwqn77fndwf";
+        url = "https://raw.githubusercontent.com/catppuccin/Kvantum/main/src/Catppuccin-Mocha-Pink/Catppuccin-Mocha-Pink.svg";
+        sha256 = "sha256-A5lahq0cFuRdp/BwM4/jxDD6Vvut+ZaFYa25KHhqneY=";
       };
     };
 

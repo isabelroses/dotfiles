@@ -12,7 +12,7 @@ in {
   config = {
     catppuccin = {
       flavour = "mocha";
-      accent = "sapphire";
+      accent = "pink";
     };
 
     # pointer / cursor theming

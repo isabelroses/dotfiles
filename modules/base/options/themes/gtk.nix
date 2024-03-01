@@ -12,7 +12,7 @@ in {
     theme = {
       name = mkOption {
         type = types.str;
-        default = "Catppuccin-Mocha-Standard-Sapphire-Dark";
+        default = "Catppuccin-Mocha-Standard-Pink-Dark";
         description = "The name for the GTK theme package";
       };
 
@@ -21,7 +21,7 @@ in {
         description = "The theme package to be used for GTK programs";
         default = pkgs.catppuccin-gtk.override {
           size = "standard";
-          accents = ["sapphire"];
+          accents = ["pink"];
           variant = "mocha";
           tweaks = ["normal"];
         };
@@ -39,7 +39,7 @@ in {
         type = types.package;
         description = "The GTK icon theme to be used";
         default = pkgs.catppuccin-papirus-folders.override {
-          accent = "sapphire";
+          accent = "pink";
           flavor = "mocha";
         };
       };
