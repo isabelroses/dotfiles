@@ -22,7 +22,7 @@ in {
         # THEMEING
         catppuccin.catppuccin-vsc-icons
         (pkgs.catppuccin-vsc.override {
-          accent = "sapphire";
+          accent = "pink";
           boldKeywords = true;
           italicComments = true;
           italicKeywords = true;
