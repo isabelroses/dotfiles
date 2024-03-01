@@ -1,6 +1,6 @@
 {
-  config,
   lib,
+  config,
   ...
 }: let
   inherit (lib) mkIf mkMerge concatStringsSep mkForce;
@@ -58,7 +58,7 @@ in {
       rndtime = "12m";
       overalljails = true;
       multipliers = "4 8 16 32 64 128 256 512 1024 2048";
-      maxtime = "192h"; # get banned for 192 hours idiot
+      maxtime = "192h";
     };
   };
 }

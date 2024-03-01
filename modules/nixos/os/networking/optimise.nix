@@ -6,7 +6,7 @@
   sys = config.modules.system;
   inherit (lib) mkIf;
 in {
-  config = mkIf (sys.networking.optimizeTcp) {
+  config = mkIf sys.networking.optimizeTcp {
     boot = {
       kernelModules = ["tls" "tcp_bbr"];
       kernel.sysctl = {
