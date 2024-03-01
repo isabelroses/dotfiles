@@ -49,7 +49,12 @@
 
                   # configrations based on that are imported based hostname
                   "${self}/hosts/${args.host}"
-                  {config.modules.system.hostname = args.host;}
+                  {
+                    config = {
+                      modules.system.hostname = args.host;
+                      nixpkgs.hostPlatform = lib.mkDefault args.system;
+                    };
+                  }
                 ]
                 ++ args.modules or [];
               specialArgs = {inherit lib inputs self inputs' self';} // args.specialArgs or {};
