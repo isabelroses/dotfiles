@@ -75,7 +75,7 @@ in {
           attachment.ALLOWED_TYPES = "*/*";
 
           ui = {
-            DEFAULT_THEME = "catppuccin-mocha-sapphire";
+            DEFAULT_THEME = "catppuccin-mocha-pink";
             THEMES =
               builtins.concatStringsSep
               ","
