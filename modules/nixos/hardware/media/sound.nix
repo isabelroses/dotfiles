@@ -46,7 +46,7 @@ in {
       wireplumber = {
         inherit (config.services.pipewire) enable;
 
-        configPackages = lib.optionals dev.hasBluetooth [
+        configPackages = lib.optionals device.hasBluetooth [
           (pkgs.writeTextDir "share/bluetooth.lua.d/51-bluez-config.lua" ''
             bluez_monitor.properties = {
               ["bluez5.enable-sbc-xq"] = true,
