@@ -30,6 +30,7 @@
         "m-cli"
         "coreutils"
         "openjdk"
+        "silicon"
       ];
 
       # `brew install --cask`
