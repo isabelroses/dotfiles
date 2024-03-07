@@ -198,7 +198,7 @@ in {
       use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/nix/nix-completions.nu" *
       use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/git/git-completions.nu" *
       use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/npm/npm-completions.nu" *
-      use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/yarn/yarn-completion.nu" *
+      # use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/yarn/yarn-completion.nu" *
       use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/tealdeer/tldr-completions.nu" *
       use "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/make/make-completions.nu" *
 
