@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkMerge;
 
   inherit (pkgs.stdenv) isLinux isDarwin;
 
@@ -36,7 +36,7 @@
     })
   ];
 in {
-  config.fonts =
+  config.fonts = mkMerge [
     {
       fontconfig = {
         enable = true;
@@ -51,18 +51,18 @@ in {
 
       # will be removed after this PR is merged:
       # https://github.com/LnL7/nix-darwin/pull/754
-      fontDir =
-        {
-          enable = true;
-        }
-        // mkIf isLinux {
-          decompressFonts = true;
-        };
+      fontDir = {
+        enable = true;
+      };
     }
-    // mkIf isLinux {
+
+    (mkIf isLinux {
       packages = fnts;
-    }
-    // mkIf isDarwin {
+      fontDir.decompressFonts = true;
+    })
+
+    (mkIf isDarwin {
       fonts = fnts;
-    };
+    })
+  ];
 }
