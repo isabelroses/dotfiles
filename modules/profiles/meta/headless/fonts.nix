@@ -4,7 +4,7 @@
   fonts = let
     inherit (lib) mkForce;
   in {
-    package = mkForce [];
+    packages = mkForce [];
     fontDir.enable = mkForce false;
     fontconfig.enable = mkForce false;
   };
