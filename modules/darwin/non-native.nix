@@ -59,7 +59,7 @@
 
     # modified from https://github.com/nmasur/dotfiles/blob/275863795317f8ce65486b138c1fb4eb6dbd65f8/modules/darwin/system.nix#L134-L148
     "com.apple.dock".persistent-apps = let
-      dockText = app: "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>${app}</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>";
+      dockText = app: "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>'${app}'</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>";
     in
       map dockText [
         "/Applications/Arc.app"
