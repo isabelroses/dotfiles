@@ -20,7 +20,6 @@ in {
     services = {
       vikunja = {
         enable = true;
-        setupNginx = true;
         frontendHostname = cfg.domain;
         frontendScheme = "https";
 
@@ -76,7 +75,23 @@ in {
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} = template.ssl rdomain;
+      nginx.virtualHosts.${cfg.domain} = {
+        locations =
+          {
+            "/" = {
+              root = config.services.vikunja.package-frontend;
+              tryFiles = "try_files $uri $uri/ /";
+            };
+
+            "~* ^/(api|dav|\\.well-known)/" = {
+              proxyPass = "http://{cfg.host}:${toString cfg.port}";
+              extraConfig = ''
+                client_max_body_size 20M;
+              '';
+            };
+          }
+          // template.ssl rdomain;
+      };
     };
 
     users = {
