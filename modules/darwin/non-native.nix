@@ -58,14 +58,14 @@
     "com.apple.ImageCapture".disableHotPlug = true;
 
     # modified from https://github.com/nmasur/dotfiles/blob/275863795317f8ce65486b138c1fb4eb6dbd65f8/modules/darwin/system.nix#L134-L148
-    "com.apple.dock".persistent-apps = let
-      dockText = app: "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>'${app}'</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>";
-    in
-      map dockText [
-        "/Applications/Arc.app"
-        "/Users/isabel/Applications/Home Manager Apps/WezTerm.app"
-        "/Users/isabel/Applications/Home Manager Apps/Discord.app"
-        "${pkgs.obsidian}/Applications/Obsidian.app"
-      ];
+    # "com.apple.dock".persistent-apps = let
+    #   dockText = app: "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>'${app}'</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>";
+    # in
+    #   map dockText [
+    #     "/Applications/Arc.app"
+    #     "/Users/isabel/Applications/Home Manager Apps/WezTerm.app"
+    #     "/Users/isabel/Applications/Home Manager Apps/Discord.app"
+    #     "${pkgs.obsidian}/Applications/Obsidian.app"
+    #   ];
   };
 }

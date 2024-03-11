@@ -25,7 +25,7 @@
       autohide-time-modifier = 1.0; # autohide animation duration
 
       orientation = "bottom"; # dock position
-      tilesize = 0; # dock icon size
+      tilesize = 1; # dock icon size
 
       static-only = false; # show running apps
       show-recents = false; # disable recent apps
