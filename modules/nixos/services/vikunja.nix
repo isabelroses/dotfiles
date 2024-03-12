@@ -76,9 +76,9 @@ in {
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} = {
-        locations =
-          {
+      nginx.virtualHosts.${cfg.domain} =
+        {
+          locations = {
             "/" = {
               root = pkgs.vikunja;
               tryFiles = "try_files $uri $uri/ /";
@@ -90,9 +90,9 @@ in {
                 client_max_body_size 20M;
               '';
             };
-          }
-          // template.ssl rdomain;
-      };
+          };
+        }
+        // template.ssl rdomain;
     };
 
     users = {
