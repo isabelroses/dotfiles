@@ -1,6 +1,7 @@
 {
-  config,
   lib,
+  pkgs,
+  config,
   ...
 }: let
   inherit (lib) mkIf template;
@@ -79,7 +80,7 @@ in {
         locations =
           {
             "/" = {
-              root = config.services.vikunja.package-frontend;
+              root = pkgs.vikunja;
               tryFiles = "try_files $uri $uri/ /";
             };
 
