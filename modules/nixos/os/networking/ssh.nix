@@ -18,13 +18,20 @@
       X11Forwarding = false;
 
       # Use key exchange algorithms recommended by `nixpkgs#ssh-audit`
-      # taken from https://github.com/numtide/srvos/blob/main/nixos/common/openssh.nix
       KexAlgorithms = [
         "curve25519-sha256"
         "curve25519-sha256@libssh.org"
         "diffie-hellman-group16-sha512"
         "diffie-hellman-group18-sha512"
         "sntrup761x25519-sha512@openssh.com"
+        "diffie-hellman-group-exchange-sha256"
+      ];
+
+      # Use Macs recommended by `nixpkgs#ssh-audit`
+      Macs = [
+        "mac-sha2-512-etm@openssh.com"
+        "hmac-sha2-256-etm@openssh.com"
+        "umac-128-etm@openssh.com"
       ];
 
       # kick out inactive sessions
