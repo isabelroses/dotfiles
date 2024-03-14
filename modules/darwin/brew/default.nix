@@ -39,6 +39,7 @@
         "zed"
         "raycast"
         "intellij-idea"
+        "obsidian"
       ];
     };
   };
