@@ -10,6 +10,7 @@
     ./emulation.nix # emulation setup
     ./encryption.nix # keeping my stuff hidden from you strange people
     ./nix.nix # nix settings for nixos only systems
+    ./themes.nix # themes for the system
     ./virtualization.nix # docker, QEMU, waydroid etc.
   ];
 }
