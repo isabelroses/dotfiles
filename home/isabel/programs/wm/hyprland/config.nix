@@ -19,7 +19,6 @@ in {
   wayland.windowManager.hyprland = {
     settings = {
       "$mod" = "SUPER";
-      "$inactive" = "0xff45475a"; # ctp surface1
 
       exec-once =
         [
@@ -61,8 +60,8 @@ in {
         border_size = 2;
         no_border_on_floating = true;
 
-        "col.active_border" = "rgba(cba6f7ff) rgba(89b4faff) rgba(94e2d5ff) 10deg";
-        "col.inactive_border" = "$inactive";
+        "col.active_border" = "$pink";
+        "col.inactive_border" = "$surface1";
       };
 
       group = {
@@ -70,8 +69,8 @@ in {
         # focus on the window that has just been moved out of the group
         focus_removed_window = true;
 
-        "col.border_active" = "0xff89dceb";
-        "col.border_inactive" = "$inactive";
+        "col.border_active" = "$rosewater";
+        "col.border_inactive" = "$surface1";
 
         groupbar = {
           gradients = false;
