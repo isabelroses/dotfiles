@@ -153,8 +153,8 @@ in {
 
       vikunja-env = mkSecret services.vikunja.enable {
         file = "vikunja-env";
-        owner = "vikunja-api";
-        group = "vikunja-api";
+        owner = "vikunja";
+        group = "vikunja";
       };
 
       nextcloud-passwd = mkSecret services.media.nextcloud.enable {

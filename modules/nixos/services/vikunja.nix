@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }: let
@@ -21,6 +20,7 @@ in {
     services = {
       vikunja = {
         enable = true;
+        port = cfg.port;
         frontendHostname = cfg.domain;
         frontendScheme = "https";
 
@@ -29,8 +29,8 @@ in {
         database = {
           type = "postgres";
           host = "/run/postgresql";
-          user = "vikunja-api";
-          database = "vikunja-api";
+          user = "vikunja";
+          database = "vikunja";
         };
 
         settings = {
@@ -78,28 +78,16 @@ in {
 
       nginx.virtualHosts.${cfg.domain} =
         {
-          locations = {
-            "/" = {
-              root = pkgs.vikunja;
-              tryFiles = "try_files $uri $uri/ /";
-            };
-
-            "~* ^/(api|dav|\\.well-known)/" = {
-              proxyPass = "http://{cfg.host}:${toString cfg.port}";
-              extraConfig = ''
-                client_max_body_size 20M;
-              '';
-            };
-          };
+          locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
         }
         // template.ssl rdomain;
     };
 
     users = {
-      groups.vikunja-api = {};
+      groups.vikunja = {};
 
-      users."vikunja-api" = {
-        group = "vikunja-api";
+      users."vikunja" = {
+        group = "vikunja";
         createHome = false;
         isSystemUser = true;
       };

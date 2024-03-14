@@ -45,6 +45,7 @@ in {
 
       vikunja = {
         domain = "todo.${rdomain}";
+        port = 3456;
       };
 
       kanidm = {
