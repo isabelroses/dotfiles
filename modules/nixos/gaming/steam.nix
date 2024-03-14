@@ -7,8 +7,6 @@
 }: let
   cfg = config.modules.programs.gaming;
 in {
-  imports = [inputs.nix-gaming.nixosModules.steamCompat];
-  # enable steam
   programs.steam = lib.mkIf cfg.enable {
     enable = true;
     # Open ports in the firewall for Steam Remote Play
