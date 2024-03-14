@@ -1,7 +1,5 @@
 {inputs, ...}: {
   imports = [inputs.catppuccin.nixosModules.catppuccin];
 
-  config.catppuccin = {
-    flavor = "mocha";
-  };
+  config.catppuccin.flavour = "mocha";
 }
