@@ -27,6 +27,13 @@
           text = import ./extract.nix {inherit lib pkgs;};
         });
       };
+
+      ".local/bin/licence" = {
+        source = lib.getExe (pkgs.writeShellApplication {
+          name = "licence";
+          text = import ./licence.nix {inherit lib pkgs;};
+        });
+      };
     };
   };
 }
