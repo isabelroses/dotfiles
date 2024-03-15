@@ -13,10 +13,10 @@ in {
     enableFishIntegration = config.programs.fish.enable;
     enableZshIntegration = config.programs.zsh.enable;
 
-    pinentryFlavor =
+    pinentryPackage =
       if video.enable
-      then "gtk2"
-      else "curses";
+      then pkgs.pinentry-gnome3 # requires services.dbus.packages = [ pkgs.gcr ]
+      else pkgs.pinentry-curses;
     enableSshSupport = true;
     defaultCacheTtl = 1209600;
     defaultCacheTtlSsh = 1209600;
