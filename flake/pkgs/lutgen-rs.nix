@@ -1,28 +1,28 @@
 {
-  fetchFromGitHub,
   lib,
   rustPlatform,
+  fetchFromGitHub,
 }: let
-  commit = "76b728a876741ac724cfb8eaaac1fd467c2d5d0e";
+  pname = "lutgen-rs";
+  version = "v0.10.0";
 in
-  rustPlatform.buildRustPackage rec {
-    pname = "lutgen-rs";
-    version = builtins.substring 0 7 commit;
+  rustPlatform.buildRustPackage {
+    inherit pname version;
 
     src = fetchFromGitHub {
       owner = "ozwaldorf";
       repo = pname;
-      rev = commit;
-      sha256 = "ntKNWvVP9m+GQPct9grY/1AfXGdHpLuYzTwiV1FY6vY=";
+      rev = version;
+      sha256 = "sha256-O2995+DLiCRDM/+oPTOBiM0L1x0jmbLTlR48+5IfOQw=";
     };
 
-    cargoSha256 = "sha256-StVgZBZ36fTneTtZAg5rlpqG0JVFlEDYFeBpk+8Hg+o=";
+    cargoSha256 = "sha256-8O60p/Bes0clOdBa2Zfp7b7dzgZgtuV55T+odYeIbjI=";
 
     meta = {
       description = "A blazingly fast interpolated LUT generator and applicator for arbitrary and popular color palettes. Theme any image to your dekstop colorscheme!";
       homepage = "https://github.com/ozwaldorf/lutgen-rs";
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [isabelroses];
-      platforms = lib.platforms.linux;
+      platforms = with lib.platforms; [linux darwin];
     };
   }
