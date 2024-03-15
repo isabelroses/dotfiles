@@ -2,7 +2,7 @@
   programs.zsh = {
     enable = pkgs.stdenv.isDarwin;
 
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     # enableCompletion = true;
     syntaxHighlighting.enable = true;
 
