@@ -1,16 +1,34 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }: let
-  inherit (config.modules) system environment programs;
-  inherit (lib) mkIf;
+  inherit (config.modules) system environment;
+  inherit (lib) mkIf getExe concatStringsSep;
+
   sessionData = config.services.xserver.displayManager.sessionData.desktops;
-  sessionPath = lib.concatStringsSep ":" [
+  sessionPath = concatStringsSep ":" [
     "${sessionData}/share/xsessions"
     "${sessionData}/share/wayland-sessions"
   ];
+
+  initialSession = {
+    user = "${system.mainUser}";
+    command = "${environment.desktop}";
+  };
+
+  defaultSession = {
+    user = "greeter";
+    command = concatStringsSep " " [
+      (getExe pkgs.greetd.tuigreet)
+      "--time"
+      "--remember"
+      "--remember-user-session"
+      "--asterisks"
+      "--sessions '${sessionPath}'"
+    ];
+  };
 in {
   config = {
     # unlock GPG keyring on login
@@ -45,31 +63,11 @@ in {
         enable = environment.loginManager == "greetd";
         vt = 2;
         restart = !system.autoLogin;
-        settings = {
-          # pick up desktop variant (i.e Hyprland) and username from environment module
-          # this option is usually defined in host/<hostname>/system.nix
-          initial_session = mkIf system.autoLogin {
-            command = "${environment.desktop}";
-            user = "${system.mainUser}";
-          };
 
-          default_session =
-            if (!system.autoLogin)
-            then {
-              command = lib.concatStringsSep " " [
-                (lib.getExe pkgs.greetd.tuigreet)
-                "--time"
-                "--remember"
-                "--remember-user-session"
-                "--asterisks"
-                "--sessions '${sessionPath}'"
-              ];
-              user = "greeter";
-            }
-            else {
-              command = "${environment.desktop}";
-              user = "${system.mainUser}";
-            };
+        settings = {
+          default_session = defaultSession;
+
+          initial_session = mkIf system.autoLogin initialSession;
         };
       };
 
