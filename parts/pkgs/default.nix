@@ -5,7 +5,7 @@
     ...
   }: {
     packages = let
-      docs = pkgs.callPackage ../../docs {inherit self;};
+      docs = pkgs.callPackage (self + /docs) {inherit self;};
     in {
       docs-md = docs.md;
       docs-html = docs.html;

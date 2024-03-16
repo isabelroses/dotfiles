@@ -57,13 +57,13 @@
     EOF
 
     # declare all packages this flake provides
-    cat ${self}/flake/pkgs/default.nix |
+    cat ${self}/parts/pkgs/default.nix |
     awk '/= pkgs/{print $1}' |
     awk "!/docs/" |
     sed -E "s/(.*)/- [\1](https:\/\/github.com\/isabelroses\/dotfiles\/blob\/main\/flake\/pkgs\/\1\.nix)/g" >> $out
 
     # declare docs
-    cat ${self}/flake/pkgs/default.nix |
+    cat ${self}/parts/pkgs/default.nix |
     awk '/= docs/{print $1}' |
     sed -E "s/(.*)/- [\1](https:\/\/github.com\/isabelroses\/dotfiles\/blob\/main\/docs)/g" >> $out
   '';
