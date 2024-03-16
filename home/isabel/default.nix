@@ -6,14 +6,10 @@
   inherit (lib) mkDefault ldTernary;
 in {
   imports = [
-    # important system environment config
-    ./system
-    # programs that are used, e.g. GUI apps
-    ./programs
-    # system services, organized by display protocol
-    ./services
-    # Application themeing
-    ./themes
+    ./system # important system environment config
+    ./programs # programs that are used, e.g. GUI apps
+    ./services # system services, organized by display protocol
+    ./themes # Application themeing
   ];
 
   config = {
@@ -28,8 +24,8 @@ in {
       stateVersion = mkDefault "23.05";
     };
 
+    # I don't use docs, so just disable them
     manual = {
-      # I don't use docs, so just disable them
       html.enable = false;
       json.enable = false;
       manpages.enable = false;
