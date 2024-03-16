@@ -27,7 +27,7 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@main
       
       - name: Check Flake
-        run: nix flake check --accept-flake-config
+        run: NIXPKGS_ALLOW_UNFREE=1 nix flake check --accept-flake-config --impure
 
       - name: Check Flake Inputs
         uses: DeterminateSystems/flake-checker-action@v5
