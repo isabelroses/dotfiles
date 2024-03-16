@@ -1,5 +1,5 @@
 {
-  flake.overlays.defaults = final: prev:
+  flake.overlayAttrs = final: prev:
     prev.lib.composeManyExtensions
     (
       prev.lib.pipe ./. [

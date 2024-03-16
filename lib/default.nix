@@ -1,4 +1,4 @@
-{inputs, ...}: let
+{inputs}: let
   inherit (inputs.nixpkgs) lib;
   inherit (lib) foldl recursiveUpdate;
 

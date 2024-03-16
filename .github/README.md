@@ -61,7 +61,7 @@
   - 𖤍 [Valkyrie](../hosts/valkyrie/) A WSL2 host, designed to be a development environment on Windows
   - 💮 [Tatsumaki](../hosts/tatsumaki/) A MacBook Air, configured to last a whole day of university
 - 📚 [lib](../lib/) Useful repeated functions
-- 🧩 [flake](../flake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
+- 🧩 [parts](../parts/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
 - 📝 [docs](../docs/) Documentation for the configuration which can be found [here](https://isabelroses.github.io/dotfiles/)
 - 🔌 [modules](../modules/)
   - [base](../modules/base/) The base configuration settings, which are common between all systems

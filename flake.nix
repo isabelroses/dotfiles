@@ -22,19 +22,10 @@
 
         inputs.flake-parts.flakeModules.easyOverlay
 
-        # flake parts
-        ./flake/makeSys.nix # args that is passsed to the flake, moved away from the main file
-        ./flake/lib.nix # lib for the flake
-        ./flake/modules # nixos and home-manager modules
-        ./flake/overlays # overlays that make the system that bit cleaner
-        ./flake/pkgs # packages exposed to the flake
-        ./flake/programs # programs that run in the dev shell
-        ./flake/schemas # nix schemas. whenever they actually work
-        ./flake/templates # programing templates for the quick setup of new programing enviorments
+        ./parts # flake parts
       ];
 
       flake = let
-        # extended nixpkgs lib, with additonal features
         lib = import ./lib {inherit inputs;};
       in
         import ./hosts {inherit lib withSystem;};

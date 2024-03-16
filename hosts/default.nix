@@ -98,4 +98,6 @@ in
         specialArgs = sharedArgs;
       }
     ])
+
+    {inherit lib;}
   ]

@@ -8,8 +8,10 @@
 
     legacyPackages = import inputs.nixpkgs {
       inherit system;
-      config.allowUnfree = true;
-      config.allowUnsupportedSystem = true;
+      config = {
+        allowUnfree = true;
+        allowUnsupportedSystem = true;
+      };
       overlays = [];
     };
   };
