@@ -40,7 +40,7 @@ in {
           then pkgs.glfw-wayland-minecraft
           else pkgs.glfw;
       in [
-        (inputs'.prism-launcher.packages.prismlauncher.override {
+        (pkgs.prismlauncher.override {
           # get java versions required by various minecraft versions
           # "write once run everywhere" my ass
           jdks = javaPackages;

@@ -95,7 +95,7 @@
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        "nixpkgs-23_05".follows = "";
+        utils.follows = "neovim/flake-utils";
       };
     };
 
@@ -209,17 +209,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-      };
-    };
-
-    # More up to date minecraft launcher
-    prism-launcher = {
-      url = "github:PrismLauncher/PrismLauncher";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        pre-commit-hooks.follows = "pre-commit-hooks";
-        flake-compat.follows = "neovim/flake-compat";
       };
     };
 
