@@ -32,7 +32,7 @@
 in {
   config = {
     # unlock GPG keyring on login
-    security.pam.services = {
+    security.pam.services = let
       login = {
         enableGnomeKeyring = true;
         gnupg = {
@@ -41,24 +41,15 @@ in {
           storeOnly = true;
         };
       };
+    in {
+      inherit login;
 
-      greetd = mkIf (environment.loginManager == "greetd") {
-        gnupg.enable = true;
-        enableGnomeKeyring = true;
-      };
+      greetd = mkIf (environment.loginManager == "greetd") login;
+
+      tuigreet = login;
     };
 
     services = {
-      xserver.displayManager.session = [
-        {
-          manage = "desktop";
-          name = "hyprland";
-          start = ''
-            Hyprland
-          '';
-        }
-      ];
-
       greetd = {
         enable = environment.loginManager == "greetd";
         vt = 2;
@@ -69,11 +60,6 @@ in {
 
           initial_session = mkIf system.autoLogin initialSession;
         };
-      };
-
-      gnome = {
-        glib-networking.enable = true;
-        gnome-keyring.enable = true;
       };
 
       logind = {
