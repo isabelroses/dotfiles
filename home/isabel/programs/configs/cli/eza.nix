@@ -16,8 +16,11 @@ in {
       enableZshIntegration = config.programs.zsh.enable;
 
       extraOptions = [
+        "--group"
         "--group-directories-first"
         "--header"
+        "--no-permissions"
+        "--octal-permissions"
       ];
     };
   };
