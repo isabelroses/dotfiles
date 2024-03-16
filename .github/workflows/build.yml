@@ -16,7 +16,6 @@ jobs:
       matrix:
         package:
           - bellado
-          - isabelroses-website
           - catppuccinifier-cli
           - lutgen-rs
           - patched-gjs
