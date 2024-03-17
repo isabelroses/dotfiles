@@ -101,11 +101,11 @@
     },
     "catppuccin": {
       "locked": {
-        "lastModified": 1710369933,
-        "narHash": "sha256-zm2BHzNJubnLLlb3MKKrBgWMYHR9oTghAE3rpyL/IdI=",
+        "lastModified": 1710663401,
+        "narHash": "sha256-pA1l9dBv85e7r0UWRmgZMYLDa4S1LXFtRLvXCAJGcfI=",
         "owner": "Stonks3141",
         "repo": "ctp-nix",
-        "rev": "d4c0e280e4cb4950c3ec6593db6c472931e937d5",
+        "rev": "03b95cad3bbeb9913db6d89dc3f4fccc6c8fcbd4",
         "type": "github"
       },
       "original": {
