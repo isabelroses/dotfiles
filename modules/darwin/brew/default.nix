@@ -37,9 +37,10 @@
       casks = [
         "arc"
         "zed"
+        "maccy"
         "raycast"
-        "intellij-idea"
         "obsidian"
+        "intellij-idea"
       ];
     };
   };
