@@ -27,6 +27,7 @@
 
       # `brew install`
       brews = [
+        "webp"
         "m-cli"
         "coreutils"
         "openjdk"
@@ -35,12 +36,13 @@
 
       # `brew install --cask`
       casks = [
-        "arc"
-        "zed"
-        "maccy"
-        "raycast"
-        "obsidian"
-        "intellij-idea"
+        "arc" # browser
+        "zed" # text editor
+        "maccy" # clipboard manager
+        "raycast" # app launcher
+        "vanilla" # hide menu bar icons
+        "obsidian" # note taking
+        "intellij-idea" # IDE
       ];
     };
   };
