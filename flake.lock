@@ -83,6 +83,26 @@
         "type": "github"
       }
     },
+    "blahaj": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1710800621,
+        "narHash": "sha256-PCTrvUWZHP184ZA0vc5+hfpqYb4RSSw7/Kdc0fKtM7Y=",
+        "owner": "isabelroses",
+        "repo": "blahaj",
+        "rev": "d016acba8129b7b3ddc0f739b69c9568b29ff689",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "repo": "blahaj",
+        "type": "github"
+      }
+    },
     "blobs": {
       "flake": false,
       "locked": {
@@ -924,11 +944,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710683923,
-        "narHash": "sha256-CyjC7v2kXSa2+0WzYgRQBkeaIze6Yizt5//v1kRZ9LI=",
+        "lastModified": 1710789362,
+        "narHash": "sha256-NX6ZmkRt5KmUK2Cm0WHB0vdoVqpGWWXtLASu8U9UbXk=",
         "owner": "isabelroses",
         "repo": "website",
-        "rev": "71ea3636672c05082b262716ab091511a8ec03cf",
+        "rev": "21a53a4999bcd261c02454085702ddc847f7907a",
         "type": "github"
       },
       "original": {
@@ -1435,6 +1455,7 @@
         "ags": "ags",
         "auto-cpufreq": "auto-cpufreq",
         "bellado": "bellado",
+        "blahaj": "blahaj",
         "catppuccin": "catppuccin",
         "catppuccin-toolbox": "catppuccin-toolbox",
         "catppuccin-vsc": "catppuccin-vsc",

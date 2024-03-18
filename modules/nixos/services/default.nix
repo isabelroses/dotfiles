@@ -6,6 +6,7 @@
     ./monitoring
     ./networking
 
+    ./blahaj.nix
     ./kanidm.nix
     ./mailserver.nix
     ./vaultwarden.nix
