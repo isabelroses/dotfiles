@@ -18,7 +18,7 @@ in {
 
     home = {
       username = "isabel";
-      homeDirectory = ldTernary pkgs "/home/isabel" "/Users/isabel";
+      homeDirectory = "/${ldTernary pkgs "home" "Users"}/isabel";
       extraOutputsToInstall = ["doc" "devdoc"];
 
       stateVersion = mkDefault "23.05";

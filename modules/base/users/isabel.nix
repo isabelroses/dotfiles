@@ -13,7 +13,7 @@ in {
   users.users.isabel =
     {
       openssh.authorizedKeys.keys = keys;
-      home = ldTernary pkgs "/home/isabel" "/Users/isabel";
+      home = "/${ldTernary pkgs "home" "Users"}/isabel";
       shell = pkgs.bash;
     }
     // (
