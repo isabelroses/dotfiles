@@ -151,6 +151,10 @@ in {
         group = "forgejo";
       };
 
+      blahaj-env = mkSecret services.blahaj.enable {
+        file = "blahaj-env";
+      };
+
       vikunja-env = mkSecret services.vikunja.enable {
         file = "vikunja-env";
         owner = "vikunja";

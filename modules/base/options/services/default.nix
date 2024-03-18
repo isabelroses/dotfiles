@@ -43,6 +43,8 @@ in {
         port = 3000;
       };
 
+      blahaj = {};
+
       vikunja = {
         domain = "todo.${rdomain}";
         port = 3456;

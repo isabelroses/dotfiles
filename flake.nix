@@ -169,6 +169,10 @@
       url = "github:isabelroses/website";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    blahaj = {
+      url = "github:isabelroses/blahaj";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # a tree-wide formatter
     treefmt-nix = {

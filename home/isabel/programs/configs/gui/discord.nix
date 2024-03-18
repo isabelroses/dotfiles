@@ -1,12 +1,12 @@
 {
   lib,
   pkgs,
-  config,
   osConfig,
   ...
 }: let
   inherit (lib) mkIf isWayland ldTernary;
-  inherit (osConfig.modules) environment system;
+
+  fmt = pkgs.formats.json {};
 in {
   config = mkIf osConfig.modules.programs.gui.discord.enable {
     home.packages =
@@ -34,8 +34,8 @@ in {
         })
       ];
 
-    xdg.configFile = {
-      "discord/settings.json".source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/home/${system.mainUser}/programs/configs/gui/discord/settings.json";
+    xdg.configFile."discord/settings.json".source = fmt.generate "discord.json" {
+      SKIP_HOST_UPDATE = true;
     };
   };
 }
