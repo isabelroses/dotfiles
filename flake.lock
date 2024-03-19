@@ -90,11 +90,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1710800621,
-        "narHash": "sha256-PCTrvUWZHP184ZA0vc5+hfpqYb4RSSw7/Kdc0fKtM7Y=",
+        "lastModified": 1710846243,
+        "narHash": "sha256-YJgzhpEASRc36InFMcO7o8i5oaG/wT5pB3zkA0gM9cw=",
         "owner": "isabelroses",
         "repo": "blahaj",
-        "rev": "d016acba8129b7b3ddc0f739b69c9568b29ff689",
+        "rev": "be7b627bbdee7ccd0c3605cf090fa461e8afb83f",
         "type": "github"
       },
       "original": {
