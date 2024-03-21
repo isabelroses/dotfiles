@@ -30,17 +30,7 @@
             enable = false;
             always_run = true;
           };
-        };
-
-        settings = {
-          # prettier = {
-          #   binPath = "${pkgs.prettierd}/bin/prettierd";
-          #   write = true;
-          # };
-
-          treefmt = {
-            package = config.treefmt.build.wrapper;
-          };
+          treefmt.package = config.treefmt.build.wrapper;
         };
       };
     };
