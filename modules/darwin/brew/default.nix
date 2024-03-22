@@ -42,6 +42,7 @@
         "raycast" # app launcher
         "vanilla" # hide menu bar icons
         "obsidian" # note taking
+        "inkscape" # vector graphics editor
         "intellij-idea" # IDE
       ];
     };
