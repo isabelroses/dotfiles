@@ -1,7 +1,7 @@
 {
-  osConfig,
   lib,
   pkgs,
+  osConfig,
   ...
 }: let
   inherit (lib) mkIf optionals;
@@ -15,6 +15,7 @@ in {
         rsync
         fd
         jq
+        just # cool build tool
         dconf
         wakatime
       ]
