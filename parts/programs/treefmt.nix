@@ -13,7 +13,7 @@
         prettier = {
           enable = true;
           package = pkgs.prettierd;
-          excludes = [];
+          excludes = ["*.age"];
           settings = {
             editorconfig = true;
           };
@@ -21,8 +21,6 @@
 
         shfmt = {
           enable = true;
-          # https://flake.parts/options/treefmt-nix.html#opt-perSystem.treefmt.programs.shfmt.indent_size
-          # 0 causes shfmt to use tabs
           indent_size = 2;
         };
       };

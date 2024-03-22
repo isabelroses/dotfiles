@@ -1,5 +1,5 @@
 {
-  perSystem = {pkgs, ...}: {
-    formatter = pkgs.alejandra;
+  perSystem = {config, ...}: {
+    formatter = config.treefmt.build.wrapper;
   };
 }
