@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="dots src="./dots.svg" />
+  <img alt="dots" src="./dots.svg" />
   <h1>isabel's dotfiles</h1>
 
   <img alt="stars" src="https://img.shields.io/github/stars/isabelroses/dotfiles?color=f5c2e7&labelColor=303446&style=for-the-badge&logo=starship&logoColor=f5c2e7">
