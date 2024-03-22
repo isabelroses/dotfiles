@@ -20,7 +20,6 @@ in {
       ]
       ++ optionals cfg.cli.modernShell.enable [
         ripgrep
-        mods # ai tools
         nap # code sinppets
         glow # markdown preview
       ]
