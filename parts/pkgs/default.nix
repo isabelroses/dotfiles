@@ -14,6 +14,8 @@
       patched-gjs = pkgs.callPackage ./patched-gjs.nix {};
       plymouth-theme-catppuccin = pkgs.callPackage ./plymouth-theme-catppuccin.nix {};
       headscale-ui = pkgs.callPackage ./headscale-ui.nix {};
+      sddm-catppuccin = pkgs.callPackage ./sddm.nix {};
+      gh-eco = pkgs.callPackage ./gh-eco.nix {};
 
       bellado = inputs'.bellado.packages.default;
       isabelroses-website = inputs'.isabelroses-website.packages.default;

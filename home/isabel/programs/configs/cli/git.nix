@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  self',
   osConfig,
   ...
 }: let
@@ -29,7 +30,7 @@ in {
         extensions = with pkgs; [
           gh-cal # github activity stats in the CLI
           gh-dash # dashboard with pull requests and issues
-          gh-eco # explore the ecosystem
+          self'.packages.gh-eco # explore the ecosystem
         ];
         settings = {
           git_protocol = "ssh";

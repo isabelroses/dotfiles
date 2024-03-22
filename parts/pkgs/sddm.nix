@@ -1,8 +1,8 @@
 {
-  pkgs,
   lib,
+  pkgs,
 }: let
-  commit = "7fc67d1027cdb7f4d833c5d23a8c34a0029b0661";
+  commit = "fe7aacfe16bc31f442a27a0b46330872a479bcad";
 in
   pkgs.stdenv.mkDerivation {
     pname = "sddm-catppucin";
@@ -12,13 +12,16 @@ in
       owner = "catppuccin";
       repo = "sddm";
       rev = commit;
-      sha256 = "sha256-SjYwyUvvx/ageqVH5MmYmHNRKNvvnF3DYMJ/f2/L+Go=";
+      sha256 = "sha256-h/sffVhClkm9uIRU3LYaAuEUJHPGkYF+C/NN9rCyZ/c=";
     };
 
-    dontBuild = true;
+    buildPhase = ''
+      ./build.sh nozip
+    '';
+
     installPhase = ''
       mkdir -p $out/
-      cp -R $src/src/catppuccin-mocha/* $out/
+      cp -R dist/* $out/
     '';
 
     meta = {
