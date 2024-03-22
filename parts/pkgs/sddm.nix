@@ -2,7 +2,7 @@
   lib,
   pkgs,
 }: let
-  commit = "fe7aacfe16bc31f442a27a0b46330872a479bcad";
+  commit = "a487ae20737d5014ed986cb0e207cc011726a485";
 in
   pkgs.stdenv.mkDerivation {
     pname = "sddm-catppucin";
@@ -12,11 +12,13 @@ in
       owner = "catppuccin";
       repo = "sddm";
       rev = commit;
-      sha256 = "sha256-h/sffVhClkm9uIRU3LYaAuEUJHPGkYF+C/NN9rCyZ/c=";
+      sha256 = "sha256-SdpkuonPLgCgajW99AzJaR8uvdCPi4MdIxS5eB+Q9WQ=";
     };
 
+    buildInputs = with pkgs; [just];
+
     buildPhase = ''
-      ./build.sh nozip
+      just build
     '';
 
     installPhase = ''
