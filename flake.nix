@@ -233,10 +233,6 @@
       url = "github:catppuccin/toolbox";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Schemas
-    flake-schemas.url = "github:DeterminateSystems/flake-schemas";
-    nixSchemas.url = "github:DeterminateSystems/nix/flake-schemas";
   };
 
   # This allows for the gathering of prebuilt binaries, making building much faster
