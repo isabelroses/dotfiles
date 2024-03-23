@@ -20,7 +20,7 @@ in {
         indicator-radius = 120;
         indicator-thickness = 20;
         line-uses-ring = true;
-        font = "RobotoMono Nerd Font Regular";
+        font = "CommitMono";
         font-size = 32;
         color = "11111bff";
         separator-color = "3132441c";

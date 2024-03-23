@@ -49,7 +49,7 @@ in {
       name = mkOption {
         type = types.str;
         description = "The name of the font that will be used for GTK applications";
-        default = "RobotoMono Nerd Font Regular";
+        default = "CommitMono";
       };
 
       size = mkOption {

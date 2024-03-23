@@ -14,7 +14,7 @@ in {
       package = pkgs.firefox-esr-115-unwrapped;
 
       theme = {
-        font = "RobotoMono Nerd Font";
+        font = "CommitMono";
 
         colors = {
           foreground = "cdd6f4";

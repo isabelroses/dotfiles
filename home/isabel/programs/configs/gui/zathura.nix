@@ -15,7 +15,7 @@
       extraConfig = "include catppuccin-mocha";
 
       options = {
-        font = "RobotoMono Nerd Font 15";
+        font = "CommitMono 15";
         selection-clipboard = "clipboard";
         #adjust-open = "best-fit";
         #pages-per-row = "1";

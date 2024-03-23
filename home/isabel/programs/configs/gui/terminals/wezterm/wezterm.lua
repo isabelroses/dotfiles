@@ -47,7 +47,7 @@ config.adjust_window_size_when_changing_font_size = false
 
 -- fonts
 config.font = wezterm.font_with_fallback({
-  "RobotoMono Nerd Font",
+  "CommitMono",
   "Symbols Nerd Font",
 })
 config.font_size = 13

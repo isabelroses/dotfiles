@@ -12,22 +12,22 @@
 
         font = {
           normal = {
-            family = "RobotoMono Nerd Font Mono";
+            family = "CommitMono";
             style = "Regular";
           };
 
           bold = {
-            family = "RobotoMono Nerd Font Mono";
+            family = "CommitMono";
             style = "Bold";
           };
 
           italic = {
-            family = "RobotoMono Nerd Font Mono";
+            family = "CommitMono";
             style = "Regular";
           };
 
           bold_italic = {
-            family = "RobotoMono Nerd Font Mono";
+            family = "CommitMono";
             style = "Regular Bold";
           };
 

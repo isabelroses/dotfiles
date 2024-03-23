@@ -15,7 +15,7 @@
       disable-history = false;
       hide-scrollbar = true;
       sidebar-mode = true;
-      font = "RobotoMono Nerd Font 14";
+      font = "CommitMono 14";
       display-drun = "Apps";
       drun-display-format = "{name}";
     };

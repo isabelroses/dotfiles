@@ -15,7 +15,7 @@
       };
       settings = {
         background_opacity = "0.85";
-        font_family = "RobotoMono Nerd Font";
+        font_family = "CommitMono";
         font_size = 13;
         disable_ligatures = "never";
         cursor_shape = "beam";
