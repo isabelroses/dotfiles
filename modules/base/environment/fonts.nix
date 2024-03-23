@@ -3,11 +3,11 @@
   pkgs,
   ...
 }: let
-  inherit (lib) mkIf mkMerge;
-
-  inherit (pkgs.stdenv) isLinux isDarwin;
+  inherit (lib) ldTernary;
 
   fnts = with pkgs; [
+    commit-mono
+
     corefonts
 
     material-icons
@@ -31,38 +31,34 @@
         "Mononoki"
         "Ubuntu"
         "UbuntuMono"
-        "Noto"
       ];
     })
   ];
 in {
-  config.fonts = mkMerge [
+  config.fonts =
+    {
+      # will be removed after this PR is merged:
+      # https://github.com/LnL7/nix-darwin/pull/754
+      fontDir.enable = true;
+    }
+    // ldTernary pkgs
     {
       fontconfig = {
         enable = true;
 
         defaultFonts = {
-          monospace = ["RobotoMono Nerd Font Mono"];
-          sansSerif = ["Roboto Nerd Font"];
-          serif = ["Noto Serif"];
-          emoji = ["Noto Color Emoji"];
+          monospace = ["CommitMono" "Symbols Nerd Font"];
+          sansSerif = ["CommitMono" "Symbols Nerd Font"];
+          serif = ["Noto Serif" "Symbols Nerd Font"];
+          emoji = ["Noto Color Emoji" "Symbols Nerd Font"];
         };
       };
 
-      # will be removed after this PR is merged:
-      # https://github.com/LnL7/nix-darwin/pull/754
-      fontDir = {
-        enable = true;
-      };
-    }
-
-    (mkIf isLinux {
       packages = fnts;
-      fontDir.decompressFonts = true;
-    })
 
-    (mkIf isDarwin {
+      fontDir.decompressFonts = true;
+    }
+    {
       fonts = fnts;
-    })
-  ];
+    };
 }
