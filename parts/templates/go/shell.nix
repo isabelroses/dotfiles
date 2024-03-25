@@ -1,6 +1,7 @@
 {
   go,
   gopls,
+  goreleaser,
   callPackage,
 }: let
   mainPkg = callPackage ./default.nix {};
@@ -10,6 +11,7 @@ in
       [
         go
         gopls
+        goreleaser
       ]
       ++ (oa.nativeBuildInputs or []);
   })

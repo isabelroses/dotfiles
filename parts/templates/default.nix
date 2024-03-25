@@ -6,10 +6,10 @@
       description = "Development environment for C/C++";
     };
 
-    # Rust
-    rust = {
-      path = ./rust;
-      description = "Development environment for Rust";
+    # golang
+    go = {
+      path = ./go;
+      description = "Development environment for Golang";
     };
 
     # NodeJS
@@ -18,16 +18,16 @@
       description = "Development environment for NodeJS";
     };
 
-    # golang
-    go = {
-      path = ./go;
-      description = "Development environment for Golang";
-    };
-
     # Python
     python = {
       path = ./python;
       description = "Development environment for Python";
+    };
+
+    # Rust
+    rust = {
+      path = ./rust;
+      description = "Development environment for Rust";
     };
   };
 }

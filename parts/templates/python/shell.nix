@@ -1,7 +1,7 @@
 {
+  python3,
   callPackage,
   mkShellNoCC,
-  python3,
   ...
 }: let
   defaultPackage = callPackage ./default.nix;

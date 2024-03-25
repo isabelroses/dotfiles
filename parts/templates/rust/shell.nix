@@ -1,8 +1,8 @@
 {
+  clippy,
+  rustfmt,
   callPackage,
   rust-analyzer,
-  rustfmt,
-  clippy,
 }: let
   mainPkg = callPackage ./default.nix {};
 in
@@ -10,9 +10,9 @@ in
     nativeBuildInputs =
       [
         # Additional rust tooling
-        rust-analyzer
-        rustfmt
         clippy
+        rustfmt
+        rust-analyzer
       ]
       ++ (oa.nativeBuildInputs or []);
   })

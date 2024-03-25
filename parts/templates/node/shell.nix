@@ -1,8 +1,8 @@
 {
-  callPackage,
-  writeShellScriptBin,
   eslint_d,
   prettierd,
+  callPackage,
+  writeShellScriptBin,
 }: let
   mainPkg = callPackage ./default.nix {};
   mkNpxAlias = name: writeShellScriptBin name "npx ${name} \"$@\"";
