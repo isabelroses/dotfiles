@@ -23,6 +23,7 @@
 
       taps = [
         "homebrew/bundle"
+        "charmbracelet/tap"
       ];
 
       # `brew install`
@@ -32,6 +33,7 @@
         "coreutils"
         "openjdk"
         "silicon"
+        "charmbracelet/tap/freeze" # capture terminal output as screenshots
       ];
 
       # `brew install --cask`
