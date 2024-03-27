@@ -7,6 +7,7 @@
     ./bellado.nix
     ./direnv.nix
     ./eza.nix
+    ./freeze.nix
     ./fzf.nix
     ./git.nix
     ./hyfetch.nix

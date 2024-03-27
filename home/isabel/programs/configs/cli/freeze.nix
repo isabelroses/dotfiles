@@ -10,18 +10,17 @@
 in {
   config = mkIf (isModernShell osConfig) {
     home.packages = mkIf pkgs.stdenv.isLinux [
-      pkgs.freeze
+      pkgs.charm-freeze
     ];
 
     xdg.configFile."freeze/user.json".source = json.generate "user.json" {
-      window = true;
       theme = "catppuccin-mocha";
-
       background = "#1e1e2e";
 
+      window = true;
       shadow = false;
-      padding = 0;
-      margin = 0;
+      padding = [20 40 20 20];
+      margin = [50 60 70 60];
 
       line_height = 1.2;
       line_numbers = true;
@@ -34,8 +33,7 @@ in {
 
       font = {
         family = "CommitMono";
-        size = 13;
-        ligatures = true;
+        size = 14;
       };
     };
   };
