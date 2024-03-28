@@ -40,8 +40,8 @@
       casks = [
         "arc" # browser
         "zed" # text editor
-        "maccy" # clipboard manager
-        "raycast" # app launcher
+        # "loungy" # app launcher, too beta to use mainstream
+        "raycast" # app launcher, and cliboard manager
         "vanilla" # hide menu bar icons
         "obsidian" # note taking
         "inkscape" # vector graphics editor
