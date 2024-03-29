@@ -7,7 +7,6 @@
     ./services # services exclusive to nix-darwin
 
     ./activation.nix # run when we start the system
-    ./security.nix # security settings
     ./nix.nix # nix settings that can only be applied to nix-darwin
   ];
 }
