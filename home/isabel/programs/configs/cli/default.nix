@@ -11,6 +11,7 @@
     ./fzf.nix
     ./git.nix
     ./hyfetch.nix
+    ./newsboat.nix
     ./nix-shell.nix
     ./starship.nix
     ./tealdear.nix
