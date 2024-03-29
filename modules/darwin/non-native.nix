@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   # Customize settings that not supported by nix-darwin directly
   # see the source code of this project to get more undocumented options:
   #    https://github.com/rgcr/m-cli
@@ -9,16 +9,6 @@
     NSGlobalDomain = {
       # Add a context menu item for showing the Web Inspector in web views
       WebKitDeveloperExtras = true;
-    };
-
-    "com.apple.finder" = {
-      ShowExternalHardDrivesOnDesktop = true;
-      ShowHardDrivesOnDesktop = true;
-      ShowMountedServersOnDesktop = true;
-      ShowRemovableMediaOnDesktop = true;
-      _FXSortFoldersFirst = true;
-      # When performing a search, search the current folder by default
-      FXDefaultSearchScope = "SCcf";
     };
 
     "com.apple.desktopservices" = {
