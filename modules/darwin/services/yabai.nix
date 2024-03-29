@@ -1,6 +1,4 @@
 {
-  # addopted from https://github.com/nekowinston/dotfiles/blob/36f7f4a86af4d1ecd3d2da483585e4d2503a978a/machines/common/darwin/default.nix
-  # at least until I figure out how I prefer it
   services.yabai = {
     enable = true;
     enableScriptingAddition = true;
