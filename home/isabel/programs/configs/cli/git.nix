@@ -72,6 +72,7 @@ in {
 
         delta = {
           enable = true;
+          # catppuccin.enable = true;
           options = {
             features = "decorations side-by-side navigate";
             navigate = true;
