@@ -32,7 +32,6 @@
         "m-cli"
         "coreutils"
         "openjdk"
-        "silicon"
         "charmbracelet/tap/freeze" # capture terminal output as screenshots
       ];
 

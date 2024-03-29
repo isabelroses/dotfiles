@@ -20,6 +20,5 @@ in {
       jetbrains.idea-ultimate
       # arduino
     ]
-    ++ optionals cfg.agnostic.editors.neovim.enable [inputs'.neovim.packages.default]
-    ++ optionals pkgs.stdenv.isLinux [silicon];
+    ++ optionals cfg.agnostic.editors.neovim.enable [inputs'.neovim.packages.default];
 }
