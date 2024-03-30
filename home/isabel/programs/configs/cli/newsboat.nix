@@ -45,6 +45,11 @@
         tags = ["nix"];
         url = "https://ayats.org/index.xml";
       }
+      {
+        title = "Nixpkgs News";
+        tags = ["nix"];
+        url = "https://nixpkgs.news/rss.xml";
+      }
     ];
 
     extraConfig = ''
