@@ -22,7 +22,6 @@ in {
       ++ optionals cfg.cli.modernShell.enable [
         ripgrep # much better and faster grep
         vhs # programatically make gifs
-        nap # code sinppets
         glow # markdown preview
       ]
       ++ optionals stdenv.isLinux [
