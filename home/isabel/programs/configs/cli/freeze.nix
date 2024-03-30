@@ -20,7 +20,7 @@ in {
       window = true;
       shadow = false;
       padding = [20 40 20 20];
-      margin = [50 60 70 60];
+      margin = 0;
 
       line_height = 1.2;
       line_numbers = true;
