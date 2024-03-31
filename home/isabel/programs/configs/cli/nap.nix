@@ -5,16 +5,14 @@
   ...
 }: let
   inherit (lib) mkIf;
-  cfg = osConfig.modules.programs;
+  cfg = osConfig.modules.programs.cli;
 in {
-  config = mkIf (cfg.cli.enable && cfg.cli.modernShell.enable) {
+  config = mkIf (cfg.enable && cfg.modernShell.enable) {
     home.packages = with pkgs; [nap];
 
     xdg.configFile."nap/config.yaml".text = ''
-      home: ~/.local/share/nap
       default_language: go
       theme: "catppuccin-mocha"
-
       background: "#1e1e2e"
       foreground: "#cdd6f4"
       primary_color: "#f5c2e7"
