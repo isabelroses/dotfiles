@@ -25,11 +25,11 @@ in {
       line_height = 1.2;
       line_numbers = true;
 
-      border = {
-        radius = 8;
-        width = 1;
-        color = "#313244";
-      };
+      # border = {
+      #   radius = 8;
+      #   width = 1;
+      #   color = "#313244";
+      # };
 
       font = {
         family = "CommitMono";
