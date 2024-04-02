@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   osConfig,
   ...
@@ -18,7 +19,16 @@ in {
 
         shellAliases = builtins.removeAttrs config.home.shellAliases ["mkdir" "nixclean" "rebuild"];
 
-        extraConfig = ''
+        extraConfig = let
+          completions = cmds: ''
+            ${lib.concatMapStrings (cmd: ''
+                source "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${cmd}/${cmd}-completions.nu"
+              '')
+              cmds}
+          '';
+        in ''
+          ${completions ["nix" "git" "curl" "bat" "cargo" "gh" "glow" "just" "rg"]}
+
           # CTP theme
           let catppuccin = {
             latte: {
