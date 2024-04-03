@@ -50,6 +50,11 @@
         tags = ["nix"];
         url = "https://nixpkgs.news/rss.xml";
       }
+      {
+        title = "maia crimew";
+        tags = ["hacking"];
+        url = "https://maia.crimew.gay/feed.xml";
+      }
     ];
 
     extraConfig = ''
