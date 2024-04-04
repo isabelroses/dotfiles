@@ -151,6 +151,12 @@ in {
         group = "forgejo";
       };
 
+      grafana-oauth2 = mkSecret services.monitoring.grafana.enable {
+        file = "grafana-oauth2";
+        owner = "grafana";
+        group = "grafana";
+      };
+
       blahaj-env = mkSecret services.blahaj.enable {
         file = "blahaj-env";
       };

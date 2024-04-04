@@ -58,10 +58,7 @@ in {
             check_for_updates = false;
           };
 
-          auth = {
-            disable_login_form = false;
-          };
-
+          auth.disable_login_form = false;
           "auth.anonymous".enabled = false;
           "auth.basic".enabled = false;
 
@@ -69,13 +66,15 @@ in {
             sso = "https://${config.modules.services.kanidm.domain}";
           in {
             enabled = true;
-            auto_login = true;
+            # auto_login = true;
+            allow_signup = true;
+            icon = "signin";
             name = "Kanidm";
             client_id = "grafana";
+            client_secret = "$__file{${config.age.secrets.grafana-oauth2.path}}";
             use_pkce = true;
-            scopes = ["openid" "profile" "email"];
+            scopes = "openid email profile";
             login_attribute_path = "prefered_username";
-            email_attribute_path = "email";
             auth_url = "${sso}/ui/oauth2";
             token_url = "${sso}/oauth2/token";
             api_url = "${sso}/oauth2/openid/grafana/userinfo";
