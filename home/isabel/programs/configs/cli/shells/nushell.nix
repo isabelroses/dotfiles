@@ -20,8 +20,8 @@ in {
         shellAliases = builtins.removeAttrs config.home.shellAliases ["mkdir"];
 
         environmentVariables = {
-          DIRENV_LOG_FORMAT = "";
-          SHELL = "${lib.getExe pkgs.nushell}";
+          DIRENV_LOG_FORMAT = "''";
+          SHELL = "'${lib.getExe pkgs.nushell}'";
         };
 
         extraConfig = let
