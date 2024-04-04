@@ -2,13 +2,13 @@ default:
   @just --list --unsorted
 
 [macos]
-rebuild: verify
-  darwin-rebuild switch --flake . |& nom
+rebuild *args: verify
+  darwin-rebuild switch --flake . {{args}} |& nom
 
 [linux]
-rebuild: verify
+rebuild *args: verify
   @sudo true
-  nixos-rebuild switch --flake . |& nom
+  nixos-rebuild switch --flake . {{args}} |& nom
 
 build pkg:
   nix build .#{{pkg}} --log-format internal-json -v |& nom --json
