@@ -17,12 +17,12 @@ in {
       nushell = {
         enable = true;
 
-        shellAliases =
-          builtins.removeAttrs config.home.shellAliases ["mkdir"]
-          // {
-            DIRENV_LOG_FORMAT = "";
-            SHELL = "${lib.getExe pkgs.nushell}";
-          };
+        shellAliases = builtins.removeAttrs config.home.shellAliases ["mkdir"];
+
+        environmentVariables = {
+          DIRENV_LOG_FORMAT = "";
+          SHELL = "${lib.getExe pkgs.nushell}";
+        };
 
         extraConfig = let
           completions = cmds: ''
