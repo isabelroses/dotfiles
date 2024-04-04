@@ -20,10 +20,12 @@
         [
           git # flakes require git
           nil # nix language server
-          nodejs # needed ags
+          just # quick and easy task runner
           statix # lints and suggestions
           deadnix # clean up unused nix code
+          nodejs-slim # needed ags
           self'.formatter # nix formatter
+          nix-output-monitor # get clean diff between generations
           config.treefmt.build.wrapper # treewide formatter
           inputs'.agenix.packages.agenix # secrets
           inputs'.deploy-rs.packages.deploy-rs # remote deployment

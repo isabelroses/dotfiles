@@ -17,7 +17,12 @@ in {
       nushell = {
         enable = true;
 
-        shellAliases = builtins.removeAttrs config.home.shellAliases ["mkdir" "nixclean" "rebuild"];
+        shellAliases =
+          builtins.removeAttrs config.home.shellAliases ["mkdir"]
+          // {
+            DIRENV_LOG_FORMAT = "";
+            SHELL = "${lib.getExe pkgs.nushell}";
+          };
 
         extraConfig = let
           completions = cmds: ''
@@ -189,6 +194,9 @@ in {
             rm: {
               always_trash: true
             }
+            ls: {
+              clickable_links: true
+            }
             color_config: $theme
             completions: {
               case_sensitive: false
@@ -200,7 +208,6 @@ in {
               }
             }
           }
-
         '';
       };
     };
