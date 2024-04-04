@@ -5,10 +5,6 @@
 }: let
   inherit (lib) mkOption optionals types;
 in {
-  imports = [
-    ./activation.nix
-  ];
-
   config.warnings = optionals (config.modules.system.users == []) [
     ''
       You have not added any users to be supported by your system. You may end up with an unbootable system!
