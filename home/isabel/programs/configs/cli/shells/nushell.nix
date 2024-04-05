@@ -17,6 +17,7 @@ in {
         environmentVariables = {
           DIRENV_LOG_FORMAT = "''";
           SHELL = "'${lib.getExe pkgs.nushell}'";
+          PATH = "($env.PATH | split row (char esep) | append [${lib.escapeShellArgs config.home.sessionPath}])";
         };
 
         extraConfig = let
