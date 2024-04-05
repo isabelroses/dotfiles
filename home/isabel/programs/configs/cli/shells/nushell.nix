@@ -9,11 +9,6 @@
 in {
   config = mkIf osConfig.modules.programs.cli.enable {
     programs = {
-      carapace = {
-        enable = true;
-        enableNushellIntegration = true;
-      };
-
       nushell = {
         enable = true;
 
@@ -203,9 +198,6 @@ in {
               quick: true
               partial: true
               algorithm: "fuzzy"
-              external: {
-                max_results: 100
-              }
             }
           }
         '';
