@@ -88,7 +88,7 @@
     modules,
     ...
   } @ args: {
-    nixosConfigurations.${args.host} = mkSystem {
+    flake.nixosConfigurations.${args.host} = mkSystem {
       inherit (args) system;
       specialArgs = {inherit inputs lib self;} // args.specialArgs or {};
       modules =
@@ -103,7 +103,7 @@
         ++ args.modules or [];
     };
 
-    images.${args.host} = self.nixosConfigurations.${args.host}.config.system.build.isoImage;
+    flake.images.${args.host} = self.nixosConfigurations.${args.host}.config.system.build.isoImage;
   };
 
   # mkSystems is a wrapper for mkNixSystem to create a list of systems

@@ -7,9 +7,12 @@
     ./bellado.nix
     ./direnv.nix
     ./eza.nix
+    ./freeze.nix
     ./fzf.nix
     ./git.nix
     ./hyfetch.nix
+    ./nap.nix
+    ./newsboat.nix
     ./nix-shell.nix
     ./starship.nix
     ./tealdear.nix

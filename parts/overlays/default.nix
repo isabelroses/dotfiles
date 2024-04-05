@@ -1,4 +1,8 @@
-{
+{inputs, ...}: {
+  imports = [
+    inputs.flake-parts.flakeModules.easyOverlay
+  ];
+
   flake.overlayAttrs = final: prev:
     prev.lib.composeManyExtensions
     (

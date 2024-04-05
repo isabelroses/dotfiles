@@ -20,8 +20,8 @@ in {
         wakatime
       ]
       ++ optionals cfg.cli.modernShell.enable [
-        ripgrep
-        nap # code sinppets
+        ripgrep # much better and faster grep
+        vhs # programatically make gifs
         glow # markdown preview
       ]
       ++ optionals stdenv.isLinux [

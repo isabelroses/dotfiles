@@ -18,7 +18,7 @@ in {
         sddm = {
           enable = environment.loginManager == "sddm";
           wayland.enable = true;
-          theme = "${import ../../../../../parts/pkgs/sddm.nix {inherit pkgs lib;}}";
+          theme = pkgs.catppuccin-sddm;
           settings = {
             General = {InputMethod = "";};
           };

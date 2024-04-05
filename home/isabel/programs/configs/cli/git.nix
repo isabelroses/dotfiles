@@ -30,6 +30,7 @@ in {
         extensions = with pkgs; [
           gh-cal # github activity stats in the CLI
           gh-dash # dashboard with pull requests and issues
+          gh-copilot # copilot in the CLI
           self'.packages.gh-eco # explore the ecosystem
         ];
         settings = {
@@ -72,6 +73,7 @@ in {
 
         delta = {
           enable = true;
+          # catppuccin.enable = true;
           options = {
             features = "decorations side-by-side navigate";
             navigate = true;

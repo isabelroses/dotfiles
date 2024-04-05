@@ -1,25 +1,5 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}: let
-  inherit (lib) mkIf;
-in {
+{config, ...}: {
   system.activationScripts = {
-    # if system declares that it wants closure diffs, then run the diff script on activation
-    # this is useless if you are using nh, which does this for you in a different way
-    diff = mkIf config.modules.system.activation.diffGenerations {
-      supportsDryActivation = true;
-      text = ''
-        if [[ -e /run/current-system ]]; then
-          echo "=== diff to current-system ==="
-          ${pkgs.nvd}/bin/nvd --nix-bin-dir='${config.nix.package}/bin' diff /run/current-system "$systemConfig"
-          echo "=== end of the system diff ==="
-        fi
-      '';
-    };
-
     # https://github.com/colemickens/nixcfg/blob/main/mixins/ssh.nix
     # symlink root's ssh config to ours
     # to fix nix-daemon's ability to remote build since it sshs from the root account

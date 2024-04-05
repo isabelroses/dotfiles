@@ -36,8 +36,9 @@
       cmd + ctrl - e : yabai -m space --balance
       cmd + ctrl - r : yabai -m space --rotate 270
 
-      # open terminal
-      cmd - return : open -na "''${HOME}/Applications/Home Manager Apps/WezTerm.app"
+      # open apps
+      cmd - return : open -na "$HOME/Applications/Home Manager Apps/WezTerm.app"
+      cmd - b : open -na "/Applications/Arc.app"
 
       # restart yabai
       cmd + alt - r : brew services restart yabai
