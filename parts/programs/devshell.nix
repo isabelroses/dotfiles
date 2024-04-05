@@ -26,7 +26,6 @@
           nodejs-slim # needed ags
           self'.formatter # nix formatter
           nix-output-monitor # get clean diff between generations
-          config.treefmt.build.wrapper # treewide formatter
           inputs'.agenix.packages.agenix # secrets
           inputs'.deploy-rs.packages.deploy-rs # remote deployment
         ]
