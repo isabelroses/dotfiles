@@ -7,6 +7,12 @@
   programs.direnv = lib.mkIf pkgs.stdenv.isDarwin {
     enable = true;
     nix-direnv.enable = true;
+
+    enableBashIntegration = config.programs.bash.enable;
+    # enableFishIntegration = config.programs.fish.enable;
+    enableZshIntegration = config.programs.zsh.enable;
+    enableNushellIntegration = config.programs.nushell.enable;
+
     # stdlib = ''
     #   # taken from @i077
     #   # store direnv in cache and not pre project
