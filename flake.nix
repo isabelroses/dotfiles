@@ -1,35 +1,8 @@
 {
   description = "Isabel's dotfiles";
 
-  outputs = {
-    self,
-    flake-parts,
-    ...
-  } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} ({withSystem, ...}: {
-      # The system archtecitures, more can be added as needed
-      systems = [
-        "x86_64-linux"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "aarch64-darwin"
-      ];
-
-      imports = [
-        # add self back to inputs to use as `inputs.self`
-        # I depend on inputs.self *at least* once
-        {config._module.args._inputs = inputs // {inherit (inputs) self;};}
-
-        inputs.flake-parts.flakeModules.easyOverlay
-
-        ./parts # flake parts
-      ];
-
-      flake = let
-        lib = import ./lib {inherit inputs;};
-      in
-        import ./hosts {inherit lib withSystem;};
-    });
+  outputs = {flake-parts, ...} @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {imports = [./parts];};
 
   inputs = {
     # choose our nixpkgs version
