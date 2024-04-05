@@ -1,7 +1,7 @@
 {lib, ...}: {
   flake.templates = lib.pipe ./. [
     builtins.readDir
-    (lib.filterAttrs (name: _: name != "default.nix"))
+    (lib.filterAttrs (_: type: type == "directory"))
     (builtins.mapAttrs (name: _: {
       description = name;
       path = ./${name};
