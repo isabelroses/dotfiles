@@ -24,7 +24,7 @@ in {
         }))
     ];
 
-    xdg.configFile."discord/settings.json".source = builtins.toJSON {
+    xdg.configFile."discord/settings.json".text = builtins.toJSON {
       SKIP_HOST_UPDATE = true;
     };
   };
