@@ -11,6 +11,10 @@
 
     pkgsForEach = nixpkgs.legacyPackages;
   in {
+    packages = forEachSystem (system: {
+      default = pkgsForEach.${system}.callPackage ./default.nix {};
+    });
+
     devShells = forEachSystem (system: {
       default = pkgsForEach.${system}.callPackage ./shell.nix {};
     });
