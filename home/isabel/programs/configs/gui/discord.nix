@@ -5,8 +5,6 @@
   ...
 }: let
   inherit (lib) mkIf isWayland;
-
-  fmt = pkgs.formats.json {};
 in {
   config = mkIf osConfig.modules.programs.gui.discord.enable {
     home.packages = mkIf pkgs.stdenv.isLinux [
@@ -26,7 +24,7 @@ in {
         }))
     ];
 
-    xdg.configFile."discord/settings.json".source = fmt.generate "discord.json" {
+    xdg.configFile."discord/settings.json".source = builtins.toJSON {
       SKIP_HOST_UPDATE = true;
     };
   };

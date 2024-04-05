@@ -6,13 +6,11 @@
 }: let
   inherit (lib) mkIf isAcceptedDevice;
 
-  json = pkgs.formats.json {};
-
   acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
 in {
   config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.isLinux) {
     xdg.configFile."pipewire/pipewire.conf.d/99-input-denoising.conf" = {
-      source = json.generate "99-input-denoising.conf" {
+      source = builtins.toJSON {
         "context.modules" = [
           {
             "name" = "libpipewire-module-filter-chain";
