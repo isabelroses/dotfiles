@@ -2,15 +2,12 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }: let
   inherit (lib) mkIf mkDefault isx86Linux;
   inherit (config.modules) device;
   cfg = config.modules.system.sound;
 in {
-  imports = [inputs.nix-gaming.nixosModules.pipewireLowLatency];
-
   config = mkIf (cfg.enable && device.hasSound) {
     # enable sound support and media keys if device has sound
     sound = {
@@ -27,12 +24,6 @@ in {
     # pipewire is newer and just better
     services.pipewire = {
       enable = true;
-
-      lowLatency = {
-        enable = true;
-        quantum = 64;
-        rate = 48000;
-      };
 
       audio.enable = true;
       pulse.enable = true;
