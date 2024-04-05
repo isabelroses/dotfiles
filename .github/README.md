@@ -61,8 +61,12 @@
   - 🪄 [Luz](../hosts/luz/) A server configuration for some of my infrastructure
   - 𖤍 [Valkyrie](../hosts/valkyrie/) A WSL2 host, designed to be a development environment on Windows
   - 💮 [Tatsumaki](../hosts/tatsumaki/) A MacBook Air, configured to last a whole day of university
-- 📚 [lib](../lib/) Useful repeated functions
 - 🧩 [parts](../parts/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
+  - 📚 [lib](../lib/) Useful repeated functions
+  - 📦 [packages](../pkgs/) NixOS packages
+  - 🛠️ [templates](../templates/) Templates for setting up development environments
+  - 👾 [modules](../modules/) Exported modules for NixOS, home-manager and Nix Darwin
+  - 🗗 [overlays](../overlays/) Package overlays
 - 📝 [docs](../docs/) Documentation for the configuration which can be found [here](https://isabelroses.github.io/dotfiles/)
 - 🔌 [modules](../modules/)
   - [base](../modules/base/) The base configuration settings, which are common between all systems
