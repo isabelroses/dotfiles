@@ -31,11 +31,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    nix-gaming = {
-      url = "github:fufexan/nix-gaming";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # too hard to explain
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";

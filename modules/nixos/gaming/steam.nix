@@ -1,8 +1,7 @@
 {
-  pkgs,
   lib,
+  pkgs,
   config,
-  inputs,
   ...
 }: let
   cfg = config.modules.programs.gaming;
@@ -16,7 +15,7 @@ in {
     # Compatibility tools to install
     # this option used to be provided by modules/shared/nixos/steam
     extraCompatPackages = [
-      inputs.nix-gaming.packages.${pkgs.system}.proton-ge
+      pkgs.proton-ge-bin.steamcompattool
     ];
   };
 
