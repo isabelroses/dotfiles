@@ -14,7 +14,7 @@ in
         (texlive.combine {
           inherit
             (texlive)
-            latexmk
+            schme-medium
             biblatex
             biber
             pdfpages

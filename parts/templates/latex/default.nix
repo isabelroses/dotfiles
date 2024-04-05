@@ -12,7 +12,7 @@ stdenvNoCC.mkDerivation {
     (texlive.combine {
       inherit
         (texlive)
-        latexmk
+        scheme-medium
         biblatex
         biber
         pdfpages
