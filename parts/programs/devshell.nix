@@ -7,7 +7,7 @@
     inputs',
     ...
   }: {
-    devShells.default = pkgs.mkShell {
+    devShells.default = pkgs.mkShellNoCC {
       name = "dotfiles";
       meta.description = "Devlopment shell for this configuration";
 
