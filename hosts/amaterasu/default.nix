@@ -27,21 +27,19 @@ in {
         boot = {
           loader = "systemd-boot";
           secureBoot = false;
+          tmpOnTmpfs = true;
+          enableKernelTweaks = true;
+          loadRecommendedModules = true;
 
           plymouth = {
             enable = true;
             withThemes = true;
           };
 
-          enableKernelTweaks = true;
-
           initrd = {
             enableTweaks = true;
             optimizeCompressor = true;
           };
-
-          loadRecommendedModules = true;
-          tmpOnTmpfs = true;
         };
 
         fs = ["ext4" "vfat"];

@@ -16,13 +16,13 @@
       mainUser = "isabel";
 
       boot = {
-        plymouth.enable = false;
         loader = "systemd-boot";
         secureBoot = false;
+        tmpOnTmpfs = false;
+        loadRecommendedModules = true;
         enableKernelTweaks = true;
         initrd.enableTweaks = true;
-        loadRecommendedModules = true;
-        tmpOnTmpfs = false;
+        plymouth.enable = false;
       };
 
       fs = ["btrfs" "vfat"];
