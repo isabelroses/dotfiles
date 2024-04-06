@@ -10,7 +10,6 @@
     ./freeze.nix
     ./fzf.nix
     ./hyfetch.nix
-    ./nix-shell.nix
     ./starship.nix
     ./tealdear.nix
     ./zoxide.nix
