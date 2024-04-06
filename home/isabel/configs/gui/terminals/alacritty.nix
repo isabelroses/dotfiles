@@ -1,6 +1,6 @@
 {
-  osConfig,
   lib,
+  osConfig,
   ...
 }: {
   config = lib.mkIf osConfig.modules.programs.gui.terminals.alacritty.enable {

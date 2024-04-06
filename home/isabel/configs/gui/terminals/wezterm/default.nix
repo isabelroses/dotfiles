@@ -1,8 +1,8 @@
 {
-  config,
-  osConfig,
   lib,
+  config,
   inputs',
+  osConfig,
   ...
 }: let
   inherit (osConfig.modules) environment system;

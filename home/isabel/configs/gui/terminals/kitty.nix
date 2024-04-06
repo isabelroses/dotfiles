@@ -8,11 +8,13 @@
     programs.kitty = {
       enable = true;
       catppuccin.enable = true;
+
       shellIntegration = {
         enableBashIntegration = config.programs.bash.enable;
         enableFishIntegration = config.programs.fish.enable;
         enableZshIntegration = config.programs.zsh.enable;
       };
+
       settings = {
         background_opacity = "0.85";
         font_family = "CommitMono";
@@ -39,6 +41,7 @@
         window_padding_width = 2;
         window_margin_width = 2;
       };
+
       keybindings = {
         "ctrl+c" = "copy_or_interrupt";
         "ctrl+alt+c" = "copy_to_clipboard";
