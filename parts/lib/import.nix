@@ -23,7 +23,6 @@
   template = import' ./template;
 
   # recursively merges two attribute sets
-  mergeRecursively = lhs: rhs: recursiveUpdate lhs rhs;
   importedLibs = [builders services validators helpers hardware template];
 in
-  lib.extend (_: _: foldl mergeRecursively {} importedLibs)
+  lib.extend (_: _: foldl recursiveUpdate {} importedLibs)
