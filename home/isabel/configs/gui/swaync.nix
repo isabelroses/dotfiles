@@ -13,8 +13,8 @@ in {
     systemd.enable = true;
 
     style = builtins.fetchurl {
-      url = "https://github.com/catppuccin/swaync/releases/download/v0.1.2.1/mocha.css";
-      sha256 = "sha256:19z41gvds15av1wpidzli1yqbm70fmdv04blr23ysbl944jvfvnv";
+      url = "https://github.com/catppuccin/swaync/releases/download/v0.2.1/mocha.css";
+      sha256 = "sha256:16p98a3gxgqa16fk7xg0bz0haq7di3ifnq4rpq9m7qwqhv311f4c";
     };
 
     settings = {
@@ -41,16 +41,19 @@ in {
       transition-time = 200;
       hide-on-clear = false;
       hide-on-action = true;
+
       widgets = [
         "title"
         "notifications"
       ];
+
       widget-config = {
         title = {
           text = "Notifications";
           clear-all-button = true;
           button-text = "Clear";
         };
+
         dnd = {
           text = "Do Not Disturb";
         };
