@@ -1,7 +1,7 @@
 {
-  osConfig,
-  config,
   lib,
+  config,
+  osConfig,
   ...
 }: let
   acceptedTypes = ["desktop" "laptop" "wsl" "lite" "hybrid"];

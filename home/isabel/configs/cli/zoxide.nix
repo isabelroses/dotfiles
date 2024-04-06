@@ -1,7 +1,7 @@
 {
+  lib,
   config,
   osConfig,
-  lib,
   ...
 }: let
   inherit (lib) mkIf isModernShell;
