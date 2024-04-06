@@ -1,5 +1,5 @@
 {
-  import = [
+  imports = [
     ./addons.nix
     ./darwin.nix
     ./gh-dash.nix
