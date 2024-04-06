@@ -6,7 +6,7 @@
   config = lib.mkIf osConfig.modules.programs.gui.zathura.enable {
     xdg.configFile."zathura/catppuccin-mocha".source = builtins.fetchurl {
       url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha";
-      hash = "sha256-/HXecio3My2eXTpY7JoYiN9mnXsps4PAThDPs4OCsAk=";
+      sha256 = "0r2bgh4y7hymq8hhsjc70aw7yw85v668vgqcrcmdsggvdsk4rv1w";
     };
 
     programs.zathura = {
