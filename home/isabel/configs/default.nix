@@ -5,5 +5,6 @@
     ./git # git client configurations
     ./gui # graphical interface app confurations
     ./tui # terminal interface app confurations
+    ./wm # window manager settings
   ];
 }
