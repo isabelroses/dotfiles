@@ -32,16 +32,12 @@
       cmd + shift - s: yabai -m window --toggle sticky --toggle float --toggle topmost
       cmd + shift - d: yabai -m window --toggle float
 
-      # rotate
-      cmd + ctrl - e : yabai -m space --balance
-      cmd + ctrl - r : yabai -m space --rotate 270
+      # fullacreen
+      shift + alt - f : yabai -m window --toggle native-fullscreen
 
       # open apps
       cmd - return : open -na "$HOME/Applications/Home Manager Apps/WezTerm.app"
       cmd - b : open -na "/Applications/Arc.app"
-
-      # restart yabai
-      cmd + alt - r : brew services restart yabai
 
       # ONLY WORKS WITH SIP DISABLED:
       # switch to space
