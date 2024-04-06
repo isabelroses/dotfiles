@@ -13,7 +13,7 @@
 
       programs = {
         alejandra.enable = true;
-        deadnix.enable = true;
+        deadnix.enable = false;
 
         shellcheck.enable = true;
 
