@@ -9,7 +9,6 @@
     ./eza.nix
     ./freeze.nix
     ./fzf.nix
-    ./git.nix
     ./hyfetch.nix
     ./nap.nix
     ./newsboat.nix

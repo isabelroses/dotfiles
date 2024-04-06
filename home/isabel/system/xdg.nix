@@ -58,6 +58,7 @@
   template = import lib.template.xdg "home-manager";
 in {
   home.packages = with pkgs; lib.mkIf isLinux [xdg-utils];
+
   xdg = {
     enable = true;
 

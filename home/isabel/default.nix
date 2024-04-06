@@ -6,8 +6,9 @@
   inherit (lib) mkDefault ldTernary;
 in {
   imports = [
+    ./configs # per application configuration
     ./system # important system environment config
-    ./programs # programs that are used, e.g. GUI apps
+    ./packages # programs that are used, e.g. GUI apps
     ./services # system services, organized by display protocol
     ./themes # Application themeing
   ];
