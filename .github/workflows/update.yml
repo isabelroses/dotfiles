@@ -13,21 +13,19 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
         with:
           logger: pretty
 
-      - name: Nix Magic Cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
-
       - name: Update Lockfile
         uses: DeterminateSystems/update-flake-lock@main
         id: update
         with:
-          pr-title: "bump: flake inputs"
-          commit-msg: "bump: flake inputs"
+          pr-title: "chore(deps): flake inputs"
+          commit-msg: "chore(deps): flake inputs"
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Merge Changes

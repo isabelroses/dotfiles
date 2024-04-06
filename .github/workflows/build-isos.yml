@@ -16,21 +16,21 @@ jobs:
           overprovision-lvm: true
           remove-android: true
           remove-dotnet: true
+          remove-codeql: true
           remove-haskell: true
+          remove--docker-images: true
 
       - name: Checkout
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
         with:
           logger: pretty
 
-      - name: Nix Magic Cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
-      
       - name: Build Lilith Iso
         continue-on-error: false
         run: nix build .#images.lilith -o lilith --accept-flake-config --print-build-logs

@@ -24,18 +24,11 @@ jobs:
           - plymouth-theme-catppuccin
 
     steps:
-      - name: Maximize Space
-        uses: easimon/maximize-build-space@v10
-        with:
-          overprovision-lvm: true
-          remove-android: true
-          remove-dotnet: true
-          remove-haskell: true
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
@@ -51,9 +44,6 @@ jobs:
           name: isabelroses
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_TOKEN }}"
-
-      - name: Set default git branch
-        run: git config --global init.defaultBranch main
 
       - name: Build from the matrix
         run: nix build -L .#${{ matrix.package }}
