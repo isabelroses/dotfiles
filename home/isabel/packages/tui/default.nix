@@ -10,6 +10,7 @@
       glow # fancy markdown
       fx # fancy jq
       gum # a nicer scripting
+      nix-tree # view nix derivations in a tui
     ];
   };
 }
