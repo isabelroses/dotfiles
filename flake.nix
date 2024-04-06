@@ -1,8 +1,7 @@
 {
   description = "Isabel's dotfiles";
 
-  outputs = {flake-parts, ...} @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {imports = [./parts];};
+  outputs = inputs: inputs.flake-parts.lib.mkFlake {inherit inputs;} {imports = [./parts];};
 
   inputs = {
     # choose our nixpkgs version
@@ -122,7 +121,6 @@
 
     neovim = {
       url = "github:isabelroses/nvim";
-      # url = "git+file:///home/isabel/dev/nvim";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nil.follows = "nil";
