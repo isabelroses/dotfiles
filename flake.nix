@@ -139,6 +139,10 @@
       url = "github:isabelroses/blahaj";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    bellado = {
+      url = "github:isabelroses/bellado";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # a tree-wide formatter
     treefmt-nix = {
@@ -170,9 +174,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # lovely app
-    bellado.url = "github:isabelroses/bellado";
-
     # Firefox but really locked down and air tight
     schizofox = {
       url = "github:schizofox/schizofox";
@@ -183,6 +184,7 @@
     };
 
     # catppuccin related items
+    catppuccin.url = "github:Stonks3141/ctp-nix";
     catppuccinifier = {
       url = "github:lighttigerXIV/catppuccinifier";
       inputs = {
@@ -190,7 +192,6 @@
         flake-utils.follows = "neovim/flake-utils";
       };
     };
-    catppuccin.url = "github:Stonks3141/ctp-nix";
     catppuccin-vsc = {
       url = "github:catppuccin/vscode";
       inputs.nixpkgs.follows = "nixpkgs";
