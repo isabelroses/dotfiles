@@ -2,7 +2,6 @@
   lib,
   pkgs,
   osConfig,
-  inputs',
   ...
 }: let
   inherit (lib) isWayland mkIf;
