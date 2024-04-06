@@ -1,5 +1,6 @@
 {
   imports = [
     ./screenlock
+    ./clipboard.nix
   ];
 }

@@ -1,8 +1,8 @@
 {
   imports = [
-    ./env.nix
-    ./gpg.nix
-    ./ssh.nix
-    ./xdg.nix
+    ./env.nix # enviroment variables
+    ./gpg.nix # gpg agent settings
+    ./ssh.nix # ssh agent settings
+    ./xdg.nix # xdg settings
   ];
 }

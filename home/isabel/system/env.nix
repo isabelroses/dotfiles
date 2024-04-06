@@ -11,6 +11,5 @@
     SYSTEMD_PAGERSECURE = "true";
     PAGER = "less -FR";
     FLAKE = "${osConfig.modules.environment.flakePath}";
-    GPG_TTY = "$(tty)";
   };
 }

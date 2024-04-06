@@ -1,7 +1,7 @@
 {
-  osConfig,
   lib,
   pkgs,
+  osConfig,
   ...
 }: let
   inherit (lib) mkIf isAcceptedDevice;

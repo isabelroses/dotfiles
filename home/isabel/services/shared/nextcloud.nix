@@ -1,7 +1,7 @@
 {
   lib,
-  osConfig,
   pkgs,
+  osConfig,
   ...
 }: let
   inherit (lib) mkIf isAcceptedDevice mkGraphicalService;
