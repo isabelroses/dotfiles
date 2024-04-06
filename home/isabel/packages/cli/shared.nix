@@ -18,6 +18,7 @@ in {
         just # cool build tool
         dconf
         wakatime
+        nix-output-monitor # much nicer nix build output
       ]
       ++ optionals cfg.cli.modernShell.enable [
         ripgrep # much better and faster grep
