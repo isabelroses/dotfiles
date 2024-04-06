@@ -1,11 +1,24 @@
 {
-  config,
-  osConfig,
   lib,
+  pkgs,
+  config,
   defaults,
+  osConfig,
   ...
-}: {
+}: let
+  rofiPackage =
+    if lib.isWayland osConfig
+    then pkgs.rofi-wayland
+    else pkgs.rofi;
+in {
   programs.rofi = lib.mkIf osConfig.modules.programs.gui.launchers.rofi.enable {
+    enable = true;
+    package = rofiPackage.override {
+      plugins = [
+        pkgs.rofi-rbw
+      ];
+    };
+
     extraConfig = {
       modi = "drun";
       icon-theme = "Papirus-Dark";
@@ -19,6 +32,7 @@
       display-drun = "Apps";
       drun-display-format = "{name}";
     };
+
     theme = let
       inherit (config.lib.formats.rasi) mkLiteral;
     in {

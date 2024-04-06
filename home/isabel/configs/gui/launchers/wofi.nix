@@ -1,5 +1,11 @@
-{defaults, ...}: {
-  programs.wofi = {
+{
+  lib,
+  defaults,
+  osConfig,
+  ...
+}: {
+  programs.wofi = lib.mkIf osConfig.modules.programs.gui.launchers.wofi.enable {
+    enable = true;
     settings = {
       show = ["drun" "run"];
       layer = "top";

@@ -1,6 +1,6 @@
 {
   imports = [
-    ./rofi
-    ./wofi
+    ./rofi.nix
+    ./wofi.nix
   ];
 }
