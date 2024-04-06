@@ -180,7 +180,7 @@
       "inputs": {
         "crane": "crane",
         "flake-utils": [
-          "neovim",
+          "izvim",
           "flake-utils"
         ],
         "nixpkgs": [
@@ -313,14 +313,14 @@
     "deploy-rs": {
       "inputs": {
         "flake-compat": [
-          "neovim",
+          "izvim",
           "flake-compat"
         ],
         "nixpkgs": [
           "nixpkgs"
         ],
         "utils": [
-          "neovim",
+          "izvim",
           "flake-utils"
         ]
       },
@@ -457,7 +457,7 @@
     "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
-          "neovim",
+          "izvim",
           "neovim-nightly-overlay",
           "hercules-ci-effects",
           "nixpkgs"
@@ -663,7 +663,7 @@
       "inputs": {
         "flake-parts": "flake-parts_2",
         "nixpkgs": [
-          "neovim",
+          "izvim",
           "neovim-nightly-overlay",
           "nixpkgs"
         ]
@@ -958,84 +958,7 @@
         "type": "github"
       }
     },
-    "lanzaboote": {
-      "inputs": {
-        "crane": "crane_2",
-        "flake-compat": [
-          "neovim",
-          "flake-compat"
-        ],
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "flake-utils": [
-          "neovim",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "pre-commit-hooks-nix": [
-          "pre-commit-hooks"
-        ],
-        "rust-overlay": "rust-overlay_2"
-      },
-      "locked": {
-        "lastModified": 1712261512,
-        "narHash": "sha256-qsBZ3tJj/3LR8jNYyCKjyCe0ePj4cMynSWBMC1OEDtc=",
-        "owner": "nix-community",
-        "repo": "lanzaboote",
-        "rev": "999c0cb03f748fe311bca78961dbf0562dc91659",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "lanzaboote",
-        "type": "github"
-      }
-    },
-    "lazy-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1678889456,
-        "narHash": "sha256-R+sfPOuWfwbrNXUiKQcb8MHYqK+o5Pw8gkEaYaidqp0=",
-        "owner": "folke",
-        "repo": "lazy.nvim",
-        "rev": "6b55862d2d264f0b48e0b9e42cc2d14f136bed55",
-        "type": "github"
-      },
-      "original": {
-        "owner": "folke",
-        "repo": "lazy.nvim",
-        "type": "github"
-      }
-    },
-    "nekowinston-nur": {
-      "inputs": {
-        "flake-utils": [
-          "neovim",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay_3"
-      },
-      "locked": {
-        "lastModified": 1712300605,
-        "narHash": "sha256-itnhw/ROOPYKBxwCX/PykNwBzk3tA9P2cAgTvGagMi0=",
-        "owner": "nekowinston",
-        "repo": "nur",
-        "rev": "c172a631eea868e0c93152a7d2d2a0e5c4346c5f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nekowinston",
-        "repo": "nur",
-        "type": "github"
-      }
-    },
-    "neovim": {
+    "izvim": {
       "inputs": {
         "flake-compat": "flake-compat_2",
         "flake-parts": [
@@ -1071,11 +994,86 @@
         "type": "github"
       }
     },
+    "lanzaboote": {
+      "inputs": {
+        "crane": "crane_2",
+        "flake-compat": [
+          "izvim",
+          "flake-compat"
+        ],
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "flake-utils": [
+          "izvim",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks-nix": [],
+        "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+        "lastModified": 1712261512,
+        "narHash": "sha256-qsBZ3tJj/3LR8jNYyCKjyCe0ePj4cMynSWBMC1OEDtc=",
+        "owner": "nix-community",
+        "repo": "lanzaboote",
+        "rev": "999c0cb03f748fe311bca78961dbf0562dc91659",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "lanzaboote",
+        "type": "github"
+      }
+    },
+    "lazy-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678889456,
+        "narHash": "sha256-R+sfPOuWfwbrNXUiKQcb8MHYqK+o5Pw8gkEaYaidqp0=",
+        "owner": "folke",
+        "repo": "lazy.nvim",
+        "rev": "6b55862d2d264f0b48e0b9e42cc2d14f136bed55",
+        "type": "github"
+      },
+      "original": {
+        "owner": "folke",
+        "repo": "lazy.nvim",
+        "type": "github"
+      }
+    },
+    "nekowinston-nur": {
+      "inputs": {
+        "flake-utils": [
+          "izvim",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_3"
+      },
+      "locked": {
+        "lastModified": 1712300605,
+        "narHash": "sha256-itnhw/ROOPYKBxwCX/PykNwBzk3tA9P2cAgTvGagMi0=",
+        "owner": "nekowinston",
+        "repo": "nur",
+        "rev": "c172a631eea868e0c93152a7d2d2a0e5c4346c5f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nekowinston",
+        "repo": "nur",
+        "type": "github"
+      }
+    },
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils_3",
         "nixpkgs": [
-          "neovim",
+          "izvim",
           "neovim-nightly-overlay",
           "nixpkgs"
         ]
@@ -1099,17 +1097,17 @@
     "neovim-nightly-overlay": {
       "inputs": {
         "flake-compat": [
-          "neovim",
+          "izvim",
           "flake-compat"
         ],
         "flake-parts": [
-          "neovim",
+          "izvim",
           "flake-parts"
         ],
         "hercules-ci-effects": "hercules-ci-effects",
         "neovim-flake": "neovim-flake",
         "nixpkgs": [
-          "neovim",
+          "izvim",
           "nixpkgs"
         ]
       },
@@ -1130,16 +1128,16 @@
     "neovim-nix": {
       "inputs": {
         "flake-parts": [
-          "neovim",
+          "izvim",
           "flake-parts"
         ],
         "lazy-nvim": "lazy-nvim",
         "nixpkgs": [
-          "neovim",
+          "izvim",
           "nixpkgs"
         ],
         "pre-commit-nix": [
-          "neovim",
+          "izvim",
           "pre-commit-nix"
         ]
       },
@@ -1399,9 +1397,9 @@
         "hyprland": "hyprland",
         "hyprpicker": "hyprpicker",
         "isabelroses-website": "isabelroses-website",
+        "izvim": "izvim",
         "lanzaboote": "lanzaboote",
         "nekowinston-nur": "nekowinston-nur",
-        "neovim": "neovim",
         "nh": "nh",
         "nil": "nil",
         "nix-index-db": "nix-index-db",
@@ -1573,7 +1571,7 @@
           "nixpkgs"
         ],
         "utils": [
-          "neovim",
+          "izvim",
           "flake-utils"
         ]
       },

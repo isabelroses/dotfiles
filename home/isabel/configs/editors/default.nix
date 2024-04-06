@@ -20,5 +20,5 @@ in {
       jetbrains.idea-ultimate
       # arduino
     ]
-    ++ optionals cfg.agnostic.editors.neovim.enable [inputs'.neovim.packages.default];
+    ++ optionals cfg.agnostic.editors.neovim.enable [inputs'.izvim.packages.default];
 }

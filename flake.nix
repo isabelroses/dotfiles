@@ -62,7 +62,7 @@
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        utils.follows = "neovim/flake-utils";
+        utils.follows = "izvim/flake-utils";
       };
     };
 
@@ -77,8 +77,8 @@
       url = "github:serokell/deploy-rs";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        utils.follows = "neovim/flake-utils";
-        flake-compat.follows = "neovim/flake-compat";
+        utils.follows = "izvim/flake-utils";
+        flake-compat.follows = "izvim/flake-compat";
       };
     };
 
@@ -88,9 +88,9 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        pre-commit-hooks-nix.follows = "pre-commit-hooks";
-        flake-utils.follows = "neovim/flake-utils";
-        flake-compat.follows = "neovim/flake-compat";
+        pre-commit-hooks-nix.follows = "";
+        flake-utils.follows = "izvim/flake-utils";
+        flake-compat.follows = "izvim/flake-compat";
       };
     };
 
@@ -115,11 +115,11 @@
       url = "github:nekowinston/nur";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "neovim/flake-utils";
+        flake-utils.follows = "izvim/flake-utils";
       };
     };
 
-    neovim = {
+    izvim = {
       url = "github:isabelroses/nvim";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -189,7 +189,7 @@
       url = "github:lighttigerXIV/catppuccinifier";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "neovim/flake-utils";
+        flake-utils.follows = "izvim/flake-utils";
       };
     };
     catppuccin-vsc = {
