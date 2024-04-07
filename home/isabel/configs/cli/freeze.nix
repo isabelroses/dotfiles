@@ -4,8 +4,6 @@
   osConfig,
   ...
 }: let
-  json = pkgs.formats.json {};
-
   inherit (lib) mkIf isModernShell;
 in {
   config = mkIf (isModernShell osConfig) {
@@ -13,7 +11,7 @@ in {
       # pkgs.charm-freeze
     ];
 
-    xdg.configFile."freeze/user.json".source = json.generate "user.json" {
+    xdg.configFile."freeze/user.json".text = builtins.toJSON {
       theme = "catppuccin-mocha";
       background = "#1e1e2e";
 

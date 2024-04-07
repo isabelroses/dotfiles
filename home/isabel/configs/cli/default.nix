@@ -1,7 +1,5 @@
 {
   imports = [
-    ./shells
-
     ./atuin.nix
     ./bat.nix
     ./bellado.nix
