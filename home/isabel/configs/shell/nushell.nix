@@ -1,9 +1,14 @@
 {
   lib,
   pkgs,
+  self,
   config,
   ...
 }: {
+  # FIXME: this is a workaround for nushell not loading the configuration on darwin systems
+  imports = [self.homeManagerModules.nushell];
+  disabledModules = ["programs/nushell.nix"];
+
   programs.nushell = {
     enable = true;
 
