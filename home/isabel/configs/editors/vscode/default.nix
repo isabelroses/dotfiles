@@ -10,7 +10,7 @@
 
   mkLink = config.lib.file.mkOutOfStoreSymlink;
 
-  vscodeStore = "${osConfig.modules.environment.flakePath}/home/${osConfig.modules.system.mainUser}/programs/configs/editors/vscode";
+  vscodeStore = "${osConfig.modules.environment.flakePath}/home/${osConfig.modules.system.mainUser}/configs/editors/vscode";
   keybindingsFile = mkLink "${vscodeStore}/keybindings.json";
   settingsFile = mkLink "${vscodeStore}/settings.json";
 in {
