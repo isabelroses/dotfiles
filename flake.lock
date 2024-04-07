@@ -123,16 +123,16 @@
     },
     "catppuccin": {
       "locked": {
-        "lastModified": 1710663401,
-        "narHash": "sha256-pA1l9dBv85e7r0UWRmgZMYLDa4S1LXFtRLvXCAJGcfI=",
-        "owner": "Stonks3141",
-        "repo": "ctp-nix",
-        "rev": "03b95cad3bbeb9913db6d89dc3f4fccc6c8fcbd4",
+        "lastModified": 1712482981,
+        "narHash": "sha256-LJOOpTey9Y29C/TK4h9KP7v4HvqDL3mLyT9hSWCfFlI=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "4043beb6c792a40e9c513aa261f4ba10601a4457",
         "type": "github"
       },
       "original": {
-        "owner": "Stonks3141",
-        "repo": "ctp-nix",
+        "owner": "catppuccin",
+        "repo": "nix",
         "type": "github"
       }
     },
