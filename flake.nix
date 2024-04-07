@@ -184,7 +184,7 @@
     };
 
     # catppuccin related items
-    catppuccin.url = "github:Stonks3141/ctp-nix";
+    catppuccin.url = "github:catppuccin/nix";
     catppuccinifier = {
       url = "github:lighttigerXIV/catppuccinifier";
       inputs = {

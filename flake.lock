@@ -123,16 +123,16 @@
     },
     "catppuccin": {
       "locked": {
-        "lastModified": 1710663401,
-        "narHash": "sha256-pA1l9dBv85e7r0UWRmgZMYLDa4S1LXFtRLvXCAJGcfI=",
-        "owner": "Stonks3141",
-        "repo": "ctp-nix",
-        "rev": "03b95cad3bbeb9913db6d89dc3f4fccc6c8fcbd4",
+        "lastModified": 1712482981,
+        "narHash": "sha256-LJOOpTey9Y29C/TK4h9KP7v4HvqDL3mLyT9hSWCfFlI=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "4043beb6c792a40e9c513aa261f4ba10601a4457",
         "type": "github"
       },
       "original": {
-        "owner": "Stonks3141",
-        "repo": "ctp-nix",
+        "owner": "catppuccin",
+        "repo": "nix",
         "type": "github"
       }
     },
@@ -1038,11 +1038,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1712316923,
-        "narHash": "sha256-sr0jCrYBR5jBVA9GDJj/dPGqNkfwkKGj4oZIzK/iLWQ=",
+        "lastModified": 1712513435,
+        "narHash": "sha256-4j8AMLrQ29hVYZ7nYs7qlq0cIE/CDP7gS5Up0zV4eIU=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "869417a254f1b0b8b55e6a955302f7dc05f75730",
+        "rev": "2d968ce3b44b6f4d8d7fa40387669148f1902936",
         "type": "github"
       },
       "original": {
@@ -1062,11 +1062,11 @@
       },
       "locked": {
         "dir": "contrib",
-        "lastModified": 1712273065,
-        "narHash": "sha256-gN4v1Gd0teluIokBHoj9M5ilGu7VFwMrRo3LN8GhAhQ=",
+        "lastModified": 1712445032,
+        "narHash": "sha256-pgfLqs3eEVm6FjAi/6jzUpRYl23C8qnbg4mmihAd7C4=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "dc69c475a5804c6c01987722f4cf6298d4e33e64",
+        "rev": "98d687a4e18161663480aa1d5ee9aff5fdf5fb57",
         "type": "github"
       },
       "original": {
@@ -1094,11 +1094,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1712275479,
-        "narHash": "sha256-qFFO9qzQG4YhUtJu9CRmPcd2QroaRw2mimxasbkQqd0=",
+        "lastModified": 1712448347,
+        "narHash": "sha256-J3YPoZdyttGERtpmOqPifiJ+cGOHY4/ojBpqErfcuO4=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "fa5d197b569eabfb0742e32b751269a5aa08c389",
+        "rev": "ba167d4057f796b93a72c081fe8657327b3775b8",
         "type": "github"
       },
       "original": {
