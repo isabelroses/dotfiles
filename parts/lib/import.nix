@@ -20,7 +20,7 @@
   hardware = import' ./hardware.nix;
 
   # templates, selections of code and etc that are repeated
-  template = import' ./template;
+  template = import ./template {};
 
   # recursively merges two attribute sets
   importedLibs = [builders services validators helpers hardware template];
