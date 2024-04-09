@@ -38,13 +38,11 @@ in {
 
     delta = {
       enable = true;
-      # catppuccin.enable = true;
+      catppuccin.enable = true;
       options = {
-        features = "decorations side-by-side navigate";
         navigate = true;
         side-by-side = true;
         line-numbers = true;
-        dark = true;
       };
     };
 
