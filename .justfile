@@ -33,4 +33,4 @@ update *input:
   nix flake lock --update-input {{input}}
 
 update-all:
-  nix flake update
+  nix flake update --refresh
