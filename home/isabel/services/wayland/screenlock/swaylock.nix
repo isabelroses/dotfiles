@@ -13,6 +13,9 @@ in {
     programs.swaylock = {
       enable = true;
       package = pkgs.swaylock-effects;
+
+      catppuccin.enable = true;
+
       settings = {
         ignore-empty-password = true;
         show-failed-attempts = true;
@@ -22,27 +25,6 @@ in {
         line-uses-ring = true;
         font = "CommitMono";
         font-size = 32;
-        color = "11111bff";
-        separator-color = "3132441c";
-        key-hl-color = "89b4fa80";
-        bs-hl-color = "b4befe80";
-        text-caps-lock-color = "74c7ecff";
-        text-color = "89b4fa3eff";
-        inside-color = "1e1e2e1c";
-        ring-color = "89b4fa3e";
-        line-color = "11111b00";
-        text-clear-color = "a6e3a1ff";
-        inside-clear-color = "1e1e2e1c";
-        ring-clear-color = "a6e3a13e";
-        line-clear-color = "11111b00";
-        text-ver-color = "f9e2afff";
-        inside-ver-color = "1e1e2e1c";
-        ring-ver-color = "f9e2af3e";
-        line-ver-color = "11111b00";
-        text-wrong-color = "f38ba8ff";
-        inside-wrong-color = "1e1e2e1c";
-        ring-wrong-color = "f38ba855";
-        line-wrong-color = "11111b00";
       };
     };
   };
