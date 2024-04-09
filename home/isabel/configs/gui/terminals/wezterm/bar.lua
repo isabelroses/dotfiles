@@ -10,7 +10,7 @@ local config = {
   dividers = "slant_right", -- "slant_right" or "slant_left", "arrows", "rounded", false
   indicator = {
     leader = {
-      enabled = false,
+      enabled = true,
       off = " ",
       on = " ",
     },
@@ -32,7 +32,7 @@ local config = {
     },
   },
   clock = {
-    enabled = true,
+    enabled = false,
     format = "%I:%M %P", -- https://docs.rs/chrono/latest/chrono/format/strftime/index.html
   },
 }
@@ -271,7 +271,12 @@ wezterm.on("format-tab-title", function(tab, tabs, _panes, conf, _hover, _max_wi
   -- start and end hardcoded numbers are the Powerline + " " padding
   local fillerwidth = 2 + string.len(index) + string.len(pane_count) + 2
 
-  local tabtitle = tab.active_pane.title
+  -- prefer renamed tabe titles to the default title
+  local tabtitle = tab.tab_title
+  if #tabtitle <= 0 then
+    tabtitle = tab.active_pane.title
+  end
+
   local width = conf.tab_max_width - fillerwidth - 1
   if (#tabtitle + fillerwidth) > conf.tab_max_width then
     tabtitle = wezterm.truncate_right(tabtitle, width) .. "…"
