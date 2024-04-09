@@ -1,36 +1,36 @@
 local wezterm = require("wezterm")
 local utils = require("utils")
 
-local config = {}
-if wezterm.config_builder then
-  config = wezterm.config_builder()
+local c = {}
+if wezterm.c_builder then
+  c = wezterm.config_builder()
 end
 
 -- theme
-require("catppuccin").apply_to_config(config)
-require("bar").apply_to_config(config)
+require("catppuccin").apply_to_config(c)
+require("bar").apply_to_config(c)
 
 if utils.is_linux() then
-  config.window_background_opacity = 0.90
+  c.window_background_opacity = 0.90
 elseif utils.is_darwin() then
-  config.window_background_opacity = 0.95
+  c.window_background_opacity = 0.95
 elseif utils.is_windows() then
-  config.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\wallhaven-qzp8dr.png"
-  config.window_background_image_hsb = {
+  c.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\wallhaven-qzp8dr.png"
+  c.window_background_image_hsb = {
     brightness = 0.03, -- make the bg darker so we can see what we are doing
   }
 end
 
--- shell
--- fix windows stuff
+-- load my keybinds
+require("keybinds").apply(c)
+
+-- default shell
 if utils.is_linux() then
-  -- config.default_prog = { "fish", "-l" }
-  config.default_prog = { "nu", "--login" }
+  c.default_prog = { "nu", "--login" }
 elseif utils.is_darwin() then
-  -- config.default_prog = { "/etc/profiles/per-user/isabel/bin/fish", "-l" }
-  config.default_prog = { "/etc/profiles/per-user/isabel/bin/nu", "--login" }
+  c.default_prog = { "/etc/profiles/per-user/isabel/bin/nu", "--login" }
 elseif utils.is_windows() then
-  config.launch_menu = {
+  c.launch_menu = {
     {
       label = "PowerShell",
       args = { "pwsh.exe" },
@@ -43,24 +43,28 @@ elseif utils.is_windows() then
 end
 
 -- window stuff
-config.window_decorations = "RESIZE"
-config.window_padding = { left = 10, right = 0, top = 0, bottom = 0 }
-config.adjust_window_size_when_changing_font_size = false
+c.window_decorations = "RESIZE"
+c.window_padding = { left = 10, right = 0, top = 0, bottom = 0 }
+c.adjust_window_size_when_changing_font_size = false
 
 -- fonts
-config.font = wezterm.font_with_fallback({
+c.font = wezterm.font_with_fallback({
   "CommitMono",
   "Symbols Nerd Font",
 })
-config.font_size = 13
-config.line_height = 1.2
-config.adjust_window_size_when_changing_font_size = false
+c.font_size = 13
+c.line_height = 1.2
+c.adjust_window_size_when_changing_font_size = false
+c.window_frame = {
+  font = wezterm.font("CommitMono"),
+  font_size = c.font_size,
+}
 
 -- QOL
-config.audible_bell = "Disabled"
-config.default_cursor_style = "BlinkingBar"
-config.front_end = "WebGpu"
-config.window_close_confirmation = "NeverPrompt"
-config.prefer_to_spawn_tabs = true
+c.audible_bell = "Disabled"
+c.default_cursor_style = "BlinkingBar"
+c.front_end = "WebGpu"
+c.window_close_confirmation = "NeverPrompt"
+c.prefer_to_spawn_tabs = true
 
-return config
+return c
