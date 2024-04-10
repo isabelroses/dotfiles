@@ -8,7 +8,7 @@
 in {
   config = mkIf (isModernShell osConfig) {
     home.packages = mkIf pkgs.stdenv.isLinux [
-      # pkgs.charm-freeze
+      pkgs.charm-freeze
     ];
 
     xdg.configFile."freeze/user.json".text = builtins.toJSON {
