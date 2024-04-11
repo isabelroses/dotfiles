@@ -4,7 +4,9 @@
   self,
   config,
   ...
-}: {
+}: let
+  inherit (lib) getExe mapAttrs escapeShellArg escapeShellArgs concatMapStrings;
+in {
   # FIXME: this is a workaround for nushell not loading the configuration on darwin systems
   imports = [self.homeManagerModules.nushell];
   disabledModules = ["programs/nushell.nix"];
@@ -14,15 +16,17 @@
 
     shellAliases = builtins.removeAttrs config.home.shellAliases ["mkdir"];
 
-    environmentVariables = {
-      DIRENV_LOG_FORMAT = "''";
-      SHELL = "'${lib.getExe pkgs.nushell}'";
-      PATH = "($env.PATH | split row (char esep) | append [${lib.escapeShellArgs config.home.sessionPath}])";
-    };
+    environmentVariables =
+      {
+        DIRENV_LOG_FORMAT = "''";
+        SHELL = "'${getExe pkgs.nushell}'";
+        PATH = "($env.PATH | split row (char esep) | append [${escapeShellArgs config.home.sessionPath}])";
+      }
+      // mapAttrs (_: v: (escapeShellArg v)) config.home.sessionVariables;
 
     extraConfig = let
       completions = cmds: ''
-        ${lib.concatMapStrings (cmd: ''
+        ${concatMapStrings (cmd: ''
             source "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${cmd}/${cmd}-completions.nu"
           '')
           cmds}
