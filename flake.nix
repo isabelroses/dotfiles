@@ -143,6 +143,10 @@
       url = "github:isabelroses/bellado";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    izrss = {
+      url = "github:isabelroses/izrss";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # a tree-wide formatter
     treefmt-nix = {

@@ -17,6 +17,7 @@
       gh-eco = pkgs.callPackage ./gh-eco.nix {};
 
       bellado = inputs'.bellado.packages.default;
+      izrss = inputs'.izrss.packages.default;
       isabelroses-website = inputs'.isabelroses-website.packages.default;
       catppuccinifier-cli = inputs'.catppuccinifier.packages.cli;
     };

@@ -2,7 +2,8 @@
   imports = [
     ./btop.nix
     ./nap.nix
-    ./newsboat.nix
+    ./izrss.nix
+    # ./newsboat.nix
     # ./ranger.nix
     ./yazi.nix
   ];

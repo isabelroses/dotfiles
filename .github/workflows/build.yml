@@ -16,6 +16,7 @@ jobs:
       matrix:
         package:
           - bellado
+          - izrss
           - gh-eco
           - isabelroses-website
           - catppuccinifier-cli
