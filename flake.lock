@@ -938,6 +938,26 @@
         "type": "github"
       }
     },
+    "izrss": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1712922491,
+        "narHash": "sha256-8Kap64dHI52uaTw4LFEBA0wJxpG2Z2lT4RvOWwMAnfw=",
+        "owner": "isabelroses",
+        "repo": "izrss",
+        "rev": "79162e76e6179008c426f6acbd520d0ea1047469",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "repo": "izrss",
+        "type": "github"
+      }
+    },
     "izvim": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -1377,6 +1397,7 @@
         "hyprland": "hyprland",
         "hyprpicker": "hyprpicker",
         "isabelroses-website": "isabelroses-website",
+        "izrss": "izrss",
         "izvim": "izvim",
         "lanzaboote": "lanzaboote",
         "nekowinston-nur": "nekowinston-nur",
