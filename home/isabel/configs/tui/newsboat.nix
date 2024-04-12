@@ -57,27 +57,11 @@
       }
     ];
 
-    extraConfig = ''
-      color listnormal         color15 default
-      color listnormal_unread  color2  default
-      color listfocus_unread   color2  color0
-      color listfocus          default color0
-      color background         default default
-      color article            default default
-      color end-of-text-marker color8  default
-      color info               color4  color8
-      color hint-separator     default color8
-      color hint-description   default color8
-      color title              color14 color8
-
-      highlight article "^(Feed|Title|Author|Link|Date): .+" color4 default bold
-      highlight article "^(Feed|Title|Author|Link|Date):" color14 default bold
-
-      highlight article "\\((link|image|video)\\)" color8 default
-      highlight article "https?://[^ ]+" color4 default
-      highlight article "\[[0-9]+\]" color6 default bold
-
-      refresh-on-startup yes
-    '';
+    extraConfig =
+      builtins.readFile
+      (builtins.fetchurl {
+        url = "https://raw.githubusercontent.com/catppuccin/newsboat/main/themes/dark";
+        sha256 = "09x50g74mld8zv8r6a873j52zx3w86qv3mc7g4fhzr85911cz799";
+      });
   };
 }
