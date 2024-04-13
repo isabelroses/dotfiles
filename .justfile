@@ -7,8 +7,7 @@ rebuild *args: verify
 
 [linux]
 rebuild *args: verify
-  @sudo true
-  nixos-rebuild switch --flake . {{args}} |& nom
+  sudo nixos-rebuild switch --flake . {{args}} |& nom
 
 build pkg:
   nix build .#{{pkg}} --log-format internal-json -v |& nom --json
