@@ -53,12 +53,17 @@ c.font = wezterm.font_with_fallback({
   "Symbols Nerd Font",
 })
 c.font_size = 13
-c.line_height = 1.2
 c.adjust_window_size_when_changing_font_size = false
 c.window_frame = {
   font = wezterm.font("CommitMono"),
   font_size = c.font_size,
 }
+
+if utils.is_windows() then
+  c.line_height = 1
+else
+  c.line_height = 1.2
+end
 
 -- QOL
 c.audible_bell = "Disabled"
