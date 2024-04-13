@@ -39,6 +39,7 @@
             settings.configuration = ''
               [default.extend-words]
               "ags" = "ags"
+              "GIR" = "GIR"
             '';
           };
 

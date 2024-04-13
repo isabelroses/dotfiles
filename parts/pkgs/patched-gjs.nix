@@ -1,6 +1,4 @@
-/*
-taken from upsteam and altered
-*/
+# taken from upstream and altered
 {
   fetchurl,
   lib,
