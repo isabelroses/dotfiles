@@ -1,5 +1,5 @@
 {
-  services.systemd = let
+  systemd = let
     extraConfig = ''
       DefaultTimeoutStartSec=15s
       DefaultTimeoutStopSec=15s
