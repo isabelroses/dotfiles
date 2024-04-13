@@ -16,7 +16,10 @@ in {
       signByDefault = true;
     };
 
-    lfs.enable = true;
+    lfs = {
+      enable = true;
+      skipSmudge = true; # we don't want another ctp/userstyles situation
+    };
 
     ignores = [
       ".DS_Store"
