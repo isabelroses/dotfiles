@@ -1,18 +1,23 @@
-{inputs, ...}: {
+{
+  lib,
+  inputs,
+  ...
+}: {
   imports = [inputs.pre-commit-hooks.flakeModule];
 
   perSystem = {config, ...}: let
     # don't format these
     excludes = ["flake.lock" "r'.+\.age$'"];
 
-    mkHook = name: prev:
-      {
-        inherit excludes;
-        description = "pre-commit hook for ${name}";
-        fail_fast = true;
-        verbose = true;
-      }
-      // prev;
+    mkHook = name: {
+      inherit excludes;
+      enable = true;
+      description = "pre commit hook for ${name}";
+      fail_fast = true;
+      verbose = true;
+    };
+
+    mkHook' = name: prev: (mkHook name) // prev;
   in {
     pre-commit = {
       check.enable = true;
@@ -21,16 +26,30 @@
         inherit excludes;
 
         hooks = {
-          alejandra = mkHook "Alejandra" {enable = true;};
-          actionlint = mkHook "actionlint" {enable = true;};
-          # prettier = mkHook "prettier" {enable = true;};
-          # commitizen = mkHook "commitizen" {enable = true;};
-          # nil = mkHook "nil" {enable = true;};
-          editorconfig-checker = mkHook "editorconfig" {
-            enable = false;
+          alejandra = mkHook "Alejandra";
+          actionlint = mkHook "actionlint";
+          # commitizen = mkHook "commitizen";
+          # nil = mkHook "nil";
+
+          prettier = mkHook' "prettier" {
+            settings.write = true;
+          };
+
+          typos = mkHook' "typos" {
+            settings.configuration = ''
+              [default.extend-words]
+              "ags" = "ags"
+            '';
+          };
+
+          editorconfig-checker = mkHook' "editorconfig" {
+            enable = lib.mkForce false;
             always_run = true;
           };
-          treefmt.package = config.treefmt.build.wrapper;
+
+          treefmt = mkHook' "treefmt" {
+            package = config.treefmt.build.wrapper;
+          };
         };
       };
     };

@@ -9,7 +9,7 @@
   }: {
     devShells.default = pkgs.mkShellNoCC {
       name = "dotfiles";
-      meta.description = "Devlopment shell for this configuration";
+      meta.description = "Development shell for this configuration";
 
       shellHook = config.pre-commit.installationScript;
 
