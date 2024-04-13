@@ -27,6 +27,7 @@
 
     # meta profiles
     workstation = metaProfilesPath + /workstation; # for server type configurations
+    graphical = metaProfilesPath + /graphical; # for systems that have a graphical interface
     headless = metaProfilesPath + /headless; # for headless systems
 
     # home-manager
@@ -46,8 +47,9 @@
           system = "x86_64-linux";
           modules =
             [
-              workstation
               laptop
+              graphical
+              workstation
             ]
             ++ concatLists [shared];
           specialArgs = sharedArgs;
@@ -60,6 +62,7 @@
           modules =
             [
               desktop
+              graphical
               workstation
             ]
             ++ concatLists [shared];
@@ -87,7 +90,7 @@
           host = "tatsumaki";
           inherit withSystem;
           system = "aarch64-darwin";
-          modules = concatLists [shared];
+          modules = [workstation] ++ concatLists [shared];
           specialArgs = sharedArgs;
         }
       ])

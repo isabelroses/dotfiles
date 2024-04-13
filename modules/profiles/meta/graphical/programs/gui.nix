@@ -4,15 +4,13 @@
   config,
   ...
 }: {
-  environment = {
-    systemPackages = with pkgs; [
-      # packages necessery for thunar thumbnails
-      xfce.tumbler
-      libgsf # odf files
-      ffmpegthumbnailer
-      ark # GUI archiver for thunar archive plugin
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    # packages necessary for thunar thumbnails
+    xfce.tumbler
+    libgsf # of files
+    ffmpegthumbnailer
+    ark # GUI archiver for thunar archive plugin
+  ];
 
   programs = {
     # the thunar file manager
