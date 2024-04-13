@@ -1,4 +1,4 @@
-{pkgs}: {
+{pkgs, ...}: {
   services.xserver = {
     enable = false;
     displayManager.gdm.enable = false;
