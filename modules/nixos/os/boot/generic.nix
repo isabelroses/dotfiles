@@ -1,13 +1,12 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }: let
   inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals;
   sys = config.modules.system;
 in {
-  config.boot = mkIf pkgs.stdenv.isLinux {
+  config.boot = {
     consoleLogLevel = 3;
 
     # always use the latest kernel, love the unstablity
@@ -31,6 +30,12 @@ in {
 
       # we need to allow installation to modify EFI variables
       efi.canTouchEfiVariables = true;
+    };
+
+    # increase the map count, this is important for applications that require a lot of memory mappings
+    # such as games and emulators
+    boot.kernel.sysctl = {
+      "vm.max_map_count" = 2147483642;
     };
 
     # if you have a lack of ram, you should avoid tmpfs to prevent hangups while compiling
@@ -136,7 +141,7 @@ in {
         "quite"
 
         # kernel log message level
-        "loglevel=3" # 1: sustem is unusable | 3: error condition | 7: very verbose
+        "loglevel=3" # 1: system is unusable | 3: error condition | 7: very verbose
 
         # udev log message level
         "udev.log_level=3"
