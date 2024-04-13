@@ -3,7 +3,7 @@
     ./btop.nix
     ./nap.nix
     ./izrss.nix
-    # ./newsboat.nix
+    ./newsboat.nix
     # ./ranger.nix
     ./yazi.nix
   ];
