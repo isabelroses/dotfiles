@@ -6,7 +6,7 @@
   inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals;
   sys = config.modules.system;
 in {
-  config.boot = {
+  boot = {
     consoleLogLevel = 3;
 
     # always use the latest kernel, love the unstablity
@@ -34,7 +34,7 @@ in {
 
     # increase the map count, this is important for applications that require a lot of memory mappings
     # such as games and emulators
-    boot.kernel.sysctl = {
+    kernel.sysctl = {
       "vm.max_map_count" = 2147483642;
     };
 
