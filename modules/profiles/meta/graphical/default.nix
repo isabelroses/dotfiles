@@ -7,6 +7,7 @@
 
     ./display.nix # display manager and window manager
     ./flatpak.nix # flatpak application
+    ./misc.nix # miscellaneous additional settings
     ./xserver.nix # extension of display manager but for only xserver
   ];
 }
