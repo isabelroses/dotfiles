@@ -12,6 +12,6 @@ in {
   disabledModules = ["programs/hyprland.nix"];
 
   config = mkIf (env.desktop == "Hyprland") {
-    services.xserver.displayManager.sessionPackages = [inputs'.hyprland.packages.default];
+    services.displayManager.sessionPackages = [inputs'.hyprland.packages.default];
   };
 }

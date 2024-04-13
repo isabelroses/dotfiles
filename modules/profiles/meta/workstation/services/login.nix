@@ -7,7 +7,7 @@
   inherit (config.modules) system environment;
   inherit (lib) mkIf getExe concatStringsSep;
 
-  sessionData = config.services.xserver.displayManager.sessionData.desktops;
+  sessionData = config.services.displayManager.sessionData.desktops;
   sessionPath = concatStringsSep ":" [
     "${sessionData}/share/xsessions"
     "${sessionData}/share/wayland-sessions"
