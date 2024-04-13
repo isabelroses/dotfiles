@@ -20,7 +20,6 @@ jobs:
           - gh-eco
           - isabelroses-website
           - catppuccinifier-cli
-          - lutgen-rs
           - patched-gjs
           - plymouth-theme-catppuccin
 
@@ -38,7 +37,7 @@ jobs:
 
       - name: Nix Magic Cache
         uses: DeterminateSystems/magic-nix-cache-action@main
-      
+
       - name: Setup cachix
         uses: cachix/cachix-action@v14
         with:
