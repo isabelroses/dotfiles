@@ -119,34 +119,34 @@ in {
       };
 
       cloudflared-hydra = mkSecret services.networking.cloudflared.enable {
-        file = "cloudflared-hydra";
+        file = "cloudflare/hydra";
         owner = "cloudflared";
         group = "cloudflared";
       };
 
       cloudflare-cert-api = mkSecret services.networking.nginx.enable {
-        file = "cloudflare-cert-api";
+        file = "cloudflare/cert-api";
         owner = "nginx";
         group = "nginx";
       };
 
       # mailserver
-      mailserver-isabel = mkSecret services.mailserver.enable {file = "mailserver-isabel";};
-      mailserver-vaultwarden = mkSecret services.mailserver.enable {file = "mailserver-vaultwarden";};
-      mailserver-database = mkSecret services.mailserver.enable {file = "mailserver-database";};
-      mailserver-grafana = mkSecret services.mailserver.enable {file = "mailserver-grafana";};
-      mailserver-git = mkSecret services.mailserver.enable {file = "mailserver-git";};
-      mailserver-noreply = mkSecret services.mailserver.enable {file = "mailserver-noreply";};
-      mailserver-spam = mkSecret services.mailserver.enable {file = "mailserver-spam";};
+      mailserver-isabel = mkSecret services.mailserver.enable {file = "mailserver/isabel";};
+      mailserver-vaultwarden = mkSecret services.mailserver.enable {file = "mailserver/vaultwarden";};
+      mailserver-database = mkSecret services.mailserver.enable {file = "mailserver/database";};
+      mailserver-grafana = mkSecret services.mailserver.enable {file = "mailserver/grafana";};
+      mailserver-git = mkSecret services.mailserver.enable {file = "mailserver/git";};
+      mailserver-noreply = mkSecret services.mailserver.enable {file = "mailserver/noreply";};
+      mailserver-spam = mkSecret services.mailserver.enable {file = "mailserver/spam";};
 
       mailserver-grafana-nohash = mkSecret services.monitoring.grafana.enable {
-        file = "mailserver-grafana-nohash";
+        file = "mailserver/grafana-nohash";
         owner = "grafana";
         group = "grafana";
       };
 
       mailserver-git-nohash = mkSecret services.dev.forgejo.enable {
-        file = "mailserver-git-nohash";
+        file = "mailserver/git-nohash";
         owner = "forgejo";
         group = "forgejo";
       };
@@ -186,15 +186,15 @@ in {
         owner = "matrix-synapse";
       };
 
-      # plausable
+      # plausible
       plausible-key = mkSecret services.dev.plausible.enable {
-        file = "plausible-key";
+        file = "plausible/key";
         owner = "plausible";
         group = "plausible";
       };
 
       plausible-admin = mkSecret services.dev.plausible.enable {
-        file = "plausible-admin";
+        file = "plausible/admin";
         owner = "plausible";
         group = "plausible";
       };
