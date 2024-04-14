@@ -36,11 +36,14 @@
           };
 
           typos = mkHook' "typos" {
-            settings.configuration = ''
-              [default.extend-words]
-              "ags" = "ags"
-              "GIR" = "GIR"
-            '';
+            settings = {
+              write = true;
+              configuration = ''
+                [default.extend-words]
+                "ags" = "ags"
+                "GIR" = "GIR"
+              '';
+            };
           };
 
           editorconfig-checker = mkHook' "editorconfig" {

@@ -1,26 +1,22 @@
 {
-  config = {
-    services = {
-      # Input settings for libinput
-      xserver.libinput = {
-        enable = true;
+  # Input settings for libinput
+  services.xserver.libinput = {
+    enable = true;
 
-        # disable mouse acceleration (yes im gamer)
-        mouse = {
-          accelProfile = "flat";
-          accelSpeed = "0";
-          middleEmulation = false;
-        };
+    # disable mouse acceleration (yes im gamer)
+    mouse = {
+      accelProfile = "flat";
+      accelSpeed = "0";
+      middleEmulation = false;
+    };
 
-        # touchpad settings
-        touchpad = {
-          naturalScrolling = true;
-          tapping = true;
-          clickMethod = "clickfinger";
-          horizontalScrolling = false;
-          disableWhileTyping = true;
-        };
-      };
+    # touchpad settings
+    touchpad = {
+      naturalScrolling = true;
+      tapping = true;
+      clickMethod = "clickfinger";
+      horizontalScrolling = false;
+      disableWhileTyping = true;
     };
   };
 }

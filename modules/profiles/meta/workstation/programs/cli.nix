@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   config,
   inputs,
   ...
@@ -18,7 +17,7 @@
     };
 
     programs = {
-      # home-manager is so strange and needs these declared muliple times
+      # home-manager is so strange and needs these declared multiple times
       fish.enable = true;
 
       # type "fuck" to fix the last command that made you go "fuck"
@@ -46,14 +45,5 @@
         loadInNixShell = true;
       };
     };
-
-    # determine which version of wine to use
-    environment.systemPackages = with pkgs; let
-      winePackage =
-        if (lib.isWayland config)
-        then wineWowPackages.waylandFull
-        else wineWowPackages.stableFull;
-    in
-      lib.mkIf config.modules.programs.agnostic.wine.enable [winePackage];
   };
 }

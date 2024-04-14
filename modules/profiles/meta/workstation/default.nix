@@ -1,7 +1,7 @@
 {
   imports = [
     ./programs
-    ./services
-    ./system
+
+    ./misc.nix
   ];
 }

@@ -1,7 +1,7 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }: let
   sys = config.modules.system;
