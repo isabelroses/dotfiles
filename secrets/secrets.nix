@@ -34,20 +34,20 @@ in {
   "amity-key.age".publicKeys = defAccess types.workstations;
 
   # server
-  "cloudflared-hydra.age".publicKeys = defAccess types.servers;
-  "cloudflare-cert-api.age".publicKeys = defAccess types.servers;
+  "cloudflare/hydra.age".publicKeys = defAccess types.servers;
+  "cloudflare/cert-api.age".publicKeys = defAccess types.servers;
 
   # mailserver
-  "mailserver-isabel.age".publicKeys = defAccess types.servers;
-  "mailserver-vaultwarden.age".publicKeys = defAccess types.servers;
-  "mailserver-database.age".publicKeys = defAccess types.servers;
-  "mailserver-grafana.age".publicKeys = defAccess types.servers;
-  "mailserver-git.age".publicKeys = defAccess types.servers;
-  "mailserver-noreply.age".publicKeys = defAccess types.servers;
-  "mailserver-spam.age".publicKeys = defAccess types.servers;
+  "mailserver/isabel.age".publicKeys = defAccess types.servers;
+  "mailserver/vaultwarden.age".publicKeys = defAccess types.servers;
+  "mailserver/database.age".publicKeys = defAccess types.servers;
+  "mailserver/grafana.age".publicKeys = defAccess types.servers;
+  "mailserver/git.age".publicKeys = defAccess types.servers;
+  "mailserver/noreply.age".publicKeys = defAccess types.servers;
+  "mailserver/spam.age".publicKeys = defAccess types.servers;
 
-  "mailserver-grafana-nohash.age".publicKeys = defAccess types.servers;
-  "mailserver-git-nohash.age".publicKeys = defAccess types.servers;
+  "mailserver/grafana-nohash.age".publicKeys = defAccess types.servers;
+  "mailserver/git-nohash.age".publicKeys = defAccess types.servers;
 
   "grafana-oauth2.age".publicKeys = defAccess types.servers;
 
@@ -61,9 +61,9 @@ in {
 
   "matrix.age".publicKeys = defAccess types.servers;
 
-  # plausable
-  "plausible-key.age".publicKeys = defAccess types.servers;
-  "plausible-admin.age".publicKeys = defAccess types.servers;
+  # plausible
+  "plausible/key.age".publicKeys = defAccess types.servers;
+  "plausible/admin.age".publicKeys = defAccess types.servers;
 
   #wakapi
   "wakapi.age".publicKeys = defAccess types.servers;
