@@ -1,8 +1,9 @@
 {
   imports = [
     ./atuin.nix
-    ./wakapi.nix
     ./forgejo.nix
     ./plausible.nix
+    ./vscode-server.nix
+    ./wakapi.nix
   ];
 }

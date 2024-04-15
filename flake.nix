@@ -16,7 +16,11 @@
     # nixos on wsl
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "";
+        flake-utils.follows = "izvim/flake-utils";
+      };
     };
 
     # Home Manager
@@ -69,7 +73,10 @@
     # remote ssh vscode server
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "izvim/flake-utils";
+      };
     };
 
     # deploy remote systems

@@ -1,7 +1,6 @@
 {
-  config,
-  inputs,
   lib,
+  config,
   ...
 }: let
   inherit (lib) mkIf mkDefault;
@@ -10,13 +9,10 @@ in {
   imports = [
     ./systemd.nix
     ./zram.nix
-    inputs.vscode-server.nixosModules.default
   ];
 
   services = {
-    # enable the vscode server
-    vscode-server.enable = config.modules.services.dev.vscode-server.enable;
-    # monitor and control temparature
+    # monitor and control temperature
     thermald.enable = true;
     # discard blocks that are not in use by the filesystem, good for SSDs
     fstrim.enable = true;
