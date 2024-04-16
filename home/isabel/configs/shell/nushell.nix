@@ -5,7 +5,7 @@
   config,
   ...
 }: let
-  inherit (lib) getExe mapAttrs escapeShellArg escapeShellArgs concatMapStrings;
+  inherit (lib) getExe mapAttrs escapeShellArg concatMapStrings;
 in {
   # FIXME: this is a workaround for nushell not loading the configuration on darwin systems
   imports = [self.homeManagerModules.nushell];
@@ -20,7 +20,7 @@ in {
       {
         DIRENV_LOG_FORMAT = "''";
         SHELL = "'${getExe pkgs.nushell}'";
-        PATH = "($env.PATH | split row (char esep) | append [${escapeShellArgs config.home.sessionPath}])";
+        # PATH = "($env.PATH | split row (char esep) | append [${escapeShellArgs config.home.sessionPath}])";
       }
       // mapAttrs (_: v: (escapeShellArg v)) config.home.sessionVariables;
 
