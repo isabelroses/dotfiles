@@ -120,10 +120,7 @@
 
     nekowinston-nur = {
       url = "github:nekowinston/nur";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "izvim/flake-utils";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     izvim = {
