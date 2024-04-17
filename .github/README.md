@@ -10,6 +10,7 @@
 <br />
 
 <!--toc:start-->
+
 - [What does this repo provided](#what-does-this-repo-provided)
   - [Shortcuts](#shortcuts)
 - [Config layout](#config-layout)
@@ -34,20 +35,21 @@
 <summary>
 
 #### Shortcuts
+
 </summary>
 
-| SKHD Shortcut                   | Hyprland Shortcut               | What it does               |
-| ------------------------------- | ------------------------------- | -------------------------- |
-| <kbd>CMD+RETURN</kbd>           | <kbd>SUPER+RETURN</kbd>         | open terminal              |
-|                                 | <kbd>SUPER+B</kbd>              | open browser               |
-|                                 | <kbd>SUPER+C</kbd>              | open editor                |
-|                                 | <kbd>SUPER+O</kbd>              | open notes                 |
-|                                 | <kbd>SUPER+E</kbd>              | open file manager          |
-| <kbd>CMD+Q</kbd>                | <kbd>SUPER+Q</kbd>              | quit                       |
-| <kbd>CMD+D</kbd>                | <kbd>SUPER+D</kbd>              | launcher                   |
-|                                 | <kbd>SUPER+F</kbd>              | full screen                |
-| <kbd>CMD+CTRL+[number]</kbd>    | <kbd>SUPER+[number]</kbd>       | open workspace [number]    |
-| <kbd>CMD+SHIFT+[number]</kbd>   | <kbd>SUPER+SHIFT+[number]</kbd> | move to workspace [number] |
+| SKHD Shortcut                 | Hyprland Shortcut               | What it does               |
+| ----------------------------- | ------------------------------- | -------------------------- |
+| <kbd>CMD+RETURN</kbd>         | <kbd>SUPER+RETURN</kbd>         | open terminal              |
+|                               | <kbd>SUPER+B</kbd>              | open browser               |
+|                               | <kbd>SUPER+C</kbd>              | open editor                |
+|                               | <kbd>SUPER+O</kbd>              | open notes                 |
+|                               | <kbd>SUPER+E</kbd>              | open file manager          |
+| <kbd>CMD+Q</kbd>              | <kbd>SUPER+Q</kbd>              | quit                       |
+| <kbd>CMD+D</kbd>              | <kbd>SUPER+D</kbd>              | launcher                   |
+|                               | <kbd>SUPER+F</kbd>              | full screen                |
+| <kbd>CMD+CTRL+[number]</kbd>  | <kbd>SUPER+[number]</kbd>       | open workspace [number]    |
+| <kbd>CMD+SHIFT+[number]</kbd> | <kbd>SUPER+SHIFT+[number]</kbd> | move to workspace [number] |
 
 </details>
 
@@ -62,16 +64,16 @@
   - 𖤍 [Valkyrie](../hosts/valkyrie/) A WSL2 host, designed to be a development environment on Windows
   - 💮 [Tatsumaki](../hosts/tatsumaki/) A MacBook Air, configured to last a whole day of university
 - 🧩 [parts](../parts/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
-  - 📚 [lib](../lib/) Useful repeated functions
-  - 📦 [packages](../pkgs/) NixOS packages
-  - 🛠️ [templates](../templates/) Templates for setting up development environments
-  - 👾 [modules](../modules/) Exported modules for NixOS, home-manager and Nix Darwin
-  - 🗗 [overlays](../overlays/) Package overlays
+  - 📚 [lib](../parts/lib/) Useful repeated functions
+  - 📦 [packages](../parts/pkgs/) NixOS packages
+  - 🛠️ [templates](../parts/templates/) Templates for setting up development environments
+  - 👾 [modules](../parts/modules/) Exported modules for NixOS, home-manager and Nix Darwin
+  - 🗗 [overlays](../parts/overlays/) Package overlays
 - 📝 [docs](../docs/) Documentation for the configuration which can be found [here](https://isabelroses.github.io/dotfiles/)
 - 🔌 [modules](../modules/)
   - [base](../modules/base/) The base configuration settings, which are common between all systems
-  - [darwin](../modules/darwin/) Configuration modules for exclusivly darwin systems
-  - [nixos](../modules/nixos/) Configuration modules for exclusivly nixos systems
+  - [darwin](../modules/darwin/) Configuration modules for exclusively darwin systems
+  - [nixos](../modules/nixos/) Configuration modules for exclusively nixos systems
   - [extra](../modules/extra) Extra configuration modules, for home-manager and Nix Darwin and NixOS
   - [profiles](../modules/profiles/) System type configurations (e.g. laptop, servers, desktop)
 
@@ -90,9 +92,9 @@
 
 - Install [Nix](https://nixos.org/manual/nixos/stable/index.html#sec-installation) the package manager
   > `sh <(curl -L https://nixos.org/nix/install)`
-- Install [homebrew](https://brew.sh/) 
+- Install [homebrew](https://brew.sh/)
   > `curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash`
-- Exclude nix from time machine backups 
+- Exclude nix from time machine backups
   > `sudo tmutil addexclusion -v /nix`
 - `nix run nix-darwin -- switch --flake ~/.config/flake#<host> --experimental-features "nix-command flakes"`
 - Then good news you can use the `rebuild` alias that exists for the future
