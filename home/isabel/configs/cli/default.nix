@@ -8,8 +8,9 @@
     ./freeze.nix
     ./fzf.nix
     ./hyfetch.nix
+    ./ripgrep.nix
     ./starship.nix
-    ./tealdear.nix
+    # ./tealdear.nix
     ./zoxide.nix
   ];
 }

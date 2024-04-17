@@ -21,8 +21,7 @@ in {
         nix-output-monitor # much nicer nix build output
       ]
       ++ optionals cfg.cli.modernShell.enable [
-        ripgrep # much better and faster grep
-        vhs # programatically make gifs
+        vhs # programmatically make gifs
         glow # markdown preview
       ]
       ++ optionals stdenv.isLinux [
