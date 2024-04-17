@@ -170,12 +170,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nix helper
-    nh = {
-      url = "github:viperML/nh";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Run unpatched dynamic binaries on NixOS
     nix-ld = {
       url = "github:Mic92/nix-ld";

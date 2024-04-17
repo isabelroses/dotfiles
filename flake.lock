@@ -1123,26 +1123,6 @@
         "type": "github"
       }
     },
-    "nh": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1713299899,
-        "narHash": "sha256-SZ7S/JAXRA6Ofw3/RxGaZs1RrTXL1oY2j//obRqeftI=",
-        "owner": "viperML",
-        "repo": "nh",
-        "rev": "d10c7fb30604f913ba95d650f77002b9c992d8ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "viperML",
-        "repo": "nh",
-        "type": "github"
-      }
-    },
     "nil": {
       "inputs": {
         "flake-utils": "flake-utils_4",
@@ -1372,7 +1352,6 @@
         "izvim": "izvim",
         "lanzaboote": "lanzaboote",
         "nekowinston-nur": "nekowinston-nur",
-        "nh": "nh",
         "nil": "nil",
         "nix-index-db": "nix-index-db",
         "nix-ld": "nix-ld",
