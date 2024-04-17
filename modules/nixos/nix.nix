@@ -1,7 +1,14 @@
-{config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   config = {
     nix = {
-      gc.dates = "Mon *-*-* 03:00";
+      gc = {
+        automatic = lib.mkForce (!config.programs.nh.clean.enable);
+        dates = "Mon *-*-* 03:00";
+      };
 
       # automatically optimize /nix/store by removing hard links
       optimise = {
