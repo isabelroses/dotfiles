@@ -1041,11 +1041,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713442613,
-        "narHash": "sha256-6ayTxAjVqMjgDbk4oJjxzSUkWA6kU3Rnvvma+ryy4bw=",
+        "lastModified": 1713567343,
+        "narHash": "sha256-kJNGOds8OWHXbFMQCcWaXZ/PgSOjVDdxY2W5ij104Sk=",
         "owner": "isabelroses",
         "repo": "izrss",
-        "rev": "7496d7d557971e6e827830f0ac0a8d5fc2cd8a87",
+        "rev": "602bdee2400e7c33490aa5f078285fb8494b0d7b",
         "type": "github"
       },
       "original": {
