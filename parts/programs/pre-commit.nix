@@ -42,6 +42,7 @@
                 [default.extend-words]
                 "ags" = "ags"
                 "GIR" = "GIR"
+                "flate" = "flate"
               '';
             };
           };
