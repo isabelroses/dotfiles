@@ -2,7 +2,7 @@
   # substituters to use
   nix.settings = {
     substituters = [
-      "https://cache.nixos.org/" # offical binary cache (yes the trailing slash is really neccacery)
+      "https://cache.nixos.org/" # official binary cache (yes the trailing slash is really neccacery)
       "https://nixpkgs-wayland.cachix.org" # some wayland packages
       "https://nix-community.cachix.org" # nix-community cache
       "https://hyprland.cachix.org" # hyprland
@@ -15,6 +15,7 @@
       "https://pre-commit-hooks.cachix.org" # pre commit hooks
       "https://cache.garnix.io" # extra things here and there
       "https://ags.cachix.org" # ags
+      "https://ghostty.cachix.org" # ghostty
     ];
 
     trusted-public-keys = [
@@ -31,6 +32,7 @@
       "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "ags.cachix.org-1:naAvMrz0CuYqeyGNyLgE010iUiuf/qx6kYrUv3NwAJ8="
+      "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
     ];
   };
 }

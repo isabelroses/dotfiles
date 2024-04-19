@@ -185,6 +185,10 @@
       };
     };
 
+    # A cool terminal
+    # WARNING: do not change the overrides since we will have to rebuild from source and that will take forever
+    ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
+
     # catppuccin related items
     catppuccin.url = "github:catppuccin/nix";
     catppuccinifier = {

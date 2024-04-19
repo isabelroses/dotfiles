@@ -69,6 +69,7 @@
           kitty.enable = false;
           alacritty.enable = false;
           wezterm.enable = true;
+          ghostty.enable = true;
         };
 
         fileManagers = {

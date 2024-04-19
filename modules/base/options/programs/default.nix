@@ -74,6 +74,7 @@ in {
 
       terminals = {
         wezterm.enable = mkEnableOption "WezTerm terminal emulator" // {default = cfg.gui.enable;};
+        ghostty.enable = mkEnableOption "Ghostty terminal emulator";
         kitty.enable = mkEnableOption "Kitty terminal emulator";
         alacritty.enable = mkEnableOption "Alacritty terminal emulator";
       };
