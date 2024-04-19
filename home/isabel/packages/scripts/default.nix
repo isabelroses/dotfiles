@@ -1,10 +1,13 @@
 {
-  config,
-  pkgs,
-  inputs',
   lib,
+  pkgs,
+  config,
+  inputs',
   ...
-}: {
+}: let
+  inherit (lib) getExe;
+  inherit (builtins) readFile;
+in {
   home = {
     sessionPath = [
       "${config.home.homeDirectory}/.local/bin"
@@ -14,19 +17,28 @@
     file = {
       # Preview files script for fzf tab
       ".local/bin/preview" = {
-        source = lib.getExe (pkgs.writeShellApplication {
+        source = getExe (pkgs.writeShellApplication {
           name = "preview";
-          text = import ./preview.nix {inherit inputs' lib pkgs;};
+          runtimeInputs = with pkgs; [bat eza catimg] ++ [inputs'.nekowinston-nur.packages.icat];
+          text = readFile ./preview.sh;
         });
       };
 
       # Extract the compressed file with the correct tool based on the extension
       ".local/bin/extract" = {
-        source = lib.getExe (pkgs.writeShellApplication {
+        source = getExe (pkgs.writeShellApplication {
           name = "extract";
-          text = import ./extract.nix {inherit lib pkgs;};
+          runtimeInputs = with pkgs; [zip unzip gnutar p7zip];
+          text = readFile ./extract.sh;
         });
       };
+
+      # ".local/bin/calcgrades.py" = {
+      #   source = pkgs.python3Packages.buildPythonPackage {
+      #     name = "calcgrades";
+      #     src = ./calcgrades.py;
+      #   };
+      # };
     };
   };
 }
