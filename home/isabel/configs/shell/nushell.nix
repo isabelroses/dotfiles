@@ -1,15 +1,14 @@
 {
   lib,
   pkgs,
-  self,
   config,
   ...
 }: let
   inherit (lib) getExe mapAttrs escapeShellArg concatMapStrings;
 in {
   # FIXME: this is a workaround for nushell not loading the configuration on darwin systems
-  imports = [self.homeManagerModules.nushell];
-  disabledModules = ["programs/nushell.nix"];
+  # imports = [self.homeManagerModules.nushell];
+  # disabledModules = ["programs/nushell.nix"];
 
   programs.nushell = {
     enable = true;

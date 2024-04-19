@@ -22,8 +22,6 @@ in {
 
       hyfetch = mkModule /modules/extra/home-manager/hyfetch.nix;
 
-      nushell = mkModule /modules/extra/home-manager/nushell.nix;
-
       swaync = mkModule /modules/extra/home-manager/swaync.nix;
 
       default = builtins.throw "There is no default module.";
