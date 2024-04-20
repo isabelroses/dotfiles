@@ -16,6 +16,7 @@
       gh-eco = pkgs.callPackage ./gh-eco.nix {};
       fork-cleaner = pkgs.callPackage ./fork-cleaner.nix {};
       pace = pkgs.callPackage ./pace.nix {};
+      nap = pkgs.callPackage ./nap.nix {};
 
       bellado = inputs'.bellado.packages.default;
       izrss = inputs'.izrss.packages.default;

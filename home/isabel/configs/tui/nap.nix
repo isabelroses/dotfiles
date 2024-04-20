@@ -1,6 +1,6 @@
 {
   lib,
-  pkgs,
+  self',
   osConfig,
   ...
 }: let
@@ -8,7 +8,9 @@
   cfg = osConfig.modules.programs.cli;
 in {
   config = mkIf (cfg.enable && cfg.modernShell.enable) {
-    home.packages = with pkgs; [nap];
+    home.packages = [
+      self'.packages.nap
+    ];
 
     xdg.configFile."nap/config.yaml".text = ''
       default_language: go
