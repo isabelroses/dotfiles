@@ -22,7 +22,8 @@
 
       "git.isabelroses.com" = {
         user = "git";
-        hostname = "git.isabelroses.com:2222";
+        hostname = "git.isabelroses.com";
+        port = 2222;
       };
 
       # ORACLE vps'
