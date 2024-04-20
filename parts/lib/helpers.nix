@@ -1,5 +1,5 @@
 {lib, ...}: let
-  inherit (lib) lists mapAttrsToList filterAttrs hasSuffix;
+  inherit (lib) lists filesystem mapAttrsToList filterAttrs hasSuffix;
 
   # filter files for the .nix suffix
   filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
@@ -9,6 +9,9 @@
     (lists.forEach (mapAttrsToList (name: _: path + ("/" + name))
         (filterAttrs filterNixFiles (builtins.readDir path))))
     import;
+
+  # import all nix files and directories
+  importNixFilesAndDirs = dir: lists.filter (f: f != "default.nix") (filesystem.listFilesRecursive dir);
 
   # return an int based on boolean value
   boolToNum = bool:
@@ -43,5 +46,5 @@
   }:
     builtins.all (s: builtins.any (x: x == s) list) targetStrings;
 in {
-  inherit filterNixFiles importNixFiles boolToNum fetchKeys containsStrings serializeTheme indexOf intListToStringList;
+  inherit filterNixFiles importNixFiles importNixFilesAndDirs boolToNum fetchKeys containsStrings serializeTheme indexOf intListToStringList;
 }
