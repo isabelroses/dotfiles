@@ -17,11 +17,11 @@ jobs:
         package:
           - bellado
           - izrss
+          - nap
           - gh-eco
           - isabelroses-website
           - catppuccinifier-cli
           - patched-gjs
-          - plymouth-theme-catppuccin
 
     steps:
       - name: Checkout
