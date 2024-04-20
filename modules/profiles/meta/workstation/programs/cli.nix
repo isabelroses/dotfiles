@@ -4,13 +4,13 @@
   config,
   ...
 }: {
-  programs = {
-    # home-manager is so strange and needs these declared multiple times
-    fish.enable = true;
+  programs =
+    {
+      # home-manager is so strange and needs these declared multiple times
+      fish.enable = true;
 
-    # enable direnv integration
-    direnv =
-      {
+      # enable direnv integration
+      direnv = {
         enable = true;
         silent = true;
         # faster, persistent implementation of use_nix and use_flake
@@ -23,16 +23,16 @@
 
         # enable loading direnv in nix-shell nix shell or nix develop
         loadInNixShell = true;
-      }
-      // lib.ldTernary pkgs {
-        # type "fuck" to fix the last command that made you go "fuck"
-        thefuck.enable = true;
+      };
+    }
+    // lib.mkIf pkgs.stdenv.isLinux {
+      # type "fuck" to fix the last command that made you go "fuck"
+      thefuck.enable = true;
 
-        # help manage android devices via command line
-        adb.enable = true;
+      # help manage android devices via command line
+      adb.enable = true;
 
-        # show network usage
-        bandwhich.enable = true;
-      } {};
-  };
+      # show network usage
+      bandwhich.enable = true;
+    };
 }

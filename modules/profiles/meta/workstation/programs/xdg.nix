@@ -12,7 +12,7 @@ in {
         inherit (template) pythonrc npmrc;
       };
     }
-    // lib.ldTernary pkgs {
+    // lib.mkIf pkgs.stdenv.isLinux {
       sessionVariables = template.sysEnv;
-    } {};
+    };
 }
