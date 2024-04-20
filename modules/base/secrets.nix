@@ -56,13 +56,6 @@ in {
     secretsMountPoint = mkIf isDarwin "/private/tmp/agenix.d";
 
     secrets = {
-      git-credentials = mkSecretWithPath true {
-        file = "git-credentials";
-        path = homeDir + "/.git-credentials";
-        owner = mainUser;
-        group = userGroup;
-      };
-
       wakatime = mkSecretWithPath true {
         file = "wakatime";
         path = homeDir + "/.config/wakatime/.wakatime.cfg";
