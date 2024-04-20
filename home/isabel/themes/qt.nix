@@ -34,7 +34,7 @@ in {
 
     qt = {
       enable = true;
-      platformTheme = mkIf cfg.forceGtk "gtk"; # an override for QT_QPA_PLATFORMTHEME
+      platformTheme.name = mkIf cfg.forceGtk "gtk3"; # an override for QT_QPA_PLATFORMTHEME
       style = mkIf (!cfg.forceGtk) {
         name = cfg.qt.theme.name;
         package = cfg.qt.theme.package;
