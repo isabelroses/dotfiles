@@ -2,7 +2,7 @@
   imports = [
     ./brew # homebrew the package manager
     ./hardware # hardware config - i.e. keyboard
-    ./prefrences # system preferences
+    ./preferences # system preferences
     ./security # security settings to keep the system secure
     ./services # services exclusive to nix-darwin
 
