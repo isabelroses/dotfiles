@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   programs.newsboat = {
     enable = true;
     autoReload = true;
@@ -59,7 +59,7 @@
 
     extraConfig =
       builtins.readFile
-      (builtins.fetchurl {
+      (pkgs.fetchurl {
         url = "https://raw.githubusercontent.com/catppuccin/newsboat/main/themes/dark";
         sha256 = "09x50g74mld8zv8r6a873j52zx3w86qv3mc7g4fhzr85911cz799";
       });

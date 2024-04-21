@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   self,
   osConfig,
   ...
@@ -12,9 +13,9 @@ in {
     enable = true;
     systemd.enable = true;
 
-    style = builtins.fetchurl {
-      url = "https://github.com/catppuccin/swaync/releases/download/v0.2.1/mocha.css";
-      sha256 = "sha256:16p98a3gxgqa16fk7xg0bz0haq7di3ifnq4rpq9m7qwqhv311f4c";
+    style = pkgs.fetchurl {
+      url = "https://github.com/catppuccin/swaync/releases/download/v0.2.2/mocha.css";
+      sha256 = "sha256:1wcmc3x830sxas941ia9iayb24kkbyxih6vkk9hj51pzd16yhmk0";
     };
 
     settings = {
@@ -54,9 +55,7 @@ in {
           button-text = "Clear";
         };
 
-        dnd = {
-          text = "Do Not Disturb";
-        };
+        dnd.text = "Do Not Disturb";
       };
     };
   };
