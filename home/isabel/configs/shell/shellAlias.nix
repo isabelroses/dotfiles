@@ -8,6 +8,8 @@
     jctl = "journalctl -p 3 -xb"; # get error messages from journalctl
     lg = "lazygit";
 
+    napbk = "cd ~/.local/share/nap ; git commit -am 'chore: sync changes'; git push ; cd -";
+
     # Remap docker to podman
     docker = "podman";
     docker-compose = "podman-compose";
