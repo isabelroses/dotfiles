@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
-grades = [6, 10, 9, 9, 6, 8, 10]
-only_count = 8  # we only count the best 8 grades
-max_mark = 10 # maximum mark for each grade
-weight = 0.4 # weight of this section of the module as a decimal, e.g. 40% = 0.4
+def int_input(prompt):
+  return int(input(prompt))
+
+grades = list(map(int, input("Enter an all your grades separated by spaces ").split()))
+only_count = int_input("Out of the grades you input, how many of the best do we wish to count? ")
+max_mark = int_input("What is the maximum mark for each grade? ")
+weight = int_input("weight of this section of the module as a decimal, e.g. 40% = 0.4")
 
 # Sort the grades in descending order and select the top amount defined by only_count
 sorted_grades = sorted(grades, reverse=True)[:only_count]
