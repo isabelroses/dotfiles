@@ -23,25 +23,20 @@
 
       taps = [
         "homebrew/bundle"
-        "charmbracelet/tap"
       ];
 
       # `brew install`
       brews = [
-        "webp"
-        "m-cli"
-        "coreutils"
         "openjdk"
-        "charmbracelet/tap/freeze" # capture terminal output as screenshots
       ];
 
       # `brew install --cask`
       casks = [
         "arc" # browser
+        "ice" # better status bar
         "zed" # text editor
         # "loungy" # app launcher, too beta to use mainstream
-        "raycast" # app launcher, and cliboard manager
-        "vanilla" # hide menu bar icons
+        "raycast" # app launcher, and clipboard manager
         "obsidian" # note taking
         "inkscape" # vector graphics editor
         "intellij-idea" # IDE
