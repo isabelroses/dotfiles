@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
   installShellFiles,
-  ...
 }: let
   version = "0.15.2";
 in
@@ -14,11 +13,11 @@ in
     src = fetchFromGitHub {
       owner = "pace-rs";
       repo = "pace";
-      rev = "pace-rs-v${version}";
+      rev = "refs/tags/pace-rs-v${version}";
       hash = "sha256-gyyf4GGHIEdiAWvzKbaOApFikoh3RLWBCZUfJ0MjbIE=";
     };
 
-    cargoSha256 = "sha256-D7jxju2R0S5wAsK7Gd8W32t/KKFaDjLHNZ2X/OEuPtk=";
+    cargoHash = "sha256-D7jxju2R0S5wAsK7Gd8W32t/KKFaDjLHNZ2X/OEuPtk=";
 
     nativeBuildInputs = [installShellFiles];
 
@@ -29,11 +28,11 @@ in
         --zsh <($out/bin/pace setup completions zsh)
     '';
 
-    meta = with lib; {
-      description = "Mindful Time Tracking: Simplify Your Focus and Boost Productivity Effortlessly.";
+    meta = {
+      description = "Command-line program for mindful time tracking";
       homepage = "https://github.com/pace-rs/pace";
-      license = licenses.agpl3;
-      maintainers = with maintainers; [isabelroses];
-      platforms = platforms.all;
+      license = lib.licenses.agpl3Only;
+      maintainers = with lib.maintainers; [isabelroses];
+      mainProgram = "pace";
     };
   }

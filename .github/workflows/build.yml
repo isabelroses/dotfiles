@@ -17,18 +17,15 @@ jobs:
         package:
           - bellado
           - izrss
+          - nap
           - gh-eco
           - isabelroses-website
           - catppuccinifier-cli
           - patched-gjs
-          - plymouth-theme-catppuccin
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 1
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main

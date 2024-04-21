@@ -18,7 +18,7 @@ in {
       shell-integration = none
       macos-option-as-alt = true
 
-      background-opacity = 0.8
+      background-opacity = 0.95
 
       font-family = Commit Mono
       font-size = 13

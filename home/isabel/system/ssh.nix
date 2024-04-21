@@ -20,6 +20,12 @@
         identityFile = secrets.gh-key.path;
       };
 
+      "git.isabelroses.com" = {
+        user = "git";
+        hostname = "git.isabelroses.com";
+        port = 2222;
+      };
+
       # ORACLE vps'
       "openvpn" = {
         hostname = "132.145.55.42";

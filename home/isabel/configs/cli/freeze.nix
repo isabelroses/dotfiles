@@ -8,7 +8,15 @@
 in {
   config = mkIf (isModernShell osConfig) {
     home.packages = mkIf pkgs.stdenv.isLinux [
-      pkgs.charm-freeze
+      (
+        pkgs.symlinkJoin {
+          name = "freeze";
+          paths = with pkgs; [
+            charm-freeze
+            librsvg
+          ];
+        }
+      )
     ];
 
     xdg.configFile."freeze/user.json".text = builtins.toJSON {

@@ -16,7 +16,6 @@ let
 
   defAccess = list: list ++ [users.isabel] ++ types.hybrid;
 in {
-  "git-credentials.age".publicKeys = defAccess (types.workstations ++ types.servers);
   "wakatime.age".publicKeys = defAccess (types.workstations ++ types.servers);
 
   # git ssh keys
