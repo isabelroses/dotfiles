@@ -1,7 +1,7 @@
 {
   system.defaults.CustomUserPreferences = {
     "com.apple.spaces" = {
-      "spans-displays" = 0; # Display have seperate spaces
+      "spans-displays" = 0; # Display have separate spaces
     };
 
     "com.apple.WindowManager" = {

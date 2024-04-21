@@ -7,7 +7,7 @@
   inherit (lib) mkIf isModernShell;
 in {
   config = mkIf (isModernShell osConfig) {
-    home.packages = mkIf pkgs.stdenv.isLinux [
+    home.packages = [
       (
         pkgs.symlinkJoin {
           name = "freeze";
