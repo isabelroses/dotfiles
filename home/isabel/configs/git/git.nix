@@ -28,6 +28,11 @@ in {
       diff.algorithm = "histogram"; # a much better diff
       help.autocorrect = 10; # 1 second warning to a typo'd command
 
+      credential.helper =
+        if pkgs.stdenv.isDarwin
+        then "osxkeychain"
+        else "cache";
+
       core.whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
 
       branch = {
