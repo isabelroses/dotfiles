@@ -1,4 +1,5 @@
 name: Bump Flake Inputs
+
 on:
   workflow_dispatch:
   schedule:
