@@ -26,7 +26,6 @@
     wsl = [(hardwareProfilesPath + /wsl) headless]; # for wsl systems
 
     # meta profiles
-    workstation = metaProfilesPath + /workstation; # for server type configurations
     graphical = metaProfilesPath + /graphical; # for systems that have a graphical interface
     headless = metaProfilesPath + /headless; # for headless systems
 
@@ -49,7 +48,6 @@
             [
               laptop
               graphical
-              workstation
             ]
             ++ concatLists [shared];
           specialArgs = sharedArgs;
@@ -63,7 +61,6 @@
             [
               desktop
               graphical
-              workstation
             ]
             ++ concatLists [shared];
           specialArgs = sharedArgs;
@@ -90,7 +87,7 @@
           host = "tatsumaki";
           inherit withSystem;
           system = "aarch64-darwin";
-          modules = [workstation] ++ concatLists [shared];
+          modules = concatLists [shared];
           specialArgs = sharedArgs;
         }
       ])
