@@ -7,10 +7,12 @@
 
   cfg = config.modules.services.networking.cloudflared;
 in {
+  users.groups.cloudflared = {};
   users.users.cloudflared = {
     description = "Cloudflared user";
     home = "/var/lib/cloudflared";
     isSystemUser = true;
+    group = "cloudflared";
     createHome = true;
   };
 

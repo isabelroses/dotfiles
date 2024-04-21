@@ -1,7 +1,7 @@
 {
+  lib,
   pkgs,
   config,
-  lib,
   ...
 }: let
   inherit (lib) ldTernary ifTheyExist;
