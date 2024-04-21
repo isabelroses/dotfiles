@@ -10,8 +10,8 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "isabelroses";
     repo = "zzz";
-    rev = "933992381b09905e17a370758daf53458fe40434";
-    hash = "sha256-QXCrh3h6E8EUX47yLTv/73SEnjXtv9ylrtH9Ow0jssQ=";
+    rev = "d30d03f389b98979fb5b5b7e87be0453dac741a8";
+    hash = "sha256-dZVmn3MmoRZXo52oqsB/2fyszq+c6vuvTmjjWxI3QbI=";
   };
 
   vendorHash = "sha256-ePHkrsc9NJO8c3J1eDkFeSLvVs5flSeiTmXqkfF261s=";
