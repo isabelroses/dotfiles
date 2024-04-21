@@ -9,10 +9,10 @@
 in {
   config = mkIf (cfg.enable && cfg.modernShell.enable) {
     home.packages = [
-      self'.packages.nap
+      self'.packages.zzz
     ];
 
-    xdg.configFile."nap/config.yaml".text = ''
+    xdg.configFile."zzz/config.yaml".text = ''
       default_language: go
       theme: "catppuccin-mocha"
 
