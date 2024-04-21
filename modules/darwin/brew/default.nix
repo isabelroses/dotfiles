@@ -33,13 +33,13 @@
       # `brew install --cask`
       casks = [
         "arc" # browser
-        "ice" # better status bar
         "zed" # text editor
         # "loungy" # app launcher, too beta to use mainstream
         "raycast" # app launcher, and clipboard manager
         "obsidian" # note taking
         "inkscape" # vector graphics editor
         "intellij-idea" # IDE
+        "jordanbaird-ice" # better status bar
       ];
     };
   };

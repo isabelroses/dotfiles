@@ -5,7 +5,7 @@
 }: {
   home.packages = with pkgs;
     lib.mkIf stdenv.isDarwin [
-      webp
+      libwebp
       m-cli
       coreutils
     ];
