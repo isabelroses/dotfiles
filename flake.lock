@@ -2106,11 +2106,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713777027,
-        "narHash": "sha256-ZEmYgLH0sPD+N15ywZjTLIt0qTEgZNoBNi35OceNOxU=",
+        "lastModified": 1713781545,
+        "narHash": "sha256-csoJY7A8CWo+ewYlZYEDH21WWQNoIkUkJBvU07WVHIQ=",
         "owner": "isabelroses",
         "repo": "zzz",
-        "rev": "f7bdcde137ae92249c3283c0396bf7403dc3bc86",
+        "rev": "7715a19520e8234820851d29bb83f44788a671c2",
         "type": "github"
       },
       "original": {
