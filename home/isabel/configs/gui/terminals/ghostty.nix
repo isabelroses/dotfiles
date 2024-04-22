@@ -16,7 +16,6 @@ in {
       title = Ghostty
 
       shell-integration = none
-      macos-option-as-alt = true
 
       background-opacity = 0.95
 
