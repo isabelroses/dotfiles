@@ -1,6 +1,6 @@
 {
   lib,
-  self',
+  inputs',
   osConfig,
   ...
 }: let
@@ -9,7 +9,7 @@
 in {
   config = mkIf (cfg.enable && cfg.modernShell.enable) {
     home.packages = [
-      self'.packages.zzz
+      inputs'.zzz.packages.default
     ];
 
     xdg.configFile."zzz/config.yaml".text = ''

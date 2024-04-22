@@ -17,6 +17,7 @@ jobs:
         package:
           - bellado
           - izrss
+          - zzz
           - nap
           - gh-eco
           - isabelroses-website

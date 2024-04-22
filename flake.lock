@@ -1574,7 +1574,8 @@
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "treefmt-nix": "treefmt-nix",
         "vscode-server": "vscode-server",
-        "xdg-portal-hyprland": "xdg-portal-hyprland"
+        "xdg-portal-hyprland": "xdg-portal-hyprland",
+        "zzz": "zzz"
       }
     },
     "rust-overlay": {
@@ -2095,6 +2096,26 @@
         "owner": "zigtools",
         "ref": "master",
         "repo": "zls",
+        "type": "github"
+      }
+    },
+    "zzz": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1713777027,
+        "narHash": "sha256-ZEmYgLH0sPD+N15ywZjTLIt0qTEgZNoBNi35OceNOxU=",
+        "owner": "isabelroses",
+        "repo": "zzz",
+        "rev": "f7bdcde137ae92249c3283c0396bf7403dc3bc86",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "repo": "zzz",
         "type": "github"
       }
     }

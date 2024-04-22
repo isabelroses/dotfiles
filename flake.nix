@@ -151,6 +151,10 @@
       url = "github:isabelroses/izrss";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zzz = {
+      url = "github:isabelroses/zzz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # a tree-wide formatter
     treefmt-nix = {

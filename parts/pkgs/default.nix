@@ -16,10 +16,10 @@
       gh-eco = pkgs.callPackage ./gh-eco.nix {};
       fork-cleaner = pkgs.callPackage ./fork-cleaner.nix {};
       pace = pkgs.callPackage ./pace.nix {};
-      zzz = pkgs.callPackage ./zzz.nix {};
 
       bellado = inputs'.bellado.packages.default;
       izrss = inputs'.izrss.packages.default;
+      zzz = inputs'.zzz.packages.default;
       isabelroses-website = inputs'.isabelroses-website.packages.default;
       catppuccinifier-cli = inputs'.catppuccinifier.packages.cli;
     };
