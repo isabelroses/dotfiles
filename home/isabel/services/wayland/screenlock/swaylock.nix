@@ -14,8 +14,6 @@ in {
       enable = true;
       package = pkgs.swaylock-effects;
 
-      catppuccin.enable = true;
-
       settings = {
         ignore-empty-password = true;
         show-failed-attempts = true;

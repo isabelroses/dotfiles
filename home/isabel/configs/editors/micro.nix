@@ -6,7 +6,6 @@
   config = lib.mkIf osConfig.modules.programs.agnostic.editors.micro.enable {
     programs.micro = {
       enable = true;
-      catppuccin.enable = true;
       settings = {
         "autosu" = true;
         "clipboard" = "terminal";

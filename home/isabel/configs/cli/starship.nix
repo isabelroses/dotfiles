@@ -15,7 +15,6 @@
 in {
   programs.starship = {
     inherit (osConfig.modules.programs.cli) enable;
-    catppuccin.enable = true;
     enableBashIntegration = config.programs.bash.enable;
     enableFishIntegration = config.programs.fish.enable;
     enableZshIntegration = config.programs.zsh.enable;

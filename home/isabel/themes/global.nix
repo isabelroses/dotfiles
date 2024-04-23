@@ -11,6 +11,7 @@ in {
 
   config = {
     catppuccin = {
+      enable = true;
       flavour = "mocha";
       accent = "pink";
     };
@@ -21,7 +22,5 @@ in {
       gtk.enable = true;
       x11.enable = true;
     };
-
-    programs.glamour.catppuccin.enable = true;
   };
 }

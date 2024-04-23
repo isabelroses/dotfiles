@@ -1,7 +1,6 @@
 {
   programs.git.delta = {
     enable = true;
-    catppuccin.enable = true;
 
     options = {
       navigate = true;

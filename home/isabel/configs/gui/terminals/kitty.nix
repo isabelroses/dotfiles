@@ -7,7 +7,6 @@
   config = lib.mkIf osConfig.modules.programs.gui.terminals.kitty.enable {
     programs.kitty = {
       enable = true;
-      catppuccin.enable = true;
 
       shellIntegration = {
         enableBashIntegration = config.programs.bash.enable;

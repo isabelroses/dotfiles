@@ -5,7 +5,6 @@
 }: {
   console = {
     enable = lib.mkDefault true;
-    catppuccin.enable = true;
     earlySetup = true;
 
     keyMap = "en";

@@ -17,7 +17,6 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      catppuccin.enable = true;
       package = inputs'.hyprland.packages.default;
       xwayland.enable = true;
 

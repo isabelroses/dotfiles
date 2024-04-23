@@ -5,6 +5,7 @@
     ./bellado.nix
     ./direnv.nix
     ./eza.nix
+    ./fd.nix
     ./freeze.nix
     ./fzf.nix
     ./hyfetch.nix
