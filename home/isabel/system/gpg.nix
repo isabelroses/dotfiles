@@ -18,6 +18,7 @@ in {
       if video.enable
       then pkgs.pinentry-gnome3 # requires services.dbus.packages = [ pkgs.gcr ]
       else pkgs.pinentry-curses;
+    enableScDaemon = true;
     enableSshSupport = true;
     defaultCacheTtl = 1209600;
     defaultCacheTtlSsh = 1209600;
@@ -61,7 +62,7 @@ in {
       no-emit-version = "";
       # Disable banner
       no-greeting = "";
-      # Long hexidecimal key format
+      # Long hexadecimal key format
       keyid-format = "0xlong";
       # Display UID validity
       list-options = "show-uid-validity";
