@@ -11,7 +11,6 @@
 
       gui = {
         nerdFontsVersion = 3;
-
         authorColors."isabel" = "#f5c2e7";
       };
 

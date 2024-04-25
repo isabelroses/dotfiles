@@ -10,7 +10,7 @@
     extensions = with pkgs; [
       gh-cal # github activity stats in the CLI
       gh-copilot # copilot in the CLI
-      self'.packages.gh-eco # explore the ecosystem
+      self'.packages.gh-eco # explore the ecosystem - use my fork since the main version is broken lel
     ];
 
     settings = {
