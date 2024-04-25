@@ -4,7 +4,7 @@
     ./izrss.nix
     ./newsboat.nix
     # ./ranger.nix
-    ./yazi.nix
+    # ./yazi.nix
     ./zzz.nix
   ];
 }

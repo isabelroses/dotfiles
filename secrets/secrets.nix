@@ -19,18 +19,18 @@ in {
   "wakatime.age".publicKeys = defAccess (types.workstations ++ types.servers);
 
   # git ssh keys
-  "gh-key.age".publicKeys = defAccess (types.workstations ++ types.servers);
-  "gh-key-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
-  "aur-key.age".publicKeys = defAccess (types.workstations ++ types.servers);
-  "aur-key-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
+  "keys/gh.age".publicKeys = defAccess (types.workstations ++ types.servers);
+  "keys/gh-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
+  "keys/aur.age".publicKeys = defAccess (types.workstations ++ types.servers);
+  "keys/aur-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
 
   # All nixos machines
-  "nixos-key.age".publicKeys = defAccess (types.workstations ++ types.servers);
-  "nixos-key-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
+  "keys/nixos.age".publicKeys = defAccess (types.workstations ++ types.servers);
+  "keys/nixos-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
 
   # ORACLE vps'
-  "openvpn-key.age".publicKeys = defAccess types.workstations;
-  "amity-key.age".publicKeys = defAccess types.workstations;
+  "keys/openvpn.age".publicKeys = defAccess types.workstations;
+  "keys/amity.age".publicKeys = defAccess types.workstations;
 
   # server
   "cloudflare/hydra.age".publicKeys = defAccess types.servers;
