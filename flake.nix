@@ -110,14 +110,6 @@
       };
     };
 
-    # Hyprland packages
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprpicker.url = "github:hyprwm/hyprpicker";
-    xdg-portal-hyprland = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nekowinston-nur = {
       url = "github:nekowinston/nur";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -193,6 +185,11 @@
     # WARNING: do not change the overrides since we will have to rebuild from source and that will take forever
     ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
 
+    # Hyprland packages
+    hyprland.url = "github:hyprwm/Hyprland";
+    hyprpicker.url = "github:hyprwm/hyprpicker";
+    xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
+
     # catppuccin related items
     catppuccin.url = "github:catppuccin/nix";
     catppuccinifier = {
@@ -204,10 +201,6 @@
     };
     catppuccin-vsc = {
       url = "github:catppuccin/vscode";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    catppuccin-toolbox = {
-      url = "github:catppuccin/toolbox";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
