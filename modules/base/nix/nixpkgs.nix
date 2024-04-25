@@ -1,7 +1,6 @@
 {
   self,
   inputs,
-  inputs',
   ...
 }: {
   nixpkgs = {
@@ -18,10 +17,6 @@
       self.overlays.default
       inputs.rust-overlay.overlays.default
       inputs.catppuccin-vsc.overlays.default
-
-      (_: _: {
-        nixSchemas = inputs'.nixSchemas.packages.default;
-      })
     ];
   };
 }
