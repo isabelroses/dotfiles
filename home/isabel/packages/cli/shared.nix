@@ -10,17 +10,15 @@ in {
   config = mkIf cfg.cli.enable {
     home.packages = with pkgs;
       [
-        # CLI packages from nixpkgs
         unzip
         rsync
-        fd
-        jq
         just # cool build tool
-        dconf
         wakatime
         nix-output-monitor # much nicer nix build output
       ]
       ++ optionals cfg.cli.modernShell.enable [
+        jq # json parser
+        yq # yaml parser
         vhs # programmatically make gifs
         glow # markdown preview
       ]
