@@ -19,6 +19,7 @@ in {
         dconf
         wakatime
         nix-output-monitor # much nicer nix build output
+        pace
       ]
       ++ optionals cfg.cli.modernShell.enable [
         vhs # programmatically make gifs

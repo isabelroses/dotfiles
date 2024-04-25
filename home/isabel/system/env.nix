@@ -11,5 +11,6 @@
     SYSTEMD_PAGERSECURE = "true";
     PAGER = "less -FR";
     FLAKE = "${osConfig.modules.environment.flakePath}";
+    PACE_HOME = "/home/isabel/.config/pace";
   };
 }
