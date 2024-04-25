@@ -11,13 +11,13 @@
       "aur.archlinux.org" = {
         user = "aur";
         hostname = "aur.archlinux.org";
-        identityFile = secrets.aur-key.path;
+        identityFile = secrets.keys-aur.path;
       };
 
       "github.com" = {
         user = "git";
         hostname = "github.com";
-        identityFile = secrets.gh-key.path;
+        identityFile = secrets.keys-gh.path;
       };
 
       "git.isabelroses.com" = {
@@ -30,12 +30,12 @@
       "openvpn" = {
         hostname = "132.145.55.42";
         user = "openvpnas";
-        identityFile = secrets.openvpn-key.path;
+        identityFile = secrets.keys-openvpn.path;
       };
 
       "amity" = {
         hostname = "143.47.240.116";
-        identityFile = secrets.amity-key.path;
+        identityFile = secrets.keys-amity.path;
       };
 
       # hetzner cloud vps

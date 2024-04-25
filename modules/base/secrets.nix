@@ -64,48 +64,48 @@ in {
       };
 
       # git ssh keys
-      gh-key = mkSecret true {
-        file = "gh-key";
+      keys-gh = mkSecret true {
+        file = "keys/gh";
         owner = mainUser;
         group = userGroup;
       };
-      gh-key-pub = mkSecret true {
-        file = "gh-key-pub";
+      keys-gh-pub = mkSecret true {
+        file = "keys/gh-pub";
         owner = mainUser;
         group = userGroup;
       };
-      aur-key = mkSecret true {
-        file = "aur-key";
+      keys-aur = mkSecret true {
+        file = "keys/aur";
         owner = mainUser;
         group = userGroup;
       };
-      aur-key-pub = mkSecret true {
-        file = "aur-key-pub";
+      keys-aur-pub = mkSecret true {
+        file = "keys/aur-pub";
         owner = mainUser;
         group = userGroup;
       };
 
       # ORACLE vps'
-      openvpn-key = mkSecret true {
-        file = "openvpn-key";
+      keys-openvpn = mkSecret true {
+        file = "keys/openvpn";
         owner = mainUser;
         group = userGroup;
       };
-      amity-key = mkSecret true {
-        file = "amity-key";
+      keys-amity = mkSecret true {
+        file = "keys/amity";
         owner = mainUser;
         group = userGroup;
       };
 
       # All nixos machines
-      nixos-key = mkSecretWithPath true {
-        file = "nixos-key";
+      keys-nixos = mkSecretWithPath true {
+        file = "keys/nixos";
         path = sshDir + "/id_ed25519";
         owner = mainUser;
         group = userGroup;
       };
-      nixos-key-pub = mkSecretWithPath true {
-        file = "nixos-key-pub";
+      keys-nixos-pub = mkSecretWithPath true {
+        file = "keys/nixos-pub";
         path = sshDir + "/id_ed25519.pub";
         owner = mainUser;
         group = userGroup;
