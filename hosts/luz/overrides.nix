@@ -21,9 +21,9 @@
         useOSProber = lib.mkForce false;
         efiSupport = lib.mkForce false;
         enableCryptodisk = false;
-        theme = null;
-        backgroundColor = null;
-        splashImage = null;
+        theme = lib.mkForce null;
+        backgroundColor = lib.mkForce null;
+        splashImage = lib.mkForce null;
         device = lib.mkForce "/dev/sda";
       };
     };
