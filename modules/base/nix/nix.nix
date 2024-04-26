@@ -11,8 +11,8 @@
 in {
   nix = {
     # https://github.com/nix-community/home-manager/issues/4692#issuecomment-1848832609
-    # package = pkgs.nixVersions.unstable;
-    package = pkgs.nixVersions.nix_2_18;
+    package = pkgs.nixVersions.unstable;
+    # package = pkgs.nixVersions.nix_2_22;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = mapAttrs (_: v: {flake = v;}) flakeInputs;
@@ -51,18 +51,17 @@ in {
       keep-going = true;
       # show more log lines for failed builds, as this happens alot and is useful
       log-lines = 30;
-      # enable new nix command and flakes and also "unintended" recursion as well as content addresssed nix
+      # enable new nix command and flakes and also "unintended" recursion as well as content addressed nix
       extra-experimental-features = [
         "flakes"
         "nix-command"
         "recursive-nix"
         "ca-derivations"
-        "repl-flake"
         "auto-allocate-uids"
         "cgroups"
-        # "git-hashing"
-        # "verified-fetches"
-        # "configurable-impure-env"
+        "git-hashing"
+        "verified-fetches"
+        "configurable-impure-env"
       ];
       # ignore dirty working tree
       warn-dirty = false;
