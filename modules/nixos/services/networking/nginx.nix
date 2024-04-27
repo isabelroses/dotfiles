@@ -29,6 +29,7 @@ in {
 
     services.nginx = {
       enable = true;
+      statusPage = true; # For monitoring scraping.
 
       package = pkgs.nginxQuic.override {
         withKTLS = true;

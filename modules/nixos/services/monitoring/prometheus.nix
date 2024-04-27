@@ -27,6 +27,8 @@ in {
               "logind"
               "processes"
               "systemd"
+              "interrupts"
+              "tcpstat"
             ];
           };
 
@@ -43,7 +45,7 @@ in {
           };
 
           nginx = {
-            enable = false;
+            enable = true;
             port = 9104;
           };
 
