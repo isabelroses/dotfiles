@@ -13,8 +13,8 @@ in {
   config = mkIf cfg.enable {
     services.akkoma = {
       enable = true;
+      extraPackages = with pkgs; [ffmpeg exiftool imagemagick];
 
-      initDb.enable = true;
       extraStatic = {
         "static/terms-of-service.html" =
           pkgs.writeText "terms-of-service.html" "Just be normal please";
@@ -33,8 +33,22 @@ in {
           email = "isabel@isabelroses.com";
           notify_email = "noreply@isabelroses.com";
 
-          registrations_open = true;
+          languages = ["en"];
+
+          registrations_open = false;
           invites_enabled = true;
+
+          admin_privileges = [
+            ":users_read"
+            ":users_manage_invites"
+            ":users_manage_activation_state"
+            ":users_manage_tags"
+            ":users_manage_credentials"
+            ":users_delete"
+            ":reports_manage_reports"
+            ":moderation_log_read"
+            ":statistics_read"
+          ];
 
           federating = true;
 

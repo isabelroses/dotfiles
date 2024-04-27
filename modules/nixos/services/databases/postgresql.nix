@@ -15,6 +15,7 @@ in {
       dataDir = "/srv/storage/postgresql/${config.services.postgresql.package.psqlSchema}";
 
       ensureDatabases = [
+        "akkoma"
         "nextcloud"
         "forgejo"
         "grafana"
@@ -38,6 +39,10 @@ in {
         }
         {
           name = "forgejo";
+          ensureDBOwnership = true;
+        }
+        {
+          name = "akkoma";
           ensureDBOwnership = true;
         }
         {
