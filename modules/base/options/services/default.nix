@@ -107,6 +107,10 @@ in {
 
       # media services
       media = mapAttrs mkServiceOption {
+        akkoma = {
+          domain = "akko.${rdomain}";
+        };
+
         searxng = {
           port = 80;
           domain = "search.${rdomain}";

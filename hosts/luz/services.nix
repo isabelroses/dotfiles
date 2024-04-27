@@ -22,6 +22,7 @@
     };
 
     media = {
+      akkoma.enable = true;
       matrix.enable = true;
       nextcloud.enable = true;
     };
