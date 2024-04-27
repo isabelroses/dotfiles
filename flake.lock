@@ -123,16 +123,17 @@
     },
     "catppuccin": {
       "locked": {
-        "lastModified": 1713895615,
-        "narHash": "sha256-SVkxhcL0/IN5fNI2dqr702wXOnzktsm0LCEVGRAJQcY=",
-        "owner": "catppuccin",
-        "repo": "nix",
-        "rev": "a48e70a31616cb63e4794fd3465bff1835cc4246",
+        "lastModified": 1714212376,
+        "narHash": "sha256-5LuEj372wYycEs07uP/+9EPlGWSjFKZz98JIow+QKcc=",
+        "owner": "Lichthagel",
+        "repo": "catppuccin-nix",
+        "rev": "a10ad5a64da25de05d170799b4e5ee8a287d0274",
         "type": "github"
       },
       "original": {
-        "owner": "catppuccin",
-        "repo": "nix",
+        "owner": "Lichthagel",
+        "ref": "feat/home-manager/gh-dash",
+        "repo": "catppuccin-nix",
         "type": "github"
       }
     },
