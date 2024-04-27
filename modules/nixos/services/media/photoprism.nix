@@ -1,6 +1,6 @@
 {
-  config,
   lib,
+  config,
   ...
 }: let
   inherit (lib) mkIf template;
