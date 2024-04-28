@@ -1,25 +1,26 @@
 {
   lib,
-  stdenvNoCC,
   unzip,
+  stdenvNoCC,
 }:
 stdenvNoCC.mkDerivation {
   pname = "jumpies";
   version = "0.1.0";
 
-  src = ./jumpies.zip;
+  src = ./emojis;
 
   nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
     mkdir -p $out
-    cp *.png $out
+    unzip $src/jumpies.zip
+    cp * $out
     runHook postInstall
   '';
 
   meta = with lib; {
-    description = "Jumpies emojis repacked as APNG";
+    description = "Jumpies emojis repacked";
     license = licenses.unfree;
     maintainers = with maintainers; [isabelroses];
   };

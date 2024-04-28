@@ -1,19 +1,20 @@
 {
   lib,
-  stdenvNoCC,
   unzip,
+  stdenvNoCC,
 }:
 stdenvNoCC.mkDerivation {
   pname = "zerotwo";
   version = "0.1.0";
 
-  src = ./zerotwo.zip;
+  src = ./emojis;
 
   nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
     mkdir -p $out
+    unzip $src/zerotwo.zip
     cp *.png $out
     runHook postInstall
   '';
