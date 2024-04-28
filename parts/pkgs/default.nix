@@ -17,6 +17,9 @@
       fork-cleaner = pkgs.callPackage ./fork-cleaner.nix {};
       pace = pkgs.callPackage ./pace.nix {};
 
+      zerotwo-emojis = pkgs.callPackage ./emojis/zerotwo.nix {};
+      jumpies-emojis = pkgs.callPackage ./emojis/jumpies.nix {};
+
       bellado = inputs'.bellado.packages.default;
       izrss = inputs'.izrss.packages.default;
       zzz = inputs'.zzz.packages.default;
