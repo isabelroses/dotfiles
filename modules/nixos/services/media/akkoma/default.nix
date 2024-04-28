@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  self',
   config,
   ...
 }: let
@@ -18,10 +19,15 @@ in {
       extraStatic = {
         "static/terms-of-service.html" =
           pkgs.writeText "terms-of-service.html" "Just be normal please";
+
         "favicon.png" = pkgs.fetchurl {
           url = "https://avatars.githubusercontent.com/u/71222764?v=4";
           sha256 = "sha256-abbhpAHbCVA65fJut4N3tCc0Z9cwSCnnVNyFjpr57ig=";
         };
+
+        "emoji/blobs" = pkgs.akkoma-emoji.blobs_gg;
+        "emoji/zerotwo" = self'.packages.zerotwo-emojis;
+        "emoji/jumpies" = self'.packages.jumpies-emojis;
       };
 
       config = {
@@ -39,15 +45,15 @@ in {
           invites_enabled = true;
 
           admin_privileges = [
-            ":users_read"
-            ":users_manage_invites"
-            ":users_manage_activation_state"
-            ":users_manage_tags"
-            ":users_manage_credentials"
-            ":users_delete"
-            ":reports_manage_reports"
-            ":moderation_log_read"
-            ":statistics_read"
+            "users_read"
+            "users_manage_invites"
+            "users_manage_activation_state"
+            "users_manage_tags"
+            "users_manage_credentials"
+            "users_delete"
+            "reports_manage_reports"
+            "moderation_log_read"
+            "statistics_read"
           ];
 
           federating = true;
