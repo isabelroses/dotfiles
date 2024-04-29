@@ -16,9 +16,7 @@
       gh-eco = pkgs.callPackage ./gh-eco.nix {};
       fork-cleaner = pkgs.callPackage ./fork-cleaner.nix {};
       pace = pkgs.callPackage ./pace.nix {};
-
-      zerotwo-emojis = pkgs.callPackage ./zerotwo-emojis.nix {};
-      jumpies-emojis = pkgs.callPackage ./jumpies-emojis.nix {};
+      emojis = pkgs.callPackage ./emojis.nix {};
 
       bellado = inputs'.bellado.packages.default;
       izrss = inputs'.izrss.packages.default;

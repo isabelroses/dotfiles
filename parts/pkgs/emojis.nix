@@ -14,13 +14,13 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
     mkdir -p $out
-    unzip $src/zerotwo.zip
-    cp *.png $out
+    unzip $src/emojis.zip
+    cp * $out
     runHook postInstall
   '';
 
   meta = with lib; {
-    description = "Zero Two emojis repacked as APNG";
+    description = "emojis repacked as APNG";
     license = licenses.unfree;
     maintainers = with maintainers; [isabelroses];
   };
