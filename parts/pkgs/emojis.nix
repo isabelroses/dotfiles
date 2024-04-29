@@ -4,7 +4,7 @@
   stdenvNoCC,
 }:
 stdenvNoCC.mkDerivation {
-  pname = "zerotwo";
+  pname = "emojis";
   version = "0.1.0";
 
   src = ./emojis;
