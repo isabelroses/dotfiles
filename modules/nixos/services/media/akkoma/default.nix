@@ -26,8 +26,7 @@ in {
         };
 
         "emoji/blobs" = pkgs.akkoma-emoji.blobs_gg;
-        "emoji/zerotwo" = self'.packages.zerotwo-emojis;
-        "emoji/jumpies" = self'.packages.jumpies-emojis;
+        "emoji/awesome" = self'.packages.emojis;
       };
 
       config = {
