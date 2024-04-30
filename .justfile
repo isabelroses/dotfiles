@@ -29,7 +29,4 @@ check:
   nix flake check
 
 update *input:
-  nix flake lock --update-input {{input}}
-
-update-all:
-  nix flake update --refresh
+  nix flake update {{input}} --refresh
