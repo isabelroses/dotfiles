@@ -19,10 +19,8 @@
       packages = with pkgs;
         [
           git # flakes require git
-          nil # nix language server
+          nixd # nix language server
           just # quick and easy task runner
-          statix # lints and suggestions
-          deadnix # clean up unused nix code
           nodejs-slim # needed ags
           self'.formatter # nix formatter
           nix-output-monitor # get clean diff between generations

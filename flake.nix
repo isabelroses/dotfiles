@@ -54,13 +54,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nix Language server
-    nil = {
-      url = "github:oxalica/nil";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-overlay.follows = "rust-overlay";
-    };
-
     # mailserver on nixos
     simple-nixos-mailserver = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
@@ -119,7 +112,6 @@
       url = "github:isabelroses/nvim";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nil.follows = "nil";
         flake-parts.follows = "flake-parts";
         nekowinston-nur.follows = "nekowinston-nur";
         pre-commit-nix.follows = "pre-commit-hooks";
