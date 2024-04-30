@@ -6,27 +6,8 @@
   inherit (lib) mkOption mkEnableOption types;
 in {
   options.modules.style.gtk = {
-    enable = mkEnableOption "GTK theming optionss";
+    enable = mkEnableOption "GTK theming options";
     usePortal = mkEnableOption "native desktop portal use for filepickers";
-
-    theme = {
-      name = mkOption {
-        type = types.str;
-        default = "Catppuccin-Mocha-Standard-Pink-Dark";
-        description = "The name for the GTK theme package";
-      };
-
-      package = mkOption {
-        type = types.package;
-        description = "The theme package to be used for GTK programs";
-        default = pkgs.catppuccin-gtk.override {
-          size = "standard";
-          accents = ["pink"];
-          variant = "mocha";
-          tweaks = ["normal"];
-        };
-      };
-    };
 
     iconTheme = {
       name = mkOption {
