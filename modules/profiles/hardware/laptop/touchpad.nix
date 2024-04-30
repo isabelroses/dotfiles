@@ -1,6 +1,6 @@
 {
   # Input settings for libinput
-  services.xserver.libinput = {
+  services.libinput = {
     enable = true;
 
     # disable mouse acceleration (yes im gamer)
