@@ -1,17 +1,13 @@
 {
   lib,
   pkgs,
-  self,
   osConfig,
   ...
 }: let
   inherit (lib) mkIf;
 in {
-  imports = [self.homeManagerModules.swaync];
-
   services.swaync = mkIf osConfig.modules.programs.gui.bars.waybar.enable {
     enable = true;
-    systemd.enable = true;
 
     style = pkgs.fetchurl {
       url = "https://github.com/catppuccin/swaync/releases/download/v0.2.2/mocha.css";

@@ -11,8 +11,8 @@
 in {
   nix = {
     # https://github.com/nix-community/home-manager/issues/4692#issuecomment-1848832609
-    package = pkgs.nixVersions.unstable;
-    # package = pkgs.nixVersions.nix_2_22;
+    # package = pkgs.nixVersions.unstable;
+    package = pkgs.nixVersions.nix_2_22;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = mapAttrs (_: v: {flake = v;}) flakeInputs;
