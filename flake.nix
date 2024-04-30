@@ -191,7 +191,7 @@
     xdg-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
 
     # catppuccin related items
-    catppuccin.url = "github:Lichthagel/catppuccin-nix/feat/home-manager/gh-dash";
+    catppuccin.url = "github:catppuccin/nix";
     catppuccinifier = {
       url = "github:lighttigerXIV/catppuccinifier";
       inputs = {
