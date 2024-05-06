@@ -5,7 +5,7 @@
 
   inputs = {
     # choose our nixpkgs version
-    nixpkgs.url = "github:auxolotl/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # darwin systems are important
     darwin = {
