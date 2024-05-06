@@ -58,7 +58,8 @@ in {
 
   "vaultwarden-env.age".publicKeys = defAccess types.servers;
 
-  "matrix.age".publicKeys = defAccess types.servers;
+  "matrix/env.age".publicKeys = defAccess types.servers;
+  "matrix/sync.age".publicKeys = defAccess types.servers;
 
   # plausible
   "plausible/key.age".publicKeys = defAccess types.servers;

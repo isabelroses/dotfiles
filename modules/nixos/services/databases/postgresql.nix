@@ -25,6 +25,7 @@ in {
         "wakapi"
         "vikunja"
         "plausible"
+        "matrix-sliding-sync"
       ];
       ensureUsers = [
         {
@@ -75,6 +76,10 @@ in {
         }
         {
           name = "plausible";
+          ensureDBOwnership = true;
+        }
+        {
+          name = "matrix-sliding-sync";
           ensureDBOwnership = true;
         }
       ];

@@ -13,7 +13,7 @@
   serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
   clientConfig = {
     "m.homeserver".base_url = "https://${cfg.domain}";
-    "m.identity_server" = {};
+    "org.matrix.msc3575.proxy".url = "https://matrix-sync.${rdomain}";
   };
 
   mkWellKnown = data: ''
@@ -57,6 +57,21 @@ in {
             serverAliases = ["${cfg.domain}"];
           }
           // template.ssl rdomain;
+
+        "matrix-sync.${rdomain}" =
+          {
+            locations."/".proxyPass = "http://[${bindAddress}]:8002";
+          }
+          // template.ssl rdomain;
+      };
+
+      matrix-sliding-sync = {
+        enable = true;
+        environmentFile = config.age.secrets.matrix-sync.path;
+        settings = {
+          SYNCV3_BINDADDR = "[${bindAddress}]:8002";
+          SYNCV3_SERVER = "https://${rdomain}";
+        };
       };
 
       matrix-synapse = {
@@ -70,19 +85,10 @@ in {
 
           bcrypt_rounds = 14;
 
-          # Don't report anonymized usage statistics
+          # Don't report usage statistics, i really don't care
           report_stats = false;
 
-          /*
-          # db
-          database = {
-            name = "psycopg2";
-            args = {
-              user = "matrix-synapse";
-              database = "matrix-synapse";
-            };
-          };
-          */
+          # domain for the server
           server_name = rdomain;
           public_baseurl = "https://${rdomain}";
 
@@ -111,6 +117,18 @@ in {
             "ff00::/8"
             "fec0::/10"
           ];
+
+          # db
+          database = {
+            name = "psycopg2";
+            args = {
+              host = "/run/postgresql";
+              user = "matrix-synapse";
+              database = "matrix-synapse";
+              cp_min = 5;
+              cp_max = 10;
+            };
+          };
 
           # listener configuration
           listeners = [

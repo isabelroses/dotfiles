@@ -175,7 +175,12 @@ in {
 
       # matrix
       matrix = mkSecret services.media.matrix.enable {
-        file = "matrix";
+        file = "matrix/env";
+        owner = "matrix-synapse";
+      };
+
+      matrix-sync = mkSecret services.media.matrix.enable {
+        file = "matrix/sync";
         owner = "matrix-synapse";
       };
 
