@@ -5,7 +5,6 @@
       "https://cache.nixos.org/" # official binary cache (yes the trailing slash is really neccacery)
       "https://nixpkgs-wayland.cachix.org" # some wayland packages
       "https://nix-community.cachix.org" # nix-community cache
-      "https://hyprland.cachix.org" # hyprland
       "https://nix-gaming.cachix.org" # nix-gaming
       "https://nixpkgs-unfree.cachix.org" # unfree-package cache
       "https://numtide.cachix.org" # another unfree package cache
@@ -22,7 +21,6 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
       "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
       "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="

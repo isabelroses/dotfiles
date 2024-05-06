@@ -1,8 +1,7 @@
 {
-  config,
   lib,
   pkgs,
-  inputs,
+  config,
   ...
 }: let
   inherit (lib) makeBinPath mkIf optionalString;
@@ -10,7 +9,7 @@
   env = config.modules.environment;
 
   programs = makeBinPath (with pkgs; [
-    inputs.hyprland.packages.${stdenv.system}.default
+    hyprland
     coreutils
     power-profiles-daemon
     systemd

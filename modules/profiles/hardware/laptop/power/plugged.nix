@@ -1,10 +1,9 @@
 {
-  pkgs,
   lib,
-  inputs',
+  pkgs,
   ...
 }: let
-  programs = lib.makeBinPath [inputs'.hyprland.packages.default];
+  programs = lib.makeBinPath [pkgs.hyprland];
 in {
   unplugged = pkgs.writeShellScript "unplugged" ''
     export PATH=$PATH:${programs}

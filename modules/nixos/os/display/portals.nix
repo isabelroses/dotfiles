@@ -2,12 +2,11 @@
   lib,
   pkgs,
   config,
-  inputs',
   ...
 }: let
   sys = config.modules.system;
   env = config.modules.environment;
-  inherit (lib) mkForce mkIf isWayland optionals;
+  inherit (lib) mkForce mkIf isWayland;
 in {
   config = mkIf (sys.video.enable && pkgs.stdenv.isLinux) {
     xdg.portal = {
@@ -25,13 +24,9 @@ in {
         ];
       };
 
-      extraPortals = with pkgs;
-        [
-          xdg-desktop-portal-gtk
-        ]
-        ++ optionals (env.desktop == "Hyprland") [
-          inputs'.xdg-portal-hyprland.packages.xdg-desktop-portal-hyprland
-        ];
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
 
       wlr = {
         enable = mkForce (isWayland config && env.desktop != "Hyprland");
