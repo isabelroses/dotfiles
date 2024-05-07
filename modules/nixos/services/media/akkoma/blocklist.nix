@@ -90,6 +90,7 @@
     "wiki-tube.de" = "Right wing conspiracy videos";
     "wintermute.fr.to" = "Discrimination";
     "yggdrasil.social" = "Discrimination";
+    "fedi.tyil.nl" = "Misogy, Discrimination";
   };
 
   followers_only = {
