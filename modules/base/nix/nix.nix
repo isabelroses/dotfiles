@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  inputs',
   ...
 }: let
   inherit (builtins) attrValues mapAttrs;
@@ -9,10 +10,13 @@
 
   flakeInputs = filterAttrs (name: value: (value ? outputs) && (name != "self")) inputs;
 in {
+  imports = [
+    inputs.lix-module.nixosModules.default
+  ];
+
   nix = {
     # https://github.com/nix-community/home-manager/issues/4692#issuecomment-1848832609
-    # package = pkgs.nixVersions.unstable;
-    package = pkgs.nixVersions.nix_2_22;
+    package = inputs'.lix.packages.default;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = mapAttrs (_: v: {flake = v;}) flakeInputs;
@@ -59,9 +63,11 @@ in {
         "ca-derivations"
         "auto-allocate-uids"
         "cgroups"
-        "git-hashing"
-        "verified-fetches"
-        "configurable-impure-env"
+
+        # the below are removed because lix is based on nix 2.18 which did not have these features
+        # "git-hashing"
+        # "verified-fetches"
+        # "configurable-impure-env"
       ];
       # ignore dirty working tree
       warn-dirty = false;

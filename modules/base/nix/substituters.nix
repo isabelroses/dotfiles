@@ -15,6 +15,7 @@
       "https://cache.garnix.io" # extra things here and there
       "https://ags.cachix.org" # ags
       "https://ghostty.cachix.org" # ghostty
+      "https://cache.lix.systems" # lix
     ];
 
     trusted-public-keys = [
@@ -31,6 +32,7 @@
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "ags.cachix.org-1:naAvMrz0CuYqeyGNyLgE010iUiuf/qx6kYrUv3NwAJ8="
       "ghostty.cachix.org-1:QB389yTa6gTyneehvqG58y0WnHjQOqgnA+wBnpWWxns="
+      "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
     ];
   };
 }
