@@ -48,6 +48,8 @@ in {
 
       package = chrome_pkg.override {
         nss = pkgs.nss_latest;
+        enableWideVine = true;
+
         commandLineArgs =
           [
             # Aesthetics
