@@ -18,7 +18,7 @@ jobs:
           remove-dotnet: true
           remove-codeql: true
           remove-haskell: true
-          remove--docker-images: true
+          remove-docker-images: true
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,6 +34,8 @@ jobs:
 
       - name: Remove old ISOs
         run: gh release view isos | rg "asset" | awk '{print $2}' | xargs -I {} gh release delete isos {}
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Upload Release Artifacts
         run: gh release upload --clobber isos ./lilith/iso/*.iso
