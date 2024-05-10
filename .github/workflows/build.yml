@@ -22,6 +22,7 @@ jobs:
           - isabelroses-website
           - catppuccinifier-cli
           - patched-gjs
+          - lix
 
     steps:
       - name: Checkout
