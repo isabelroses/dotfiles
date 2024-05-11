@@ -35,7 +35,5 @@ in {
     };
 
     ethernet.macAddress = mkIf (dev.type != "server") "random"; # causes server to be unreachable over SSH
-
-    enableIPv6 = true;
   };
 }

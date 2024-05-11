@@ -10,16 +10,20 @@ import { getAudioTypeIcon } from "../../../utils.js";
 const VolumeIndicator = (type = "speaker") =>
   Widget.Button({
     on_clicked: () => (Audio[type].is_muted = !Audio[type].is_muted),
-    child: Widget.Icon().hook(Audio, icon => {
-      if (!Audio[type])
-        return;
+    child: Widget.Icon().hook(
+      Audio,
+      (icon) => {
+        if (!Audio[type]) return;
 
-      icon.icon = type === 'speaker'
-        ? getAudioTypeIcon(Audio[type].icon_name || '')
-        : icons.audio.mic.high;
+        icon.icon =
+          type === "speaker"
+            ? getAudioTypeIcon(Audio[type].icon_name || "")
+            : icons.audio.mic.high;
 
-      icon.tooltip_text = `Volume ${Math.floor(Audio[type].volume * 100)}%`;
-    }, `${type}-changed`),
+        icon.tooltip_text = `Volume ${Math.floor(Audio[type].volume * 100)}%`;
+      },
+      `${type}-changed`,
+    ),
   });
 
 /** @param {'speaker' | 'microphone'=} type */
@@ -28,9 +32,14 @@ const VolumeSlider = (type = "speaker") =>
     hexpand: true,
     draw_value: false,
     on_change: ({ value }) => (Audio[type].volume = value),
-    setup: self => self.hook(Audio, () => {
-      self.value = Audio[type]?.volume || 0;
-    }, `${type}-changed`),
+    setup: (self) =>
+      self.hook(
+        Audio,
+        () => {
+          self.value = Audio[type]?.volume || 0;
+        },
+        `${type}-changed`,
+      ),
   });
 
 export const Volume = () =>
@@ -45,7 +54,7 @@ export const Volume = () =>
       Widget.Box({
         vpack: "center",
         child: Arrow("app-mixer"),
-        visible: Audio.bind('apps').transform(a => a.length > 0),
+        visible: Audio.bind("apps").transform((a) => a.length > 0),
       }),
     ],
   });
@@ -53,7 +62,7 @@ export const Volume = () =>
 export const Microhone = () =>
   Widget.Box({
     class_name: "slider horizontal",
-    visible: Audio.bind('recorders').transform(a => a.length > 0),
+    visible: Audio.bind("recorders").transform((a) => a.length > 0),
     children: [VolumeIndicator("microphone"), VolumeSlider("microphone")],
   });
 
@@ -64,11 +73,9 @@ const MixerItem = (stream) =>
     class_name: "mixer-item horizontal",
     children: [
       Widget.Icon({
-        tooltip_text: stream.bind('name').transform(n => n || ''),
-        icon: stream.bind('name').transform(n => {
-          return Utils.lookUpIcon(n || '')
-            ? (n || '')
-            : icons.mpris.fallback;
+        tooltip_text: stream.bind("name").transform((n) => n || ""),
+        icon: stream.bind("name").transform((n) => {
+          return Utils.lookUpIcon(n || "") ? n || "" : icons.mpris.fallback;
         }),
       }),
       Widget.Box({
@@ -77,19 +84,19 @@ const MixerItem = (stream) =>
           Widget.Label({
             xalign: 0,
             truncate: "end",
-            label: stream.bind('description').transform(d => d || ''),
+            label: stream.bind("description").transform((d) => d || ""),
           }),
           Widget.Slider({
             hexpand: true,
             draw_value: false,
-            value: stream.bind('volume'),
+            value: stream.bind("volume"),
             on_change: ({ value }) => (stream.volume = value),
           }),
         ],
       }),
       Widget.Label({
         xalign: 1,
-        label: stream.bind('volume').transform(v => `${Math.floor(v * 100)}`),
+        label: stream.bind("volume").transform((v) => `${Math.floor(v * 100)}`),
       }),
     ],
   });
@@ -142,7 +149,7 @@ export const AppMixer = () =>
     content: [
       Widget.Box({
         vertical: true,
-        children: Audio.bind('apps').transform(a => a.map(MixerItem)),
+        children: Audio.bind("apps").transform((a) => a.map(MixerItem)),
       }),
       Widget.Separator(),
       SettingsButton(),
@@ -157,7 +164,7 @@ export const SinkSelector = () =>
     content: [
       Widget.Box({
         vertical: true,
-        children: Audio.bind('speakers').transform(a => a.map(SinkItem)),
+        children: Audio.bind("speakers").transform((a) => a.map(SinkItem)),
       }),
       Widget.Separator(),
       SettingsButton(),

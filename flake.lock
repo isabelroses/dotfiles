@@ -863,11 +863,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1715347751,
-        "narHash": "sha256-NTAiBrtNAZ5er5TivMjwuh5HUhTmN9u5QwkqCp9EK5g=",
+        "lastModified": 1715456551,
+        "narHash": "sha256-Q/+KikPPaECirrxMCPP0XGseOHmSB4mZPXxOKb9DyG0=",
         "owner": "isabelroses",
         "repo": "website",
-        "rev": "c3652150ae81fd52b786c9f03a9c4b2ecc2f3a2d",
+        "rev": "b91d3dacb15a55011bc058ea5d96315d41a577b1",
         "type": "github"
       },
       "original": {
@@ -1375,6 +1375,26 @@
         "type": "github"
       }
     },
+    "ringfairy": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1715449870,
+        "narHash": "sha256-xQQ3TfceWLmLyZ8up/F3yayWh2gS+s4zHGf46uZd7Us=",
+        "owner": "isabelroses",
+        "repo": "ringfairy",
+        "rev": "7c95380f645af56145226162c49b59db0e786006",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "repo": "ringfairy",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -1402,6 +1422,7 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
         "pre-commit-hooks": "pre-commit-hooks_2",
+        "ringfairy": "ringfairy",
         "rust-overlay": "rust-overlay_3",
         "schizofox": "schizofox",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
