@@ -20,7 +20,6 @@ in {
       upower
       inotify-tools
       blueberry
-      networkmanagerapplet
       gnome.gnome-bluetooth
       gtk3
       pango

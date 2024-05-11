@@ -14,7 +14,6 @@ in {
         inputs'.ags.packages.default
         socat
         sassc
-        networkmanagerapplet
         inotify-tools
         swww
         libgtop
