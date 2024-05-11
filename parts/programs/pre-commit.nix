@@ -43,6 +43,7 @@
                 "ags" = "ags"
                 "GIR" = "GIR"
                 "flate" = "flate"
+                "fo" = "fo"
               '';
             };
           };
