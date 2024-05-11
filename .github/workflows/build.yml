@@ -23,6 +23,7 @@ jobs:
           - catppuccinifier-cli
           - patched-gjs
           - lix
+          - ringfairy
 
     steps:
       - name: Checkout

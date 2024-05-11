@@ -134,6 +134,10 @@
       url = "github:isabelroses/website";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ringfairy = {
+      url = "github:isabelroses/ringfairy";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     blahaj = {
       url = "github:isabelroses/blahaj";
       inputs.nixpkgs.follows = "nixpkgs";
