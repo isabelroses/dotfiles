@@ -6,7 +6,7 @@ const BrightnessSlider = () =>
   Widget.Slider({
     draw_value: false,
     hexpand: true,
-    value: Brightness.bind('screen'),
+    value: Brightness.bind("screen"),
     on_change: ({ value }) => (Brightness.screen = value),
   });
 
@@ -15,8 +15,9 @@ export default () =>
     children: [
       Widget.Button({
         child: Widget.Icon(icons.brightness.indicator),
-        tooltip_text: Brightness.bind('screen').transform(v =>
-          `Screen Brightness: ${Math.floor(v * 100)}%`),
+        tooltip_text: Brightness.bind("screen").transform(
+          (v) => `Screen Brightness: ${Math.floor(v * 100)}%`,
+        ),
       }),
       BrightnessSlider(),
     ],

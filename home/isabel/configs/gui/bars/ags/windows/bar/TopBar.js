@@ -25,25 +25,25 @@ SystemTray.connect("changed", () => {
  * @param {T=} service
  * @param {(service: T) => boolean=} condition
  */
-const SeparatorDot = (service, condition) => Widget.Separator({
-  vpack: 'center',
-  setup: self => {
-    const visibility = () => {
-      if (!options.bar.separators.value)
-        return self.visible = false;
+const SeparatorDot = (service, condition) =>
+  Widget.Separator({
+    vpack: "center",
+    setup: (self) => {
+      const visibility = () => {
+        if (!options.bar.separators.value) return (self.visible = false);
 
-      self.visible = condition && service
-        ? condition(service)
-        : options.bar.separators.value;
-    };
+        self.visible =
+          condition && service
+            ? condition(service)
+            : options.bar.separators.value;
+      };
 
-    if (service && condition)
-      self.hook(service, visibility);
+      if (service && condition) self.hook(service, visibility);
 
-    self.on('draw', visibility);
-    self.bind('visible', options.bar.separators);
-  },
-});
+      self.on("draw", visibility);
+      self.bind("visible", options.bar.separators);
+    },
+  });
 
 const Start = () =>
   Widget.Box({
@@ -87,9 +87,9 @@ export default (monitor) =>
     class_name: "transparent",
     exclusivity: "exclusive",
     monitor,
-    anchor: options.bar.position.bind('value').transform(pos => ([
-      pos, 'left', 'right',
-    ])),
+    anchor: options.bar.position
+      .bind("value")
+      .transform((pos) => [pos, "left", "right"]),
     child: Widget.CenterBox({
       class_name: "panel",
       start_widget: Start(),

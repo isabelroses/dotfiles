@@ -23,10 +23,10 @@ export class PopupWindow extends AgsWindow {
       transition,
       child,
       transition_duration: options.transition.value,
-      setup: self => self.hook(App, (_, wname, visible) => {
-        if (wname === name)
-          this.revealer.reveal_child = visible;
-      }),
+      setup: (self) =>
+        self.hook(App, (_, wname, visible) => {
+          if (wname === name) this.revealer.reveal_child = visible;
+        }),
     });
 
     this.child = Widget.Box({

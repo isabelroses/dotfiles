@@ -8,32 +8,34 @@ import PanelButton from "../PanelButton.js";
 const Indicator = () =>
   Widget.Stack({
     items: [
-      ['false', Widget.Icon({ icon: Battery.bind('icon_name') })],
+      ["false", Widget.Icon({ icon: Battery.bind("icon_name") })],
       ["true", FontIcon(icons.battery.charging)],
     ],
-    visible: options.battery.bar.show_icon.bind('value'),
-    setup: self => self.hook(Battery, () => {
-      self.shown = `${Battery.charging || Battery.charged}`;
-    }),
+    visible: options.battery.bar.show_icon.bind("value"),
+    setup: (self) =>
+      self.hook(Battery, () => {
+        self.shown = `${Battery.charging || Battery.charged}`;
+      }),
   });
 
 const PercentLabel = () =>
   Widget.Revealer({
     transition: "slide_right",
-    reveal_child: options.battery.show_percentage.bind('value'),
+    reveal_child: options.battery.show_percentage.bind("value"),
     child: Widget.Label({
-      label: Battery.bind('percent').transform(p => `${p}%`),
+      label: Battery.bind("percent").transform((p) => `${p}%`),
     }),
   });
 
 const LevelBar = () =>
   Widget.LevelBar({
-    value: Battery.bind('percent').transform(p => p / 100),
-    setup: self => self.hook(options.battery.bar.full, () => {
-      const full = options.battery.bar.full.value;
-      self.vpack = full ? "fill" : "center";
-      self.hpack = full ? "fill" : "center";
-    }),
+    value: Battery.bind("percent").transform((p) => p / 100),
+    setup: (self) =>
+      self.hook(options.battery.bar.full, () => {
+        const full = options.battery.bar.full.value;
+        self.vpack = full ? "fill" : "center";
+        self.hpack = full ? "fill" : "center";
+      }),
   });
 
 const WholeButton = () =>
@@ -47,7 +49,7 @@ const WholeButton = () =>
         children: [
           FontIcon({
             icon: icons.battery.charging,
-            visible: Battery.bind('charging'),
+            visible: Battery.bind("charging"),
           }),
           Widget.Box({
             hpack: "center",
@@ -67,18 +69,21 @@ export default () =>
       options.battery.show_percentage.value = !v;
     },
     content: Widget.Box({
-      visible: Battery.bind('available'),
-      children: options.battery.bar.full.bind('value').transform(full => full
-        ? [WholeButton()] : [
-          Indicator(),
-          PercentLabel(),
-          LevelBar(),
-        ]),
-      setup: self => self.hook(Battery, w => {
-        w.toggleClassName('charging', Battery.charging || Battery.charged);
-        w.toggleClassName('medium', Battery.percent < options.battery.medium.value);
-        w.toggleClassName('low', Battery.percent < options.battery.low.value);
-        w.toggleClassName('half', Battery.percent < 48);
-      }),
+      visible: Battery.bind("available"),
+      children: options.battery.bar.full
+        .bind("value")
+        .transform((full) =>
+          full ? [WholeButton()] : [Indicator(), PercentLabel(), LevelBar()],
+        ),
+      setup: (self) =>
+        self.hook(Battery, (w) => {
+          w.toggleClassName("charging", Battery.charging || Battery.charged);
+          w.toggleClassName(
+            "medium",
+            Battery.percent < options.battery.medium.value,
+          );
+          w.toggleClassName("low", Battery.percent < options.battery.low.value);
+          w.toggleClassName("half", Battery.percent < 48);
+        }),
     }),
   });

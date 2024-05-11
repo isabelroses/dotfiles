@@ -10,14 +10,16 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) =>
     css: "padding: 1px;",
     child: Widget.Revealer({
       transition: "slide_left",
-      setup: self => self.hook(Indicator, (_, value) => {
-        self.reveal_child = value > -1;
-      }),
+      setup: (self) =>
+        self.hook(Indicator, (_, value) => {
+          self.reveal_child = value > -1;
+        }),
       child: Progress({
         width,
         height,
         vertical: true,
-        setup: self => self.hook(Indicator, (_, value) => self.setValue(value)),
+        setup: (self) =>
+          self.hook(Indicator, (_, value) => self.setValue(value)),
         child: Widget.Stack({
           vpack: "start",
           hpack: "center",
@@ -28,7 +30,8 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) =>
               Widget.Icon({
                 hpack: "center",
                 size: width,
-                setup: w => w.hook(Indicator, (_, _v, name) => w.icon = name || ''),
+                setup: (w) =>
+                  w.hook(Indicator, (_, _v, name) => (w.icon = name || "")),
               }),
             ],
             [
@@ -37,13 +40,15 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) =>
                 hpack: "center",
                 hexpand: true,
                 css: `font-size: ${width}px;`,
-                setup: w => w.hook(Indicator, (_, _v, name) => w.label = name || ''),
+                setup: (w) =>
+                  w.hook(Indicator, (_, _v, name) => (w.label = name || "")),
               }),
             ],
           ],
-          setup: self => self.hook(Indicator, (_, _v, name) => {
-            self.shown = `${!!Utils.lookUpIcon(name)}`;
-          }),
+          setup: (self) =>
+            self.hook(Indicator, (_, _v, name) => {
+              self.shown = `${!!Utils.lookUpIcon(name)}`;
+            }),
         }),
       }),
     }),

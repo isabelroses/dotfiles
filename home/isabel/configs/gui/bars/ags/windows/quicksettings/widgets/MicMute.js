@@ -5,12 +5,15 @@ import { SimpleToggleButton } from "../ToggleButton.js";
 
 export default () =>
   SimpleToggleButton({
-    icon: Widget.Icon()
-      .hook(Audio, self => {
+    icon: Widget.Icon().hook(
+      Audio,
+      (self) => {
         self.icon = Audio.microphone?.is_muted
           ? icons.audio.mic.muted
           : icons.audio.mic.high;
-      }, 'microphone-changed'),
-    toggle: () => Audio.microphone.is_muted = !Audio.microphone.is_muted,
+      },
+      "microphone-changed",
+    ),
+    toggle: () => (Audio.microphone.is_muted = !Audio.microphone.is_muted),
     connection: [Audio, () => Audio.microphone?.is_muted || false],
   });

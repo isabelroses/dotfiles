@@ -28,16 +28,17 @@ const Workspaces = () => {
               (Hyprland.getWorkspace(i)?.windows || 0) > 0,
             );
           }),
-      })
+      }),
     ),
     setup: (box) => {
       if (ws === 0) {
         box.hook(Hyprland.active.workspace, () =>
           box.children.map((btn) => {
-            btn.visible = Hyprland.workspaces.some((ws) =>
-              ws.id === btn.attribute
+            btn.visible = Hyprland.workspaces.some(
+              (ws) => ws.id === btn.attribute,
             );
-          }));
+          }),
+        );
       }
     },
   });

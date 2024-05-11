@@ -29,7 +29,7 @@ const Arrow = (revealer, direction, items) => {
 
   return Widget.Button({
     class_name: "panel-button sub-menu",
-    tooltip_text: items.bind().transform(v => `${v} Items`),
+    tooltip_text: items.bind().transform((v) => `${v} Items`),
     on_clicked: () => {
       animate();
       revealer.reveal_child = !revealer.reveal_child;

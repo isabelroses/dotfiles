@@ -1,4 +1,4 @@
-import { clock } from '../variables.js';
+import { clock } from "../variables.js";
 import Widget from "resource:///com/github/Aylur/ags/widget.js";
 
 /**
@@ -7,14 +7,11 @@ import Widget from "resource:///com/github/Aylur/ags/widget.js";
  *   interval?: number,
  * }} o
  */
-export default ({
-  format = "%H:%M:%S %B %e. %A",
-  ...rest
-} = {}) =>
+export default ({ format = "%H:%M:%S %B %e. %A", ...rest } = {}) =>
   Widget.Label({
     class_name: "clock",
-    label: clock.bind('value').transform(time => {
-      return time.format(format) || 'wrong format';
+    label: clock.bind("value").transform((time) => {
+      return time.format(format) || "wrong format";
     }),
     ...rest,
   });

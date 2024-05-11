@@ -10,35 +10,28 @@ import App from "resource:///com/github/Aylur/ags/app.js";
 /**
  * @param {import('types/widgets/button').ButtonProps & PanelButtonProps} o
  */
-export default ({
-  class_name,
-  content,
-  window = "",
-  setup,
-  ...rest
-}) => Widget.Button({
-  class_name: `panel-button ${class_name}`,
-  child: Widget.Box({ children: [content] }),
-  setup: self => {
-    let open = false;
+export default ({ class_name, content, window = "", setup, ...rest }) =>
+  Widget.Button({
+    class_name: `panel-button ${class_name}`,
+    child: Widget.Box({ children: [content] }),
+    setup: (self) => {
+      let open = false;
 
-    self.hook(App, (_, win, visible) => {
-      if (win !== window)
-        return;
+      self.hook(App, (_, win, visible) => {
+        if (win !== window) return;
 
-      if (open && !visible) {
-        open = false;
-        self.toggleClassName('active', false);
-      }
+        if (open && !visible) {
+          open = false;
+          self.toggleClassName("active", false);
+        }
 
-      if (visible) {
-        open = true;
-        self.toggleClassName('active');
-      }
-    });
+        if (visible) {
+          open = true;
+          self.toggleClassName("active");
+        }
+      });
 
-    if (setup)
-      setup(self);
-  },
-  ...rest,
-});
+      if (setup) setup(self);
+    },
+    ...rest,
+  });

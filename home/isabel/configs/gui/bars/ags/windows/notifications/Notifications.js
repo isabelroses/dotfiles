@@ -40,9 +40,9 @@ const Popups = (parent) => {
   };
 
   return Widget.Box({ vertical: true })
-    .hook(Notifications, onNotified, 'notified')
-    .hook(Notifications, onDismissed, 'dismissed')
-    .hook(Notifications, (box, id) => onDismissed(box, id, true), 'closed');
+    .hook(Notifications, onNotified, "notified")
+    .hook(Notifications, onDismissed, "dismissed")
+    .hook(Notifications, (box, id) => onDismissed(box, id, true), "closed");
 };
 
 /** @param {import('types/widgets/revealer').RevealerProps['transition']} transition */
@@ -63,6 +63,6 @@ export default (monitor) =>
     monitor,
     class_name: "notifications",
     name: `notifications${monitor}`,
-    anchor: options.notifications.position.bind('value'),
+    anchor: options.notifications.position.bind("value"),
     child: PopupList(),
   });

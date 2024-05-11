@@ -19,7 +19,10 @@ export const Arrow = (name, activate) => {
   let deg = 0;
   let iconOpened = false;
   const icon = Widget.Icon(icons.ui.arrow.right).hook(opened, () => {
-    if (opened.value === name && !iconOpened || opened.value !== name && iconOpened) {
+    if (
+      (opened.value === name && !iconOpened) ||
+      (opened.value !== name && iconOpened)
+    ) {
       const step = opened.value === name ? 10 : -10;
       iconOpened = !iconOpened;
       for (let i = 0; i < 9; ++i) {
@@ -60,9 +63,10 @@ export const ArrowToggleButton = ({
 }) =>
   Widget.Box({
     class_name: "toggle-button",
-    setup: self => self.hook(service, () => {
-      self.toggleClassName('active', condition());
-    }),
+    setup: (self) =>
+      self.hook(service, () => {
+        self.toggleClassName("active", condition());
+      }),
     children: [
       Widget.Button({
         child: Widget.Box({
@@ -92,7 +96,7 @@ export const ArrowToggleButton = ({
 export const Menu = ({ name, icon, title, content }) =>
   Widget.Revealer({
     transition: "slide_down",
-    reveal_child: opened.bind().transform(v => v === name),
+    reveal_child: opened.bind().transform((v) => v === name),
     child: Widget.Box({
       class_names: ["menu", name],
       vertical: true,
@@ -120,9 +124,10 @@ export const SimpleToggleButton = ({
 }) =>
   Widget.Button({
     class_name: "simple-toggle",
-    setup: self => self.hook(service, () => {
-      self.toggleClassName('active', condition());
-    }),
+    setup: (self) =>
+      self.hook(service, () => {
+        self.toggleClassName("active", condition());
+      }),
     child: icon,
     on_clicked: toggle,
   });

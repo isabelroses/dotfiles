@@ -33,14 +33,15 @@ const Homogeneous = (toggles) =>
 export default () =>
   PopupWindow({
     name: "quicksettings",
-    setup: self => self.hook(options.bar.position, () => {
-      self.anchor = ['right', options.bar.position.value];
-      if (options.bar.position.value === 'top')
-        self.transition = 'slide_down';
+    setup: (self) =>
+      self.hook(options.bar.position, () => {
+        self.anchor = ["right", options.bar.position.value];
+        if (options.bar.position.value === "top")
+          self.transition = "slide_down";
 
-      if (options.bar.position.value === 'bottom')
-        self.transition = 'slide_up';
-    }),
+        if (options.bar.position.value === "bottom")
+          self.transition = "slide_up";
+      }),
     child: Widget.Box({
       children: [
         NotificationColumn(),

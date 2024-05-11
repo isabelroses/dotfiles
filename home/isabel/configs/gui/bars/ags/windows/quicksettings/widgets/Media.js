@@ -8,7 +8,7 @@ const Footer = (player) =>
   Widget.CenterBox({
     class_name: "footer-box",
     start_widget: Widget.Box({
-      class_name: 'position',
+      class_name: "position",
       children: [
         mpris.PositionLabel(player),
         mpris.Slash(player),
@@ -16,7 +16,7 @@ const Footer = (player) =>
       ],
     }),
     center_widget: Widget.Box({
-      class_name: 'controls',
+      class_name: "controls",
       children: [
         mpris.ShuffleButton(player),
         mpris.PreviousButton(player),
@@ -28,7 +28,7 @@ const Footer = (player) =>
     end_widget: mpris.PlayerIcon(player, {
       symbolic: false,
       hexpand: true,
-      hpack: 'end',
+      hpack: "end",
     }),
   });
 
@@ -82,8 +82,10 @@ export default () =>
   Widget.Box({
     vertical: true,
     class_name: "media vertical",
-    visible: Mpris.bind('players').transform(p => p.length > 0),
-    children: Mpris.bind('players').transform(ps => ps
-      .filter(p => !options.mpris.black_list.value
-        .includes(p.identity)).map(PlayerBox)),
+    visible: Mpris.bind("players").transform((p) => p.length > 0),
+    children: Mpris.bind("players").transform((ps) =>
+      ps
+        .filter((p) => !options.mpris.black_list.value.includes(p.identity))
+        .map(PlayerBox),
+    ),
   });

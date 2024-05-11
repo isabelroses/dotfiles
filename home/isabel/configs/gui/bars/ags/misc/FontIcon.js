@@ -32,8 +32,10 @@ class FontIcon extends AgsLabel {
   }
 
   get size() {
-    return this.get_style_context()
-      .get_property("font-size", Gtk.StateFlags.NORMAL);
+    return this.get_style_context().get_property(
+      "font-size",
+      Gtk.StateFlags.NORMAL,
+    );
   }
 
   /** @returns {[number, number]} */

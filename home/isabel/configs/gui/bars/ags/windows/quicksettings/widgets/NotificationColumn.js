@@ -12,12 +12,16 @@ const ClearButton = () =>
         timeout(50 * i, () => list[i]?.close());
       }
     },
-    sensitive: Notifications.bind('notifications').transform(n => n.length > 0),
+    sensitive: Notifications.bind("notifications").transform(
+      (n) => n.length > 0,
+    ),
     child: Widget.Box({
       children: [
         Widget.Label("Clear "),
         Widget.Icon({
-          icon: Notifications.bind('notifications').transform(n => icons.trash[n.length > 0 ? 'full' : 'empty']),
+          icon: Notifications.bind("notifications").transform(
+            (n) => icons.trash[n.length > 0 ? "full" : "empty"],
+          ),
         }),
       ],
     }),
@@ -36,8 +40,10 @@ const NotificationList = () =>
   Widget.Box({
     vertical: true,
     vexpand: true,
-    children: Notifications.bind('notifications').transform(n => n.reverse().map(Notification)),
-    visible: Notifications.bind('notifications').transform(n => n.length > 0),
+    children: Notifications.bind("notifications").transform((n) =>
+      n.reverse().map(Notification),
+    ),
+    visible: Notifications.bind("notifications").transform((n) => n.length > 0),
   });
 
 const Placeholder = () =>
@@ -52,7 +58,7 @@ const Placeholder = () =>
       Widget.Icon(icons.notifications.silent),
       Widget.Label("Your inbox is empty"),
     ],
-    visible: Notifications.bind('notifications').transform(n => n.length > 0),
+    visible: Notifications.bind("notifications").transform((n) => n.length > 0),
   });
 
 export default () =>

@@ -26,13 +26,16 @@ const Indicator = ({ player, direction = "right" }) =>
       vexpand: true,
       truncate: "end",
       max_width_chars: 40,
-      label: player.bind('track_title').transform(() => `${player.track_artists.join(', ')} - ${player.track_title}`),
+      label: player
+        .bind("track_title")
+        .transform(
+          () => `${player.track_artists.join(", ")} - ${player.track_title}`,
+        ),
     }),
-    setupRevealer: self => {
-      let current = '';
+    setupRevealer: (self) => {
+      let current = "";
       self.hook(player, () => {
-        if (current === player.track_title)
-          return;
+        if (current === player.track_title) return;
 
         current = player.track_title;
         self.reveal_child = true;
@@ -67,5 +70,5 @@ export default ({ direction = "right" } = {}) => {
 
   return Widget.Box()
     .hook(options.mpris.preferred, update)
-    .hook(Mpris, update, 'notify::players');
+    .hook(Mpris, update, "notify::players");
 };
