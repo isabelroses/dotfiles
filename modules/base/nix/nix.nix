@@ -2,7 +2,6 @@
   lib,
   pkgs,
   inputs,
-  inputs',
   ...
 }: let
   inherit (builtins) attrValues mapAttrs;
@@ -10,13 +9,9 @@
 
   flakeInputs = filterAttrs (name: value: (value ? outputs) && (name != "self")) inputs;
 in {
-  imports = [
-    inputs.lix-module.nixosModules.default
-  ];
-
   nix = {
     # https://github.com/nix-community/home-manager/issues/4692#issuecomment-1848832609
-    package = inputs'.lix.packages.default;
+    package = pkgs.lix;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = mapAttrs (_: v: {flake = v;}) flakeInputs;

@@ -34,17 +34,6 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
-    lix = {
-      url = "git+https://git@git.lix.systems/lix-project/lix";
-    };
-    lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module";
-      inputs = {
-        lix.follows = "lix";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-
     # too hard to explain
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
