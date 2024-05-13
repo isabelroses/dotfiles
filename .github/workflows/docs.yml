@@ -9,7 +9,6 @@ on:
 
 jobs:
   build:
-    name: Build and deploy docs
     runs-on: ubuntu-latest
 
     steps:
