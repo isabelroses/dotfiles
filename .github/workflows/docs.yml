@@ -4,15 +4,13 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "modules/extra/**/*"
       - "docs/*"
+      - "modules/extra/**/*"
 
 jobs:
   build:
     name: Build and deploy docs
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout
@@ -26,8 +24,24 @@ jobs:
       - name: Build Linux packages
         run: "nix build -L .#docs-html"
 
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Pages Artifact
+        uses: "actions/upload-pages-artifact@v3"
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./result
+          path: "result"
+
+  deploy:
+    needs: "build"
+    runs-on: "ubuntu-latest"
+
+    permissions:
+      pages: "write"
+      id-token: "write"
+
+    environment:
+      name: "github-pages"
+      url: "${{ steps.deployment.outputs.page_url }}"
+
+    steps:
+      - name: "Deploy to GitHub Pages"
+        id: "deployment"
+        uses: "actions/deploy-pages@v4"
