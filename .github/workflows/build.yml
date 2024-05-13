@@ -22,7 +22,6 @@ jobs:
           - isabelroses-website
           - catppuccinifier-cli
           - patched-gjs
-          - lix
           - ringfairy
 
     steps:

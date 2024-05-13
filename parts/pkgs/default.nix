@@ -23,7 +23,6 @@
       zzz = inputs'.zzz.packages.default;
       isabelroses-website = inputs'.isabelroses-website.packages.default;
       catppuccinifier-cli = inputs'.catppuccinifier.packages.cli;
-      lix = inputs'.lix.packages.default;
       ringfairy = inputs'.ringfairy.packages.default;
     };
   };
