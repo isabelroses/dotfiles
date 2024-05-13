@@ -8,7 +8,7 @@
 with builtins; let
   cfg = config.programs.gtklock;
 
-  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD mdDoc literalExpression optionals optionalString;
+  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD literalExpression optionals optionalString;
   inherit (lib.generators) toINI;
 
   # the main config includes two very niche options: style (which takes a path) and modules, which takes a list of module paths
@@ -33,7 +33,7 @@ in {
       gtk-theme = mkOption {
         type = types.str;
         default = "";
-        description = mdDoc ''
+        description = ''
           GTK theme to use for gtklock.
         '';
         example = "Adwaita-dark";
@@ -42,7 +42,7 @@ in {
       style = mkOption {
         type = with types; oneOf [str path];
         default = "";
-        description = mdDoc ''
+        description = ''
           The css file to be used for gtklock.
         '';
         example = literalExpression ''
@@ -59,7 +59,7 @@ in {
       modules = mkOption {
         type = with types; listOf (either package str);
         default = [];
-        description = mdDoc ''
+        description = ''
           A list of gtklock modulesto use. Can either be packages, absolute paths, or strings.
         '';
         example = literalExpression ''
@@ -80,7 +80,7 @@ in {
           countdown = 20;
         };
       };
-      description = mdDoc ''
+      description = ''
         Extra configuration to append to gtklock configuration file.
         Mostly used for appending module configurations.
       '';
