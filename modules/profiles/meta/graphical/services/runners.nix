@@ -3,19 +3,27 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
   inherit (config.modules) device;
-in {
+in
+{
   config = mkIf (device.type != "server") {
-    environment.systemPackages = [pkgs.appimage-run];
+    environment.systemPackages = [ pkgs.appimage-run ];
 
     # run appimages with appimage-run
-    boot.binfmt.registrations = lib.genAttrs ["appimage" "AppImage"] (ext: {
-      recognitionType = "extension";
-      magicOrExtension = ext;
-      interpreter = "/run/current-system/sw/bin/appimage-run";
-    });
+    boot.binfmt.registrations =
+      lib.genAttrs
+        [
+          "appimage"
+          "AppImage"
+        ]
+        (ext: {
+          recognitionType = "extension";
+          magicOrExtension = ext;
+          interpreter = "/run/current-system/sw/bin/appimage-run";
+        });
 
     # run unpatched linux binaries with nix-ld
     programs.nix-ld = {

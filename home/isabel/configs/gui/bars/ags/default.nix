@@ -5,9 +5,11 @@
   osConfig,
   inputs',
   ...
-}: let
+}:
+let
   inherit (osConfig.modules) environment system;
-in {
+in
+{
   config = lib.mkIf ((lib.isWayland osConfig) && osConfig.modules.programs.gui.bars.ags.enable) {
     home = {
       packages = with pkgs; [
@@ -22,15 +24,20 @@ in {
       ];
     };
 
-    xdg.configFile = let
-      symlink = fileName: {recursive ? false}: {
-        source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/${fileName}";
-        inherit recursive;
+    xdg.configFile =
+      let
+        symlink =
+          fileName:
+          {
+            recursive ? false,
+          }:
+          {
+            source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/${fileName}";
+            inherit recursive;
+          };
+      in
+      {
+        "ags" = symlink "home/${system.mainUser}/configs/gui/bars/ags" { recursive = true; };
       };
-    in {
-      "ags" = symlink "home/${system.mainUser}/configs/gui/bars/ags" {
-        recursive = true;
-      };
-    };
   };
 }

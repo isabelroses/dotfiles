@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   # a function that will append a list of groups if they exist in config.users.groups
-  ifTheyExist = config: groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+  ifTheyExist =
+    config: groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 
   # a function that returns a boolean based on whether or not the groups exist
   ifGroupsExist = config: groups: lib.any (group: builtins.hasAttr group config.users.groups) groups;
@@ -17,10 +19,21 @@
 
   # ifOneEnabled takes a parent option and 3 child options and checks if at least one of them is enabled
   # `ifOneEnabled config.modules.services "service1" "service2" "service3"`
-  ifOneEnabled = cfg: a: b: c: (cfg.a || cfg.b || cfg.c);
+  ifOneEnabled =
+    cfg: a: b: c:
+    (cfg.a || cfg.b || cfg.c);
 
   # check if modernshell and cli are both enabled
-  isModernShell = conf: conf.modules.programs.cli.enable && conf.modules.programs.cli.modernShell.enable;
-in {
-  inherit ifTheyExist ifGroupsExist isAcceptedDevice isWayland ifOneEnabled isModernShell;
+  isModernShell =
+    conf: conf.modules.programs.cli.enable && conf.modules.programs.cli.modernShell.enable;
+in
+{
+  inherit
+    ifTheyExist
+    ifGroupsExist
+    isAcceptedDevice
+    isWayland
+    ifOneEnabled
+    isModernShell
+    ;
 }

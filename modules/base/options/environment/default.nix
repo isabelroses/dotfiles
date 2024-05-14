@@ -3,14 +3,23 @@
   pkgs,
   config,
   ...
-}: let
-  inherit (lib) ldTernary mkEnableOption mkOption types;
+}:
+let
+  inherit (lib)
+    ldTernary
+    mkEnableOption
+    mkOption
+    types
+    ;
 
   inherit (config.modules.system) mainUser;
   cfg = config.modules.environment;
-in {
+in
+{
   options.modules.environment = {
-    useHomeManager = mkEnableOption "Whether to use home-manager or not." // {default = true;};
+    useHomeManager = mkEnableOption "Whether to use home-manager or not." // {
+      default = true;
+    };
 
     flakePath = mkOption {
       type = types.str;
@@ -19,22 +28,32 @@ in {
     };
 
     desktop = mkOption {
-      type = types.nullOr (types.enum ["Hyprland" "Sway"]);
+      type = types.nullOr (
+        types.enum [
+          "Hyprland"
+          "Sway"
+        ]
+      );
       default = "Hyprland";
       description = "The desktop environment to be used.";
     };
 
     loginManager = mkOption {
-      type = types.nullOr (types.enum ["greetd" "gdm" "lightdm" "sddm"]);
+      type = types.nullOr (
+        types.enum [
+          "greetd"
+          "gdm"
+          "lightdm"
+          "sddm"
+        ]
+      );
       default = "greetd";
       description = "The login manager to be used by the system.";
     };
 
-    isWayland =
-      mkEnableOption "Infered data based on the desktop environment."
-      // {
-        default = cfg.desktop == "Hyprland" || cfg.desktop == "Sway";
-      };
+    isWayland = mkEnableOption "Inferred data based on the desktop environment." // {
+      default = cfg.desktop == "Hyprland" || cfg.desktop == "Sway";
+    };
   };
 
   config.assertions = [

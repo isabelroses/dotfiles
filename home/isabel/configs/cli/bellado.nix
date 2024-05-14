@@ -3,10 +3,12 @@
   inputs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isModernShell;
-in {
-  imports = [inputs.bellado.homeManagerModules.default];
+in
+{
+  imports = [ inputs.bellado.homeManagerModules.default ];
 
   config = mkIf (isModernShell osConfig) {
     programs.bellado = {

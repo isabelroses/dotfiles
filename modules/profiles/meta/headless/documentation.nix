@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkForce mapAttrs;
-in {
+in
+{
   documentation = mapAttrs (_: mkForce) {
     enable = false;
     dev.enable = false;

@@ -1,8 +1,5 @@
+{ lib, pkgs, ... }:
 {
-  lib,
-  pkgs,
-  ...
-}: {
   console = {
     enable = lib.mkDefault true;
     earlySetup = true;

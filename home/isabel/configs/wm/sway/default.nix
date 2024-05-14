@@ -1,11 +1,9 @@
-{
-  lib,
-  osConfig,
-  ...
-}: let
+{ lib, osConfig, ... }:
+let
   inherit (osConfig.modules) environment;
-in {
-  imports = [./config.nix];
+in
+{
+  imports = [ ./config.nix ];
 
   config = lib.mkIf (environment.desktop == "Sway") {
     wayland.windowManager.sway = {

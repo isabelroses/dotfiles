@@ -4,7 +4,8 @@
   config,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv) isLinux isDarwin;
   inherit (lib) mkIf;
 
@@ -13,7 +14,8 @@
   vscodeStore = "${osConfig.modules.environment.flakePath}/home/${osConfig.modules.system.mainUser}/configs/editors/vscode";
   keybindingsFile = mkLink "${vscodeStore}/keybindings.json";
   settingsFile = mkLink "${vscodeStore}/settings.json";
-in {
+in
+{
   config = mkIf osConfig.modules.programs.agnostic.editors.vscode.enable {
     programs.vscode = {
       enable = true;
@@ -29,8 +31,8 @@ in {
           extraBordersEnabled = false;
           workbenchMode = "flat";
           bracketMode = "rainbow";
-          colorOverrides = {};
-          customUIColors = {};
+          colorOverrides = { };
+          customUIColors = { };
         })
 
         # GIT
@@ -43,7 +45,7 @@ in {
         # UTILITIES
         ms-vscode-remote.remote-ssh
         ms-vscode.live-server
-        vscodevim.vim #yes i hate myself
+        vscodevim.vim # yes i hate myself
         wakatime.vscode-wakatime
 
         # LANGUAGES BASED EXTENSIONS

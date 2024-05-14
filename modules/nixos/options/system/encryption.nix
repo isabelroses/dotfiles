@@ -1,19 +1,23 @@
+{ config, lib, ... }:
+let
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
+in
 {
-  config,
-  lib,
-  ...
-}: let
-  inherit (lib) mkEnableOption mkOption types mkIf;
-in {
   config = mkIf config.modules.system.encryption.enable {
     warnings =
-      if config.modules.system.encryption.device == ""
-      then [
-        ''
-          You have enabled LUKS encryption, but have not selected a device, you may not be able to decrypt your disk on boot.
-        ''
-      ]
-      else [];
+      if config.modules.system.encryption.device == "" then
+        [
+          ''
+            You have enabled LUKS encryption, but have not selected a device, you may not be able to decrypt your disk on boot.
+          ''
+        ]
+      else
+        [ ];
   };
   options.modules.system.encryption = {
     enable = mkEnableOption "LUKS encryption";

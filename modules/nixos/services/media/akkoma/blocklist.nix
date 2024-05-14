@@ -2,7 +2,9 @@
   # Automated moderation list
   # Largely borrowed from https://github.com/chaossocial/about/blob/master/blocked_instances.md
 
-  media_nsfw = {"sinblr.com" = "Untagged NSFW content";};
+  media_nsfw = {
+    "sinblr.com" = "Untagged NSFW content";
+  };
 
   reject = {
     "bae.st" = ''Discrimination, racism, "free speech zone"²'';

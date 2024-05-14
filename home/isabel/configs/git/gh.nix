@@ -1,8 +1,5 @@
+{ pkgs, self', ... }:
 {
-  pkgs,
-  self',
-  ...
-}: {
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = true;

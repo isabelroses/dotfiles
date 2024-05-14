@@ -1,19 +1,17 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf;
 
   cfg = config.modules.services.monitoring.loki;
   lcfg = config.services.loki;
-in {
+in
+{
   config = mkIf cfg.enable {
     # https://gist.github.com/rickhull/895b0cb38fdd537c1078a858cf15d63e
     services.loki = {
       enable = true;
       dataDir = "/srv/storage/loki";
-      extraFlags = ["--config.expand-env=true"];
+      extraFlags = [ "--config.expand-env=true" ];
 
       configuration = {
         server = {

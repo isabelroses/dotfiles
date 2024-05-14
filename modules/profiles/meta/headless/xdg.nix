@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkForce mapAttrs;
-in {
+in
+{
   xdg = mapAttrs (_: mkForce) {
     sounds.enable = false;
     mime.enable = false;

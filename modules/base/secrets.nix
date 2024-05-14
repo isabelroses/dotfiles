@@ -6,7 +6,8 @@
   inputs,
   inputs',
   ...
-}: let
+}:
+let
   inherit (lib) mkIf ldTernary;
   inherit (config.modules) services;
   inherit (pkgs.stdenv) isDarwin;
@@ -17,34 +18,44 @@
 
   userGroup = ldTernary pkgs "users" "admin";
 
-  mkSecret = cond: {
-    file,
-    owner ? "root",
-    group ? ldTernary pkgs "root" "admin",
-    mode ? "400",
-    ...
-  }:
+  mkSecret =
+    cond:
+    {
+      file,
+      owner ? "root",
+      group ? ldTernary pkgs "root" "admin",
+      mode ? "400",
+      ...
+    }:
     mkIf cond {
       file = "${self}/secrets/${file}.age";
       inherit owner group mode;
     };
 
-  mkSecretWithPath = cond: {
-    file,
-    path,
-    owner ? "root",
-    group ? ldTernary pkgs "root" "admin",
-    mode ? "400",
-    ...
-  }:
+  mkSecretWithPath =
+    cond:
+    {
+      file,
+      path,
+      owner ? "root",
+      group ? ldTernary pkgs "root" "admin",
+      mode ? "400",
+      ...
+    }:
     mkIf cond {
       file = "${self}/secrets/${file}.age";
-      inherit path owner group mode;
+      inherit
+        path
+        owner
+        group
+        mode
+        ;
     };
-in {
-  imports = [inputs.agenix.nixosModules.default];
+in
+{
+  imports = [ inputs.agenix.nixosModules.default ];
 
-  environment.systemPackages = [inputs'.agenix.packages.default];
+  environment.systemPackages = [ inputs'.agenix.packages.default ];
 
   age = {
     identityPaths = [
@@ -124,13 +135,13 @@ in {
       };
 
       # mailserver
-      mailserver-isabel = mkSecret services.mailserver.enable {file = "mailserver/isabel";};
-      mailserver-vaultwarden = mkSecret services.mailserver.enable {file = "mailserver/vaultwarden";};
-      mailserver-database = mkSecret services.mailserver.enable {file = "mailserver/database";};
-      mailserver-grafana = mkSecret services.mailserver.enable {file = "mailserver/grafana";};
-      mailserver-git = mkSecret services.mailserver.enable {file = "mailserver/git";};
-      mailserver-noreply = mkSecret services.mailserver.enable {file = "mailserver/noreply";};
-      mailserver-spam = mkSecret services.mailserver.enable {file = "mailserver/spam";};
+      mailserver-isabel = mkSecret services.mailserver.enable { file = "mailserver/isabel"; };
+      mailserver-vaultwarden = mkSecret services.mailserver.enable { file = "mailserver/vaultwarden"; };
+      mailserver-database = mkSecret services.mailserver.enable { file = "mailserver/database"; };
+      mailserver-grafana = mkSecret services.mailserver.enable { file = "mailserver/grafana"; };
+      mailserver-git = mkSecret services.mailserver.enable { file = "mailserver/git"; };
+      mailserver-noreply = mkSecret services.mailserver.enable { file = "mailserver/noreply"; };
+      mailserver-spam = mkSecret services.mailserver.enable { file = "mailserver/spam"; };
 
       mailserver-grafana-nohash = mkSecret services.monitoring.grafana.enable {
         file = "mailserver/grafana-nohash";
@@ -150,9 +161,7 @@ in {
         group = "grafana";
       };
 
-      blahaj-env = mkSecret services.blahaj.enable {
-        file = "blahaj-env";
-      };
+      blahaj-env = mkSecret services.blahaj.enable { file = "blahaj-env"; };
 
       vikunja-env = mkSecret services.vikunja.enable {
         file = "vikunja-env";
@@ -210,9 +219,7 @@ in {
         group = "wakapi";
       };
 
-      mongodb-passwd = mkSecret services.database.mongodb.enable {
-        file = "mongodb-passwd";
-      };
+      mongodb-passwd = mkSecret services.database.mongodb.enable { file = "mongodb-passwd"; };
     };
   };
 }

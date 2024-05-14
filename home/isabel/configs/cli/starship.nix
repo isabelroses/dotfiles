@@ -3,7 +3,8 @@
   config,
   osConfig,
   ...
-}: let
+}:
+let
   ss = symbol: style: {
     inherit symbol;
     format = "[$symbol ](${style})";
@@ -12,7 +13,8 @@
     inherit symbol;
     format = "via [$symbol](${style})";
   };
-in {
+in
+{
   programs.starship = {
     inherit (osConfig.modules.programs.cli) enable;
     enableBashIntegration = config.programs.bash.enable;

@@ -1,16 +1,14 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf template;
 
   rdomain = config.networking.domain;
   srv = config.modules.services;
   cfg = srv.monitoring.grafana;
-in {
+in
+{
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [cfg.port];
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     modules.services.database = {
       postgresql.enable = true;
@@ -36,18 +34,20 @@ in {
             ssl_mode = "disable";
           };
 
-          smtp = let
-            mailer = "grafana@${cfg.domain}";
-          in {
-            enabled = true;
+          smtp =
+            let
+              mailer = "grafana@${cfg.domain}";
+            in
+            {
+              enabled = true;
 
-            user = mailer;
-            password = "$__file{" + config.age.secrets.mailserver-grafana-nohash.path + "}";
+              user = mailer;
+              password = "$__file{" + config.age.secrets.mailserver-grafana-nohash.path + "}";
 
-            host = "${config.modules.services.mailserver.domain}:465";
-            from_address = mailer;
-            startTLS_policy = "MandatoryStartTLS";
-          };
+              host = "${config.modules.services.mailserver.domain}:465";
+              from_address = mailer;
+              startTLS_policy = "MandatoryStartTLS";
+            };
 
           security = {
             cookie_secure = true;
@@ -62,23 +62,25 @@ in {
           "auth.anonymous".enabled = false;
           "auth.basic".enabled = false;
 
-          "auth.generic_oauth" = let
-            sso = "https://${config.modules.services.kanidm.domain}";
-          in {
-            enabled = true;
-            # auto_login = true;
-            allow_signup = true;
-            icon = "signin";
-            name = "Kanidm";
-            client_id = "grafana";
-            client_secret = "$__file{${config.age.secrets.grafana-oauth2.path}}";
-            use_pkce = true;
-            scopes = "openid email profile";
-            login_attribute_path = "prefered_username";
-            auth_url = "${sso}/ui/oauth2";
-            token_url = "${sso}/oauth2/token";
-            api_url = "${sso}/oauth2/openid/grafana/userinfo";
-          };
+          "auth.generic_oauth" =
+            let
+              sso = "https://${config.modules.services.kanidm.domain}";
+            in
+            {
+              enabled = true;
+              # auto_login = true;
+              allow_signup = true;
+              icon = "signin";
+              name = "Kanidm";
+              client_id = "grafana";
+              client_secret = "$__file{${config.age.secrets.grafana-oauth2.path}}";
+              use_pkce = true;
+              scopes = "openid email profile";
+              login_attribute_path = "preferred_username";
+              auth_url = "${sso}/ui/oauth2";
+              token_url = "${sso}/oauth2/token";
+              api_url = "${sso}/oauth2/openid/grafana/userinfo";
+            };
 
           users = {
             allow_signup = false;
@@ -124,14 +126,12 @@ in {
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} =
-        {
-          locations."/" = {
-            proxyPass = "http://${cfg.host}:${toString cfg.port}/";
-            proxyWebsockets = true;
-          };
-        }
-        // template.ssl rdomain;
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/" = {
+          proxyPass = "http://${cfg.host}:${toString cfg.port}/";
+          proxyWebsockets = true;
+        };
+      } // template.ssl rdomain;
     };
   };
 }

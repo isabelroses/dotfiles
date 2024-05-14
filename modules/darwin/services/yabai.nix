@@ -22,24 +22,34 @@
       window_shadow = "float";
     };
 
-    extraConfig = let
-      rule = "yabai -m rule --add";
-      ignored = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off sticky=off layer=above'') app);
-      unmanaged = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off'') app);
-    in ''
-      # auto-inject scripting additions
-      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-      sudo yabai --load-sa
+    extraConfig =
+      let
+        rule = "yabai -m rule --add";
+        ignored =
+          app:
+          builtins.concatStringsSep "\n" (
+            map (e: ''${rule} app="${e}" manage=off sticky=off layer=above'') app
+          );
+        unmanaged = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off'') app);
+      in
+      ''
+        # auto-inject scripting additions
+        yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+        sudo yabai --load-sa
 
-      ${ignored ["JetBrains Toolbox" "Sip" "iStat Menus"]}
-      ${unmanaged ["Steam"]}
-      yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
-      yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
-      yabai -m rule --add label="Arc" app="^Arc$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance|[Bb]itwarden)$" manage=off
+        ${ignored [
+          "JetBrains Toolbox"
+          "Sip"
+          "iStat Menus"
+        ]}
+        ${unmanaged [ "Steam" ]}
+        yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+        yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
+        yabai -m rule --add label="Arc" app="^Arc$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance|[Bb]itwarden)$" manage=off
 
-      # etc.
-      ${rule} manage=off app="CleanShot"
-      ${rule} manage=off sticky=on  app="OBS Studio"
-    '';
+        # etc.
+        ${rule} manage=off app="CleanShot"
+        ${rule} manage=off sticky=on  app="OBS Studio"
+      '';
   };
 }

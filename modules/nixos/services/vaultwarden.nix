@@ -1,13 +1,11 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf template;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.vaultwarden;
-in {
+in
+{
   config = mkIf cfg.enable {
     # this forces the system to create backup folder
     systemd.services.backup-vaultwarden.serviceConfig = {
@@ -43,14 +41,12 @@ in {
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} =
-        {
-          locations."/" = {
-            proxyPass = "http://${cfg.host}:${toString cfg.port}";
-            extraConfig = "proxy_pass_header Authorization;";
-          };
-        }
-        // template.ssl rdomain;
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/" = {
+          proxyPass = "http://${cfg.host}:${toString cfg.port}";
+          extraConfig = "proxy_pass_header Authorization;";
+        };
+      } // template.ssl rdomain;
     };
   };
 }

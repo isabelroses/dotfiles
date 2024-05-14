@@ -3,9 +3,11 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
-in {
+in
+{
   systemd = mkIf config.modules.system.video.enable {
     user.services.polkit-pantheon-authentication-agent-1 = {
       description = "Pantheon PolicyKit agent";
@@ -17,9 +19,9 @@ in {
         TimeoutStopSec = 10;
       };
 
-      wantedBy = ["graphical-session.target"];
-      wants = ["graphical-session.target"];
-      after = ["graphical-session.target"];
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
     };
   };
 }

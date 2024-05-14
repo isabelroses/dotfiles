@@ -10,8 +10,7 @@ stdenvNoCC.mkDerivation {
     just
 
     (texlive.combine {
-      inherit
-        (texlive)
+      inherit (texlive)
         scheme-medium
         biblatex
         biber

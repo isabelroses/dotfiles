@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   cfg = config.modules.services.dev.forgejo;
   rdomain = config.networking.domain;
 
@@ -15,7 +16,8 @@
     sha256 = "sha256-14XqO1ZhhPS7VDBSzqW55kh6n5cFZGZmvRCtMEh8JPI=";
     stripRoot = false;
   };
-in {
+in
+{
   config = mkIf cfg.enable {
     modules.services = {
       networking.nginx.enable = true;
@@ -32,9 +34,10 @@ in {
 
     systemd.services = {
       forgejo = {
-        preStart = let
-          inherit (config.services.forgejo) stateDir;
-        in
+        preStart =
+          let
+            inherit (config.services.forgejo) stateDir;
+          in
           lib.mkAfter ''
             rm -rf ${stateDir}/custom/public/assets
             mkdir -p ${stateDir}/custom/public/assets
@@ -76,12 +79,12 @@ in {
 
           ui = {
             DEFAULT_THEME = "catppuccin-mocha-pink";
-            THEMES =
-              builtins.concatStringsSep
-              ","
-              (["auto,forgejo-auto,forgejo-dark,forgejo-light,arc-gree,gitea"]
-                ++ (map (name: lib.removePrefix "theme-" (lib.removeSuffix ".css" name))
-                  (builtins.attrNames (builtins.readDir theme))));
+            THEMES = builtins.concatStringsSep "," (
+              [ "auto,forgejo-auto,forgejo-dark,forgejo-light,arc-gree,gitea" ]
+              ++ (map (name: lib.removePrefix "theme-" (lib.removeSuffix ".css" name)) (
+                builtins.attrNames (builtins.readDir theme)
+              ))
+            );
           };
 
           "ui.meta" = {
@@ -152,14 +155,12 @@ in {
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} =
-        {
-          locations."/" = {
-            recommendedProxySettings = true;
-            proxyPass = "http://unix:/run/forgejo/forgejo.sock";
-          };
-        }
-        // template.ssl rdomain;
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/" = {
+          recommendedProxySettings = true;
+          proxyPass = "http://unix:/run/forgejo/forgejo.sock";
+        };
+      } // template.ssl rdomain;
     };
   };
 }

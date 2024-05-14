@@ -1,12 +1,10 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkIf isWayland optionalString;
 
   env = config.modules.environment;
-in {
+in
+{
   config = mkIf (isWayland config) {
     environment = {
       etc."greetd/environments".text = mkIf config.services.greetd.enable ''

@@ -3,12 +3,14 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
 
   env = config.modules.environment;
-in {
+in
+{
   config = mkIf (env.desktop == "Hyprland") {
-    services.displayManager.sessionPackages = [pkgs.hyprland];
+    services.displayManager.sessionPackages = [ pkgs.hyprland ];
   };
 }

@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   imports = [
     ./cpu # cpu specific options
     ./gpu # gpu specific options

@@ -4,13 +4,15 @@
   self,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf template;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.dev.wakapi;
-in {
-  imports = [self.nixosModules.wakapi];
+in
+{
+  imports = [ self.nixosModules.wakapi ];
 
   config = mkIf cfg.enable {
     modules.services = {
@@ -41,19 +43,21 @@ in {
             disable_frontpage = true;
           };
 
-          mail = let
-            mailer = "noreply@${rdomain}";
-          in {
-            enabled = true;
-            sender = "<${mailer}>";
-            provider = "smtp";
-            smtp = {
-              host = "mail.${rdomain}";
-              port = 465;
-              username = mailer;
-              tls = true;
+          mail =
+            let
+              mailer = "noreply@${rdomain}";
+            in
+            {
+              enabled = true;
+              sender = "<${mailer}>";
+              provider = "smtp";
+              smtp = {
+                host = "mail.${rdomain}";
+                port = 465;
+                username = mailer;
+                tls = true;
+              };
             };
-          };
         };
       };
 

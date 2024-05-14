@@ -3,10 +3,12 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkEnableOption mkOption types;
   cfg = config.modules.style;
-in {
+in
+{
   options.modules.style.qt = {
     enable = mkEnableOption "QT Style Module";
 
@@ -14,9 +16,9 @@ in {
       package = mkOption {
         type = types.package;
         default = pkgs.catppuccin-kde.override {
-          flavour = ["mocha"];
-          accents = ["pink"];
-          winDecStyles = ["modern"];
+          flavour = [ "mocha" ];
+          accents = [ "pink" ];
+          winDecStyles = [ "modern" ];
         };
         description = "The theme package to be used for QT programs";
       };

@@ -4,9 +4,11 @@
   config,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (osConfig.modules.system) video;
-in {
+in
+{
   services.gpg-agent = lib.mkIf pkgs.stdenv.isLinux {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;
@@ -15,9 +17,10 @@ in {
     enableNushellIntegration = config.programs.nushell.enable;
 
     pinentryPackage =
-      if video.enable
-      then pkgs.pinentry-gnome3 # requires services.dbus.packages = [ pkgs.gcr ]
-      else pkgs.pinentry-curses;
+      if video.enable then
+        pkgs.pinentry-gnome3 # requires services.dbus.packages = [ pkgs.gcr ]
+      else
+        pkgs.pinentry-curses;
     enableScDaemon = true;
     enableSshSupport = true;
     defaultCacheTtl = 1209600;

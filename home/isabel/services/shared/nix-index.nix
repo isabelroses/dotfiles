@@ -1,5 +1,6 @@
-{inputs, ...}: {
-  imports = [inputs.nix-index-db.hmModules.nix-index];
+{ inputs, ... }:
+{
+  imports = [ inputs.nix-index-db.hmModules.nix-index ];
 
   config = {
     # auto-run programs using nix-index-database

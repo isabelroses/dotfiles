@@ -3,7 +3,8 @@
   pkgs,
   osConfig,
   ...
-}: {
+}:
+{
   config = lib.mkIf osConfig.modules.programs.gui.zathura.enable {
     xdg.configFile."zathura/catppuccin-mocha".source = pkgs.fetchurl {
       url = "https://raw.githubusercontent.com/catppuccin/zathura/main/src/catppuccin-mocha";

@@ -4,10 +4,12 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   inherit (lib) mkDefault;
-in {
-  imports = [inputs.auto-cpufreq.nixosModules.default];
+in
+{
+  imports = [ inputs.auto-cpufreq.nixosModules.default ];
 
   config = {
     hardware.acpilight.enable = true;
@@ -19,22 +21,24 @@ in {
 
     programs.auto-cpufreq = {
       enable = true;
-      settings = let
-        MHz = x: x * 1000;
-      in {
-        battery = {
-          governor = "powersave";
-          scaling_min_freq = mkDefault (MHz 1200);
-          scaling_max_freq = mkDefault (MHz 1800);
-          turbo = "never";
+      settings =
+        let
+          MHz = x: x * 1000;
+        in
+        {
+          battery = {
+            governor = "powersave";
+            scaling_min_freq = mkDefault (MHz 1200);
+            scaling_max_freq = mkDefault (MHz 1800);
+            turbo = "never";
+          };
+          charger = {
+            governor = "performance";
+            scaling_min_freq = mkDefault (MHz 1800);
+            scaling_max_freq = mkDefault (MHz 3800);
+            turbo = "auto";
+          };
         };
-        charger = {
-          governor = "performance";
-          scaling_min_freq = mkDefault (MHz 1800);
-          scaling_max_freq = mkDefault (MHz 3800);
-          turbo = "auto";
-        };
-      };
     };
 
     services = {
@@ -51,23 +55,23 @@ in {
       };
 
       /*
-      # superior power management
-      auto-cpufreq.enable = true;
+        # superior power management
+        auto-cpufreq.enable = true;
 
-      auto-cpufreq.settings = {
-        battery = {
-          governor = "powersave";
-          scaling_min_freq = mkDefault (MHz 1200);
-          scaling_max_freq = mkDefault (MHz 1800);
-          turbo = "never";
+        auto-cpufreq.settings = {
+          battery = {
+            governor = "powersave";
+            scaling_min_freq = mkDefault (MHz 1200);
+            scaling_max_freq = mkDefault (MHz 1800);
+            turbo = "never";
+          };
+          charger = {
+            governor = "performance";
+            scaling_min_freq = mkDefault (MHz 1800);
+            scaling_max_freq = mkDefault (MHz 3000);
+            turbo = "auto";
+          };
         };
-        charger = {
-          governor = "performance";
-          scaling_min_freq = mkDefault (MHz 1800);
-          scaling_max_freq = mkDefault (MHz 3000);
-          turbo = "auto";
-        };
-      };
       */
 
       # DBus service that provides power management support to applications.
@@ -81,7 +85,7 @@ in {
     };
 
     boot = {
-      kernelModules = ["acpi_call"];
+      kernelModules = [ "acpi_call" ];
       extraModulePackages = with config.boot.kernelPackages; [
         acpi_call
         cpupower

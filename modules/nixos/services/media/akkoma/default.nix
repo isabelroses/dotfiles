@@ -4,21 +4,26 @@
   self',
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
-  inherit ((pkgs.formats.elixirConf {}).lib) mkRaw mkMap;
+  inherit ((pkgs.formats.elixirConf { }).lib) mkRaw mkMap;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.media.akkoma;
-in {
+in
+{
   config = mkIf cfg.enable {
     services.akkoma = {
       enable = true;
-      extraPackages = with pkgs; [ffmpeg exiftool imagemagick];
+      extraPackages = with pkgs; [
+        ffmpeg
+        exiftool
+        imagemagick
+      ];
 
       extraStatic = {
-        "static/terms-of-service.html" =
-          pkgs.writeText "terms-of-service.html" "Just be normal please";
+        "static/terms-of-service.html" = pkgs.writeText "terms-of-service.html" "Just be normal please";
 
         "favicon.png" = pkgs.fetchurl {
           url = "https://avatars.githubusercontent.com/u/71222764?v=4";
@@ -38,7 +43,7 @@ in {
           email = "isabel@isabelroses.com";
           notify_email = "noreply@isabelroses.com";
 
-          languages = ["en"];
+          languages = [ "en" ];
 
           registrations_open = false;
           invites_enabled = true;
@@ -80,21 +85,22 @@ in {
           path = "/api/pleroma/app_metrics";
         };
 
-        ":pleroma".":mrf".policies =
-          map mkRaw ["Pleroma.Web.ActivityPub.MRF.SimplePolicy"];
+        ":pleroma".":mrf".policies = map mkRaw [ "Pleroma.Web.ActivityPub.MRF.SimplePolicy" ];
 
         # we configure from nix
         ":pleroma".":configurable_from_database" = false;
 
         ":pleroma"."Pleroma.Captcha".enabled = false;
 
-        ":pleroma".":mrf_simple" = let
-          blocklist = import ./blocklist.nix;
-        in {
-          media_nsfw = mkMap blocklist.media_nsfw;
-          reject = mkMap blocklist.reject;
-          followers_only = mkMap blocklist.followers_only;
-        };
+        ":pleroma".":mrf_simple" =
+          let
+            blocklist = import ./blocklist.nix;
+          in
+          {
+            media_nsfw = mkMap blocklist.media_nsfw;
+            reject = mkMap blocklist.reject;
+            followers_only = mkMap blocklist.followers_only;
+          };
       };
 
       nginx = {

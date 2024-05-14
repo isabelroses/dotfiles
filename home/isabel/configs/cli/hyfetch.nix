@@ -3,11 +3,13 @@
   pkgs,
   self,
   ...
-}: let
+}:
+let
   inherit (lib) ldTernary;
-in {
-  imports = [self.homeManagerModules.hyfetch];
-  disabledModules = ["programs/hyfetch.nix"];
+in
+{
+  imports = [ self.homeManagerModules.hyfetch ];
+  disabledModules = [ "programs/hyfetch.nix" ];
 
   programs.hyfetch = {
     enable = true;
@@ -19,12 +21,12 @@ in {
       lightness = 0.56;
       color_align = {
         mode = "horizontal";
-        custom_colors = [];
+        custom_colors = [ ];
         fore_back = null;
       };
       backend = "neofetch";
       distro = null;
-      pride_month_shown = [];
+      pride_month_shown = [ ];
       pride_month_disable = false;
     };
 
@@ -60,8 +62,10 @@ in {
       bold="off"
       separator=""
 
-      image_backend="ascii" # ascii kitty iterm2
-      image_source=${ldTernary pkgs "/home/isabel/media/pictures" "/Users/isabel/Pictures"}/pfps/avatar # auto /path/to/img /path/to/ascii
+      image_backend="ascii"
+      image_source=${
+        ldTernary pkgs "/home/isabel/media/pictures" "/Users/isabel/Pictures"
+      }/pfps/avatar # auto /path/to/img /path/to/ascii
       image_size="200px" # auto 00px 00% none
 
       ascii_distro=${ldTernary pkgs "NixOS" "Mac"}_small

@@ -3,11 +3,13 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
 
   cfg = config.modules.services;
-in {
+in
+{
   config = mkIf cfg.database.postgresql.enable {
     services.postgresql = {
       enable = true;

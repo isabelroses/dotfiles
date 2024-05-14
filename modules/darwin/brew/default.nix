@@ -1,5 +1,5 @@
 {
-  imports = [./environment.nix];
+  imports = [ ./environment.nix ];
 
   config = {
     # homebrew need to be installed manually, see https://brew.sh
@@ -19,16 +19,12 @@
       # You need to install all these Apps manually first so that your apple account have records for them.
       # otherwise Apple Store will refuse to install them.
       # For details, see https://github.com/mas-cli/mas
-      masApps = {};
+      masApps = { };
 
-      taps = [
-        "homebrew/bundle"
-      ];
+      taps = [ "homebrew/bundle" ];
 
       # `brew install`
-      brews = [
-        "openjdk"
-      ];
+      brews = [ "openjdk" ];
 
       # `brew install --cask`
       casks = [

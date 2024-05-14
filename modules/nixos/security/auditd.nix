@@ -1,12 +1,10 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf;
 
   cfg = config.modules.system.security;
-in {
+in
+{
   config = mkIf cfg.auditd.enable {
     security = {
       auditd.enable = true;
@@ -14,16 +12,14 @@ in {
         enable = true;
         backlogLimit = 8192;
         failureMode = "printk";
-        rules = [
-          "-a exit,always -F arch=b64 -S execve"
-        ];
+        rules = [ "-a exit,always -F arch=b64 -S execve" ];
       };
     };
 
     systemd = {
       timers."clean-audit-log" = {
         description = "Periodically clean audit log";
-        wantedBy = ["timers.target"];
+        wantedBy = [ "timers.target" ];
         timerConfig = {
           OnCalendar = "daily";
           Persistent = true;

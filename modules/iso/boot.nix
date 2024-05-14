@@ -1,6 +1,7 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   boot = {
-    kernelParams = lib.mkAfter ["noquiet"];
+    kernelParams = lib.mkAfter [ "noquiet" ];
 
     # we have no need for systemd in initrd installation media
     initrd.systemd = {

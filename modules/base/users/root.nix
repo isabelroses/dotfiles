@@ -1,8 +1,5 @@
+{ lib, pkgs, ... }:
 {
-  lib,
-  pkgs,
-  ...
-}: {
   users.users.root = lib.mkIf pkgs.stdenv.isLinux {
     initialPassword = "changeme";
 

@@ -1,12 +1,10 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkIf mkDefault mkForce;
 
   dev = config.modules.device;
-in {
+in
+{
   imports = [
     ./firewall
 

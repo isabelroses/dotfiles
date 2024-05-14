@@ -1,10 +1,8 @@
+{ lib, pkgs, ... }:
+let
+  programs = lib.makeBinPath [ pkgs.hyprland ];
+in
 {
-  lib,
-  pkgs,
-  ...
-}: let
-  programs = lib.makeBinPath [pkgs.hyprland];
-in {
   unplugged = pkgs.writeShellScript "unplugged" ''
     export PATH=$PATH:${programs}
     export HYPRLAND_INSTANCE_SIGNATURE=$(ls -w1 /tmp/hypr | tail -1)

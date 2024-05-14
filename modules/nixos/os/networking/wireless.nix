@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   inherit (config.modules.system.networking) wirelessBackend;
-in {
+in
+{
   # enable wireless database, it helps keeping wifi speedy
   hardware.wirelessRegulatoryDatabase = true;
 

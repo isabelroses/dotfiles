@@ -1,8 +1,5 @@
+{ pkgs, inputs, ... }:
 {
-  pkgs,
-  inputs,
-  ...
-}: {
   environment = {
     etc = with inputs; {
       # set channels (backwards compatibility)
@@ -14,7 +11,10 @@
       "nixos/flake".source = self;
     };
 
-    # git is reqired for flakes, and cachix for binary substituters
-    systemPackages = with pkgs; [git cachix];
+    # git is required for flakes, and cachix for binary substituters
+    systemPackages = with pkgs; [
+      git
+      cachix
+    ];
   };
 }

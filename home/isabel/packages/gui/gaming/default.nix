@@ -3,10 +3,12 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (osConfig.modules) programs;
-in {
-  imports = [./minecraft.nix];
+in
+{
+  imports = [ ./minecraft.nix ];
 
   config = lib.mkIf programs.gaming.enable {
     home = {

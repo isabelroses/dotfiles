@@ -1,42 +1,40 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkIf mkMerge;
   sys = config.modules.system;
-in {
+in
+{
   config = mkMerge [
     (mkIf (builtins.elem "btrfs" sys.fs) {
       # clean btrfs devices
       services.btrfs.autoScrub = {
         enable = true;
-        fileSystems = ["/"];
+        fileSystems = [ "/" ];
       };
 
       # fix: initrd.systemd.enable
       boot = {
-        supportedFilesystems = ["btrfs"];
+        supportedFilesystems = [ "btrfs" ];
         initrd = {
-          supportedFilesystems = ["btrfs"];
+          supportedFilesystems = [ "btrfs" ];
         };
       };
     })
 
     (mkIf (builtins.elem "ext4" sys.fs) {
       boot = {
-        supportedFilesystems = ["ext4"];
+        supportedFilesystems = [ "ext4" ];
         initrd = {
-          supportedFilesystems = ["ext4"];
+          supportedFilesystems = [ "ext4" ];
         };
       };
     })
 
     (mkIf (builtins.elem "exfat" sys.fs) {
       boot = {
-        supportedFilesystems = ["exfat"];
+        supportedFilesystems = [ "exfat" ];
         initrd = {
-          supportedFilesystems = ["exfat"];
+          supportedFilesystems = [ "exfat" ];
         };
       };
     })
@@ -44,7 +42,7 @@ in {
     # accept both ntfs and ntfs3 as valid values
     (mkIf ((builtins.elem "ntfs" sys.fs) || (builtins.elem "ntfs3" sys.fs)) {
       boot = {
-        supportedFilesystems = ["ntfs"];
+        supportedFilesystems = [ "ntfs" ];
       };
     })
   ];

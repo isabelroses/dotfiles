@@ -3,21 +3,25 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
 
   sys = config.modules.system;
-in {
+in
+{
   config = mkIf sys.security.clamav.enable {
     services.clamav = {
-      daemon = {enable = true;} // sys.security.clamav.daemon;
-      updater = {enable = true;} // sys.security.clamav.updater;
+      daemon = {
+        enable = true;
+      } // sys.security.clamav.daemon;
+      updater = {
+        enable = true;
+      } // sys.security.clamav.updater;
     };
 
     systemd = {
-      tmpfiles.rules = [
-        "D /var/lib/clamav 755 clamav clamav"
-      ];
+      tmpfiles.rules = [ "D /var/lib/clamav 755 clamav clamav" ];
 
       services = {
         clamav-daemon = {
@@ -38,8 +42,8 @@ in {
         };
 
         clamav-init-database = {
-          wantedBy = ["clamav-daemon.service"];
-          before = ["clamav-daemon.service"];
+          wantedBy = [ "clamav-daemon.service" ];
+          before = [ "clamav-daemon.service" ];
           serviceConfig.ExecStart = "systemctl start clamav-freshclam";
           unitConfig = {
             # opposite condition of clamav-daemon: only run this service if
@@ -52,14 +56,32 @@ in {
         };
 
         clamav-freshclam = {
-          wants = ["clamav-daemon.service"];
+          wants = [ "clamav-daemon.service" ];
           serviceConfig = {
-            ExecStart = let
-              message = "Updating ClamAV database";
-            in ''
-              ${pkgs.coreutils}/bin/echo -en ${message}
-            '';
-            SuccessExitStatus = lib.mkForce [11 40 50 51 52 53 54 55 56 57 58 59 60 61 62];
+            ExecStart =
+              let
+                message = "Updating ClamAV database";
+              in
+              ''
+                ${pkgs.coreutils}/bin/echo -en ${message}
+              '';
+            SuccessExitStatus = lib.mkForce [
+              11
+              40
+              50
+              51
+              52
+              53
+              54
+              55
+              56
+              57
+              58
+              59
+              60
+              61
+              62
+            ];
           };
         };
       };

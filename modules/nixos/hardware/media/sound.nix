@@ -3,11 +3,13 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf mkDefault isx86Linux;
   inherit (config.modules) device;
   cfg = config.modules.system.sound;
-in {
+in
+{
   config = mkIf (cfg.enable && device.hasSound) {
     # enable sound support and media keys if device has sound
     sound = {
@@ -51,8 +53,8 @@ in {
     };
 
     systemd.user.services = {
-      pipewire.wantedBy = ["default.target"];
-      pipewire-pulse.wantedBy = ["default.target"];
+      pipewire.wantedBy = [ "default.target" ];
+      pipewire-pulse.wantedBy = [ "default.target" ];
     };
   };
 }

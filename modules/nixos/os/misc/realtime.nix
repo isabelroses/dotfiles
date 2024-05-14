@@ -1,11 +1,12 @@
-{config, ...}: {
+{ config, ... }:
+{
   # port of https://gitlab.archlinux.org/archlinux/packaging/packages/realtime-privileges
   # see https://wiki.archlinux.org/title/Realtime_process_management
   # tldr: realtime processes have higher priority than normal processes
 
   users = {
-    users."${config.modules.system.mainUser}".extraGroups = ["realtime"];
-    groups.realtime = {};
+    users."${config.modules.system.mainUser}".extraGroups = [ "realtime" ];
+    groups.realtime = { };
   };
 
   services.udev.extraRules = ''

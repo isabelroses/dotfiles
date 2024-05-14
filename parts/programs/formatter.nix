@@ -1,36 +1,37 @@
-{inputs, ...}: {
-  imports = [inputs.treefmt-nix.flakeModule];
+{ inputs, ... }:
+{
+  imports = [ inputs.treefmt-nix.flakeModule ];
 
-  perSystem = {
-    pkgs,
-    config,
-    ...
-  }: {
-    formatter = config.treefmt.build.wrapper;
+  perSystem =
+    { pkgs, config, ... }:
+    {
+      formatter = config.treefmt.build.wrapper;
 
-    treefmt = {
-      projectRootFile = "flake.nix";
+      treefmt = {
+        projectRootFile = "flake.nix";
 
-      programs = {
-        alejandra.enable = true;
-        deadnix.enable = false;
+        programs = {
+          shellcheck.enable = true;
 
-        shellcheck.enable = true;
-
-        prettier = {
-          enable = true;
-          package = pkgs.prettierd;
-          excludes = ["*.age"];
-          settings = {
-            editorconfig = true;
+          nixfmt = {
+            enable = true;
+            package = pkgs.nixfmt-rfc-style;
           };
-        };
 
-        shfmt = {
-          enable = true;
-          indent_size = 2;
+          prettier = {
+            enable = true;
+            package = pkgs.prettierd;
+            excludes = [ "*.age" ];
+            settings = {
+              editorconfig = true;
+            };
+          };
+
+          shfmt = {
+            enable = true;
+            indent_size = 2;
+          };
         };
       };
     };
-  };
 }

@@ -4,13 +4,15 @@
   pkgs,
   inputs,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf template;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.mailserver;
-in {
-  imports = [inputs.simple-nixos-mailserver.nixosModule];
+in
+{
+  imports = [ inputs.simple-nixos-mailserver.nixosModule ];
 
   config = mkIf cfg.enable {
     modules.services = {
@@ -22,7 +24,10 @@ in {
     };
 
     # required for roundcube
-    networking.firewall.allowedTCPPorts = [80 443];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
 
     mailserver = {
       enable = true;
@@ -61,12 +66,10 @@ in {
       localDnsResolver = false;
       fqdn = "${cfg.domain}";
       certificateScheme = "acme-nginx";
-      domains = ["${rdomain}"];
+      domains = [ "${rdomain}" ];
 
       # Set all no-reply addresses
-      rejectRecipients = [
-        "noreply@${rdomain}"
-      ];
+      rejectRecipients = [ "noreply@${rdomain}" ];
 
       loginAccounts = {
         "isabel@${rdomain}" = {
@@ -88,27 +91,44 @@ in {
         };
 
         "git@${rdomain}" = {
-          aliases = ["git" "git@${rdomain}"];
+          aliases = [
+            "git"
+            "git@${rdomain}"
+          ];
           hashedPasswordFile = config.age.secrets.mailserver-git.path;
         };
 
         "vaultwarden@${rdomain}" = {
-          aliases = ["vaultwarden" "bitwarden" "bitwarden@${rdomain}"];
+          aliases = [
+            "vaultwarden"
+            "bitwarden"
+            "bitwarden@${rdomain}"
+          ];
           hashedPasswordFile = config.age.secrets.mailserver-vaultwarden.path;
         };
 
         "grafana@${rdomain}" = {
-          aliases = ["grafana" "monitor" "monitor@${rdomain}"];
+          aliases = [
+            "grafana"
+            "monitor"
+            "monitor@${rdomain}"
+          ];
           hashedPasswordFile = config.age.secrets.mailserver-grafana.path;
         };
 
         "noreply@${rdomain}" = {
-          aliases = ["noreply"];
+          aliases = [ "noreply" ];
           hashedPasswordFile = config.age.secrets.mailserver-noreply.path;
         };
 
         "spam@${rdomain}" = {
-          aliases = ["spam" "shush" "shush@${rdomain}" "stfu" "stfu@${rdomain}"];
+          aliases = [
+            "spam"
+            "shush"
+            "shush@${rdomain}"
+            "stfu"
+            "stfu@${rdomain}"
+          ];
           hashedPasswordFile = config.age.secrets.mailserver-spam.path;
         };
       };
@@ -151,11 +171,10 @@ in {
         enable = true;
 
         package = pkgs.roundcube.withPlugins (
-          plugins:
-            with plugins; [
-              persistent_login
-              carddav
-            ]
+          plugins: with plugins; [
+            persistent_login
+            carddav
+          ]
         );
 
         # database = {
@@ -164,7 +183,7 @@ in {
         # };
         maxAttachmentSize = 50;
 
-        dicts = with pkgs.aspellDicts; [en];
+        dicts = with pkgs.aspellDicts; [ en ];
 
         plugins = [
           "carddav"
@@ -207,7 +226,7 @@ in {
         '';
 
         config = {
-          smtp_helo_name = config.mailserver.fqdn;
+          smtp_hello_name = config.mailserver.fqdn;
         };
       };
 
@@ -216,11 +235,9 @@ in {
         "listen.group" = config.services.nginx.group;
       };
 
-      nginx.virtualHosts."webmail.${rdomain}" =
-        {
-          locations."/".extraConfig = lib.mkForce "";
-        }
-        // template.ssl rdomain;
+      nginx.virtualHosts."webmail.${rdomain}" = {
+        locations."/".extraConfig = lib.mkForce "";
+      } // template.ssl rdomain;
     };
   };
 }

@@ -1,12 +1,10 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkIf template;
   rdomain = config.networking.domain;
   cfg = config.modules.services.media.photoprism;
-in {
+in
+{
   config = mkIf cfg.enable {
     modules.services = {
       networking.nginx.enable = true;

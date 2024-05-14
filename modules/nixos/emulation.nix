@@ -3,12 +3,17 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
   sys = config.modules.system;
-in {
+in
+{
   config = mkIf sys.emulation.enable {
-    nix.settings.extra-sandbox-paths = ["/run/binfmt" "${pkgs.qemu}"];
+    nix.settings.extra-sandbox-paths = [
+      "/run/binfmt"
+      "${pkgs.qemu}"
+    ];
 
     boot.binfmt = {
       emulatedSystems = sys.emulation.systems;

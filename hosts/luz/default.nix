@@ -25,7 +25,11 @@
         loadRecommendedModules = true;
       };
 
-      fs = ["vfat" "exfat" "ext4"];
+      fs = [
+        "vfat"
+        "exfat"
+        "ext4"
+      ];
       video.enable = false;
       sound.enable = false;
       bluetooth.enable = false;

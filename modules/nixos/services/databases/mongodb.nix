@@ -3,11 +3,13 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
 
   cfg = config.modules.services.database.mongodb;
-in {
+in
+{
   config = mkIf cfg.enable {
     services.mongodb = {
       enable = true;

@@ -4,10 +4,12 @@
   inputs,
   osConfig,
   ...
-}: let
+}:
+let
   cfg = osConfig.modules.style;
-in {
-  imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+in
+{
+  imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
 
   config = {
     catppuccin = {

@@ -3,10 +3,12 @@
   inputs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isModernShell;
-in {
-  imports = [inputs.izrss.homeManagerModules.default];
+in
+{
+  imports = [ inputs.izrss.homeManagerModules.default ];
 
   config = mkIf (isModernShell osConfig) {
     programs.izrss = {

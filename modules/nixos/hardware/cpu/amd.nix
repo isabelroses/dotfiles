@@ -1,11 +1,9 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (config.modules) device;
   inherit (lib) mkIf;
-in {
+in
+{
   config = mkIf (device.cpu == "amd" || device.cpu == "vm-amd") {
     hardware.cpu.amd.updateMicrocode = true;
 

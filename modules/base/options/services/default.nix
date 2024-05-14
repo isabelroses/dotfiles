@@ -1,14 +1,22 @@
-{lib, ...}: let
-  inherit (lib) mkEnableOption mkOption types mapAttrs;
+{ lib, ... }:
+let
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mapAttrs
+    ;
 
   rdomain = "isabelroses.com";
 
-  mkServiceOption = name: {
-    port ? 0,
-    host ? "127.0.0.1",
-    domain ? rdomain,
-    extraConfig ? {},
-  }:
+  mkServiceOption =
+    name:
+    {
+      port ? 0,
+      host ? "127.0.0.1",
+      domain ? rdomain,
+      extraConfig ? { },
+    }:
     {
       enable = mkEnableOption "Enable the ${name} service";
 
@@ -31,7 +39,8 @@
       };
     }
     // extraConfig;
-in {
+in
+{
   options.modules.services =
     mapAttrs mkServiceOption {
       vaultwarden = {
@@ -43,7 +52,7 @@ in {
         port = 3000;
       };
 
-      blahaj = {};
+      blahaj = { };
 
       vikunja = {
         domain = "todo.${rdomain}";
@@ -59,8 +68,8 @@ in {
     }
     // {
       dev = mapAttrs mkServiceOption {
-        vscode-server = {};
-        cyberchef = {};
+        vscode-server = { };
+        cyberchef = { };
 
         forgejo = {
           port = 7000;
@@ -139,10 +148,10 @@ in {
 
       # databases
       database = mapAttrs mkServiceOption {
-        influxdb = {};
-        mysql = {};
-        postgresql = {};
-        redis = {};
+        influxdb = { };
+        mysql = { };
+        postgresql = { };
+        redis = { };
 
         mongodb = {
           host = "0.0.0.0";
@@ -151,8 +160,8 @@ in {
 
       # networking services
       networking = mapAttrs mkServiceOption {
-        nginx = {};
-        cloudflared = {};
+        nginx = { };
+        cloudflared = { };
 
         headscale = {
           port = 8085;

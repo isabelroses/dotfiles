@@ -1,4 +1,5 @@
-system: let
+system:
+let
   # copy paste done right
   XDG_CONFIG_HOME = "$HOME/.config";
   XDG_CACHE_HOME = "$HOME/.cache";
@@ -6,11 +7,19 @@ system: let
   XDG_STATE_HOME = "$HOME/.local/state";
   XDG_BIN_HOME = "$HOME/.local/bin";
   XDG_RUNTIME_DIR = "/run/user/$UID";
-in {
+in
+{
   # global env
   glEnv = {
-    inherit XDG_CONFIG_HOME XDG_CACHE_HOME XDG_DATA_HOME XDG_STATE_HOME XDG_BIN_HOME XDG_RUNTIME_DIR;
-    PATH = ["$XDG_BIN_HOME"];
+    inherit
+      XDG_CONFIG_HOME
+      XDG_CACHE_HOME
+      XDG_DATA_HOME
+      XDG_STATE_HOME
+      XDG_BIN_HOME
+      XDG_RUNTIME_DIR
+      ;
+    PATH = [ "$XDG_BIN_HOME" ];
   };
 
   sysEnv = {
@@ -41,13 +50,10 @@ in {
     M2_HOME = "${XDG_DATA_HOME}/m2";
     CARGO_HOME = "${XDG_DATA_HOME}/cargo";
     NODE_REPL_HISTORY = "${XDG_DATA_HOME}/node_repl_history";
-    NPM_CONFIG_CACE = "${XDG_CACHE_HOME}/npm";
+    NPM_CONFIG_CACHE = "${XDG_CACHE_HOME}/npm";
     NPM_CONFIG_TMP = "${XDG_RUNTIME_DIR}/npm";
     NPM_CONFIG_USERCONFIG = "${XDG_CONFIG_HOME}/npm/config";
-    PYTHONSTARTUP =
-      if system == "nixos"
-      then "/etc/pythonrc"
-      else "${XDG_CONFIG_HOME}/python/pythonrc";
+    PYTHONSTARTUP = if system == "nixos" then "/etc/pythonrc" else "${XDG_CONFIG_HOME}/python/pythonrc";
   };
 
   npmrc.text = ''

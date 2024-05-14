@@ -3,14 +3,25 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   # modified from https://git.winston.sh/winston/deployment-flake/src/branch/main/modules/wakapi.nix
   cfg = config.services.wakapi;
   user = config.users.users.wakapi.name;
   group = config.users.groups.wakapi.name;
 
-  settingsFormat = pkgs.formats.yaml {};
-  inherit (lib) mkOption mkEnableOption mkPackageOption types mkIf optional mkMerge mkDefault singleton;
+  settingsFormat = pkgs.formats.yaml { };
+  inherit (lib)
+    mkOption
+    mkEnableOption
+    mkPackageOption
+    types
+    mkIf
+    optional
+    mkMerge
+    mkDefault
+    singleton
+    ;
 
   settingsFile = settingsFormat.generate "wakapi-settings" cfg.settings;
 
@@ -20,15 +31,15 @@
       createHome = false;
       isSystemUser = true;
     };
-    users.groups.wakapi = {};
+    users.groups.wakapi = { };
   };
 
   serviceConfig = {
     systemd.services.wakapi = {
       description = "Wakapi (self-hosted WakaTime-compatible backend)";
-      wants = ["network-online.target"];
-      after = ["network-online.target"];
-      wantedBy = ["multi-user.target"];
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
+      wantedBy = [ "multi-user.target" ];
 
       script = ''
         exec ${pkgs.wakapi}/bin/wakapi -config ${settingsFile}
@@ -55,7 +66,11 @@
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "strict";
-        RestrictAddressFamilies = ["AF_INET" "AF_INET6" "AF_UNIX"];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -102,8 +117,8 @@
     };
 
     systemd.services.wakapi = {
-      requires = ["postgresql.service"];
-      after = ["postgresql.service"];
+      requires = [ "postgresql.service" ];
+      after = [ "postgresql.service" ];
     };
   };
 
@@ -122,10 +137,11 @@
       public_url = mkDefault cfg.domain;
     };
   };
-in {
+in
+{
   options.services.wakapi = {
     enable = mkEnableOption "Wakapi";
-    package = mkPackageOption pkgs "wakapi" {};
+    package = mkPackageOption pkgs "wakapi" { };
 
     port = mkOption {
       type = types.int;
@@ -216,7 +232,7 @@ in {
 
     settings = mkOption {
       inherit (settingsFormat) type;
-      default = {};
+      default = { };
       description = ''
         Settings for Wakapi.
 

@@ -1,8 +1,5 @@
+{ self, inputs, ... }:
 {
-  self,
-  inputs,
-  ...
-}: {
   nixpkgs = {
     # pkgs = self.legacyPackages.${config.nixpkgs.system};
 
@@ -10,7 +7,7 @@
       allowUnfree = true;
       allowBroken = false;
       allowUnsupportedSystem = true;
-      permittedInsecurePackages = ["electron-25.9.0"];
+      permittedInsecurePackages = [ "electron-25.9.0" ];
     };
 
     overlays = [

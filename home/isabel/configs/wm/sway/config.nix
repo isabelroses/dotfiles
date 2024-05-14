@@ -1,8 +1,5 @@
+{ config, defaults, ... }:
 {
-  config,
-  defaults,
-  ...
-}: {
   wayland.windowManager.sway = {
     config = {
       modifier = "Mod4";
@@ -11,21 +8,23 @@
       menu = defaults.launcher;
       defaultWorkspace = "workspace number 1";
 
-      keybindings = let
-        mod = config.wayland.windowManager.sway.config.modifier;
-      in {
-        # launchers
-        "${mod}+Return" = "exec ${defaults.terminal}";
-        "${mod}+d" = "exec ${defaults.launcher}";
-        "${mod}+b" = "exec ${defaults.browser}";
-        "${mod}+e" = "exec ${defaults.fileManager}";
-        "${mod}+o" = "exec obsidian";
+      keybindings =
+        let
+          mod = config.wayland.windowManager.sway.config.modifier;
+        in
+        {
+          # launchers
+          "${mod}+Return" = "exec ${defaults.terminal}";
+          "${mod}+d" = "exec ${defaults.launcher}";
+          "${mod}+b" = "exec ${defaults.browser}";
+          "${mod}+e" = "exec ${defaults.fileManager}";
+          "${mod}+o" = "exec obsidian";
 
-        "${mod}+l" = "exec swaylock";
-        "${mod}+t" = "floating toggle";
-        "Print" = "grim -g \"$(slurp)\"";
-        "${mod}+q" = "kill";
-      };
+          "${mod}+l" = "exec swaylock";
+          "${mod}+t" = "floating toggle";
+          "Print" = "grim -g \"$(slurp)\"";
+          "${mod}+q" = "kill";
+        };
 
       window = {
         titlebar = false;
@@ -39,7 +38,7 @@
         inner = 5;
       };
 
-      startup = [{command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY";}];
+      startup = [ { command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY"; } ];
 
       input = {
         "type:pointer" = {

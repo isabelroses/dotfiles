@@ -1,8 +1,5 @@
+{ lib, osConfig, ... }:
 {
-  lib,
-  osConfig,
-  ...
-}: {
   xfconf.settings = lib.mkIf osConfig.modules.programs.gui.fileManagers.thunar.enable {
     thunar = {
       "default-view" = "ThunarDetailsView";

@@ -1,13 +1,11 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{ lib, pkgs, ... }:
+let
   inherit (lib) getExe;
-in {
+in
+{
   programs.fish = {
     enable = true;
-    plugins = [];
+    plugins = [ ];
 
     functions = {
       bj = "nohup $argv </dev/null &>/dev/null &";
@@ -23,7 +21,7 @@ in {
         end
       '';
     };
-    shellAbbrs = {};
+    shellAbbrs = { };
 
     shellInit = ''
       ${getExe pkgs.nix-your-shell} fish | source

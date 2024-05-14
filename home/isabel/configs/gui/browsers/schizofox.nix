@@ -4,10 +4,12 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   cfg = osConfig.modules.programs.gui.browsers.firefox;
-in {
-  imports = [inputs.schizofox.homeManagerModule];
+in
+{
+  imports = [ inputs.schizofox.homeManagerModule ];
   config = lib.mkIf (cfg.enable && cfg.schizofox) {
     programs.schizofox = {
       enable = true;
@@ -26,10 +28,17 @@ in {
 
       search = {
         defaultSearchEngine = "Searx";
-        removeEngines = ["Google" "Bing" "Amazon.com" "eBay" "Twitter" "Wikipedia"];
+        removeEngines = [
+          "Google"
+          "Bing"
+          "Amazon.com"
+          "eBay"
+          "Twitter"
+          "Wikipedia"
+        ];
         searxUrl = "https://search.isabelroses.com";
         searxQuery = "https://search.isabelroses.com/search?q={searchTerms}&categories=general";
-        addEngines = [];
+        addEngines = [ ];
       };
 
       security = {

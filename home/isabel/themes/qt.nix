@@ -3,18 +3,25 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf optionals;
   inherit (osConfig.modules) device;
   cfg = osConfig.modules.style;
 
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
-in {
+  acceptedTypes = [
+    "laptop"
+    "desktop"
+    "hybrid"
+    "lite"
+  ];
+in
+{
   config = mkIf (builtins.elem device.type acceptedTypes && pkgs.stdenv.isLinux) {
     xdg.configFile = {
       "kdeglobals".source = cfg.qt.kdeglobals.source;
 
-      "Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini {}).generate "kvantum.kvconfig" {
+      "Kvantum/kvantum.kvconfig".source = (pkgs.formats.ini { }).generate "kvantum.kvconfig" {
         General.theme = "catppuccin";
         Applications.catppuccin = ''
           qt5ct, org.kde.dolphin, org.kde.kalendar, org.qbittorrent.qBittorrent, hyprland-share-picker, dolphin-emu, Nextcloud, nextcloud, cantata, org.kde.kid3-qt
@@ -41,7 +48,8 @@ in {
       };
     };
 
-    home.packages = with pkgs;
+    home.packages =
+      with pkgs;
       [
         libsForQt5.qt5ct
         breeze-icons

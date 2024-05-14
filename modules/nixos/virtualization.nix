@@ -3,13 +3,16 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) optionals mkIf concatLists;
   sys = config.modules.system;
   cfg = sys.virtualization;
-in {
+in
+{
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       concatLists [
         (optionals cfg.qemu.enable [
           virt-manager
@@ -19,15 +22,9 @@ in {
           podman
           podman-compose
         ])
-        (optionals (cfg.docker.enable && sys.video.enable) [
-          lxd
-        ])
-        (optionals cfg.distrobox.enable [
-          distrobox
-        ])
-        (optionals cfg.waydroid.enable [
-          waydroid
-        ])
+        (optionals (cfg.docker.enable && sys.video.enable) [ lxd ])
+        (optionals cfg.distrobox.enable [ distrobox ])
+        (optionals cfg.waydroid.enable [ waydroid ])
       ];
 
     virtualisation = {
@@ -41,7 +38,7 @@ in {
           package = pkgs.qemu_kvm;
           ovmf = {
             enable = true;
-            packages = [pkgs.OVMFFull.fd];
+            packages = [ pkgs.OVMFFull.fd ];
           };
           swtpm.enable = true;
         };
@@ -58,7 +55,7 @@ in {
         enableNvidia = builtins.any (driver: driver == "nvidia") config.services.xserver.videoDrivers;
         autoPrune = {
           enable = true;
-          flags = ["--all"];
+          flags = [ "--all" ];
           dates = "weekly";
         };
       };
@@ -69,7 +66,7 @@ in {
     systemd.user = mkIf cfg.distrobox.enable {
       timers."distrobox-update" = {
         enable = true;
-        wantedBy = ["timers.target"];
+        wantedBy = [ "timers.target" ];
         timerConfig = {
           OnBootSec = "1h";
           OnUnitActiveSec = "1d";

@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   time = {
     timeZone = "Europe/London";
     hardwareClockInLocalTime = true;

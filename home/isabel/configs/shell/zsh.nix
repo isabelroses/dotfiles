@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.zsh = {
     enable = pkgs.stdenv.isDarwin;
 

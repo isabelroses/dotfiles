@@ -3,9 +3,11 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
-in {
+in
+{
   services.swaync = mkIf osConfig.modules.programs.gui.bars.waybar.enable {
     enable = true;
 

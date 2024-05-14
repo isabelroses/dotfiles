@@ -1,11 +1,9 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf;
   MHz = x: x * 1000;
-in {
+in
+{
   config = {
     services = {
       # Enable the TLP daemon for laptop power management.
@@ -16,7 +14,7 @@ in {
         TLP_ENABLE = 1;
         TLP_DEFAULT_MODE = "BAT";
 
-        # Timeout (in seconds) for the audio power saving mode (supports Intel HDA, AC97).
+        # Timeout (in seconds) for the audio power saving mode (supports Intel HAD, AC97).
         # A value of 1 is recommended for Linux desktop environments with PulseAudio,
         # systems without PulseAudio may require 10. The value 0 disables power save.
         SOUND_POWER_SAVE_ON_AC = 10;

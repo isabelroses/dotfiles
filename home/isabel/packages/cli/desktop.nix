@@ -4,14 +4,23 @@
   self',
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isAcceptedDevice optionals;
-  acceptedTypes = ["desktop" "laptop" "wsl" "lite" "hybrid"];
+  acceptedTypes = [
+    "desktop"
+    "laptop"
+    "wsl"
+    "lite"
+    "hybrid"
+  ];
 
   cfg = osConfig.modules.programs;
-in {
+in
+{
   config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && cfg.cli.enable && cfg.gui.enable) {
-    home.packages = with pkgs;
+    home.packages =
+      with pkgs;
       [
         libnotify # needed for some notifications
         bitwarden-cli # bitwarden, my chosen password manager
@@ -19,8 +28,6 @@ in {
         brightnessctl # brightness managed via cli
         dconf # interface with dconf settings
       ]
-      ++ optionals cfg.cli.modernShell.enable [
-        self'.packages.catppuccinifier-cli
-      ];
+      ++ optionals cfg.cli.modernShell.enable [ self'.packages.catppuccinifier-cli ];
   };
 }

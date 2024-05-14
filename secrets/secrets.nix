@@ -9,13 +9,17 @@ let
   };
 
   types = with hosts; {
-    servers = [luz];
-    workstations = [tatsumaki valkyrie];
-    hybrid = [hydra];
+    servers = [ luz ];
+    workstations = [
+      tatsumaki
+      valkyrie
+    ];
+    hybrid = [ hydra ];
   };
 
-  defAccess = list: list ++ [users.isabel] ++ types.hybrid;
-in {
+  defAccess = list: list ++ [ users.isabel ] ++ types.hybrid;
+in
+{
   "wakatime.age".publicKeys = defAccess (types.workstations ++ types.servers);
 
   # git ssh keys

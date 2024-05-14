@@ -1,8 +1,5 @@
+{ lib, pkgs, ... }:
 {
-  lib,
-  pkgs,
-  ...
-}: {
   services = {
     # enable GVfs, a userspace virtual filesystem.
     gvfs.enable = true;
@@ -14,7 +11,11 @@
     udisks2.enable = true;
 
     dbus = {
-      packages = with pkgs; [dconf gcr udisks2];
+      packages = with pkgs; [
+        dconf
+        gcr
+        udisks2
+      ];
       enable = true;
       # Use the faster dbus-broker instead of the classic dbus-daemon
       implementation = "broker";

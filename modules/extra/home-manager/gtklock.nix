@@ -5,10 +5,20 @@
   pkgs,
   ...
 }:
-with builtins; let
+with builtins;
+let
   cfg = config.programs.gtklock;
 
-  inherit (lib) types mkIf mkOption mkEnableOption mkPackageOptionMD literalExpression optionals optionalString;
+  inherit (lib)
+    types
+    mkIf
+    mkOption
+    mkEnableOption
+    mkPackageOptionMD
+    literalExpression
+    optionals
+    optionalString
+    ;
   inherit (lib.generators) toINI;
 
   # the main config includes two very niche options: style (which takes a path) and modules, which takes a list of module paths
@@ -19,15 +29,16 @@ with builtins; let
     [main]
     ${optionalString (cfg.config.gtk-theme != "") "gtk-theme=${cfg.config.gtk-theme}"}
     ${optionalString (cfg.config.style != "") "style=${cfg.config.style}"}
-    ${optionalString (cfg.config.modules != []) "modules=${concatStringsSep ";" cfg.config.modules}"}
+    ${optionalString (cfg.config.modules != [ ]) "modules=${concatStringsSep ";" cfg.config.modules}"}
   '';
 
-  finalConfig = baseConfig + optionals (cfg.extraConfig != null) (toINI {} cfg.extraConfig);
-in {
-  meta.maintainers = [maintainers.NotAShelf];
+  finalConfig = baseConfig + optionals (cfg.extraConfig != null) (toINI { } cfg.extraConfig);
+in
+{
+  meta.maintainers = [ maintainers.NotAShelf ];
   options.programs.gtklock = {
     enable = mkEnableOption "GTK-based lockscreen for Wayland";
-    package = mkPackageOptionMD pkgs "gtklock" {};
+    package = mkPackageOptionMD pkgs "gtklock" { };
 
     config = {
       gtk-theme = mkOption {
@@ -40,7 +51,12 @@ in {
       };
 
       style = mkOption {
-        type = with types; oneOf [str path];
+        type =
+          with types;
+          oneOf [
+            str
+            path
+          ];
         default = "";
         description = ''
           The css file to be used for gtklock.
@@ -58,7 +74,7 @@ in {
 
       modules = mkOption {
         type = with types; listOf (either package str);
-        default = [];
+        default = [ ];
         description = ''
           A list of gtklock modulesto use. Can either be packages, absolute paths, or strings.
         '';
@@ -95,7 +111,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [cfg.package];
+    home.packages = [ cfg.package ];
 
     xdg.configFile."gtklock/config.ini".source = pkgs.writeText "gtklock-config.ini" finalConfig;
   };

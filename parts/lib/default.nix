@@ -1,3 +1,4 @@
-{inputs, ...}: {
-  flake.lib = import ./import.nix {inherit inputs;};
+{ inputs, ... }:
+{
+  flake.lib = import ./import.nix { inherit inputs; };
 }

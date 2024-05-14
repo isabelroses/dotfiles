@@ -3,13 +3,15 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   rdomain = config.networking.domain;
 
   inherit (lib) mkIf template;
 
   cfg = config.modules.services.media.nextcloud;
-in {
+in
+{
   config = mkIf cfg.enable {
     modules.services = {
       networking.nginx.enable = true;
@@ -62,8 +64,8 @@ in {
           defaultPhoneRegion = "UK";
 
           overwriteProtocol = "https";
-          extraTrustedDomains = ["https://${toString cfg.domain}"];
-          trustedProxies = ["https://${toString cfg.domain}"];
+          extraTrustedDomains = [ "https://${toString cfg.domain}" ];
+          trustedProxies = [ "https://${toString cfg.domain}" ];
 
           redis = {
             host = "/run/redis-nextcloud/redis.sock";
@@ -82,11 +84,11 @@ in {
     };
 
     systemd.services = {
-      phpfpm-nextcloud.aliases = ["nextcloud.service"];
+      phpfpm-nextcloud.aliases = [ "nextcloud.service" ];
 
       "nextcloud-setup" = {
-        requires = ["postgresql.service"];
-        after = ["postgresql.service"];
+        requires = [ "postgresql.service" ];
+        after = [ "postgresql.service" ];
         serviceConfig = {
           Restart = "on-failure";
           RestartSec = "10s";

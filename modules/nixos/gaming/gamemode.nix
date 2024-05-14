@@ -3,17 +3,21 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) makeBinPath mkIf optionalString;
 
   env = config.modules.environment;
 
-  programs = makeBinPath (with pkgs; [
-    hyprland
-    coreutils
-    power-profiles-daemon
-    systemd
-  ]);
+  programs = makeBinPath (
+    with pkgs;
+    [
+      hyprland
+      coreutils
+      power-profiles-daemon
+      systemd
+    ]
+  );
 
   startscript = pkgs.writeShellScript "gamemode-start" ''
     ${optionalString (env.desktop == "Hyprland") ''
@@ -38,8 +42,9 @@
   '';
 
   cfg = config.modules.programs.gaming;
-in {
-  imports = [./steam.nix];
+in
+{
+  imports = [ ./steam.nix ];
   config = mkIf cfg.enable {
     programs = {
       gamemode = {

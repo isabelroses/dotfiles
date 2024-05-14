@@ -4,11 +4,13 @@
   osConfig,
   defaults,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isWayland;
-in {
+in
+{
   config = mkIf (isWayland osConfig && defaults.screenLocker == "swaylock") {
-    home.packages = with pkgs; [swaylock-effects];
+    home.packages = with pkgs; [ swaylock-effects ];
 
     programs.swaylock = {
       enable = true;

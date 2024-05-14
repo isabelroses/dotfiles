@@ -1,8 +1,5 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf;
 
   rdomain = config.networking.domain;
@@ -10,7 +7,8 @@
   certDir = certs.directory;
 
   cfg = config.modules.services.kanidm;
-in {
+in
+{
   # might need this later
   # https://discourse.nixos.org/t/reuse-lets-encrypt-acme-certificate-for-multiple-services-with-lego/6720
   # https://ashhhleyyy.dev/blog/2023-02-05-from-keycloak-to-kanidm
@@ -38,18 +36,16 @@ in {
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} =
-        {
-          locations."/".proxyPass = "https://${config.services.kanidm.serverSettings.bindaddress}";
-        }
-        // lib.template.ssl rdomain;
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/".proxyPass = "https://${config.services.kanidm.serverSettings.bindaddress}";
+      } // lib.template.ssl rdomain;
     };
 
     systemd.services.kanidm = {
-      after = ["acme-selfsigned-internal.${rdomain}.target"];
+      after = [ "acme-selfsigned-internal.${rdomain}.target" ];
       serviceConfig = {
-        SupplementaryGroups = [certs.group];
-        BindReadOnlyPaths = [certDir];
+        SupplementaryGroups = [ certs.group ];
+        BindReadOnlyPaths = [ certDir ];
       };
     };
   };

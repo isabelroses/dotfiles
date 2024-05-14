@@ -9,7 +9,7 @@ stdenvNoCC.mkDerivation {
 
   src = ./emojis;
 
-  nativeBuildInputs = [unzip];
+  nativeBuildInputs = [ unzip ];
 
   installPhase = ''
     runHook preInstall
@@ -22,6 +22,6 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     description = "emojis repacked as APNG";
     license = licenses.unfree;
-    maintainers = with maintainers; [isabelroses];
+    maintainers = with maintainers; [ isabelroses ];
   };
 }

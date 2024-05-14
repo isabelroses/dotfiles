@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   template = import lib.template.xdg "nixos";
-in {
+in
+{
   environment = {
     variables = template.glEnv;
     sessionVariables = template.sysEnv;

@@ -1,9 +1,9 @@
-{self, ...}: let
-  mkModule = path:
-    if builtins.isPath path
-    then self + path
-    else builtins.throw "${path} does not exist";
-in {
+{ self, ... }:
+let
+  mkModule =
+    path: if builtins.isPath path then self + path else builtins.throw "${path} does not exist";
+in
+{
   flake = {
     nixosModules = {
       wakapi = mkModule /modules/extra/nixos/wakapi.nix;

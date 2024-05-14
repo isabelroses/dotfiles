@@ -1,11 +1,9 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkIf mkDefault;
   inherit (config.modules) device;
-in {
+in
+{
   imports = [
     ./systemd.nix
     ./zram.nix

@@ -1,4 +1,5 @@
-_: let
+_:
+let
   template = {
     # this is a forced SSL template for Nginx
     # returns the attribute set with our desired settings
@@ -11,6 +12,7 @@ _: let
 
     xdg = ./. + /xdg.nix;
   };
-in {
+in
+{
   inherit template;
 }

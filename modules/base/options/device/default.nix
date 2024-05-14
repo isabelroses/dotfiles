@@ -1,9 +1,19 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkOption types;
-in {
+in
+{
   options.modules.device = {
     type = mkOption {
-      type = types.enum ["laptop" "desktop" "server" "hybrid" "wsl" "lite" "vm"];
+      type = types.enum [
+        "laptop"
+        "desktop"
+        "server"
+        "hybrid"
+        "wsl"
+        "lite"
+        "vm"
+      ];
       default = "";
     };
   };

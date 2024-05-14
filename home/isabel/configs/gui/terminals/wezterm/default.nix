@@ -4,26 +4,33 @@
   inputs',
   osConfig,
   ...
-}: let
+}:
+let
   inherit (osConfig.modules) environment system;
-in {
+in
+{
   config = lib.mkIf osConfig.modules.programs.gui.terminals.wezterm.enable {
     programs.wezterm = {
       enable = true;
       package = inputs'.nekowinston-nur.packages.wezterm-nightly;
     };
 
-    xdg.configFile = let
-      symlink = fileName: {recursive ? false}: {
-        source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/${fileName}";
-        inherit recursive;
+    xdg.configFile =
+      let
+        symlink =
+          fileName:
+          {
+            recursive ? false,
+          }:
+          {
+            source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/${fileName}";
+            inherit recursive;
+          };
+      in
+      {
+        # https://github.com/nix-community/home-manager/issues/1807#issuecomment-1740960646
+        "wezterm/wezterm.lua".enable = false;
+        "wezterm" = symlink "home/${system.mainUser}/configs/gui/terminals/wezterm" { recursive = true; };
       };
-    in {
-      # https://github.com/nix-community/home-manager/issues/1807#issuecomment-1740960646
-      "wezterm/wezterm.lua".enable = false;
-      "wezterm" = symlink "home/${system.mainUser}/configs/gui/terminals/wezterm" {
-        recursive = true;
-      };
-    };
   };
 }

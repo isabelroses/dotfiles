@@ -3,7 +3,8 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) isWayland mkIf;
 
   catppuccin-mocha = pkgs.fetchzip {
@@ -24,7 +25,8 @@
     zulu
     graalvm-ce
   ];
-in {
+in
+{
   config = mkIf osConfig.modules.programs.gaming.minecraft.enable {
     home = {
       # PrismLauncher now with a cool theme
@@ -33,22 +35,25 @@ in {
         recursive = true;
       };
 
-      packages = let
-        glfw =
-          if (isWayland osConfig)
-          then pkgs.glfw-wayland-minecraft
-          else pkgs.glfw;
-      in [
-        (pkgs.prismlauncher.override {
-          # get java versions required by various minecraft versions
-          # "write once run everywhere" my ass
-          jdks = javaPackages;
-          additionalPrograms = with pkgs; [gamemode mangohud jprofiler];
+      packages =
+        let
+          glfw = if (isWayland osConfig) then pkgs.glfw-wayland-minecraft else pkgs.glfw;
+        in
+        [
+          (pkgs.prismlauncher.override {
+            # get java versions required by various minecraft versions
+            # "write once run everywhere" my ass
+            jdks = javaPackages;
+            additionalPrograms = with pkgs; [
+              gamemode
+              mangohud
+              jprofiler
+            ];
 
-          # prismlauncher's glfw version to properly support wayland
-          inherit glfw;
-        })
-      ];
+            # prismlauncher's glfw version to properly support wayland
+            inherit glfw;
+          })
+        ];
     };
   };
 }

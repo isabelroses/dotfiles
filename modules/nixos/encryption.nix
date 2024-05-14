@@ -1,12 +1,10 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf;
 
   cfg = config.modules.system.encryption;
-in {
+in
+{
   config = mkIf cfg.enable {
     # mildly improves performance for the disk encryption
     boot = {
@@ -33,7 +31,7 @@ in {
       bypassWorkqueues = true;
       preLVM = true;
 
-      # the device with the maching id will be searched for the key file
+      # the device with the matching id will be searched for the key file
       keyFile = mkIf (cfg.keyFile != null) "${cfg.keyFile}";
       keyFileSize = cfg.keySize;
 

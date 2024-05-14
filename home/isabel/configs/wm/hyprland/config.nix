@@ -4,7 +4,8 @@
   osConfig,
   defaults,
   ...
-}: let
+}:
+let
   inherit (lib) imap0 optionalString optionals;
 
   pointer = config.home.pointerCursor;
@@ -15,27 +16,22 @@
   eags = "exec, ${ags}";
   eww = "~/.config/eww/scripts";
   eeww = "exec, ${eww}";
-in {
+in
+{
   wayland.windowManager.hyprland = {
     settings = {
       "$mod" = "SUPER";
 
       exec-once =
         [
-          "wl-paste --type text --watch cliphist store" #Stores only text data
-          "wl-paste --type image --watch cliphist store" #Stores only image data
+          "wl-paste --type text --watch cliphist store" # Stores only text data
+          "wl-paste --type image --watch cliphist store" # Stores only image data
           "wlsunset -S 8:00 -s 20:00"
           "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
         ]
-        ++ optionals (defaults.bar == "eww") [
-          "${eww}/init"
-        ]
-        ++ optionals (defaults.bar == "waybar") [
-          "waybar"
-        ]
-        ++ optionals (defaults.bar == "ags") [
-          ags
-        ];
+        ++ optionals (defaults.bar == "eww") [ "${eww}/init" ]
+        ++ optionals (defaults.bar == "waybar") [ "waybar" ]
+        ++ optionals (defaults.bar == "ags") [ ags ];
 
       input = {
         kb_layout = "${dev.keyboard}";
@@ -43,7 +39,7 @@ in {
         sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
         touchpad = {
           tap-to-click = true;
-          natural_scroll = false; # this is not natrual
+          natural_scroll = false; # this is not natural
           disable_while_typing = false; # this is annoying
         };
         numlock_by_default = true; # numlock enable
@@ -124,9 +120,7 @@ in {
         enabled = dev.type != "laptop";
         first_launch_animation = false;
 
-        bezier = [
-          "overshot,0.13,0.99,0.29,1.1"
-        ];
+        bezier = [ "overshot,0.13,0.99,0.29,1.1" ];
 
         animation = [
           "windows,1,4,overshot,slide"
@@ -185,7 +179,7 @@ in {
           "$mod, L, exec, ${defaults.screenLocker}"
           "$mod, O, exec, obsidian"
 
-          # window managment
+          # window management
           "$mod, Q, killactive,"
           # "$mod SHIFT, Q, exit,"
           "$mod SHIFT, c, exec, hyprctl reload"
@@ -279,81 +273,82 @@ in {
         ];
     };
 
-    extraConfig = let
-      mapMonitors = builtins.concatStringsSep "\n" (imap0 (i: monitor: ''monitor=${monitor},${
-          if monitor == "eDP-1"
-          then "1920x1080@60"
-          else "preferred"
-        },${toString (i * 1920)}x0,1'') monitors);
+    extraConfig =
+      let
+        mapMonitors = builtins.concatStringsSep "\n" (
+          imap0 (
+            i: monitor:
+            ''monitor=${monitor},${
+              if monitor == "eDP-1" then "1920x1080@60" else "preferred"
+            },${toString (i * 1920)}x0,1''
+          ) monitors
+        );
 
-      mapMonitorsToWs = builtins.concatStringsSep "\n" (
-        builtins.genList (
-          x: ''
+        mapMonitorsToWs = builtins.concatStringsSep "\n" (
+          builtins.genList (x: ''
             workspace = ${toString (x + 1)}, monitor:${
-              if (x + 1) <= 5
-              then "${builtins.elemAt monitors 0} ${
-                if (x + 1) == 1
-                then ", default:true"
-                else ""
-              }"
-              else "${builtins.elemAt monitors 1}"
+              if (x + 1) <= 5 then
+                "${builtins.elemAt monitors 0} ${if (x + 1) == 1 then ", default:true" else ""}"
+              else
+                "${builtins.elemAt monitors 1}"
             }
-          ''
-        )
-        10
-      );
-    in ''
-      ${mapMonitors}
-      ${optionalString (builtins.length monitors != 1) "${mapMonitorsToWs}"}
+          '') 10
+        );
+      in
+      ''
+        ${mapMonitors}
+        ${optionalString (builtins.length monitors != 1) "${mapMonitorsToWs}"}
 
-      # █▀▄▀█ █▀█ █░█ █▀▀
-      # █░▀░█ █▄█ ▀▄▀ ██▄
-      bind=$mod, M, submap, move
-      submap=move
+        # █▀▄▀█ █▀█ █░█ █▀▀
+        # █░▀░█ █▄█ ▀▄▀ ██▄
+        bind=$mod, M, submap, move
+        submap=move
 
-        binde = , left, movewindow, l
-        binde = , right, movewindow, r
-        binde = , up, movewindow, u
-        binde = , down, movewindow, d
-        binde = , j, movewindow, l
-        binde = , l, movewindow, r
-        binde = , i, movewindow, u
-        binde = , k, movewindow, d
+          binde = , left, movewindow, l
+          binde = , right, movewindow, r
+          binde = , up, movewindow, u
+          binde = , down, movewindow, d
+          binde = , j, movewindow, l
+          binde = , l, movewindow, r
+          binde = , i, movewindow, u
+          binde = , k, movewindow, d
 
-        bind=,escape,submap,reset
-      submap=reset
+          bind=,escape,submap,reset
+        submap=reset
 
-      # █▀█ █▀▀ █▀ █ ▀█ █▀▀
-      # █▀▄ ██▄ ▄█ █ █▄ ██▄
-      bind=SUPER, R, submap, resize
-      submap=resize
+        # █▀█ █▀▀ █▀ █ ▀█ █▀▀
+        # █▀▄ ██▄ ▄█ █ █▄ ██▄
+        bind=SUPER, R, submap, resize
+        submap=resize
 
-        binde = , left, resizeactive, -20 0
-        binde = , right, resizeactive, 20 0
-        binde = , up, resizeactive, 0 -20
-        binde = , down, resizeactive, 0 20
-        binde = , h, resizeactive, -20 0
-        binde = , j, resizeactive, 20 0
-        binde = , i, resizeactive, 0 -20
-        binde = , k, resizeactive, 0 20
+          binde = , left, resizeactive, -20 0
+          binde = , right, resizeactive, 20 0
+          binde = , up, resizeactive, 0 -20
+          binde = , down, resizeactive, 0 20
+          binde = , h, resizeactive, -20 0
+          binde = , j, resizeactive, 20 0
+          binde = , i, resizeactive, 0 -20
+          binde = , k, resizeactive, 0 20
 
-        bind=,escape,submap,reset
-      submap=reset
+          bind=,escape,submap,reset
+        submap=reset
 
-      ${
-        builtins.concatStringsSep "\n" (builtins.genList (
-            x: let
-              ws = let
-                c = (x + 1) / 10;
-              in
+        ${builtins.concatStringsSep "\n" (
+          builtins.genList (
+            x:
+            let
+              ws =
+                let
+                  c = (x + 1) / 10;
+                in
                 builtins.toString (x + 1 - (c * 10));
-            in ''
+            in
+            ''
               bind = $mod, ${ws}, workspace, ${toString (x + 1)}
               bind = $mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
             ''
-          )
-          10)
-      }
-    '';
+          ) 10
+        )}
+      '';
   };
 }

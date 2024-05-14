@@ -3,20 +3,20 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isModernShell;
-in {
+in
+{
   config = mkIf (isModernShell osConfig) {
     home.packages = [
-      (
-        pkgs.symlinkJoin {
-          name = "freeze";
-          paths = with pkgs; [
-            charm-freeze
-            librsvg
-          ];
-        }
-      )
+      (pkgs.symlinkJoin {
+        name = "freeze";
+        paths = with pkgs; [
+          charm-freeze
+          librsvg
+        ];
+      })
     ];
 
     xdg.configFile."freeze/user.json".text = builtins.toJSON {
@@ -25,7 +25,12 @@ in {
 
       window = true;
       shadow = false;
-      padding = [20 40 20 20];
+      padding = [
+        20
+        40
+        20
+        20
+      ];
       margin = 0;
 
       line_height = 1.2;

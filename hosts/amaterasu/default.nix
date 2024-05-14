@@ -1,12 +1,10 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkIf mkForce;
   inherit (config.modules) device;
-in {
-  imports = [./hardware.nix];
+in
+{
+  imports = [ ./hardware.nix ];
 
   config = {
     modules = {
@@ -15,7 +13,10 @@ in {
         cpu = "intel";
         gpu = "nvidia";
         hasTPM = true;
-        monitors = ["HDMI-1" "DP-1"];
+        monitors = [
+          "HDMI-1"
+          "DP-1"
+        ];
         hasBluetooth = true;
         hasSound = true;
         keyboard = "us";
@@ -42,7 +43,10 @@ in {
           };
         };
 
-        fs = ["ext4" "vfat"];
+        fs = [
+          "ext4"
+          "vfat"
+        ];
         video.enable = true;
         sound.enable = true;
         bluetooth.enable = false;
@@ -85,17 +89,23 @@ in {
       };
     };
 
-    hardware.nvidia = mkIf (builtins.elem device.gpu ["nvidia" "hybrid-nv"]) {
-      open = mkForce false;
+    hardware.nvidia =
+      mkIf
+        (builtins.elem device.gpu [
+          "nvidia"
+          "hybrid-nv"
+        ])
+        {
+          open = mkForce false;
 
-      prime = {
-        offload.enable = true;
-        # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
-        intelBusId = "PCI:0:2:0";
+          prime = {
+            offload.enable = true;
+            # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+            intelBusId = "PCI:0:2:0";
 
-        # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
-        nvidiaBusId = "PCI:1:0:0";
-      };
-    };
+            # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
+            nvidiaBusId = "PCI:1:0:0";
+          };
+        };
   };
 }

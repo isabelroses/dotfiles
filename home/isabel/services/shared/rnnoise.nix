@@ -3,11 +3,18 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isAcceptedDevice;
 
-  acceptedTypes = ["desktop" "laptop" "lite" "hybrid"];
-in {
+  acceptedTypes = [
+    "desktop"
+    "laptop"
+    "lite"
+    "hybrid"
+  ];
+in
+{
   config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.isLinux) {
     xdg.configFile."pipewire/pipewire.conf.d/99-input-denoising.conf".text = builtins.toJSON {
       "context.modules" = [
@@ -29,7 +36,10 @@ in {
                 }
               ];
             };
-            "audio.position" = ["FL" "FR"];
+            "audio.position" = [
+              "FL"
+              "FR"
+            ];
             "capture.props" = {
               "node.name" = "effect_input.rnnoise";
               "node.passive" = true;

@@ -3,10 +3,12 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isx86Linux;
   sys = config.modules.system;
-in {
+in
+{
   config = mkIf sys.video.enable {
     hardware = {
       opengl = {

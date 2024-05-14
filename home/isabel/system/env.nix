@@ -1,8 +1,5 @@
+{ osConfig, defaults, ... }:
 {
-  osConfig,
-  defaults,
-  ...
-}: {
   home.sessionVariables = {
     EDITOR = defaults.editor;
     GIT_EDITOR = defaults.editor;

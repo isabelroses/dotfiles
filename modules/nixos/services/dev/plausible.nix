@@ -1,13 +1,11 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf template;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.dev.plausible;
-in {
+in
+{
   config = mkIf cfg.enable {
     modules.services.database = {
       postgresql.enable = true;
@@ -38,15 +36,13 @@ in {
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} =
-        {
-          locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
-        }
-        // template.ssl rdomain;
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
+      } // template.ssl rdomain;
     };
 
     users = {
-      groups.plausible = {};
+      groups.plausible = { };
 
       users.plausible = {
         group = "plausible";

@@ -1,18 +1,19 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkEnableOption mkOption types;
 
   sys = config.modules.system;
   cfg = sys.networking.tailscale;
-in {
+in
+{
   options.modules.system.networking = {
     optimizeTcp = mkEnableOption "Enable tcp optimizations";
 
     wirelessBackend = mkOption {
-      type = types.enum ["iwd" "wpa_supplicant"];
+      type = types.enum [
+        "iwd"
+        "wpa_supplicant"
+      ];
       default = "wpa_supplicant";
       description = ''
         Backend that will be used for wireless connections using either `networking.wireless`
@@ -26,7 +27,7 @@ in {
 
       defaultFlags = mkOption {
         type = with types; listOf str;
-        default = ["--ssh"];
+        default = [ "--ssh" ];
         description = ''
           A list of command-line flags that will be passed to the Tailscale daemon on startup
           using the {option}`config.services.tailscale.extraUpFlags`.
@@ -41,7 +42,7 @@ in {
         example = true;
         description = ''
           Whether the target host should utilize Tailscale client features";
-          This option is mutually exlusive with {option}`tailscale.isServer` as they both
+          This option is mutually exclusive with {option}`tailscale.isServer` as they both
           configure Taiscale, but with different flags
         '';
       };
@@ -52,7 +53,7 @@ in {
         example = true;
         description = ''
           Whether the target host should utilize Tailscale server features.
-          This option is mutually exlusive with {option}`tailscale.isClient` as they both
+          This option is mutually exclusive with {option}`tailscale.isClient` as they both
           configure Taiscale, but with different flags
         '';
       };

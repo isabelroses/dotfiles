@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # we need git for flakes
   programs.git = {
     enable = true;

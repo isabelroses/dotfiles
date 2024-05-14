@@ -3,9 +3,11 @@
   config,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isModernShell;
-in {
+in
+{
   programs.atuin = mkIf (isModernShell osConfig) {
     enable = true;
 
@@ -14,7 +16,7 @@ in {
     enableZshIntegration = config.programs.zsh.enable;
     enableNushellIntegration = config.programs.nushell.enable;
 
-    flags = ["--disable-up-arrow"];
+    flags = [ "--disable-up-arrow" ];
     settings = {
       dialect = "uk";
       show_preview = true;

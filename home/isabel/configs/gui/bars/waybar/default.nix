@@ -3,19 +3,21 @@
   lib,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) optionalString;
   sys = osConfig.modules.system;
   cfg = osConfig.modules.programs;
-in {
+in
+{
   config = lib.mkIf (lib.isWayland osConfig && osConfig.modules.programs.gui.bars.waybar.enable) {
-    home.packages = with pkgs; [wlogout];
+    home.packages = with pkgs; [ wlogout ];
 
     programs.waybar = {
       enable = true;
       package = pkgs.waybar;
       systemd.enable = true;
-      style = import ./style.nix {};
+      style = import ./style.nix { };
       settings = {
         mainBar = {
           layer = "top";
@@ -29,12 +31,8 @@ in {
           spacing = 5;
           margin-bottom = -11;
 
-          modules-left = [
-            "hyprland/workspaces"
-          ];
-          modules-center = [
-            "custom/dynamic_pill"
-          ];
+          modules-left = [ "hyprland/workspaces" ];
+          modules-center = [ "custom/dynamic_pill" ];
           modules-right = [
             "tray"
             "backlight"
@@ -96,7 +94,11 @@ in {
               phone = "";
               portable = "";
               car = "";
-              default = ["" "" ""];
+              default = [
+                ""
+                ""
+                ""
+              ];
             };
           };
           "pulseaudio#microphone" = {
@@ -145,7 +147,18 @@ in {
             format-charging = " {capacity}%";
             format-plugged = " {capacity}%";
             format-alt = "{time} {icon}";
-            format-icons = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+            format-icons = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
           };
           bluetooth = {
             format = "";
@@ -160,7 +173,19 @@ in {
               format-charging = " {capacity}%";
               format-plugged = " {capacity}%";
               format-alt = "{time} {icon}";
-              format-icons = ["" "" "" "" "" "" "" "" "" "" ""];
+              format-icons = [
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+                ""
+              ];
             };
             tooltip-format = "{controller_alias}\t{controller_address}\n{status}";
             tooltip-format-off = "{controller_alias}\t{controller_address}\n{status}";
@@ -168,7 +193,18 @@ in {
             tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
             tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_address}\t{device_battery_percentage}%";
             format-icons = {
-              default = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+              default = [
+                "󰁺"
+                "󰁻"
+                "󰁼"
+                "󰁽"
+                "󰁾"
+                "󰁿"
+                "󰂀"
+                "󰂁"
+                "󰂂"
+                "󰁹"
+              ];
             };
             on-click = "$term -e bluetoothctl";
             on-click-right = "killall bluetoothctl";

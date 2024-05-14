@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf template;
   rdomain = config.networking.domain;
 
@@ -24,9 +25,10 @@
     add_header X-Content-Type-Options nosniff;
     return 200 '${builtins.toJSON data}';
   '';
-in {
+in
+{
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [cfg.port];
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     modules.services = {
       networking.nginx.enable = true;
@@ -46,23 +48,19 @@ in {
       };
 
       nginx.virtualHosts = {
-        ${rdomain} =
-          {
-            locations = {
-              "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
-              "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
-              "/_matrix".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
-              "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
-            };
-            serverAliases = ["${cfg.domain}"];
-          }
-          // template.ssl rdomain;
+        ${rdomain} = {
+          locations = {
+            "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
+            "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
+            "/_matrix".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
+            "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
+          };
+          serverAliases = [ "${cfg.domain}" ];
+        } // template.ssl rdomain;
 
-        "matrix-sync.${rdomain}" =
-          {
-            locations."/".proxyPass = "http://[${bindAddress}]:8002";
-          }
-          // template.ssl rdomain;
+        "matrix-sync.${rdomain}" = {
+          locations."/".proxyPass = "http://[${bindAddress}]:8002";
+        } // template.ssl rdomain;
       };
 
       matrix-sliding-sync = {
@@ -77,7 +75,7 @@ in {
       matrix-synapse = {
         enable = true;
 
-        extraConfigFiles = [config.age.secrets.matrix.path];
+        extraConfigFiles = [ config.age.secrets.matrix.path ];
         settings = {
           withJemalloc = true;
           enable_registration = true;
@@ -134,10 +132,13 @@ in {
           listeners = [
             {
               inherit (cfg) port;
-              bind_addresses = ["${bindAddress}"];
+              bind_addresses = [ "${bindAddress}" ];
               resources = [
                 {
-                  names = ["client" "federation"];
+                  names = [
+                    "client"
+                    "federation"
+                  ];
                   compress = true;
                 }
               ];

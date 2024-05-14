@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkOption types;
-in {
+in
+{
   options.modules.device = {
     hasBluetooth = mkOption {
       type = types.bool;

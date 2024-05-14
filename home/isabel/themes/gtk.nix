@@ -4,17 +4,26 @@
   config,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf boolToNum;
   inherit (osConfig.modules) device;
   cfg = osConfig.modules.style;
 
-  acceptedTypes = ["laptop" "desktop" "hybrid" "lite"];
-in {
+  acceptedTypes = [
+    "laptop"
+    "desktop"
+    "hybrid"
+    "lite"
+  ];
+in
+{
   config = mkIf (builtins.elem device.type acceptedTypes && pkgs.stdenv.isLinux) {
-    xdg.systemDirs.data = let
-      schema = pkgs.gsettings-desktop-schemas;
-    in ["${schema}/share/gsettings-schemas/${schema.name}"];
+    xdg.systemDirs.data =
+      let
+        schema = pkgs.gsettings-desktop-schemas;
+      in
+      [ "${schema}/share/gsettings-schemas/${schema.name}" ];
 
     home = {
       packages = with pkgs; [

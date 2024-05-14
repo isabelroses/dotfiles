@@ -10,11 +10,9 @@ python3Packages.buildPythonApplication {
 
   src = ./.;
 
-  propagatedBuildInputs = with python3Packages; [];
+  propagatedBuildInputs = with python3Packages; [ ];
 
-  nativeCheckInputs = [
-    python3Packages.pytest
-  ];
+  nativeCheckInputs = [ python3Packages.pytest ];
 
   checkPhase = lib.optionals doCheck ''
     runHook preCheck

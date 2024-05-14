@@ -1,10 +1,8 @@
-{
-  lib,
-  osConfig,
-  ...
-}: let
+{ lib, osConfig, ... }:
+let
   inherit (lib) mkIf isModernShell;
-in {
+in
+{
   programs.ripgrep = mkIf (isModernShell osConfig) {
     enable = true;
 

@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (config.modules) system environment;
   inherit (lib) mkIf getExe concatStringsSep;
 
@@ -29,7 +30,8 @@
       "--sessions '${sessionPath}'"
     ];
   };
-in {
+in
+{
   services.greetd = {
     enable = environment.loginManager == "greetd";
     vt = 2;

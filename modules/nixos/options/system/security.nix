@@ -1,10 +1,8 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
+{ pkgs, lib, ... }:
+let
   inherit (lib) mkOption mkEnableOption types;
-in {
+in
+{
   options.modules.system.security = {
     fixWebcam = mkEnableOption "Fix the purposefully broken webcam by un-blacklisting the related kernel module.";
     tor.enable = mkEnableOption "Tor daemon";
@@ -13,7 +11,13 @@ in {
     selinux = {
       enable = mkEnableOption "system SELinux support + kernel patches";
       state = mkOption {
-        type = with types; enum ["enforcing" "permissive" "disabled"];
+        type =
+          with types;
+          enum [
+            "enforcing"
+            "permissive"
+            "disabled"
+          ];
         default = "enforcing";
         description = ''
           SELinux state to boot with. The default is enforcing.
@@ -21,7 +25,13 @@ in {
       };
 
       type = mkOption {
-        type = with types; enum ["targeted" "minimum" "mls"];
+        type =
+          with types;
+          enum [
+            "targeted"
+            "minimum"
+            "mls"
+          ];
         default = "targeted";
         description = ''
           SELinux policy type to boot with. The default is targeted.
@@ -54,7 +64,14 @@ in {
 
       daemon = {
         settings = mkOption {
-          type = with types; attrsOf (oneOf [bool int str (listOf str)]);
+          type =
+            with types;
+            attrsOf (oneOf [
+              bool
+              int
+              str
+              (listOf str)
+            ]);
           default = {
             LogFile = "/var/log/clamd.log";
             LogTime = true;
@@ -95,8 +112,15 @@ in {
         };
 
         settings = mkOption {
-          type = with types; attrsOf (oneOf [bool int str (listOf str)]);
-          default = {};
+          type =
+            with types;
+            attrsOf (oneOf [
+              bool
+              int
+              str
+              (listOf str)
+            ]);
+          default = { };
           description = ''
             freshclam configuration. Refer to <https://linux.die.net/man/5/freshclam.conf>,
             for details on supported values.

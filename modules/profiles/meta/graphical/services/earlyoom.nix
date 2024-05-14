@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # https://dataswamp.org/~solene/2022-09-28-earlyoom.html
   # avoid the linux kernel from locking itself when we're putting too much strain on the memory
   # this helps avoid having to shut down forcefully when we OOM

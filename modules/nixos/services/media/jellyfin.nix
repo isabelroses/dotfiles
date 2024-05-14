@@ -1,11 +1,9 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkIf;
   cfg = config.modules.services.media.jellyfin;
-in {
+in
+{
   services.jellyfin = mkIf cfg.enable {
     enable = true;
     group = "jellyfin";

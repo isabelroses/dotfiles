@@ -1,10 +1,8 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib.modules) mkIf mkDefault;
-in {
+in
+{
   # have polkit log all actions
   security.polkit = {
     enable = true;

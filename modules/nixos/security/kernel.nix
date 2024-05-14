@@ -1,11 +1,9 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   sys = config.modules.system;
   inherit (lib) mkIf optionals concatLists;
-in {
+in
+{
   security = {
     protectKernelImage = true;
     lockKernelModules = false; # breaks virtd, wireguard and iptables
@@ -69,7 +67,7 @@ in {
       "vsyscall=none"
       # reduce most of the exposure of a heap attack to a single cache
       "slab_nomerge"
-      # Disable debugfs whcich exposes sensitive kernel data
+      # Disable debugfs which exposes sensitive kernel data
       "debugfs=off"
       # Sometimes certain kernel exploits will cause what is called an "oops" which is a kernel panic
       # that is recoverable. This will make it unrecoverable, and therefore safe to those attacks
@@ -106,7 +104,7 @@ in {
         "n-hdlc" # High-level Data Link Control
         "netrom" # NetRom
         "x25" # X.25
-        "ax25" # Amatuer X.25
+        "ax25" # Amateur X.25
         "rose" # ROSE
         "decnet" # DECnet
         "econet" # Econet
@@ -147,7 +145,7 @@ in {
         "nfs" # Network File System
         "nilfs2" # New Implementation of a Log-structured File System
         "omfs" # Optimized MPEG Filesystem
-        "qnx4" #  extent-based file system used by the QNX4 and QNX6 OSes
+        "qnx4" # extent-based file system used by the QNX4 and QNX6 OSes
         "qnx6" # ^
         "squashfs" # compressed read-only file system (used by live CDs)
         "sysv" # implements all of Xenix FS, SystemV/386 FS and Coherent FS.

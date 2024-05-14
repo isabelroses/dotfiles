@@ -1,12 +1,15 @@
-{
-  lib,
-  config,
-  ...
-}: let
-  inherit (lib) mkIf mkMerge concatStringsSep mkForce;
+{ lib, config, ... }:
+let
+  inherit (lib)
+    mkIf
+    mkMerge
+    concatStringsSep
+    mkForce
+    ;
 
   cfg = config.modules.services;
-in {
+in
+{
   # fail2ban firewall jail
   services.fail2ban = {
     enable = true;

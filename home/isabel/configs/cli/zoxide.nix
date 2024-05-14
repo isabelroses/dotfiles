@@ -3,9 +3,11 @@
   config,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isModernShell;
-in {
+in
+{
   programs.zoxide = mkIf (isModernShell osConfig) {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;

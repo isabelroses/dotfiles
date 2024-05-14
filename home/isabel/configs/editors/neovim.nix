@@ -3,9 +3,11 @@
   inputs',
   osConfig,
   ...
-}: let
+}:
+let
   cfg = osConfig.modules.programs;
-in {
+in
+{
   # need this one for uni
-  home.packages = lib.optionals cfg.agnostic.editors.neovim.enable [inputs'.izvim.packages.default];
+  home.packages = lib.optionals cfg.agnostic.editors.neovim.enable [ inputs'.izvim.packages.default ];
 }

@@ -3,22 +3,27 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
 
   sys = config.modules.system;
   cfg = sys.security.selinux;
-in {
+in
+{
   config = mkIf cfg.enable {
     # build systemd with SE Linux support so it loads policy at boot and supports file labelling
-    systemd.package = pkgs.systemd.override {withSelinux = true;};
+    systemd.package = pkgs.systemd.override { withSelinux = true; };
 
     # we cannot have apparmor and security together. disable apparmor
     security.apparmor.enable = lib.mkForce false;
 
     boot = {
       # tell kernel to use SE Linux by adding necessary parameters
-      kernelParams = ["security=selinux" "selinux=1"];
+      kernelParams = [
+        "security=selinux"
+        "selinux=1"
+      ];
 
       # compile kernel with SE Linux support
       # with additional support for other LSM modules
@@ -40,7 +45,7 @@ in {
     };
 
     environment = {
-      systemPackages = with pkgs; [policycoreutils]; # for load_policy, fixfiles, setfiles, setsebool, semodile, and sestatus.
+      systemPackages = with pkgs; [ policycoreutils ]; # for load_policy, fixfiles, setfiles, setsebool, semodile, and sestatus.
 
       # write selinux config to /etc/selinux
       etc."selinux/config".text = ''

@@ -1,10 +1,8 @@
-{
-  lib,
-  osConfig,
-  ...
-}: let
+{ lib, osConfig, ... }:
+let
   cfg = osConfig.modules.programs.gui.kdeconnect;
-in {
+in
+{
   services.kdeconnect = lib.mkIf cfg.enable {
     enable = true;
     indicator = cfg.indicator.enable;

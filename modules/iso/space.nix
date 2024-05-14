@@ -1,6 +1,8 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkDefault mkForce;
-in {
+in
+{
   # disable sound related programs
   sound.enable = false;
 
@@ -19,6 +21,6 @@ in {
     noXlibs = mkDefault true;
 
     # no packages other, other then the ones I provide
-    defaultPackages = [];
+    defaultPackages = [ ];
   };
 }

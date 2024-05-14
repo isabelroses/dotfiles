@@ -1,12 +1,10 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf;
 
   cfg = config.modules.services.monitoring.prometheus;
-in {
+in
+{
   config = mkIf cfg.enable {
     services = {
       # Prometheus exporter for Grafana
@@ -59,53 +57,49 @@ in {
           };
         };
 
-        scrapeConfigs = let
-          exp = config.services.prometheus.exporters;
-        in [
-          {
-            job_name = "prometheus";
-            scrape_interval = "30s";
-            static_configs = [{targets = ["${cfg.host}:${toString config.services.prometheus.port}"];}];
-          }
-          {
-            job_name = "node";
-            scrape_interval = "30s";
-            static_configs = [{targets = ["${cfg.host}:${toString exp.node.port}"];}];
-          }
-          {
-            job_name = "redis";
-            scrape_interval = "30s";
-            static_configs = [{targets = ["${cfg.host}:${toString exp.redis.port}"];}];
-          }
-          {
-            job_name = "postgres";
-            scrape_interval = "30s";
-            static_configs = [{targets = ["${cfg.host}:${toString exp.postgres.port}"];}];
-          }
-          {
-            job_name = "nginx";
-            scrape_interval = "30s";
-            static_configs = [{targets = ["${cfg.host}:${toString exp.nginx.port}"];}];
-          }
-          {
-            job_name = "uptime-kuma";
-            scrape_interval = "30s";
-            scrape_timeout = "10s";
-            metrics_path = "/metrics";
-            static_configs = [
-              {
-                targets = [
-                  "${cfg.host}:3500"
-                ];
-              }
-            ];
-          }
-          {
-            job_name = "smartctl";
-            scrape_interval = "30s";
-            static_configs = [{targets = ["${cfg.host}:${toString exp.smartctl.port}"];}];
-          }
-        ];
+        scrapeConfigs =
+          let
+            exp = config.services.prometheus.exporters;
+          in
+          [
+            {
+              job_name = "prometheus";
+              scrape_interval = "30s";
+              static_configs = [ { targets = [ "${cfg.host}:${toString config.services.prometheus.port}" ]; } ];
+            }
+            {
+              job_name = "node";
+              scrape_interval = "30s";
+              static_configs = [ { targets = [ "${cfg.host}:${toString exp.node.port}" ]; } ];
+            }
+            {
+              job_name = "redis";
+              scrape_interval = "30s";
+              static_configs = [ { targets = [ "${cfg.host}:${toString exp.redis.port}" ]; } ];
+            }
+            {
+              job_name = "postgres";
+              scrape_interval = "30s";
+              static_configs = [ { targets = [ "${cfg.host}:${toString exp.postgres.port}" ]; } ];
+            }
+            {
+              job_name = "nginx";
+              scrape_interval = "30s";
+              static_configs = [ { targets = [ "${cfg.host}:${toString exp.nginx.port}" ]; } ];
+            }
+            {
+              job_name = "uptime-kuma";
+              scrape_interval = "30s";
+              scrape_timeout = "10s";
+              metrics_path = "/metrics";
+              static_configs = [ { targets = [ "${cfg.host}:3500" ]; } ];
+            }
+            {
+              job_name = "smartctl";
+              scrape_interval = "30s";
+              static_configs = [ { targets = [ "${cfg.host}:${toString exp.smartctl.port}" ]; } ];
+            }
+          ];
       };
     };
   };

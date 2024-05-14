@@ -1,12 +1,13 @@
-{pkgs, ...}: {
-  imports = [./hardware.nix];
+{ pkgs, ... }:
+{
+  imports = [ ./hardware.nix ];
 
   config.modules = {
     device = {
       type = "hybrid";
       cpu = "intel";
       gpu = null;
-      monitors = ["eDP-1"];
+      monitors = [ "eDP-1" ];
       hasTPM = true;
       hasBluetooth = true;
       hasSound = true;
@@ -25,7 +26,10 @@
         plymouth.enable = false;
       };
 
-      fs = ["btrfs" "vfat"];
+      fs = [
+        "btrfs"
+        "vfat"
+      ];
       video.enable = true;
       sound.enable = true;
       bluetooth.enable = false;

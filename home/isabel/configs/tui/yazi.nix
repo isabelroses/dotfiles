@@ -1,4 +1,5 @@
-{config, ...}: {
+{ config, ... }:
+{
   programs.yazi = {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;

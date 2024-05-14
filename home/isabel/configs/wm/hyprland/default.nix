@@ -3,10 +3,12 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (osConfig.modules) environment;
-in {
-  imports = [./config.nix];
+in
+{
+  imports = [ ./config.nix ];
 
   config = lib.mkIf (environment.desktop == "Hyprland") {
     home.packages = with pkgs; [
@@ -20,7 +22,7 @@ in {
 
       systemd = {
         enable = true;
-        variables = ["--all"];
+        variables = [ "--all" ];
         extraCommands = [
           "systemctl --user stop graphical-session.target"
           "systemctl --user start hyprland-session.target"

@@ -3,11 +3,8 @@
   callPackage,
   mkShellNoCC,
   ...
-}: let
+}:
+let
   defaultPackage = callPackage ./default.nix;
 in
-  mkShellNoCC {
-    packages = [
-      (python3.withPackages defaultPackage.propagatedBuildInputs)
-    ];
-  }
+mkShellNoCC { packages = [ (python3.withPackages defaultPackage.propagatedBuildInputs) ]; }

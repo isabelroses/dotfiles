@@ -1,13 +1,11 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkIf template;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.vikunja;
-in {
+in
+{
   config = mkIf cfg.enable {
     modules.services = {
       networking.nginx.enable = true;
@@ -24,7 +22,7 @@ in {
         frontendHostname = cfg.domain;
         frontendScheme = "https";
 
-        environmentFiles = [config.age.secrets.vikunja-env.path];
+        environmentFiles = [ config.age.secrets.vikunja-env.path ];
 
         database = {
           type = "postgres";
@@ -55,16 +53,18 @@ in {
           openid = {
             enabled = true;
             redirecturl = "https://${cfg.domain}/auth/openid/";
-            providers = let
-              sso = config.modules.services.kanidm.domain;
-            in [
-              {
-                name = "Isabel's SSO";
-                authurl = "https://${sso}/oauth2/openid/vikunja/";
-                logouturl = "https://${sso}/logout";
-                clientid = "vikunja";
-              }
-            ];
+            providers =
+              let
+                sso = config.modules.services.kanidm.domain;
+              in
+              [
+                {
+                  name = "Isabel's SSO";
+                  authurl = "https://${sso}/oauth2/openid/vikunja/";
+                  logouturl = "https://${sso}/logout";
+                  clientid = "vikunja";
+                }
+              ];
           };
 
           # redis
@@ -76,15 +76,13 @@ in {
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} =
-        {
-          locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
-        }
-        // template.ssl rdomain;
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
+      } // template.ssl rdomain;
     };
 
     users = {
-      groups.vikunja = {};
+      groups.vikunja = { };
 
       users."vikunja" = {
         group = "vikunja";

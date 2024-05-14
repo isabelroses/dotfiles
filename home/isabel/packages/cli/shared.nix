@@ -3,12 +3,15 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf optionals;
   cfg = osConfig.modules.programs;
-in {
+in
+{
   config = mkIf cfg.cli.enable {
-    home.packages = with pkgs;
+    home.packages =
+      with pkgs;
       [
         unzip
         rsync
@@ -23,8 +26,6 @@ in {
         vhs # programmatically make gifs
         glow # markdown preview
       ]
-      ++ optionals stdenv.isLinux [
-        cached-nix-shell
-      ];
+      ++ optionals stdenv.isLinux [ cached-nix-shell ];
   };
 }

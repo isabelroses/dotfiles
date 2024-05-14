@@ -1,11 +1,16 @@
-{
-  lib,
-  config,
-  ...
-}: let
-  inherit (lib) mkDefault mkForce mkOverride mkMerge mkIf optionals;
+{ lib, config, ... }:
+let
+  inherit (lib)
+    mkDefault
+    mkForce
+    mkOverride
+    mkMerge
+    mkIf
+    optionals
+    ;
   sys = config.modules.system;
-in {
+in
+{
   boot = {
     consoleLogLevel = 3;
 
@@ -98,11 +103,13 @@ in {
         ];
       })
 
-      (mkIf sys.boot.initrd.optimizeCompressor
-        {
-          compressor = "zstd";
-          compressorArgs = ["-19" "-T0"];
-        })
+      (mkIf sys.boot.initrd.optimizeCompressor {
+        compressor = "zstd";
+        compressorArgs = [
+          "-19"
+          "-T0"
+        ];
+      })
     ];
 
     # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html

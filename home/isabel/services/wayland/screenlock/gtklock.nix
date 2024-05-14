@@ -5,10 +5,12 @@
   osConfig,
   defaults,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isWayland;
-in {
-  imports = [self.homeManagerModules.gtklock];
+in
+{
+  imports = [ self.homeManagerModules.gtklock ];
 
   config = mkIf ((isWayland osConfig) && defaults.screenLocker == "gtklock") {
     programs.gtklock = {
@@ -16,9 +18,7 @@ in {
       package = pkgs.gtklock;
 
       config = {
-        modules = [
-          "${pkgs.gtklock-powerbar-module.outPath}/lib/gtklock/powerbar-module.so"
-        ];
+        modules = [ "${pkgs.gtklock-powerbar-module.outPath}/lib/gtklock/powerbar-module.so" ];
 
         style = pkgs.writeText "gtklock-style.css" ''
           window {
@@ -63,7 +63,7 @@ in {
         '';
       };
 
-      extraConfig = {};
+      extraConfig = { };
     };
   };
 }

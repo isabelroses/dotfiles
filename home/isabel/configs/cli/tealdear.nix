@@ -1,8 +1,5 @@
+{ lib, osConfig, ... }:
 {
-  lib,
-  osConfig,
-  ...
-}: {
   programs.tealdeer = lib.mkIf (lib.isModernShell osConfig) {
     enable = true;
     settings = {

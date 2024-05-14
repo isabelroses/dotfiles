@@ -1,10 +1,8 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{ lib, pkgs, ... }:
+let
   inherit (lib) mkOption mkEnableOption types;
-in {
+in
+{
   options.modules.style.gtk = {
     enable = mkEnableOption "GTK theming options";
     usePortal = mkEnableOption "native desktop portal use for filepickers";

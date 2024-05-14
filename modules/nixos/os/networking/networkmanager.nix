@@ -3,17 +3,19 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf mkForce;
 
   dev = config.modules.device;
   sys = config.modules.system;
-in {
-  environment.systemPackages = with pkgs; [networkmanagerapplet];
+in
+{
+  environment.systemPackages = with pkgs; [ networkmanagerapplet ];
 
   networking.networkmanager = {
     enable = true;
-    plugins = mkForce [];
+    plugins = mkForce [ ];
     dns = "systemd-resolved";
     unmanaged = [
       "interface-name:tailscale*"

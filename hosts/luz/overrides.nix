@@ -1,14 +1,11 @@
+{ lib, config, ... }:
 {
-  lib,
-  config,
-  ...
-}: {
   config = {
     services.smartd.enable = lib.mkForce false; # Unavailable - device lacks SMART capability.
 
     boot = {
       growPartition = !config.boot.initrd.systemd.enable;
-      kernelParams = ["net.ifnames=0"];
+      kernelParams = [ "net.ifnames=0" ];
       kernel = {
         sysctl = {
           "net.ipv4.ip_forward" = true;

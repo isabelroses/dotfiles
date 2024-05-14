@@ -3,15 +3,14 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   progs = osConfig.modules.programs;
   cfg = progs.gui.browsers.chromium;
 
-  chrome_pkg =
-    if cfg.ungoogled
-    then pkgs.ungoogled-chromium
-    else pkgs.chromium;
-in {
+  chrome_pkg = if cfg.ungoogled then pkgs.ungoogled-chromium else pkgs.chromium;
+in
+{
   config = lib.mkIf cfg.enable {
     programs.chromium = {
       enable = true;

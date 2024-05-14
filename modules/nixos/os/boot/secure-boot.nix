@@ -4,13 +4,13 @@
   lib,
   inputs,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf mkForce;
   sys = config.modules.system.boot;
-in {
-  imports = [
-    inputs.lanzaboote.nixosModules.lanzaboote
-  ];
+in
+{
+  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
   config = mkIf sys.secureBoot {
     environment.systemPackages = [

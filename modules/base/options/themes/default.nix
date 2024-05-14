@@ -1,11 +1,12 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{ lib, pkgs, ... }:
+let
   inherit (lib) mkOption mkEnableOption types;
-in {
-  imports = [./gtk.nix ./qt.nix];
+in
+{
+  imports = [
+    ./gtk.nix
+    ./qt.nix
+  ];
   options.modules.style = {
     forceGtk = mkEnableOption "Force GTK applications to use the GTK theme";
     useKvantum = mkEnableOption "Use Kvantum to theme QT applications";

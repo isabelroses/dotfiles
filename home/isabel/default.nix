@@ -1,10 +1,8 @@
-{
-  lib,
-  pkgs,
-  ...
-}: let
+{ lib, pkgs, ... }:
+let
   inherit (lib) mkDefault ldTernary;
-in {
+in
+{
   imports = [
     ./configs # per application configuration
     ./system # important system environment config
@@ -20,7 +18,10 @@ in {
     home = {
       username = "isabel";
       homeDirectory = "/${ldTernary pkgs "home" "Users"}/isabel";
-      extraOutputsToInstall = ["doc" "devdoc"];
+      extraOutputsToInstall = [
+        "doc"
+        "devdoc"
+      ];
 
       stateVersion = mkDefault "23.05";
     };

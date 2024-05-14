@@ -3,17 +3,19 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (config.modules) device;
-in {
+in
+{
   config = lib.mkIf (device.gpu == "amd" || device.gpu == "hybrid-amd") {
     # enable amdgpu xorg drivers
-    services.xserver.videoDrivers = ["amdgpu"];
+    services.xserver.videoDrivers = [ "amdgpu" ];
 
     # enable amdgpu kernel module
     boot = {
-      kernelModules = ["amdgpu"];
-      initrd.kernelModules = ["amdgpu"];
+      kernelModules = [ "amdgpu" ];
+      initrd.kernelModules = [ "amdgpu" ];
     };
 
     # enables AMDVLK & OpenCL support

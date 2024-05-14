@@ -3,20 +3,22 @@
   lib,
   self',
   ...
-}: let
+}:
+let
   inherit (lib) mkIf;
   rdomain = config.networking.domain;
 
   cfg = config.modules.services.networking.headscale;
-in {
+in
+{
   config = mkIf cfg.enable {
     modules.services = {
       networking.nginx.enable = true;
       database.postgresql.enable = true;
     };
 
-    environment.systemPackages = [config.services.headscale.package];
-    networking.firewall.allowedUDPPorts = [cfg.port];
+    environment.systemPackages = [ config.services.headscale.package ];
+    networking.firewall.allowedUDPPorts = [ cfg.port ];
 
     services = {
       headscale = {
@@ -31,10 +33,8 @@ in {
             override_local_dns = true;
             base_domain = "${rdomain}";
             magic_dns = true;
-            domains = ["${cfg.domain}"];
-            nameservers = [
-              "9.9.9.9"
-            ];
+            domains = [ "${cfg.domain}" ];
+            nameservers = [ "9.9.9.9" ];
           };
 
           log = {
@@ -60,19 +60,17 @@ in {
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} =
-        {
-          locations."/" = {
-            recommendedProxySettings = true;
-            proxyPass = "http://localhost:${toString cfg.port}";
-            proxyWebsockets = true;
-          };
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/" = {
+          recommendedProxySettings = true;
+          proxyPass = "http://localhost:${toString cfg.port}";
+          proxyWebsockets = true;
+        };
 
-          locations."/web" = {
-            root = "${self'.packages.headscale-ui}/share";
-          };
-        }
-        // lib.template.ssl rdomain;
+        locations."/web" = {
+          root = "${self'.packages.headscale-ui}/share";
+        };
+      } // lib.template.ssl rdomain;
     };
   };
 }

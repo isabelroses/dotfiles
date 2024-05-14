@@ -3,10 +3,12 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   cfg = config.modules.services.networking.nginx;
   inherit (lib) mkIf;
-in {
+in
+{
   config = mkIf cfg.enable {
     networking.domain = cfg.domain;
 
@@ -16,24 +18,20 @@ in {
         defaults.email = "isabel@${cfg.domain}";
 
         certs.${cfg.domain} = {
-          extraDomainNames = [
-            "*.${cfg.domain}"
-          ];
+          extraDomainNames = [ "*.${cfg.domain}" ];
           dnsProvider = "cloudflare";
           credentialsFile = config.age.secrets."cloudflare-cert-api".path;
         };
       };
     };
 
-    users.users.nginx.extraGroups = ["acme"];
+    users.users.nginx.extraGroups = [ "acme" ];
 
     services.nginx = {
       enable = true;
       statusPage = true; # For monitoring scraping.
 
-      package = pkgs.nginxQuic.override {
-        withKTLS = true;
-      };
+      package = pkgs.nginxQuic.override { withKTLS = true; };
 
       commonHttpConfig = ''
         # real_ip_header CF-Connecting-IP;

@@ -1,12 +1,10 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkEnableOption mkOption types;
 
   cfg = config.modules.programs;
-in {
+in
+{
   imports = [
     ./defaults.nix
     ./gaming.nix
@@ -22,8 +20,12 @@ in {
       };
 
       editors = {
-        neovim.enable = mkEnableOption "Neovim editor" // {default = true;};
-        vscode.enable = mkEnableOption "VScode editor" // {default = cfg.gui.enable;};
+        neovim.enable = mkEnableOption "Neovim editor" // {
+          default = true;
+        };
+        vscode.enable = mkEnableOption "VScode editor" // {
+          default = cfg.gui.enable;
+        };
         micro.enable = mkEnableOption "Micro editor";
       };
 
@@ -32,11 +34,15 @@ in {
     };
 
     cli = {
-      enable = mkEnableOption "Enable CLI programs" // {default = true;};
+      enable = mkEnableOption "Enable CLI programs" // {
+        default = true;
+      };
       modernShell.enable = mkEnableOption "Enable programs for a more modern shell";
     };
 
-    tui.enable = mkEnableOption "Enable TUI programs" // {default = true;};
+    tui.enable = mkEnableOption "Enable TUI programs" // {
+      default = true;
+    };
 
     gui = {
       enable = mkEnableOption "Enable GUI programs";
@@ -55,32 +61,42 @@ in {
       };
 
       bars = {
-        ags.enable = mkEnableOption "Enable ags bar/launcher" // {default = cfg.gui.enable;};
+        ags.enable = mkEnableOption "Enable ags bar/launcher" // {
+          default = cfg.gui.enable;
+        };
         eww.enable = mkEnableOption "Enable eww bar/launcher";
         waybar.enable = mkEnableOption "Enable waybar";
       };
 
       browsers = {
         chromium = {
-          enable = mkEnableOption "Chromium browser" // {default = cfg.gui.enable;};
+          enable = mkEnableOption "Chromium browser" // {
+            default = cfg.gui.enable;
+          };
           ungoogled = mkEnableOption "Enable ungoogled-chromium Tweaks";
         };
 
         firefox = {
           enable = mkEnableOption "Firefox browser";
-          schizofox = mkEnableOption "Enable Schizofox Firefox Tweaks" // {default = true;};
+          schizofox = mkEnableOption "Enable Schizofox Firefox Tweaks" // {
+            default = true;
+          };
         };
       };
 
       terminals = {
-        wezterm.enable = mkEnableOption "WezTerm terminal emulator" // {default = cfg.gui.enable;};
+        wezterm.enable = mkEnableOption "WezTerm terminal emulator" // {
+          default = cfg.gui.enable;
+        };
         ghostty.enable = mkEnableOption "Ghostty terminal emulator";
         kitty.enable = mkEnableOption "Kitty terminal emulator";
         alacritty.enable = mkEnableOption "Alacritty terminal emulator";
       };
 
       fileManagers = {
-        thunar.enable = mkEnableOption "Enable thunar file manager" // {default = cfg.gui.enable;};
+        thunar.enable = mkEnableOption "Enable thunar file manager" // {
+          default = cfg.gui.enable;
+        };
         dolphin.enable = mkEnableOption "Enable dolphin file manager";
         nemo.enable = mkEnableOption "Enable nemo file manager";
       };

@@ -3,27 +3,25 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   sys = config.modules.system;
   env = config.modules.environment;
   inherit (lib) mkForce mkIf isWayland;
-in {
+in
+{
   config = mkIf (sys.video.enable && pkgs.stdenv.isLinux) {
     xdg.portal = {
       enable = true;
       # xdgOpenUsePortal = true;
 
       config.common = {
-        default = ["gtk"];
+        default = [ "gtk" ];
 
-        "org.freedesktop.impl.portal.Secret" = [
-          "gnome-keyring"
-        ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
       };
 
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
-      ];
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
 
       wlr = {
         enable = mkForce (isWayland config && env.desktop != "Hyprland");

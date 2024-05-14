@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (pkgs.stdenv) isLinux;
 
   browser = [
@@ -39,25 +40,24 @@
     "audio/*"
   ];
 
-  images = [
-    "image/*"
-  ];
+  images = [ "image/*" ];
 
   associations =
-    (lib.genAttrs code (_: ["nvim.desktop"]))
-    // (lib.genAttrs media (_: ["mpv.desktop"]))
-    // (lib.genAttrs images (_: ["viewnoir.desktop"]))
-    // (lib.genAttrs browser (_: ["chromium.desktop"]))
+    (lib.genAttrs code (_: [ "nvim.desktop" ]))
+    // (lib.genAttrs media (_: [ "mpv.desktop" ]))
+    // (lib.genAttrs images (_: [ "viewnoir.desktop" ]))
+    // (lib.genAttrs browser (_: [ "chromium.desktop" ]))
     // {
-      "application/pdf" = ["org.pwmt.zathura.desktop"];
-      "x-scheme-handler/spotify" = ["spotify.desktop"];
-      "x-scheme-handler/discord" = ["Discord.desktop"];
-      "inode/directory" = ["thunar.desktop"];
+      "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+      "x-scheme-handler/spotify" = [ "spotify.desktop" ];
+      "x-scheme-handler/discord" = [ "Discord.desktop" ];
+      "inode/directory" = [ "thunar.desktop" ];
     };
 
   template = import lib.template.xdg "home-manager";
-in {
-  home.packages = with pkgs; lib.mkIf isLinux [xdg-utils];
+in
+{
+  home.packages = with pkgs; lib.mkIf isLinux [ xdg-utils ];
 
   xdg = {
     enable = true;

@@ -1,9 +1,7 @@
+{ lib, pkgs, ... }:
 {
-  lib,
-  pkgs,
-  ...
-}: {
-  home.packages = with pkgs;
+  home.packages =
+    with pkgs;
     lib.mkIf stdenv.isDarwin [
       libwebp # WebP image format library
       m-cli # A macOS cli tool to manage macOS - a true swis army knife

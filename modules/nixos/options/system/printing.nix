@@ -1,12 +1,14 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   inherit (lib) mkEnableOption mkOption types;
-in {
+in
+{
   options.modules.system.printing = {
     enable = mkEnableOption "printing";
 
     extraDrivers = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
       description = "A list of additional drivers to install for printing";
     };
   };

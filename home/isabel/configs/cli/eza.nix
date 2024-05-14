@@ -3,9 +3,11 @@
   config,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isModernShell;
-in {
+in
+{
   programs.eza = mkIf (isModernShell osConfig) {
     enable = true;
     icons = true;

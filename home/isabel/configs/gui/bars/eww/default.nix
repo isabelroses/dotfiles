@@ -4,14 +4,13 @@
   pkgs,
   osConfig,
   ...
-}: let
+}:
+let
   inherit (lib) isWayland;
 
-  ewwPackage =
-    if isWayland osConfig
-    then pkgs.eww-wayland
-    else pkgs.eww;
-in {
+  ewwPackage = if isWayland osConfig then pkgs.eww-wayland else pkgs.eww;
+in
+{
   config = lib.mkIf ((isWayland osConfig) && osConfig.modules.programs.gui.bars.eww.enable) {
     home.packages = with pkgs; [
       socat

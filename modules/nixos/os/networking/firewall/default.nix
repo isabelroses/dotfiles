@@ -3,11 +3,13 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkForce mkIf;
   inherit (config.modules) programs device;
-in {
-  imports = [./fail2ban.nix];
+in
+{
+  imports = [ ./fail2ban.nix ];
 
   config = {
     # enable opensnitch firewall
@@ -21,7 +23,7 @@ in {
         443
         8080
       ];
-      allowedUDPPorts = [];
+      allowedUDPPorts = [ ];
       allowedTCPPortRanges = mkIf programs.gui.kdeconnect.enable [
         {
           from = 1714;

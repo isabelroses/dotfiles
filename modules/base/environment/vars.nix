@@ -1,8 +1,9 @@
-{config, ...}: {
+{ config, ... }:
+{
   # variables that I want to set globally on all systems
 
   environment = {
-    # the below can be done for faster shell reponse time but it can break things, and it did
+    # the below can be done for faster shell response time but it can break things, and it did
     # binsh = "${pkgs.dash}/bin/dash";
 
     variables = {

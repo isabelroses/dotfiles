@@ -4,12 +4,14 @@
   self',
   pkgs,
   ...
-}: let
+}:
+let
   inherit (pkgs) plymouth;
   inherit (lib) mkIf;
 
   cfg = config.modules.system.boot.plymouth;
-in {
+in
+{
   config = mkIf cfg.enable {
     boot.plymouth =
       {
@@ -17,7 +19,7 @@ in {
       }
       // lib.optionalAttrs cfg.withThemes {
         theme = "catppuccin-mocha";
-        themePackages = [self'.packages.plymouth-theme-catppuccin];
+        themePackages = [ self'.packages.plymouth-theme-catppuccin ];
       };
 
     # make plymouth work with sleep

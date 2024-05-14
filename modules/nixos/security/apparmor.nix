@@ -1,8 +1,5 @@
+{ config, pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
   services.dbus.apparmor = "disabled";
 
   # apparmor configuration
@@ -18,7 +15,7 @@
     killUnconfinedConfinables = true;
 
     # packages to be added to AppArmor’s include path
-    packages = [pkgs.apparmor-profiles];
+    packages = [ pkgs.apparmor-profiles ];
 
     # apparmor policies
     policies = {

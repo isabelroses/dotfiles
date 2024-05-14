@@ -1,12 +1,10 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf;
 
   cfg = config.modules.services;
-in {
+in
+{
   config = mkIf cfg.database.redis.enable {
     services.redis = {
       vmOverCommit = true;

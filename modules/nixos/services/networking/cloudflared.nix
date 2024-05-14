@@ -1,13 +1,11 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkIf;
 
   cfg = config.modules.services.networking.cloudflared;
-in {
-  users.groups.cloudflared = {};
+in
+{
+  users.groups.cloudflared = { };
   users.users.cloudflared = {
     description = "Cloudflared user";
     home = "/var/lib/cloudflared";

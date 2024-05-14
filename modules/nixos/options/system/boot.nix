@@ -3,9 +3,16 @@
   lib,
   pkgs,
   ...
-}: let
-  inherit (lib) literalExpression mkOption mkEnableOption types;
-in {
+}:
+let
+  inherit (lib)
+    literalExpression
+    mkOption
+    mkEnableOption
+    types
+    ;
+in
+{
   options.modules.system.boot = {
     enableKernelTweaks = mkEnableOption "security and performance related kernel parameters";
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
@@ -44,22 +51,28 @@ in {
       mkEnableOption ''
         almost entirely silent boot process through `quiet` kernel parameter
       ''
-      // {default = config.modules.system.boot.plymouth.enable;};
+      // {
+        default = config.modules.system.boot.plymouth.enable;
+      };
 
     extraKernelParams = mkOption {
       type = with types; listOf str;
-      default = [];
+      default = [ ];
     };
 
     extraModulePackages = mkOption {
       type = with types; listOf package;
-      default = [];
+      default = [ ];
       example = literalExpression ''with config.boot.kernelPackages; [acpi_call]'';
       description = "Extra kernel modules to be loaded.";
     };
 
     loader = mkOption {
-      type = types.enum ["none" "grub" "systemd-boot"];
+      type = types.enum [
+        "none"
+        "grub"
+        "systemd-boot"
+      ];
       default = "none";
       description = "The bootloader that should be used for the device.";
     };

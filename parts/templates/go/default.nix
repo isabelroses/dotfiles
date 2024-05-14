@@ -1,4 +1,4 @@
-{buildGoModule}:
+{ buildGoModule }:
 buildGoModule {
   pname = "sample-go";
   version = "0.0.1";
@@ -7,5 +7,8 @@ buildGoModule {
 
   vendorHash = null;
 
-  ldflags = ["-s" "-w"];
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 }

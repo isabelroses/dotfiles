@@ -1,10 +1,8 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkIf;
-in {
+in
+{
   # compress half of the ram to use as swap
   # basically, get more memory per memory
   zramSwap = {

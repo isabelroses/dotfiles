@@ -3,9 +3,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf getExe isWayland;
-in {
+in
+{
   config = mkIf (isWayland config && pkgs.stdenv.isLinux) {
     systemd.services.seatd = {
       enable = true;
@@ -16,7 +18,7 @@ in {
         Restart = "always";
         RestartSec = "1";
       };
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
     };
   };
 }

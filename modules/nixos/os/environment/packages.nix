@@ -1,8 +1,5 @@
+{ pkgs, lib, ... }:
 {
-  pkgs,
-  lib,
-  ...
-}: {
   environment = {
     # packages that should be on all deviecs
     systemPackages = with pkgs; [
@@ -14,6 +11,6 @@
     ];
 
     # disable all packages installed by default, i prefer my own packages
-    defaultPackages = lib.mkForce [];
+    defaultPackages = lib.mkForce [ ];
   };
 }

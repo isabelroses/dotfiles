@@ -1,10 +1,13 @@
+{ lib, config, ... }:
+let
+  inherit (lib)
+    mkOption
+    mkEnableOption
+    optionals
+    types
+    ;
+in
 {
-  lib,
-  config,
-  ...
-}: let
-  inherit (lib) mkOption mkEnableOption optionals types;
-in {
   imports = [
     ./boot.nix
     ./emulation.nix
@@ -15,7 +18,7 @@ in {
     ./virtualization.nix
   ];
 
-  config.warnings = optionals (config.modules.system.fs == []) [
+  config.warnings = optionals (config.modules.system.fs == [ ]) [
     ''
       You have not added any filesystems to be supported by your system. You may end up with an unbootable system!
 
@@ -35,7 +38,10 @@ in {
 
     fs = mkOption {
       type = with types; listOf str;
-      default = ["vfat" "ext4"];
+      default = [
+        "vfat"
+        "ext4"
+      ];
       description = ''
         A list of filesystems available supported by the system
         it will enable services based on what strings are found in the list.
@@ -47,7 +53,12 @@ in {
     yubikeySupport = {
       enable = mkEnableOption "yubikey support";
       deviceType = mkOption {
-        type = with types; nullOr (enum ["NFC5" "nano"]);
+        type =
+          with types;
+          nullOr (enum [
+            "NFC5"
+            "nano"
+          ]);
         default = null;
         description = "A list of devices to enable Yubikey support for";
       };

@@ -1,13 +1,11 @@
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkIf;
   cfg = config.modules.services.dev.forgejo;
-in {
+in
+{
   users = mkIf cfg.enable {
-    groups.git = {};
+    groups.git = { };
 
     users.git = {
       isSystemUser = true;

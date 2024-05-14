@@ -1,13 +1,10 @@
+{ lib, osConfig, ... }:
 {
-  lib,
-  osConfig,
-  ...
-}: {
   config = lib.mkIf osConfig.modules.programs.gui.terminals.alacritty.enable {
     programs.alacritty = {
       enable = true;
       settings = {
-        window.opacity = 0.90;
+        window.opacity = 0.9;
 
         font = {
           normal = {

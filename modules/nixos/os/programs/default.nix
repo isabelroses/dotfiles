@@ -3,9 +3,11 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   inherit (lib) mkIf isModernShell;
-in {
+in
+{
   programs = {
     # less pager
     less.enable = true;

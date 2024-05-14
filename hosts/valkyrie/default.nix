@@ -5,7 +5,7 @@
       cpu = "intel";
       gpu = null;
       hasTPM = true;
-      monitors = [];
+      monitors = [ ];
       hasBluetooth = true;
       hasSound = false;
       keyboard = "us";
@@ -32,7 +32,10 @@
         };
       };
 
-      fs = ["ext4" "vfat"];
+      fs = [
+        "ext4"
+        "vfat"
+      ];
       video.enable = false;
       sound.enable = false;
       bluetooth.enable = false;

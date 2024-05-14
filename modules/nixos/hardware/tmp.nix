@@ -1,11 +1,9 @@
-{
-  config,
-  lib,
-  ...
-}: let
+{ config, lib, ... }:
+let
   inherit (lib) mkDefault mkIf;
   inherit (config.modules) device;
-in {
+in
+{
   config = mkIf device.hasTPM {
     security.tpm2 = {
       # enable Trusted Platform Module 2 support

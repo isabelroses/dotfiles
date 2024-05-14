@@ -3,27 +3,30 @@
   pkgs,
   config,
   ...
-}: let
+}:
+let
   # only the newest nvidia package
   nvStable = config.boot.kernelPackages.nvidiaPackages.stable;
   nvBeta = config.boot.kernelPackages.nvidiaPackages.beta;
 
-  nvidiaPackage =
-    if (versionOlder nvBeta.version nvStable.version)
-    then nvStable
-    else nvBeta;
+  nvidiaPackage = if (versionOlder nvBeta.version nvStable.version) then nvStable else nvBeta;
 
   inherit (config.modules) device;
-  inherit (lib) mkIf mkMerge mkDefault versionOlder isWayland;
-in {
+  inherit (lib)
+    mkIf
+    mkMerge
+    mkDefault
+    versionOlder
+    isWayland
+    ;
+in
+{
   config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
     # nvidia drivers kinda are unfree software
     nixpkgs.config.allowUnfree = true;
 
     services.xserver = mkMerge [
-      {
-        videoDrivers = ["nvidia"];
-      }
+      { videoDrivers = [ "nvidia" ]; }
 
       # xorg settings
       (mkIf (!lib.isWayland config) {
@@ -43,13 +46,11 @@ in {
     ];
 
     # blacklist nouveau module as otherwise it conflicts with nvidia drm
-    boot.blacklistedKernelModules = ["nouveau"];
+    boot.blacklistedKernelModules = [ "nouveau" ];
 
     environment = {
       sessionVariables = mkMerge [
-        {
-          LIBVA_DRIVER_NAME = "nvidia";
-        }
+        { LIBVA_DRIVER_NAME = "nvidia"; }
 
         (mkIf (isWayland config) {
           WLR_NO_HARDWARE_CURSORS = "1";
@@ -98,8 +99,8 @@ in {
       };
 
       opengl = {
-        extraPackages = with pkgs; [nvidia-vaapi-driver];
-        extraPackages32 = with pkgs.pkgsi686Linux; [nvidia-vaapi-driver];
+        extraPackages = with pkgs; [ nvidia-vaapi-driver ];
+        extraPackages32 = with pkgs.pkgsi686Linux; [ nvidia-vaapi-driver ];
       };
     };
   };

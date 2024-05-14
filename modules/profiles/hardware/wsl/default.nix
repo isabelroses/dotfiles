@@ -3,10 +3,12 @@
   config,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) mkForce;
-in {
-  imports = [inputs.nixos-wsl.nixosModules.wsl];
+in
+{
+  imports = [ inputs.nixos-wsl.nixosModules.wsl ];
   config = {
     wsl = {
       enable = true;

@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6SUgtSTFvJWNdsWz6AiOfUM9p33+8EhDwyqHX7O2+NQ=";
   };
 
-  buildInputs = [unzip];
+  buildInputs = [ unzip ];
 
   dontStrip = true;
 
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A web frontend for the headscale Tailscale-compatible coordination server";
     homepage = "https://github.com/gurucomputing/headscale-ui";
-    license = [lib.licenses.bsd3];
+    license = [ lib.licenses.bsd3 ];
   };
 }

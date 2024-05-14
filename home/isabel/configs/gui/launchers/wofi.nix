@@ -3,11 +3,15 @@
   defaults,
   osConfig,
   ...
-}: {
+}:
+{
   programs.wofi = lib.mkIf osConfig.modules.programs.gui.launchers.wofi.enable {
     enable = true;
     settings = {
-      show = ["drun" "run"];
+      show = [
+        "drun"
+        "run"
+      ];
       layer = "top";
       location = 0;
       allow_images = true;

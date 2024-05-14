@@ -3,7 +3,8 @@
   config,
   osConfig,
   ...
-}: {
+}:
+{
   config = lib.mkIf osConfig.modules.programs.gui.terminals.kitty.enable {
     programs.kitty = {
       enable = true;
