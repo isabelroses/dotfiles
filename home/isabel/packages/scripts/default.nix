@@ -51,6 +51,11 @@ in
         );
       };
 
+      ".local/bin/lockdiff" = {
+        source = ./lockdiff.nu;
+        executable = true;
+      };
+
       # ".local/bin/calcgrades.py" = {
       #   source = pkgs.python3Packages.buildPythonPackage {
       #     name = "calcgrades";

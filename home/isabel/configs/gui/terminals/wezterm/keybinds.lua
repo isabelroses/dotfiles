@@ -1,6 +1,8 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
+local utils = require("utils")
+
 local M = {}
 
 local openUrl = act.QuickSelectArgs({
@@ -54,9 +56,17 @@ map("e", "CTRL|SHIFT", getNewName)
 map("o", { "LEADER", "SUPER" }, openUrl)
 map("t", "LEADER", changeCtpFlavor)
 
+local leader
+
+if utils.is_windows() then
+  leader = "ALT"
+else
+  leader = " "
+end
+
 M.apply = function(c)
   c.leader = {
-    key = " ",
+    key = leader,
     mods = "SUPER",
     timeout_milliseconds = math.maxinteger,
   }

@@ -15,9 +15,9 @@ if utils.is_linux() then
 elseif utils.is_darwin() then
   c.window_background_opacity = 0.95
 elseif utils.is_windows() then
-  c.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\wallhaven-qzp8dr.png"
+  c.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\GEpt2MeaAAANR2q.jpeg"
   c.window_background_image_hsb = {
-    brightness = 0.03, -- make the bg darker so we can see what we are doing
+    brightness = 0.05, -- make the bg darker so we can see what we are doing
   }
 end
 
