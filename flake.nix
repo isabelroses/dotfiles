@@ -90,7 +90,7 @@
         flake-parts.follows = "flake-parts";
         pre-commit-hooks-nix.follows = "";
         flake-utils.follows = "izvim/flake-utils";
-        flake-compat.follows = "izvim/flake-compat";
+        flake-compat.follows = "";
       };
     };
 
@@ -121,10 +121,6 @@
     # my website
     isabelroses-website = {
       url = "github:isabelroses/website";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ringfairy = {
-      url = "github:isabelroses/ringfairy";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     blahaj = {
@@ -183,13 +179,6 @@
 
     # catppuccin related items
     catppuccin.url = "github:catppuccin/nix";
-    catppuccinifier = {
-      url = "github:lighttigerXIV/catppuccinifier";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "izvim/flake-utils";
-      };
-    };
     catppuccin-vsc = {
       url = "github:catppuccin/vscode";
       inputs.nixpkgs.follows = "nixpkgs";

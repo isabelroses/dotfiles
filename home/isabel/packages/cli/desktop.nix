@@ -28,6 +28,6 @@ in
         brightnessctl # brightness managed via cli
         dconf # interface with dconf settings
       ]
-      ++ optionals cfg.cli.modernShell.enable [ self'.packages.catppuccinifier-cli ];
+      ++ optionals cfg.cli.modernShell.enable [ pkgs.catppuccinifier-cli ];
   };
 }

@@ -20,9 +20,7 @@ jobs:
           - zzz
           - gh-eco
           - isabelroses-website
-          - catppuccinifier-cli
           - patched-gjs
-          - ringfairy
 
     steps:
       - name: Checkout
