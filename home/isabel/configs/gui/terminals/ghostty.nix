@@ -1,17 +1,9 @@
-{
-  lib,
-  pkgs,
-  inputs',
-  osConfig,
-  ...
-}:
+{ lib, osConfig, ... }:
 let
   inherit (lib) mkIf;
 in
 {
   config = mkIf osConfig.modules.programs.gui.terminals.ghostty.enable {
-    home.packages = mkIf pkgs.stdenv.isLinux [ inputs'.ghostty.packages.default ];
-
     xdg.configFile."ghostty/config".text = ''
       title = Ghostty
 

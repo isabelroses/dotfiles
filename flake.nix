@@ -4,16 +4,16 @@
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } { imports = [ ./parts ]; };
 
   inputs = {
-    # choose our nixpkgs version
+    # our main package supplier
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # darwin systems are important
+    # improved support for darwin
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nixos on wsl
+    # improved support for wsl
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs = {
@@ -23,15 +23,27 @@
       };
     };
 
-    # Home Manager
+    # manage userspace with nix
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # bring all the mess together with flake-parts
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
+    ### Flake management
+    # deploy systems remotely
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "izvim/flake-utils";
+        flake-compat.follows = "izvim/flake-compat";
+      };
     };
 
     # too hard to explain
@@ -43,45 +55,13 @@
       };
     };
 
-    nix-index-db = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Rust overlay
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # mailserver on nixos
-    simple-nixos-mailserver = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "izvim/flake-utils";
-      };
-    };
-
-    # remote ssh vscode server
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "izvim/flake-utils";
-      };
-    };
-
-    # deploy remote systems
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "izvim/flake-utils";
-        flake-compat.follows = "izvim/flake-compat";
-      };
-    };
-
+    ### Security stuff
     # secure-boot on nixos
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
@@ -103,8 +83,105 @@
       };
     };
 
+    # Firefox but really locked down and air tight
+    schizofox = {
+      url = "github:schizofox/schizofox";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
+    ### Additional packages
+    # cool bars and widgets
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # a plain simple way to host a mail server
+    simple-nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "izvim/flake-utils";
+      };
+    };
+
+    # a tree-wide formatter
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ### Fixes
+    # remote ssh vscode server
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "izvim/flake-utils";
+      };
+    };
+
+    # Run unpatched dynamic binaries on NixOS
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # added since the latest version of auto-cpufreq from nixpkgs is very old
+    auto-cpufreq = {
+      url = "github:AdnanHodzic/auto-cpufreq";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ### misc
+    # this guy makes some cool tools
     nekowinston-nur = {
       url = "github:nekowinston/nur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # a index for nixpkgs
+    nix-index-db = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ### catppuccin
+    # declarative theme management
+    catppuccin.url = "github:catppuccin/nix";
+
+    # catppuccin the vscode extension
+    catppuccin-vsc = {
+      url = "github:catppuccin/vscode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ### my programs
+    isabelroses-website = {
+      url = "github:isabelroses/website";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    blahaj = {
+      url = "github:isabelroses/blahaj";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    bellado = {
+      url = "github:isabelroses/bellado";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    izrss = {
+      url = "github:isabelroses/izrss";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zzz = {
+      url = "github:isabelroses/zzz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -116,72 +193,6 @@
         nekowinston-nur.follows = "nekowinston-nur";
         pre-commit-nix.follows = "pre-commit-hooks";
       };
-    };
-
-    # my website
-    isabelroses-website = {
-      url = "github:isabelroses/website";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    blahaj = {
-      url = "github:isabelroses/blahaj";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    bellado = {
-      url = "github:isabelroses/bellado";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    izrss = {
-      url = "github:isabelroses/izrss";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    zzz = {
-      url = "github:isabelroses/zzz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # a tree-wide formatter
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # More up to date auto-cpufreq
-    auto-cpufreq = {
-      url = "github:AdnanHodzic/auto-cpufreq";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # cool bars
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Run unpatched dynamic binaries on NixOS
-    nix-ld = {
-      url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Firefox but really locked down and air tight
-    schizofox = {
-      url = "github:schizofox/schizofox";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-
-    # A cool terminal
-    # WARNING: do not change the overrides since we will have to rebuild from source and that will take forever
-    ghostty.url = "git+ssh://git@github.com/mitchellh/ghostty";
-
-    # catppuccin related items
-    catppuccin.url = "github:catppuccin/nix";
-    catppuccin-vsc = {
-      url = "github:catppuccin/vscode";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

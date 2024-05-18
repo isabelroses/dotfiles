@@ -1,0 +1,32 @@
+name: Bump Flake Inputs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  update-lockfile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          logger: pretty
+
+      - name: Update Lockfile
+        uses: DeterminateSystems/update-flake-lock@main
+        id: update
+        with:
+          pr-title: "chore(deps): flake inputs"
+          commit-msg: "chore(deps): flake inputs"
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge Changes
+        run: gh pr merge ${{ steps.update.outputs.pull-request-number }} --squash --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
