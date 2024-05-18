@@ -42,6 +42,8 @@ in
     // ldTernary pkgs {
       fontconfig = {
         enable = true;
+        hinting.enable = true;
+        antialias = true;
 
         defaultFonts = {
           monospace = [

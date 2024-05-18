@@ -1,9 +1,11 @@
 {
   imports = [
-    ./environment.nix
-    ./systemd.nix
     ./documentation.nix
+    ./environment.nix
     ./fonts.nix
+    ./services.nix
+    ./sound.nix
+    ./systemd.nix
     ./xdg.nix
   ];
 }
