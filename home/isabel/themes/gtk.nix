@@ -28,7 +28,6 @@ in
     home = {
       packages = with pkgs; [
         glib # gsettings
-        cfg.gtk.iconTheme.package
       ];
 
       # gtk applications should use xdg specified settings
@@ -37,10 +36,6 @@ in
 
     gtk = {
       enable = true;
-
-      iconTheme = {
-        inherit (cfg.gtk.iconTheme) name package;
-      };
 
       font = {
         inherit (cfg.gtk.font) name size;

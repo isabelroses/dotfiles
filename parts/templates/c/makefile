@@ -1,4 +1,4 @@
-PREFIX ?= /usr/local # this is overriden by the derivation makeFlags
+PREFIX ?= /usr/local # this is overridden by the derivation makeFlags
 BIN_DIR ?= $(PREFIX)/bin
 
 

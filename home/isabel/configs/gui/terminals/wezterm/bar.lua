@@ -271,7 +271,7 @@ wezterm.on("format-tab-title", function(tab, tabs, _panes, conf, _hover, _max_wi
   -- start and end hardcoded numbers are the Powerline + " " padding
   local fillerwidth = 2 + string.len(index) + string.len(pane_count) + 2
 
-  -- prefer renamed tabe titles to the default title
+  -- prefer renamed table titles to the default title
   local tabtitle = tab.tab_title
   if #tabtitle <= 0 then
     tabtitle = tab.active_pane.title

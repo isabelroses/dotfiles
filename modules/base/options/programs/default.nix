@@ -64,7 +64,6 @@ in
         ags.enable = mkEnableOption "Enable ags bar/launcher" // {
           default = cfg.gui.enable;
         };
-        eww.enable = mkEnableOption "Enable eww bar/launcher";
         waybar.enable = mkEnableOption "Enable waybar";
       };
 

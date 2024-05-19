@@ -14,7 +14,7 @@ export function scssWatcher() {
       App.configDir + "/scss",
     ],
     reloadScss,
-    () => print("missing dependancy for css hotreload: inotify-tools"),
+    () => print("missing dependency for css hotreload: inotify-tools"),
   );
 }
 

@@ -14,24 +14,18 @@ let
 
   ags = "ags -b hypr";
   eags = "exec, ${ags}";
-  eww = "~/.config/eww/scripts";
-  eeww = "exec, ${eww}";
 in
 {
   wayland.windowManager.hyprland = {
     settings = {
       "$mod" = "SUPER";
 
-      exec-once =
-        [
-          "wl-paste --type text --watch cliphist store" # Stores only text data
-          "wl-paste --type image --watch cliphist store" # Stores only image data
-          "wlsunset -S 8:00 -s 20:00"
-          "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
-        ]
-        ++ optionals (defaults.bar == "eww") [ "${eww}/init" ]
-        ++ optionals (defaults.bar == "waybar") [ "waybar" ]
-        ++ optionals (defaults.bar == "ags") [ ags ];
+      exec-once = [
+        "wl-paste --type text --watch cliphist store" # Stores only text data
+        "wl-paste --type image --watch cliphist store" # Stores only image data
+        "wlsunset -S 8:00 -s 20:00"
+        "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
+      ] ++ optionals (defaults.bar == "waybar") [ "waybar" ] ++ optionals (defaults.bar == "ags") [ ags ];
 
       input = {
         kb_layout = "${dev.keyboard}";
@@ -106,11 +100,6 @@ in
           xray = true;
         };
 
-        blurls = [
-          "eww_powermenu"
-          "eww_takeshot"
-        ];
-
         drop_shadow = true;
         "col.shadow" = "rgb(11111B)";
         "col.shadow_inactive" = "rgba(11111B00)";
@@ -144,7 +133,6 @@ in
       windowrule = [
         "float, bitwarden"
         "float, ^(rofi)$"
-        "float, ^(eww)$"
         "float, ^(pavucontrol)$"
         "float, ^(nm-connection-editor)$"
         "float, ^(blueberry.py)$"
@@ -200,19 +188,6 @@ in
           "$mod, mouse_down, workspace, e+1"
           "$mod, mouse_up, workspace, e-1"
         ]
-        ++ optionals (defaults.bar == "eww") [
-          "$mod, D, ${eeww}/launcher toggle_menu app_launcher"
-          "$mod SHIFT, R, ${eeww}/init"
-          "$mod, V, ${eeww}/launcher clipboard"
-          "$mod, escape, ${eeww}/launcher toggle_menu powermenu"
-          "$mod shift, d, ${eeww}/notifications closeLatest"
-          ", XF86AudioMute, ${eeww}/volume mute"
-
-          # screenshot
-          ", PRINT, ${eeww}/launcher toggle_menu takeshot"
-          "shift, PRINT, ${eeww}/screenshot screen-quiet"
-          "super shift, S, ${eeww}/screenshot area-quiet"
-        ]
         ++ optionals (defaults.bar == "waybar") [
           "$mod, D, exec, rofi -show drun"
           ", XF86AudioMute, exec, pamixer -t"
@@ -224,10 +199,6 @@ in
           "$mod, escape, ${eags} -t powermenu"
           "$mod SHIFT, R, ${eags} --quit ; ${ags}"
           ", Xf86AudioMute, ${eags} -r 'volume.master.toggleMute(); indicator.display()'"
-        ]
-        ++ optionals (defaults.bar != "eww") [
-          ", Print, exec, grim -g '$(slurp)' - | swappy -f -"
-          "$mod, V, exec, cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"
         ]
         ++ optionals (defaults.bar != "ags") [
           ", XF86AudioPlay, exec, playerctl play-pause"
@@ -258,19 +229,12 @@ in
       ];
 
       # hold to repeat action buttons
-      binde =
-        optionals (defaults.bar == "eww") [
-          ", XF86AudioRaiseVolume, ${eeww}/volume up"
-          ", XF86AudioLowerVolume, ${eeww}/volume down"
-          ", XF86MonBrightnessUp, ${eeww}/brightness up"
-          ", XF86MonBrightnessDown, ${eeww}/brightness down"
-        ]
-        ++ optionals (defaults.bar == "waybar") [
-          ", XF86AudioRaiseVolume, exec, pamixer -i 5"
-          ", XF86AudioLowerVolume, exec, pamixer -d 5"
-          ", XF86MonBrightnessUp, exec, brightnessctl set 5%+ -q"
-          ", XF86MonBrightnessDown, exec, brightnessctl set 5%- -q"
-        ];
+      binde = optionals (defaults.bar == "waybar") [
+        ", XF86AudioRaiseVolume, exec, pamixer -i 5"
+        ", XF86AudioLowerVolume, exec, pamixer -d 5"
+        ", XF86MonBrightnessUp, exec, brightnessctl set 5%+ -q"
+        ", XF86MonBrightnessDown, exec, brightnessctl set 5%- -q"
+      ];
     };
 
     extraConfig =

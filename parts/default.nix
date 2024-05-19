@@ -7,9 +7,9 @@
     ./overlays # overlays that make the system that bit cleaner
     ./pkgs # packages exposed to the flake
     ./programs # programs that run in the dev shell
-    ./templates # programing templates for the quick setup of new programing enviorments
+    ./templates # programing templates for the quick setup of new programing environments
 
-    ./args.nix # the base args that is passsed to the flake
+    ./args.nix # the base args that is passed to the flake
     ./systems.nix # the systems that are used in the flake
   ];
 }

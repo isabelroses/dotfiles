@@ -11,7 +11,6 @@
           docs-md = docs.md;
           docs-html = docs.html;
 
-          patched-gjs = pkgs.callPackage ./patched-gjs.nix { };
           plymouth-theme-catppuccin = pkgs.callPackage ./plymouth-theme-catppuccin.nix { };
           headscale-ui = pkgs.callPackage ./headscale-ui.nix { };
           gh-eco = pkgs.callPackage ./gh-eco.nix { };

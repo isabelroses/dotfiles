@@ -1,7 +1,7 @@
 # funny macos thing
 .DS_Store
 
-# Ingore nixos build outputs
+# Ignore nixos build outputs
 result
 .direnv/
 

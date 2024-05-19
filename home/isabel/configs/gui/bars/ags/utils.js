@@ -53,13 +53,13 @@ export function createSurfaceFromWidget(widget) {
 
 /** @param {string} icon */
 export function getAudioTypeIcon(icon) {
-  const substitues = [
+  const substitutes = [
     ["audio-headset-bluetooth", icons.audio.type.headset],
     ["audio-card-analog-usb", icons.audio.type.speaker],
     ["audio-card-analog-pci", icons.audio.type.card],
   ];
 
-  return substitute(substitues, icon);
+  return substitute(substitutes, icon);
 }
 
 /** @param {import('types/service/applications').Application} app */

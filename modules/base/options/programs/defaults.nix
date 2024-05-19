@@ -53,7 +53,6 @@ in
       type =
         with types;
         nullOr (enum [
-          "eww"
           "waybar"
           "ags"
         ]);

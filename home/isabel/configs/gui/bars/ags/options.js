@@ -68,7 +68,7 @@ export default {
     scheme: Option("dark", {
       enums: ["dark", "light"],
       type: "enum",
-      note: "Color scheme to set on Gtk apps: 'ligth' or 'dark'",
+      note: "Color scheme to set on Gtk apps: 'light' or 'dark'",
       title: "Color Scheme",
       scss: "color-scheme",
     }),

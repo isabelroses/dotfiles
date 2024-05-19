@@ -49,7 +49,6 @@
 
         bars = {
           ags.enable = false;
-          eww.enable = false;
           waybar.enable = false;
         };
 
