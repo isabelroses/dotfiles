@@ -1,5 +1,12 @@
-{ lib, config, ... }:
 {
+  lib,
+  config,
+  modulesPath,
+  ...
+}:
+{
+  imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
+
   config = {
     services.smartd.enable = lib.mkForce false; # Unavailable - device lacks SMART capability.
 
@@ -12,6 +19,12 @@
           "net.ipv6.conf.all.forwarding" = true;
         };
       };
+
+      initrd.availableKernelModules = [
+        "uhci_hcd"
+        "xen_blkfront"
+        "vmw_pvscsi"
+      ];
 
       loader.grub = {
         enable = true;

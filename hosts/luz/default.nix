@@ -23,6 +23,7 @@
         enableKernelTweaks = true;
         initrd.enableTweaks = true;
         loadRecommendedModules = true;
+        tmpOnTmpfs = false;
       };
 
       fs = [

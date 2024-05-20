@@ -18,7 +18,6 @@ in
         just # cool build tool
         wakatime
         nix-output-monitor # much nicer nix build output
-        pace
       ]
       ++ optionals cfg.cli.modernShell.enable [
         jq # json parser
