@@ -1,9 +1,16 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   inherit (lib) mkDefault ldTernary;
 in
 {
   imports = [
+    inputs.beapkgs.homeManagerModules.default
+
     ./configs # per application configuration
     ./system # important system environment config
     ./packages # programs that are used, e.g. GUI apps

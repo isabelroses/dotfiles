@@ -1,20 +1,31 @@
 {
-  config,
   lib,
-  inputs,
+  config,
+  inputs',
   ...
 }:
 let
   inherit (config.networking) domain;
-  inherit (lib) mkIf template;
+  inherit (lib) mkIf template getExe;
 
   cfg = config.modules.services.isabelroses-website;
 in
 {
-  imports = [ inputs.isabelroses-website.nixosModules.default ];
-
   config = mkIf cfg.enable {
-    services.isabelroses-website.enable = true;
+    systemd.services."isabelroses-website" = {
+      description = "isabelroses.com";
+      after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
+      path = [ inputs'.beapkgs.packages.website ];
+
+      serviceConfig = {
+        Type = "simple";
+        ReadWritePaths = [ "/srv/storage/isabelroses.com" ];
+        DynamicUser = true;
+        ExecStart = "${getExe inputs'.beapkgs.packages.website}";
+        Restart = "always";
+      };
+    };
 
     services.nginx.virtualHosts.${domain} = {
       locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";

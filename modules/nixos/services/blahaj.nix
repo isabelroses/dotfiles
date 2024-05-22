@@ -15,7 +15,7 @@
       Type = "simple";
       DynamicUser = true;
       EnvironmentFile = config.age.secrets.blahaj-env.path;
-      ExecStart = "${lib.getExe pkgs.nodejs-slim} ${inputs'.blahaj.packages.default}/lib/node_modules/blahaj/src/bot.js";
+      ExecStart = "${lib.getExe pkgs.nodejs-slim} ${inputs'.beapkgs.packages.blahaj}/lib/node_modules/blahaj/src/bot.js";
       Restart = "always";
     };
   };

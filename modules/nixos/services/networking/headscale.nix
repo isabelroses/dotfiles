@@ -1,7 +1,7 @@
 {
-  config,
   lib,
-  self',
+  config,
+  inputs',
   ...
 }:
 let
@@ -68,7 +68,7 @@ in
         };
 
         locations."/web" = {
-          root = "${self'.packages.headscale-ui}/share";
+          root = "${inputs'.beapkgs.packages.headscale-ui}/share";
         };
       } // lib.template.ssl rdomain;
     };

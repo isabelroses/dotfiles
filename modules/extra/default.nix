@@ -1,7 +1,1 @@
-{
-  imports = [
-    ./nixos
-    ./darwin
-    ./home-manager
-  ];
-}
+{ imports = [ ./home-manager ]; }

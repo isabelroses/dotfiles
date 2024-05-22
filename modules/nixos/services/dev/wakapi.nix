@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  self,
+  inputs,
   config,
   ...
 }:
@@ -12,7 +12,7 @@ let
   cfg = config.modules.services.dev.wakapi;
 in
 {
-  imports = [ self.nixosModules.wakapi ];
+  imports = [ inputs.beapkgs.nixosModules.default ];
 
   config = mkIf cfg.enable {
     modules.services = {

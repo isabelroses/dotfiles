@@ -6,8 +6,6 @@ in
 {
   flake = {
     nixosModules = {
-      wakapi = mkModule /modules/extra/nixos/wakapi.nix;
-
       # i do not provide a default module, so throw an error
       default = builtins.throw "There is no default module.";
     };

@@ -10,7 +10,7 @@ let
 in
 {
   config = mkIf (cfg.enable && cfg.modernShell.enable) {
-    home.packages = [ inputs'.zzz.packages.default ];
+    home.packages = [ inputs'.beapkgs.packages.zzz ];
 
     xdg.configFile."zzz/config.yaml".text = ''
       default_language: go

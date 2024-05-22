@@ -65,43 +65,24 @@
         "type": "github"
       }
     },
-    "bellado": {
+    "beapkgs": {
       "inputs": {
+        "flake-compat": [],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1702690530,
-        "narHash": "sha256-evko1/qE4oRXTMdCOGuwJRUkRm7Sxb5MhQCTLgx5Z+4=",
+        "lastModified": 1716345641,
+        "narHash": "sha256-R/yaNZEIsa4r4nPBVSCiGroisJ6w1o5FwZ9Kq5LzbnE=",
         "owner": "isabelroses",
-        "repo": "bellado",
-        "rev": "8b9bb4e19b06a35acd8b2d39830c2751246ff189",
+        "repo": "beapkgs",
+        "rev": "2eaa7bf388a9fb6b6df34530c03a34ac2681c47b",
         "type": "github"
       },
       "original": {
         "owner": "isabelroses",
-        "repo": "bellado",
-        "type": "github"
-      }
-    },
-    "blahaj": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1710846700,
-        "narHash": "sha256-m7t4kUm5nxsK3qdtq/pfxMR7swv85b1gAqe5rv+5dLY=",
-        "owner": "isabelroses",
-        "repo": "blahaj",
-        "rev": "bc4b4f6813d5e5eb996d9b08508940a51b6f06c8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "repo": "blahaj",
+        "repo": "beapkgs",
         "type": "github"
       }
     },
@@ -520,46 +501,6 @@
         "type": "github"
       }
     },
-    "isabelroses-website": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1715607396,
-        "narHash": "sha256-AcetcfuJpb3IgxYmq42NJDEOWRzz0yu/g66vv9OweFc=",
-        "owner": "isabelroses",
-        "repo": "website",
-        "rev": "c11fb794b326f55d41c56ac9540edbf817e159bc",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "repo": "website",
-        "type": "github"
-      }
-    },
-    "izrss": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1715977329,
-        "narHash": "sha256-eUQrerbK9hChj83wtYOaUKJxnp2yNDwHHWFxCQrlB7A=",
-        "owner": "isabelroses",
-        "repo": "izrss",
-        "rev": "a8d8aee127848a19c67275ee68164293ee7fb51a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "repo": "izrss",
-        "type": "github"
-      }
-    },
     "izvim": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -846,16 +787,13 @@
         "agenix": "agenix",
         "ags": "ags",
         "auto-cpufreq": "auto-cpufreq",
-        "bellado": "bellado",
-        "blahaj": "blahaj",
+        "beapkgs": "beapkgs",
         "catppuccin": "catppuccin",
         "catppuccin-vsc": "catppuccin-vsc",
         "darwin": "darwin_2",
         "deploy-rs": "deploy-rs",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
-        "isabelroses-website": "isabelroses-website",
-        "izrss": "izrss",
         "izvim": "izvim",
         "lanzaboote": "lanzaboote",
         "nekowinston-nur": "nekowinston-nur",
@@ -868,8 +806,7 @@
         "schizofox": "schizofox",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "treefmt-nix": "treefmt-nix",
-        "vscode-server": "vscode-server",
-        "zzz": "zzz"
+        "vscode-server": "vscode-server"
       }
     },
     "rust-overlay": {
@@ -1097,26 +1034,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "nixos-vscode-server",
-        "type": "github"
-      }
-    },
-    "zzz": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1713781545,
-        "narHash": "sha256-csoJY7A8CWo+ewYlZYEDH21WWQNoIkUkJBvU07WVHIQ=",
-        "owner": "isabelroses",
-        "repo": "zzz",
-        "rev": "7715a19520e8234820851d29bb83f44788a671c2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "repo": "zzz",
         "type": "github"
       }
     }

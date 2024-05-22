@@ -1,8 +1,8 @@
 {
   lib,
   pkgs,
-  self',
   config,
+  inputs',
   ...
 }:
 let
@@ -31,7 +31,7 @@ in
         };
 
         "emoji/blobs" = pkgs.akkoma-emoji.blobs_gg;
-        "emoji/awesome" = self'.packages.emojis;
+        "emoji/awesome" = inputs'.beapkgs.packages.emojis;
       };
 
       config = {

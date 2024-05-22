@@ -1,8 +1,8 @@
 {
-  config,
   lib,
-  self',
   pkgs,
+  config,
+  inputs',
   ...
 }:
 let
@@ -19,7 +19,7 @@ in
       }
       // lib.optionalAttrs cfg.withThemes {
         theme = "catppuccin-mocha";
-        themePackages = [ self'.packages.plymouth-theme-catppuccin ];
+        themePackages = [ inputs'.beapkgs.packages.plymouth-theme-catppuccin ];
       };
 
     # make plymouth work with sleep

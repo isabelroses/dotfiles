@@ -160,29 +160,13 @@
     };
 
     ### my programs
-    isabelroses-website = {
-      url = "github:isabelroses/website";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    blahaj = {
-      url = "github:isabelroses/blahaj";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    bellado = {
-      url = "github:isabelroses/bellado";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    izrss = {
-      url = "github:isabelroses/izrss";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zzz = {
-      url = "github:isabelroses/zzz";
-      inputs.nixpkgs.follows = "nixpkgs";
+    beapkgs = {
+      url = "github:isabelroses/beapkgs";
+      # url = "git+file:///home/isabel/dev/beapkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "";
+      };
     };
 
     izvim = {
