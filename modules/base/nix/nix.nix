@@ -75,6 +75,7 @@ in
         "ca-derivations"
         "auto-allocate-uids"
         "cgroups"
+        "repl-flake"
 
         # the below are removed because lix is based on nix 2.18 which did not have these features
         # "git-hashing"
