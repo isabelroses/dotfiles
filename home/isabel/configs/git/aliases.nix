@@ -18,5 +18,9 @@
     llog = ''
       log --graph --name-status --pretty=format:"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset" --date=relative
     '';
+    # https://github.com/arichtman/nix/blob/18f5613c2842e12e49350aeceace63863ad59244/modules/home/default-home/default.nix#L11
+    fuggit = "!git add . && git commit --amend --no-edit && git push --force";
+    # thanks @vbde for this
+    idc = "!git commit -am '$(curl -s https://whatthecommit.com/index.txt)'";
   };
 }
