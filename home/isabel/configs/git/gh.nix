@@ -1,4 +1,4 @@
-{ pkgs, inputs', ... }:
+{ pkgs, ... }:
 {
   programs.gh = {
     enable = true;
@@ -7,7 +7,7 @@
     extensions = with pkgs; [
       gh-cal # github activity stats in the CLI
       gh-copilot # copilot in the CLI
-      inputs'.beapkgs.packages.gh-eco # explore the ecosystem
+      gh-eco # explore the ecosystem
     ];
 
     settings = {
