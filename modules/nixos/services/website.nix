@@ -16,13 +16,13 @@ in
       description = "isabelroses.com";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = [ inputs'.beapkgs.packages.website ];
+      path = [ inputs'.beapkgs.packages.isabelroses-website ];
 
       serviceConfig = {
         Type = "simple";
         ReadWritePaths = [ "/srv/storage/isabelroses.com" ];
         DynamicUser = true;
-        ExecStart = "${getExe inputs'.beapkgs.packages.website}";
+        ExecStart = "${getExe inputs'.beapkgs.packages.isabelroses-website}";
         Restart = "always";
       };
     };
