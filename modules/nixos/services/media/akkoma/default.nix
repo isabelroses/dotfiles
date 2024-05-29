@@ -26,8 +26,8 @@ in
         "static/terms-of-service.html" = pkgs.writeText "terms-of-service.html" "Just be normal please";
 
         "favicon.png" = pkgs.fetchurl {
-          url = "https://avatars.githubusercontent.com/u/71222764?v=4";
-          sha256 = "sha256-abbhpAHbCVA65fJut4N3tCc0Z9cwSCnnVNyFjpr57ig=";
+          url = "https://gravatar.com/avatar/c487c810e09878b4bd90df713a7c9523?size=512";
+          sha256 = "0m9kdi88v15g0k0isz27qg1hpzdy4scszrq106qvhdzxblf2fxiz";
         };
 
         "emoji/blobs" = pkgs.akkoma-emoji.blobs_gg;

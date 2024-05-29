@@ -18,7 +18,7 @@
       forgejo.enable = true;
       wakapi.enable = true;
       vscode-server.enable = false;
-      plausible.enable = true;
+      plausible.enable = false;
     };
 
     media = {
@@ -30,7 +30,7 @@
     monitoring = {
       grafana.enable = true;
       prometheus.enable = true;
-      loki.enable = true;
+      loki.enable = false;
       uptime-kuma.enable = true;
     };
 
