@@ -1,15 +1,36 @@
-{ pkgs, inputs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+let
+  inherit (builtins) elem;
+  inherit (lib.trivial) pipe;
+  inherit (lib.attrsets) filterAttrs mapAttrs';
+in
 {
   environment = {
-    etc = with inputs; {
-      # set channels (backwards compatibility)
-      "nix/flake-channels/system".source = self;
-      "nix/flake-channels/nixpkgs".source = nixpkgs;
-      "nix/flake-channels/home-manager".source = home-manager;
-
-      # preserve current flake in /etc
-      "nixos/flake".source = self;
-    };
+    # something something backwards compatibility something something nix channels
+    etc =
+      let
+        inherit (config.nix) registry;
+        commonPaths = [
+          "self"
+          "nixpkgs"
+          "beapkgs"
+          "home-manager"
+        ];
+      in
+      pipe registry [
+        (filterAttrs (name: _: (elem name commonPaths)))
+        (mapAttrs' (
+          name: value: {
+            name = "nix/path/${name}";
+            value.source = value.flake;
+          }
+        ))
+      ];
 
     # git is required for flakes, and cachix for binary substituters
     systemPackages = with pkgs; [
