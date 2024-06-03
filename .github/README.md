@@ -17,7 +17,7 @@
 - [Install Notes](#install-notes)
   - [NixOS](#nixos)
   - [macOS](#macos)
-- [Awesome people/projects](#awesome-peopleprojects)
+- [Awesome people, they really helped me learn](#awesome-people-they-really-helped-me-learn)
 <!--toc:end-->
 
 ### What does this repo provided
@@ -65,7 +65,7 @@
   - 💮 [Tatsumaki](../hosts/tatsumaki/) A MacBook Air, configured to last a whole day of university
 - 🧩 [parts](../parts/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
   - 📚 [lib](../parts/lib/) Useful repeated functions
-  - 📦 [packages](../parts/pkgs/) NixOS packages
+  - 📦 [packages](https://github.com/isabelroses/beapkgs) NixOS packages, these have been moved to a separate repository
   - 🛠️ [templates](../parts/templates/) Templates for setting up development environments
   - 👾 [modules](../parts/modules/) Exported modules for NixOS, home-manager and Nix Darwin
   - 🗗 [overlays](../parts/overlays/) Package overlays
@@ -99,6 +99,13 @@
 - `nix run nix-darwin -- switch --flake ~/.config/flake#<host> --experimental-features "nix-command flakes"`
 - Then good news you can use the `rebuild` alias that exists for the future
 
-### Awesome people/projects
+### Awesome people, they really helped me learn
 
-[NotAShelf](https://github.com/notashelf/nyx) - [numtide/srvos](https://github.com/numtide/srvos) - [nullishamy](https://github.com/nullishamy/derivation-station) - [nekowinston](https://github.com/nekowinston/dotfiles) - [getchoo](https://github.com/getchoo) - [nyxkrage](https://github.com/nyxkrage)
+- [NotAShelf](https://github.com/notashelf), lots of valuable information
+- [nullishamy](https://github.com/nullishamy), for tricking me into using NixOS
+- [nekowinston](https://github.com/nekowinston), for fixing half my problems
+- [getchoo](https://github.com/getchoo), for making catppucin/nix and helping a ton
+- [nyxkrage](https://github.com/nyxkrage), for being there to answer my questions
+- [vdbe](https://github.com/vdbe), for creating an awesome neovim configuration ~~to steal~~ I mean to learn from
+- [jakehamilton](https://github.com/jakehamilton), for teaching me some little bit of know how
+- [Minion3665](https://github.com/Minion3665), for making me write docs I guess
