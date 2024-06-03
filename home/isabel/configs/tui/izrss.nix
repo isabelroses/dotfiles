@@ -7,7 +7,7 @@ in
     programs.izrss = {
       enable = true;
 
-      urls = [
+      settings.urls = [
         "https://isabelroses.com/feed.xml"
         "https://uncenter.dev/feed.xml"
         "https://charm.sh/blog/rss.xml"
