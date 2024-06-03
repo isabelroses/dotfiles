@@ -45,26 +45,6 @@
         "type": "github"
       }
     },
-    "auto-cpufreq": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1716649794,
-        "narHash": "sha256-DlAa+AJ8SxzeoXnV+iJVBvKqleituYbK6FHNgPoMb90=",
-        "owner": "AdnanHodzic",
-        "repo": "auto-cpufreq",
-        "rev": "3f6d7a3e77732c1dbe4873b69404fefd899ad35e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AdnanHodzic",
-        "repo": "auto-cpufreq",
-        "type": "github"
-      }
-    },
     "beapkgs": {
       "inputs": {
         "flake-compat": [],
@@ -786,7 +766,6 @@
       "inputs": {
         "agenix": "agenix",
         "ags": "ags",
-        "auto-cpufreq": "auto-cpufreq",
         "beapkgs": "beapkgs",
         "catppuccin": "catppuccin",
         "catppuccin-vsc": "catppuccin-vsc",

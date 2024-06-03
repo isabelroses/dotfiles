@@ -1,16 +1,13 @@
 {
-  config,
-  pkgs,
   lib,
-  inputs,
+  pkgs,
+  config,
   ...
 }:
 let
   inherit (lib) mkDefault;
 in
 {
-  imports = [ inputs.auto-cpufreq.nixosModules.default ];
-
   config = {
     hardware.acpilight.enable = true;
 
@@ -18,29 +15,6 @@ in
       acpi
       powertop
     ];
-
-    programs.auto-cpufreq = {
-      enable = true;
-      settings =
-        let
-          MHz = x: x * 1000;
-        in
-        {
-          battery = {
-            governor = "powersave";
-            scaling_min_freq = mkDefault (MHz 1200);
-            scaling_max_freq = mkDefault (MHz 1800);
-            turbo = "never";
-          };
-          charger = {
-            governor = "performance";
-            scaling_min_freq = mkDefault (MHz 1800);
-            scaling_max_freq = mkDefault (MHz 3800);
-            turbo = "auto";
-          };
-        };
-    };
-
     services = {
       # handle ACPI events
       acpid.enable = true;
@@ -54,25 +28,28 @@ in
         package = pkgs.undervolt;
       };
 
-      /*
-        # superior power management
-        auto-cpufreq.enable = true;
-
-        auto-cpufreq.settings = {
-          battery = {
-            governor = "powersave";
-            scaling_min_freq = mkDefault (MHz 1200);
-            scaling_max_freq = mkDefault (MHz 1800);
-            turbo = "never";
+      # superior power management
+      auto-cpufreq = {
+        enable = true;
+        settings =
+          let
+            MHz = x: x * 1000;
+          in
+          {
+            battery = {
+              governor = "powersave";
+              scaling_min_freq = mkDefault (MHz 1200);
+              scaling_max_freq = mkDefault (MHz 1800);
+              turbo = "never";
+            };
+            charger = {
+              governor = "performance";
+              scaling_min_freq = mkDefault (MHz 1800);
+              scaling_max_freq = mkDefault (MHz 3800);
+              turbo = "auto";
+            };
           };
-          charger = {
-            governor = "performance";
-            scaling_min_freq = mkDefault (MHz 1800);
-            scaling_max_freq = mkDefault (MHz 3000);
-            turbo = "auto";
-          };
-        };
-      */
+      };
 
       # DBus service that provides power management support to applications.
       upower = {

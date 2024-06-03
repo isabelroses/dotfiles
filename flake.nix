@@ -130,12 +130,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # added since the latest version of auto-cpufreq from nixpkgs is very old
-    auto-cpufreq = {
-      url = "github:AdnanHodzic/auto-cpufreq";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     ### misc
     # this guy makes some cool tools
     nekowinston-nur = {
