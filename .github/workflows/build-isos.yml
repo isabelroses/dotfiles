@@ -10,23 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Maximize Space
-        uses: easimon/maximize-build-space@v10
+      - name: Setup
+        uses: ./.github/actions/setup
         with:
-          overprovision-lvm: true
-          remove-android: true
-          remove-dotnet: true
-          remove-codeql: true
-          remove-haskell: true
-          remove-docker-images: true
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-        with:
-          logger: pretty
+          optimise-space: true
 
       - name: Build Lilith Iso
         continue-on-error: false

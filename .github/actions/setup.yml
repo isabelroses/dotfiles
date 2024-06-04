@@ -1,0 +1,45 @@
+name: Setup
+
+on:
+  workflow_call:
+    inputs:
+      command:
+        required: false
+        type: string
+      platform:
+        default: "ubuntu-latest"
+        required: false
+        type: string
+      optimize-space:
+        default: false
+        required: false
+        type: boolean
+
+jobs:
+  setup:
+    runs-on: "${{ inputs.platform }}"
+
+    steps:
+      - name: Maximize Space
+        uses: easimon/maximize-build-space@v10
+        if: ${{ inputs.optimize-space }}
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-codeql: true
+          remove-haskell: true
+          remove-docker-images: true
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Lix
+        run: |
+          curl -sSf -L https://install.lix.systems/lix | sh -s -- install --no-confirm
+          echo "trusted-users = root worker" | sudo tee -a /etc/nix/nix.conf
+          echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
+          sudo systemctl restart nix-daemon
+
+      - name: Nix Magic Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
