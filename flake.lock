@@ -53,11 +53,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717374822,
-        "narHash": "sha256-/bBHgrzwwg2f47zB0fW/4iNNSw9mq2bsYFFCcb+2iEY=",
+        "lastModified": 1717461156,
+        "narHash": "sha256-x2ADoCQXh6XzFLCjdsuxhbtYC5wCHKH/WMzUPa7Smwc=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "e8e9dc50d706f0db2c70bc3c6debc78420cd9f8d",
+        "rev": "ef204d9927761b179ca5fbf7aa7a1125918eb689",
         "type": "github"
       },
       "original": {
@@ -705,11 +705,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1716948383,
-        "narHash": "sha256-SzDKxseEcHR5KzPXLwsemyTR/kaM9whxeiJohbL04rs=",
+        "lastModified": 1717196966,
+        "narHash": "sha256-yZKhxVIKd2lsbOqYd5iDoUIwsRZFqE87smE2Vzf6Ck0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ad57eef4ef0659193044870c731987a6df5cf56b",
+        "rev": "57610d2f8f0937f39dbd72251e9614b1561942d8",
         "type": "github"
       },
       "original": {
@@ -821,11 +821,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717294752,
-        "narHash": "sha256-QhlS52cEQyx+iVcgrEoCnEEpWUA6uLdmeLRxk935inI=",
+        "lastModified": 1717442957,
+        "narHash": "sha256-w0fqHofxM2hf3pGDXCPSdH0A09v6FgHm6I38nCWA96k=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "b46857a406d207a1de74e792ef3b83e800c30e08",
+        "rev": "025e1742de4fa75b3fb63818bd9726d17da6a102",
         "type": "github"
       },
       "original": {
@@ -898,11 +898,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1714720456,
-        "narHash": "sha256-e0WFe1BHqX23ADpGBc4ZRu38Mg+GICCZCqyS6EWCbHc=",
+        "lastModified": 1717145612,
+        "narHash": "sha256-Jb1VAryn2UTLCM59Ph847SD8ff+fcii4i0Qem5povkI=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "41059fc548088e49e3ddb3a2b4faeb5de018e60f",
+        "rev": "46a0829aa82c5a56e6b6c24aa8d8046c52a716a4",
         "type": "gitlab"
       },
       "original": {
