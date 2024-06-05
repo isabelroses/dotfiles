@@ -7,6 +7,9 @@
     # our main package supplier
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # lix a good fork of nix
+    lix.url = "git+https://git.lix.systems/lix-project/lix.git";
+
     # improved support for darwin
     darwin = {
       url = "github:lnl7/nix-darwin";
