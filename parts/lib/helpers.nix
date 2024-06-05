@@ -26,9 +26,6 @@ let
   # return an int based on boolean value
   boolToNum = bool: if bool then 1 else 0;
 
-  # a basic function to fetch a specified user's public keys from github .keys url
-  fetchKeys = username: (builtins.fetchurl "https://github.com/${username}.keys");
-
   # convert a list of integers to a list of string
   # `intListToStringList [1 2 3]` -> ["1" "2" "3"]
   intListToStringList = list: map (toString list);
@@ -61,7 +58,6 @@ in
     importNixFiles
     importNixFilesAndDirs
     boolToNum
-    fetchKeys
     containsStrings
     serializeTheme
     indexOf
