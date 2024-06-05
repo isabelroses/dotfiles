@@ -10,13 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Maximize Space
+        uses: easimon/maximize-build-space@v10
+        with:
+          overprovision-lvm: true
+          remove-android: true
+          remove-dotnet: true
+          remove-codeql: true
+          remove-haskell: true
+          remove-docker-images: true
+
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup
-        uses: ./.github/workflows/setup.yml
-        with:
-          optimise-space: true
+      - name: Install Lix
+        run: |
+          curl -sSf -L https://install.lix.systems/lix | sh -s -- install --no-confirm
+          echo "trusted-users = root worker" | sudo tee -a /etc/nix/nix.conf
+          echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
+          sudo systemctl restart nix-daemon
+
+      - name: Nix Magic Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Build Lilith Iso
         continue-on-error: false

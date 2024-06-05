@@ -16,8 +16,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup
-        uses: ./.github/workflows/setup.yml
+      - name: Install Lix
+        run: |
+          curl -sSf -L https://install.lix.systems/lix | sh -s -- install --no-confirm
+          echo "trusted-users = root worker" | sudo tee -a /etc/nix/nix.conf
+          echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
+          sudo systemctl restart nix-daemon
+
+      - name: Nix Magic Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Check Flake
         run: nix flake check --accept-flake-config
