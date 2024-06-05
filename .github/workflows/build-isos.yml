@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Setup
-        uses: ./.github/actions/setup
+        uses: ./.github/workflows/setup.yml
         with:
           optimise-space: true
 

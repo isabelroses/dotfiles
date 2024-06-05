@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Setup
-        uses: ./.github/actions/setup
+        uses: ./.github/workflows/setup.yml
 
       - name: Check Flake
         run: nix flake check --accept-flake-config

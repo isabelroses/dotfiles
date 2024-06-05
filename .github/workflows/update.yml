@@ -11,9 +11,7 @@ jobs:
 
     steps:
       - name: Setup
-        uses: ./.github/actions/setup
-        with:
-          optimise-space: true
+        uses: ./.github/workflows/setup.yml
 
       - name: Update Lockfile
         uses: DeterminateSystems/update-flake-lock@main
