@@ -31,9 +31,6 @@ jobs:
           remove-haskell: true
           remove-docker-images: true
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Install Lix
         run: |
           curl -sSf -L https://install.lix.systems/lix | sh -s -- install --no-confirm
