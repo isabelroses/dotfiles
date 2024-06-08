@@ -20,12 +20,12 @@ verify *args:
 
 repair: (verify "--check-contents --repair")
 
-clean: 
+clean:
   @sudo true
   nix-collect-garbage --delete-older-than 3d
   nix store optimise
 
-check: 
+check:
   nix flake check
 
 update *input:
