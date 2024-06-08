@@ -93,6 +93,7 @@
     "wintermute.fr.to" = "Discrimination";
     "yggdrasil.social" = "Discrimination";
     "fedi.tyil.nl" = "Misogy, Discrimination";
+    "imouto.pics" = "Lolicon, pedophilia";
   };
 
   followers_only = {
