@@ -90,8 +90,8 @@
 
 #### macOS
 
-- Install [Nix](https://nixos.org/manual/nixos/stable/index.html#sec-installation) the package manager
-  > `sh <(curl -L https://nixos.org/nix/install)`
+- Install [Lix](https://lix.systems/install/) the package manager
+  > `curl -sSf -L https://install.lix.systems/lix | sh -s -- install`
 - Install [homebrew](https://brew.sh/)
   > `curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash`
 - Exclude nix from time machine backups
@@ -106,6 +106,7 @@
 - [nekowinston](https://github.com/nekowinston), for fixing half my problems
 - [getchoo](https://github.com/getchoo), for making catppucin/nix and helping a ton
 - [nyxkrage](https://github.com/nyxkrage), for being there to answer my questions
-- [vdbe](https://github.com/vdbe), for creating an awesome neovim configuration ~~to steal~~ I mean to learn from
 - [jakehamilton](https://github.com/jakehamilton), for teaching me some little bit of know how
 - [Minion3665](https://github.com/Minion3665), for making me write docs I guess
+
+And anyone else I mentioned on my [neovim configuration](https://github.com/isabelroses/nvim).
