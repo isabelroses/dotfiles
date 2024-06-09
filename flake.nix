@@ -96,12 +96,6 @@
     };
 
     ### Additional packages
-    # cool bars and widgets
-    ags = {
-      url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # a plain simple way to host a mail server
     simple-nixos-mailserver = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver/master";

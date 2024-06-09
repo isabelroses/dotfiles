@@ -1,9 +1,8 @@
 {
-  pkgs,
   lib,
+  pkgs,
   config,
   osConfig,
-  inputs',
   ...
 }:
 let
@@ -13,7 +12,7 @@ in
   config = lib.mkIf ((lib.isWayland osConfig) && osConfig.modules.programs.gui.bars.ags.enable) {
     home = {
       packages = with pkgs; [
-        inputs'.ags.packages.default
+        ags
         socat
         sassc
         inotify-tools
