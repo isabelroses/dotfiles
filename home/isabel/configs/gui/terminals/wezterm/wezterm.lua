@@ -14,11 +14,13 @@ if utils.is_linux() then
   c.window_background_opacity = 0.90
 elseif utils.is_darwin() then
   c.window_background_opacity = 0.95
+  c.macos_window_background_blur = 15
 elseif utils.is_windows() then
   c.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\GEpt2MeaAAANR2q.jpeg"
   c.window_background_image_hsb = {
     brightness = 0.05, -- make the bg darker so we can see what we are doing
   }
+  c.win32_system_backdrop = "Tabbed"
 end
 
 -- load my keybinds
@@ -71,5 +73,13 @@ c.default_cursor_style = "BlinkingBar"
 c.front_end = "WebGpu"
 c.window_close_confirmation = "NeverPrompt"
 c.prefer_to_spawn_tabs = true
+
+-- this is nix so lets not do it
+-- enable this if i ever setup nix to statically link
+-- c.automatically_reload_config = false
+c.check_for_updates = false
+
+-- TODO:
+-- https://wezfurlong.org/wezterm/config/lua/config/tiling_desktop_environments.html
 
 return c
