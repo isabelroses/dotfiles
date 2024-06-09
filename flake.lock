@@ -77,26 +77,6 @@
         "type": "github"
       }
     },
-    "catppuccin-vsc": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1716179347,
-        "narHash": "sha256-DPiP4yLRcPgWgrnCC/tRp5vUk9teZIfsCT2r8jr1V8A=",
-        "owner": "catppuccin",
-        "repo": "vscode",
-        "rev": "b7a8806f7532a091b0170f281dbc7f35c3fc7761",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "vscode",
-        "type": "github"
-      }
-    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -859,7 +839,6 @@
         "agenix": "agenix",
         "beapkgs": "beapkgs",
         "catppuccin": "catppuccin",
-        "catppuccin-vsc": "catppuccin-vsc",
         "darwin": "darwin_2",
         "deploy-rs": "deploy-rs",
         "flake-parts": "flake-parts",

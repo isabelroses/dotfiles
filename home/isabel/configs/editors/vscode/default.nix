@@ -22,18 +22,8 @@ in
       package = pkgs.vscode;
       extensions = with pkgs.vscode-extensions; [
         # THEMEING
+        catppuccin.catppuccin-vsc
         catppuccin.catppuccin-vsc-icons
-        (pkgs.catppuccin-vsc.override {
-          accent = "pink";
-          boldKeywords = true;
-          italicComments = true;
-          italicKeywords = true;
-          extraBordersEnabled = false;
-          workbenchMode = "flat";
-          bracketMode = "rainbow";
-          colorOverrides = { };
-          customUIColors = { };
-        })
 
         # GIT
         github.copilot

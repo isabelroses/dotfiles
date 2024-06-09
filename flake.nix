@@ -140,15 +140,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ### catppuccin
     # declarative theme management
     catppuccin.url = "github:catppuccin/nix";
-
-    # catppuccin the vscode extension
-    catppuccin-vsc = {
-      url = "github:catppuccin/vscode";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     ### my programs
     beapkgs = {
