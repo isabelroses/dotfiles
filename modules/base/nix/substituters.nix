@@ -9,7 +9,7 @@
       "https://nixpkgs-unfree.cachix.org" # unfree-package cache
       "https://numtide.cachix.org" # another unfree package cache
       "https://isabelroses.cachix.org" # precompiled binarys from flake
-      "https://nekowinston.cachix.org" # precompiled binarys from nekowinston NUR
+      "https://nekowinston.cachix.org" # wezterm nightly
       "https://catppuccin.cachix.org" # a cache for ctp nix
       "https://pre-commit-hooks.cachix.org" # pre commit hooks
       "https://cache.garnix.io" # extra things here and there

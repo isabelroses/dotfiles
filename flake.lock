@@ -46,30 +46,6 @@
         "type": "github"
       }
     },
-    "beapkgs_2": {
-      "inputs": {
-        "flake-compat": [
-          "izvim"
-        ],
-        "nixpkgs": [
-          "izvim",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1717978947,
-        "narHash": "sha256-JBDS0q6xiKMGbYZy1KYzpSmWNtWtXsl9CyasUdSestk=",
-        "owner": "isabelroses",
-        "repo": "beapkgs",
-        "rev": "795cbe7ff00d6c3e0a61e4beacddf8aa0d993262",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "repo": "beapkgs",
-        "type": "github"
-      }
-    },
     "blobs": {
       "flake": false,
       "locked": {
@@ -211,30 +187,6 @@
       "original": {
         "owner": "serokell",
         "repo": "deploy-rs",
-        "type": "github"
-      }
-    },
-    "fenix": {
-      "inputs": {
-        "nixpkgs": [
-          "nekowinston-nur",
-          "nixpkgs"
-        ],
-        "rust-analyzer-src": [
-          "nekowinston-nur"
-        ]
-      },
-      "locked": {
-        "lastModified": 1717827974,
-        "narHash": "sha256-ixopuTeTouxqTxfMuzs6IaRttbT8JqRW5C9Q/57WxQw=",
-        "owner": "nix-community",
-        "repo": "fenix",
-        "rev": "ab655c627777ab5f9964652fe23bbb1dfbd687a8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "fenix",
         "type": "github"
       }
     },
@@ -483,7 +435,9 @@
     },
     "izvim": {
       "inputs": {
-        "beapkgs": "beapkgs_2",
+        "beapkgs": [
+          "beapkgs"
+        ],
         "flake-compat": "flake-compat",
         "flake-parts": [
           "flake-parts"
@@ -578,27 +532,6 @@
       "original": {
         "type": "git",
         "url": "https://git.lix.systems/lix-project/lix.git"
-      }
-    },
-    "nekowinston-nur": {
-      "inputs": {
-        "fenix": "fenix",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1717916885,
-        "narHash": "sha256-uMDiqMmw+IfRALxSK9Y6iL+INI9TVZs4Qe+byjeMuAo=",
-        "owner": "nekowinston",
-        "repo": "nur",
-        "rev": "46d0288f246c0731c4cde945c2e8f121a262306a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nekowinston",
-        "repo": "nur",
-        "type": "github"
       }
     },
     "neovim-nix": {
@@ -868,7 +801,6 @@
         "izvim": "izvim",
         "lanzaboote": "lanzaboote",
         "lix": "lix",
-        "nekowinston-nur": "nekowinston-nur",
         "nix-index-db": "nix-index-db",
         "nix-ld": "nix-ld",
         "nixos-wsl": "nixos-wsl",

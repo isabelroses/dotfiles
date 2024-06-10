@@ -47,6 +47,7 @@
                   "GIR" = "GIR"
                   "flate" = "flate"
                   "fo" = "fo"
+                  "iterm" = "iterm"
                 '';
               };
             };

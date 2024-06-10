@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs',
   ...
 }:
 let
@@ -22,15 +21,21 @@ in
         source = getExe (
           pkgs.writeShellApplication {
             name = "preview";
-            runtimeInputs =
-              with pkgs;
-              [
-                bat
-                eza
-                catimg
-              ]
-              ++ [ inputs'.nekowinston-nur.packages.icat ];
+            runtimeInputs = with pkgs; [
+              bat
+              eza
+              catimg
+            ];
             text = readFile ./preview.sh;
+          }
+        );
+      };
+
+      ".local/bin/icat" = {
+        source = getExe (
+          pkgs.writeShellApplication {
+            name = "icat";
+            text = readFile ./icat.sh;
           }
         );
       };

@@ -128,12 +128,6 @@
     };
 
     ### misc
-    # this guy makes some cool tools
-    nekowinston-nur = {
-      url = "github:nekowinston/nur";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # a index for nixpkgs
     nix-index-db = {
       url = "github:nix-community/nix-index-database";
@@ -158,7 +152,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        nekowinston-nur.follows = "nekowinston-nur";
+        beapkgs.follows = "beapkgs";
         pre-commit-nix.follows = "pre-commit-hooks";
       };
     };
