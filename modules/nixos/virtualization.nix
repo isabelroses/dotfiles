@@ -22,7 +22,7 @@ in
           podman
           podman-compose
         ])
-        (optionals (cfg.docker.enable && sys.video.enable) [ lxd ])
+        (optionals (cfg.docker.enable && sys.video.enable) [ lxd-lts ])
         (optionals cfg.distrobox.enable [ distrobox ])
         (optionals cfg.waydroid.enable [ waydroid ])
       ];
