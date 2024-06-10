@@ -2,7 +2,7 @@
   imports = [
     ./vscode
 
-    ./extra.nix
+    # ./extra.nix
     ./micro.nix
     ./neovim.nix
   ];
