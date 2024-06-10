@@ -164,10 +164,7 @@
     },
     "deploy-rs": {
       "inputs": {
-        "flake-compat": [
-          "izvim",
-          "flake-compat"
-        ],
+        "flake-compat": [],
         "nixpkgs": [
           "nixpkgs"
         ],
