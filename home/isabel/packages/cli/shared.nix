@@ -16,7 +16,7 @@ in
         unzip
         rsync
         just # cool build tool
-        wakatime
+        wakatime-cli
         nix-output-monitor # much nicer nix build output
       ]
       ++ optionals cfg.cli.modernShell.enable [

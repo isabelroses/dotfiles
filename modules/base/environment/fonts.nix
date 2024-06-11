@@ -17,8 +17,9 @@ let
     inter
 
     noto-fonts
-    noto-fonts-cjk
-    noto-fonts-emoji
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+    noto-fonts-color-emoji
 
     (nerdfonts.override {
       fonts = [
