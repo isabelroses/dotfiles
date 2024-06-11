@@ -94,6 +94,7 @@
     "yggdrasil.social" = "Discrimination";
     "fedi.tyil.nl" = "Misogy, Discrimination";
     "imouto.pics" = "Lolicon, pedophilia";
+    "yesmap.net" = "pedophilia";
   };
 
   followers_only = {
