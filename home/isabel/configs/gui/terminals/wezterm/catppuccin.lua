@@ -143,10 +143,41 @@ local colors = {
     mantle = "#090909",
     crust = "#080808",
   },
+  evergarden = {
+    rosewater = "#E3A8D1",
+    flamingo = "#E3A8D1",
+    pink = "#E3A8D1",
+    mauve = "#D6A0D1",
+    red = "#E67E80",
+    maroon = "#E69875",
+    peach = "#E69875",
+    yellow = "#DBBC7F",
+    green = "#B2C98F",
+    teal = "#93C9A1",
+    sky = "#97C9C3",
+    sapphire = "#9BB5CF",
+    blue = "#9BB5CF",
+    lavender = "#D6A0D1",
+    text = "#D6CBB4",
+    subtext1 = "#D6CBB4",
+    subtext0 = "#D6CBB4",
+    overlay2 = "#9DA9A0",
+    overlay1 = "#859289",
+    overlay0 = "#7A8478",
+    surface2 = "#6E8585",
+    surface1 = "#5E6C70",
+    surface0 = "#46545B",
+    base = "#242B2E",
+    mantle = "#343E44",
+    crust = "#3D494F",
+  },
 }
 
 local mappings = {
-  espresso = "Catppuccin Espresso", -- custom flavor
+  -- custom flavor
+  evergarden = "Evergarden",
+  espresso = "Catppuccin Espresso",
+  -- default flavors
   mocha = "Catppuccin Mocha",
   macchiato = "Catppuccin Macchiato",
   frappe = "Catppuccin Frappe",
@@ -260,12 +291,12 @@ function M.apply_to_config(c, opts)
 
   -- default options
   local defaults = {
-    flavor = "mocha",
+    flavor = "evergarden",
     accent = "pink",
     sync = false,
     sync_flavors = { light = "latte", dark = "mocha" },
-    color_overrides = { espresso = {}, mocha = {}, macchiato = {}, frappe = {}, latte = {} },
-    token_overrides = { espresso = {}, mocha = {}, macchiato = {}, frappe = {}, latte = {} },
+    color_overrides = { evergarden = {}, espresso = {}, mocha = {}, macchiato = {}, frappe = {}, latte = {} },
+    token_overrides = { evergarden = {}, espresso = {}, mocha = {}, macchiato = {}, frappe = {}, latte = {} },
   }
 
   local o = tableMerge(defaults, opts)

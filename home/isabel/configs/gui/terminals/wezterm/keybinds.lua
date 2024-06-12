@@ -17,6 +17,7 @@ local openUrl = act.QuickSelectArgs({
 local changeCtpFlavor = act.InputSelector({
   title = "Change Catppuccin flavor",
   choices = {
+    { label = "Evergarden" },
     { label = "Espresso" },
     { label = "Mocha" },
     { label = "Macchiato" },
