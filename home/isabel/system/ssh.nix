@@ -29,6 +29,11 @@
           port = 2222;
         };
 
+        "git.auxolotl.org" = {
+          user = "forgejo";
+          hostname = "git.auxolotl.org";
+        };
+
         # ORACLE vps'
         "openvpn" = {
           hostname = "132.145.55.42";

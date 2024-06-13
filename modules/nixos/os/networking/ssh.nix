@@ -103,6 +103,15 @@
         hostNames = [ "git.isabelroses.com" ];
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGHXU5QFwqTAW/3MrHXfeqRlit4VrxhymLLb32RFSZjf";
       };
+
+      git-auxolotl-rsa = {
+        hostNames = [ "git.auxolotl.com" ];
+        publicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCd21dQk5Hx5hqMV7KEVm/qCk++jXGp1fOyoPHM0k5Ostdxp3P0DYvzLppud2lYZ3r69qkYVLFjHREHac0UVWKQ2A08T761y53aNlSfRlp/cbN1lAH29HjgLWt4KBFu/gYUrEnXU7rs9JU17N0rS7oW5R+G4RX3dOSPcx7V9RToJ7wHeOeuKhyoFI6bjJfflNPZWKIHk5QFtblyUUnCnuFZvZtq1y7CzB6YPm4wN209yEwVYORovz2maX2hoEEFn1k1DoGaxXtsaIbYFq0DBgrl4302SV9JwLlItpJX8e47owd1Y7mS7riFDTtmiE2IMiCV4tY0n0VMgo3soHKoTbgkG8bCIGWgTQLBBMICnqbz9m8SMvG8dIrN5GBhIMImz4BU+Gq2uqqIfx2DjzpMlMl05qnM4+LcMWeoPloLlxMFB5TSimLxyYOQ6hwj+hSpwBJ1Nt1zUNAM8ZBKKATKkx+FtW58mRN+ByT5iWbofHwJT+xaYcVDQQodgnEIdnNLdB25b60qeo/iHyz6DAAHmHXFCHluIKMlamXCa5myEluhxc8Hy+ddPLqKpQFj/z6vM28Uejy5xKLsndJhcaAS5L30xp7CukSzjYkNb1q/kuNyfVQSmBkahkKIOtjrqad80BWVHdiIbC0sEHX/RC5G6/mePqFQI5aR8eTbIWOITLdh8Q==";
+      };
+      git-auxolotl-ed25519 = {
+        hostNames = [ "git.auxolotl.com" ];
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM4rfWCoqby2qIcq/KVEWCKZVvIxr6h4GxJcsCQYffj+";
+      };
     };
   };
 }

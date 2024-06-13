@@ -79,6 +79,8 @@ in
         "ssh://git@codeberg.org/".pushInsteadOf = "codeberg:";
         "https://git@git.isabelroses.com/".insteadOf = "me:";
         "ssh://git@git.isabelroses.com/".pushInsteadOf = "me:";
+        "https://forgejo@git.auxolotl.org/".insteadOf = "aux:";
+        "ssh://forgejo@git.auxolotl.org/".pushInsteadOf = "aux:";
       };
     };
   };
