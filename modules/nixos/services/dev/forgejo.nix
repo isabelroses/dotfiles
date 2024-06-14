@@ -53,7 +53,7 @@ in
         stateDir = "/srv/storage/forgejo/data";
         lfs.enable = true;
 
-        mailerPasswordFile = config.age.secrets.mailserver-git-nohash.path;
+        secrets.mailer.PASSWD = config.age.secrets.mailserver-git-nohash.path;
 
         settings = {
           server = {
