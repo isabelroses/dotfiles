@@ -712,21 +712,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-24_05": {
-      "locked": {
-        "lastModified": 1717144377,
-        "narHash": "sha256-F/TKWETwB5RaR8owkPPi+SPJh83AQsm6KrQAlJ8v/uA=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "805a384895c696f802a9bf5bf4720f37385df547",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "ref": "nixos-24.05",
-        "type": "indirect"
-      }
-    },
     "nixpkgs-lib": {
       "locked": {
         "dir": "lib",
@@ -973,22 +958,22 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nixpkgs-24_05": "nixpkgs-24_05",
+        "nixpkgs-24_05": [],
         "utils": [
           "izvim",
           "flake-utils"
         ]
       },
       "locked": {
-        "lastModified": 1718084203,
-        "narHash": "sha256-Cx1xoVfSMv1XDLgKg08CUd1EoTYWB45VmB9XIQzhmzI=",
-        "owner": "simple-nixos-mailserver",
+        "lastModified": 1718378200,
+        "narHash": "sha256-7fF/zB6Lai4yMu2PFdxqRQWlMxwNoW13AP6yZhrufic=",
+        "owner": "isabelroses",
         "repo": "nixos-mailserver",
-        "rev": "29916981e7b3b5782dc5085ad18490113f8ff63b",
+        "rev": "9878425f45a26d88a51383af3a6f8aee275004cb",
         "type": "gitlab"
       },
       "original": {
-        "owner": "simple-nixos-mailserver",
+        "owner": "isabelroses",
         "ref": "master",
         "repo": "nixos-mailserver",
         "type": "gitlab"
