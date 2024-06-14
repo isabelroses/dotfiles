@@ -63,7 +63,7 @@ in
       ];
 
       systemPackages = with pkgs; [
-        nvtop-amd
+        nvtopPackages.amd
 
         # mesa
         mesa

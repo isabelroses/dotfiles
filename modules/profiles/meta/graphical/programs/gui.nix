@@ -10,7 +10,7 @@
     xfce.tumbler
     libgsf # of files
     ffmpegthumbnailer
-    ark # GUI archiver for thunar archive plugin
+    kdePackages.ark # GUI archiver for thunar archive plugin
   ];
 
   programs = {

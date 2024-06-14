@@ -52,7 +52,7 @@ in
       with pkgs;
       [
         libsForQt5.qt5ct
-        breeze-icons
+        kdePackages.breeze-icons
 
         # add theme package to path just in case
         cfg.qt.theme.package

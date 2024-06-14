@@ -17,7 +17,7 @@ in
     lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable)
       {
         home.packages = with pkgs; [
-          bitwarden # password manager
+          bitwarden-desktop # password manager
           obsidian # note taking with markdown
           pamixer # move evntually
           # jellyfin-media-player
