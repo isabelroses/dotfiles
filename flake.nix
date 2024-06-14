@@ -102,7 +102,8 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-24_05.follows = "";
-        utils.follows = "izvim/flake-utils";
+        utils.follows = "";
+        flake-compat.follows = "";
       };
     };
 
