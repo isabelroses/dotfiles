@@ -87,7 +87,8 @@ in
       # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
       http-connections = 50;
       # whether to accept nix configuration from a flake without prompting
-      accept-flake-config = true;
+      # littrally a CVE waiting to happen <https://x.com/puckipedia/status/1693927716326703441>
+      accept-flake-config = false;
       # build from source if the build fails from a binary source
       # fallback = true;
 
