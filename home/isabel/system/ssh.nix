@@ -23,6 +23,11 @@
           identityFile = secrets.keys-gh.path;
         };
 
+        "gitlab.com" = {
+          user = "git";
+          hostname = "gitlab.com";
+        };
+
         "git.isabelroses.com" = {
           user = "git";
           hostname = "git.isabelroses.com";
