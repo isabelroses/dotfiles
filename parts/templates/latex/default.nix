@@ -1,11 +1,12 @@
 {
+  lib,
   just,
   texlive,
   stdenvNoCC,
   ...
 }:
 stdenvNoCC.mkDerivation {
-  name = "miq-doc";
+  name = "example-latex";
   nativeBuildInputs = [
     just
 
@@ -34,6 +35,16 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  TEXMFHOME = "./cache";
-  TEXMFVAR = "./cache/var";
+  env = {
+    TEXMFHOME = "./cache";
+    TEXMFVAR = "./cache/var";
+  };
+
+  meta = {
+    description = "A example latex project using nix";
+    homepage = "https://github.com/isabelroses/example-latex";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ isabelroses ];
+    mainPackage = "example";
+  };
 }

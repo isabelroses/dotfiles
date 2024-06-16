@@ -2,29 +2,28 @@
   description = "Latex Project Template";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
   };
 
   outputs =
-    { nixpkgs, ... }:
+    { self, nixpkgs }:
     let
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-      forEachSystem = nixpkgs.lib.genAttrs systems;
-
-      pkgsForEach = nixpkgs.legacyPackages;
+      forAllSystems =
+        function:
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+          system: function nixpkgs.legacyPackages.${system}
+        );
     in
     {
-      packages = forEachSystem (system: {
-        default = pkgsForEach.${system}.callPackage ./default.nix { };
+      packages = forAllSystems (pkgs: {
+        example = pkgs.callPackage ./default.nix { };
+        default = self.packages.example;
       });
 
-      devShells = forEachSystem (system: {
-        default = pkgsForEach.${system}.callPackage ./shell.nix { };
+      devShells = forAllSystems (pkgs: {
+        default = pkgs.callPackage ./shell.nix { };
       });
+
+      overlays.default = final: _: { example = final.callPackage ./default.nix { }; };
     };
 }

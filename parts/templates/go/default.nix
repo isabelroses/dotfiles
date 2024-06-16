@@ -1,6 +1,6 @@
-{ buildGoModule }:
+{ lib, buildGoModule }:
 buildGoModule {
-  pname = "sample-go";
+  pname = "example-go";
   version = "0.0.1";
 
   src = ./.;
@@ -11,4 +11,12 @@ buildGoModule {
     "-s"
     "-w"
   ];
+
+  meta = {
+    description = "A example go project using nix";
+    homepage = "https://github.com/isabelroses/example-go";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ isabelroses ];
+    mainPackage = "example";
+  };
 }

@@ -1,22 +1,23 @@
-{
-  lib,
-  python3Packages,
-  doCheck ? false,
-  ...
-}:
+{ lib, python3Packages, ... }:
 python3Packages.buildPythonApplication {
-  pname = "sample-python-project";
+  pname = "example-python";
   version = "0.0.1";
 
   src = ./.;
 
-  propagatedBuildInputs = with python3Packages; [ ];
+  # If you are using poetry, you can use the following configuration
+  # pyproject = true;
+  # build-system = [ python3Packages.poetry-core ];
 
-  nativeCheckInputs = [ python3Packages.pytest ];
+  dependencies = with python3Packages; [ ];
 
-  checkPhase = lib.optionals doCheck ''
-    runHook preCheck
-    pytest
-    runHook postCheck
-  '';
+  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+
+  meta = {
+    description = "A example python project using nix";
+    homepage = "https://github.com/isabelroses/example-python";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ isabelroses ];
+    mainPackage = "example";
+  };
 }

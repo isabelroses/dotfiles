@@ -20,7 +20,4 @@ mainPkg.overrideAttrs (oa: {
         ;
     })
   ] ++ (oa.nativeBuildInputs or [ ]);
-
-  TEXMFHOME = "./cache";
-  TEXMFVAR = "./cache/var";
 })
