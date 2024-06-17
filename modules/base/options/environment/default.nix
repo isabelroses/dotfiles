@@ -13,11 +13,10 @@ let
     ;
 
   inherit (config.modules.system) mainUser;
-  cfg = config.modules.environment;
 in
 {
   options.modules.environment = {
-    useHomeManager = mkEnableOption "Whether to use home-manager or not." // {
+    useHomeManager = mkEnableOption "Whether to use home-manager or not" // {
       default = true;
     };
 
@@ -25,21 +24,6 @@ in
       type = types.str;
       default = "/${ldTernary pkgs "home" "Users"}/${mainUser}/.config/flake";
       description = "The path to the configuration";
-    };
-
-    desktop = mkOption {
-      type = types.nullOr (
-        types.enum [
-          "Hyprland"
-          "Sway"
-        ]
-      );
-      default = "Hyprland";
-      description = "The desktop environment to be used.";
-    };
-
-    isWayland = mkEnableOption "Inferred data based on the desktop environment." // {
-      default = cfg.desktop == "Hyprland" || cfg.desktop == "Sway";
     };
   };
 

@@ -1,8 +1,8 @@
 # stolen from https://github.com/NotAShelf/nyx/blob/refactor/modules/extra/shared/home-manager/gtklock/default.nix
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }:
 with builtins;

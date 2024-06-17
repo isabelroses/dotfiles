@@ -3,14 +3,15 @@ let
   inherit (lib) mkOption types;
 in
 {
-  import = [ ./greetd.nix ];
+  import = [
+    ./greetd.nix
+    ./sddm.nix
+  ];
 
   options.modules.environment.loginManager = mkOption {
     type = types.nullOr (
       types.enum [
         "greetd"
-        "gdm"
-        "lightdm"
         "sddm"
       ]
     );
