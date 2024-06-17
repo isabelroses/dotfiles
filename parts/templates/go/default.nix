@@ -1,7 +1,10 @@
 { lib, buildGoModule }:
+let
+  version = "0.0.1";
+in
 buildGoModule {
   pname = "example-go";
-  version = "0.0.1";
+  inherit version;
 
   src = ./.;
 
@@ -10,6 +13,7 @@ buildGoModule {
   ldflags = [
     "-s"
     "-w"
+    "-X main.version=${version}"
   ];
 
   meta = {
