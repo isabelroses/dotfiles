@@ -11,7 +11,6 @@
 
     ./emulation.nix # emulation setup
     ./encryption.nix # keeping my stuff hidden from you strange people
-    ./themes.nix # themes for the system
     ./virtualization.nix # docker, QEMU, waydroid etc.
   ];
 }

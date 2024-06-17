@@ -5,7 +5,7 @@
   # tldr: realtime processes have higher priority than normal processes
 
   users = {
-    users."${config.modules.system.mainUser}".extraGroups = [ "realtime" ];
+    users.${config.modules.system.mainUser}.extraGroups = [ "realtime" ];
     groups.realtime = { };
   };
 
