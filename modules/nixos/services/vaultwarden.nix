@@ -1,12 +1,28 @@
 { config, lib, ... }:
 let
-  inherit (lib) mkIf template;
+  inherit (lib)
+    mkIf
+    template
+    mkSecret
+    mkServiceOption
+    ;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.vaultwarden;
 in
 {
+  options.modules.services.vaultwarden = mkServiceOption "vaultwarden" {
+    port = 8222;
+    domain = "vault.${rdomain}";
+  };
+
   config = mkIf cfg.enable {
+    age.secrets.vaultwarden-env = mkSecret {
+      file = "vaultwarden-env";
+      owner = "vaultwarden";
+      group = "vaultwarden";
+    };
+
     # this forces the system to create backup folder
     systemd.services.backup-vaultwarden.serviceConfig = {
       User = "root";

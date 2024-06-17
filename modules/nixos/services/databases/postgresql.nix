@@ -5,11 +5,13 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkServiceOption;
 
   cfg = config.modules.services;
 in
 {
+  options.modules.services.database.postgresql = mkServiceOption "postgresql" { };
+
   config = mkIf cfg.database.postgresql.enable {
     services.postgresql = {
       enable = true;

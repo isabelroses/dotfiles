@@ -1,13 +1,38 @@
 { config, lib, ... }:
 let
-  inherit (lib) mkIf template;
+  inherit (lib)
+    mkIf
+    template
+    mkSecret
+    mkServiceOption
+    ;
 
   rdomain = config.networking.domain;
   srv = config.modules.services;
   cfg = srv.monitoring.grafana;
 in
 {
+  options.modules.services.monitoring.grafana = mkServiceOption "grafana" {
+    port = 3100;
+    host = "0.0.0.0";
+    domain = "graph.${rdomain}";
+  };
+
   config = mkIf cfg.enable {
+    age.secrets = {
+      grafana-oauth2 = mkSecret {
+        file = "grafana-oauth2";
+        owner = "grafana";
+        group = "grafana";
+      };
+
+      mailserver-grafana-nohash = mkSecret {
+        file = "mailserver/grafana-nohash";
+        owner = "grafana";
+        group = "grafana";
+      };
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     modules.services.database = {

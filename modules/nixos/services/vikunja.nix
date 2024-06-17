@@ -1,12 +1,28 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf template;
+  inherit (lib)
+    mkIf
+    template
+    mkSecret
+    mkServiceOption
+    ;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.vikunja;
 in
 {
+  options.modules.services.vikunja = mkServiceOption "vikunja" {
+    domain = "todo.${rdomain}";
+    port = 3456;
+  };
+
   config = mkIf cfg.enable {
+    age.secrets.vikunja-env = mkSecret {
+      file = "vikunja-env";
+      owner = "vikunja";
+      group = "vikunja";
+    };
+
     modules.services = {
       networking.nginx.enable = true;
       database = {
@@ -18,7 +34,7 @@ in
     services = {
       vikunja = {
         enable = true;
-        port = cfg.port;
+        inherit (cfg) port;
         frontendHostname = cfg.domain;
         frontendScheme = "https";
 

@@ -6,11 +6,21 @@
 }:
 let
   inherit (config.networking) domain;
-  inherit (lib) mkIf template getExe;
+  inherit (lib)
+    mkIf
+    template
+    getExe
+    mkServiceOption
+    ;
 
   cfg = config.modules.services.isabelroses-website;
 in
 {
+  options.modules.services.isabelroses-website = mkServiceOption "isabelroses-website" {
+    port = 3000;
+    domain = "isabelroses.com";
+  };
+
   config = mkIf cfg.enable {
     systemd.services."isabelroses-website" = {
       description = "isabelroses.com";

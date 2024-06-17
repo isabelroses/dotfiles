@@ -6,10 +6,18 @@
 }:
 let
   cfg = config.modules.services.networking.nginx;
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkSecret mkServiceOption;
 in
 {
+  options.modules.services.networking.nginx = mkServiceOption "nginx" { };
+
   config = mkIf cfg.enable {
+    age.secrets.cloudflare-cert-api = mkSecret {
+      file = "cloudflare/cert-api";
+      owner = "nginx";
+      group = "nginx";
+    };
+
     networking.domain = cfg.domain;
 
     security = {

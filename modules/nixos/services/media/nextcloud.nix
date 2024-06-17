@@ -7,12 +7,27 @@
 let
   rdomain = config.networking.domain;
 
-  inherit (lib) mkIf template;
+  inherit (lib)
+    mkIf
+    template
+    mkSecret
+    mkServiceOption
+    ;
 
   cfg = config.modules.services.media.nextcloud;
 in
 {
+  options.modules.services.media.nextcloud = mkServiceOption "nextcloud" {
+    domain = "cloud.${rdomain}";
+  };
+
   config = mkIf cfg.enable {
+    age.secrets.nextcloud-passwd = mkSecret {
+      file = "nextcloud-passwd";
+      owner = "nextcloud";
+      group = "nextcloud";
+    };
+
     modules.services = {
       networking.nginx.enable = true;
       database = {

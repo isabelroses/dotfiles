@@ -5,10 +5,7 @@ let
   cfg = config.modules.programs;
 in
 {
-  imports = [
-    ./defaults.nix
-    ./gaming.nix
-  ];
+  imports = [ ./defaults.nix ];
 
   options.modules.programs = {
     # For programs that are not exactly limited to cli, tui or gui
@@ -23,9 +20,7 @@ in
         neovim.enable = mkEnableOption "Neovim editor" // {
           default = true;
         };
-        vscode.enable = mkEnableOption "VScode editor" // {
-          default = cfg.gui.enable;
-        };
+        vscode.enable = mkEnableOption "VScode editor";
         micro.enable = mkEnableOption "Micro editor";
       };
 

@@ -1,11 +1,13 @@
 { config, lib, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkServiceOption;
 
-  cfg = config.modules.services;
+  cfg = config.modules.services.database.influxdb;
 in
 {
-  config = mkIf cfg.database.influxdb.enable {
+  options.modules.services.database.influxdb = mkServiceOption "influxdb" { };
+
+  config = mkIf cfg.enable {
     services.influxdb2 = {
       enable = true;
     };

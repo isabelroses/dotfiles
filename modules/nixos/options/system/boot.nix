@@ -133,10 +133,5 @@ in
         '';
       };
     };
-
-    plymouth = {
-      enable = mkEnableOption "plymouth boot splash";
-      withThemes = mkEnableOption "plymouth theme";
-    };
   };
 }

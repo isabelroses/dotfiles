@@ -10,12 +10,10 @@ in
 {
   imports = [
     ./boot.nix
-    ./emulation.nix
     ./encryption.nix
     ./networking.nix
     ./printing.nix
     ./security.nix
-    ./virtualization.nix
   ];
 
   config.warnings = optionals (config.modules.system.fs == [ ]) [
@@ -48,20 +46,6 @@ in
 
         It would be a good idea to keep vfat and ext4 so you can mount USBs.
       '';
-    };
-
-    yubikeySupport = {
-      enable = mkEnableOption "yubikey support";
-      deviceType = mkOption {
-        type =
-          with types;
-          nullOr (enum [
-            "NFC5"
-            "nano"
-          ]);
-        default = null;
-        description = "A list of devices to enable Yubikey support for";
-      };
     };
 
     sound.enable = mkEnableOption "Does the device have sound and its related programs be enabled";

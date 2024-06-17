@@ -10,15 +10,13 @@ in
 {
   config = mkIf config.modules.system.encryption.enable {
     warnings =
-      if config.modules.system.encryption.device == "" then
-        [
-          ''
-            You have enabled LUKS encryption, but have not selected a device, you may not be able to decrypt your disk on boot.
-          ''
-        ]
-      else
-        [ ];
+      mkIf config.modules.system.encryption.device == "" [
+        ''
+          You have enabled LUKS encryption, but have not selected a device, you may not be able to decrypt your disk on boot.
+        ''
+      ];
   };
+
   options.modules.system.encryption = {
     enable = mkEnableOption "LUKS encryption";
 

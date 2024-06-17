@@ -6,7 +6,12 @@
   ...
 }:
 let
-  inherit (lib) mkIf template;
+  inherit (lib)
+    mkIf
+    template
+    mkSecret
+    mkServiceOption
+    ;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.dev.wakapi;
@@ -14,7 +19,26 @@ in
 {
   imports = [ inputs.beapkgs.nixosModules.default ];
 
+  options.modules.services.dev.wakapi = mkServiceOption "wakapi" {
+    port = 15912;
+    domain = "wakapi.${rdomain}";
+  };
+
   config = mkIf cfg.enable {
+    age.secrets = {
+      wakapi = mkSecret {
+        file = "wakapi";
+        owner = "wakapi";
+        group = "wakapi";
+      };
+
+      wakapi-mailer = mkSecret {
+        file = "wakapi-mailer";
+        owner = "wakapi";
+        group = "wakapi";
+      };
+    };
+
     modules.services = {
       networking.nginx.enable = true;
       database.postgresql.enable = true;

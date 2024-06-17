@@ -1,15 +1,17 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkServiceOption;
 
   cfg = config.modules.services.database.mysql;
 in
 {
+  options.modules.services.database.mysql = mkServiceOption "mysql" { };
+
   config = mkIf cfg.enable {
     services.mysql = {
       enable = true;

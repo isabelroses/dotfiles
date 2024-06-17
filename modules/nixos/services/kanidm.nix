@@ -1,6 +1,9 @@
+# might need this later
+# https://discourse.nixos.org/t/reuse-lets-encrypt-acme-certificate-for-multiple-services-with-lego/6720
+# https://ashhhleyyy.dev/blog/2023-02-05-from-keycloak-to-kanidm
 { config, lib, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkServiceOption;
 
   rdomain = config.networking.domain;
   certs = config.security.acme.certs.${rdomain};
@@ -9,9 +12,11 @@ let
   cfg = config.modules.services.kanidm;
 in
 {
-  # might need this later
-  # https://discourse.nixos.org/t/reuse-lets-encrypt-acme-certificate-for-multiple-services-with-lego/6720
-  # https://ashhhleyyy.dev/blog/2023-02-05-from-keycloak-to-kanidm
+  options.modules.services.kanidm = mkServiceOption "kanidm" {
+    port = 8443;
+    domain = "sso.${rdomain}";
+  };
+
   config = mkIf cfg.enable {
     modules.services = {
       networking.nginx.enable = true;

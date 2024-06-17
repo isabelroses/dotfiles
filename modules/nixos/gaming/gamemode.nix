@@ -5,7 +5,12 @@
   ...
 }:
 let
-  inherit (lib) makeBinPath mkIf optionalString;
+  inherit (lib)
+    makeBinPath
+    mkIf
+    optionalString
+    mkEnableOption
+    ;
 
   env = config.modules.environment;
 
@@ -45,21 +50,20 @@ let
 in
 {
   imports = [ ./steam.nix ];
-  config = mkIf cfg.enable {
-    programs = {
-      gamemode = {
-        enable = true;
-        enableRenice = true;
-        settings = {
-          general = {
-            softrealtime = "auto";
-            renice = 15;
-          };
-          custom = {
-            start = startscript.outPath;
-            end = endscript.outPath;
-          };
-        };
+
+  options.modules.programs.gaming.gamescope.enable = mkEnableOption "Gamescope compositing manager";
+
+  config.programs.gamemode = mkIf cfg.enable {
+    enable = true;
+    enableRenice = true;
+    settings = {
+      general = {
+        softrealtime = "auto";
+        renice = 15;
+      };
+      custom = {
+        start = startscript.outPath;
+        end = endscript.outPath;
       };
     };
   };

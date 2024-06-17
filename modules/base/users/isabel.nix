@@ -7,9 +7,7 @@
 let
   inherit (lib) ldTernary ifTheyExist;
 
-  keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2 isabel@isabelroses.com"
-  ];
+  keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2" ];
 in
 {
   # boot.initrd.network.ssh.authorizedKeys = mkIf isLinux keys;
