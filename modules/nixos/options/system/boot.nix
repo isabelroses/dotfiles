@@ -36,7 +36,7 @@ in
       '';
     };
 
-    # https://nixos.wiki/wiki/Secure_Boot
+    # https://wiki.nixos.org/wiki/Secure_Boot
     secureBoot = mkEnableOption ''
       secure-boot and load necessary packages, say good bye to systemd-boot
     '';
