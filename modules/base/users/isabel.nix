@@ -22,6 +22,8 @@ in
       isNormalUser = true;
       uid = 1000;
       initialPassword = "changeme";
+
+      # only add groups that exist
       extraGroups =
         [
           "wheel"
