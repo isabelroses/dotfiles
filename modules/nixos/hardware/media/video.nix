@@ -6,12 +6,12 @@
 }:
 let
   inherit (lib) mkIf isx86Linux mkEnableOption;
-  sys = config.modules.system;
+  cfg = config.modules.system.video;
 in
 {
   options.modules.system.video.enable = mkEnableOption "Does the device allow for graphical programs";
 
-  config = mkIf sys.video.enable {
+  config = mkIf cfg.enable {
     hardware = {
       opengl = {
         enable = true;

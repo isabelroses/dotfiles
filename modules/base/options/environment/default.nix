@@ -38,19 +38,6 @@ in
       description = "The desktop environment to be used.";
     };
 
-    loginManager = mkOption {
-      type = types.nullOr (
-        types.enum [
-          "greetd"
-          "gdm"
-          "lightdm"
-          "sddm"
-        ]
-      );
-      default = "greetd";
-      description = "The login manager to be used by the system.";
-    };
-
     isWayland = mkEnableOption "Inferred data based on the desktop environment." // {
       default = cfg.desktop == "Hyprland" || cfg.desktop == "Sway";
     };
