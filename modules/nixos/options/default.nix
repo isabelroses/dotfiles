@@ -2,6 +2,5 @@
   imports = [
     ./device
     ./system
-    ./themes
   ];
 }
