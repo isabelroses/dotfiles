@@ -30,7 +30,7 @@ in
     '';
   };
 
-  services.greetd = {
+  config.services.greetd = {
     enable = environment.loginManager == "greetd";
     vt = 2;
     restart = !system.autoLogin;

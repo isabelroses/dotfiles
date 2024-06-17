@@ -100,7 +100,7 @@ in
         };
 
         wireplumber = {
-          enable = true;
+          enable = lib.mkForce true;
           extraConfig = {
             # Configure each device/card/output to use the low latency configuration
             "92-low-latency" = {

@@ -35,7 +35,6 @@
       video.enable = false;
       sound.enable = false;
       bluetooth.enable = false;
-      printing.enable = false;
       yubikeySupport.enable = false;
 
       security = {
