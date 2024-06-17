@@ -10,7 +10,7 @@ let
   cfg = config.modules.system.sound;
 in
 {
-  import = [
+  imports = [
     ./settings.nix
     ./low-latency.nix
   ];
