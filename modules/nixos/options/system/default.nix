@@ -10,9 +10,7 @@ in
 {
   imports = [
     ./boot.nix
-    ./encryption.nix
     ./networking.nix
-    ./printing.nix
     ./security.nix
   ];
 
