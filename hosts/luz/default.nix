@@ -34,7 +34,6 @@
       video.enable = false;
       sound.enable = false;
       bluetooth.enable = false;
-      printing.enable = false;
 
       networking = {
         optimizeTcp = false;
