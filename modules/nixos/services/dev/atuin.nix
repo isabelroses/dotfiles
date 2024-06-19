@@ -1,12 +1,17 @@
 { config, lib, ... }:
 let
-  inherit (lib) mkIf template;
+  inherit (lib) mkIf template mkServiceOption;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.dev.atuin;
 in
 {
-  services = mkIf cfg.enable {
+  options.modules.services.dev.atuin = mkServiceOption "atuin" {
+    port = 43473;
+    domain = "atuin.${rdomain}";
+  };
+
+  config.services = mkIf cfg.enable {
     atuin = {
       enable = true;
       inherit (cfg) port host;

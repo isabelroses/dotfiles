@@ -31,11 +31,7 @@ in
           tmpOnTmpfs = true;
           enableKernelTweaks = true;
           loadRecommendedModules = true;
-
-          plymouth = {
-            enable = true;
-            withThemes = true;
-          };
+          plymouth.enable = true;
 
           initrd = {
             enableTweaks = true;

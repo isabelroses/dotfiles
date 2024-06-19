@@ -46,7 +46,6 @@ in
       # };
 
       package = chrome_pkg.override {
-        nss = pkgs.nss_latest;
         enableWideVine = true;
 
         commandLineArgs =
@@ -78,13 +77,11 @@ in
             "--disable-speech-synthesis-api"
           ]
           ++ lib.optionals (lib.isWayland osConfig) [
-            # Wayland
             # Disabled because hardware acceleration doesn't work
-            # when disabling --use-gl=egl, it's not gonna show any emoji
-            # and it's gonna be slow as hell
-
+            # when disabling --use-gl=egl, it's not gonna show any emojis
             # "--use-gl=egl"
 
+            # Wayland
             "--ozone-platform=wayland"
             "--enable-features=UseOzonePlatform"
           ];

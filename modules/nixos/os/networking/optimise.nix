@@ -1,15 +1,18 @@
 { config, lib, ... }:
 let
-  sys = config.modules.system;
-  inherit (lib) mkIf;
+  cfg = config.modules.system.networking;
+  inherit (lib) mkIf mkEnableOption;
 in
 {
-  config = mkIf sys.networking.optimizeTcp {
+  options.modules.system.networking.optimizeTcp = mkEnableOption "Enable tcp optimizations";
+
+  config = mkIf cfg.optimizeTcp {
     boot = {
       kernelModules = [
         "tls"
         "tcp_bbr"
       ];
+
       kernel.sysctl = {
         # TCP hardening
         # Prevent bogus ICMP errors from filling up logs.

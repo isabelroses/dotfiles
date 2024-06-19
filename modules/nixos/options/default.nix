@@ -1,6 +1,1 @@
-{
-  imports = [
-    ./device
-    ./system
-  ];
-}
+{ imports = [ ./system ]; }

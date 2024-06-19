@@ -5,12 +5,18 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkServiceOption;
   rdomain = config.networking.domain;
 
   cfg = config.modules.services.networking.headscale;
 in
 {
+  options.modules.services.networking.headscale = mkServiceOption "headscale" {
+    port = 8085;
+    host = "0.0.0.0";
+    domain = "hs.${rdomain}";
+  };
+
   config = mkIf cfg.enable {
     modules.services = {
       networking.nginx.enable = true;

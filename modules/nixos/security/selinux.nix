@@ -1,16 +1,51 @@
 {
-  config,
-  pkgs,
   lib,
+  pkgs,
+  config,
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib)
+    mkIf
+    types
+    mkOption
+    mkEnableOption
+    ;
 
-  sys = config.modules.system;
-  cfg = sys.security.selinux;
+  cfg = config.modules.system.security.selinux;
 in
 {
+  options.modules.system.security.selinux = {
+    enable = mkEnableOption "system SELinux support + kernel patches";
+    state = mkOption {
+      type =
+        with types;
+        enum [
+          "enforcing"
+          "permissive"
+          "disabled"
+        ];
+      default = "enforcing";
+      description = ''
+        SELinux state to boot with. The default is enforcing.
+      '';
+    };
+
+    type = mkOption {
+      type =
+        with types;
+        enum [
+          "targeted"
+          "minimum"
+          "mls"
+        ];
+      default = "targeted";
+      description = ''
+        SELinux policy type to boot with. The default is targeted.
+      '';
+    };
+  };
+
   config = mkIf cfg.enable {
     # build systemd with SE Linux support so it loads policy at boot and supports file labelling
     systemd.package = pkgs.systemd.override { withSelinux = true; };

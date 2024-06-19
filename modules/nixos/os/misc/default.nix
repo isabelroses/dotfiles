@@ -1,6 +1,1 @@
-{
-  imports = [
-    ./documentation.nix
-    ./realtime.nix
-  ];
-}
+{ imports = [ ./documentation.nix ]; }

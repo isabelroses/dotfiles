@@ -1,11 +1,13 @@
 { config, lib, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkServiceOption;
 
   cfg = config.modules.services.monitoring.loki;
   lcfg = config.services.loki;
 in
 {
+  options.modules.services.monitoring.loki = mkServiceOption "loki" { port = 3030; };
+
   config = mkIf cfg.enable {
     # https://gist.github.com/rickhull/895b0cb38fdd537c1078a858cf15d63e
     services.loki = {

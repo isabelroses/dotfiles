@@ -1,7 +1,7 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }:
 let
@@ -36,7 +36,7 @@ in
       '';
     };
 
-    # https://nixos.wiki/wiki/Secure_Boot
+    # https://wiki.nixos.org/wiki/Secure_Boot
     secureBoot = mkEnableOption ''
       secure-boot and load necessary packages, say good bye to systemd-boot
     '';
@@ -132,11 +132,6 @@ in
           is not present.
         '';
       };
-    };
-
-    plymouth = {
-      enable = mkEnableOption "plymouth boot splash";
-      withThemes = mkEnableOption "plymouth theme";
     };
   };
 }

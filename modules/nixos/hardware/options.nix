@@ -4,31 +4,6 @@ let
 in
 {
   options.modules.device = {
-    cpu = mkOption {
-      type = types.nullOr (
-        types.enum [
-          "intel"
-          "vm-intel"
-          "amd"
-          "vm-amd"
-        ]
-      );
-      default = null;
-      description = "The manufacturer of the primary system gpu";
-    };
-
-    gpu = mkOption {
-      type = types.nullOr (
-        types.enum [
-          "amd"
-          "intel"
-          "nvidia"
-        ]
-      );
-      default = null;
-      description = "The manufacturer of the primary system gpu";
-    };
-
     monitors = mkOption {
       type = with types; listOf str;
       default = [ ];

@@ -5,7 +5,12 @@
   ...
 }:
 let
-  inherit (lib) mkIf template;
+  inherit (lib)
+    mkIf
+    template
+    mkSecret
+    mkServiceOption
+    ;
   rdomain = config.networking.domain;
 
   cfg = config.modules.services.media.matrix;
@@ -27,7 +32,24 @@ let
   '';
 in
 {
+  options.modules.services.media.matrix = mkServiceOption "matrix" {
+    port = 8008;
+    domain = "matrix.${rdomain}";
+  };
+
   config = mkIf cfg.enable {
+    age.secrets = {
+      matrix = mkSecret {
+        file = "matrix/env";
+        owner = "matrix-synapse";
+      };
+
+      matrix-sync = mkSecret {
+        file = "matrix/sync";
+        owner = "matrix-synapse";
+      };
+    };
+
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     modules.services = {

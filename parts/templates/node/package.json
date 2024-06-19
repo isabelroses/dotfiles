@@ -1,7 +1,7 @@
 {
-  "name": "sample-nodejs",
+  "name": "example-nodejs",
   "version": "0.0.1",
-  "description": "Sample node program",
+  "description": "example node program",
   "bin": {
     "sample-node": "build/index.js"
   },

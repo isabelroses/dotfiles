@@ -25,6 +25,7 @@ let
   validators = import' ./validators.nix;
   helpers = import' ./helpers.nix;
   hardware = import' ./hardware.nix;
+  secerets = import' ./secrets.nix { inherit (inputs) self; };
 
   # templates, selections of code and etc that are repeated
   template = import ./template { };
@@ -37,6 +38,7 @@ let
     helpers
     hardware
     template
+    secerets
   ];
 in
 lib.extend (_: _: foldl recursiveUpdate { } importedLibs)

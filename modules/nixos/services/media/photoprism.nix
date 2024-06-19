@@ -1,10 +1,16 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf template;
+  inherit (lib) mkIf template mkServiceOption;
   rdomain = config.networking.domain;
   cfg = config.modules.services.media.photoprism;
 in
 {
+  options.modules.services.media.photoprism = mkServiceOption "photoprism" {
+    port = 2342;
+    host = "0.0.0.0";
+    domain = "photos.${rdomain}";
+  };
+
   config = mkIf cfg.enable {
     modules.services = {
       networking.nginx.enable = true;

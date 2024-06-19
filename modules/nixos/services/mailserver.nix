@@ -1,18 +1,25 @@
 {
-  config,
   lib,
   pkgs,
   inputs,
+  config,
   ...
 }:
 let
-  inherit (lib) mkIf template;
+  inherit (lib)
+    mkIf
+    template
+    mkSecret
+    mkServiceOption
+    ;
 
   rdomain = config.networking.domain;
   cfg = config.modules.services.mailserver;
 in
 {
-  imports = [ inputs.simple-nixos-mailserver.nixosModule ];
+  imports = [ inputs.simple-nixos-mailserver.nixosModules.default ];
+
+  options.modules.services.mailserver = mkServiceOption "mailserver" { domain = "mail.${rdomain}"; };
 
   config = mkIf cfg.enable {
     modules.services = {
@@ -21,6 +28,16 @@ in
         redis.enable = true;
         postgresql.enable = true;
       };
+    };
+
+    age.secrets = {
+      mailserver-isabel = mkSecret { file = "mailserver/isabel"; };
+      mailserver-vaultwarden = mkSecret { file = "mailserver/vaultwarden"; };
+      mailserver-database = mkSecret { file = "mailserver/database"; };
+      mailserver-grafana = mkSecret { file = "mailserver/grafana"; };
+      mailserver-git = mkSecret { file = "mailserver/git"; };
+      mailserver-noreply = mkSecret { file = "mailserver/noreply"; };
+      mailserver-spam = mkSecret { file = "mailserver/spam"; };
     };
 
     # required for roundcube

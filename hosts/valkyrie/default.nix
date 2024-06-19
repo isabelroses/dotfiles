@@ -20,11 +20,7 @@
         tmpOnTmpfs = true;
         enableKernelTweaks = true;
         loadRecommendedModules = true;
-
-        plymouth = {
-          enable = false;
-          withThemes = true;
-        };
+        plymouth.enable = false;
 
         initrd = {
           enableTweaks = true;
@@ -39,7 +35,6 @@
       video.enable = false;
       sound.enable = false;
       bluetooth.enable = false;
-      printing.enable = false;
       yubikeySupport.enable = false;
 
       security = {

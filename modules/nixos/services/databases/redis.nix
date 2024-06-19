@@ -1,10 +1,12 @@
 { config, lib, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkServiceOption;
 
   cfg = config.modules.services;
 in
 {
+  options.modules.services.database.redis = mkServiceOption "redis" { };
+
   config = mkIf cfg.database.redis.enable {
     services.redis = {
       vmOverCommit = true;
@@ -13,15 +15,6 @@ in
           enable = true;
           user = "nextcloud";
           port = 0;
-        };
-
-        searxng = mkIf cfg.media.searxng.enable {
-          enable = true;
-          user = "searx";
-          port = 6370;
-          databases = 16;
-          logLevel = "debug";
-          requirePass = "searxng";
         };
 
         forgejo = mkIf cfg.dev.forgejo.enable {

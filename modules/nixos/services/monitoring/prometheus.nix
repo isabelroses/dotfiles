@@ -1,16 +1,18 @@
 { config, lib, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkServiceOption;
 
   cfg = config.modules.services.monitoring.prometheus;
 in
 {
+  options.modules.services.monitoring.prometheus = mkServiceOption "prometheus" { port = 9100; };
+
   config = mkIf cfg.enable {
     services = {
       # Prometheus exporter for Grafana
       prometheus = {
         enable = true;
-        port = cfg.port;
+        inherit (cfg) port;
         globalConfig = {
           scrape_interval = "10s";
           scrape_timeout = "2s";

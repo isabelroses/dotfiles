@@ -1,15 +1,17 @@
 {
-  pkgs,
   lib,
+  pkgs,
   config,
   ...
 }:
 let
-  inherit (lib) mkIf isx86Linux;
-  sys = config.modules.system;
+  inherit (lib) mkIf isx86Linux mkEnableOption;
+  cfg = config.modules.system.video;
 in
 {
-  config = mkIf sys.video.enable {
+  options.modules.system.video.enable = mkEnableOption "Does the device allow for graphical programs";
+
+  config = mkIf cfg.enable {
     hardware = {
       opengl = {
         enable = true;

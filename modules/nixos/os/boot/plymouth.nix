@@ -2,33 +2,29 @@
   lib,
   pkgs,
   config,
-  inputs',
   ...
 }:
 let
-  inherit (pkgs) plymouth;
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkEnableOption;
 
   cfg = config.modules.system.boot.plymouth;
 in
 {
+  options.modules.system.boot.plymouth.enable = mkEnableOption "plymouth boot splash";
+
   config = mkIf cfg.enable {
-    boot.plymouth =
-      {
-        enable = true;
-      }
-      // lib.optionalAttrs cfg.withThemes {
-        theme = "catppuccin-mocha";
-        themePackages = [ inputs'.beapkgs.packages.plymouth-theme-catppuccin ];
-      };
+    boot.plymouth = {
+      enable = true;
+      catppuccin.enable = true;
+    };
 
     # make plymouth work with sleep
     powerManagement = {
       powerDownCommands = ''
-        ${plymouth} --show-splash
+        ${pkgs.plymouth} --show-splash
       '';
       resumeCommands = ''
-        ${plymouth} --quit
+        ${pkgs.plymouth} --quit
       '';
     };
   };

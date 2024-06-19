@@ -1,14 +1,19 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }:
 let
   cfg = config.modules.services.dev.forgejo;
   rdomain = config.networking.domain;
 
-  inherit (lib) mkIf template;
+  inherit (lib)
+    mkIf
+    template
+    mkSecret
+    mkServiceOption
+    ;
 
   # stole this from https://git.winston.sh/winston/deployment-flake/src/branch/main/config/services/gitea.nix who stole it from https://github.com/getchoo
   theme = pkgs.fetchzip {
@@ -18,7 +23,18 @@ let
   };
 in
 {
+  options.modules.services.dev.forgejo = mkServiceOption "forgejo" {
+    port = 7000;
+    domain = "git.${rdomain}";
+  };
+
   config = mkIf cfg.enable {
+    age.secrets.mailserver-git-nohash = mkSecret {
+      file = "mailserver/git-nohash";
+      owner = "forgejo";
+      group = "forgejo";
+    };
+
     modules.services = {
       networking.nginx.enable = true;
       database = {

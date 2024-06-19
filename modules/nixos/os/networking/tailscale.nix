@@ -1,17 +1,61 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }:
 let
-  inherit (lib) mkIf mkDefault optionals;
+  inherit (lib)
+    mkIf
+    mkOption
+    mkEnableOption
+    types
+    mkDefault
+    optionals
+    ;
   inherit (config.services) tailscale;
 
   sys = config.modules.system.networking;
   cfg = sys.tailscale;
 in
 {
+  options.modules.system.networking.tailscale = {
+    enable = mkEnableOption "Tailscale VPN";
+
+    defaultFlags = mkOption {
+      type = with types; listOf str;
+      default = [ "--ssh" ];
+      description = ''
+        A list of command-line flags that will be passed to the Tailscale daemon on startup
+        using the {option}`config.services.tailscale.extraUpFlags`.
+        If `isServer` is set to true, the server-specific values will be appended to the list
+        defined in this option.
+      '';
+    };
+
+    isClient = mkOption {
+      type = types.bool;
+      default = cfg.enable;
+      example = true;
+      description = ''
+        Whether the target host should utilize Tailscale client features";
+        This option is mutually exclusive with {option}`tailscale.isServer` as they both
+        configure Taiscale, but with different flags
+      '';
+    };
+
+    isServer = mkOption {
+      type = types.bool;
+      default = !cfg.isClient;
+      example = true;
+      description = ''
+        Whether the target host should utilize Tailscale server features.
+        This option is mutually exclusive with {option}`tailscale.isClient` as they both
+        configure Taiscale, but with different flags
+      '';
+    };
+  };
+
   config = mkIf cfg.enable {
     # make the tailscale command usable to users
     environment.systemPackages = [ pkgs.tailscale ];

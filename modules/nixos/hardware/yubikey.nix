@@ -1,10 +1,25 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }:
 {
+  options.modules.system.yubikeySupport = {
+    enable = lib.mkEnableOption "yubikey support";
+
+    deviceType = lib.mkOption {
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "NFC5"
+          "nano"
+        ]
+      );
+      default = null;
+      description = "A list of devices to enable Yubikey support for";
+    };
+  };
+
   config = lib.mkIf config.modules.system.yubikeySupport.enable {
     hardware.gpgSmartcards.enable = true;
 

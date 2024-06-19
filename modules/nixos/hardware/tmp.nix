@@ -1,9 +1,21 @@
 { config, lib, ... }:
 let
-  inherit (lib) mkDefault mkIf;
+  inherit (lib)
+    mkDefault
+    mkIf
+    mkOption
+    types
+    ;
+
   inherit (config.modules) device;
 in
 {
+  options.modules.device.hasTPM = mkOption {
+    type = types.bool;
+    default = false;
+    description = "Whether the system has tpm support";
+  };
+
   config = mkIf device.hasTPM {
     security.tpm2 = {
       # enable Trusted Platform Module 2 support
