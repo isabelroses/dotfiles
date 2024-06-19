@@ -19,16 +19,13 @@ in
       # handle ACPI events
       acpid.enable = true;
 
-      # a very cool user-selected power profiles helping my system not die 5 mins into my lecture
-      power-profiles-daemon.enable = true;
-
       # temperature target on battery
       undervolt = {
         tempBat = 65; # deg C
         package = pkgs.undervolt;
       };
 
-      # superior power management
+      # superior power management, littrally saves this crummy laptop
       auto-cpufreq = {
         enable = true;
         settings =

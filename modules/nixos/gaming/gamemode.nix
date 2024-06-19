@@ -19,7 +19,6 @@ let
     [
       hyprland
       coreutils
-      power-profiles-daemon
       systemd
     ]
   );
@@ -31,7 +30,6 @@ let
       hyprctl --batch 'keyword decoration:blur 0 ; keyword animations:enabled 0 ; keyword misc:vfr 0'
     ''}
 
-    powerprofilesctl set performance
     ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations activated'
   '';
 
@@ -42,7 +40,6 @@ let
       hyprctl --batch 'keyword decoration:blur 1 ; keyword animations:enabled 1 ; keyword misc:vfr 1'
     ''}
 
-      powerprofilesctl set power-saver
       ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'
   '';
 
