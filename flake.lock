@@ -235,22 +235,6 @@
         "type": "github"
       }
     },
-    "flake-compat_4": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1696426674,
-        "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "rev": "0f9255e01c2351cc7d116c072cb317785dd33b33",
-        "type": "github"
-      },
-      "original": {
-        "owner": "edolstra",
-        "repo": "flake-compat",
-        "type": "github"
-      }
-    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -401,7 +385,6 @@
         "beapkgs": [
           "beapkgs"
         ],
-        "flake-compat": "flake-compat",
         "flake-parts": [
           "flake-parts"
         ],
@@ -416,11 +399,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718716317,
-        "narHash": "sha256-tSGUZ5XayUCg7r08ytLFpd12GfTPRy93oiRi2DhVghY=",
+        "lastModified": 1718786875,
+        "narHash": "sha256-dHu/N5qLeGFDTuusPSPLsa1jtKltppwy6il9dqjzfyE=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "5e3cb5fe923c7cb20bdd4d62dd4a31324bc68d27",
+        "rev": "6063c74cc421f802aaed49b37c3c136a2704594a",
         "type": "github"
       },
       "original": {
@@ -462,7 +445,7 @@
     },
     "lix": {
       "inputs": {
-        "flake-compat": "flake-compat_2",
+        "flake-compat": "flake-compat",
         "nix2container": "nix2container",
         "nixpkgs": "nixpkgs",
         "nixpkgs-regression": "nixpkgs-regression",
@@ -732,7 +715,7 @@
     },
     "pre-commit-hooks_2": {
       "inputs": {
-        "flake-compat": "flake-compat_3",
+        "flake-compat": "flake-compat_2",
         "gitignore": "gitignore",
         "nixpkgs": [
           "nixpkgs"
@@ -853,7 +836,7 @@
     },
     "schizofox": {
       "inputs": {
-        "flake-compat": "flake-compat_4",
+        "flake-compat": "flake-compat_3",
         "flake-parts": [
           "flake-parts"
         ],
