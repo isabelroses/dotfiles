@@ -25,7 +25,6 @@ in
           with pkgs;
           [
             swappy # used for screenshot area selection
-            wlsunset # reduce blue light at night
             wl-gammactl
           ]
           ++ lib.optionals osConfig.modules.system.sound.enable [ pavucontrol ];

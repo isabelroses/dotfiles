@@ -20,17 +20,22 @@ in
     settings = {
       "$mod" = "SUPER";
 
+      exec = [
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland"
+        "systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr"
+        "systemctl --user start pipewire wireplumber pipewire-media-session xdg-desktop-portal xdg-desktop-portal-hyprland"
+      ];
+
       exec-once = [
         "wl-paste --type text --watch cliphist store" # Stores only text data
         "wl-paste --type image --watch cliphist store" # Stores only image data
-        "wlsunset -S 8:00 -s 20:00"
         "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
       ] ++ optionals (defaults.bar == "waybar") [ "waybar" ] ++ optionals (defaults.bar == "ags") [ ags ];
 
       input = {
         kb_layout = "${dev.keyboard}";
         follow_mouse = 1;
-        sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+        sensitivity = -1.0; # -1.0 - 1.0, 0 means no modification.
         touchpad = {
           tap-to-click = true;
           natural_scroll = false; # this is not natural
@@ -86,6 +91,10 @@ in
         disable_autoreload = true; # autoreload is unnecessary on nixos, because the config is readonly anyway
       };
 
+      # cursor = {
+      #   no_hardware_cursors = true;
+      # };
+
       decoration = {
         rounding = 15;
 
@@ -121,7 +130,7 @@ in
 
       master = {
         no_gaps_when_only = false;
-        new_is_master = true;
+        # new_is_master = true;
       };
 
       dwindle = {
@@ -262,6 +271,7 @@ in
       ''
         ${mapMonitors}
         ${optionalString (builtins.length monitors != 1) "${mapMonitorsToWs}"}
+        monitor=Unknown-1,disable
 
         # █▀▄▀█ █▀█ █░█ █▀▀
         # █░▀░█ █▄█ ▀▄▀ ██▄

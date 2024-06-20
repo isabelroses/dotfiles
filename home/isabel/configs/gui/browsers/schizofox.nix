@@ -48,7 +48,7 @@ in
       };
 
       misc = {
-        drmFix = true;
+        drm.enable = true;
         disableWebgl = false;
         startPageURL = "https://dash.isabelroses.com";
       };

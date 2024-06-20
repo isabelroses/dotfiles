@@ -61,10 +61,10 @@ c.window_frame = {
   font_size = c.font_size,
 }
 
-if utils.is_windows() then
-  c.line_height = 1
-else
+if utils.is_darwin() then
   c.line_height = 1.2
+else
+  c.line_height = 1
 end
 
 -- QOL
