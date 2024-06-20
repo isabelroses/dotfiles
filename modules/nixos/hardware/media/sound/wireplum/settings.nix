@@ -20,6 +20,38 @@ in
         "wireplumber.settings"."device.routes.default-sink-volume" = 1.0;
       };
 
+      "11-rename-freewheel" = {
+        "monitor.alsa.rules" = singleton {
+          matches = singleton { "node.name" = "Freewheel-Driver"; };
+
+          actions = {
+            update-props = {
+              "factory.name" = "support.node.driver";
+              "node.name" = "Freewheel-Driver-Custom";
+              "node.description" = "Freewheel-Driver-Custom";
+              "node.group" = "pipewire.freewheel";
+              "node.freewheel" = true;
+              "priority.driver" = 19000;
+            };
+          };
+        };
+      };
+
+      "11-rename-dummy" = {
+        "monitor.alsa.rules" = singleton {
+          matches = singleton { "node.name" = "Dummy-Driver"; };
+
+          actions = {
+            update-props = {
+              "node.name" = "Dummy-Driver-Custom";
+              "node.nick" = "Dummy-Driver-Custom";
+              "node.description" = "Dummy-Driver-Custom";
+              "priority.driver" = 20000;
+            };
+          };
+        };
+      };
+
       "60-hdmi-lowprio" = {
         "monitor.alsa.rules" = singleton {
           matches = singleton { "api.alsa.path" = "hdmi:.*"; };
@@ -33,6 +65,22 @@ in
           };
         };
       };
+
+      "60-onboard-card" = {
+        "monitor.alsa.rules" = singleton {
+          matches = [
+            { "media.class" = "Audio/Device"; }
+            { "devie.product.name" = "Starship/Matisse HD Audio Controller"; }
+          ];
+
+          actions.update-props = {
+            "node.name" = "Onboard Audio";
+            "node.description" = "Onboard Audio";
+            "node.nick" = "Onboard Audio";
+          };
+        };
+      };
+
     }
 
     (mkIf dev.hasBluetooth {
