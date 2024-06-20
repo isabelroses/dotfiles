@@ -28,10 +28,8 @@ in
       extraRules = [
         {
           # allow wheel group to run nixos-rebuild without password
-          groups = [
-            "sudo"
-            "wheel"
-          ];
+          groups = [ "wheel" ];
+
           commands =
             let
               currentSystem = "/run/current-system/";

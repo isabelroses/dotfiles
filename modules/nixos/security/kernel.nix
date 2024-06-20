@@ -152,15 +152,6 @@ in
         "udf" # https://docs.kernel.org/5.15/filesystems/udf.html
       ]
 
-      # Just why
-      [
-        "cx88xx" # input driver for cx88 GPIO-based IR remote controls
-        "ivtv" # Hauppauge PVR-350 driver
-        "saa7134" # v4l2 driver module for saa7130/34 based TV cards
-        "em28xx" # Empia em28xx device driver
-        "dvb-usb" # USB DVB devices, you don't use this unless you plug a tv into your device using a usb
-      ]
-
       # Disable pc speakers, does anyone actually use these
       [
         "pcspkr"
@@ -173,9 +164,9 @@ in
         "firewire-core"
       ]
 
-      (optionals (!sys.security.fixWebcam) [
-        "uvcvideo" # this is why your webcam no worky
-      ])
+      # this is why your webcam no worky
+      (optionals (!sys.security.fixWebcam) [ "uvcvideo" ])
+
       (optionals (!sys.bluetooth.enable) [
         "bluetooth"
         "btusb" # bluetooth dongles
