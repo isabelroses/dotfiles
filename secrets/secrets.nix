@@ -3,6 +3,7 @@ let
 
   hosts = {
     hydra = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKMJroewVs8Iyf+/Ofk6q36D1OzVW0b04yyS3IVwNmCb";
+    amaterasu = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILNvBuKUksco5TldoEMthQcvr6TOh9Aun93kYUAq22gE";
     luz = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGHXU5QFwqTAW/3MrHXfeqRlit4VrxhymLLb32RFSZjf";
     tatsumaki = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIU8hvjlgODQf80Is9qx2EjgcgK5jSqFcrRgQu5LTrAL";
     valkyrie = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHnhUMQ+BtvcfPKJJbR8nFAQIB9KbrKRJlZSsheCL0j6";
@@ -11,6 +12,7 @@ let
   types = with hosts; {
     servers = [ luz ];
     workstations = [
+      amaterasu
       tatsumaki
       valkyrie
     ];
