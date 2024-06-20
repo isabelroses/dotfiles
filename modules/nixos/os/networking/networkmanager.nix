@@ -15,7 +15,7 @@ in
 
   networking.networkmanager = {
     enable = true;
-    plugins = mkForce [ ];
+    plugins = mkForce [ pkgs.networkmanager-openvpn ];
     dns = "systemd-resolved";
     unmanaged = [
       "interface-name:tailscale*"
