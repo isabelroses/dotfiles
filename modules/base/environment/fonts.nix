@@ -1,9 +1,14 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (lib) ldTernary;
 
   fnts = with pkgs; [
-    commit-mono
+    config.modules.style.font.package
 
     corefonts
 
@@ -48,15 +53,15 @@ in
 
         defaultFonts = {
           monospace = [
-            "CommitMono"
+            config.modules.style.font.name
             "Symbols Nerd Font"
           ];
           sansSerif = [
-            "CommitMono"
+            config.modules.style.font.name
             "Symbols Nerd Font"
           ];
           serif = [
-            "Noto Serif"
+            config.modules.style.font.name
             "Symbols Nerd Font"
           ];
           emoji = [

@@ -42,10 +42,14 @@ in
       #   color = "#313244";
       # };
 
-      font = {
-        family = "CommitMono";
-        size = 14;
-      };
+      font =
+        let
+          fn = osConfig.modules.style.font;
+        in
+        {
+          family = fn.name;
+          inherit (fn) size;
+        };
     };
   };
 }

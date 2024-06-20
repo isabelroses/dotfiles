@@ -39,7 +39,7 @@ in
       catppuccin.enable = true;
 
       font = {
-        inherit (cfg.gtk.font) name size;
+        inherit (cfg.font) name size;
       };
 
       gtk2 = {

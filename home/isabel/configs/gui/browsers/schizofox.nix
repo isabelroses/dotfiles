@@ -16,7 +16,7 @@ in
       package = pkgs.firefox-esr-115-unwrapped;
 
       theme = {
-        font = "CommitMono";
+        font = osConfig.modules.style.font.name;
 
         colors = {
           foreground = "cdd6f4";

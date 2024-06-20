@@ -18,12 +18,16 @@ in
       modi = "drun";
       icon-theme = "Papirus-Dark";
       show-icons = true;
-      terminal = defaults.terminal;
+      inherit (defaults) terminal;
       location = 0;
       disable-history = false;
       hide-scrollbar = true;
       sidebar-mode = true;
-      font = "CommitMono 14";
+      font =
+        let
+          fn = osConfig.modules.style.font;
+        in
+        "${fn.name} ${toString fn.size}";
       display-drun = "Apps";
       drun-display-format = "{name}";
     };

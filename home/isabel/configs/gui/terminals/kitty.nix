@@ -17,7 +17,7 @@
 
       settings = {
         background_opacity = "0.85";
-        font_family = "CommitMono";
+        font_family = osConfig.modules.style.font.name;
         font_size = 13;
         disable_ligatures = "never";
         cursor_shape = "beam";

@@ -16,7 +16,7 @@
       extraConfig = "include catppuccin-mocha";
 
       options = {
-        font = "CommitMono 15";
+        font = "${osConfig.modules.style.font.name} 15";
         selection-clipboard = "clipboard";
         #adjust-open = "best-fit";
         #pages-per-row = "1";

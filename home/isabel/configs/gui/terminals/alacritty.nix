@@ -6,29 +6,33 @@
       settings = {
         window.opacity = 0.9;
 
-        font = {
-          normal = {
-            family = "CommitMono";
-            style = "Regular";
-          };
+        font =
+          let
+            family = osConfig.modules.style.font.name;
+          in
+          {
+            normal = {
+              inherit family;
+              style = "Regular";
+            };
 
-          bold = {
-            family = "CommitMono";
-            style = "Bold";
-          };
+            bold = {
+              inherit family;
+              style = "Bold";
+            };
 
-          italic = {
-            family = "CommitMono";
-            style = "Regular";
-          };
+            italic = {
+              inherit family;
+              style = "Regular";
+            };
 
-          bold_italic = {
-            family = "CommitMono";
-            style = "Regular Bold";
-          };
+            bold_italic = {
+              inherit family;
+              style = "Regular Bold";
+            };
 
-          size = 13.0;
-        };
+            size = 13.0;
+          };
 
         cursor = {
           style = {

@@ -11,7 +11,7 @@ in
 
       background-opacity = 0.95
 
-      font-family = Commit Mono
+      font-family = ${osConfig.modules.style.font.name}
       font-size = 13
 
       command = /etc/profiles/per-user/isabel/bin/fish --login

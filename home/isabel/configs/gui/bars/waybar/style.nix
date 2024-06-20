@@ -35,7 +35,7 @@ _: ''
   * {
       border: none;
       border-radius: 0;
-      font-family: CommitMono, monospace, Noto Sans CJK JP;
+      font-family: Maple Mono, monospace, Noto Sans CJK JP;
       font-weight: normal;
       font-size: 14px;
       min-height: 0;
