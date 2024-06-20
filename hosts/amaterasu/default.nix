@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   imports = [ ./hardware.nix ];
 
@@ -20,7 +19,6 @@
 
         boot = {
           loader = "systemd-boot";
-          kernel = pkgs.linuxPackages_6_6;
           secureBoot = false;
           tmpOnTmpfs = true;
           enableKernelTweaks = true;
