@@ -17,7 +17,7 @@ in
       name = mkOption {
         type = types.str;
         description = "The name of the cursor inside the package";
-        default = "Catppuccin-Mocha-Dark-Cursors";
+        default = "catppuccin-mocha-dark-cursors";
       };
 
       package = mkOption {
