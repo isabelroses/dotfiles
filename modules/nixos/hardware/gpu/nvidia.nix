@@ -5,18 +5,12 @@
   ...
 }:
 let
-  # only the newest nvidia package
-  nvStable = config.boot.kernelPackages.nvidiaPackages.stable;
-  nvBeta = config.boot.kernelPackages.nvidiaPackages.beta;
-
-  nvidiaPackage = if (versionOlder nvBeta.version nvStable.version) then nvStable else nvBeta;
-
   inherit (config.modules) device;
   inherit (lib)
     mkIf
     mkMerge
+    mkForce
     mkDefault
-    versionOlder
     isWayland
     ;
 in
@@ -55,15 +49,13 @@ in
         (mkIf (isWayland config) {
           WLR_NO_HARDWARE_CURSORS = "1";
           # GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
-        })
 
-        (mkIf (isWayland config && device.gpu == "hybrid-nv") {
-          #WLR_DRM_DEVICES = mkDefault "/dev/dri/card1:/dev/dri/card0";
+          WLR_DRM_DEVICES = mkDefault "/dev/dri/card1";
         })
       ];
 
       systemPackages = with pkgs; [
-        nvtopPackages.amd
+        nvtopPackages.nvidia
 
         # mesa
         mesa
@@ -82,14 +74,21 @@ in
 
     hardware = {
       nvidia = {
-        package = mkDefault nvidiaPackage;
-        modesetting.enable = mkDefault true;
+        package = mkDefault config.boot.kernelPackages.nvidiaPackages.latest;
+        modesetting.enable = mkForce true;
 
-        prime.offload.enableOffloadCmd = device.gpu == "hybrid-nv";
+        prime.offload =
+          let
+            isHybrid = device.gpu == "hybrid-nv";
+          in
+          {
+            enable = isHybrid;
+            enableOffloadCmd = isHybrid;
+          };
 
         powerManagement = {
           enable = mkDefault true;
-          finegrained = mkDefault true;
+          finegrained = mkDefault false;
         };
 
         open = mkDefault true; # use open source drivers by default

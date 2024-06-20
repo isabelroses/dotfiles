@@ -15,6 +15,7 @@ in
         "amd"
         "intel"
         "nvidia"
+        "hybrid-nv"
       ]
     );
     default = null;
