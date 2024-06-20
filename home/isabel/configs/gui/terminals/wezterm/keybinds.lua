@@ -55,20 +55,19 @@ map("Enter", "ALT", act.ToggleFullScreen)
 
 map("e", "CTRL|SHIFT", getNewName)
 map("o", { "LEADER", "SUPER" }, openUrl)
-map("t", "LEADER", changeCtpFlavor)
+map("t", "ALT", changeCtpFlavor)
 
-local leader
-
+local mods
 if utils.is_windows() then
-  leader = "ALT"
+  mods = "ALT"
 else
-  leader = " "
+  mods = "SUPER"
 end
 
 M.apply = function(c)
   c.leader = {
-    key = leader,
-    mods = "SUPER",
+    key = " ",
+    mods = mods,
     timeout_milliseconds = math.maxinteger,
   }
   c.keys = keys

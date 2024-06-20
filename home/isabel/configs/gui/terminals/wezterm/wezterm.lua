@@ -16,11 +16,12 @@ elseif utils.is_darwin() then
   c.window_background_opacity = 0.95
   c.macos_window_background_blur = 15
 elseif utils.is_windows() then
-  c.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\GEpt2MeaAAANR2q.jpeg"
-  c.window_background_image_hsb = {
-    brightness = 0.05, -- make the bg darker so we can see what we are doing
-  }
-  c.win32_system_backdrop = "Tabbed"
+  -- c.window_background_image = "C:\\Users\\Isabel\\Pictures\\wallpapers\\catgirl.jpg"
+  -- c.window_background_image_hsb = {
+  -- 	brightness = 0.03, -- make the bg darker so we can see what we are doing
+  -- }
+  -- c.win32_system_backdrop = "Tabbed"
+  -- c.window_background_opacity = 0.95
 end
 
 -- load my keybinds
@@ -32,6 +33,7 @@ if utils.is_linux() then
 elseif utils.is_darwin() then
   c.default_prog = { "/etc/profiles/per-user/isabel/bin/fish", "--login" }
 elseif utils.is_windows() then
+  c.default_prog = { "wsl.exe" }
   c.launch_menu = {
     {
       label = "PowerShell",
@@ -51,20 +53,18 @@ c.adjust_window_size_when_changing_font_size = false
 
 -- fonts
 c.font = wezterm.font_with_fallback({
-  "CommitMono",
+  "Maple Mono",
   "Symbols Nerd Font",
 })
 c.font_size = 13
 c.adjust_window_size_when_changing_font_size = false
 c.window_frame = {
-  font = wezterm.font("CommitMono"),
+  font = wezterm.font("Maple Mono"),
   font_size = c.font_size,
 }
 
 if utils.is_darwin() then
   c.line_height = 1.2
-else
-  c.line_height = 1
 end
 
 -- QOL
