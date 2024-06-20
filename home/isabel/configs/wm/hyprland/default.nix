@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  # inputs',
+  inputs',
   osConfig,
   ...
 }:
@@ -9,7 +9,7 @@ let
   inherit (osConfig.modules) environment;
 in
 {
-  imports = [ ./config.nix ];
+  imports = [ ./config ];
 
   config = lib.mkIf (environment.desktop == "Hyprland") {
     home.packages = with pkgs; [
@@ -19,7 +19,7 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      # package = inputs'.hyprland.packages.default;
+      package = inputs'.hyprland.packages.default;
       xwayland.enable = true;
 
       systemd = {

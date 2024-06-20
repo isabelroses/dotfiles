@@ -111,7 +111,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1";
+    # I am not recompling this thanks
+    hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1";
 
     # a tree-wide formatter
     treefmt-nix = {
