@@ -25,6 +25,26 @@
         "type": "github"
       }
     },
+    "ags": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1715703984,
+        "narHash": "sha256-0BZkMui6aCqswMCouvp0G90tAxDOxVnxTvG6TDZsDaI=",
+        "owner": "Aylur",
+        "repo": "ags",
+        "rev": "11150225e62462bcd431d1e55185e810190a730a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Aylur",
+        "repo": "ags",
+        "type": "github"
+      }
+    },
     "beapkgs": {
       "inputs": {
         "flake-compat": [],
@@ -33,11 +53,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718670933,
-        "narHash": "sha256-KvFlePCmJV7hhrzRCcnBonQshkAFlz9F0nAk4e1MGfc=",
+        "lastModified": 1718843688,
+        "narHash": "sha256-Z8sHyiPPTxav3Y7rWvjbsS8RuIxDVUo0rGqdiJU/1vQ=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "80c50d6404300107b4d0d41d7d2356af670976ac",
+        "rev": "791c8e50b3cffeaf8b7be331d5673be8edb68d82",
         "type": "github"
       },
       "original": {
@@ -346,11 +366,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718744742,
-        "narHash": "sha256-kOG10gJ3zLZNiom9NXJM4/mA4/lsmR3rp74YVw+iros=",
+        "lastModified": 1718788307,
+        "narHash": "sha256-SqiOz0sljM0GjyQEVinPXQxaGcbOXw5OgpCWGPgh/vo=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "0dd1c1495af6e6424695670343236f0053bf4947",
+        "rev": "d7830d05421d0ced83a0f007900898bdcaf2a2ca",
         "type": "github"
       },
       "original": {
@@ -430,11 +450,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1718626451,
-        "narHash": "sha256-KEM9FwTX4XvWzn/wKcbhS/xI7z3oU89XBfG8WnlHE88=",
+        "lastModified": 1718782018,
+        "narHash": "sha256-8SBmf7Sx5xMLzL4VGEU0fe8cuq0yMumdkXgOPXXD3Bo=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "93dd69a5b683deb8ab7d6dbb91771a2487745e8c",
+        "rev": "6fa7bc0522f71d3906a3788bbd80c344cd9c4523",
         "type": "github"
       },
       "original": {
@@ -452,11 +472,11 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "lastModified": 1718755105,
-        "narHash": "sha256-fcmoUGZrs7fLAwbynNJoDREvbNkcpqip9iCnFf4jZQs=",
+        "lastModified": 1718867212,
+        "narHash": "sha256-SMaO0O796xvuUOPuKMVVjmALwDXb8Xh3rz10JnHAkFI=",
         "ref": "refs/heads/main",
-        "rev": "0b9a72524af84003de4b19b4eef0027d416e0972",
-        "revCount": 15821,
+        "rev": "697ef65c148a48e5d8255b6425b6ca3a5b7d0be8",
+        "revCount": 15840,
         "type": "git",
         "url": "https://git.lix.systems/lix-project/lix.git"
       },
@@ -725,11 +745,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717664902,
-        "narHash": "sha256-7XfBuLULizXjXfBYy/VV+SpYMHreNRHk9nKMsm1bgb4=",
+        "lastModified": 1718879355,
+        "narHash": "sha256-RTyqP4fBX2MdhNuMP+fnR3lIwbdtXhyj7w7fwtvgspc=",
         "owner": "cachix",
         "repo": "git-hooks.nix",
-        "rev": "cc4d466cb1254af050ff7bdf47f6d404a7c646d1",
+        "rev": "8cd35b9496d21a6c55164d8547d9d5280162b07a",
         "type": "github"
       },
       "original": {
@@ -741,6 +761,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "ags": "ags",
         "beapkgs": "beapkgs",
         "catppuccin": "catppuccin",
         "darwin": "darwin_2",
@@ -821,11 +842,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1718681902,
-        "narHash": "sha256-E/T7Ge6ayEQe7FVKMJqDBoHyLhRhjc6u9CmU8MyYfy0=",
+        "lastModified": 1718849885,
+        "narHash": "sha256-Qfc5HKpQvGhWXox0WJVzLqrAcFm3uy6xtWRvVmrkLYc=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "16c8ad83297c278eebe740dea5491c1708960dd1",
+        "rev": "bc1a236757cd5f6622f73838e551fb2035afa44a",
         "type": "github"
       },
       "original": {

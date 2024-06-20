@@ -106,6 +106,13 @@
       };
     };
 
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1";
+
     # a tree-wide formatter
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
