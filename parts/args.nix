@@ -11,7 +11,7 @@
           allowUnfree = true;
           allowUnsupportedSystem = true;
         };
-        overlays = [ ];
+        overlays = [ inputs.nix-topology.overlays.default ];
       };
     };
 }
