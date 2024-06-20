@@ -154,7 +154,7 @@ const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) =>
 export const ShuffleButton = (player) =>
   PlayerButton({
     player,
-    items: [
+    children: [
       [
         "true",
         Widget.Label({
@@ -180,7 +180,7 @@ export const ShuffleButton = (player) =>
 export const LoopButton = (player) =>
   PlayerButton({
     player,
-    items: [
+    children: [
       [
         "None",
         Widget.Label({
@@ -213,7 +213,7 @@ export const LoopButton = (player) =>
 export const PlayPauseButton = (player) =>
   PlayerButton({
     player,
-    items: [
+    children: [
       [
         "Playing",
         Widget.Label({

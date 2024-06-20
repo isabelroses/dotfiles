@@ -24,7 +24,7 @@ export const OnScreenIndicator = ({ height = 300, width = 48 } = {}) =>
           vpack: "start",
           hpack: "center",
           hexpand: false,
-          items: [
+          children: [
             [
               "true",
               Widget.Icon({

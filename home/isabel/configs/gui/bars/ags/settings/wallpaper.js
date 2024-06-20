@@ -4,7 +4,7 @@ import { dependencies } from "../utils.js";
 
 export function initWallpaper() {
   if (dependencies(["swww"])) {
-    exec("swww init");
+    exec("swww-daemon");
     options.desktop.wallpaper.img.connect("changed", wallpaper);
   }
 }

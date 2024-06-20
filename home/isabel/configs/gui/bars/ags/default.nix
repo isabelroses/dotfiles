@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  inputs',
   config,
   osConfig,
   ...
@@ -11,32 +12,28 @@ in
 {
   config = lib.mkIf ((lib.isWayland osConfig) && osConfig.modules.programs.gui.bars.ags.enable) {
     home = {
-      packages = with pkgs; [
-        ags
-        socat
-        sassc
-        inotify-tools
-        swww
-        libgtop
-        libsoup_3
-        gvfs
-      ];
+      packages =
+        [ inputs'.ags.packages.ags ]
+        ++ (with pkgs; [
+          socat
+          sassc
+          inotify-tools
+          swww
+          libgtop
+          libsoup_3
+          gvfs
+        ]);
     };
 
     xdg.configFile =
       let
-        symlink =
-          fileName:
-          {
-            recursive ? false,
-          }:
-          {
-            source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/${fileName}";
-            inherit recursive;
-          };
+        symlink = fileName: {
+          source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/${fileName}";
+          recursive = true;
+        };
       in
       {
-        "ags" = symlink "home/${system.mainUser}/configs/gui/bars/ags" { recursive = true; };
+        "ags" = symlink "home/${system.mainUser}/configs/gui/bars/ags";
       };
   };
 }

@@ -7,7 +7,6 @@ import { exec } from "resource:///com/github/Aylur/ags/utils.js";
 import options from "../options.js";
 import Service from "resource:///com/github/Aylur/ags/service.js";
 import { reloadScss } from "./scss.js";
-import { setupHyprland } from "./hyprland.js";
 const CACHE_FILE = CACHE_DIR + "/options.json";
 
 /** object that holds the overriedden values */
@@ -127,7 +126,6 @@ export class Opt extends Service {
 
       if (reload && !this.noReload) {
         reloadScss();
-        setupHyprland();
       }
     }
   }
