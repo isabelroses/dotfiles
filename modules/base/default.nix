@@ -4,6 +4,7 @@
     ./environment # basic system environment configuration i.e. shell aliases and environment variables
     ./nix # all nix related configurations
     ./options # options that occur on all systems
+    ./themes # themes for the system
     ./users # users of the machine
 
     ./secrets.nix # shhh
