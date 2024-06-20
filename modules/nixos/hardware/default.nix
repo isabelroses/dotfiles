@@ -7,7 +7,7 @@
 
     ./bluetooth.nix # bluetooth
     ./options.nix # options to set the cpu and gpu
-    ./tmp.nix # Trusted Platform Module
+    ./tpm.nix # Trusted Platform Module
     ./yubikey.nix # yubikey device support and management tools
   ];
 

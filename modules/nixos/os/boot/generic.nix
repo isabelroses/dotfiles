@@ -82,7 +82,6 @@ in
           "btrfs"
           "sd_mod"
           "dm_mod"
-          "tpm"
         ];
 
         # the set of kernel modules in the initial ramdisk used during the boot process

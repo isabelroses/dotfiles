@@ -29,5 +29,7 @@ in
       # enable TPM2 PKCS#11 tool and shared library in system path
       pkcs11.enable = mkDefault true;
     };
+
+    boot.initrd.kernelModules = [ "tpm" ];
   };
 }
