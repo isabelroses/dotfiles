@@ -9,7 +9,7 @@ let
   inherit (lib) mkIf mkSecret mkServiceOption;
 in
 {
-  options.modules.services.networking.nginx = mkServiceOption "nginx" { };
+  options.modules.services.networking.nginx = mkServiceOption "nginx" { domain = "isabelroses.com"; };
 
   config = mkIf cfg.enable {
     age.secrets.cloudflare-cert-api = mkSecret {
