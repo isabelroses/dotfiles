@@ -11,6 +11,7 @@
 
     ./emulation.nix # emulation setup
     ./encryption.nix # keeping my stuff hidden from you strange people
+    ./topology.nix # nix generated network topology diagrams
     ./virtualization.nix # docker, QEMU, waydroid etc.
   ];
 }

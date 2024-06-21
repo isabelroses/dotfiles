@@ -91,8 +91,8 @@
       url = "github:oddlama/nix-topology";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "";
-        pre-commit-hooks-nix.follows = "";
+        flake-utils.follows = "izvim/flake-utils";
+        pre-commit-hooks.follows = "";
         devshell.follows = "";
       };
     };
