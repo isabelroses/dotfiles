@@ -1,6 +1,6 @@
 {
   imports = [
-    ./skhd.nix # the window manager
-    ./yabai.nix # keybinds
+    ./skhd.nix # keybinds
+    ./yabai.nix # the window manager
   ];
 }

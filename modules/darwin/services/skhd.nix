@@ -1,6 +1,9 @@
-{ lib, ... }:
+{ lib, config, ... }:
+let
+  inherit (lib) mkIf;
+in
 {
-  services.skhd = {
+  services.skhd = mkIf (config.modules.environment.desktop == "yabai") {
     enable = true;
     skhdConfig =
       let

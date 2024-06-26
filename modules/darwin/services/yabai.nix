@@ -1,5 +1,9 @@
+{ lib, config, ... }:
+let
+  inherit (lib) mkIf;
+in
 {
-  services.yabai = {
+  services.yabai = mkIf (config.modules.environment.desktop == "yabai") {
     enable = true;
     enableScriptingAddition = true;
 
