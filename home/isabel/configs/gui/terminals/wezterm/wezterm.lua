@@ -63,10 +63,6 @@ c.window_frame = {
   font_size = c.font_size,
 }
 
-if utils.is_darwin() then
-  c.line_height = 1.2
-end
-
 -- QOL
 c.audible_bell = "Disabled"
 c.default_cursor_style = "BlinkingBar"
