@@ -1,4 +1,7 @@
+{ inputs, ... }:
 {
+  imports = [ inputs.beapkgs.darwinModules.default ];
+
   nix = {
     gc.interval = {
       Hour = 3;
