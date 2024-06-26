@@ -8,6 +8,7 @@
   ...
 }:
 let
+  inherit (lib) mkForce;
   inherit (config.modules.programs) defaults;
 in
 {
@@ -16,6 +17,7 @@ in
     useUserPackages = true;
     useGlobalPkgs = true;
     backupFileExtension = "bak";
+
     extraSpecialArgs = {
       inherit
         inputs
@@ -25,6 +27,10 @@ in
         defaults
         ;
     };
+
     users = lib.genAttrs config.modules.system.users (name: ./${name});
+
+    # we should define grauntied common modules here
+    sharedModules = [ { nix.package = mkForce config.nix.package; } ];
   };
 }
