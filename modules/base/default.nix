@@ -7,6 +7,7 @@
     ./themes # themes for the system
     ./users # users of the machine
 
+    ./gaming.nix # super cool procrastinations related things
     ./secrets.nix # shhh
   ];
 }

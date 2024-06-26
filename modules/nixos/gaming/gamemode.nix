@@ -46,8 +46,6 @@ let
   cfg = config.modules.programs.gaming;
 in
 {
-  imports = [ ./steam.nix ];
-
   options.modules.programs.gaming.gamescope.enable = mkEnableOption "Gamescope compositing manager";
 
   config.programs.gamemode = mkIf cfg.enable {
