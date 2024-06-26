@@ -21,7 +21,7 @@ in
     };
 
     # OpenCL support and VAAPI
-    hardware.opengl = {
+    hardware.graphics = {
       extraPackages = with pkgs; [
         intel-compute-runtime
         intel-media-driver
@@ -39,7 +39,7 @@ in
       ];
     };
 
-    environment.variables = mkIf (config.hardware.opengl.enable && device.gpu != "hybrid-nv") {
+    environment.variables = mkIf (config.hardware.graphics.enable && device.gpu != "hybrid-nv") {
       VDPAU_DRIVER = "va_gl";
     };
   };

@@ -13,10 +13,9 @@ in
 
   config = mkIf cfg.enable {
     hardware = {
-      opengl = {
+      graphics = {
         enable = true;
-        driSupport = true;
-        driSupport32Bit = isx86Linux pkgs;
+        enable32Bit = isx86Linux pkgs;
       };
     };
 
