@@ -48,7 +48,7 @@ in
       # Disallow profiling at all levels without CAP_SYS_ADMIN
       "kernel.perf_event_paranoid" = 3;
       # Require CAP_BPF to use bpf
-      "kernel.unprvileged_bpf_disabled" = 1;
+      "kernel.unprivileged_bpf_disabled" = 1;
       # Prevent boot console log leaking information
       "kernel.printk" = "3 3 3 3";
       # Restrict loading TTY line disaciplines to the CAP_SYS_MODULE capablitiy to
