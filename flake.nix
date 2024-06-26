@@ -148,7 +148,7 @@
 
     ### my programs
     beapkgs = {
-      url = "github:isabelroses/beapkgs";
+      url = "github:isabelroses/beapkgs/60401cc3987ea906fc78c593909926cbec5e6393";
       # url = "git+file:///home/isabel/dev/beapkgs";
       inputs = {
         nixpkgs.follows = "nixpkgs";
