@@ -41,7 +41,7 @@ in
 
       # █▀▄▀█ █▀█ █░█ █▀▀
       # █░▀░█ █▄█ ▀▄▀ ██▄
-      bind=$mod, M, submap, move
+      bind=SUPER, M, submap, move
       submap=move
 
         binde = , left, movewindow, l
@@ -72,22 +72,5 @@ in
 
         bind=,escape,submap,reset
       submap=reset
-
-      ${builtins.concatStringsSep "\n" (
-        builtins.genList (
-          x:
-          let
-            ws =
-              let
-                c = (x + 1) / 10;
-              in
-              builtins.toString (x + 1 - (c * 10));
-          in
-          ''
-            bind = $mod, ${ws}, workspace, ${toString (x + 1)}
-            bind = $mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}
-          ''
-        ) 10
-      )}
     '';
 }
