@@ -20,6 +20,8 @@ in
       };
 
       profiles.arkenfox = {
+        isDefault = true;
+
         search = {
           default = "Searx";
           engines = {
