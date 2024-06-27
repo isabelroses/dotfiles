@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   self,
   self',
   config,
@@ -31,6 +32,11 @@ in
     users = lib.genAttrs config.modules.system.users (name: ./${name});
 
     # we should define grauntied common modules here
-    sharedModules = [ { nix.package = mkForce config.nix.package; } ];
+    sharedModules = [
+      {
+        nix.package = mkForce config.nix.package;
+        stateVersion = if pkgs.stdenv.isDarwin then "23.11" else config.system.stateVersion;
+      }
+    ];
   };
 }

@@ -70,12 +70,7 @@ in
           ungoogled = mkEnableOption "Enable ungoogled-chromium Tweaks";
         };
 
-        firefox = {
-          enable = mkEnableOption "Firefox browser";
-          schizofox = mkEnableOption "Enable Schizofox Firefox Tweaks" // {
-            default = true;
-          };
-        };
+        firefox.enable = mkEnableOption "Firefox browser";
       };
 
       terminals = {

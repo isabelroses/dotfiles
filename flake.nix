@@ -86,12 +86,14 @@
       };
     };
 
-    # Firefox but really locked down and air tight
-    schizofox = {
-      url = "github:schizofox/schizofox";
+    # firefox user.js
+    arkenfox = {
+      url = "github:dwarfmaster/arkenfox-nixos";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
+        flake-compat.follows = "";
+        pre-commit.follows = "";
+        flake-utils.follows = "lanzaboote/flake-utils";
       };
     };
 

@@ -77,10 +77,7 @@
 
           browsers = {
             chromium.enable = true;
-            firefox = {
-              enable = true;
-              schizofox = true;
-            };
+            firefox.enable = true;
           };
         };
       };

@@ -58,10 +58,7 @@
             ungoogled = false;
           };
 
-          firefox = {
-            enable = false;
-            schizofox = false;
-          };
+          firefox.enable = false;
         };
 
         terminals = {

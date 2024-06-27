@@ -29,8 +29,6 @@ in
         "doc"
         "devdoc"
       ];
-
-      stateVersion = mkDefault "23.05";
     };
 
     # I don't use docs, so just disable them

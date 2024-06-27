@@ -25,7 +25,7 @@ in
 
     browser = mkOption {
       type = types.enum [
-        "schizofox"
+        "firefox"
         "chromium"
       ];
       default = "chromium";
