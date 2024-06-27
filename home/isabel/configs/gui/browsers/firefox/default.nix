@@ -8,19 +8,14 @@ let
   cfg = osConfig.modules.programs.gui.browsers.firefox;
 in
 {
-  imports = [ inputs.arkenfox.hmModules.arkenfox ];
+  imports = [
+    inputs.arkenfox.hmModules.arkenfox
+    ./extensions.nix
+  ];
 
   config = lib.mkIf cfg.enable {
     programs.firefox = {
       enable = true;
-
-      extensions = {
-        # Addon IDs are in manifest.json or manifest-firefox.json
-        "{446900e4-71c2-419f-a6a7-df9c091e268b}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-        "sponsorBlocker@ajay.app".install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-        "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/refined-github-/latest.xpi";
-        "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/styl-us/latest.xpi";
-      };
 
       arkenfox = {
         enable = true;
