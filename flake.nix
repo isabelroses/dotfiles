@@ -18,7 +18,8 @@
 
     # improved support for wsl
     nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
+      # url = "github:nix-community/NixOS-WSL";
+      url = "github:getchoo/NixOS-WSL/hardware-graphics";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
