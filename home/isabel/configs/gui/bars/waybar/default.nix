@@ -79,13 +79,13 @@ in
             format = "{: %R}";
             tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           };
-          pulseaudio = {
+          wireplumber = {
             format = "{icon} {volume}%";
             tooltip = false;
             format-muted = "󰝟";
-            on-click = "pamixer -t";
-            on-scroll-up = "pamixer -i 5";
-            on-scroll-down = "pamixer -d 5";
+            on-click = lib.getExe pkgs.pwvucontrol;
+            on-scroll-up = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+";
+            on-scroll-down = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
             scroll-step = 5;
             format-icons = {
               headphone = "";
@@ -101,7 +101,7 @@ in
               ];
             };
           };
-          "pulseaudio#microphone" = {
+          "wireplumber#microphone" = {
             format = "{format_source}";
             format-source = " {volume}%";
             format-source-muted = " Muted";

@@ -3,7 +3,7 @@
     windowrule = [
       "float, bitwarden"
       "float, ^(rofi)$"
-      "float, ^(pavucontrol)$"
+      "float, ^(pwvucontrol)$"
       "float, ^(nm-connection-editor)$"
       "float, ^(blueberry.py)$"
       "float, ^(Color Picker)$"

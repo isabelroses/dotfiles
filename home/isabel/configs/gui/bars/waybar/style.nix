@@ -91,7 +91,7 @@ _: ''
   #window,
   #clock,
   #battery,
-  #pulseaudio,
+  #wireplumber,
   #network,
   #workspaces,
   #tray,
@@ -151,12 +151,12 @@ _: ''
       border-right: 0px;
   }
 
-  #pulseaudio {
+  #wireplumber {
       border-left: 0px;
       border-right: 0px;
   }
 
-  #pulseaudio.microphone {
+  #wireplumber.microphone {
       border-left: 0px;
       border-right: 0px;
   }

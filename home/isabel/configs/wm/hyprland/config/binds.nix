@@ -1,9 +1,6 @@
 { lib, defaults, ... }:
 let
   inherit (lib.lists) optionals;
-
-  ags = "ags -b hypr";
-  eags = "exec, ${ags}";
 in
 {
   wayland.windowManager.hyprland.settings = {
@@ -42,15 +39,16 @@ in
       ]
       ++ optionals (defaults.bar == "waybar") [
         "$mod, D, exec, rofi -show drun"
-        ", XF86AudioMute, exec, pamixer -t"
+        ", XF86AudioMute, exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioMicMute, exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         "$mod, escape, exec, wlogout"
         "$mod, period, exec, killall rofi || rofi -show emoji -emoji-format '{emoji}' -modi emoji"
       ]
       ++ optionals (defaults.bar == "ags") [
-        "$mod, D, ${eags} -t applauncher"
-        "$mod, escape, ${eags} -t powermenu"
-        "$mod SHIFT, R, ${eags} --quit ; ${ags}"
-        ", Xf86AudioMute, ${eags} -r 'volume.master.toggleMute(); indicator.display()'"
+        "$mod, D, $ -t applauncher"
+        "$mod, escape, exec ags -t powermenu"
+        "$mod SHIFT, R, exec ags --quit ; ags"
+        ", Xf86AudioMute, exec ags -r 'volume.master.toggleMute(); indicator.display()'"
       ]
       ++ optionals (defaults.bar != "ags") [
         ", XF86AudioPlay, exec, playerctl play-pause"
@@ -60,18 +58,18 @@ in
       ];
 
     bindle = optionals (defaults.bar == "ags") [
-      ", XF86MonBrightnessUp, ${eags} -r 'brightness.screen += 0.05; indicator.display()'"
-      ", XF86MonBrightnessDown, ${eags} -r 'brightness.screen -= 0.05; indicator.display()'"
-      ", XF86AudioRaiseVolume, ${eags} -r 'audio.speaker.volume += 0.05; indicator.speaker()'"
-      ", XF86AudioLowerVolume, ${eags} -r 'audio.speaker.volume -= 0.05; indicator.speaker()'"
+      ", XF86MonBrightnessUp, exec ags -r 'brightness.screen += 0.05; indicator.display()'"
+      ", XF86MonBrightnessDown, exec ags -r 'brightness.screen -= 0.05; indicator.display()'"
+      ", XF86AudioRaiseVolume, exec ags -r 'audio.speaker.volume += 0.05; indicator.speaker()'"
+      ", XF86AudioLowerVolume, exec ags -r 'audio.speaker.volume -= 0.05; indicator.speaker()'"
     ];
 
     bindl = optionals (defaults.bar == "ags") [
-      ", XF86AudioPlay, ${eags} -r 'mpris?.playPause()'"
-      ", XF86AudioStop, ${eags} -r 'mpris?.stop()'"
-      ", XF86AudioPause, ${eags} -r 'mpris?.pause()'"
-      ", XF86AudioPrev, ${eags} -r 'mpris.?.previous()'"
-      ", XF86AudioNext, ${eags} -r 'mpris.?.next()'"
+      ", XF86AudioPlay, exec ags -r 'mpris?.playPause()'"
+      ", XF86AudioStop, exec ags -r 'mpris?.stop()'"
+      ", XF86AudioPause, exec ags -r 'mpris?.pause()'"
+      ", XF86AudioPrev, exec ags -r 'mpris.?.previous()'"
+      ", XF86AudioNext, exec ags -r 'mpris.?.next()'"
     ];
 
     # mouse binds
@@ -82,8 +80,8 @@ in
 
     # hold to repeat action buttons
     binde = optionals (defaults.bar == "waybar") [
-      ", XF86AudioRaiseVolume, exec, pamixer -i 5"
-      ", XF86AudioLowerVolume, exec, pamixer -d 5"
+      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       ", XF86MonBrightnessUp, exec, brightnessctl set 5%+ -q"
       ", XF86MonBrightnessDown, exec, brightnessctl set 5%- -q"
     ];

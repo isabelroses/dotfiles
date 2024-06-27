@@ -23,7 +23,6 @@ in
         "wl-paste --type image --watch cliphist store" # Stores only image data
         "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
       ]
-      ++ optionals (defaults.bar == "waybar") [ "waybar" ]
-      ++ optionals (defaults.bar == "ags") [ "ags -b hypr" ];
+      ++ optionals (defaults.bar == "waybar") [ "waybar" ] ++ optionals (defaults.bar == "ags") [ "ags" ];
   };
 }

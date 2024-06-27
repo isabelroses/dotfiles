@@ -134,7 +134,7 @@ const SinkItem = (stream) =>
 
 const SettingsButton = () =>
   Widget.Button({
-    on_clicked: () => Utils.execAsync("pavucontrol"),
+    on_clicked: () => Utils.execAsync("pwvucontrol"),
     hexpand: true,
     child: Widget.Box({
       children: [Widget.Icon(icons.ui.settings), Widget.Label("Settings")],

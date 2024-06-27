@@ -4,7 +4,7 @@
     config = {
       modifier = "Mod4";
       workspaceAutoBackAndForth = true;
-      terminal = defaults.terminal;
+      inherit (defaults) terminal;
       menu = defaults.launcher;
       defaultWorkspace = "workspace number 1";
 
@@ -64,7 +64,7 @@
         set $ws10 10:十
 
         for_window [window_role="PictureInPicture"] floating enable sticky enable
-        for_window [class="Pavucontrol"] floating enable
+        for_window [class="Pwvucontrol"] floating enable
 
         corner_radius       5
         smart_corner_radius enable

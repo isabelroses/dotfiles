@@ -73,7 +73,7 @@ in
           }
           {
             # firefox marks the capture streams as don't move and then they
-            # can't be moved with pavucontrol or other tools.
+            # can't be moved with pwvucontrol or other tools.
             matches = singleton { "application.process.binary" = "firefox"; };
             actions.quirks = [ "remove-capture-dont-move" ];
           }
