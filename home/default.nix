@@ -35,7 +35,7 @@ in
     sharedModules = [
       {
         nix.package = mkForce config.nix.package;
-        stateVersion = if pkgs.stdenv.isDarwin then "23.11" else config.system.stateVersion;
+        home.stateVersion = if pkgs.stdenv.isDarwin then "23.11" else config.system.stateVersion;
       }
     ];
   };
