@@ -6,6 +6,8 @@ if wezterm.c_builder then
   c = wezterm.config_builder()
 end
 
+c.enable_wayland = false
+
 -- theme
 require("catppuccin").apply_to_config(c)
 require("bar").apply_to_config(c)
