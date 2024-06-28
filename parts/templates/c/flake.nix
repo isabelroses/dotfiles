@@ -6,7 +6,7 @@
   };
 
   outputs =
-    { self, nixpkgs }:
+    { nixpkgs, ... }:
     let
       forAllSystems =
         function:
@@ -15,9 +15,9 @@
         );
     in
     {
-      packages = forAllSystems (pkgs: {
+      packages = forAllSystems (pkgs: rec {
         example = pkgs.callPackage ./default.nix { };
-        default = self.packages.example;
+        default = example;
       });
 
       devShells = forAllSystems (pkgs: {
