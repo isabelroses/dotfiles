@@ -55,7 +55,7 @@
         "luz".hostname = "91.107.198.173";
 
         # my local servers / clients
-        "hydra".hostname = "10.82.7.9";
+        "hydra".hostname = "192.168.86.3";
         "tatsumaki".hostname = "10.82.9.147";
       };
     };
