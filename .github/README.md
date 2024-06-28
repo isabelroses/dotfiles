@@ -31,7 +31,8 @@
 
 This repository contains my **personal** configuration for my systems. Its really important that you know it's **personal** and not everything will fit your needs or even work out of the box for you without some changes.
 
-It's also significant to not that this configuration will **not** work if you do not change any of the [secrets](../secrets) since they are encrypted.
+> [!WARNING]
+> It's also significant to not that this configuration will **not** work if you do not change any of the [secrets](../secrets) since they are encrypted.
 
 ### What does this repo provided
 
@@ -63,13 +64,13 @@ It's also significant to not that this configuration will **not** work if you do
 - 📝 [docs](../docs/) Documentation for the configuration which can be found [here](https://isabelroses.github.io/dotfiles/)
 - 🔌 [modules](../modules/)
   - [base](../modules/base/) The base configuration settings, which are common between all systems
-  - [darwin](../modules/darwin/) pre made modules for exclusively darwin systems
-  - [nixos](../modules/nixos/) pre cooked modules for exclusively nixos systems
-  - [iso](../modules/iso/) pre configured modules prepared for making NixOS iso images
-  - [extra](../modules/extra) extra configuration modules, for home-manager and Nix Darwin and NixOS
-  - [profiles](../modules/profiles/) pre made profiles for different system types
-    - [hardware](../modules/profiles/hardware) optimized settings for different devices (e.g. laptop, servers, desktop)
-    - [meta](../modules/profiles/meta) optimized configurations for different natures (e.g. headless, graphical)
+  - [darwin](../modules/darwin/) Pre-made modules for exclusively darwin systems
+  - [nixos](../modules/nixos/) Pre cooked modules for exclusively nixos systems
+  - [iso](../modules/iso/) Pre-configured modules prepared for making NixOS iso images
+  - [extra](../modules/extra) Extra configuration modules, for home-manager and Nix Darwin and NixOS
+  - [profiles](../modules/profiles/) Pre-made profiles for different system types
+    - [hardware](../modules/profiles/hardware) Optimized settings for different devices (e.g., laptop, servers, desktop)
+    - [meta](../modules/profiles/meta) Optimized configurations for different natures (e.g., headless, graphical)
 
 > [!TIP]
 > If you were looking for my custom modules or packages you should direct yourself to [isabelroses/beapkgs](https://github.com/isabelroses/beapkgs).
