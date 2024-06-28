@@ -37,12 +37,10 @@ jobs:
         continue-on-error: false
         run: nix build .#images.lilith -o lilith --accept-flake-config --print-build-logs
 
-      - name: Remove old ISOs
-        run: gh release view isos | rg "asset" | awk '{print $2}' | xargs -I {} gh release delete isos {}
-        env:
-          GH_TOKEN: ${{ github.token }}
-
       - name: Upload Release Artifacts
-        run: gh release upload --clobber isos ./lilith/iso/*.iso
+        run: |
+          release=$(date +"%Y-%m-%d")
+          gh release create "$release"
+          gh release upload "$release" ./lilith/iso/*.iso
         env:
           GH_TOKEN: ${{ github.token }}
