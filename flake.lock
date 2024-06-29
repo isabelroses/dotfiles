@@ -925,14 +925,13 @@
       "locked": {
         "lastModified": 1718697807,
         "narHash": "sha256-Enla61WFisytTYbWygPynEbu8vozjeGc6Obkj2GRj7o=",
-        "owner": "isabelroses",
+        "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
         "rev": "290a995de5c3d3f08468fa548f0d55ab2efc7b6b",
         "type": "gitlab"
       },
       "original": {
-        "owner": "isabelroses",
-        "ref": "master",
+        "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
         "type": "gitlab"
       }

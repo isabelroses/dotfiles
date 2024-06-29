@@ -101,7 +101,7 @@
     ### Additional packages
     # a plain simple way to host a mail server
     simple-nixos-mailserver = {
-      url = "gitlab:isabelroses/nixos-mailserver/master";
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nixpkgs-24_05.follows = "";
