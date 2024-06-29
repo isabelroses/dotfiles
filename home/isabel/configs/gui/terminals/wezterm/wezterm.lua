@@ -71,10 +71,10 @@ c.default_cursor_style = "BlinkingBar"
 c.window_close_confirmation = "NeverPrompt"
 c.prefer_to_spawn_tabs = true
 
-if utils.is_windows() then
-  c.front_end = "OpenGL"
-else
+if utils.is_darwin() then
   c.front_end = "WebGpu"
+else
+  c.front_end = "OpenGL"
 end
 
 -- this is nix so lets not do it
