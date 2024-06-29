@@ -4,12 +4,8 @@
   osConfig,
   ...
 }:
-let
-  inherit (lib) mkIf;
-  cfg = osConfig.modules.programs.cli;
-in
 {
-  config = mkIf (cfg.enable && cfg.modernShell.enable) {
+  config = lib.mkIf osConfig.modules.programs.tui.enable {
     home.packages = [ inputs'.beapkgs.packages.zzz ];
 
     xdg.configFile."zzz/config.yaml".text = ''

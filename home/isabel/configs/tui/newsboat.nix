@@ -1,6 +1,11 @@
-{ pkgs, ... }:
 {
-  programs.newsboat = {
+  lib,
+  pkgs,
+  osConfig,
+  ...
+}:
+{
+  programs.newsboat = lib.mkIf osConfig.modules.programs.tui.enable {
     enable = true;
     autoReload = true;
     maxItems = 0;

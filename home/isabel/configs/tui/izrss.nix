@@ -3,7 +3,7 @@ let
   inherit (lib) mkIf isModernShell;
 in
 {
-  config = mkIf (isModernShell osConfig) {
+  config = mkIf (isModernShell osConfig && osConfig.modules.programs.tui.enable) {
     programs.izrss = {
       enable = true;
 
