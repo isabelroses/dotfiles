@@ -68,9 +68,14 @@ c.window_frame = {
 -- QOL
 c.audible_bell = "Disabled"
 c.default_cursor_style = "BlinkingBar"
-c.front_end = "WebGpu"
 c.window_close_confirmation = "NeverPrompt"
 c.prefer_to_spawn_tabs = true
+
+if utils.is_windows() then
+  c.front_end = "OpenGL"
+else
+  c.front_end = "WebGpu"
+end
 
 -- this is nix so lets not do it
 -- enable this if i ever setup nix to statically link
