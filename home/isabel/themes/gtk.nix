@@ -26,8 +26,8 @@ in
       [ "${schema}/share/gsettings-schemas/${schema.name}" ];
 
     home = {
-      packages = with pkgs; [
-        glib # gsettings
+      packages = [
+        pkgs.glib # gsettings
       ];
 
       # gtk applications should use xdg specified settings
@@ -36,7 +36,11 @@ in
 
     gtk = {
       enable = true;
-      catppuccin.enable = true;
+
+      catppuccin = {
+        enable = true;
+        icon.enable = true;
+      };
 
       font = {
         inherit (cfg.font) name size;

@@ -4,9 +4,6 @@
   inputs,
   ...
 }:
-let
-  lx = pkgs.stdenv.isLinux;
-in
 {
   imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
 
@@ -15,16 +12,11 @@ in
       enable = true;
       flavor = "mocha";
       accent = "pink";
-
-      # we cannot use this one darwin, so we enable it only on linux
-      pointerCursor = {
-        enable = lx;
-        accent = "dark";
-      };
+      pointerCursor.accent = "dark";
     };
 
     # pointer / cursor theming
-    home.pointerCursor = lib.mkIf lx {
+    home.pointerCursor = lib.mkIf pkgs.stdenv.isLinux {
       size = 24;
       gtk.enable = true;
       x11.enable = true;

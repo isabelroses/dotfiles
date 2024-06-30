@@ -5,9 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf optionals;
+  inherit (lib) mkIf;
   inherit (osConfig.modules) device;
-  cfg = osConfig.modules.style;
 
   acceptedTypes = [
     "laptop"
