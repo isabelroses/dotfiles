@@ -8,7 +8,15 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # lix a good fork of nix
-    lix.url = "git+https://git.lix.systems/lix-project/lix.git";
+    lix = {
+      url = "git+https://git.lix.systems/lix-project/lix.git";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-small";
+        pre-commit-hooks.follows = "";
+        nix2container.follows = "";
+        flake-compat.follows = "";
+      };
+    };
 
     # improved support for darwin
     darwin = {
@@ -23,7 +31,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
-        flake-utils.follows = "izvim/flake-utils";
+        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -32,6 +40,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # we can use this to provide overridable systems
+    systems.url = "github:nix-systems/default";
 
     # bring all the mess together with flake-parts
     flake-parts = {
@@ -44,8 +55,8 @@
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "izvim/flake-utils";
+        nixpkgs.follows = "nixpkgs-small";
+        utils.follows = "flake-utils";
         flake-compat.follows = "";
       };
     };
@@ -54,15 +65,16 @@
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-small";
+        nixpkgs-stable.follows = "";
+        flake-compat.follows = "";
       };
     };
 
     # Rust overlay
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     ### Security stuff
@@ -73,7 +85,7 @@
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         pre-commit-hooks-nix.follows = "";
-        flake-utils.follows = "izvim/flake-utils";
+        flake-utils.follows = "flake-utils";
         flake-compat.follows = "";
       };
     };
@@ -82,8 +94,9 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
+        nixpkgs.follows = "nixpkgs-small";
+        darwin.follows = "";
+        home-manager.follows = "";
       };
     };
 
@@ -91,10 +104,10 @@
     arkenfox = {
       url = "github:dwarfmaster/arkenfox-nixos";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-small";
+        flake-utils.follows = "flake-utils";
         flake-compat.follows = "";
         pre-commit.follows = "";
-        flake-utils.follows = "lanzaboote/flake-utils";
       };
     };
 
@@ -103,7 +116,7 @@
     simple-nixos-mailserver = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs-small";
         nixpkgs-24_05.follows = "";
         flake-compat.follows = "";
       };
@@ -111,7 +124,7 @@
 
     ags = {
       url = "github:Aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # I am not recompling this thanks
@@ -120,7 +133,7 @@
     # a tree-wide formatter
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     ### Fixes
@@ -128,8 +141,8 @@
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "izvim/flake-utils";
+        nixpkgs.follows = "nixpkgs-small";
+        flake-utils.follows = "flake-utils";
       };
     };
 
@@ -143,7 +156,7 @@
     # a index for nixpkgs
     nix-index-db = {
       url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # declarative theme management
@@ -164,27 +177,20 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        flake-utils.follows = "flake-utils";
         beapkgs.follows = "beapkgs";
         pre-commit-nix.follows = "pre-commit-hooks";
       };
     };
-  };
 
-  # This allows for the gathering of prebuilt binaries, making building much faster
-  nixConfig = {
-    extra-substituters = [
-      "https://nix-community.cachix.org"
-      "https://nix-gaming.cachix.org"
-      "https://isabelroses.cachix.org"
-      "https://pre-commit-hooks.cachix.org"
-      "https://cache.garnix.io"
-    ];
-    extra-trusted-public-keys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-      "isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM="
-      "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-    ];
+    # exists for ".follows"
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+
+    # we can remove some eval time with the smaller nixpkgs set
+    # do note that it moves faster but has less packages
+    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
   };
 }
