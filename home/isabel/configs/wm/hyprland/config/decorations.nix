@@ -2,8 +2,10 @@
   wayland.windowManager.hyprland.settings.decoration = {
     rounding = 15;
 
-    active_opacity = 1.0;
-    inactive_opacity = 1.0;
+    # TODO: play with these values
+    active_opacity = 0.8;
+    inactive_opacity = 0.8;
+    fullscreen_opacity = 1.0;
 
     drop_shadow = true;
     "col.shadow" = "rgb(11111B)";
@@ -11,8 +13,14 @@
 
     blur = {
       enabled = true;
-      passes = 2;
+      passes = 4;
       size = 2;
+
+      brightness = 1;
+      contrast = 1.3;
+      noise = 1.17e-2;
+      ignore_opacity = true;
+
       new_optimizations = true;
       xray = true;
     };
