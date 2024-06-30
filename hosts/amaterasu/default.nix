@@ -23,7 +23,7 @@
           tmpOnTmpfs = true;
           enableKernelTweaks = true;
           loadRecommendedModules = true;
-          plymouth.enable = true;
+          plymouth.enable = false;
 
           initrd = {
             enableTweaks = true;
