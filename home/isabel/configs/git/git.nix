@@ -61,6 +61,8 @@ in
         autoupdate = true;
       };
 
+      diff.mnemonicprefix = true;
+
       # prevent data corruption
       transfer.fsckObjects = true;
       fetch.fsckObjects = true;
