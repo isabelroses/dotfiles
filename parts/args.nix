@@ -1,5 +1,7 @@
 { inputs, ... }:
 {
+  systems = import inputs.systems;
+
   perSystem =
     { config, system, ... }:
     {

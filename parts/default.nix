@@ -9,6 +9,5 @@
     ./templates # programing templates for the quick setup of new programing environments
 
     ./args.nix # the base args that is passed to the flake
-    ./systems.nix # the systems that are used in the flake
   ];
 }
