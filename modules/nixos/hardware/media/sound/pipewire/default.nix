@@ -12,7 +12,7 @@ in
 {
   imports = [
     ./settings.nix
-    ./low-latency.nix
+    # ./low-latency.nix
   ];
 
   config = mkIf (cfg.enable && device.hasSound) {
