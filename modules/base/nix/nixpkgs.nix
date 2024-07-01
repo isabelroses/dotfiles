@@ -1,9 +1,4 @@
-{
-  lib,
-  self,
-  inputs,
-  ...
-}:
+{ lib, ... }:
 {
   nixpkgs = {
     # pkgs = self.legacyPackages.${config.nixpkgs.system};
@@ -27,11 +22,5 @@
       # Also a good idea to know which packages might be very out of date or broken
       # showDerivationWarnings = [ "maintainerless" ];
     };
-
-    overlays = [
-      self.overlays.default
-      inputs.beapkgs.overlays.default
-      inputs.rust-overlay.overlays.default
-    ];
   };
 }
