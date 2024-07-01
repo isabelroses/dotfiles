@@ -39,15 +39,3 @@ export const Theme = ({ name, icon = " ", ...options }) => ({
     ...options,
   },
 });
-
-let settingsDialog;
-export async function openSettings() {
-  if (settingsDialog) return settingsDialog.present();
-
-  try {
-    settingsDialog = (await import("./SettingsDialog.js")).default;
-    settingsDialog.present();
-  } catch (error) {
-    if (error instanceof Error) console.error(error.message);
-  }
-}

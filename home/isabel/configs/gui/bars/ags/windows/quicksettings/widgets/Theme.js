@@ -3,7 +3,7 @@ import { ArrowToggleButton, Menu, opened } from "../ToggleButton.js";
 import themes from "../../../themes.js";
 import icons from "../../../icons.js";
 import options from "../../../options.js";
-import { setTheme, openSettings } from "../../../settings/theme.js";
+import { setTheme } from "../../../settings/theme.js";
 
 export const ThemeToggle = () =>
   ArrowToggleButton({
@@ -40,15 +40,5 @@ export const ThemeSelector = () =>
           }),
         }),
       ),
-      Widget.Separator(),
-      Widget.Button({
-        on_clicked: openSettings,
-        child: Widget.Box({
-          children: [
-            Widget.Icon(icons.ui.settings),
-            Widget.Label("Theme Settings"),
-          ],
-        }),
-      }),
     ],
   });

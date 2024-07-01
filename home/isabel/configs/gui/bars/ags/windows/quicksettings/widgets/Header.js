@@ -4,7 +4,6 @@ import App from "resource:///com/github/Aylur/ags/app.js";
 import icons from "../../../icons.js";
 import Avatar from "../../../misc/Avatar.js";
 import { uptime } from "../../../variables.js";
-import { openSettings } from "../../../settings/theme.js";
 
 export default () =>
   Widget.Box({
@@ -37,10 +36,6 @@ export default () =>
           Widget.Box({
             vertical: true,
             children: [
-              Widget.Button({
-                on_clicked: openSettings,
-                child: Widget.Icon(icons.ui.settings),
-              }),
               Widget.Button({
                 on_clicked: () => App.openWindow("powermenu"),
                 child: Widget.Icon(icons.powermenu.shutdown),

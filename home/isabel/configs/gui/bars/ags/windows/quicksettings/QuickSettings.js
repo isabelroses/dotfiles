@@ -43,31 +43,25 @@ export default () =>
           self.transition = "slide_up";
       }),
     child: Widget.Box({
+      vertical: true,
       children: [
-        NotificationColumn(),
-        Widget.Separator({ orientation: 1 }),
+        Header(),
         Widget.Box({
+          class_name: "sliders-box vertical",
+          class_name: "slider-box",
           vertical: true,
           children: [
-            Header(),
-            Widget.Box({
-              class_name: "sliders-box vertical",
-              class_name: "slider-box",
-              vertical: true,
-              children: [
-                Row([Volume()], [SinkSelector(), AppMixer()]),
-                Microhone(),
-                Brightness(),
-              ],
-            }),
-            Row(
-              [Homogeneous([NetworkToggle(), BluetoothToggle()]), DND()],
-              [WifiSelection(), BluetoothDevices()],
-            ),
-            Row([Homogeneous([ThemeToggle()]), MicMute()], [ThemeSelector()]),
-            Media(),
+            Row([Volume()], [SinkSelector(), AppMixer()]),
+            Microhone(),
+            Brightness(),
           ],
         }),
+        Row(
+          [Homogeneous([NetworkToggle(), BluetoothToggle()]), DND()],
+          [WifiSelection(), BluetoothDevices()],
+        ),
+        Row([Homogeneous([ThemeToggle()]), MicMute()], [ThemeSelector()]),
+        Media(),
       ],
     }),
   });

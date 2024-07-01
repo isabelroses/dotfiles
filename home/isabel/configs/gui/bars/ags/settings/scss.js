@@ -3,21 +3,6 @@ import * as Utils from "resource:///com/github/Aylur/ags/utils.js";
 import { getOptions } from "./option.js";
 import { dependencies } from "../utils.js";
 
-export function scssWatcher() {
-  return Utils.subprocess(
-    [
-      "inotifywait",
-      "--recursive",
-      "--event",
-      "create,modify",
-      "-m",
-      App.configDir + "/scss",
-    ],
-    reloadScss,
-    () => print("missing dependency for css hotreload: inotify-tools"),
-  );
-}
-
 /**
  * generate an scss file that makes every option available as a variable
  * based on the passed scss parameter or the path in the object

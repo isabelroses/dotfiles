@@ -13,9 +13,9 @@ export class PopupWindow extends AgsWindow {
     super({
       ...rest,
       name,
-      popup: true,
       keymode: "exclusive",
       class_names: ["popup-window", name],
+      setup: (w) => w.keybind("Escape", () => App.closeWindow(name)),
     });
 
     child.toggleClassName("window-content");

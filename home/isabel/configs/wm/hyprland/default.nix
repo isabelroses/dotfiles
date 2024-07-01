@@ -14,6 +14,7 @@ in
   config = lib.mkIf (environment.desktop == "Hyprland") {
     home.packages = with pkgs; [
       grim
+      swww
       hyprpicker
     ];
 

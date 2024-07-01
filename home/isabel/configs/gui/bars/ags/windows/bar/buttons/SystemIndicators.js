@@ -1,146 +1,85 @@
-import App from "resource:///com/github/Aylur/ags/app.js";
-import Widget from "resource:///com/github/Aylur/ags/widget.js";
-import Notifications from "resource:///com/github/Aylur/ags/service/notifications.js";
-import Bluetooth from "resource:///com/github/Aylur/ags/service/bluetooth.js";
-import Audio from "resource:///com/github/Aylur/ags/service/audio.js";
-import Network from "resource:///com/github/Aylur/ags/service/network.js";
 import PanelButton from "../PanelButton.js";
-import Indicator from "../../../services/onScreenIndicator.js";
-import HoverRevealer from "../../../misc/HoverRevealer.js";
 import icons from "../../../icons.js";
 
+const notifications = await Service.import("notifications");
+const bluetooth = await Service.import("bluetooth");
+const audio = await Service.import("audio");
+const network = await Service.import("network");
+
 const MicrophoneIndicator = () =>
-  Widget.Icon({
-    connections: [
-      [
-        Audio,
-        (icon) => {
-          if (!Audio.microphone) return;
-
-          const { muted, low, medium, high } = icons.audio.mic;
-          if (Audio.microphone.is_muted) return (icon.icon = muted);
-
-          /** @type {Array<[number, string]>} */
-          const cons = [
-            [67, high],
-            [34, medium],
-            [1, low],
-            [0, muted],
-          ];
-          icon.icon =
-            cons.find(([n]) => n <= Audio.microphone.volume * 100)?.[1] || "";
-
-          icon.visible =
-            Audio.recorders.length > 0 || Audio.microphone.is_muted;
-        },
-      ],
-    ],
-  });
+  Widget.Icon()
+    .hook(
+      audio,
+      (self) =>
+        (self.visible =
+          audio.recorders.length > 0 || audio.microphone.is_muted || false),
+    )
+    .hook(audio.microphone, (self) => {
+      const vol = audio.microphone.is_muted ? 0 : audio.microphone.volume;
+      const { muted, low, medium, high } = icons.audio.mic;
+      const cons = [
+        [67, high],
+        [34, medium],
+        [1, low],
+        [0, muted],
+      ];
+      self.icon = cons.find(([n]) => n <= vol * 100)?.[1] || "";
+    });
 
 const DNDIndicator = () =>
   Widget.Icon({
+    visible: notifications.bind("dnd"),
     icon: icons.notifications.silent,
-    binds: [["visible", Notifications, "dnd"]],
-  });
-
-const BluetoothDevicesIndicator = () =>
-  Widget.Box({
-    connections: [
-      [
-        Bluetooth,
-        (box) => {
-          box.children = Bluetooth.connectedDevices.map(({ iconName, name }) =>
-            HoverRevealer({
-              indicator: Widget.Icon(iconName + "-symbolic"),
-              child: Widget.Label(name),
-            }),
-          );
-
-          box.visible = Bluetooth.connectedDevices.length > 0;
-        },
-        "notify::connected-devices",
-      ],
-    ],
   });
 
 const BluetoothIndicator = () =>
-  Widget.Icon({
+  Widget.Overlay({
     class_name: "bluetooth",
-    icon: icons.bluetooth.enabled,
-    binds: [["visible", Bluetooth, "enabled"]],
+    passThrough: true,
+    visible: bluetooth.bind("enabled"),
+    child: Widget.Icon({
+      icon: icons.bluetooth.enabled,
+    }),
+    overlay: Widget.Label({
+      hpack: "end",
+      vpack: "start",
+      label: bluetooth.bind("connected_devices").as((c) => `${c.length}`),
+      visible: bluetooth.bind("connected_devices").as((c) => c.length > 0),
+    }),
   });
 
 const NetworkIndicator = () =>
-  Widget.Icon({
-    connections: [
-      [
-        Network,
-        (self) => {
-          const icon = Network[Network.primary || "wifi"]?.iconName;
-          self.icon = icon || "";
-          self.visible = icon;
-        },
-      ],
-    ],
+  Widget.Icon().hook(network, (self) => {
+    const icon = network[network.primary || "wifi"]?.icon_name;
+    self.icon = icon || "";
+    self.visible = !!icon;
   });
 
 const AudioIndicator = () =>
-  Widget.Icon({
-    connections: [
-      [
-        Audio,
-        (icon) => {
-          if (!Audio.speaker) return;
-
-          const { muted, low, medium, high, overamplified } =
-            icons.audio.volume;
-          if (Audio.speaker.is_muted) return (icon.icon = muted);
-
-          /** @type {Array<[number, string]>} */
-          const cons = [
-            [101, overamplified],
-            [67, high],
-            [34, medium],
-            [1, low],
-            [0, muted],
-          ];
-          icon.icon =
-            cons.find(([n]) => n <= Audio.speaker.volume * 100)?.[1] || "";
-        },
-        "speaker-changed",
-      ],
-    ],
+  Widget.Icon().hook(audio.speaker, (self) => {
+    const vol = audio.speaker.is_muted ? 0 : audio.speaker.volume;
+    const { muted, low, medium, high, overamplified } = icons.audio.volume;
+    const cons = [
+      [101, overamplified],
+      [67, high],
+      [34, medium],
+      [1, low],
+      [0, muted],
+    ];
+    self.icon = cons.find(([n]) => n <= vol * 100)?.[1] || "";
   });
 
 export default () =>
   PanelButton({
-    class_name: "quicksettings panel-button",
+    window: "quicksettings",
     on_clicked: () => App.toggleWindow("quicksettings"),
-    on_scroll_up: () => {
-      Audio.speaker.volume += 0.02;
-      Indicator.speaker();
-    },
-    on_scroll_down: () => {
-      Audio.speaker.volume -= 0.02;
-      Indicator.speaker();
-    },
-    connections: [
-      [
-        App,
-        (btn, win, visible) => {
-          btn.toggleClassName("active", win === "quicksettings" && visible);
-        },
-      ],
-    ],
-    child: Widget.Box({
-      spacing: 3,
-      children: [
-        DNDIndicator(),
-        BluetoothDevicesIndicator(),
-        BluetoothIndicator(),
-        NetworkIndicator(),
-        AudioIndicator(),
-        MicrophoneIndicator(),
-      ],
-    }),
+    on_scroll_up: () => (audio.speaker.volume += 0.02),
+    on_scroll_down: () => (audio.speaker.volume -= 0.02),
+    child: Widget.Box([
+      DNDIndicator(),
+      BluetoothIndicator(),
+      NetworkIndicator(),
+      AudioIndicator(),
+      MicrophoneIndicator(),
+    ]),
   });

@@ -7,7 +7,7 @@ import PanelButton from "../PanelButton.js";
 
 const Indicator = () =>
   Widget.Stack({
-    items: [
+    children: [
       ["false", Widget.Icon({ icon: Battery.bind("icon_name") })],
       ["true", FontIcon(icons.battery.charging)],
     ],
@@ -64,12 +64,12 @@ const WholeButton = () =>
 export default () =>
   PanelButton({
     class_name: "battery-bar",
+    visible: Battery.bind("available"),
     on_clicked: () => {
       const v = options.battery.show_percentage.value;
       options.battery.show_percentage.value = !v;
     },
     content: Widget.Box({
-      visible: Battery.bind("available"),
       children: options.battery.bar.full
         .bind("value")
         .transform((full) =>

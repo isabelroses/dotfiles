@@ -137,15 +137,27 @@ export const Slash = (player) =>
 /**
  * @param {Object} o
  * @param {import('types/service/mpris').MprisPlayer} o.player
- * @param {import('types/widgets/stack').StackProps['items']} o.items
+ * @param {import('types/widgets/stack').StackProps['children']} o.children
  * @param {'shuffle' | 'loop' | 'playPause' | 'previous' | 'next'} o.onClick
  * @param {string} o.prop
  * @param {string} o.canProp
  * @param {any} o.cantValue
  */
-const PlayerButton = ({ player, items, onClick, prop, canProp, cantValue }) =>
+const PlayerButton = ({
+  player,
+  children,
+  onClick,
+  prop,
+  canProp,
+  cantValue,
+}) =>
   Widget.Button({
-    child: Widget.Stack({ items }).bind("shown", player, prop, (p) => `${p}`),
+    child: Widget.Stack({ children }).bind(
+      "shown",
+      player,
+      prop,
+      (p) => `${p}`,
+    ),
     on_clicked: () => player[onClick](),
     visible: player.bind(canProp).transform((c) => c === cantValue),
   });
