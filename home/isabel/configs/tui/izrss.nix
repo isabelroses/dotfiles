@@ -19,6 +19,7 @@ in
         "https://ayats.org/index.xml"
         "https://nixpkgs.news/rss.xml"
         "https://maia.crimew.gay/feed.xml"
+        "https://forum.aux.computer/tag/security-advisory.rss"
       ];
     };
   };
