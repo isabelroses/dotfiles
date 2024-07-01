@@ -14,18 +14,16 @@
 ![Preview image](./images/main.png)
 
 <details>
-   <summary>
-    "more previews"
-   </summary>
+   <summary>more previews</summary>
 
    <p align="center">
       wezterm + chromium
-      <img src="./images/blur.png" width="800px" /><br>
+      <img src="./images/blur.png" width="800px" />
    </p>
 
    <p align="center">
       neovim
-      <img src="./images/nvim.png" width="800px" /><br>
+      <img src="./images/nvim.png" width="800px" />
    </p>
 </details>
 
@@ -41,9 +39,10 @@
     - [NixOS](#nixos)
     - [macOS](#macos)
 - [Additional notes](#additional-notes)
-  - [People](#people)
   - [Resources](#resources)
-  <!--toc:end-->
+  - [People](#people)
+
+<!--toc:end-->
 
 ### Foreword
 
@@ -53,7 +52,7 @@ This repository contains my **personal** configuration for my systems. Its reall
 > It's also significant to not that this configuration will **not** work if you do not change any of the [secrets](../secrets) since they are encrypted.
 
 > [!TIP]
-> You can find some cool blogs and people at the bottom of this file, or [click here]()
+> You can find some cool blogs and people at the bottom of this file, or [click here](https://github.com/isabelroses/dotfiles?tab=readme-ov-file#people)
 
 ### What does this repo provided
 
@@ -153,20 +152,6 @@ For the full list of templates you can look in the [templates](../parts/template
 
 ### Additional notes
 
-#### People
-
-Thanks to all these people otherwise this config and I would be lost.
-
-- [comfysage](https://github.com/comfysage), for making my day that bit brighter and occasionally putting me on your back
-- [getchoo](https://github.com/getchoo), for making catppucin/nix and helping a ton
-- [nullishamy](https://github.com/nullishamy), for tricking me into using NixOS
-- [nekowinston](https://github.com/nekowinston), for fixing half my problems
-- [jakehamilton](https://github.com/jakehamilton), for teaching me too much about modules
-- [nyxkrage](https://github.com/nyxkrage), for being there to answer my questions
-- [NotAShelf](https://github.com/notashelf), lots of valuable information
-- [Minion3665](https://github.com/Minion3665), for making me write better docs
-- [Thorn](https://git.avery.garden/thorn)
-
 #### Resources
 
 A collection of resources from people who just make good stuff.
@@ -181,3 +166,17 @@ A collection of resources from people who just make good stuff.
 - [nixpkgs news](https://nixpkgs.news/)
 - [nix.dev](https://nix.dev/)
 - [cafkafk's blog](https://cafkafk.dev/)
+
+#### People
+
+Thanks to all these people otherwise this config and I would be lost.
+
+- [comfysage](https://github.com/comfysage), for making my day that bit brighter and occasionally putting me on your back
+- [getchoo](https://github.com/getchoo), for making catppucin/nix and helping a ton
+- [nullishamy](https://github.com/nullishamy), for tricking me into using NixOS
+- [nekowinston](https://github.com/nekowinston), for fixing half my problems
+- [jakehamilton](https://github.com/jakehamilton), for teaching me too much about modules
+- [nyxkrage](https://github.com/nyxkrage), for being there to answer my questions
+- [NotAShelf](https://github.com/notashelf), lots of valuable information
+- [Minion3665](https://github.com/Minion3665), for making me write better docs
+- [Thorn](https://git.avery.garden/thorn), picrewnix????
