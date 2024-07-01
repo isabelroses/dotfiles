@@ -42,6 +42,8 @@ in
         icon.enable = true;
       };
 
+      theme.name = lib.mkForce "catppuccin-mocha-pink-standard+normal";
+
       font = {
         inherit (cfg.font) name size;
       };

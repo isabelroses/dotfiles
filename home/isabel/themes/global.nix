@@ -12,7 +12,10 @@
       enable = true;
       flavor = "mocha";
       accent = "pink";
-      pointerCursor.accent = "dark";
+      pointerCursor = {
+        enable = pkgs.stdenv.isLinux;
+        accent = "dark";
+      };
     };
 
     # pointer / cursor theming
