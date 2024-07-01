@@ -11,7 +11,23 @@
 
 <br />
 
-![Preview image](./preview.png)
+![Preview image](./images/main.png)
+
+<details>
+   <summary>
+    "more previews"
+   </summary>
+
+   <p align="center">
+      wezterm + chromium
+      <img src="./images/blur.png" width="800px" /><br>
+   </p>
+
+   <p align="center">
+      neovim
+      <img src="./images/nvim.png" width="800px" /><br>
+   </p>
+</details>
 
 <!--toc:start-->
 
@@ -24,8 +40,10 @@
   - [Installation Notes](#installation-notes)
     - [NixOS](#nixos)
     - [macOS](#macos)
-- [Awesome people, they really helped me learn](#awesome-people-they-really-helped-me-learn)
-<!--toc:end-->
+- [Additional notes](#additional-notes)
+  - [People](#people)
+  - [Resources](#resources)
+  <!--toc:end-->
 
 ### Foreword
 
@@ -33,6 +51,9 @@ This repository contains my **personal** configuration for my systems. Its reall
 
 > [!WARNING]
 > It's also significant to not that this configuration will **not** work if you do not change any of the [secrets](../secrets) since they are encrypted.
+
+> [!TIP]
+> You can find some cool blogs and people at the bottom of this file, or [click here]()
 
 ### What does this repo provided
 
@@ -130,7 +151,11 @@ For the full list of templates you can look in the [templates](../parts/template
 - `nix run nix-darwin -- switch --flake ~/.config/flake#<host>`
 - Then good news you can use the `rebuild` alias that exists for the future
 
-### Awesome people, they really helped me learn
+### Additional notes
+
+#### People
+
+Thanks to all these people otherwise this config and I would be lost.
 
 - [comfysage](https://github.com/comfysage), for making my day that bit brighter and occasionally putting me on your back
 - [getchoo](https://github.com/getchoo), for making catppucin/nix and helping a ton
@@ -140,3 +165,19 @@ For the full list of templates you can look in the [templates](../parts/template
 - [nyxkrage](https://github.com/nyxkrage), for being there to answer my questions
 - [NotAShelf](https://github.com/notashelf), lots of valuable information
 - [Minion3665](https://github.com/Minion3665), for making me write better docs
+- [Thorn](https://git.avery.garden/thorn)
+
+#### Resources
+
+A collection of resources from people who just make good stuff.
+
+- [Xe's blog](https://xeiaso.net/blog/)
+- [The aux forum](https://forum.aux.computer/)
+- [Viper's Blog](https://ayats.org/)
+- [Nix Pills](https://nixos.org/guides/nix-pills/), this one might be a bit much if you don't care too much about the internals
+- [Solène's Blog](https://dataswamp.org/~solene)
+- [Jade Lovelace's blog](https://jade.fyi/)
+- [Astrid's blog](https://astrid.tech/t/nixos)
+- [nixpkgs news](https://nixpkgs.news/)
+- [nix.dev](https://nix.dev/)
+- [cafkafk's blog](https://cafkafk.dev/)
