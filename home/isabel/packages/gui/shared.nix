@@ -13,6 +13,7 @@
       # mangal # tui manga finder + reader
       # insomnia # rest client
       nextcloud-client # cloud storage
+      gimp # image editor
     ];
   };
 }
