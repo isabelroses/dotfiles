@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) mkImageMediaOverride;
+  inherit (lib) mkImageMediaOverride cleanSource;
 in
 {
   # We don't want to alter the iso image itself so we prevent rebuilds
@@ -42,12 +42,21 @@ in
       # ISO image should be bootable from USB
       makeUsbBootable = true;
 
-      # This should help for debugging if we ever get an unbootable system and have to
-      # prefrom some repairs on the system itself
+      # remove "-installer" boot menu label
+      appendToMenuLabel = "";
+
       contents = [
         {
+          # This should help for debugging if we ever get an unbootable system and have to
+          # prefrom some repairs on the system itself
           source = pkgs.memtest86plus + "/memtest.bin";
           target = "boot/memtest.bin";
+        }
+        {
+          # we also provide our flake such that a user can easily rebuild without needing
+          # to clone the repo, which needlessly slows the install process
+          source = cleanSource self;
+          target = "/root/flake";
         }
       ];
     };

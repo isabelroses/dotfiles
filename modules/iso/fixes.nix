@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   # fixes "too many open files"
   security.pam.loginLimits = [
@@ -9,14 +10,17 @@
     }
   ];
 
-  # fix annoying warning
-  environment.etc."mdadm.conf".text = ''
-    MAILADDR root
-  '';
+  # fix annoying warnings
+  environment.etc = {
+    "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
 
-  # prevent nix flake check from providing a warning
-  system.stateVersion = "23.11";
+    "mdadm.conf".text = ''
+      MAILADDR root
+    '';
 
-  # provide all hardware drivers, including proprietary ones
-  hardware.enableRedistributableFirmware = true;
+    "systemd/pstore.conf".text = ''
+      [PStore]
+      Unlink=no
+    '';
+  };
 }

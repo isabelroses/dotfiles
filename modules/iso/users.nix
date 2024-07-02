@@ -1,11 +1,16 @@
 {
-  users.extraUsers.root.password = "";
+  users = {
+    mutableUsers = false;
 
-  users.users.nixos = {
-    uid = 1000;
-    password = "nixos";
-    description = "default";
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    users = {
+      root.initialPassword = "";
+
+      nixos = {
+        uid = 1000;
+        isNormalUser = true;
+        initialPassword = "nixos";
+        extraGroups = [ "wheel" ];
+      };
+    };
   };
 }

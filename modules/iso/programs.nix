@@ -7,12 +7,14 @@
     lfs.enable = true;
   };
 
-  environment = {
-    # needed packages for the installer
-    systemPackages = with pkgs; [
-      nixos-install-tools
-      vim # we are not installing neovim here so we have a light dev environment
-      netcat
-    ];
-  };
+  # needed packages for the installer
+  environment.systemPackages = with pkgs; [
+    nixos-install-tools
+    vim # we are not installing neovim here so we have a light dev environment
+    netcat
+    pciutils # going to need this for lspci
+  ];
+
+  # provide all hardware drivers, including proprietary ones
+  hardware.enableRedistributableFirmware = true;
 }
