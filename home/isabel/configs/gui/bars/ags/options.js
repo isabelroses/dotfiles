@@ -186,9 +186,6 @@ export default {
   },
 
   desktop: {
-    avatar: Option(``, {
-      format: (v) => `"${v}"`,
-    }),
     wallpaper: {
       fg: Option("#fff", { scss: "wallpaper-fg" }),
       img: Option(themes[0].options["desktop.wallpaper.img"], {

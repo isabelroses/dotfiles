@@ -7,7 +7,7 @@ in
     input = {
       kb_layout = dev.keyboard;
       follow_mouse = 1;
-      sensitivity = if dev.keyboard == "us" then -1.0 else 0; # -1.0 - 1.0, 0 means no modification.
+      sensitivity = if dev.keyboard == "us" then -0.8 else 0; # -1.0 - 1.0, 0 means no modification.
       numlock_by_default = true; # numlock enable
 
       # swap caps lock and escape
