@@ -17,6 +17,11 @@
    <summary>more previews</summary>
 
    <p align="center">
+      light mode
+      <img src="./images/lightmode.png" width="800px" />
+   </p>
+
+   <p align="center">
       wezterm + chromium
       <img src="./images/blur.png" width="800px" />
    </p>
