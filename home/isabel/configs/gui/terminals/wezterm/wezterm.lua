@@ -69,7 +69,7 @@ c.window_frame = {
 c.audible_bell = "Disabled"
 c.default_cursor_style = "BlinkingBar"
 c.window_close_confirmation = "NeverPrompt"
-c.prefer_to_spawn_tabs = true
+-- c.prefer_to_spawn_tabs = true
 
 if utils.is_darwin() then
   c.front_end = "WebGpu"
