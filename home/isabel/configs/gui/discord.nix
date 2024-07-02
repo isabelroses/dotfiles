@@ -10,9 +10,10 @@ in
 {
   config = mkIf osConfig.modules.programs.gui.discord.enable {
     home.packages = mkIf pkgs.stdenv.isLinux [
+      pkgs.vesktop
       (pkgs.discord.override {
-        # withOpenASAR = true;
-        # withVencord = true;
+        withOpenASAR = true;
+        withVencord = true;
       })
     ];
 
