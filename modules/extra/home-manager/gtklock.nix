@@ -14,7 +14,7 @@ let
     mkIf
     mkOption
     mkEnableOption
-    mkPackageOptionMD
+    mkPackageOption
     literalExpression
     optionals
     optionalString
@@ -38,7 +38,7 @@ in
   meta.maintainers = [ maintainers.NotAShelf ];
   options.programs.gtklock = {
     enable = mkEnableOption "GTK-based lockscreen for Wayland";
-    package = mkPackageOptionMD pkgs "gtklock" { };
+    package = mkPackageOption pkgs "gtklock" { };
 
     config = {
       gtk-theme = mkOption {
