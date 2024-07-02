@@ -13,6 +13,7 @@
         # link nix-index database to ~/.cache/nix-index
         symlinkToCacheHome = true;
       };
+
       nix-index-database.comma.enable = true;
     };
   };
