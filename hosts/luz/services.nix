@@ -28,10 +28,10 @@
     };
 
     monitoring = {
-      grafana.enable = true;
-      prometheus.enable = true;
+      grafana.enable = false;
+      prometheus.enable = false;
       loki.enable = false;
-      uptime-kuma.enable = true;
+      uptime-kuma.enable = false;
     };
 
     database = {
