@@ -57,7 +57,7 @@ This repository contains my **personal** configuration for my systems. Its reall
 > It's also significant to not that this configuration will **not** work if you do not change any of the [secrets](../secrets) since they are encrypted.
 
 > [!TIP]
-> You can find some cool blogs and people at the bottom of this file, or [click here](https://github.com/isabelroses/dotfiles?tab=readme-ov-file#people)
+> You can find some cool blogs and people at the bottom of this file, or [click here](#additional-notes)
 
 ### What does this repo provided
 
