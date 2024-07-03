@@ -128,7 +128,7 @@ let
         ];
       };
 
-      images.${args.host} = self.nixosConfigurations.${args.host}.config.system.build.isoImage;
+      packages.${args.host} = self.nixosConfigurations.${args.host}.config.system.build.isoImage;
     };
 
   # mkSystems is a wrapper for mkNixSystem to create a list of systems
