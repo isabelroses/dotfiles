@@ -43,6 +43,7 @@
   - [Installation Notes](#installation-notes)
     - [NixOS](#nixos)
     - [macOS](#macos)
+  - [Small bits](#small-bits)
 - [Additional notes](#additional-notes)
   - [Resources](#resources)
   - [People](#people)
