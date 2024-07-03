@@ -19,7 +19,7 @@
 
         boot = {
           loader = "systemd-boot";
-          secureBoot = false;
+          secureBoot = true;
           tmpOnTmpfs = true;
           enableKernelTweaks = true;
           loadRecommendedModules = true;

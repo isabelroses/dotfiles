@@ -12,11 +12,9 @@ in
 {
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
+  # Secure Boot, my love keeping my valorant working on windows
   config = mkIf sys.secureBoot {
-    environment.systemPackages = [
-      # Secure Boot, my love keeping my valorant working on windows
-      pkgs.sbctl
-    ];
+    environment.systemPackages = [ pkgs.sbctl ];
 
     # Lanzaboote replaces the systemd-boot module.
     boot.loader.systemd-boot.enable = mkForce false;
