@@ -1,4 +1,3 @@
-{ lib, ... }:
 {
   nixpkgs = {
     # pkgs = self.legacyPackages.${config.nixpkgs.system};
@@ -6,7 +5,7 @@
     config = {
       # I want to install packages that are not FOSS sometimes
       allowUnfree = true;
-      allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "emojis" ];
+      allowUnfreePredicate = _: true;
 
       # If a package is broken, I don't want it
       # But occasionally we need to install some anyway so we can predicated those
