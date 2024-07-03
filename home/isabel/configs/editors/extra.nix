@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = osConfig.modules.programs;
+  cfg = osConfig.garden.programs;
 in
 {
   home.packages =

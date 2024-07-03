@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf osConfig.modules.programs.gui.enable {
+  config = lib.mkIf osConfig.garden.programs.gui.enable {
     home.packages = with pkgs; [
       bitwarden-desktop # password manager
       obsidian # note taking with markdown

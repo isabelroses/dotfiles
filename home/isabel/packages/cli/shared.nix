@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib) mkIf optionals;
-  cfg = osConfig.modules.programs;
+  cfg = osConfig.garden.programs;
 in
 {
   config = mkIf cfg.cli.enable {

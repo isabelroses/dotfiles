@@ -6,10 +6,10 @@
 }:
 let
   inherit (lib) mkIf isx86Linux mkEnableOption;
-  cfg = config.modules.system.video;
+  cfg = config.garden.system.video;
 in
 {
-  options.modules.system.video.enable = mkEnableOption "Does the device allow for graphical programs";
+  options.garden.system.video.enable = mkEnableOption "Does the device allow for graphical programs";
 
   config = mkIf cfg.enable {
     hardware = {

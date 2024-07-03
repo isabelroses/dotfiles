@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (osConfig.modules.system) video;
+  inherit (osConfig.garden.system) video;
 in
 {
   services.gpg-agent = lib.mkIf pkgs.stdenv.isLinux {

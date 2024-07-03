@@ -7,7 +7,7 @@ let
     mkForce
     ;
 
-  cfg = config.modules.services;
+  cfg = config.garden.services;
 in
 {
   # fail2ban firewall jail

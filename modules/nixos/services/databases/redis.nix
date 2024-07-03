@@ -2,10 +2,10 @@
 let
   inherit (lib) mkIf mkServiceOption;
 
-  cfg = config.modules.services;
+  cfg = config.garden.services;
 in
 {
-  options.modules.services.database.redis = mkServiceOption "redis" { };
+  options.garden.services.database.redis = mkServiceOption "redis" { };
 
   config = mkIf cfg.database.redis.enable {
     services.redis = {

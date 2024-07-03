@@ -14,7 +14,7 @@ let
     "hybrid"
   ];
 
-  cfg = osConfig.modules.programs;
+  cfg = osConfig.garden.programs;
 in
 {
   config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && cfg.cli.enable && cfg.gui.enable) {

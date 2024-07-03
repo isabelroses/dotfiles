@@ -7,8 +7,8 @@
 let
   inherit (lib) mkIf mkForce;
 
-  dev = config.modules.device;
-  sys = config.modules.system;
+  dev = config.garden.device;
+  sys = config.garden.system;
 in
 {
   environment.systemPackages = with pkgs; [ networkmanagerapplet ];

@@ -1,6 +1,6 @@
 { lib, osConfig, ... }:
 {
-  config = lib.mkIf osConfig.modules.programs.gui.terminals.alacritty.enable {
+  config = lib.mkIf osConfig.garden.programs.gui.terminals.alacritty.enable {
     programs.alacritty = {
       enable = true;
       settings = {
@@ -8,7 +8,7 @@
 
         font =
           let
-            family = osConfig.modules.style.font.name;
+            family = osConfig.garden.style.font.name;
           in
           {
             normal = {

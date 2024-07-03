@@ -14,10 +14,10 @@ let
     mkServiceOption
     ;
 
-  cfg = config.modules.services.media.nextcloud;
+  cfg = config.garden.services.media.nextcloud;
 in
 {
-  options.modules.services.media.nextcloud = mkServiceOption "nextcloud" {
+  options.garden.services.media.nextcloud = mkServiceOption "nextcloud" {
     domain = "cloud.${rdomain}";
   };
 
@@ -28,7 +28,7 @@ in
       group = "nextcloud";
     };
 
-    modules.services = {
+    garden.services = {
       networking.nginx.enable = true;
       database = {
         redis.enable = true;

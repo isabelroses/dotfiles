@@ -9,7 +9,7 @@ in
     ./nvidia.nix
   ];
 
-  options.modules.device.gpu = mkOption {
+  options.garden.device.gpu = mkOption {
     type = types.nullOr (
       types.enum [
         "amd"

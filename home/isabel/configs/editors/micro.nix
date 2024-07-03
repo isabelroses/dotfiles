@@ -1,6 +1,6 @@
 { lib, osConfig, ... }:
 {
-  config = lib.mkIf osConfig.modules.programs.agnostic.editors.micro.enable {
+  config = lib.mkIf osConfig.garden.programs.agnostic.editors.micro.enable {
     programs.micro = {
       enable = true;
       settings = {

@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib) mkForce mkIf;
-  inherit (config.modules) programs device;
+  inherit (config.garden) programs device;
 in
 {
   imports = [ ./fail2ban.nix ];

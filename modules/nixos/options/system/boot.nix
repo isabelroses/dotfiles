@@ -13,7 +13,7 @@ let
     ;
 in
 {
-  options.modules.system.boot = {
+  options.garden.system.boot = {
     enableKernelTweaks = mkEnableOption "security and performance related kernel parameters";
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
@@ -52,7 +52,7 @@ in
         almost entirely silent boot process through `quiet` kernel parameter
       ''
       // {
-        default = config.modules.system.boot.plymouth.enable;
+        default = config.garden.system.boot.plymouth.enable;
       };
 
     extraKernelParams = mkOption {

@@ -2,10 +2,10 @@
 let
   inherit (lib) mkEnableOption mkOption types;
 
-  cfg = config.modules.environment;
+  cfg = config.garden.environment;
 in
 {
-  options.modules.environment = {
+  options.garden.environment = {
     desktop = mkOption {
       type = types.nullOr (
         types.enum [

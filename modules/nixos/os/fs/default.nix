@@ -7,10 +7,10 @@ let
     types
     ;
 
-  inherit (config.modules.system) fs;
+  inherit (config.garden.system) fs;
 in
 {
-  options.modules.system.fs = mkOption {
+  options.garden.system.fs = mkOption {
     type = with types; listOf str;
     default = [
       "vfat"
@@ -30,7 +30,7 @@ in
         ''
           You have not added any filesystems to be supported by your system. You may end up with an unbootable system!
 
-          Consider setting {option}`config.modules.system.fs` in your configuration
+          Consider setting {option}`config.garden.system.fs` in your configuration
         ''
       ];
     })

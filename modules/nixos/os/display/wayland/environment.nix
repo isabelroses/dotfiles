@@ -2,7 +2,7 @@
 let
   inherit (lib) mkIf isWayland optionalString;
 
-  env = config.modules.environment;
+  env = config.garden.environment;
 in
 {
   config = mkIf (isWayland config) {

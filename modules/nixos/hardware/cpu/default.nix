@@ -8,7 +8,7 @@ in
     ./intel.nix
   ];
 
-  options.modules.device.cpu = mkOption {
+  options.garden.device.cpu = mkOption {
     type = types.nullOr (
       types.enum [
         "intel"

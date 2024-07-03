@@ -6,11 +6,11 @@
 }:
 let
   inherit (lib) optionals mkIf mkEnableOption;
-  sys = config.modules.system;
+  sys = config.garden.system;
   cfg = sys.virtualization;
 in
 {
-  options.modules.system.virtualization = {
+  options.garden.system.virtualization = {
     enable = mkEnableOption "Should the device be allowed to virtualizle processes";
     docker.enable = mkEnableOption "docker";
     podman.enable = mkEnableOption "podman";

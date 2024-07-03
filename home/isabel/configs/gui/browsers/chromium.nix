@@ -5,7 +5,7 @@
   ...
 }:
 let
-  progs = osConfig.modules.programs;
+  progs = osConfig.garden.programs;
   cfg = progs.gui.browsers.chromium;
 
   chrome_pkg = if cfg.ungoogled then pkgs.ungoogled-chromium else pkgs.chromium;

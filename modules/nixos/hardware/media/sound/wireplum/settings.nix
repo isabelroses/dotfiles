@@ -3,7 +3,7 @@ let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.lists) singleton;
 
-  dev = config.modules.device;
+  dev = config.garden.device;
 in
 {
   # WirePlumber is a modular session / policy manager for PipeWire

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (config.modules) device;
+  inherit (config.garden) device;
 in
 {
   config = lib.mkIf (device.gpu == "amd" || device.gpu == "hybrid-amd") {

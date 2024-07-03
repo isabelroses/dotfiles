@@ -13,7 +13,7 @@ in
     ./rtkit.nix
   ];
 
-  options.modules = {
+  options.garden = {
     device.hasSound = mkOption {
       type = types.bool;
       default = true;

@@ -3,7 +3,7 @@ let
   inherit (lib) mkIf;
 in
 {
-  services.yabai = mkIf (config.modules.environment.desktop == "yabai") {
+  services.yabai = mkIf (config.garden.environment.desktop == "yabai") {
     enable = true;
     enableScriptingAddition = true;
 

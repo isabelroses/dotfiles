@@ -8,9 +8,9 @@ let
   inherit (lib) mkIf mkSecret mkServiceOption;
 in
 {
-  options.modules.services.blahaj = mkServiceOption "blahaj" { };
+  options.garden.services.blahaj = mkServiceOption "blahaj" { };
 
-  config = mkIf config.modules.services.blahaj.enable {
+  config = mkIf config.garden.services.blahaj.enable {
     age.secrets.blahaj-env = mkSecret { file = "blahaj-env"; };
 
     systemd.services."blahaj" = {

@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  inherit (config.modules) device;
+  inherit (config.garden) device;
 in
 {
   # remove stupid sites that i just don't want to see

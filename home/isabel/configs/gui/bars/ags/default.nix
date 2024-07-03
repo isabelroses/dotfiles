@@ -7,10 +7,10 @@
   ...
 }:
 let
-  inherit (osConfig.modules) environment system;
+  inherit (osConfig.garden) environment system;
 in
 {
-  config = lib.mkIf ((lib.isWayland osConfig) && osConfig.modules.programs.gui.bars.ags.enable) {
+  config = lib.mkIf ((lib.isWayland osConfig) && osConfig.garden.programs.gui.bars.ags.enable) {
     home = {
       packages =
         [ inputs'.ags.packages.ags ]

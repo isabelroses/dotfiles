@@ -5,8 +5,8 @@
   ...
 }:
 let
-  sys = config.modules.system;
-  env = config.modules.environment;
+  sys = config.garden.system;
+  env = config.garden.environment;
   inherit (lib) mkForce mkIf isWayland;
 in
 {

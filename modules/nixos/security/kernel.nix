@@ -1,6 +1,6 @@
 { config, lib, ... }:
 let
-  sys = config.modules.system;
+  sys = config.garden.system;
   inherit (lib) mkIf optionals concatLists;
 in
 {
@@ -23,7 +23,7 @@ in
   boot = {
     # better read up
     # https://docs.kernel.org/admin-guide/sysctl/vm.html
-    kernel.sysctl = mkIf (config.modules.device.type != "wsl") {
+    kernel.sysctl = mkIf (config.garden.device.type != "wsl") {
       # The Magic SysRq key is a key combo that allows users connected to the
       # system console of a Linux kernel to perform some low-level commands.
       # Disable it, since we don't need it, and is a potential security concern.

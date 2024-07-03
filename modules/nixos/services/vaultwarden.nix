@@ -8,10 +8,10 @@ let
     ;
 
   rdomain = config.networking.domain;
-  cfg = config.modules.services.vaultwarden;
+  cfg = config.garden.services.vaultwarden;
 in
 {
-  options.modules.services.vaultwarden = mkServiceOption "vaultwarden" {
+  options.garden.services.vaultwarden = mkServiceOption "vaultwarden" {
     port = 8222;
     domain = "vault.${rdomain}";
   };
@@ -50,7 +50,7 @@ in
           smtpAuthMechanism = "Login";
           smtpFrom = "vaultwarden@${rdomain}";
           smtpFromName = "Isabelroses's Vaultwarden Service";
-          smtpHost = config.modules.services.mailserver.domain;
+          smtpHost = config.garden.services.mailserver.domain;
           smtpPort = 465;
           smtpSecurity = "force_tls";
           dataDir = "/srv/storage/vaultwarden";

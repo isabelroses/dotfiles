@@ -1,6 +1,6 @@
 { osConfig, ... }:
 let
-  dev = osConfig.modules.device;
+  dev = osConfig.garden.device;
 in
 {
   wayland.windowManager.hyprland.settings = {

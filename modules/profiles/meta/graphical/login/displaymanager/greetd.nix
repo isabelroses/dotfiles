@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (config.modules) system environment;
+  inherit (config.garden) system environment;
   inherit (lib)
     mkIf
     getExe
@@ -21,7 +21,7 @@ let
   ];
 in
 {
-  options.modules.system.autoLogin = mkOption {
+  options.garden.system.autoLogin = mkOption {
     type = types.bool;
     default = false;
     description = ''

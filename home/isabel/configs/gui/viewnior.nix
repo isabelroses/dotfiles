@@ -13,7 +13,7 @@ let
 in
 {
   config =
-    lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.gui.enable)
+    lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.garden.programs.gui.enable)
       {
         home.packages = with pkgs; [ viewnior ];
 

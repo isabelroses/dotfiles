@@ -5,11 +5,11 @@
   ...
 }:
 let
-  cfg = config.modules.services.networking.nginx;
+  cfg = config.garden.services.networking.nginx;
   inherit (lib) mkIf mkSecret mkServiceOption;
 in
 {
-  options.modules.services.networking.nginx = mkServiceOption "nginx" { domain = "isabelroses.com"; };
+  options.garden.services.networking.nginx = mkServiceOption "nginx" { domain = "isabelroses.com"; };
 
   config = mkIf cfg.enable {
     age.secrets.cloudflare-cert-api = mkSecret {

@@ -11,7 +11,7 @@ in
   config.fonts =
     {
       packages = with pkgs; [
-        config.modules.style.font.package
+        config.garden.style.font.package
 
         corefonts
 
@@ -49,15 +49,15 @@ in
 
         defaultFonts = {
           monospace = [
-            config.modules.style.font.name
+            config.garden.style.font.name
             "Symbols Nerd Font"
           ];
           sansSerif = [
-            config.modules.style.font.name
+            config.garden.style.font.name
             "Symbols Nerd Font"
           ];
           serif = [
-            config.modules.style.font.name
+            config.garden.style.font.name
             "Symbols Nerd Font"
           ];
           emoji = [

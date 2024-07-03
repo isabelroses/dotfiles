@@ -1,6 +1,6 @@
 { lib, osConfig, ... }:
 {
-  config.programs.lazygit = lib.mkIf osConfig.modules.programs.tui.enable {
+  config.programs.lazygit = lib.mkIf osConfig.garden.programs.tui.enable {
     enable = true;
 
     settings = {

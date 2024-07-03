@@ -6,8 +6,8 @@
 }:
 let
   inherit (lib) mkIf isx86Linux;
-  inherit (config.modules) device;
-  cfg = config.modules.system.sound;
+  inherit (config.garden) device;
+  cfg = config.garden.system.sound;
 in
 {
   imports = [

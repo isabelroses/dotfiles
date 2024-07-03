@@ -13,10 +13,10 @@ let
     mkServiceOption
     ;
 
-  cfg = config.modules.services.isabelroses-website;
+  cfg = config.garden.services.isabelroses-website;
 in
 {
-  options.modules.services.isabelroses-website = mkServiceOption "isabelroses-website" {
+  options.garden.services.isabelroses-website = mkServiceOption "isabelroses-website" {
     port = 3000;
     domain = "isabelroses.com";
   };

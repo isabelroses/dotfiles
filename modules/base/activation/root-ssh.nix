@@ -5,7 +5,7 @@
   # to fix nix-daemon's ability to remote build since it sshs from the root account
   system.activationScripts.root_ssh_config =
     let
-      inherit (config.modules.system) mainUser;
+      inherit (config.garden.system) mainUser;
 
       sshDir = "${config.users.users.${mainUser}.home}/.ssh";
     in

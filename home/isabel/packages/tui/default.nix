@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf osConfig.modules.programs.tui.enable {
+  config = lib.mkIf osConfig.garden.programs.tui.enable {
     home.packages = with pkgs; [
       # wishlist # fancy ssh
       glow # fancy markdown

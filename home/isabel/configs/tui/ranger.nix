@@ -16,7 +16,7 @@ let
 in
 {
   config =
-    lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.modules.programs.tui.enable)
+    lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.garden.programs.tui.enable)
       {
         home.packages = with pkgs; [ ranger ];
 

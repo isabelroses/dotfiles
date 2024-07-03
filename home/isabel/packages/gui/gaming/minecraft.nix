@@ -27,7 +27,7 @@ let
   ];
 in
 {
-  config = mkIf osConfig.modules.programs.gaming.minecraft.enable {
+  config = mkIf osConfig.garden.programs.gaming.minecraft.enable {
     home = {
       # PrismLauncher now with a cool theme
       file.".local/share/PrismLauncher/themes/mocha" = {

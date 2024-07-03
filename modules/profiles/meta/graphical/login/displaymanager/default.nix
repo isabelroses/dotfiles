@@ -8,7 +8,7 @@ in
     ./sddm.nix
   ];
 
-  options.modules.environment.loginManager = mkOption {
+  options.garden.environment.loginManager = mkOption {
     type = types.nullOr (
       types.enum [
         "greetd"

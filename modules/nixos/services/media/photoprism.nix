@@ -2,17 +2,17 @@
 let
   inherit (lib) mkIf template mkServiceOption;
   rdomain = config.networking.domain;
-  cfg = config.modules.services.media.photoprism;
+  cfg = config.garden.services.media.photoprism;
 in
 {
-  options.modules.services.media.photoprism = mkServiceOption "photoprism" {
+  options.garden.services.media.photoprism = mkServiceOption "photoprism" {
     port = 2342;
     host = "0.0.0.0";
     domain = "photos.${rdomain}";
   };
 
   config = mkIf cfg.enable {
-    modules.services = {
+    garden.services = {
       networking.nginx.enable = true;
       database.mysql.enable = true;
     };

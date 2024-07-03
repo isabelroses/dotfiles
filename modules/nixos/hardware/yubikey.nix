@@ -5,7 +5,7 @@
   ...
 }:
 {
-  options.modules.system.yubikeySupport = {
+  options.garden.system.yubikeySupport = {
     enable = lib.mkEnableOption "yubikey support";
 
     deviceType = lib.mkOption {
@@ -20,7 +20,7 @@
     };
   };
 
-  config = lib.mkIf config.modules.system.yubikeySupport.enable {
+  config = lib.mkIf config.garden.system.yubikeySupport.enable {
     hardware.gpgSmartcards.enable = true;
 
     services = {

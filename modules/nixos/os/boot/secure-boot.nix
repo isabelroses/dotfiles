@@ -7,7 +7,7 @@
 }:
 let
   inherit (lib) mkIf mkForce;
-  sys = config.modules.system.boot;
+  sys = config.garden.system.boot;
 in
 {
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];

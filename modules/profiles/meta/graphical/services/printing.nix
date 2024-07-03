@@ -12,10 +12,10 @@ let
     mkIf
     ;
 
-  cfg = config.modules.system.printing;
+  cfg = config.garden.system.printing;
 in
 {
-  options.modules.system.printing = {
+  options.garden.system.printing = {
     enable = mkEnableOption "printing";
 
     extraDrivers = mkOption {

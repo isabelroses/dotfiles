@@ -5,7 +5,7 @@
   ...
 }:
 {
-  programs.wofi = lib.mkIf osConfig.modules.programs.gui.launchers.wofi.enable {
+  programs.wofi = lib.mkIf osConfig.garden.programs.gui.launchers.wofi.enable {
     enable = true;
     settings = {
       show = [

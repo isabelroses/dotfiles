@@ -1,5 +1,5 @@
 {
-  modules.services = {
+  garden.services = {
     vaultwarden.enable = true;
     isabelroses-website.enable = true;
     blahaj.enable = true;

@@ -2,7 +2,7 @@
 {
   imports = [ ./hardware.nix ];
 
-  config.modules = {
+  config.garden = {
     device = {
       type = "hybrid";
       cpu = "intel";

@@ -7,10 +7,10 @@ let
     types
     ;
 
-  inherit (config.modules) device;
+  inherit (config.garden) device;
 in
 {
-  options.modules.device.hasTPM = mkOption {
+  options.garden.device.hasTPM = mkOption {
     type = types.bool;
     default = false;
     description = "Whether the system has tpm support";

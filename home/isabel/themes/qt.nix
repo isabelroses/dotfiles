@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib) mkIf;
-  inherit (osConfig.modules) device;
+  inherit (osConfig.garden) device;
 
   acceptedTypes = [
     "laptop"

@@ -155,6 +155,10 @@ For the full list of templates you can look in the [templates](../parts/template
 - `nix run nix-darwin -- switch --flake ~/.config/flake#<host>`
 - Then good news you can use the `rebuild` alias that exists for the future
 
+#### Small bits
+
+- Anything starting with `garden` is likely a part of my internal module. So keep that in mind when reading the code.
+
 ### Additional notes
 
 #### Resources

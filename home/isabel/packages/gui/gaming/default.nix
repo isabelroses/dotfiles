@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (osConfig.modules) programs;
+  inherit (osConfig.garden) programs;
 in
 {
   imports = [ ./minecraft.nix ];

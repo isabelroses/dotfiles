@@ -12,10 +12,10 @@ let
     types
     ;
 
-  sys = config.modules.system;
+  sys = config.garden.system;
 in
 {
-  options.modules.system.security.clamav = {
+  options.garden.system.security.clamav = {
     enable = mkEnableOption "Enable ClamAV daemon.";
 
     daemon = {

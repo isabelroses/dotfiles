@@ -3,10 +3,10 @@ let
   inherit (lib) mkIf template mkServiceOption;
 
   rdomain = config.networking.domain;
-  cfg = config.modules.services.monitoring.uptime-kuma;
+  cfg = config.garden.services.monitoring.uptime-kuma;
 in
 {
-  options.modules.services.monitoring.uptime-kuma = mkServiceOption "uptime-kuma" {
+  options.garden.services.monitoring.uptime-kuma = mkServiceOption "uptime-kuma" {
     port = 3500;
     domain = "status.${rdomain}";
   };

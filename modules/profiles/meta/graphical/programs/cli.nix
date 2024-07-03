@@ -40,5 +40,5 @@
       winePackage =
         if (lib.isWayland config) then wineWowPackages.waylandFull else wineWowPackages.stableFull;
     in
-    lib.mkIf config.modules.programs.agnostic.wine.enable [ winePackage ];
+    lib.mkIf config.garden.programs.agnostic.wine.enable [ winePackage ];
 }

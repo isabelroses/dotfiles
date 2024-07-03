@@ -9,7 +9,7 @@ let
     length
     ;
 
-  inherit (osConfig.modules.device) monitors;
+  inherit (osConfig.garden.device) monitors;
 in
 {
   wayland.windowManager.hyprland.extraConfig =

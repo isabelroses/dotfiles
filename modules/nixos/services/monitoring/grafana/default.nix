@@ -8,11 +8,11 @@ let
     ;
 
   rdomain = config.networking.domain;
-  srv = config.modules.services;
+  srv = config.garden.services;
   cfg = srv.monitoring.grafana;
 in
 {
-  options.modules.services.monitoring.grafana = mkServiceOption "grafana" {
+  options.garden.services.monitoring.grafana = mkServiceOption "grafana" {
     port = 3100;
     host = "0.0.0.0";
     domain = "graph.${rdomain}";
@@ -35,7 +35,7 @@ in
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
-    modules.services.database = {
+    garden.services.database = {
       postgresql.enable = true;
     };
 
@@ -69,7 +69,7 @@ in
               user = mailer;
               password = "$__file{" + config.age.secrets.mailserver-grafana-nohash.path + "}";
 
-              host = "${config.modules.services.mailserver.domain}:465";
+              host = "${config.garden.services.mailserver.domain}:465";
               from_address = mailer;
               startTLS_policy = "MandatoryStartTLS";
             };
@@ -89,7 +89,7 @@ in
 
           "auth.generic_oauth" =
             let
-              sso = "https://${config.modules.services.kanidm.domain}";
+              sso = "https://${config.garden.services.kanidm.domain}";
             in
             {
               enabled = true;

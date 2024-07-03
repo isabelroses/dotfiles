@@ -3,7 +3,7 @@ let
   inherit (lib) mkOption types;
 in
 {
-  options.modules.device = {
+  options.garden.device = {
     type = mkOption {
       type = types.enum [
         "laptop"

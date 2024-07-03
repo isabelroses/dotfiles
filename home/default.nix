@@ -10,7 +10,7 @@
 }:
 let
   inherit (lib) mkForce;
-  inherit (config.modules.programs) defaults;
+  inherit (config.garden.programs) defaults;
 in
 {
   home-manager = {
@@ -29,7 +29,7 @@ in
         ;
     };
 
-    users = lib.genAttrs config.modules.system.users (name: ./${name});
+    users = lib.genAttrs config.garden.system.users (name: ./${name});
 
     # we should define grauntied common modules here
     sharedModules = [

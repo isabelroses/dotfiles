@@ -8,10 +8,10 @@ let
     ;
 
   rdomain = config.networking.domain;
-  cfg = config.modules.services.vikunja;
+  cfg = config.garden.services.vikunja;
 in
 {
-  options.modules.services.vikunja = mkServiceOption "vikunja" {
+  options.garden.services.vikunja = mkServiceOption "vikunja" {
     domain = "todo.${rdomain}";
     port = 3456;
   };
@@ -23,7 +23,7 @@ in
       group = "vikunja";
     };
 
-    modules.services = {
+    garden.services = {
       networking.nginx.enable = true;
       database = {
         redis.enable = true;
@@ -57,7 +57,7 @@ in
 
           mailer = {
             enabled = true;
-            host = config.modules.services.mailserver.domain;
+            host = config.garden.services.mailserver.domain;
             port = 465;
             forcessl = true;
 
@@ -71,7 +71,7 @@ in
             redirecturl = "https://${cfg.domain}/auth/openid/";
             providers =
               let
-                sso = config.modules.services.kanidm.domain;
+                sso = config.garden.services.kanidm.domain;
               in
               [
                 {

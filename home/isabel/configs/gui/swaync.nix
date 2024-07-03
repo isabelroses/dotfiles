@@ -8,7 +8,7 @@ let
   inherit (lib) mkIf;
 in
 {
-  services.swaync = mkIf osConfig.modules.programs.gui.bars.waybar.enable {
+  services.swaync = mkIf osConfig.garden.programs.gui.bars.waybar.enable {
     enable = true;
 
     style = pkgs.fetchurl {

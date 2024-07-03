@@ -14,12 +14,12 @@ let
     ;
 
   rdomain = config.networking.domain;
-  cfg = config.modules.services.dev.wakapi;
+  cfg = config.garden.services.dev.wakapi;
 in
 {
   imports = [ inputs.beapkgs.nixosModules.default ];
 
-  options.modules.services.dev.wakapi = mkServiceOption "wakapi" {
+  options.garden.services.dev.wakapi = mkServiceOption "wakapi" {
     port = 15912;
     domain = "wakapi.${rdomain}";
   };
@@ -39,7 +39,7 @@ in
       };
     };
 
-    modules.services = {
+    garden.services = {
       networking.nginx.enable = true;
       database.postgresql.enable = true;
     };

@@ -2,10 +2,10 @@
 let
   inherit (lib) mkIf mkServiceOption;
 
-  cfg = config.modules.services.database.influxdb;
+  cfg = config.garden.services.database.influxdb;
 in
 {
-  options.modules.services.database.influxdb = mkServiceOption "influxdb" { };
+  options.garden.services.database.influxdb = mkServiceOption "influxdb" { };
 
   config = mkIf cfg.enable {
     services.influxdb2 = {

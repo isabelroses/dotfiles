@@ -12,6 +12,6 @@
         swappy # used for screenshot area selection
         wl-gammactl
       ]
-      ++ lib.optionals osConfig.modules.system.sound.enable [ pwvucontrol ];
+      ++ lib.optionals osConfig.garden.system.sound.enable [ pwvucontrol ];
   };
 }

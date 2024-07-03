@@ -12,7 +12,7 @@ in
   config = {
     wsl = {
       enable = true;
-      defaultUser = config.modules.system.mainUser;
+      defaultUser = config.garden.system.mainUser;
       startMenuLaunchers = true;
     };
 

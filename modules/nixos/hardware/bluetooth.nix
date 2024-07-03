@@ -7,10 +7,10 @@
 let
   inherit (lib) mkEnableOption mkOption types;
 
-  sys = config.modules.system;
+  sys = config.garden.system;
 in
 {
-  options.modules = {
+  options.garden = {
     device.hasBluetooth = mkOption {
       type = types.bool;
       default = true;
@@ -21,7 +21,7 @@ in
   };
 
   config = lib.mkIf sys.bluetooth.enable {
-    modules.system.boot.extraKernelParams = [ "btusb" ];
+    garden.system.boot.extraKernelParams = [ "btusb" ];
     hardware.bluetooth = {
       enable = true;
       package = pkgs.bluez;

@@ -2,10 +2,10 @@
 let
   inherit (lib) mkIf mkServiceOption;
 
-  cfg = config.modules.services.monitoring.prometheus;
+  cfg = config.garden.services.monitoring.prometheus;
 in
 {
-  options.modules.services.monitoring.prometheus = mkServiceOption "prometheus" { port = 9100; };
+  options.garden.services.monitoring.prometheus = mkServiceOption "prometheus" { port = 9100; };
 
   config = mkIf cfg.enable {
     services = {

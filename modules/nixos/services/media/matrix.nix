@@ -13,7 +13,7 @@ let
     ;
   rdomain = config.networking.domain;
 
-  cfg = config.modules.services.media.matrix;
+  cfg = config.garden.services.media.matrix;
 
   bindAddress = "::1";
   serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
@@ -32,7 +32,7 @@ let
   '';
 in
 {
-  options.modules.services.media.matrix = mkServiceOption "matrix" {
+  options.garden.services.media.matrix = mkServiceOption "matrix" {
     port = 8008;
     domain = "matrix.${rdomain}";
   };
@@ -52,7 +52,7 @@ in
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
-    modules.services = {
+    garden.services = {
       networking.nginx.enable = true;
       database.postgresql.enable = true;
     };

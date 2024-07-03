@@ -12,7 +12,7 @@ let
     mkEnableOption
     ;
 
-  env = config.modules.environment;
+  env = config.garden.environment;
 
   programs = makeBinPath (
     with pkgs;
@@ -43,10 +43,10 @@ let
       ${pkgs.libnotify}/bin/notify-send -a 'Gamemode' 'Optimizations deactivated'
   '';
 
-  cfg = config.modules.programs.gaming;
+  cfg = config.garden.programs.gaming;
 in
 {
-  options.modules.programs.gaming.gamescope.enable = mkEnableOption "Gamescope compositing manager";
+  options.garden.programs.gaming.gamescope.enable = mkEnableOption "Gamescope compositing manager";
 
   config.programs.gamemode = mkIf cfg.enable {
     enable = true;

@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (osConfig.modules) environment;
+  inherit (osConfig.garden) environment;
 in
 {
   imports = [ ./config ];

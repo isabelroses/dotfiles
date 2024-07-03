@@ -3,10 +3,10 @@ let
   inherit (lib) mkIf template mkServiceOption;
 
   rdomain = config.networking.domain;
-  cfg = config.modules.services.dev.atuin;
+  cfg = config.garden.services.dev.atuin;
 in
 {
-  options.modules.services.dev.atuin = mkServiceOption "atuin" {
+  options.garden.services.dev.atuin = mkServiceOption "atuin" {
     port = 43473;
     domain = "atuin.${rdomain}";
   };

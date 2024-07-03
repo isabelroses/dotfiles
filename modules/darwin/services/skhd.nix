@@ -3,7 +3,7 @@ let
   inherit (lib) mkIf;
 in
 {
-  services.skhd = mkIf (config.modules.environment.desktop == "yabai") {
+  services.skhd = mkIf (config.garden.environment.desktop == "yabai") {
     enable = true;
     skhdConfig =
       let

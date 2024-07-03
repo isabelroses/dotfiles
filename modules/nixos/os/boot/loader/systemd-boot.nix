@@ -2,7 +2,7 @@
 let
   inherit (lib) mkDefault mkIf optionalAttrs;
 
-  cfg = config.modules.system.boot;
+  cfg = config.garden.system.boot;
 in
 {
   config = mkIf (cfg.loader == "systemd-boot") {

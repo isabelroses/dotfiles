@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  inherit (config.modules) environment;
+  inherit (config.garden) environment;
 in
 {
   services.displayManager.sddm = {

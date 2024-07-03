@@ -10,22 +10,22 @@ let
   # convenience function check if the declared device type is of an accepted type
   # takes config and a list of accepted device types
   # `isAcceptedDevice osConfig ["foo" "bar"];`
-  isAcceptedDevice = conf: list: builtins.elem conf.modules.device.type list;
+  isAcceptedDevice = conf: list: builtins.elem conf.garden.device.type list;
 
   # assert if the device is wayland-ready by checking sys.video and env.isWayland options
   # `(lib.isWayland config)` where config is in scope
   # `isWayland osConfig` -> true
-  isWayland = conf: conf.modules.environment.desktop != null && conf.modules.environment.isWayland;
+  isWayland = conf: conf.garden.environment.desktop != null && conf.garden.environment.isWayland;
 
   # ifOneEnabled takes a parent option and 3 child options and checks if at least one of them is enabled
-  # `ifOneEnabled config.modules.services "service1" "service2" "service3"`
+  # `ifOneEnabled config.garden.services "service1" "service2" "service3"`
   ifOneEnabled =
     cfg: a: b: c:
     (cfg.a || cfg.b || cfg.c);
 
   # check if modernshell and cli are both enabled
   isModernShell =
-    conf: conf.modules.programs.cli.enable && conf.modules.programs.cli.modernShell.enable;
+    conf: conf.garden.programs.cli.enable && conf.garden.programs.cli.modernShell.enable;
 in
 {
   inherit

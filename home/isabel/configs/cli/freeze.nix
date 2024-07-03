@@ -44,7 +44,7 @@ in
 
       font =
         let
-          fn = osConfig.modules.style.font;
+          fn = osConfig.garden.style.font;
         in
         {
           family = fn.name;

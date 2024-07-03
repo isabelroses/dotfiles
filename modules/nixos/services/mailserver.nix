@@ -14,15 +14,15 @@ let
     ;
 
   rdomain = config.networking.domain;
-  cfg = config.modules.services.mailserver;
+  cfg = config.garden.services.mailserver;
 in
 {
   imports = [ inputs.simple-nixos-mailserver.nixosModules.default ];
 
-  options.modules.services.mailserver = mkServiceOption "mailserver" { domain = "mail.${rdomain}"; };
+  options.garden.services.mailserver = mkServiceOption "mailserver" { domain = "mail.${rdomain}"; };
 
   config = mkIf cfg.enable {
-    modules.services = {
+    garden.services = {
       networking.nginx.enable = true;
       database = {
         redis.enable = true;

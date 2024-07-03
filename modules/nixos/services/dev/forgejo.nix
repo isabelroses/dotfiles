@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.modules.services.dev.forgejo;
+  cfg = config.garden.services.dev.forgejo;
   rdomain = config.networking.domain;
 
   inherit (lib)
@@ -23,7 +23,7 @@ let
   };
 in
 {
-  options.modules.services.dev.forgejo = mkServiceOption "forgejo" {
+  options.garden.services.dev.forgejo = mkServiceOption "forgejo" {
     port = 7000;
     domain = "git.${rdomain}";
   };
@@ -35,7 +35,7 @@ in
       group = "forgejo";
     };
 
-    modules.services = {
+    garden.services = {
       networking.nginx.enable = true;
       database = {
         redis.enable = true;
@@ -157,7 +157,7 @@ in
           mailer = {
             ENABLED = true;
             PROTOCOL = "smtps";
-            SMTP_ADDR = config.modules.services.mailserver.domain;
+            SMTP_ADDR = config.garden.services.mailserver.domain;
             USER = "git@${rdomain}";
           };
         };

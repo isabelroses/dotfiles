@@ -7,10 +7,10 @@
 let
   inherit (lib) mkIf mkEnableOption;
 
-  cfg = config.modules.system.boot.plymouth;
+  cfg = config.garden.system.boot.plymouth;
 in
 {
-  options.modules.system.boot.plymouth.enable = mkEnableOption "plymouth boot splash";
+  options.garden.system.boot.plymouth.enable = mkEnableOption "plymouth boot splash";
 
   config = mkIf cfg.enable {
     boot.plymouth = {

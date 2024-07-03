@@ -9,16 +9,16 @@ let
   certs = config.security.acme.certs.${rdomain};
   certDir = certs.directory;
 
-  cfg = config.modules.services.kanidm;
+  cfg = config.garden.services.kanidm;
 in
 {
-  options.modules.services.kanidm = mkServiceOption "kanidm" {
+  options.garden.services.kanidm = mkServiceOption "kanidm" {
     port = 8443;
     domain = "sso.${rdomain}";
   };
 
   config = mkIf cfg.enable {
-    modules.services = {
+    garden.services = {
       networking.nginx.enable = true;
       database.postgresql.enable = true;
     };

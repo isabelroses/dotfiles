@@ -2,7 +2,7 @@
 let
   inherit (lib) mkIf mkDefault mkForce;
 
-  dev = config.modules.device;
+  dev = config.garden.device;
 in
 {
   imports = [
@@ -22,7 +22,7 @@ in
     # generate a host ID by hashing the hostname
     hostId = builtins.substring 0 8 (builtins.hashString "md5" config.networking.hostName);
 
-    hostName = config.modules.system.hostname;
+    hostName = config.garden.system.hostname;
     # global dhcp has been deprecated upstream, so we use networkd instead
     # however individual interfaces are still managed through dhcp in hardware configurations
     useDHCP = mkForce false;

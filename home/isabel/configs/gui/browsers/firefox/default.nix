@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = osConfig.modules.programs.gui.browsers.firefox;
+  cfg = osConfig.garden.programs.gui.browsers.firefox;
 in
 {
   imports = [

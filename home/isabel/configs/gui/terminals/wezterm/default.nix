@@ -6,10 +6,10 @@
   ...
 }:
 let
-  inherit (osConfig.modules) environment system;
+  inherit (osConfig.garden) environment system;
 in
 {
-  config = lib.mkIf osConfig.modules.programs.gui.terminals.wezterm.enable {
+  config = lib.mkIf osConfig.garden.programs.gui.terminals.wezterm.enable {
     programs.wezterm = {
       enable = true;
       package = inputs'.beapkgs.packages.wezterm;

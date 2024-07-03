@@ -16,7 +16,7 @@
   programs = {
     # the thunar file manager
     # we enable thunar here and add plugins instead of in systemPackages
-    thunar = lib.mkIf config.modules.programs.gui.fileManagers.thunar.enable {
+    thunar = lib.mkIf config.garden.programs.gui.fileManagers.thunar.enable {
       enable = true;
       plugins = with pkgs.xfce; [
         thunar-archive-plugin

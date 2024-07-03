@@ -12,10 +12,10 @@ let
     types
     ;
 
-  inherit (config.modules.system) mainUser;
+  inherit (config.garden.system) mainUser;
 in
 {
-  options.modules.environment = {
+  options.garden.environment = {
     useHomeManager = mkEnableOption "Whether to use home-manager or not" // {
       default = true;
     };
@@ -29,11 +29,11 @@ in
 
   config.assertions = [
     {
-      assertion = config.modules.environment.useHomeManager -> config.modules.system.mainUser != null;
+      assertion = config.garden.environment.useHomeManager -> config.garden.system.mainUser != null;
       message = "system.mainUser must be set while useHomeManager is enabled";
     }
     {
-      assertion = config.modules.environment.flakePath != null -> config.modules.system.mainUser != null;
+      assertion = config.garden.environment.flakePath != null -> config.garden.system.mainUser != null;
       message = "system.mainUser must be set if a flakePath is specified";
     }
   ];

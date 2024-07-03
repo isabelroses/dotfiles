@@ -1,10 +1,10 @@
 { lib, config, ... }:
 let
   inherit (lib) mkIf mkServiceOption;
-  cfg = config.modules.services.media.jellyfin;
+  cfg = config.garden.services.media.jellyfin;
 in
 {
-  options.modules.services.media.jellyfin = mkServiceOption "jellyfin" {
+  options.garden.services.media.jellyfin = mkServiceOption "jellyfin" {
     port = 8096;
     domain = "tv.${config.networking.domain}";
   };

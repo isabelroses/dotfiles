@@ -5,7 +5,7 @@
   ...
 }:
 {
-  programs.yazi = lib.mkIf osConfig.modules.programs.tui.enable {
+  programs.yazi = lib.mkIf osConfig.garden.programs.tui.enable {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;
     enableFishIntegration = config.programs.fish.enable;

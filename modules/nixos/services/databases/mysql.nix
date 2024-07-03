@@ -7,10 +7,10 @@
 let
   inherit (lib) mkIf mkServiceOption;
 
-  cfg = config.modules.services.database.mysql;
+  cfg = config.garden.services.database.mysql;
 in
 {
-  options.modules.services.database.mysql = mkServiceOption "mysql" { };
+  options.garden.services.database.mysql = mkServiceOption "mysql" { };
 
   config = mkIf cfg.enable {
     services.mysql = {

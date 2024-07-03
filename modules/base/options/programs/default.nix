@@ -2,12 +2,12 @@
 let
   inherit (lib) mkEnableOption mkOption types;
 
-  cfg = config.modules.programs;
+  cfg = config.garden.programs;
 in
 {
   imports = [ ./defaults.nix ];
 
-  options.modules.programs = {
+  options.garden.programs = {
     # For programs that are not exactly limited to cli, tui or gui
     agnostic = {
       git.signingKey = mkOption {

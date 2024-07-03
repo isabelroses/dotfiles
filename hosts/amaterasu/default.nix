@@ -2,7 +2,7 @@
   imports = [ ./hardware.nix ];
 
   config = {
-    modules = {
+    garden = {
       device = {
         type = "desktop";
         cpu = "intel";

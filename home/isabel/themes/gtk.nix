@@ -7,8 +7,8 @@
 }:
 let
   inherit (lib) mkIf boolToNum;
-  inherit (osConfig.modules) device;
-  cfg = osConfig.modules.style;
+  inherit (osConfig.garden) device;
+  cfg = osConfig.garden.style;
 
   acceptedTypes = [
     "laptop"

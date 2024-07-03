@@ -2,10 +2,10 @@
 let
   inherit (lib) mkIf mkSecret mkServiceOption;
 
-  cfg = config.modules.services.networking.cloudflared;
+  cfg = config.garden.services.networking.cloudflared;
 in
 {
-  options.modules.services.networking.cloudflared = mkServiceOption "cloudflared" { };
+  options.garden.services.networking.cloudflared = mkServiceOption "cloudflared" { };
 
   config = mkIf cfg.enable {
     age.secrets.cloudflared-hydra = mkSecret {

@@ -1,5 +1,5 @@
 {
-  config.modules = {
+  config.garden = {
     device = {
       type = "wsl";
       cpu = "intel";

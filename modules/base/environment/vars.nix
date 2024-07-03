@@ -10,6 +10,6 @@
     PAGER = "less -FR";
     MANPAGER = "nvim +Man!";
 
-    FLAKE = "${config.modules.environment.flakePath}";
+    FLAKE = "${config.garden.environment.flakePath}";
   };
 }

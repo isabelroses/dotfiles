@@ -8,17 +8,17 @@ let
   inherit (lib) mkIf mkServiceOption;
   rdomain = config.networking.domain;
 
-  cfg = config.modules.services.networking.headscale;
+  cfg = config.garden.services.networking.headscale;
 in
 {
-  options.modules.services.networking.headscale = mkServiceOption "headscale" {
+  options.garden.services.networking.headscale = mkServiceOption "headscale" {
     port = 8085;
     host = "0.0.0.0";
     domain = "hs.${rdomain}";
   };
 
   config = mkIf cfg.enable {
-    modules.services = {
+    garden.services = {
       networking.nginx.enable = true;
       database.postgresql.enable = true;
     };

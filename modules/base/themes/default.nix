@@ -3,7 +3,7 @@ let
   inherit (lib) mkOption types;
 in
 {
-  options.modules.style.font = {
+  options.garden.style.font = {
     name = mkOption {
       type = types.str;
       description = "The name of the font";

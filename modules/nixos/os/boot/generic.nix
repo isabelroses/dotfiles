@@ -8,7 +8,7 @@ let
     mkIf
     optionals
     ;
-  sys = config.modules.system;
+  sys = config.garden.system;
 in
 {
   boot = {
@@ -74,7 +74,6 @@ in
           strip = true;
         };
 
-        # List of modules that are loaded by the initrd
         kernelModules = [
           "nvme"
           "xhci_pci"
@@ -84,7 +83,6 @@ in
           "dm_mod"
         ];
 
-        # the set of kernel modules in the initial ramdisk used during the boot process
         availableKernelModules = [
           "vmd"
           "usbhid"

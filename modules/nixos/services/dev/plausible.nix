@@ -8,10 +8,10 @@ let
     ;
 
   rdomain = config.networking.domain;
-  cfg = config.modules.services.dev.plausible;
+  cfg = config.garden.services.dev.plausible;
 in
 {
-  options.modules.services.dev.plausible = mkServiceOption "plausible" {
+  options.garden.services.dev.plausible = mkServiceOption "plausible" {
     port = 2100;
     domain = "p.${rdomain}";
   };
@@ -31,7 +31,7 @@ in
       };
     };
 
-    modules.services.database = {
+    garden.services.database = {
       postgresql.enable = true;
     };
 

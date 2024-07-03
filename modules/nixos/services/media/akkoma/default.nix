@@ -10,10 +10,10 @@ let
   inherit ((pkgs.formats.elixirConf { }).lib) mkRaw mkMap;
 
   rdomain = config.networking.domain;
-  cfg = config.modules.services.media.akkoma;
+  cfg = config.garden.services.media.akkoma;
 in
 {
-  options.modules.services.media.akkoma = mkServiceOption "akkoma" { domain = "akko.${rdomain}"; };
+  options.garden.services.media.akkoma = mkServiceOption "akkoma" { domain = "akko.${rdomain}"; };
 
   config = mkIf cfg.enable {
     services.akkoma = {

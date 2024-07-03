@@ -2,8 +2,8 @@
 let
   inherit (lib.modules) mkIf;
 
-  cfg = config.modules.system.sound;
-  dev = config.modules.device;
+  cfg = config.garden.system.sound;
+  dev = config.garden.device;
 in
 {
   # port of https://gitlab.archlinux.org/archlinux/packaging/packages/realtime-privileges
@@ -11,7 +11,7 @@ in
   # tldr: realtime processes have higher priority than normal processes
   config = mkIf (cfg.enable && dev.hasSound) {
     users = {
-      users.${config.modules.system.mainUser}.extraGroups = [ "audio" ];
+      users.${config.garden.system.mainUser}.extraGroups = [ "audio" ];
       groups.audio = { };
     };
 

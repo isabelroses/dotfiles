@@ -60,8 +60,10 @@ let
               ]
 
               (singleton {
-                modules.system.hostname = args.host;
-                nixpkgs.hostPlatform = mkDefault args.system;
+                config = {
+                  garden.system.hostname = args.host;
+                  nixpkgs.hostPlatform = mkDefault args.system;
+                };
               })
 
               (args.modules or [ ])
@@ -73,8 +75,8 @@ let
         # this is will enabled hosts if they are deployable
         (lib.mkIf deployable {
           deploy = {
-            autoRollback = true;
-            magicRollback = true;
+            autoRollback = mkDefault true;
+            magicRollback = mkDefault true;
 
             nodes.${args.host} = {
               hostname = args.host;

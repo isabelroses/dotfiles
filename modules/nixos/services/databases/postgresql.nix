@@ -7,10 +7,10 @@
 let
   inherit (lib) mkIf mkServiceOption;
 
-  cfg = config.modules.services;
+  cfg = config.garden.services;
 in
 {
-  options.modules.services.database.postgresql = mkServiceOption "postgresql" { };
+  options.garden.services.database.postgresql = mkServiceOption "postgresql" { };
 
   config = mkIf cfg.database.postgresql.enable {
     services.postgresql = {

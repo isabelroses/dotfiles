@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (config.modules) device;
+  inherit (config.garden) device;
   acceptedTypes = [
     "desktop"
     "laptop"

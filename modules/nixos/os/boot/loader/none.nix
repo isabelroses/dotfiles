@@ -1,7 +1,7 @@
 { lib, config, ... }:
 let
   inherit (lib) mkIf mkForce;
-  cfg = config.modules.system;
+  cfg = config.garden.system;
 in
 {
   config = mkIf (cfg.boot.loader == "none") {

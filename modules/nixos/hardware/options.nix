@@ -3,7 +3,7 @@ let
   inherit (lib) mkOption types;
 in
 {
-  options.modules.device = {
+  options.garden.device = {
     monitors = mkOption {
       type = with types; listOf str;
       default = [ ];

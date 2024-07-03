@@ -23,7 +23,7 @@ in
         indicator-radius = 120;
         indicator-thickness = 20;
         line-uses-ring = true;
-        font = osConfig.modules.style.font.name;
+        font = osConfig.garden.style.font.name;
         font-size = 32;
       };
     };

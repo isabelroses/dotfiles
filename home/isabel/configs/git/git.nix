@@ -1,6 +1,6 @@
 { pkgs, osConfig, ... }:
 let
-  cfg = osConfig.modules.programs.agnostic.git;
+  cfg = osConfig.garden.programs.agnostic.git;
 in
 {
   programs.git = {

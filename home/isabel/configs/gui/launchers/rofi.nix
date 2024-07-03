@@ -10,7 +10,7 @@ let
   rofiPackage = if lib.isWayland osConfig then pkgs.rofi-wayland else pkgs.rofi;
 in
 {
-  programs.rofi = lib.mkIf osConfig.modules.programs.gui.launchers.rofi.enable {
+  programs.rofi = lib.mkIf osConfig.garden.programs.gui.launchers.rofi.enable {
     enable = true;
     package = rofiPackage.override { plugins = [ pkgs.rofi-rbw ]; };
 
@@ -25,7 +25,7 @@ in
       sidebar-mode = true;
       font =
         let
-          fn = osConfig.modules.style.font;
+          fn = osConfig.garden.style.font;
         in
         "${fn.name} ${toString fn.size}";
       display-drun = "Apps";

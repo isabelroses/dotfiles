@@ -3,7 +3,7 @@ let
   inherit (lib) mkOption types mdDoc;
 in
 {
-  options.modules.programs.defaults = {
+  options.garden.programs.defaults = {
     terminal = mkOption {
       type = types.enum [
         "alacritty"

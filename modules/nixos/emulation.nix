@@ -12,10 +12,10 @@ let
     mkIf
     ;
 
-  sys = config.modules.system;
+  sys = config.garden.system;
 in
 {
-  options.modules.system.emulation = {
+  options.garden.system.emulation = {
     # should we enable emulation for additional architectures?
     # enabling this option will make it so that you can build for, e.g.
     # aarch64 on x86_&4 and vice verse - not recommended on weaker machines

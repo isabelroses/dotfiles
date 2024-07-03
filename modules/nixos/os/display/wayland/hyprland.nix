@@ -7,7 +7,7 @@
 let
   inherit (lib) mkIf;
 
-  env = config.modules.environment;
+  env = config.garden.environment;
 in
 {
   config = mkIf (env.desktop == "Hyprland") {

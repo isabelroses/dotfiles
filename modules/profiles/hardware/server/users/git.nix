@@ -1,7 +1,7 @@
 { lib, config, ... }:
 let
   inherit (lib) mkIf;
-  cfg = config.modules.services.dev.forgejo;
+  cfg = config.garden.services.dev.forgejo;
 in
 {
   users = mkIf cfg.enable {

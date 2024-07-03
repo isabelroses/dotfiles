@@ -11,12 +11,12 @@ let
 
   mkLink = config.lib.file.mkOutOfStoreSymlink;
 
-  vscodeStore = "${osConfig.modules.environment.flakePath}/home/${osConfig.modules.system.mainUser}/configs/editors/vscode";
+  vscodeStore = "${osConfig.garden.environment.flakePath}/home/${osConfig.garden.system.mainUser}/configs/editors/vscode";
   keybindingsFile = mkLink "${vscodeStore}/keybindings.json";
   settingsFile = mkLink "${vscodeStore}/settings.json";
 in
 {
-  config = mkIf osConfig.modules.programs.agnostic.editors.vscode.enable {
+  config = mkIf osConfig.garden.programs.agnostic.editors.vscode.enable {
     programs.vscode = {
       enable = true;
       package = pkgs.vscode;

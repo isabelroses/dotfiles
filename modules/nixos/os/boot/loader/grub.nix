@@ -2,7 +2,7 @@
 let
   inherit (lib) mkDefault mkIf;
 
-  cfg = config.modules.system;
+  cfg = config.garden.system;
 in
 {
   config = mkIf (cfg.boot.loader == "grub") {

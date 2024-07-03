@@ -7,10 +7,10 @@ let
     types
     ;
 
-  cfg = config.modules.system.security;
+  cfg = config.garden.system.security;
 in
 {
-  options.modules.system.security.auditd = {
+  options.garden.system.security.auditd = {
     enable = mkEnableOption "Enable the audit daemon.";
     autoPrune = {
       enable = mkEnableOption "Enable auto-pruning of audit logs.";

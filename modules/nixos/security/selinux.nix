@@ -12,10 +12,10 @@ let
     mkEnableOption
     ;
 
-  cfg = config.modules.system.security.selinux;
+  cfg = config.garden.system.security.selinux;
 in
 {
-  options.modules.system.security.selinux = {
+  options.garden.system.security.selinux = {
     enable = mkEnableOption "system SELinux support + kernel patches";
     state = mkOption {
       type =

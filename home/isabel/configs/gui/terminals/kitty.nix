@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf osConfig.modules.programs.gui.terminals.kitty.enable {
+  config = lib.mkIf osConfig.garden.programs.gui.terminals.kitty.enable {
     programs.kitty = {
       enable = true;
 
@@ -17,7 +17,7 @@
 
       settings = {
         background_opacity = "0.85";
-        font_family = osConfig.modules.style.font.name;
+        font_family = osConfig.garden.style.font.name;
         font_size = 13;
         disable_ligatures = "never";
         cursor_shape = "beam";

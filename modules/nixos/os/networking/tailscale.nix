@@ -15,11 +15,11 @@ let
     ;
   inherit (config.services) tailscale;
 
-  sys = config.modules.system.networking;
+  sys = config.garden.system.networking;
   cfg = sys.tailscale;
 in
 {
-  options.modules.system.networking.tailscale = {
+  options.garden.system.networking.tailscale = {
     enable = mkEnableOption "Tailscale VPN";
 
     defaultFlags = mkOption {

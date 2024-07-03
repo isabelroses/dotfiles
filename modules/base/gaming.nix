@@ -3,9 +3,9 @@ let
   inherit (lib) mkEnableOption;
 in
 {
-  options.modules.programs.gaming =
+  options.garden.programs.gaming =
     let
-      cfg = config.modules.programs.gaming;
+      cfg = config.garden.programs.gaming;
     in
     {
       enable = mkEnableOption "Enable packages required for the device to be gaming-ready";

@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib) mkIf;
-  inherit (config.modules) device;
+  inherit (config.garden) device;
 in
 {
   config = mkIf (device.type != "server") {

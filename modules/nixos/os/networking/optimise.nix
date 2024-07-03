@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
-  cfg = config.modules.system.networking;
+  cfg = config.garden.system.networking;
   inherit (lib) mkIf mkEnableOption;
 in
 {
-  options.modules.system.networking.optimizeTcp = mkEnableOption "Enable tcp optimizations";
+  options.garden.system.networking.optimizeTcp = mkEnableOption "Enable tcp optimizations";
 
   config = mkIf cfg.optimizeTcp {
     boot = {

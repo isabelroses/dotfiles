@@ -8,7 +8,7 @@ let
   inherit (lib) mkIf;
 in
 {
-  config = mkIf osConfig.modules.programs.gui.discord.enable {
+  config = mkIf osConfig.garden.programs.gui.discord.enable {
     home.packages = mkIf pkgs.stdenv.isLinux [
       pkgs.vesktop
       (pkgs.discord.override {

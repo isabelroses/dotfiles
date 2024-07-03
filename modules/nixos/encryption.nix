@@ -7,10 +7,10 @@ let
     mkIf
     ;
 
-  cfg = config.modules.system.encryption;
+  cfg = config.garden.system.encryption;
 in
 {
-  options.modules.system.encryption = {
+  options.garden.system.encryption = {
     enable = mkEnableOption "LUKS encryption";
 
     device = mkOption {
@@ -52,7 +52,7 @@ in
 
   config = mkIf cfg.enable {
     warnings =
-      mkIf config.modules.system.encryption.device == "" [
+      mkIf config.garden.system.encryption.device == "" [
         ''
           You have enabled LUKS encryption, but have not selected a device, you may not be able to decrypt your disk on boot.
         ''

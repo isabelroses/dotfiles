@@ -7,10 +7,10 @@
 let
   inherit (lib) mkEnableOption;
 
-  cfg = config.modules.programs.gaming;
+  cfg = config.garden.programs.gaming;
 in
 {
-  options.modules.programs.gaming.steam.enable = mkEnableOption "Enable Steam";
+  options.garden.programs.gaming.steam.enable = mkEnableOption "Enable Steam";
 
   config = lib.mkIf cfg.enable {
     programs.steam = {

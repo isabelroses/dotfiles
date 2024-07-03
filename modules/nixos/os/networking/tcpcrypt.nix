@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   inherit (lib) mkIf;
-  inherit (config.modules) device;
+  inherit (config.garden) device;
 in
 {
   # enable opportunistic TCP encryption
