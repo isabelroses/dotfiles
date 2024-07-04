@@ -98,8 +98,14 @@ in
       };
 
       graphics = {
-        extraPackages = with pkgs; [ nvidia-vaapi-driver ];
-        extraPackages32 = with pkgs.pkgsi686Linux; [ nvidia-vaapi-driver ];
+        extraPackages = with pkgs; [
+          nvidia-vaapi-driver
+          libva-vdpau-driver
+        ];
+        extraPackages32 = with pkgs.pkgsi686Linux; [
+          nvidia-vaapi-driver
+          libva-vdpau-driver
+        ];
       };
     };
   };
