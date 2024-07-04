@@ -1,6 +1,6 @@
-system:
+# You can generate something like this using xdg-ninja
+_:
 let
-  # copy paste done right
   XDG_CONFIG_HOME = "$HOME/.config";
   XDG_CACHE_HOME = "$HOME/.cache";
   XDG_DATA_HOME = "$HOME/.local/share";
@@ -43,17 +43,20 @@ in
 
     # programming
     ANDROID_HOME = "${XDG_DATA_HOME}/android";
+    ANDROID_USER_HOME = "${XDG_DATA_HOME}/android";
     GRADLE_USER_HOME = "${XDG_DATA_HOME}/gradle";
     IPYTHONDIR = "${XDG_CONFIG_HOME}/ipython";
     JUPYTER_CONFIG_DIR = "${XDG_CONFIG_HOME}/jupyter";
     GOPATH = "${XDG_DATA_HOME}/go";
     M2_HOME = "${XDG_DATA_HOME}/m2";
     CARGO_HOME = "${XDG_DATA_HOME}/cargo";
+    RUSTUP_HOME = "${XDG_DATA_HOME}/rustup";
+    STACK_ROOT = "${XDG_DATA_HOME}/stack";
+    STACK_XDG = 1;
     NODE_REPL_HISTORY = "${XDG_DATA_HOME}/node_repl_history";
     NPM_CONFIG_CACHE = "${XDG_CACHE_HOME}/npm";
     NPM_CONFIG_TMP = "${XDG_RUNTIME_DIR}/npm";
     NPM_CONFIG_USERCONFIG = "${XDG_CONFIG_HOME}/npm/config";
-    PYTHONSTARTUP = if system == "nixos" then "/etc/pythonrc" else "${XDG_CONFIG_HOME}/python/pythonrc";
   };
 
   npmrc.text = ''

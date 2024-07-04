@@ -57,7 +57,10 @@ let
   template = import lib.template.xdg "home-manager";
 in
 {
-  home.packages = with pkgs; lib.mkIf isLinux [ xdg-utils ];
+  home = {
+    packages = with pkgs; lib.mkIf isLinux [ xdg-utils ];
+    sessionVariables = lib.mkForce template.sysEnv;
+  };
 
   xdg = {
     enable = true;
