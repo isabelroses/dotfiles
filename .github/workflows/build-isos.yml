@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Lilith Iso
         continue-on-error: false
-        run: nix build .#lilith -o lilith --accept-flake-config --print-build-logs
+        run: nix build .#images.lilith -o lilith --accept-flake-config --print-build-logs
 
       - name: Upload Release Artifacts
         run: |
