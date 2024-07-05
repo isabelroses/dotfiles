@@ -6,7 +6,7 @@ if wezterm.c_builder then
   c = wezterm.config_builder()
 end
 
-c.enable_wayland = false
+c.enable_wayland = true
 
 -- theme
 require("catppuccin").apply_to_config(c)
@@ -49,7 +49,7 @@ elseif utils.is_windows() then
 end
 
 -- window stuff
-c.window_decorations = "RESIZE"
+c.window_decorations = "NONE"
 c.window_padding = { left = 10, right = 0, top = 0, bottom = 0 }
 c.adjust_window_size_when_changing_font_size = false
 
