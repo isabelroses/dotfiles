@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  template = import lib.template.xdg "nixos";
+  template = import lib.template.xdg;
 in
 {
   environment = {

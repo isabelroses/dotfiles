@@ -1,5 +1,4 @@
 # You can generate something like this using xdg-ninja
-_:
 let
   XDG_CONFIG_HOME = "$HOME/.config";
   XDG_CACHE_HOME = "$HOME/.cache";
