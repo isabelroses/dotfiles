@@ -55,7 +55,7 @@
 This repository contains my **personal** configuration for my systems. Its really important that you know it's **personal** and not everything will fit your needs or even work out of the box for you without some changes.
 
 > [!WARNING]
-> It's also significant to not that this configuration will **not** work if you do not change any of the [secrets](../secrets) since they are encrypted.
+> It's also significant to note that this configuration will **not** work if you do not change any of the [secrets](../secrets) since they are encrypted.
 
 > [!TIP]
 > You can find some cool blogs and people at the bottom of this file, or [click here](#additional-notes)
