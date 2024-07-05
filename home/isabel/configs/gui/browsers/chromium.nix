@@ -18,12 +18,10 @@ in
         [
           "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
           "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
-          "eimadpbcbfnmbkopoojfekhnkhdbieeh" # Dark Reader
           "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
           "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
           "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
           "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
-          "jaoafjdoijdconemdmodhbfpianehlon" # skip redirect
         ]
         ++ lib.optionals progs.gaming.enable [
           "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
