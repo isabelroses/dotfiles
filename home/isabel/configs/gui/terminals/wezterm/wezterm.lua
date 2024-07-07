@@ -49,7 +49,7 @@ elseif utils.is_windows() then
 end
 
 -- window stuff
-c.window_decorations = "NONE"
+c.window_decorations = "TITLE | RESIZE"
 c.window_padding = { left = 10, right = 0, top = 0, bottom = 0 }
 c.adjust_window_size_when_changing_font_size = false
 
