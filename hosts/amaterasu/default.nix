@@ -34,6 +34,7 @@
         fs = [
           "ext4"
           "vfat"
+          "ntfs"
         ];
         video.enable = true;
         sound.enable = true;
