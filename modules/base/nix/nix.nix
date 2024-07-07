@@ -13,6 +13,8 @@ let
 in
 {
   nix = {
+    # keep tabs on this for cool new features
+    # https://git.lix.systems/lix-project/lix/src/branch/main/doc/manual/rl-next
     package = inputs'.lix.packages.default;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
