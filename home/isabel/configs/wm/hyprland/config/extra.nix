@@ -37,7 +37,6 @@ in
     ''
       ${mapMonitors}
       ${optionalString (length monitors != 1) "${mapMonitorsToWs}"}
-      monitor=Unknown-1,disable
 
       # █▀▄▀█ █▀█ █░█ █▀▀
       # █░▀░█ █▄█ ▀▄▀ ██▄

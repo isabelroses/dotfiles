@@ -39,8 +39,14 @@ in
       })
     ];
 
-    # blacklist nouveau module as otherwise it conflicts with nvidia drm
-    boot.blacklistedKernelModules = [ "nouveau" ];
+    boot = {
+      # blacklist nouveau module as otherwise it conflicts with nvidia drm
+      blacklistedKernelModules = [ "nouveau" ];
+
+      # Enables the Nvidia's experimental framebuffer device
+      # fix for the imaginary monitor that does not exist
+      kernelParams = [ "nvidia_drm.fbdev=1" ];
+    };
 
     environment = {
       sessionVariables = mkMerge [
