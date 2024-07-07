@@ -6,9 +6,7 @@ let
   dev = config.garden.device;
 in
 {
-  # port of https://gitlab.archlinux.org/archlinux/packaging/packages/realtime-privileges
-  # see https://wiki.archlinux.org/title/Realtime_process_management
-  # tldr: realtime processes have higher priority than normal processes
+  # https://wiki.linuxaudio.org/wiki/system_configuration
   config = mkIf (cfg.enable && dev.hasSound) {
     users = {
       users.${config.garden.system.mainUser}.extraGroups = [ "audio" ];
