@@ -26,7 +26,6 @@ in
     home.packages = with pkgs; [
       kdePackages.qt6ct
       kdePackages.breeze-icons
-      qt6Packages.qtstyleplugin-kvantum
     ];
 
     home.sessionVariables = {
