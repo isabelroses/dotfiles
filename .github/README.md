@@ -154,7 +154,7 @@ For the full list of templates you can look in the [templates](../parts/template
 - Exclude nix from time machine backups
   > `sudo tmutil addexclusion -v /nix`
 - `nix run nix-darwin -- switch --flake ~/.config/flake#<host>`
-- Then good news you can use the `rebuild` alias that exists for the future
+- Then good news you can use the `switch` alias that exists for the future
 
 #### Small bits
 
@@ -176,6 +176,9 @@ A collection of resources from people who just make good stuff.
 - [nixpkgs news](https://nixpkgs.news/)
 - [nix.dev](https://nix.dev/)
 - [cafkafk's blog](https://cafkafk.dev/)
+- [my own blog](https://isabelroses.com/blog/tag/nix)
+- [official wiki](https://wiki.nixos.org/wiki/NixOS_Wiki)
+- [zero to nix](https://zero-to-nix.com/start)
 
 #### People
 
