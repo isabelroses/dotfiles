@@ -84,8 +84,8 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        pre-commit-hooks-nix.follows = "";
         flake-utils.follows = "flake-utils";
+        pre-commit-hooks-nix.follows = "";
         flake-compat.follows = "";
       };
     };
@@ -164,8 +164,8 @@
 
     ### my programs
     beapkgs = {
-      url = "github:isabelroses/beapkgs/60401cc3987ea906fc78c593909926cbec5e6393";
-      # url = "git+file:///home/isabel/dev/beapkgs";
+      url = "github:isabelroses/beapkgs";
+      # url = "path:/home/isabel/dev/beapkgs";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
