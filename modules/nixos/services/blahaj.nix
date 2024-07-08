@@ -21,6 +21,7 @@ in
       serviceConfig = {
         Type = "simple";
         DynamicUser = true;
+        ReadWritePaths = [ "/srv/storage/blahaj/nixpkgs" ];
         EnvironmentFile = config.age.secrets.blahaj-env.path;
         ExecStart = "${lib.getExe inputs'.beapkgs.packages.blahaj}";
         Restart = "always";
