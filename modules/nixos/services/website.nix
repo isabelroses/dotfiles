@@ -14,6 +14,8 @@ let
     ;
 
   cfg = config.garden.services.isabelroses-website;
+
+  serve = "/srv/storage/isabelroses.com";
 in
 {
   options.garden.services.isabelroses-website = mkServiceOption "isabelroses-website" {
@@ -28,9 +30,13 @@ in
       wantedBy = [ "multi-user.target" ];
       path = [ inputs'.beapkgs.packages.isabelroses-website ];
 
+      environment = {
+        SERVE_DIR = serve;
+      };
+
       serviceConfig = {
         Type = "simple";
-        ReadWritePaths = [ "/srv/storage/isabelroses.com" ];
+        ReadWritePaths = [ serve ];
         DynamicUser = true;
         ExecStart = "${getExe inputs'.beapkgs.packages.isabelroses-website}";
         Restart = "always";
