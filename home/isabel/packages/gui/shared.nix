@@ -7,7 +7,7 @@
 {
   config = lib.mkIf osConfig.garden.programs.gui.enable {
     home.packages = with pkgs; [
-      bitwarden-desktop # password manager
+      # bitwarden-desktop # password manager
       obsidian # note taking with markdown
       # jellyfin-media-player
       # mangal # tui manga finder + reader

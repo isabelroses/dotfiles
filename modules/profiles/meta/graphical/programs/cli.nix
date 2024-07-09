@@ -9,8 +9,10 @@
     # home-manager is so strange and needs these declared multiple times
     fish.enable = true;
 
+    # FIXME: https://github.com/NixOS/nixpkgs/issues/325799
+    #
     # type "fuck" to fix the last command that made you go "fuck"
-    thefuck.enable = true;
+    # thefuck.enable = true;
 
     # help manage android devices via command line
     adb.enable = true;
