@@ -36,14 +36,12 @@ elseif utils.is_darwin() then
   c.default_prog = { "/etc/profiles/per-user/isabel/bin/fish", "--login" }
 elseif utils.is_windows() then
   c.default_prog = { "wsl.exe" }
+  c.default_domain = "WSL:NixOS"
   c.launch_menu = {
     {
       label = "PowerShell",
-      args = { "pwsh.exe" },
-    },
-    {
-      label = "WSL",
-      args = { "wsl.exe" },
+      args = { "pwsh.exe", "-NoLogo" },
+      domain = { DomainName = "local" },
     },
   }
 end
