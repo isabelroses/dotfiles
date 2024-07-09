@@ -7,6 +7,8 @@
 let
   inherit (lib) mkIf;
   inherit (config.garden) device;
+
+  vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
 in
 {
   config = mkIf (device.gpu == "intel" || device.gpu == "hybrid-nv") {
@@ -14,11 +16,6 @@ in
     boot.initrd.kernelModules = [ "i915" ];
     # better performance than the actual Intel driver, lol
     services.xserver.videoDrivers = [ "modesetting" ];
-
-    # let me play youtube videos without h.264
-    nixpkgs.config.packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-    };
 
     # OpenCL support and VAAPI
     hardware.graphics = {
