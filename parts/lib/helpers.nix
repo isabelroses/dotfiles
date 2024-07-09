@@ -43,11 +43,6 @@ let
     in
     f f 0;
 
-  # a function to go from normal text to lower snake case
-  # "A Normal String" -> "a-normal-string"
-  serializeTheme =
-    inputString: lib.strings.toLower (builtins.replaceStrings [ " " ] [ "-" ] inputString);
-
   # a function that checks if a list contains a list of given strings
   containsStrings =
     { list, targetStrings }: builtins.all (s: builtins.any (x: x == s) list) targetStrings;
@@ -59,7 +54,6 @@ in
     importNixFilesAndDirs
     boolToNum
     containsStrings
-    serializeTheme
     indexOf
     intListToStringList
     ;
