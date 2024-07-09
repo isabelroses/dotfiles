@@ -1,0 +1,92 @@
+diff --git a/src/nix/flake.cc b/src/nix/flake.cc
+index 84c659023a5..65bbac53f75 100644
+--- a/src/nix/flake.cc
++++ b/src/nix/flake.cc
+@@ -1240,25 +1240,45 @@ struct CmdFlakeShow : FlakeCommand, MixJSON
+                 auto showDerivation = [&]()
+                 {
+                     auto name = visitor.getAttr(state->sName)->getString();
++                    std::optional<std::string> description;
++                    if (auto aMeta = visitor.maybeGetAttr(state->sMeta)) {
++                        if (auto aDescription = aMeta->maybeGetAttr(state->sDescription))
++                            description = aDescription->getString();
++                    }
++
+                     if (json) {
+-                        std::optional<std::string> description;
+-                        if (auto aMeta = visitor.maybeGetAttr(state->sMeta)) {
+-                            if (auto aDescription = aMeta->maybeGetAttr(state->sDescription))
+-                                description = aDescription->getString();
+-                        }
+                         j.emplace("type", "derivation");
+                         j.emplace("name", name);
+                         if (description)
+                             j.emplace("description", *description);
+                     } else {
+-                        logger->cout("%s: %s '%s'",
+-                            headerPrefix,
++                        auto type =
+                             attrPath.size() == 2 && attrPathS[0] == "devShell" ? "development environment" :
+                             attrPath.size() >= 2 && attrPathS[0] == "devShells" ? "development environment" :
+                             attrPath.size() == 3 && attrPathS[0] == "checks" ? "derivation" :
+                             attrPath.size() >= 1 && attrPathS[0] == "hydraJobs" ? "derivation" :
+-                            "package",
+-                            name);
++                            "package";
++                        if (description && !description->empty()) {
++                            // Trim the string and only display the first line of the description.
++                            auto trimmed = nix::trim(*description);
++                            auto newLinePos = trimmed.find('\n');
++                            auto length = newLinePos != std::string::npos ? newLinePos : trimmed.size();
++
++                            // If the string is too long then resize add ellipses
++                            std::string desc;
++                            if (length > 80) {
++                                trimmed.resize(80);
++                                desc = trimmed.append("...");
++                            }
++                            else {
++                                desc = trimmed.substr(0, length);
++                            }
++
++                            logger->cout("%s: %s '%s' - '%s'", headerPrefix, type, name, desc);
++                        }
++                        else {
++                            logger->cout("%s: %s '%s'", headerPrefix, type, name);
++                        }
+                     }
+                 };
+ 
+diff --git a/tests/functional/flakes/show.sh b/tests/functional/flakes/show.sh
+index 22e1f419376..d60adb99f45 100755
+--- a/tests/functional/flakes/show.sh
++++ b/tests/functional/flakes/show.sh
+@@ -87,3 +87,28 @@ assert show_output.legacyPackages.${builtins.currentSystem}.AAAAAASomeThingsFail
+ assert show_output.legacyPackages.${builtins.currentSystem}.simple.name == "simple";
+ true
+ '
++
++cat >flake.nix<<EOF
++{
++  outputs = inputs: {
++    packages.$system = {
++      aNoDescription = import ./simple.nix;
++      bOneLineDescription = import ./simple.nix // { meta.description = "one line"; };
++      cMultiLineDescription = import ./simple.nix // { meta.description = ''
++         line one
++        line two
++      ''; };
++      dLongDescription = import ./simple.nix // { meta.description = ''
++        01234567890123456789012345678901234567890123456789012345678901234567890123456789abcdefg
++      ''; };
++      eEmptyDescription = import ./simple.nix // { meta.description = ""; };
++    };
++  };
++}
++EOF
++nix flake show > ./show-output.txt
++test "$(awk -F '[:] ' '/aNoDescription/{print $NF}' ./show-output.txt)" = "package 'simple'"
++test "$(awk -F '[:] ' '/bOneLineDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - 'one line'"
++test "$(awk -F '[:] ' '/cMultiLineDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - 'line one'"
++test "$(awk -F '[:] ' '/dLongDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - '01234567890123456789012345678901234567890123456789012345678901234567890123456789...'"
++test "$(awk -F '[:] ' '/eEmptyDescription/{print $NF}' ./show-output.txt)" = "package 'simple'"

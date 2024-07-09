@@ -2,7 +2,6 @@
   lib,
   pkgs,
   inputs,
-  inputs',
   ...
 }:
 let
@@ -15,7 +14,7 @@ in
   nix = {
     # keep tabs on this for cool new features
     # https://git.lix.systems/lix-project/lix/src/branch/main/doc/manual/rl-next
-    package = inputs'.lix.packages.default;
+    package = pkgs.lix;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = mapAttrs (_: v: { flake = v; }) flakeInputs;
@@ -32,8 +31,11 @@ in
     };
 
     settings = {
-      # specify the path to the nix registry
-      flake-registry = "/etc/nix/registry.json";
+      # disable the flake registry since it worsens perf
+      flake-registry = pkgs.writers.writeJSON "flakes-empty.json" {
+        flakes = [ ];
+        version = 2;
+      };
       # Free up to 20GiB whenever there is less than 5GB left.
       # this setting is in bytes, so we multiply with 1024 by 3
       min-free = "${toString (5 * 1024 * 1024 * 1024)}";
