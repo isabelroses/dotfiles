@@ -10,6 +10,7 @@
     PAGER = "less -FR";
     MANPAGER = "nvim +Man!";
 
-    FLAKE = "${config.garden.environment.flakePath}";
+    # Some programs like `nh` use the FLAKE env var to determine the flake path
+    FLAKE = config.garden.environment.flakePath;
   };
 }

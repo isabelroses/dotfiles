@@ -15,9 +15,6 @@ in
 
         corefonts
 
-        material-icons
-        material-design-icons
-
         source-sans
         source-serif
 
@@ -25,28 +22,27 @@ in
         inter
 
         noto-fonts
+
+        # fonts for none latin languages
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
-        noto-fonts-color-emoji
 
-        (nerdfonts.override {
-          fonts = [
-            "NerdFontsSymbolsOnly"
-            "RobotoMono"
-            "JetBrainsMono"
-            "Mononoki"
-            "Ubuntu"
-            "UbuntuMono"
-          ];
-        })
+        # install some emoji fonts
+        noto-fonts-color-emoji
+        material-icons
+        material-design-icons
+
+        (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
       ];
     }
     // ldTernary pkgs {
+      # if we are on linux we should create a fontconfig file
       fontconfig = {
         enable = true;
         hinting.enable = true;
         antialias = true;
 
+        # create all the fonts and set the fallback to the symbols nerd font
         defaultFonts = {
           monospace = [
             config.garden.style.font.name
@@ -67,6 +63,7 @@ in
         };
       };
 
+      # this can allow us to save some storage space
       fontDir.decompressFonts = true;
     } { };
 }

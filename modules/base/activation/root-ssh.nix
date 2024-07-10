@@ -6,7 +6,6 @@
   system.activationScripts.root_ssh_config =
     let
       inherit (config.garden.system) mainUser;
-
       sshDir = "${config.users.users.${mainUser}.home}/.ssh";
     in
     {

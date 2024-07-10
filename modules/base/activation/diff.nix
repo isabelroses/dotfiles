@@ -1,5 +1,8 @@
 { pkgs, config, ... }:
 {
+  # if the system supports dry activation, this means that we can compare
+  # the current system with the one we are about to switch to
+  # this can be useful to see what will change, and the clousure size
   system.activationScripts.diff = {
     supportsDryActivation = true;
     text = ''
