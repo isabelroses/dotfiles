@@ -32,10 +32,9 @@ in
         ))
       ];
 
-    # git is required for flakes, and cachix for binary substituters
     systemPackages = with pkgs; [
-      git
-      cachix
+      git # git is required for flakes
+      cachix # cachix for binary substituters
     ];
   };
 }
