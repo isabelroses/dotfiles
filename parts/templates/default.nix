@@ -1,4 +1,4 @@
-_: {
+{
   flake.templates = {
     c = {
       path = ./c;
