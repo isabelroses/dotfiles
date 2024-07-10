@@ -1,16 +1,6 @@
-{
-  self,
-  config,
-  inputs',
-  ...
-}:
+{ config, inputs', ... }:
 {
   nixpkgs.overlays = [
-    # We also apply the default overlays that i provide outwardly from this flake
-    # WARNING: this may change as I may place these overlays in this file
-    # actually including this with a TODO to move it to the overlays
-    self.overlays.default
-
     (_: prev: {
       # to reduce our closure size, we change nixos-rebuild to use the nix packages
       # specified by our flake' nix settings
