@@ -1,4 +1,9 @@
-{ lib, inputs, ... }:
+{
+  lib,
+  inputs,
+  withSystem,
+  ...
+}:
 let
   inherit (inputs) self;
 
@@ -17,7 +22,6 @@ let
       deployable ? false,
       modules,
       system,
-      withSystem,
       ...
     }@args:
     withSystem system (

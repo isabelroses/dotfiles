@@ -1,4 +1,4 @@
-{ inputs }:
+{ inputs, withSystem }:
 let
   inherit (inputs.nixpkgs) lib;
   inherit (lib) foldl recursiveUpdate;
@@ -20,7 +20,7 @@ let
     in
     (func defaultArgs) // functor;
 
-  builders = import' ./builders.nix { inherit inputs; };
+  builders = import' ./builders.nix { inherit inputs withSystem; };
   services = import' ./services.nix;
   validators = import' ./validators.nix;
   helpers = import' ./helpers.nix;

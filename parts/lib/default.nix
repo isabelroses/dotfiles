@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, withSystem, ... }:
 {
-  flake.lib = import ./import.nix { inherit inputs; };
+  flake.lib = import ./import.nix { inherit inputs withSystem; };
 }

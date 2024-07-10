@@ -2,7 +2,7 @@
 {
   flake =
     let
-      lib = import ../parts/lib/import.nix { inherit inputs; };
+      lib = import ../parts/lib/import.nix { inherit inputs withSystem; };
       inherit (lib)
         mkMerge
         concatLists
@@ -25,14 +25,16 @@
       # hardware profiles
       laptop = hardwareProfilesPath + /laptop; # for laptop type configurations
       desktop = hardwareProfilesPath + /desktop; # for desktop type configurations
+      # for server type configurations
       server = [
         (hardwareProfilesPath + /server)
         headless
-      ]; # for server type configurations
+      ];
+      # for wsl systems
       wsl = [
         (hardwareProfilesPath + /wsl)
         headless
-      ]; # for wsl systems
+      ];
 
       # meta profiles
       graphical = metaProfilesPath + /graphical; # for systems that have a graphical interface
@@ -56,7 +58,6 @@
       (mkSystems [
         {
           host = "hydra";
-          inherit withSystem;
           system = "x86_64-linux";
           modules = [
             laptop
@@ -67,7 +68,6 @@
 
         {
           host = "amaterasu";
-          inherit withSystem;
           system = "x86_64-linux";
           modules = [
             desktop
@@ -78,7 +78,6 @@
 
         {
           host = "valkyrie";
-          inherit withSystem;
           system = "x86_64-linux";
           modules = concatLists [
             wsl
@@ -89,7 +88,6 @@
 
         {
           host = "luz";
-          inherit withSystem;
           system = "x86_64-linux";
           deployable = true;
           modules = concatLists [
@@ -101,7 +99,6 @@
 
         {
           host = "tatsumaki";
-          inherit withSystem;
           system = "aarch64-darwin";
           modules = concatLists [ shared ];
           specialArgs = sharedArgs;
