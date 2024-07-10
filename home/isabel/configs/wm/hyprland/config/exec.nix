@@ -16,6 +16,7 @@ in
         "wl-paste --type text --watch cliphist store" # Stores only text data
         "wl-paste --type image --watch cliphist store" # Stores only image data
         "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
+        "swww-daemon"
       ]
       ++ optionals (defaults.bar == "waybar") [ "waybar" ] ++ optionals (defaults.bar == "ags") [ "ags" ];
   };

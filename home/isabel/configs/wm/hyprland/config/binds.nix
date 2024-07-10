@@ -52,7 +52,7 @@ in
         "${mod}, period, exec, killall rofi || rofi -show emoji -emoji-format '{emoji}' -modi emoji"
       ]
       ++ optionals (defaults.bar == "ags") [
-        "${mod}, D, exec, ags -t applauncher"
+        "${mod}, D, exec, ags -t launcher"
         "${mod}, escape, exec, ags -t powermenu"
         "${mod} SHIFT, R, exec, ags --quit ; ags"
       ]

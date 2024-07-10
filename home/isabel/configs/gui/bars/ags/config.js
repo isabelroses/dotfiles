@@ -1,34 +1,46 @@
-import Applauncher from "./windows/applauncher/Applauncher.js";
-import Notifications from "./windows/notifications/Notifications.js";
-import PowerMenu from "./windows/powermenu/PowerMenu.js";
-import QuickSettings from "./windows/quicksettings/QuickSettings.js";
-import TopBar from "./windows/bar/TopBar.js";
-// import LeftBar from "./windows/bar/LeftBar.js";
-import OSD from "./misc/OSD.js";
-import { init } from "./settings/setup.js";
-import { initWallpaper } from "./settings/wallpaper.js";
-import { forMonitors } from "./utils.js";
-import options from "./options.js";
+import GLib from "gi://GLib";
 
-initWallpaper();
+const main = "/tmp/ags/main.js";
+const entry = `${App.configDir}/main.ts`;
+const bundler = GLib.getenv("AGS_BUNDLER") || "bun";
 
-const windows = () => [
-  forMonitors(TopBar),
-  // forMonitors(LeftBar),
-  forMonitors(OSD),
-  forMonitors(Notifications),
-  Applauncher(),
-  QuickSettings(),
-  PowerMenu(),
-];
+try {
+  switch (bundler) {
+    case "bun":
+      await Utils.execAsync([
+        "bun",
+        "build",
+        entry,
+        "--outfile",
+        main,
+        "--external",
+        "resource://*",
+        "--external",
+        "gi://*",
+        "--external",
+        "file://*",
+      ]);
+      break;
 
-export default {
-  onConfigParsed: init,
-  windows: windows().flat(1),
-  maxStreamVolume: 1.05,
-  cacheNotificationActions: true,
-  closeWindowDelay: {
-    quicksettings: options.transition.value,
-    dashboard: options.transition.value,
-  },
-};
+    case "esbuild":
+      await Utils.execAsync([
+        "esbuild",
+        "--bundle",
+        entry,
+        "--format=esm",
+        `--outfile=${main}`,
+        "--external:resource://*",
+        "--external:gi://*",
+        "--external:file://*",
+      ]);
+      break;
+
+    default:
+      throw `"${bundler}" is not a valid bundler`;
+  }
+
+  await import(`file://${main}`);
+} catch (error) {
+  console.error(error);
+  App.quit();
+}

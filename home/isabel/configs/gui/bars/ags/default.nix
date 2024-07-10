@@ -7,33 +7,25 @@
   ...
 }:
 let
-  inherit (osConfig.garden) environment system;
+  inherit (osConfig.garden) environment system programs;
 in
 {
-  config = lib.mkIf ((lib.isWayland osConfig) && osConfig.garden.programs.gui.bars.ags.enable) {
+  # TODO: package this
+  config = lib.mkIf ((lib.isWayland osConfig) && programs.gui.bars.ags.enable) {
     home = {
       packages =
         [ inputs'.ags.packages.ags ]
         ++ (with pkgs; [
-          socat
-          sassc
-          inotify-tools
-          swww
-          libgtop
-          libsoup_3
-          gvfs
+          bun
+          dart-sass
+          brightnessctl
+          hyprpicker
         ]);
     };
 
-    xdg.configFile =
-      let
-        symlink = fileName: {
-          source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/${fileName}";
-          recursive = true;
-        };
-      in
-      {
-        "ags" = symlink "home/${system.mainUser}/configs/gui/bars/ags";
-      };
+    xdg.configFile."ags" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/home/${system.mainUser}/configs/gui/bars/ags";
+      recursive = true;
+    };
   };
 }
