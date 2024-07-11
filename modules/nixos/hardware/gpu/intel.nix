@@ -7,32 +7,26 @@
 let
   inherit (lib) mkIf;
   inherit (config.garden) device;
-
-  vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
 in
 {
   config = mkIf (device.gpu == "intel" || device.gpu == "hybrid-nv") {
     # i915 kernel module
     boot.initrd.kernelModules = [ "i915" ];
-    # better performance than the actual Intel driver, lol
+    # we enable modesetting since this is recomeneded for intel gpus
     services.xserver.videoDrivers = [ "modesetting" ];
 
     # OpenCL support and VAAPI
     hardware.graphics = {
       extraPackages = with pkgs; [
-        intel-compute-runtime
+        libva-vdpau-driver
         intel-media-driver
-        vaapiIntel
-        vaapiVdpau
-        libvdpau-va-gl
+        (intel-vaapi-driver.override { enableHybridCodec = true; })
       ];
 
       extraPackages32 = with pkgs.pkgsi686Linux; [
-        # intel-compute-runtime # FIXME does not build due to unsupported system
+        libva-vdpau-driver
         intel-media-driver
-        vaapiIntel
-        vaapiVdpau
-        libvdpau-va-gl
+        (intel-vaapi-driver.override { enableHybridCodec = true; })
       ];
     };
 
