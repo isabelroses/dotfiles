@@ -86,8 +86,6 @@ This repository contains my **personal** configuration for my systems. Its reall
   - 📚 [lib](../parts/lib/) Useful repeated functions
   - 🛠️ [templates](../parts/templates/) Templates for setting up development environments
   - 👾 [modules](../parts/modules/) Exported modules for NixOS, home-manager and Nix Darwin
-  - 🗗 [overlays](../parts/overlays/) Package overlays
-- 📝 [docs](../docs/) Documentation for the configuration which can be found [here](https://isabelroses.github.io/dotfiles/)
 - 🔌 [modules](../modules/)
   - [base](../modules/base/) The base configuration settings, which are common between all systems
   - [darwin](../modules/darwin/) Pre-made modules for exclusively darwin systems
