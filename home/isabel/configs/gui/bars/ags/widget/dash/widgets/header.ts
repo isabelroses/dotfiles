@@ -1,4 +1,5 @@
 import icons from "lib/icons";
+import { sh } from "lib/utils";
 import options from "options";
 import { Action } from "service/powermenu";
 
@@ -33,8 +34,7 @@ export const Header = () =>
       child: Widget.Icon(icons.ui.settings),
       on_clicked: () => {
         App.closeWindow("dash");
-        App.closeWindow("settings-dialog");
-        App.openWindow("settings-dialog");
+        sh("wezterm start --cwd .config/flake");
       },
     }),
     SysButton("logout"),

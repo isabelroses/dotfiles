@@ -61,7 +61,6 @@ const options = mkOptions(OPTIONS, {
     corners: opt(true),
     date: {
       format: opt("%I:%M:%S | %d/%m/%y"),
-      action: opt(() => App.toggleWindow("notis")),
     },
     battery: {
       bar: opt<"hidden" | "regular" | "whole">("regular"),
@@ -108,15 +107,11 @@ const options = mkOptions(OPTIONS, {
     avatar: opt(`/home/${Utils.USER}/media/pictures/pfps/avatar`),
     width: opt(380),
     position: opt<"left" | "center" | "right">("right"),
-    networkSettings: opt("gtk-launch gnome-control-center"),
+    networkSettings: opt("nm-connection-editor"),
     media: {
       monochromeIcon: opt(true),
       coverSize: opt(100),
     },
-  },
-
-  notis: {
-    position: opt<"left" | "center" | "right">("center"),
   },
 
   notifications: {
