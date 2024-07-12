@@ -1,6 +1,6 @@
 { lib, inputs, ... }:
 {
-  imports = [ inputs.pre-commit-hooks.flakeModule ];
+  imports = [ inputs.git-hooks.flakeModule ];
 
   perSystem =
     { pkgs, config, ... }:

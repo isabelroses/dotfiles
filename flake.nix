@@ -61,8 +61,8 @@
       };
     };
 
-    # too hard to explain
-    pre-commit-hooks = {
+    # this adds pre commit hooks via nix to our repo
+    git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
@@ -179,7 +179,7 @@
         flake-parts.follows = "flake-parts";
         flake-utils.follows = "flake-utils";
         beapkgs.follows = "beapkgs";
-        pre-commit-nix.follows = "pre-commit-hooks";
+        git-hooks.follows = "git-hooks";
       };
     };
 
