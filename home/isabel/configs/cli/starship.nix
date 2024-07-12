@@ -50,8 +50,8 @@ in
         format = "at [$path]($style)[$read_only]($read_only_style) ";
 
         substitutions = {
-          "󰋞 /Documents" = " ";
-          "󰋞 /documents" = " ";
+          "󰋞 /Documents" = "󰈙 ";
+          "󰋞 /documents" = "󰈙 ";
 
           "󰋞 /Downloads" = " ";
           "󰋞 /downloads" = " ";
