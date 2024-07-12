@@ -1,11 +1,17 @@
 {
   lib,
+  pkgs,
   config,
   inputs',
   ...
 }:
 let
-  inherit (lib) mkIf mkSecret mkServiceOption;
+  inherit (lib)
+    mkIf
+    mkSecret
+    mkServiceOption
+    template
+    ;
 in
 {
   options.garden.services.blahaj = mkServiceOption "blahaj" { };
@@ -13,18 +19,59 @@ in
   config = mkIf config.garden.services.blahaj.enable {
     age.secrets.blahaj-env = mkSecret { file = "blahaj-env"; };
 
-    systemd.services."blahaj" = {
-      description = "blahaj";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+    users = {
+      groups.blahaj = { };
 
-      serviceConfig = {
-        Type = "simple";
-        DynamicUser = true;
-        ReadWritePaths = [ "/srv/storage/blahaj/nixpkgs" ];
-        EnvironmentFile = config.age.secrets.blahaj-env.path;
-        ExecStart = "${lib.getExe inputs'.beapkgs.packages.blahaj}";
-        Restart = "always";
+      users.blahaj = {
+        isSystemUser = true;
+        createHome = false;
+        group = "blahaj";
+      };
+    };
+
+    systemd = {
+      timers."blahaj-nixpkgs" = {
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnBootSec = "30m";
+          OnUnitActiveSec = "30m";
+          Unit = "blahaj-nixpkgs.service";
+        };
+      };
+
+      services = {
+        "blahaj" = {
+          description = "blahaj";
+          after = [ "network.target" ];
+          wantedBy = [ "multi-user.target" ];
+
+          serviceConfig = {
+            Type = "simple";
+            User = "blahaj";
+            Group = "blahaj";
+            ReadWritePaths = [ "/srv/storage/blahaj/nixpkgs" ];
+            EnvironmentFile = config.age.secrets.blahaj-env.path;
+            ExecStart = "${lib.getExe inputs'.beapkgs.packages.blahaj}";
+            Restart = "always";
+          } // template.systemd;
+        };
+
+        "blahaj-nixpkgs" = {
+          description = "blahaj update nixpkgs";
+          after = [ "network.target" ];
+          wantedBy = [ "multi-user.target" ];
+
+          script = ''
+            ${lib.getExe pkgs.git} -c safe.directory=/srv/storage/blahaj/nixpkgs -C /srv/storage/blahaj/nixpkgs pull origin master
+          '';
+
+          serviceConfig = {
+            Type = "oneshot";
+            User = "blahaj";
+            Group = "blahaj";
+            ReadWritePaths = [ "/srv/storage/blahaj/nixpkgs" ];
+          } // template.systemd;
+        };
       };
     };
   };
