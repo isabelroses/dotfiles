@@ -24,14 +24,9 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@main
 
       - name: Update Lockfile
-        uses: DeterminateSystems/update-flake-lock@main
-        id: update
-        with:
-          pr-title: "chore(deps): flake inputs"
-          commit-msg: "chore(deps): flake inputs"
-          token: ${{ secrets.GITHUB_TOKEN }}
+        run: nix flake update
 
-      - name: Merge Changes
-        run: gh pr merge ${{ steps.update.outputs.pull-request-number }} --squash --delete-branch
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit and Push
+        uses: endbug/add-and-commit@v9
+        with:
+          message: "chore: update flake inputs"
