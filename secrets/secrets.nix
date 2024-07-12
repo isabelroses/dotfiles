@@ -29,6 +29,7 @@ in
   "keys/gh-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
   "keys/aur.age".publicKeys = defAccess (types.workstations ++ types.servers);
   "keys/aur-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
+  "keys/gpg.age".publicKeys = defAccess types.workstations;
 
   # All nixos machines
   "keys/nixos.age".publicKeys = defAccess (types.workstations ++ types.servers);
