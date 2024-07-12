@@ -28,7 +28,7 @@ in
 
     # allow me to open files and links in Windows from WSL
     environment = {
-      sessionVariables.BROWSER = "wsl-open";
+      variables.BROWSER = mkForce "wsl-open";
       systemPackages = with pkgs; [ wsl-open ];
     };
   };
