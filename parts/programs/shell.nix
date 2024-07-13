@@ -32,19 +32,21 @@
 
         nixpkgs = pkgs.mkShellNoCC {
           packages = with pkgs; [
-            statix
-            deadnix
+            # package creation helpers
+            nurl
+            nix-init
+
+            # nixpkgs dev stuff
             hydra-check
-            nix-inspect
-            nix-melt
-            nix-prefetch-git
-            nix-prefetch-github
-            nix-search-cli
-            nix-tree
-            nixpkgs-hammering
             nixpkgs-lint
             nixpkgs-review
-            nix-output-monitor
+            nixpkgs-hammering
+
+            # nix helpers
+            nix-melt
+            nix-tree
+            nix-inspect
+            nix-search-cli
           ];
         };
       };
