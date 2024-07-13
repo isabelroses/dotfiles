@@ -17,11 +17,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Lix
-        run: |
-          curl -sSf -L https://install.lix.systems/lix | sh -s -- install --no-confirm
-          echo "trusted-users = root worker" | sudo tee -a /etc/nix/nix.conf
-          echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
-          sudo systemctl restart nix-daemon
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
+          logger: pretty
 
       - name: Nix Magic Cache
         uses: DeterminateSystems/magic-nix-cache-action@main
