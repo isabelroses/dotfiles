@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  osConfig,
   ...
 }:
 let
@@ -58,6 +59,11 @@ in
 
       ".local/bin/lockdiff" = {
         source = ./lockdiff.nu;
+        executable = true;
+      };
+
+      ".local/bin/nixpkgs-dev" = {
+        text = "nix develop ${osConfig.garden.environment.flakePath}#nixpkgs";
         executable = true;
       };
 
