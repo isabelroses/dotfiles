@@ -71,12 +71,6 @@
       };
     };
 
-    # Rust overlay
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs.nixpkgs.follows = "nixpkgs-small";
-    };
-
     ### Security stuff
     # secure-boot on nixos
     lanzaboote = {
@@ -97,6 +91,7 @@
         nixpkgs.follows = "nixpkgs-small";
         darwin.follows = "";
         home-manager.follows = "";
+        systems.follows = "systems";
       };
     };
 
@@ -128,7 +123,10 @@
     };
 
     # I am not recompling this thanks
-    hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1";
+    hyprland = {
+      url = "git+https://github.com/hyprwm/hyprland?submodules=1";
+      inputs.systems.follows = "systems";
+    };
 
     # a tree-wide formatter
     treefmt-nix = {
