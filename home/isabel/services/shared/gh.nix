@@ -39,7 +39,10 @@ in
                 jq
               ];
               text = ''
-                gh api notifications | jq "length"
+                notis=$(gh api notifications | jq "length")
+                if [ "$notis" -gt 0 ]; then
+                  notify-send "GitHub" "You have $notis notifications" --icon=github
+                fi
               '';
             }
           );
