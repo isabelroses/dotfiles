@@ -39,8 +39,8 @@ in
         echo "''${direnv_layout_dirs[$PWD]:=$(
           echo -n "$XDG_CACHE_HOME"/direnv/layouts/
           echo -n "$PWD" | ${pkgs.perl}/bin/shasum | cut -d ' ' -f 1
-        )
-      }"
+        )}"
+      }
     '';
   };
 }
