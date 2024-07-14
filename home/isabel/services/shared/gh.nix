@@ -14,8 +14,6 @@ let
 in
 {
   config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.isLinux) {
-    home.packages = [ pkgs.nextcloud-client ];
-
     systemd.user = {
       timers."github-notis" = {
         Install.WantedBy = [ "timers.target" ];
@@ -33,7 +31,18 @@ in
 
         Service = {
           Type = "oneshot";
-          ExecStart = "${lib.getExe pkgs.gh} api notifications | ${lib.getExe pkgs.jq} 'length'";
+          ExecStart = lib.getExe (
+            pkgs.writeShellApplication {
+              name = "github-notis";
+              runtimeInputs = with pkgs; [
+                gh
+                jq
+              ];
+              text = ''
+                gh api notifications | jq "length"
+              '';
+            }
+          );
         };
       };
     };
