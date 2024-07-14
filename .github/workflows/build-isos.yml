@@ -34,12 +34,12 @@ jobs:
 
       - name: Build Lilith Iso
         continue-on-error: false
-        run: nix build .#images.lilith -o lilith --print-build-logs
+        run: nix run nixpkgs#nix-fast-build -- --skip-cached --no-nom --flake .#images.lilith --out-link lilith
 
       - name: Upload Release Artifacts
         run: |
           release=$(date +"%Y-%m-%d")
           gh release create "$release"
-          gh release upload "$release" ./lilith/iso/*.iso
+          gh release upload "$release" ./lilith-/iso/*.iso
         env:
           GH_TOKEN: ${{ github.token }}
