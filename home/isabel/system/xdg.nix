@@ -54,7 +54,7 @@ let
       "inode/directory" = [ "thunar.desktop" ];
     };
 
-  template = import lib.template.xdg;
+  template = lib.template.xdg;
 in
 {
   home = {
