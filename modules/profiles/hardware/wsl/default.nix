@@ -9,7 +9,10 @@ let
   inherit (lib) mkForce;
 in
 {
-  imports = [ inputs.nixos-wsl.nixosModules.wsl ];
+  imports = [
+    inputs.nixos-wsl.nixosModules.wsl
+    ./fix-vscode.nix
+  ];
 
   config = {
     wsl = {
