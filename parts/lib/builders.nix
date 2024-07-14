@@ -112,11 +112,8 @@ let
         } // (args.specialArgs or { });
 
         modules = concatLists [
-          [
-            # get an installer profile from nixpkgs to base the Isos off of
-            "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix"
-            "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
-          ]
+          # get an installer profile from nixpkgs to base the Isos off of
+          [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix" ]
 
           # import our custom modules for the iso
           [ "${self}/modules/iso" ]

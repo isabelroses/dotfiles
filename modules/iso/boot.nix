@@ -1,19 +1,16 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 let
   inherit (lib.modules) mkForce mkAfter mkImageMediaOverride;
 in
 {
   boot = {
-    # this can help with driver issues mainly
-    # nvidia will forever be the bane of my existence
-    kernelPackages = mkImageMediaOverride pkgs.linuxPackages_latest;
-
     kernelParams = mkAfter [
       "noquiet"
       "toram"
     ];
 
-    # we have no need for systemd in initrd installation media
+    # nixos doesn't currently support this NixOS/nixpkgs#291750
+    # so we disable it, TODO: change this when it gets fixed
     initrd.systemd = {
       enable = mkImageMediaOverride false;
       emergencyAccess = mkImageMediaOverride true;

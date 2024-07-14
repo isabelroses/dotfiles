@@ -31,7 +31,7 @@ in
       isoName = mkImageMediaOverride "${name}.iso";
 
       # volumeID is used is used by stage 1 of the boot process, so it must be distintctive
-      volumeID = mkImageMediaOverride "${name}";
+      volumeID = mkImageMediaOverride name;
 
       # maximum compression, in exchange for build speed
       squashfsCompression = "zstd -Xcompression-level 10";
