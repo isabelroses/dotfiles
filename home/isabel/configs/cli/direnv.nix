@@ -2,27 +2,48 @@
   lib,
   pkgs,
   config,
+  osConfig,
   ...
 }:
+let
+  inherit (lib) mkIf isAcceptedDevice;
+  acceptedTypes = [
+    "wsl"
+    "desktop"
+    "laptop"
+    "hybrid"
+  ];
+
+  cfg = osConfig.garden.programs;
+in
 {
-  programs.direnv = lib.mkIf pkgs.stdenv.isDarwin {
+  programs.direnv = mkIf ((isAcceptedDevice osConfig acceptedTypes) && cfg.cli.enable) {
     enable = true;
-    nix-direnv.enable = true;
+    silent = true;
+
+    # faster, persistent implementation of use_nix and use_flake
+    nix-direnv = {
+      enable = true;
+      package = pkgs.nix-direnv.override { nix = config.nix.package; };
+    };
 
     enableBashIntegration = config.programs.bash.enable;
     # enableFishIntegration = config.programs.fish.enable;
     enableZshIntegration = config.programs.zsh.enable;
     enableNushellIntegration = config.programs.nushell.enable;
 
-    # stdlib = ''
-    #   # taken from @i077
-    #   # store direnv in cache and not pre project
-    #   direnv_layout_dir() {
-    #     echo "''${direnv_layout_dirs[$PWD]:=$(
-    #       echo -n "${config.xdg.cacheHome}"/direnv/layouts/
-    #       echo -n "$PWD" | shasum | cut -d ' ' -f 1
-    #     )
-    #   }"
-    # '';
+    # modified from from @i077
+    # store direnv in cache and not pre project
+    stdlib = ''
+      : ''${XDG_CACHE_HOME:=$HOME/.cache}
+      declare -A direnv_layout_dirs
+
+      direnv_layout_dir() {
+        echo "''${direnv_layout_dirs[$PWD]:=$(
+          echo -n "$XDG_CACHE_HOME"/direnv/layouts/
+          echo -n "$PWD" | ${pkgs.perl}/bin/shasum | cut -d ' ' -f 1
+        )
+      }"
+    '';
   };
 }
