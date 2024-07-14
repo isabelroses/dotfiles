@@ -13,7 +13,7 @@
         programs = {
           shellcheck.enable = true;
           taplo.enable = true;
-          yamlfmt.enable = true;
+          # yamlfmt.enable = true;
 
           nixfmt = {
             enable = true;
