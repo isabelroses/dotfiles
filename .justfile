@@ -2,17 +2,9 @@
 default:
   @just --list --unsorted
 
-[macos]
-switch *args: verify
-  darwin-rebuild switch --flake . {{args}} |& nom
-
-[linux]
-switch *args: verify
-  sudo nixos-rebuild switch --flake . {{args}} |& nom
-
-[linux]
-boot *args: verify
-  sudo nixos-rebuild boot --flake . {{args}} |& nom
+boot *args: (builder "boot" args)
+test *args: (builder "test" args)
+switch *args: (builder "switch" args)
 
 build pkg:
   nix build .#{{pkg}} --log-format internal-json -v |& nom --json
@@ -35,3 +27,14 @@ check:
 
 update *input:
   nix flake update {{input}} --refresh
+
+# setup our nixos and darwin builder
+[private]
+[macos]
+builder command *args: verify
+  darwin-rebuild {{command}} --flake . {{args}} |& nom
+
+[private]
+[linux]
+builder command *args: verify
+  sudo nixos-rebuild {{command}} --flake . {{args}} |& nom
