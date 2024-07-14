@@ -174,6 +174,7 @@ A collection of resources from people who just make good stuff.
 - [nixpkgs news](https://nixpkgs.news/)
 - [nix.dev](https://nix.dev/)
 - [cafkafk's blog](https://cafkafk.dev/)
+- [zimbatm's blog](https://zimbatm.com/notes)
 - [my own blog](https://isabelroses.com/blog/tag/nix)
 - [official wiki](https://wiki.nixos.org/wiki/NixOS_Wiki)
 - [zero to nix](https://zero-to-nix.com/start)
