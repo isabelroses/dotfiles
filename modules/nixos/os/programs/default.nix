@@ -16,6 +16,7 @@ in
       eval "$(${lib.getExe pkgs.starship} init bash)"
     '';
 
+    # home-manager is so strange and needs these declared multiple times
     fish.enable = true;
     zsh.enable = pkgs.stdenv.isDarwin;
   };
