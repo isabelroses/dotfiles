@@ -18,7 +18,7 @@ in
       default = true;
     };
 
-    package = mkPackageOption pkgs "nodejs-18" {
+    package = mkPackageOption pkgs "nodejs_18" {
       extraDescription = "This is usually doesn't need to be changed";
     };
   };
