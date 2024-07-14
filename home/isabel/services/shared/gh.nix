@@ -18,7 +18,7 @@ in
       timers."github-notis" = {
         Install.WantedBy = [ "timers.target" ];
         Timer = {
-          OnUnitActiveSec = "30m";
+          OnUnitActiveSec = "15m";
           Unit = "github-notis.service";
         };
       };
