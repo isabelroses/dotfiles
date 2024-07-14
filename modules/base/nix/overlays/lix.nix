@@ -8,6 +8,8 @@
       nixos-rebuild = prev.nixos-rebuild.override { nix = config.nix.package; };
       # nixos-option = prev.nixos-option.override { nix = config.nix.package; };
       agenix = inputs'.agenix.packages.default.override { nix = config.nix.package; };
+      nix-direnv = prev.nix-direnv.override { nix = config.nix.package; };
+      nix-index = prev.nix-index.override { nix = config.nix.package; };
 
       lix = inputs'.lix.packages.default.overrideAttrs (oldAttrs: {
         # I've upstreamed this, waiting for merge
