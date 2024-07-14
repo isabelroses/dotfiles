@@ -34,6 +34,10 @@ in
         "${mod}, grave, togglespecialworkspace"
         "${mod} SHIFT, grave, movetoworkspace, special"
 
+        # screen shot
+        ", Print, exec, grim -g \"$(slurp)\" - | wl-copy"
+        "${mod} SHIFT, s, exec, grim -g \"$(slurp)\" - | wl-copy"
+
         # scroll wheel binds
         "${mod}, mouse_down, workspace, e+1"
         "${mod}, mouse_up, workspace, e-1"
