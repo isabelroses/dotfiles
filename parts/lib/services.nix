@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib }:
 let
   # make a service that is a part of the graphical session target
   mkGraphicalService = lib.recursiveUpdate {
@@ -13,7 +13,7 @@ let
     Install.WantedBy = [ "hyprland-session.target" ];
   };
 
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkOption;
 
   mkServiceOption =
     name:

@@ -1,5 +1,7 @@
-{ self, ... }:
+{ inputs }:
 let
+  inherit (inputs) self;
+
   mkSecret =
     {
       file,

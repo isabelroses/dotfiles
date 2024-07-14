@@ -8,8 +8,9 @@ let
   inherit (inputs) self;
 
   inherit (lib.lists) singleton concatLists;
+  inherit (lib.attrsets) recursiveUpdate;
   inherit (lib.modules) mkMerge mkDefault;
-  inherit (import ./hardware.nix { inherit lib; }) ldTernary;
+  inherit (import ./hardware.nix) ldTernary;
 
   # mkSystem is a helper function that wraps lib.nixosSystem
   mkSystem = lib.nixosSystem;
@@ -19,13 +20,12 @@ let
   mkNixSystem =
     {
       host,
-      deployable ? false,
       modules,
       system,
       ...
     }@args:
     withSystem system (
-      { inputs', self', ... }:
+      { self', inputs', ... }:
       let
         pkgs = inputs.nixpkgs.legacyPackages.${system};
 
@@ -37,63 +37,41 @@ let
         # for this specific system
         target = ldTernary pkgs "nixos" "darwin";
       in
-      lib.mkMerge [
-        {
-          "${target}Configurations".${args.host} = mkSystem' {
-            specialArgs = {
-              inherit
-                lib
-                inputs
-                self
-                inputs'
-                self'
-                ;
-            } // (args.specialArgs or { });
+      mkSystem' {
+        # we use recursiveUpdate such that users can "override" the specialArgs
+        specialArgs = recursiveUpdate {
+          inherit (self) lib;
+          inherit
+            self
+            self'
+            inputs
+            inputs'
+            ;
+        } (args.specialArgs or { });
 
-            modules = concatLists [
-              [
-                # depending on the base operating system we can only use some options therefore these
-                # options means that we can limit these options to only those given operating systems
-                "${self}/modules/${target}"
+        modules = concatLists [
+          [
+            # depending on the base operating system we can only use some options therefore these
+            # options means that we can limit these options to only those given operating systems
+            "${self}/modules/${target}"
 
-                # import home-manager for our target system
-                inputs.home-manager."${target}Modules".home-manager
+            # import home-manager for our target system
+            inputs.home-manager."${target}Modules".home-manager
 
-                # configurations based on that are imported based hostname
-                "${self}/hosts/${args.host}"
-              ]
+            # configurations based on that are imported based hostname
+            "${self}/hosts/${args.host}"
+          ]
 
-              (singleton {
-                config = {
-                  garden.system.hostname = args.host;
-                  nixpkgs.hostPlatform = mkDefault args.system;
-                };
-              })
-
-              (args.modules or [ ])
-            ];
-          };
-        }
-
-        # deploy-rs allows us to deploy to a remote system
-        # this is will enabled hosts if they are deployable
-        (lib.mkIf deployable {
-          deploy = {
-            autoRollback = mkDefault true;
-            magicRollback = mkDefault true;
-
-            nodes.${args.host} = {
-              hostname = args.host;
-              skipChecks = true;
-              sshUser = "isabel";
-              user = "root";
-              profiles.system.path =
-                inputs.deploy-rs.lib.${system}.activate.nixos
-                  inputs.self.nixosConfigurations.${args.host};
+          (singleton {
+            config = {
+              garden.system.hostname = args.host;
+              nixpkgs.hostPlatform = mkDefault args.system;
             };
-          };
-        })
-      ]
+          })
+
+          (args.modules or [ ])
+        ];
+      }
     );
 
   # mkNixosIso is a helper function that wraps mkSystem to create an iso
@@ -105,39 +83,41 @@ let
       modules,
       ...
     }@args:
-    {
-      nixosConfigurations.${args.host} = mkSystem {
-        specialArgs = {
-          inherit inputs lib self;
-        } // (args.specialArgs or { });
+    mkSystem {
+      specialArgs = {
+        inherit (self) lib;
+        inherit inputs self;
+      } // (args.specialArgs or { });
 
-        modules = concatLists [
-          # get an installer profile from nixpkgs to base the Isos off of
-          [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix" ]
+      modules = concatLists [
+        # get an installer profile from nixpkgs to base the Isos off of
+        [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix" ]
 
-          # import our custom modules for the iso
-          [ "${self}/modules/iso" ]
+        # import our custom modules for the iso
+        [ "${self}/modules/iso" ]
 
-          # set the hostname for the iso
-          (singleton {
-            networking.hostName = args.host;
-            nixpkgs.hostPlatform = mkDefault args.system;
-          })
+        # set the hostname for the iso
+        (singleton {
+          networking.hostName = args.host;
+          nixpkgs.hostPlatform = mkDefault args.system;
+        })
 
-          # load any extra arguments the user has supplied
-          (args.modules or [ ])
-        ];
-      };
-
-      images.${args.host} = self.nixosConfigurations.${args.host}.config.system.build.isoImage;
+        # load any extra arguments the user has supplied
+        (args.modules or [ ])
+      ];
     };
 
   # mkSystems is a wrapper for mkNixSystem to create a list of systems
-  mkSystems = systems: mkMerge (map mkNixSystem systems);
+  mkSystems = systems: mkMerge (map (system: { ${system.host} = mkNixSystem system; }) systems);
 
   # mkNixosIsos likewise to mkSystems is a wrapper for mkNixosIso to create a list of isos
-  mkNixosIsos = isos: mkMerge (map mkNixosIso isos);
+  mkNixosIsos = isos: mkMerge (map (iso: { ${iso.host} = mkNixosIso iso; }) isos);
 in
 {
-  inherit mkSystems mkNixosIsos;
+  inherit
+    mkSystems
+    mkNixSystem
+    mkNixosIsos
+    mkNixosIso
+    ;
 }
