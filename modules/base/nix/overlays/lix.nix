@@ -2,9 +2,12 @@
 {
   nixpkgs.overlays = [
     (_: prev: {
-      # to reduce our closure size, we change nixos-rebuild to use the nix packages
-      # specified by our flake' nix settings
+      # in order to reduce our closure size, we can override these packages to use the nix package
+      # that we have installed, this will trigget a rebuild of the packages that depend on them
+      # so hopefully its worth it for that system space
       nixos-rebuild = prev.nixos-rebuild.override { nix = config.nix.package; };
+      # nixos-option = prev.nixos-option.override { nix = config.nix.package; };
+      agenix = inputs'.agenix.packages.default.override { nix = config.nix.package; };
 
       lix = inputs'.lix.packages.default.overrideAttrs (oldAttrs: {
         # I've upstreamed this, waiting for merge
