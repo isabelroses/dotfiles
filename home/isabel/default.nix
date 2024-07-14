@@ -1,11 +1,11 @@
 {
   lib,
-  pkgs,
   inputs,
+  osConfig,
   ...
 }:
 let
-  inherit (lib) mkDefault ldTernary;
+  inherit (lib) mkDefault;
 in
 {
   imports = [
@@ -24,18 +24,7 @@ in
 
     home = {
       username = "isabel";
-      homeDirectory = "/${ldTernary pkgs "home" "Users"}/isabel";
-      extraOutputsToInstall = [
-        "doc"
-        "devdoc"
-      ];
-    };
-
-    # I don't use docs, so just disable them
-    manual = {
-      html.enable = false;
-      json.enable = false;
-      manpages.enable = false;
+      homeDirectory = osConfig.users.users.isabel.home;
     };
 
     # let HM manage itself when in standalone mode
