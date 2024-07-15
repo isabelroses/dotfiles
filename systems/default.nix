@@ -103,23 +103,9 @@ in
       ])
     ];
 
+    # NOTE: we redeclare the iso images here, such that they can easily be built
+    # by the flake, with a short command `nix build .#images.lilith` for example
+    # though you may prefer to use `nix-fast-build` for this
     images.lilith = inputs.self.nixosConfigurations.lilith.config.system.build.isoImage;
-
-    # TODO: move to parts/programs
-    #
-    # deploy = {
-    #   autoRollback = mkDefault true;
-    #   magicRollback = mkDefault true;
-    #
-    #   nodes.${args.host} = {
-    #     hostname = args.host;
-    #     skipChecks = true;
-    #     sshUser = "isabel";
-    #     user = "root";
-    #     profiles.system.path =
-    #       inputs.deploy-rs.lib.${system}.activate.nixos
-    #         inputs.self.nixosConfigurations.${args.host};
-    #   };
-    # };
   };
 }

@@ -16,7 +16,7 @@ in
     };
 
     xdg.configFile = {
-      # to fix a issue where "wezterm/wezterm.lua" is created 2 times making a breakage 
+      # to fix a issue where "wezterm/wezterm.lua" is created 2 times making a breakage
       # we disable it, and then create a symlink to the correct file
       # this could also be fixed by not using the wezterm modules!
       # https://github.com/nix-community/home-manager/issues/1807#issuecomment-1740960646

@@ -46,7 +46,7 @@
       };
 
       virtualization = {
-        enable = true;
+        enable = false;
         docker.enable = false;
         qemu.enable = false;
         podman.enable = false;
