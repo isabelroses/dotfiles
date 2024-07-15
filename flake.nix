@@ -5,11 +5,18 @@
 
   inputs = {
     # our main package supplier
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixpkgs-unstable";
+    };
 
     # lix a good fork of nix
     lix = {
-      url = "git+https://git.lix.systems/lix-project/lix.git";
+      type = "git";
+      url = "https://git.lix.systems/lix-project/lix.git";
+
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         pre-commit-hooks.follows = "";
@@ -20,14 +27,19 @@
 
     # improved support for darwin
     darwin = {
-      url = "github:lnl7/nix-darwin";
+      type = "github";
+      owner = "lnl7";
+      repo = "nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # improved support for wsl
     nixos-wsl = {
-      # url = "github:nix-community/NixOS-WSL";
-      url = "github:getchoo/NixOS-WSL/hardware-graphics";
+      type = "github";
+      owner = "getchoo"; # nix-community
+      repo = "NixOS-WSL";
+      ref = "hardware-graphics";
+
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
@@ -37,23 +49,34 @@
 
     # manage userspace with nix
     home-manager = {
-      url = "github:nix-community/home-manager";
+      type = "github";
+      owner = "nix-community";
+      repo = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # we can use this to provide overridable systems
-    systems.url = "github:nix-systems/default";
+    systems = {
+      type = "github";
+      owner = "nix-systems";
+      repo = "default";
+    };
 
     # bring all the mess together with flake-parts
     flake-parts = {
-      url = "github:hercules-ci/flake-parts";
+      type = "github";
+      owner = "hercules-ci";
+      repo = "flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
     ### Flake management
     # deploy systems remotely
     deploy-rs = {
-      url = "github:serokell/deploy-rs";
+      type = "github";
+      owner = "serokell";
+      repo = "deploy-rs";
+
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         utils.follows = "flake-utils";
@@ -63,7 +86,10 @@
 
     # this adds pre commit hooks via nix to our repo
     git-hooks = {
-      url = "github:cachix/git-hooks.nix";
+      type = "github";
+      owner = "cachix";
+      repo = "git-hooks.nix";
+
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         nixpkgs-stable.follows = "";
@@ -74,7 +100,10 @@
     ### Security stuff
     # secure-boot on nixos
     lanzaboote = {
-      url = "github:nix-community/lanzaboote";
+      type = "github";
+      owner = "nix-community";
+      repo = "lanzaboote";
+
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -86,7 +115,10 @@
 
     # Secrets, shhh
     agenix = {
-      url = "github:ryantm/agenix";
+      type = "github";
+      owner = "ryantm";
+      repo = "agenix";
+
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         darwin.follows = "";
@@ -97,7 +129,10 @@
 
     # firefox user.js
     arkenfox = {
-      url = "github:dwarfmaster/arkenfox-nixos";
+      type = "github";
+      owner = "dwarfmaster";
+      repo = "arkenfox-nixos";
+
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         flake-utils.follows = "flake-utils";
@@ -109,7 +144,10 @@
     ### Additional packages
     # a plain simple way to host a mail server
     simple-nixos-mailserver = {
-      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
+      type = "gitlab";
+      owner = "simple-nixos-mailserver";
+      repo = "nixos-mailserver";
+
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         nixpkgs-24_05.follows = "";
@@ -118,26 +156,36 @@
     };
 
     ags = {
-      url = "github:Aylur/ags";
+      type = "github";
+      owner = "Aylur";
+      repo = "ags";
       inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # I am not recompling this thanks
     hyprland = {
-      url = "git+https://github.com/hyprwm/hyprland?submodules=1";
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
+
       inputs.systems.follows = "systems";
     };
 
     # a tree-wide formatter
     treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
+      type = "github";
+      owner = "numtide";
+      repo = "treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     ### Fixes
     # remote ssh vscode server
     vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
+      type = "github";
+      owner = "nix-community";
+      repo = "nixos-vscode-server";
+
       inputs = {
         nixpkgs.follows = "nixpkgs-small";
         flake-utils.follows = "flake-utils";
@@ -146,24 +194,35 @@
 
     # Run unpatched dynamic binaries on NixOS
     nix-ld = {
-      url = "github:Mic92/nix-ld";
+      type = "github";
+      owner = "Mic92";
+      repo = "nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ### misc
     # a index for nixpkgs
     nix-index-db = {
-      url = "github:nix-community/nix-index-database";
+      type = "github";
+      owner = "nix-community";
+      repo = "nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs-small";
     };
 
     # declarative theme management
-    catppuccin.url = "github:catppuccin/nix";
+    catppuccin = {
+      type = "github";
+      owner = "catppuccin";
+      repo = "nix";
+    };
 
     ### my programs
     beapkgs = {
-      url = "github:isabelroses/beapkgs";
+      type = "github";
+      owner = "isabelroses";
+      repo = "beapkgs";
       # url = "path:/home/isabel/dev/beapkgs";
+
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
@@ -171,7 +230,10 @@
     };
 
     izvim = {
-      url = "github:isabelroses/nvim";
+      type = "github";
+      owner = "isabelroses";
+      repo = "nvim";
+
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -183,12 +245,19 @@
 
     # exists for ".follows"
     flake-utils = {
-      url = "github:numtide/flake-utils";
+      type = "github";
+      owner = "numtide";
+      repo = "flake-utils";
       inputs.systems.follows = "systems";
     };
 
     # we can remove some eval time with the smaller nixpkgs set
     # do note that it moves faster but has less packages
-    nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs-small = {
+      type = "github";
+      owner = "NixOS";
+      repo = "nixpkgs";
+      ref = "nixos-unstable-small";
+    };
   };
 }
