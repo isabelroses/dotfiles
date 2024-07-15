@@ -7,7 +7,6 @@ in
     ./pipewire
     ./wireplum
 
-    ./misc.nix
     ./pulseaudio.nix
     ./realtime.nix
     ./rtkit.nix

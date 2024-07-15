@@ -3,9 +3,6 @@ let
   inherit (lib.modules) mkForce mkDefault;
 in
 {
-  # disable sound related programs
-  sound.enable = false;
-
   # disable documentation
   documentation = {
     enable = mkDefault false;
