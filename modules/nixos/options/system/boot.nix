@@ -19,6 +19,7 @@ let
     bool
     nullOr
     listOf
+    package
     ;
 in
 {
@@ -69,8 +70,11 @@ in
       default = [ ];
     };
 
-    extraModulePackages = mkPackageOption pkgs [ ] {
-      example = literalExpression "with config.boot.kernelPackages; [acpi_call]";
+    extraModulePackages = mkOption {
+      type = listOf package;
+      default = [ ];
+      example = literalExpression ''with config.boot.kernelPackages; [acpi_call]'';
+      description = "Extra kernel modules to be loaded.";
     };
 
     loader = mkOption {
