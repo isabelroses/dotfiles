@@ -4,11 +4,14 @@
   modulesPath,
   ...
 }:
+let
+  inherit (lib.modules) mkForce;
+in
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   config = {
-    services.smartd.enable = lib.mkForce false; # Unavailable - device lacks SMART capability.
+    services.smartd.enable = mkForce false; # Unavailable - device lacks SMART capability.
 
     boot = {
       growPartition = !config.boot.initrd.systemd.enable;
@@ -28,13 +31,13 @@
 
       loader.grub = {
         enable = true;
-        useOSProber = lib.mkForce false;
-        efiSupport = lib.mkForce false;
+        useOSProber = mkForce false;
+        efiSupport = mkForce false;
         enableCryptodisk = false;
-        theme = lib.mkForce null;
-        backgroundColor = lib.mkForce null;
-        splashImage = lib.mkForce null;
-        device = lib.mkForce "/dev/sda";
+        theme = mkForce null;
+        backgroundColor = mkForce null;
+        splashImage = mkForce null;
+        device = mkForce "/dev/sda";
       };
     };
   };

@@ -1,6 +1,6 @@
 {
   imports = [
-    ../hosts # the hosts that are used in the system
+    ../systems # the host systems configurations
 
     ./lib # the lib that is used in the system
     ./modules # nixos and home-manager modules
