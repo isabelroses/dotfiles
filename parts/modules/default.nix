@@ -5,15 +5,9 @@ let
 in
 {
   flake = {
-    nixosModules = {
-      # i do not provide a default module, so throw an error
-      default = builtins.throw "There is no default module.";
-    };
-
-    # Currently there are no darwin modules
-    darwinModules = {
-      default = builtins.throw "There is no default module.";
-    };
+    # i do not provide a default module, so throw an error
+    nixosModules.default = builtins.throw "There is no default module.";
+    darwinModules.default = builtins.throw "There is no default module.";
 
     homeManagerModules = {
       gtklock = mkModule /modules/extra/home-manager/gtklock.nix;
