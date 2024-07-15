@@ -6,12 +6,9 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    ldTernary
-    mkSecret
-    mkSecretWithPath
-    ;
+  inherit (lib.modules) mkIf;
+  inherit (lib.hardware) ldTernary;
+  inherit (lib.secrets) mkSecret mkSecretWithPath;
   inherit (pkgs.stdenv) isDarwin;
 
   inherit (config.garden.system) mainUser;

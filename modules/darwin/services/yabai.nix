@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 in
 {
   services.yabai = mkIf (config.garden.environment.desktop == "yabai") {

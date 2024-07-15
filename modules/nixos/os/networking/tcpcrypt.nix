@@ -1,6 +1,6 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (config.garden) device;
 in
 {

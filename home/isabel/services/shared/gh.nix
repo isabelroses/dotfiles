@@ -5,7 +5,11 @@
   ...
 }:
 let
-  inherit (lib) mkIf isAcceptedDevice mkGraphicalService;
+  inherit (lib.meta) getExe;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isAcceptedDevice;
+  inherit (lib.services) mkGraphicalService;
+
   acceptedTypes = [
     "desktop"
     "laptop"
@@ -31,12 +35,13 @@ in
 
         Service = {
           Type = "oneshot";
-          ExecStart = lib.getExe (
+          ExecStart = getExe (
             pkgs.writeShellApplication {
               name = "github-notis";
               runtimeInputs = with pkgs; [
                 gh
                 jq
+                libnotify
               ];
               text = ''
                 notis=$(gh api notifications | jq "length")

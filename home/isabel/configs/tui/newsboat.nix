@@ -5,7 +5,7 @@
   ...
 }:
 {
-  programs.newsboat = lib.mkIf osConfig.garden.programs.tui.enable {
+  programs.newsboat = lib.modules.mkIf osConfig.garden.programs.tui.enable {
     enable = true;
     autoReload = true;
     maxItems = 0;

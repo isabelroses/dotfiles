@@ -5,7 +5,7 @@ in
 {
   imports = [ ./config.nix ];
 
-  config = lib.mkIf (environment.desktop == "Sway") {
+  config = lib.modules.mkIf (environment.desktop == "Sway") {
     wayland.windowManager.sway = {
       enable = true;
       package = null;

@@ -9,7 +9,8 @@
   ...
 }:
 let
-  inherit (lib) mkForce;
+  inherit (lib.modules) mkForce;
+  inherit (lib.attrsets) genAttrs;
   inherit (config.garden.programs) defaults;
 in
 {
@@ -29,7 +30,7 @@ in
         ;
     };
 
-    users = lib.genAttrs config.garden.system.users (name: ./${name});
+    users = genAttrs config.garden.system.users (name: ./${name});
 
     # we should define grauntied common modules here
     sharedModules = [

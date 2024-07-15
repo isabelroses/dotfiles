@@ -1,4 +1,7 @@
 { lib, ... }:
+let
+  inherit (lib.modules) mkDefault;
+in
 {
   services.openssh = {
     enable = true;
@@ -9,7 +12,7 @@
 
       # only allow key based logins and not password
       PasswordAuthentication = false;
-      KbdInteractiveAuthentication = lib.mkDefault false;
+      KbdInteractiveAuthentication = mkDefault false;
       AuthenticationMethods = "publickey";
       PubkeyAuthentication = "yes";
       ChallengeResponseAuthentication = "no";

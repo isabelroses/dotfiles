@@ -1,12 +1,14 @@
 { lib, config, ... }:
 let
-  inherit (lib) types mkOption;
+  inherit (lib.options) mkOption;
+  inherit (lib.types) enum;
+
   inherit (config.garden.system.networking) wirelessBackend;
 in
 {
 
   options.garden.system.networking.wirelessBackend = mkOption {
-    type = types.enum [
+    type = enum [
       "iwd"
       "wpa_supplicant"
     ];

@@ -5,13 +5,12 @@
   ...
 }:
 let
+  inherit (lib) template;
+  inherit (lib.meta) getExe;
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
+
   inherit (config.networking) domain;
-  inherit (lib)
-    mkIf
-    template
-    getExe
-    mkServiceOption
-    ;
 
   cfg = config.garden.services.isabelroses-website;
 

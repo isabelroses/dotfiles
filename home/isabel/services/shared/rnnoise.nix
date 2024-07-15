@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf isAcceptedDevice;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isAcceptedDevice;
 
   acceptedTypes = [
     "desktop"

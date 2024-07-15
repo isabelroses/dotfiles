@@ -1,9 +1,11 @@
 # might need this later
 # https://discourse.nixos.org/t/reuse-lets-encrypt-acme-certificate-for-multiple-services-with-lego/6720
 # https://ashhhleyyy.dev/blog/2023-02-05-from-keycloak-to-kanidm
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib) mkIf mkServiceOption;
+  inherit (lib) template;
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
 
   rdomain = config.networking.domain;
   certs = config.security.acme.certs.${rdomain};
@@ -43,7 +45,7 @@ in
 
       nginx.virtualHosts.${cfg.domain} = {
         locations."/".proxyPass = "https://${config.services.kanidm.serverSettings.bindaddress}";
-      } // lib.template.ssl rdomain;
+      } // template.ssl rdomain;
     };
 
     systemd.services.kanidm = {

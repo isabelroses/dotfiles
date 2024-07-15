@@ -1,9 +1,12 @@
 {
-  pkgs,
   lib,
+  pkgs,
   config,
   ...
 }:
+let
+  inherit (lib.modules) mkIf;
+in
 {
   environment.systemPackages = with pkgs; [
     # packages necessary for thunar thumbnails
@@ -16,7 +19,7 @@
   programs = {
     # the thunar file manager
     # we enable thunar here and add plugins instead of in systemPackages
-    thunar = lib.mkIf config.garden.programs.gui.fileManagers.thunar.enable {
+    thunar = mkIf config.garden.programs.gui.fileManagers.thunar.enable {
       enable = true;
       plugins = with pkgs.xfce; [
         thunar-archive-plugin

@@ -4,23 +4,26 @@
   config,
   ...
 }:
+let
+  inherit (lib.modules) mkIf;
+  inherit (lib.types) nullOr enum;
+  inherit (lib.options) mkOption mkEnableOption;
+in
 {
   options.garden.system.yubikeySupport = {
-    enable = lib.mkEnableOption "yubikey support";
+    enable = mkEnableOption "yubikey support";
 
-    deviceType = lib.mkOption {
-      type = lib.types.nullOr (
-        lib.types.enum [
-          "NFC5"
-          "nano"
-        ]
-      );
+    deviceType = mkOption {
+      type = nullOr (enum [
+        "NFC5"
+        "nano"
+      ]);
       default = null;
       description = "A list of devices to enable Yubikey support for";
     };
   };
 
-  config = lib.mkIf config.garden.system.yubikeySupport.enable {
+  config = mkIf config.garden.system.yubikeySupport.enable {
     hardware.gpgSmartcards.enable = true;
 
     services = {

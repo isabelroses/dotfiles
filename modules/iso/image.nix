@@ -6,7 +6,8 @@
   ...
 }:
 let
-  inherit (lib) mkImageMediaOverride cleanSource;
+  inherit (lib.modules) mkImageMediaOverride;
+  inherit (lib.sources) cleanSource;
 in
 {
   # We don't want to alter the iso image itself so we prevent rebuilds

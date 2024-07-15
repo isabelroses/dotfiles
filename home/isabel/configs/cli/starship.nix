@@ -5,6 +5,9 @@
   ...
 }:
 let
+  inherit (lib.strings) concatStrings;
+
+  # TODO: come back and change this a bit
   ss = symbol: style: {
     inherit symbol;
     format = "[$symbol ](${style})";
@@ -24,7 +27,7 @@ in
 
     settings = {
       add_newline = true;
-      format = lib.concatStrings [
+      format = concatStrings [
         "[╭╴](238)$os"
         "$all[╰─󰁔](237)$character"
       ];

@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf mkForce;
   inherit (pkgs.stdenv) isLinux;
 
   browser = [
@@ -58,8 +59,8 @@ let
 in
 {
   home = {
-    packages = with pkgs; lib.mkIf isLinux [ xdg-utils ];
-    sessionVariables = lib.mkForce template.sysEnv;
+    packages = mkIf isLinux [ pkgs.xdg-utils ];
+    sessionVariables = mkForce template.sysEnv;
   };
 
   xdg = {
@@ -70,7 +71,7 @@ in
     dataHome = "${config.home.homeDirectory}/.local/share";
     stateHome = "${config.home.homeDirectory}/.local/state";
 
-    userDirs = lib.mkIf isLinux {
+    userDirs = mkIf isLinux {
       enable = true;
       createDirectories = true;
 

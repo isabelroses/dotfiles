@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf optionals;
+  inherit (lib.modules) mkIf;
+  inherit (lib.lists) optionals;
   cfg = osConfig.garden.programs;
 in
 {

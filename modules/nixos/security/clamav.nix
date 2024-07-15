@@ -5,11 +5,16 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    mkEnableOption
-    mkOption
-    types
+  inherit (lib.modules) mkIf mkForce;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.strings) escapeShellArgs;
+  inherit (lib.types)
+    int
+    str
+    bool
+    oneOf
+    listOf
+    attrsOf
     ;
 
   sys = config.garden.system;
@@ -20,19 +25,17 @@ in
 
     daemon = {
       settings = mkOption {
-        type =
-          with types;
-          attrsOf (oneOf [
-            bool
-            int
-            str
-            (listOf str)
-          ]);
+        type = attrsOf (oneOf [
+          bool
+          int
+          str
+          (listOf str)
+        ]);
         default = {
           LogFile = "/var/log/clamd.log";
           LogTime = true;
           DetectPUA = true;
-          VirusEvent = lib.escapeShellArgs [
+          VirusEvent = escapeShellArgs [
             "${pkgs.libnotify}/bin/notify-send"
             "--"
             "ClamAV Virus Scan"
@@ -51,7 +54,7 @@ in
       enable = mkEnableOption "ClamAV freshclam updater";
 
       frequency = mkOption {
-        type = types.int;
+        type = int;
         default = 12;
         description = ''
           Number of database checks per day.
@@ -59,7 +62,7 @@ in
       };
 
       interval = mkOption {
-        type = types.str;
+        type = str;
         default = "hourly";
         description = ''
           How often freshclam is invoked. See systemd.time(7) for more
@@ -68,14 +71,12 @@ in
       };
 
       settings = mkOption {
-        type =
-          with types;
-          attrsOf (oneOf [
-            bool
-            int
-            str
-            (listOf str)
-          ]);
+        type = attrsOf (oneOf [
+          bool
+          int
+          str
+          (listOf str)
+        ]);
         default = { };
         description = ''
           freshclam configuration. Refer to <https://linux.die.net/man/5/freshclam.conf>,
@@ -101,8 +102,8 @@ in
       services = {
         clamav-daemon = {
           serviceConfig = {
-            PrivateTmp = lib.mkForce "no";
-            PrivateNetwork = lib.mkForce "no";
+            PrivateTmp = mkForce "no";
+            PrivateNetwork = mkForce "no";
             Restart = "always";
           };
 
@@ -140,7 +141,7 @@ in
               ''
                 ${pkgs.coreutils}/bin/echo -en ${message}
               '';
-            SuccessExitStatus = lib.mkForce [
+            SuccessExitStatus = mkForce [
               11
               40
               50

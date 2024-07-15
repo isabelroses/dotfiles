@@ -1,6 +1,6 @@
 { lib, osConfig, ... }:
 {
-  config = lib.mkIf osConfig.garden.programs.gui.terminals.alacritty.enable {
+  config = lib.modules.mkIf osConfig.garden.programs.gui.terminals.alacritty.enable {
     programs.alacritty = {
       enable = true;
       settings = {

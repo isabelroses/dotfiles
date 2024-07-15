@@ -6,13 +6,13 @@
 }:
 let
   inherit (config.garden) device;
-  inherit (lib)
+  inherit (lib.modules)
     mkIf
     mkMerge
     mkForce
     mkDefault
-    isWayland
     ;
+  inherit (lib.validators) isWayland;
 in
 {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
@@ -23,7 +23,7 @@ in
       { videoDrivers = [ "nvidia" ]; }
 
       # xorg settings
-      (mkIf (!lib.isWayland config) {
+      (mkIf (!isWayland config) {
         # disable DPMS
         monitorSection = ''
           Option "DPMS" "false"

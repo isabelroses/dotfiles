@@ -6,11 +6,12 @@
   ...
 }:
 let
-  inherit (lib) mkIf isWayland;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isWayland;
 in
 {
   config = mkIf (isWayland osConfig && defaults.screenLocker == "swaylock") {
-    home.packages = with pkgs; [ swaylock-effects ];
+    home.packages = [ pkgs.swaylock-effects ];
 
     programs.swaylock = {
       enable = true;

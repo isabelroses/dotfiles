@@ -1,6 +1,7 @@
 { lib, ... }:
 let
-  inherit (lib) mapAttrs mkForce;
+  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.modules) mkForce;
 in
 {
   sound = mapAttrs (_: mkForce) {

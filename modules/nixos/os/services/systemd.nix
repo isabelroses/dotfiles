@@ -1,4 +1,7 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
+let
+  inherit (lib.modules) mkDefault;
+in
 {
   systemd = {
     # Systemd OOMd
@@ -14,7 +17,7 @@
       };
     };
 
-    services.nix-daemon.serviceConfig.OOMScoreAdjust = lib.mkDefault 350;
+    services.nix-daemon.serviceConfig.OOMScoreAdjust = mkDefault 350;
 
     tmpfiles.rules = [
       # Enables storing of the kernel log (including stack trace) into pstore upon a panic or crash.

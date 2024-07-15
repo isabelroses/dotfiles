@@ -4,14 +4,16 @@
   osConfig,
   ...
 }:
+let
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isWayland;
+  inherit (lib.lists) optionals;
+in
 {
-  config = lib.mkIf (lib.isWayland osConfig) {
-    home.packages =
-      with pkgs;
-      [
-        swappy # used for screenshot area selection
-        wl-gammactl
-      ]
-      ++ lib.optionals osConfig.garden.system.sound.enable [ pwvucontrol ];
+  config = mkIf (isWayland osConfig) {
+    home.packages = [
+      pkgs.swappy # used for screenshot area selection
+      pkgs.wl-gammactl
+    ] ++ optionals osConfig.garden.system.sound.enable [ pkgs.pwvucontrol ];
   };
 }

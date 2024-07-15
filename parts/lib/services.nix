@@ -1,19 +1,21 @@
 { lib }:
 let
+  inherit (lib.types) str;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.attrsets) recursiveUpdate;
+
   # make a service that is a part of the graphical session target
-  mkGraphicalService = lib.recursiveUpdate {
+  mkGraphicalService = recursiveUpdate {
     Unit.PartOf = [ "graphical-session.target" ];
     Unit.After = [ "graphical-session.target" ];
     Install.WantedBy = [ "graphical-session.target" ];
   };
 
-  mkHyprlandService = lib.recursiveUpdate {
+  mkHyprlandService = recursiveUpdate {
     Unit.PartOf = [ "graphical-session.target" ];
     Unit.After = [ "graphical-session.target" ];
     Install.WantedBy = [ "hyprland-session.target" ];
   };
-
-  inherit (lib.options) mkOption;
 
   mkServiceOption =
     name:
@@ -24,10 +26,10 @@ let
       extraConfig ? { },
     }:
     {
-      enable = lib.mkEnableOption "Enable the ${name} service";
+      enable = mkEnableOption "Enable the ${name} service";
 
       host = mkOption {
-        type = lib.types.str;
+        type = str;
         default = host;
         description = "The host for ${name} service";
       };
@@ -39,7 +41,7 @@ let
       };
 
       domain = mkOption {
-        type = lib.types.str;
+        type = str;
         default = domain;
         description = "Domain name for the ${name} service";
       };

@@ -1,6 +1,8 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf isWayland optionalString;
+  inherit (lib.modules) mkIf;
+  inherit (lib.strings) optionalString;
+  inherit (lib.validators) isWayland;
 
   env = config.garden.environment;
 in

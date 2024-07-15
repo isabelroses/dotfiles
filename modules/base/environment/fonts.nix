@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) ldTernary;
+  inherit (lib.hardware) ldTernary;
 in
 {
   config.fonts =

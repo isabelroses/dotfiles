@@ -8,12 +8,11 @@ let
   cfg = config.garden.services.dev.forgejo;
   rdomain = config.networking.domain;
 
-  inherit (lib)
-    mkIf
-    template
-    mkSecret
-    mkServiceOption
-    ;
+  inherit (lib) template;
+  inherit (lib.modules) mkIf mkAfter mkForce;
+  inherit (lib.services) mkServiceOption;
+  inherit (lib.secrets) mkSecret;
+  inherit (lib.strings) removePrefix removeSuffix;
 
   # stole this from https://git.winston.sh/winston/deployment-flake/src/branch/main/config/services/gitea.nix who stole it from https://github.com/getchoo
   theme = pkgs.fetchzip {
@@ -48,13 +47,23 @@ in
       config.services.forgejo.settings.server.SSH_PORT
     ];
 
+    users = {
+      groups.git = { };
+
+      users.git = {
+        isSystemUser = true;
+        createHome = false;
+        group = "git";
+      };
+    };
+
     systemd.services = {
       forgejo = {
         preStart =
           let
             inherit (config.services.forgejo) stateDir;
           in
-          lib.mkAfter ''
+          mkAfter ''
             rm -rf ${stateDir}/custom/public/assets
             mkdir -p ${stateDir}/custom/public/assets
             ln -sf ${theme} ${stateDir}/custom/public/assets/css
@@ -97,7 +106,7 @@ in
             DEFAULT_THEME = "catppuccin-mocha-pink";
             THEMES = builtins.concatStringsSep "," (
               [ "auto,forgejo-auto,forgejo-dark,forgejo-light,arc-gree,gitea" ]
-              ++ (map (name: lib.removePrefix "theme-" (lib.removeSuffix ".css" name)) (
+              ++ (map (name: removePrefix "theme-" (removeSuffix ".css" name)) (
                 builtins.attrNames (builtins.readDir theme)
               ))
             );
@@ -115,7 +124,7 @@ in
           };
 
           database = {
-            DB_TYPE = lib.mkForce "postgres";
+            DB_TYPE = mkForce "postgres";
             HOST = "/run/postgresql";
             NAME = "forgejo";
             USER = "forgejo";

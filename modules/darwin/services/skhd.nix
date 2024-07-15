@@ -1,6 +1,8 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
+  inherit (lib.lists) range;
+  inherit (builtins) concatStringsSep replaceStrings;
 in
 {
   services.skhd = mkIf (config.garden.environment.desktop == "yabai") {
@@ -8,10 +10,9 @@ in
     skhdConfig =
       let
         mapKeymaps =
-          with builtins;
           cmd:
           concatStringsSep "\n" (
-            map (i: replaceStrings [ "Num" ] [ (toString (if (i == 10) then 0 else i)) ] cmd) (lib.range 1 10)
+            map (i: replaceStrings [ "Num" ] [ (toString (if (i == 10) then 0 else i)) ] cmd) (range 1 10)
           );
       in
       ''

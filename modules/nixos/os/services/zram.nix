@@ -1,6 +1,6 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 in
 {
   # compress half of the ram to use as swap

@@ -1,19 +1,21 @@
 { lib, config, ... }:
 let
-  inherit (lib)
-    mkDefault
-    mkForce
-    mkOverride
-    mkMerge
+  inherit (lib.modules)
     mkIf
-    optionals
+    mkForce
+    mkMerge
+    mkDefault
+    mkOverride
     ;
+  inherit (lib.lists) optionals;
   sys = config.garden.system;
 in
 {
   boot = {
     consoleLogLevel = 3;
 
+    # we set the kernel to be defaulted to the one set by our settings
+    # we happen to default this to the latest kernel sooo:
     # always use the latest kernel, love the unstablity
     kernelPackages = mkOverride 500 sys.boot.kernel;
 
@@ -111,7 +113,7 @@ in
 
     # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
     kernelParams =
-      (optionals sys.boot.enableKernelTweaks [
+      optionals sys.boot.enableKernelTweaks [
         # https://en.wikipedia.org/wiki/Kernel_page-table_isolation
         # auto means kernel will automatically decide the pti state
         "pti=auto" # on || off
@@ -139,8 +141,8 @@ in
 
         # disable the cursor in vt to get a black screen during intermissions
         "vt.global_cursor_default=0"
-      ])
-      ++ (optionals sys.boot.silentBoot [
+      ]
+      ++ optionals sys.boot.silentBoot [
         # tell the kernel to not be verbose, the voices are too loud
         "quite"
 
@@ -157,6 +159,6 @@ in
         # rd prefix means systemd-udev will be used instead of initrd
         "systemd.show_status=auto"
         "rd.systemd.show_status=auto"
-      ]);
+      ];
   };
 }

@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkDefault ldTernary;
+  inherit (lib.modules) mkDefault;
+  inherit (lib.hardware) ldTernary;
 in
 {
   system = {

@@ -1,11 +1,12 @@
 { lib, ... }:
 let
-  inherit (lib) mkOption types;
+  inherit (lib.options) mkOption;
+  inherit (lib.types) listOf str enum;
 in
 {
   options.garden.device = {
     monitors = mkOption {
-      type = with types; listOf str;
+      type = listOf str;
       default = [ ];
       description = ''
         this does not affect any drivers and such, it is only necessary for
@@ -15,7 +16,7 @@ in
     };
 
     keyboard = mkOption {
-      type = types.enum [
+      type = enum [
         "us"
         "gb"
       ];

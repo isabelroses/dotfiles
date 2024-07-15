@@ -1,6 +1,8 @@
 { lib, config, ... }:
 let
-  inherit (config.garden) device;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isAcceptedDevice;
+
   acceptedTypes = [
     "desktop"
     "laptop"
@@ -8,7 +10,7 @@ let
   ];
 in
 {
-  config = lib.mkIf (builtins.elem device.type acceptedTypes) {
+  config = mkIf (isAcceptedDevice config acceptedTypes) {
     location.provider = "geoclue2";
 
     services.geoclue2 = {

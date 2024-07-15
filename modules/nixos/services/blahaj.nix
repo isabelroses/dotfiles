@@ -6,12 +6,11 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    mkSecret
-    mkServiceOption
-    template
-    ;
+  inherit (lib) template;
+  inherit (lib.meta) getExe;
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
+  inherit (lib.secrets) mkSecret;
 in
 {
   options.garden.services.blahaj = mkServiceOption "blahaj" { };
@@ -51,7 +50,7 @@ in
             Group = "blahaj";
             ReadWritePaths = [ "/srv/storage/blahaj/nixpkgs" ];
             EnvironmentFile = config.age.secrets.blahaj-env.path;
-            ExecStart = "${lib.getExe inputs'.beapkgs.packages.blahaj}";
+            ExecStart = getExe inputs'.beapkgs.packages.blahaj;
             Restart = "always";
           } // template.systemd;
         };
@@ -62,7 +61,7 @@ in
           wantedBy = [ "multi-user.target" ];
 
           script = ''
-            ${lib.getExe pkgs.git} -c safe.directory=/srv/storage/blahaj/nixpkgs -C /srv/storage/blahaj/nixpkgs pull origin master
+            ${getExe pkgs.git} -c safe.directory=/srv/storage/blahaj/nixpkgs -C /srv/storage/blahaj/nixpkgs pull origin master
           '';
 
           serviceConfig = {

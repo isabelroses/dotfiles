@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) ldTernary ifTheyExist;
+  inherit (lib.hardware) ldTernary;
+  inherit (lib.validators) ifTheyExist;
 
   keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2" ];
 in

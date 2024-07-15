@@ -1,11 +1,11 @@
 { lib, ... }:
 let
-  inherit (lib) mkDefault;
+  inherit (lib.modules) mkForce mkDefault;
 in
 {
   security = {
     # sudo-rs is still a feature-incomplete sudo fork that can and will mess things up
-    sudo-rs.enable = lib.mkForce false;
+    sudo-rs.enable = mkForce false;
 
     sudo = {
       enable = true;

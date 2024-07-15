@@ -1,17 +1,15 @@
 { lib, config, ... }:
 let
-  inherit (lib)
-    mkIf
-    mkMerge
-    mkOption
-    types
-    ;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.types) listOf str;
+  inherit (lib.options) mkOption;
+  inherit (lib.lists) elem;
 
   inherit (config.garden.system) fs;
 in
 {
   options.garden.system.fs = mkOption {
-    type = with types; listOf str;
+    type = listOf str;
     default = [
       "vfat"
       "ext4"
@@ -35,7 +33,7 @@ in
       ];
     })
 
-    (mkIf (builtins.elem "btrfs" fs) {
+    (mkIf (elem "btrfs" fs) {
       # clean btrfs devices
       services.btrfs.autoScrub = {
         enable = true;
@@ -51,7 +49,7 @@ in
       };
     })
 
-    (mkIf (builtins.elem "ext4" fs) {
+    (mkIf (elem "ext4" fs) {
       boot = {
         supportedFilesystems = [ "ext4" ];
         initrd = {
@@ -60,7 +58,7 @@ in
       };
     })
 
-    (mkIf (builtins.elem "exfat" fs) {
+    (mkIf (elem "exfat" fs) {
       boot = {
         supportedFilesystems = [ "exfat" ];
         initrd = {
@@ -70,7 +68,7 @@ in
     })
 
     # accept both ntfs and ntfs3 as valid values
-    (mkIf ((builtins.elem "ntfs" fs) || (builtins.elem "ntfs3" fs)) {
+    (mkIf ((elem "ntfs" fs) || (elem "ntfs3" fs)) {
       boot = {
         supportedFilesystems = [ "ntfs" ];
       };

@@ -1,4 +1,7 @@
 { lib, pkgs, ... }:
+let
+  inherit (lib.modules) mkDefault;
+in
 {
   services = {
     # enable GVfs, a userspace virtual filesystem.
@@ -22,7 +25,7 @@
     };
 
     # disable chrony in favor if systemd-timesyncd
-    timesyncd.enable = lib.mkDefault true;
-    chrony.enable = lib.mkDefault false;
+    timesyncd.enable = mkDefault true;
+    chrony.enable = mkDefault false;
   };
 }

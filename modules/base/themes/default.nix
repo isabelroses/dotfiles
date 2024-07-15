@@ -1,23 +1,20 @@
 { lib, pkgs, ... }:
 let
-  inherit (lib) mkOption types;
+  inherit (lib.options) mkOption mkPackageOption;
+  inherit (lib.types) str int;
 in
 {
   options.garden.style.font = {
     name = mkOption {
-      type = types.str;
+      type = str;
       description = "The name of the font";
       default = "Maple Mono";
     };
 
-    package = mkOption {
-      type = types.package;
-      description = "The package providing the main font";
-      default = pkgs.maple-mono;
-    };
+    package = mkPackageOption pkgs "maple-mono" { };
 
     size = mkOption {
-      type = types.int;
+      type = int;
       description = "The size of the font";
       default = 14;
     };

@@ -3,9 +3,8 @@
   # and other stuff
   environment.pathsToLink = [
     "/share/zsh"
-    "/share/nushell"
     "/share/fish"
+    "/share/nushell"
     "/share/bash-completion"
-    "/share/nix-direnv"
   ];
 }

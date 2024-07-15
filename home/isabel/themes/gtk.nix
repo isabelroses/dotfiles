@@ -6,8 +6,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf boolToNum;
-  inherit (osConfig.garden) device;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isAcceptedDevice;
   cfg = osConfig.garden.style;
 
   acceptedTypes = [
@@ -18,7 +18,7 @@ let
   ];
 in
 {
-  config = mkIf (builtins.elem device.type acceptedTypes && pkgs.stdenv.isLinux) {
+  config = mkIf ((isAcceptedDevice osConfig acceptedTypes) && pkgs.stdenv.isLinux) {
     xdg.systemDirs.data =
       let
         schema = pkgs.gsettings-desktop-schemas;
@@ -31,7 +31,7 @@ in
       ];
 
       # gtk applications should use xdg specified settings
-      sessionVariables.GTK_USE_PORTAL = "${toString (boolToNum cfg.gtk.usePortal)}";
+      sessionVariables.GTK_USE_PORTAL = "1";
     };
 
     gtk = {

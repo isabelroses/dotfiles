@@ -5,14 +5,17 @@
   ...
 }:
 let
-  inherit (lib) mkEnableOption;
+  inherit (lib.lists) elem;
+  inherit (lib.modules) mkIf;
+  inherit (lib.strings) getName;
+  inherit (lib.options) mkEnableOption;
 
   cfg = config.garden.programs.gaming;
 in
 {
   options.garden.programs.gaming.steam.enable = mkEnableOption "Enable Steam";
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.steam = {
       enable = true;
       # Open ports in the firewall for Steam Remote Play
@@ -28,7 +31,7 @@ in
       config = {
         allowUnfreePredicate =
           pkg:
-          builtins.elem (lib.getName pkg) [
+          elem (getName pkg) [
             "steam"
             "steam-original"
             "steam-runtime"

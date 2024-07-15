@@ -5,12 +5,9 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    types
-    mkOption
-    mkEnableOption
-    ;
+  inherit (lib.modules) mkIf mkForce;
+  inherit (lib.types) enum;
+  inherit (lib.options) mkOption mkEnableOption;
 
   cfg = config.garden.system.security.selinux;
 in
@@ -18,13 +15,11 @@ in
   options.garden.system.security.selinux = {
     enable = mkEnableOption "system SELinux support + kernel patches";
     state = mkOption {
-      type =
-        with types;
-        enum [
-          "enforcing"
-          "permissive"
-          "disabled"
-        ];
+      type = enum [
+        "enforcing"
+        "permissive"
+        "disabled"
+      ];
       default = "enforcing";
       description = ''
         SELinux state to boot with. The default is enforcing.
@@ -32,13 +27,11 @@ in
     };
 
     type = mkOption {
-      type =
-        with types;
-        enum [
-          "targeted"
-          "minimum"
-          "mls"
-        ];
+      type = enum [
+        "targeted"
+        "minimum"
+        "mls"
+      ];
       default = "targeted";
       description = ''
         SELinux policy type to boot with. The default is targeted.
@@ -51,7 +44,7 @@ in
     systemd.package = pkgs.systemd.override { withSelinux = true; };
 
     # we cannot have apparmor and security together. disable apparmor
-    security.apparmor.enable = lib.mkForce false;
+    security.apparmor.enable = mkForce false;
 
     boot = {
       # tell kernel to use SE Linux by adding necessary parameters

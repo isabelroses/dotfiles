@@ -5,7 +5,9 @@
   ...
 }:
 let
-  inherit (lib) mkIf isx86Linux mkEnableOption;
+  inherit (lib.modules) mkIf;
+  inherit (lib.hardware) isx86Linux;
+  inherit (lib.options) mkEnableOption;
   cfg = config.garden.system.video;
 in
 {

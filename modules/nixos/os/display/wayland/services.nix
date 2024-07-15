@@ -1,11 +1,13 @@
 {
-  config,
   lib,
   pkgs,
+  config,
   ...
 }:
 let
-  inherit (lib) mkIf getExe isWayland;
+  inherit (lib.meta) getExe;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isWayland;
 in
 {
   config = mkIf (isWayland config && pkgs.stdenv.isLinux) {

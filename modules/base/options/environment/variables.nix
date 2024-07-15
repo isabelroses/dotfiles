@@ -5,14 +5,12 @@
   ...
 }:
 let
-  inherit (lib)
-    ldTernary
-    mkEnableOption
-    mkOption
-    types
-    ;
+  inherit (lib.hardware) ldTernary;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) str;
 
   inherit (config.garden.system) mainUser;
+  env = config.garden.environment;
 in
 {
   options.garden.environment = {
@@ -21,7 +19,7 @@ in
     };
 
     flakePath = mkOption {
-      type = types.str;
+      type = str;
       default = "/${ldTernary pkgs "home" "Users"}/${mainUser}/.config/flake";
       description = "The path to the configuration";
     };
@@ -29,11 +27,11 @@ in
 
   config.assertions = [
     {
-      assertion = config.garden.environment.useHomeManager -> config.garden.system.mainUser != null;
+      assertion = env.useHomeManager -> mainUser != null;
       message = "system.mainUser must be set while useHomeManager is enabled";
     }
     {
-      assertion = config.garden.environment.flakePath != null -> config.garden.system.mainUser != null;
+      assertion = env.flakePath != null -> mainUser != null;
       message = "system.mainUser must be set if a flakePath is specified";
     }
   ];

@@ -5,8 +5,9 @@
   ...
 }:
 let
-  inherit (builtins) attrValues mapAttrs;
-  inherit (lib) filterAttrs mkForce ldTernary;
+  inherit (lib.attrsets) filterAttrs attrValues mapAttrs;
+  inherit (lib.modules) mkForce;
+  inherit (lib.hardware) ldTernary;
 
   flakeInputs = filterAttrs (name: value: (value ? outputs) && (name != "self")) inputs;
 in

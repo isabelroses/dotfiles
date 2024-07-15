@@ -4,8 +4,11 @@
   osConfig,
   ...
 }:
+let
+  inherit (lib.modules) mkIf;
+in
 {
-  programs.wofi = lib.mkIf osConfig.garden.programs.gui.launchers.wofi.enable {
+  programs.wofi = mkIf osConfig.garden.programs.gui.launchers.wofi.enable {
     enable = true;
     settings = {
       show = [
@@ -17,18 +20,18 @@
       allow_images = true;
       image_size = 22;
       gtk_dark = true;
-      terminal = defaults.terminal;
+      inherit (defaults) terminal;
       key_expand = "Tab";
       run-always_parse_args = true;
       normal_window = false;
       insensitive = true;
     };
     style = ''
-      @define-color base	#1e1e2e;
-      @define-color mantle	#181825;
-      @define-color text	#cdd6f4;
-      @define-color surface0	#313244;
-      @define-color sapphire	#74c7ec;
+      @define-color base #1e1e2e;
+      @define-color mantle #181825;
+      @define-color text #cdd6f4;
+      @define-color surface0 #313244;
+      @define-color sapphire #74c7ec;
 
 
       window {

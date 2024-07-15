@@ -5,14 +5,13 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
+  inherit (lib.meta) getExe;
+  inherit (lib.strings) concatStringsSep;
+  inherit (lib.options) mkOption;
+  inherit (lib.types) bool;
+
   inherit (config.garden) system environment;
-  inherit (lib)
-    mkIf
-    getExe
-    concatStringsSep
-    mkOption
-    types
-    ;
 
   sessionData = config.services.displayManager.sessionData.desktops;
   sessionPath = concatStringsSep ":" [
@@ -22,7 +21,7 @@ let
 in
 {
   options.garden.system.autoLogin = mkOption {
-    type = types.bool;
+    type = bool;
     default = false;
     description = ''
       Whether to enable passwordless login. This is generally useful on systems with

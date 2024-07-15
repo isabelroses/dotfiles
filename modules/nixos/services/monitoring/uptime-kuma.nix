@@ -1,6 +1,8 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib) mkIf template mkServiceOption;
+  inherit (lib) template;
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.monitoring.uptime-kuma;

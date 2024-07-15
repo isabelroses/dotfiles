@@ -7,7 +7,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf isWayland;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isWayland;
 in
 {
   imports = [ self.homeManagerModules.gtklock ];
@@ -26,7 +27,6 @@ in
             background-repeat: no-repeat;
             background-position: center;
           }
-
 
           #clock-label {
             margin-bottom: 30px;

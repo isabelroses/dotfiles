@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkForce mkIf;
+  inherit (lib.modules) mkIf mkForce;
   inherit (config.garden) programs device;
 in
 {

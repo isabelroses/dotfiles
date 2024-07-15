@@ -1,9 +1,13 @@
 { lib, pkgs, ... }:
 let
+  inherit (lib.lists) map singleton;
+  inherit (lib.trivial) pipe importJSON;
+  inherit (lib.filesystem) listFilesRecursive;
+
   loadDashboard =
     file:
-    lib.pipe file [
-      lib.importJSON
+    pipe file [
+      importJSON
       (
         { dashboard, ... }:
         rec {
@@ -14,14 +18,12 @@ let
     ];
 
   dashboardsDir = pkgs.linkFarm "grafana-provisioning-dashboards" (
-    map loadDashboard (lib.filesystem.listFilesRecursive ./dashboards)
+    map loadDashboard (listFilesRecursive ./dashboards)
   );
 in
 {
-  services.grafana.provision.dashboards.settings = {
-    providers = lib.singleton {
-      options.path = dashboardsDir;
-      allowUiUpdates = true;
-    };
+  services.grafana.provision.dashboards.settings.providers = singleton {
+    options.path = dashboardsDir;
+    allowUiUpdates = true;
   };
 }

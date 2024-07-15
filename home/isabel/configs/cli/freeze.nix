@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf isModernShell;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isModernShell;
 in
 {
   config = mkIf (isModernShell osConfig) {

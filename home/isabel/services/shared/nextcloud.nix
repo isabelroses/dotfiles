@@ -5,7 +5,10 @@
   ...
 }:
 let
-  inherit (lib) mkIf isAcceptedDevice mkGraphicalService;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isAcceptedDevice;
+  inherit (lib.services) mkGraphicalService;
+
   acceptedTypes = [
     "desktop"
     "laptop"

@@ -5,14 +5,10 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    mkOption
-    mkEnableOption
-    types
-    mkDefault
-    optionals
-    ;
+  inherit (lib.modules) mkIf mkDefault;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) bool listOf str;
+  inherit (lib.lists) optionals;
   inherit (config.services) tailscale;
 
   sys = config.garden.system.networking;
@@ -23,7 +19,7 @@ in
     enable = mkEnableOption "Tailscale VPN";
 
     defaultFlags = mkOption {
-      type = with types; listOf str;
+      type = listOf str;
       default = [ "--ssh" ];
       description = ''
         A list of command-line flags that will be passed to the Tailscale daemon on startup
@@ -34,7 +30,7 @@ in
     };
 
     isClient = mkOption {
-      type = types.bool;
+      type = bool;
       default = cfg.enable;
       example = true;
       description = ''
@@ -45,7 +41,7 @@ in
     };
 
     isServer = mkOption {
-      type = types.bool;
+      type = bool;
       default = !cfg.isClient;
       example = true;
       description = ''

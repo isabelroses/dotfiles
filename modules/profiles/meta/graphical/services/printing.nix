@@ -5,12 +5,9 @@
   ...
 }:
 let
-  inherit (lib)
-    mkEnableOption
-    mkOption
-    types
-    mkIf
-    ;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.modules) mkIf;
+  inherit (lib.types) listOf str;
 
   cfg = config.garden.system.printing;
 in
@@ -19,7 +16,7 @@ in
     enable = mkEnableOption "printing";
 
     extraDrivers = mkOption {
-      type = with types; listOf str;
+      type = listOf str;
       default = [ ];
       description = "A list of additional drivers to install for printing";
     };

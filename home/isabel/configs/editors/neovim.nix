@@ -9,5 +9,7 @@ let
 in
 {
   # need this one for uni
-  home.packages = lib.optionals cfg.agnostic.editors.neovim.enable [ inputs'.izvim.packages.default ];
+  home.packages = lib.lists.optionals cfg.agnostic.editors.neovim.enable [
+    inputs'.izvim.packages.default
+  ];
 }

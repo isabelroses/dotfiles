@@ -1,11 +1,7 @@
 { lib, config, ... }:
 let
-  inherit (lib)
-    mkIf
-    mkMerge
-    concatStringsSep
-    mkForce
-    ;
+  inherit (lib.modules) mkIf mkMerge mkForce;
+  inherit (lib.strings) concatStringsSep;
 
   cfg = config.garden.services;
 in

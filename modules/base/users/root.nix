@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  users.users.root = lib.mkIf pkgs.stdenv.isLinux {
+  users.users.root = lib.modules.mkIf pkgs.stdenv.isLinux {
     initialPassword = "changeme";
 
     openssh.authorizedKeys.keys = [

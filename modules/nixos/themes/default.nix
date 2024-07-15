@@ -1,6 +1,1 @@
-{
-  imports = [
-    ./gtk.nix
-    ./catppuccin.nix
-  ];
-}
+{ imports = [ ./catppuccin.nix ]; }

@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib) mkEnableOption;
+  inherit (lib.options) mkEnableOption;
 in
 {
   options.garden.system.security = {

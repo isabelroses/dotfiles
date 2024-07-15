@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf osConfig.garden.programs.gui.terminals.kitty.enable {
+  config = lib.modules.mkIf osConfig.garden.programs.gui.terminals.kitty.enable {
     programs.kitty = {
       enable = true;
 
