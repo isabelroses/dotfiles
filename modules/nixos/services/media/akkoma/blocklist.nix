@@ -1,7 +1,5 @@
+# Largely borrowed from https://github.com/chaossocial/about/blob/master/blocked_instances.md
 {
-  # Automated moderation list
-  # Largely borrowed from https://github.com/chaossocial/about/blob/master/blocked_instances.md
-
   media_nsfw = {
     "sinblr.com" = "Untagged NSFW content";
   };
@@ -95,6 +93,7 @@
     "fedi.tyil.nl" = "Misogy, Discrimination";
     "imouto.pics" = "Lolicon, pedophilia";
     "yesmap.net" = "pedophilia";
+    "layer02.net" = "Transphobia";
   };
 
   followers_only = {
