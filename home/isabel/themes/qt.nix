@@ -5,8 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
-  inherit (osConfig.garden) device;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isAcceptedDevice;
 
   acceptedTypes = [
     "laptop"
@@ -16,17 +16,20 @@ let
   ];
 in
 {
-  config = mkIf (builtins.elem device.type acceptedTypes && pkgs.stdenv.isLinux) {
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.isLinux) {
     qt = {
       enable = true;
-      platformTheme.name = "kvantum";
-      style.name = "kvantum";
-    };
 
-    home.packages = with pkgs; [
-      kdePackages.qt6ct
-      kdePackages.breeze-icons
-    ];
+      platformTheme = {
+        name = "kvantum";
+        package = null;
+      };
+
+      style = {
+        name = "kvantum";
+        package = null;
+      };
+    };
 
     home.sessionVariables = {
       # scaling - 1 means no scaling
