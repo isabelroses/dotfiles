@@ -22,7 +22,7 @@ in
       # https://github.com/nix-community/home-manager/issues/1807#issuecomment-1740960646
       "wezterm/wezterm.lua".enable = false;
       "wezterm" = {
-        source = config.lib.file.mkOutOfStoreSymlink " ${environment.flakePath}/home/${system.mainUser}/configs/gui/terminals/wezterm";
+        source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/home/${system.mainUser}/configs/gui/terminals/wezterm";
         recursive = true;
       };
     };
