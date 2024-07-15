@@ -10,14 +10,11 @@ let
   inherit (lib.lists) singleton concatLists;
   inherit (lib.attrsets) recursiveUpdate;
   inherit (lib.modules) mkMerge mkDefault;
-  inherit (import ./hardware.nix) ldTernary;
+  inherit (lib.hardware) ldTernary;
 
-  # mkSystem is a helper function that wraps lib.nixosSystem
-  mkSystem = lib.nixosSystem;
-
-  # mkNixSystem is a function that uses withSystem to give us inputs' and self'
+  # mkSystem is a function that uses withSystem to give us inputs' and self'
   # it also assumes the the system type either nixos or darwin and uses the appropriate
-  mkNixSystem =
+  mkSystem =
     {
       host,
       modules,
@@ -31,7 +28,7 @@ let
 
         # yet another helper function that wraps lib.nixosSystem
         # or lib.darwinSystem based on the system type
-        mkSystem' = ldTernary pkgs mkSystem inputs.darwin.lib.darwinSystem;
+        mkSystem' = ldTernary pkgs lib.nixosSystem inputs.darwin.lib.darwinSystem;
 
         # this is used to determine the target system and modules that are going to be needed
         # for this specific system
@@ -59,7 +56,7 @@ let
             inputs.home-manager."${target}Modules".home-manager
 
             # configurations based on that are imported based hostname
-            "${self}/hosts/${args.host}"
+            "${self}/systems/${args.host}"
           ]
 
           (singleton {
@@ -74,16 +71,16 @@ let
       }
     );
 
-  # mkNixosIso is a helper function that wraps mkSystem to create an iso
-  # DO NOT use mkNixSystem here as it is overkill for isos, furthermore we cannot use darwinSystem here
-  mkNixosIso =
+  # mkIso is a helper function that wraps mkSystem to create an iso
+  # DO NOT use mkSystem here as it is overkill for isos, furthermore we cannot use darwinSystem here
+  mkIso =
     {
       host,
       system,
       modules,
       ...
     }@args:
-    mkSystem {
+    lib.nixosSystem {
       specialArgs = {
         inherit (self) lib;
         inherit inputs self;
@@ -108,16 +105,16 @@ let
     };
 
   # mkSystems is a wrapper for mkNixSystem to create a list of systems
-  mkSystems = systems: mkMerge (map (system: { ${system.host} = mkNixSystem system; }) systems);
+  mkSystems = systems: mkMerge (map (system: { ${system.host} = mkSystem system; }) systems);
 
-  # mkNixosIsos likewise to mkSystems is a wrapper for mkNixosIso to create a list of isos
-  mkNixosIsos = isos: mkMerge (map (iso: { ${iso.host} = mkNixosIso iso; }) isos);
+  # mkIsos likewise to mkSystems is a wrapper for mkIso to create a list of isos
+  mkIsos = isos: mkMerge (map (iso: { ${iso.host} = mkIso iso; }) isos);
 in
 {
   inherit
+    mkIso
+    mkIsos
+    mkSystem
     mkSystems
-    mkNixSystem
-    mkNixosIsos
-    mkNixosIso
     ;
 }
