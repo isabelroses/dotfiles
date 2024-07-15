@@ -31,7 +31,7 @@ in
 
         "favicon.png" = pkgs.fetchurl {
           url = "https://gravatar.com/avatar/c487c810e09878b4bd90df713a7c9523?size=512";
-          sha256 = "0m9kdi88v15g0k0isz27qg1hpzdy4scszrq106qvhdzxblf2fxiz";
+          hash = "sha256-EX8JXJB45bmtyiKaSUAN5cyRa5Kaz7Erss/yxoGPHVA=";
         };
 
         "emoji/blobs" = pkgs.akkoma-emoji.blobs_gg;
