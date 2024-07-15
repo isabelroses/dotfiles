@@ -2,12 +2,9 @@
 let
   inherit (inputs.self) lib;
 
-  inherit (lib)
-    mkMerge
-    concatLists
-    mkSystems
-    mkNixosIsos
-    ;
+  inherit (lib.modules) mkMerge;
+  inherit (lib.builders) mkIsos mkSystems;
+  inherit (lib.lists) concatLists;
 
   # modules
   modulePath = ../modules; # the base module path
@@ -97,7 +94,7 @@ in
         }
       ])
 
-      (mkNixosIsos [
+      (mkIsos [
         {
           host = "lilith";
           system = "x86_64-linux";
@@ -108,6 +105,8 @@ in
 
     images.lilith = inputs.self.nixosConfigurations.lilith.config.system.build.isoImage;
 
+    # TODO: move to parts/programs
+    #
     # deploy = {
     #   autoRollback = mkDefault true;
     #   magicRollback = mkDefault true;

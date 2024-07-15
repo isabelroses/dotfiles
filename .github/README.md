@@ -75,13 +75,13 @@ This repository contains my **personal** configuration for my systems. Its reall
 ### Config layout
 
 - 🏠 [home](../home/) Where all home-manager configurations lie
-- 🖥️ [hosts](../hosts/)
-  - ☀️ [Amaterasu](../hosts/amatarasu/) My high-end gaming machine
-  - 🐉 [Hydra](../hosts/hydra/) A super mid spec laptop
-  - ⚸ [Lilith](../hosts/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
-  - 🪄 [Luz](../hosts/luz/) A server configuration for some of my infrastructure
-  - 𖤍 [Valkyrie](../hosts/valkyrie/) A WSL2 host, designed to be a development environment on Windows
-  - 💮 [Tatsumaki](../hosts/tatsumaki/) A MacBook Air, configured to last a whole day of university
+- 🖥️ [systems](../systems/)
+  - ☀️ [Amaterasu](../systems/amatarasu/) My high-end gaming machine
+  - 🐉 [Hydra](../systems/hydra/) A super mid spec laptop
+  - ⚸ [Lilith](../systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
+  - 🪄 [Luz](../systems/luz/) A server configuration for some of my infrastructure
+  - 𖤍 [Valkyrie](../systems/valkyrie/) A WSL2 host, designed to be a development environment on Windows
+  - 💮 [Tatsumaki](../systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
 - 🧩 [parts](../parts/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
   - 📚 [lib](../parts/lib/) Useful repeated functions
   - 🛠️ [templates](../parts/templates/) Templates for setting up development environments
