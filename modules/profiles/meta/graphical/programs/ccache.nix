@@ -1,4 +1,7 @@
 { lib, config, ... }:
+let
+  inherit (lib) mkIf;
+in
 {
   programs.ccache = {
     enable = true;
@@ -10,7 +13,7 @@
   nix.settings.extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
 
   nixpkgs.overlays =
-    lib.mkIf (config.programs.ccache.enable && config.programs.ccache.packageNames == [ ])
+    mkIf (config.programs.ccache.enable && config.programs.ccache.packageNames == [ ])
       [
         (_: super: {
           ccacheWrapper = super.ccacheWrapper.override {

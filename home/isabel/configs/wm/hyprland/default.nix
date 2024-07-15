@@ -11,7 +11,7 @@ in
 {
   imports = [ ./config ];
 
-  config = lib.mkIf (environment.desktop == "Hyprland") {
+  config = lib.modules.mkIf (environment.desktop == "Hyprland") {
     home.packages = with pkgs; [
       grim
       swww

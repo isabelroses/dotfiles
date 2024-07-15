@@ -1,17 +1,14 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib)
-    mkDefault
-    mkIf
-    mkOption
-    types
-    ;
+  inherit (lib.options) mkOption;
+  inherit (lib.types) bool;
+  inherit (lib.modules) mkIf mkDefault;
 
   inherit (config.garden) device;
 in
 {
   options.garden.device.hasTPM = mkOption {
-    type = types.bool;
+    type = bool;
     default = false;
     description = "Whether the system has tpm support";
   };

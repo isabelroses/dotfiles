@@ -5,13 +5,21 @@
   ...
 }:
 let
-  inherit (lib)
+  inherit (lib.options)
+    mkOption
     mkEnableOption
     mkPackageOption
-    mkOption
-    mkIf
-    types
+    literalExpression
     ;
+  inherit (lib.modules) mkIf;
+  inherit (lib.types)
+    nullOr
+    either
+    path
+    lines
+    ;
+  inherit (lib.strings) isStorePath;
+  inherit (builtins) isPath;
 
   cfg = config.programs.hyfetch;
 
@@ -25,12 +33,12 @@ in
 
     settings = mkOption {
       default = { };
-      type = settingsFormat.type;
+      inherit (settingsFormat) type;
       description = ''
         Configuration written to {file}`$XDG_CONFIG_HOME/hyfetch.json`.
         See https://github.com/hykilpikonna/hyfetch/blob/master/docs/hyfetch.1 for more help.
       '';
-      example = lib.literalExpression ''
+      example = literalExpression ''
         {
             preset = "lesbian";
             mode = "rgb";
@@ -51,7 +59,7 @@ in
 
     neofetchConfig = mkOption {
       default = { };
-      type = with types; nullOr (either path lines);
+      type = nullOr (either path lines);
       description = ''
         Configuration written to {file}`$XDG_CONFIG_HOME/neofetch/config.conf`.
         See https://github.com/dylanaraps/neofetch/blob/master/neofetch.1 for more help/
@@ -68,7 +76,7 @@ in
       };
       "neofetch/config.conf" = mkIf (cfg.neofetchConfig != { }) {
         source =
-          if builtins.isPath cfg.neofetchConfig || lib.isStorePath cfg.neofetchConfig then
+          if isPath cfg.neofetchConfig || isStorePath cfg.neofetchConfig then
             cfg.neofetchConfig
           else
             pkgs.writeText "neofetch/config.conf" cfg.neofetchConfig;

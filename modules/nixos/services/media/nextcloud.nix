@@ -7,12 +7,10 @@
 let
   rdomain = config.networking.domain;
 
-  inherit (lib)
-    mkIf
-    template
-    mkSecret
-    mkServiceOption
-    ;
+  inherit (lib) template;
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
+  inherit (lib.secrets) mkSecret;
 
   cfg = config.garden.services.media.nextcloud;
 in

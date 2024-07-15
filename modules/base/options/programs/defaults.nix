@@ -1,11 +1,12 @@
 { lib, ... }:
 let
-  inherit (lib) mkOption types mdDoc;
+  inherit (lib.options) mkOption;
+  inherit (lib.types) enum nullOr;
 in
 {
   options.garden.programs.defaults = {
     terminal = mkOption {
-      type = types.enum [
+      type = enum [
         "alacritty"
         "kitty"
         "wezterm"
@@ -15,7 +16,7 @@ in
     };
 
     fileManager = mkOption {
-      type = types.enum [
+      type = enum [
         "thunar"
         "dolphin"
         "nemo"
@@ -24,7 +25,7 @@ in
     };
 
     browser = mkOption {
-      type = types.enum [
+      type = enum [
         "firefox"
         "chromium"
       ];
@@ -32,7 +33,7 @@ in
     };
 
     editor = mkOption {
-      type = types.enum [
+      type = enum [
         "nvim"
         "codium"
       ];
@@ -40,47 +41,39 @@ in
     };
 
     launcher = mkOption {
-      type =
-        with types;
-        nullOr (enum [
-          "rofi"
-          "wofi"
-        ]);
+      type = nullOr (enum [
+        "rofi"
+        "wofi"
+      ]);
       default = "rofi";
     };
 
     bar = mkOption {
-      type =
-        with types;
-        nullOr (enum [
-          "waybar"
-          "ags"
-        ]);
+      type = nullOr (enum [
+        "waybar"
+        "ags"
+      ]);
       default = "ags";
     };
 
     screenLocker = mkOption {
-      type =
-        with types;
-        nullOr (enum [
-          "swaylock"
-          "gtklock"
-        ]);
+      type = nullOr (enum [
+        "swaylock"
+        "gtklock"
+      ]);
       default = "gtklock";
-      description = mdDoc ''
+      description = ''
         The lockscreen module to be loaded by home-manager.
       '';
     };
 
     noiseSuppressor = mkOption {
-      type =
-        with types;
-        nullOr (enum [
-          "rnnoise"
-          "noisetorch"
-        ]);
+      type = nullOr (enum [
+        "rnnoise"
+        "noisetorch"
+      ]);
       default = "rnnoise";
-      description = mdDoc ''
+      description = ''
         The noise suppressor to be used for desktop systems with sound enabled.
       '';
     };

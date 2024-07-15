@@ -6,18 +6,18 @@
   ...
 }:
 let
-  inherit (lib) mkIf isAcceptedDevice;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isAcceptedDevice isModernShell;
+
   acceptedTypes = [
     "wsl"
     "desktop"
     "laptop"
     "hybrid"
   ];
-
-  cfg = osConfig.garden.programs;
 in
 {
-  programs.direnv = mkIf ((isAcceptedDevice osConfig acceptedTypes) && cfg.cli.enable) {
+  programs.direnv = mkIf (isAcceptedDevice osConfig acceptedTypes && isModernShell osConfig) {
     enable = true;
     silent = true;
 

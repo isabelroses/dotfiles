@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) isWayland mkIf;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isWayland;
 
   catppuccin-mocha = pkgs.fetchzip {
     url = "https://raw.githubusercontent.com/catppuccin/prismlauncher/main/themes/Mocha/Catppuccin-Mocha.zip";

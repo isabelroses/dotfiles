@@ -1,11 +1,14 @@
 {
   lib,
-  config,
   pkgs,
+  config,
   ...
 }:
 let
-  inherit (lib) optionals mkIf mkEnableOption;
+  inherit (lib.lists) optionals;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkEnableOption;
+
   sys = config.garden.system;
   cfg = sys.virtualization;
 in

@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   inherit (config.garden) device;
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 in
 {
   config = mkIf (device.cpu == "amd" || device.cpu == "vm-amd") {

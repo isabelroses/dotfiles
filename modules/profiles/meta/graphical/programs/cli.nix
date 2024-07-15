@@ -4,6 +4,10 @@
   config,
   ...
 }:
+let
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isWayland;
+in
 {
   programs = {
     # its actually useful but i don't use it much anymore
@@ -22,7 +26,7 @@
     with pkgs;
     let
       winePackage =
-        if (lib.isWayland config) then wineWowPackages.waylandFull else wineWowPackages.stableFull;
+        if (isWayland config) then wineWowPackages.waylandFull else wineWowPackages.stableFull;
     in
-    lib.mkIf config.garden.programs.agnostic.wine.enable [ winePackage ];
+    mkIf config.garden.programs.agnostic.wine.enable [ winePackage ];
 }

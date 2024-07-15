@@ -5,13 +5,17 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
+  inherit (lib.lists) optionals;
+  inherit (lib.validators) isWayland;
+
   progs = osConfig.garden.programs;
   cfg = progs.gui.browsers.chromium;
 
   chrome_pkg = if cfg.ungoogled then pkgs.ungoogled-chromium else pkgs.chromium;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
       extensions =
@@ -23,7 +27,7 @@ in
           "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
           "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
         ]
-        ++ lib.optionals progs.gaming.enable [
+        ++ optionals progs.gaming.enable [
           "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
           "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
         ];
@@ -74,7 +78,7 @@ in
             "--disable-speech-api"
             "--disable-speech-synthesis-api"
           ]
-          ++ lib.optionals (lib.isWayland osConfig) [
+          ++ optionals (isWayland osConfig) [
             # Disabled because hardware acceleration doesn't work
             # when disabling --use-gl=egl, it's not gonna show any emojis
             # "--use-gl=egl"

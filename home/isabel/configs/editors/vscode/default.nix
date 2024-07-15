@@ -7,7 +7,7 @@
 }:
 let
   inherit (pkgs.stdenv) isLinux isDarwin;
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 
   mkLink = config.lib.file.mkOutOfStoreSymlink;
 

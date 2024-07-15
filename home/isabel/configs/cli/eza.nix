@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf isModernShell;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isModernShell;
 in
 {
   programs.eza = mkIf (isModernShell osConfig) {

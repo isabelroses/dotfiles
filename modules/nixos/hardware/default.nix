@@ -12,6 +12,6 @@
   ];
 
   config = {
-    hardware.enableRedistributableFirmware = lib.mkDefault true;
+    hardware.enableRedistributableFirmware = lib.modules.mkDefault true;
   };
 }

@@ -13,9 +13,7 @@
     in
     {
       login = common;
-
       greetd = common;
-
       tuigreet = common;
     };
 }

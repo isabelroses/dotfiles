@@ -1,12 +1,12 @@
 {
-  config,
-  pkgs,
   lib,
+  pkgs,
+  config,
   inputs,
   ...
 }:
 let
-  inherit (lib) mkIf mkForce;
+  inherit (lib.modules) mkIf mkForce;
   sys = config.garden.system.boot;
 in
 {

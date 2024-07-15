@@ -10,7 +10,7 @@ in
 {
   imports = [ ./minecraft.nix ];
 
-  config = lib.mkIf programs.gaming.enable {
+  config = lib.modules.mkIf programs.gaming.enable {
     home.packages = with pkgs; [
       gamescope
       legendary-gl

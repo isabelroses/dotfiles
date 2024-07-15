@@ -5,11 +5,13 @@
   ...
 }:
 let
-  inherit (lib) mkIf isAcceptedDevice optionals;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isAcceptedDevice;
+  inherit (lib.lists) optionals;
+
   acceptedTypes = [
     "desktop"
     "laptop"
-    "wsl"
     "lite"
     "hybrid"
   ];
@@ -27,6 +29,6 @@ in
         brightnessctl # brightness managed via cli
         dconf # interface with dconf settings
       ]
-      ++ optionals cfg.cli.modernShell.enable [ pkgs.catppuccinifier-cli ];
+      ++ optionals cfg.cli.modernShell.enable [ catppuccinifier-cli ];
   };
 }

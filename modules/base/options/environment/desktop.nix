@@ -1,19 +1,18 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) nullOr enum;
 
   cfg = config.garden.environment;
 in
 {
   options.garden.environment = {
     desktop = mkOption {
-      type = types.nullOr (
-        types.enum [
-          "Hyprland"
-          "yabai"
-          "sway"
-        ]
-      );
+      type = nullOr (enum [
+        "Hyprland"
+        "yabai"
+        "sway"
+      ]);
       default = "Hyprland";
       description = "The desktop environment to be used.";
     };

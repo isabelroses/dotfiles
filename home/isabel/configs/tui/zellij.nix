@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf osConfig.garden.programs.tui.enable {
+  config = lib.modules.mkIf osConfig.garden.programs.tui.enable {
     programs.zellij = {
       enable = true;
       enableBashIntegration = config.programs.bash.enable;

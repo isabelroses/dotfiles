@@ -5,11 +5,20 @@
   ...
 }:
 let
-  inherit (lib)
-    literalExpression
+  inherit (lib.options)
     mkOption
     mkEnableOption
-    types
+    mkPackageOption
+    literalExpression
+    ;
+  inherit (lib.types)
+    str
+    raw
+    int
+    enum
+    bool
+    nullOr
+    listOf
     ;
 in
 {
@@ -20,7 +29,7 @@ in
     tmpOnTmpfs = mkEnableOption "`/tmp` living on tmpfs. false means it will be cleared manually on each reboot";
 
     kernel = mkOption {
-      type = types.raw;
+      type = raw;
       default = pkgs.linuxPackages_latest;
       description = "The kernel to use for the system.";
     };
@@ -42,7 +51,7 @@ in
     '';
 
     extraModprobeConfig = mkOption {
-      type = types.str;
+      type = str;
       default = ''options hid_apple fnmode=1'';
       description = "Extra modprobe config that will be passed to system modprobe config.";
     };
@@ -56,19 +65,16 @@ in
       };
 
     extraKernelParams = mkOption {
-      type = with types; listOf str;
+      type = listOf str;
       default = [ ];
     };
 
-    extraModulePackages = mkOption {
-      type = with types; listOf package;
-      default = [ ];
-      example = literalExpression ''with config.boot.kernelPackages; [acpi_call]'';
-      description = "Extra kernel modules to be loaded.";
+    extraModulePackages = mkPackageOption pkgs [ ] {
+      example = literalExpression "with config.boot.kernelPackages; [acpi_call]";
     };
 
     loader = mkOption {
-      type = types.enum [
+      type = enum [
         "none"
         "grub"
         "systemd-boot"
@@ -79,7 +85,7 @@ in
 
     grub = {
       device = mkOption {
-        type = with types; nullOr str;
+        type = nullOr str;
         default = "nodev";
         description = "The device to install the bootloader to.";
       };
@@ -87,18 +93,14 @@ in
 
     memtest = {
       enable = mkEnableOption "memtest86+";
-      package = mkOption {
-        type = types.package;
-        default = pkgs.memtest86plus;
-        description = "The memtest package to use.";
-      };
+      package = mkPackageOption pkgs "memtest86plus" { };
     };
 
     encryption = {
       enable = mkEnableOption "LUKS encryption";
 
       device = mkOption {
-        type = types.str;
+        type = str;
         default = "enc";
         description = ''
           The LUKS label for the device that will be decrypted on boot.
@@ -107,7 +109,7 @@ in
       };
 
       keyFile = mkOption {
-        type = with types; nullOr str;
+        type = nullOr str;
         default = null;
         description = ''
           The path to the keyfile that will be used to decrypt the device.
@@ -117,7 +119,7 @@ in
       };
 
       keySize = mkOption {
-        type = types.int;
+        type = int;
         default = 4096;
         description = ''
           The size of the keyfile in bytes.
@@ -125,7 +127,7 @@ in
       };
 
       fallbackToPassword = mkOption {
-        type = types.bool;
+        type = bool;
         default = !config.boot.initrd.systemd.enable;
         description = ''
           Whether or not to fallback to password authentication if the keyfile

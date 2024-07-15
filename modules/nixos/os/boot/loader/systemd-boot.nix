@@ -1,6 +1,7 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib) mkDefault mkIf optionalAttrs;
+  inherit (lib.modules) mkIf mkDefault;
+  inherit (lib.attrsets) optionalAttrs;
 
   cfg = config.garden.system.boot;
 in

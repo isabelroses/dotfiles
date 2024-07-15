@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 in
 {
   services.swaync = mkIf osConfig.garden.programs.gui.bars.waybar.enable {

@@ -1,23 +1,31 @@
-# stolen from https://github.com/NotAShelf/nyx/blob/refactor/modules/extra/shared/home-manager/gtklock/default.nix
+# modified from https://github.com/NotAShelf/nyx/blob/refactor/modules/extra/shared/home-manager/gtklock/default.nix
 {
   lib,
   pkgs,
   config,
   ...
 }:
-with builtins;
 let
   cfg = config.programs.gtklock;
 
-  inherit (lib)
-    types
-    mkIf
+  inherit (lib.modules) mkIf;
+  inherit (lib.options)
     mkOption
     mkEnableOption
     mkPackageOption
     literalExpression
-    optionals
-    optionalString
+    ;
+  inherit (lib.strings) optionalString concatStringsSep;
+  inherit (lib.lists) optionals;
+  inherit (lib.types)
+    oneOf
+    str
+    path
+    listOf
+    either
+    package
+    nullOr
+    attrs
     ;
   inherit (lib.generators) toINI;
 
@@ -35,14 +43,13 @@ let
   finalConfig = baseConfig + optionals (cfg.extraConfig != null) (toINI { } cfg.extraConfig);
 in
 {
-  meta.maintainers = [ maintainers.NotAShelf ];
   options.programs.gtklock = {
     enable = mkEnableOption "GTK-based lockscreen for Wayland";
     package = mkPackageOption pkgs "gtklock" { };
 
     config = {
       gtk-theme = mkOption {
-        type = types.str;
+        type = str;
         default = "";
         description = ''
           GTK theme to use for gtklock.
@@ -51,12 +58,10 @@ in
       };
 
       style = mkOption {
-        type =
-          with types;
-          oneOf [
-            str
-            path
-          ];
+        type = oneOf [
+          str
+          path
+        ];
         default = "";
         description = ''
           The css file to be used for gtklock.
@@ -73,7 +78,7 @@ in
       };
 
       modules = mkOption {
-        type = with types; listOf (either package str);
+        type = listOf (either package str);
         default = [ ];
         description = ''
           A list of gtklock modulesto use. Can either be packages, absolute paths, or strings.
@@ -88,7 +93,7 @@ in
     };
 
     extraConfig = mkOption {
-      type = with types; nullOr attrs;
+      type = nullOr attrs;
       default = {
         countdown = {
           countdown-position = "top-right";

@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkEnableOption;
+  inherit (lib.options) mkEnableOption;
 in
 {
   options.garden.programs.gaming =

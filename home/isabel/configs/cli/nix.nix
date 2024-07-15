@@ -1,7 +1,7 @@
 { lib, osConfig, ... }:
 let
-  inherit (lib.attrsets) filterAttrs;
   inherit (lib.lists) elem;
+  inherit (lib.attrsets) filterAttrs;
 in
 {
   # copy the system config for nix to the home-manager config

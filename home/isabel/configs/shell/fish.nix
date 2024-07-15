@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 let
-  inherit (lib) getExe;
+  inherit (lib.meta) getExe;
 in
 {
   programs.fish = {

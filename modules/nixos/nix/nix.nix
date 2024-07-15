@@ -1,8 +1,11 @@
 { lib, config, ... }:
+let
+  inherit (lib.modules) mkForce;
+in
 {
   nix = {
     gc = {
-      automatic = lib.mkForce (!config.programs.nh.clean.enable);
+      automatic = mkForce (!config.programs.nh.clean.enable);
       dates = "Mon *-*-* 03:00";
     };
 

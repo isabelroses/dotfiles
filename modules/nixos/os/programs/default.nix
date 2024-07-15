@@ -5,7 +5,9 @@
   ...
 }:
 let
-  inherit (lib) mkIf isModernShell;
+  inherit (lib.modules) mkIf;
+  inherit (lib.meta) getExe;
+  inherit (lib.validators) isModernShell;
 in
 {
   programs = {
@@ -13,11 +15,10 @@ in
     less.enable = true;
 
     bash.promptInit = mkIf (isModernShell config) ''
-      eval "$(${lib.getExe pkgs.starship} init bash)"
+      eval "$(${getExe pkgs.starship} init bash)"
     '';
 
     # home-manager is so strange and needs these declared multiple times
     fish.enable = true;
-    zsh.enable = pkgs.stdenv.isDarwin;
   };
 }

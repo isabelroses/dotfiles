@@ -5,6 +5,9 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
+  inherit (lib.attrsets) genAttrs recursiveUpdate;
+
   cfg = osConfig.garden.programs.gui.browsers.firefox;
 in
 {
@@ -13,7 +16,7 @@ in
     ./extensions.nix
   ];
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     programs.firefox = {
       enable = true;
 
@@ -31,11 +34,11 @@ in
           let
             enableSections =
               sections:
-              lib.genAttrs sections (_: {
+              genAttrs sections (_: {
                 enable = true;
               });
           in
-          lib.recursiveUpdate
+          recursiveUpdate
             {
               enable = true;
 

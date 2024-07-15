@@ -3,7 +3,7 @@ let
   cfg = osConfig.garden.programs.gui.kdeconnect;
 in
 {
-  services.kdeconnect = lib.mkIf cfg.enable {
+  services.kdeconnect = lib.modules.mkIf cfg.enable {
     enable = true;
     indicator = cfg.indicator.enable;
   };

@@ -19,7 +19,7 @@
     };
 
     # pointer / cursor theming
-    home.pointerCursor = lib.mkIf pkgs.stdenv.isLinux {
+    home.pointerCursor = lib.modules.mkIf pkgs.stdenv.isLinux {
       size = 24;
       gtk.enable = true;
       x11.enable = true;

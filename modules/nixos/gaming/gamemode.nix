@@ -5,12 +5,9 @@
   ...
 }:
 let
-  inherit (lib)
-    makeBinPath
-    mkIf
-    optionalString
-    mkEnableOption
-    ;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkEnableOption;
+  inherit (lib.strings) optionalString makeBinPath;
 
   env = config.garden.environment;
 

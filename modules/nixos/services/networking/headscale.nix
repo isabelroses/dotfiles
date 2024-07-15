@@ -5,7 +5,10 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkServiceOption;
+  inherit (lib) template;
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
+
   rdomain = config.networking.domain;
 
   cfg = config.garden.services.networking.headscale;
@@ -76,7 +79,7 @@ in
         locations."/web" = {
           root = "${inputs'.beapkgs.packages.headscale-ui}/share";
         };
-      } // lib.template.ssl rdomain;
+      } // template.ssl rdomain;
     };
   };
 }

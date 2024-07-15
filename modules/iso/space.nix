@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib) mkDefault mkForce;
+  inherit (lib.modules) mkForce mkDefault;
 in
 {
   # disable sound related programs

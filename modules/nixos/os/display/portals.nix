@@ -5,9 +5,11 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf mkForce;
+  inherit (lib.validators) isWayland;
+
   sys = config.garden.system;
   env = config.garden.environment;
-  inherit (lib) mkForce mkIf isWayland;
 in
 {
   config = mkIf (sys.video.enable && pkgs.stdenv.isLinux) {

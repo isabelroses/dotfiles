@@ -1,6 +1,8 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf mkSecret mkServiceOption;
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
+  inherit (lib.secrets) mkSecret;
 
   cfg = config.garden.services.networking.cloudflared;
 in

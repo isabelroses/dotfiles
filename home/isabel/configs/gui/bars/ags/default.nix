@@ -7,11 +7,14 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isWayland;
+
   inherit (osConfig.garden) environment system programs;
 in
 {
   # TODO: package this
-  config = lib.mkIf ((lib.isWayland osConfig) && programs.gui.bars.ags.enable) {
+  config = mkIf (isWayland osConfig && programs.gui.bars.ags.enable) {
     home = {
       packages =
         [ inputs'.ags.packages.ags ]

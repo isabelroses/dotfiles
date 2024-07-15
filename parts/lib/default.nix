@@ -15,7 +15,7 @@ let
       builders = import ./builders.nix { inherit lib inputs withSystem; };
       hardware = import ./hardware.nix;
       helpers = import ./helpers.nix { inherit lib; };
-      secerets = import ./secrets.nix { inherit inputs; };
+      secrets = import ./secrets.nix { inherit inputs; };
       services = import ./services.nix { inherit lib; };
       validators = import ./validators.nix { inherit lib; };
 
@@ -33,7 +33,7 @@ let
         indexOf
         intListToStringList
         ;
-      inherit (self.secerets) mkSecret mkSecretWithPath;
+      inherit (self.secrets) mkSecret mkSecretWithPath;
       inherit (self.services) mkGraphicalService mkHyprlandService mkServiceOption;
       inherit (self.validators)
         ifTheyExist

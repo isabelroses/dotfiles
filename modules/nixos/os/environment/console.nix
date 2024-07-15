@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 {
   console = {
-    enable = lib.mkDefault true;
+    enable = lib.modules.mkDefault true;
     earlySetup = true;
 
     keyMap = "en";

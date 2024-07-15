@@ -7,7 +7,6 @@
     TERMINAL = defaults.terminal;
     SYSTEMD_PAGERSECURE = "true";
     PAGER = "less -FR";
-    FLAKE = "${osConfig.garden.environment.flakePath}";
-    PACE_HOME = "/home/isabel/.config/pace";
+    FLAKE = osConfig.garden.environment.flakePath;
   };
 }

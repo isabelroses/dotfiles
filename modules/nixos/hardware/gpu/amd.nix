@@ -5,10 +5,11 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
   inherit (config.garden) device;
 in
 {
-  config = lib.mkIf (device.gpu == "amd" || device.gpu == "hybrid-amd") {
+  config = mkIf (device.gpu == "amd" || device.gpu == "hybrid-amd") {
     # enable amdgpu xorg drivers
     services.xserver.videoDrivers = [ "amdgpu" ];
 

@@ -2,6 +2,7 @@
 let
   inherit (builtins) toString;
   inherit (lib.lists) singleton;
+  inherit (lib.modules) mkForce;
 in
 {
   # Enable the threadirqs kernel parameter to reduce audio latency
@@ -100,7 +101,7 @@ in
         };
 
         wireplumber = {
-          enable = lib.mkForce true;
+          enable = mkForce true;
           extraConfig = {
             # Configure each device/card/output to use the low latency configuration
             "92-low-latency" = {

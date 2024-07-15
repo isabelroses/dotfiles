@@ -5,7 +5,7 @@
   ...
 }:
 {
-  config = lib.mkIf osConfig.garden.programs.tui.enable {
+  config = lib.modules.mkIf osConfig.garden.programs.tui.enable {
     home.packages = [ inputs'.beapkgs.packages.zzz ];
 
     xdg.configFile."zzz/config.yaml".text = ''

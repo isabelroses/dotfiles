@@ -5,10 +5,13 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isWayland;
+
   inherit (osConfig.garden.style) font;
 in
 {
-  config = lib.mkIf (lib.isWayland osConfig && osConfig.garden.programs.gui.bars.waybar.enable) {
+  config = mkIf (isWayland osConfig && osConfig.garden.programs.gui.bars.waybar.enable) {
     home.packages = with pkgs; [ wlogout ];
 
     programs.waybar = {

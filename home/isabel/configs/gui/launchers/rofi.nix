@@ -7,10 +7,13 @@
   ...
 }:
 let
-  rofiPackage = if lib.isWayland osConfig then pkgs.rofi-wayland else pkgs.rofi;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isWayland;
+
+  rofiPackage = if isWayland osConfig then pkgs.rofi-wayland else pkgs.rofi;
 in
 {
-  programs.rofi = lib.mkIf osConfig.garden.programs.gui.launchers.rofi.enable {
+  programs.rofi = mkIf osConfig.garden.programs.gui.launchers.rofi.enable {
     enable = true;
     package = rofiPackage.override { plugins = [ pkgs.rofi-rbw ]; };
 

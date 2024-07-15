@@ -6,10 +6,11 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf mkForce;
   inherit (osConfig.garden.system) video;
 in
 {
-  services.gpg-agent = lib.mkIf pkgs.stdenv.isLinux {
+  services.gpg-agent = mkIf pkgs.stdenv.isLinux {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;
     enableFishIntegration = config.programs.fish.enable;
@@ -31,7 +32,7 @@ in
   };
 
   # Allow manually restarting gpg-agent if it fails
-  systemd.user.services.gpg-agent.Unit.RefuseManualStart = lib.mkForce false;
+  systemd.user.services.gpg-agent.Unit.RefuseManualStart = mkForce false;
 
   programs.gpg = {
     enable = true;

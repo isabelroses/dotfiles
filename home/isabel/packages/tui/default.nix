@@ -1,11 +1,14 @@
 {
+  lib,
   pkgs,
   osConfig,
-  lib,
   ...
 }:
+let
+  inherit (lib.modules) mkIf;
+in
 {
-  config = lib.mkIf osConfig.garden.programs.tui.enable {
+  config = mkIf osConfig.garden.programs.tui.enable {
     home.packages = with pkgs; [
       # wishlist # fancy ssh
       glow # fancy markdown

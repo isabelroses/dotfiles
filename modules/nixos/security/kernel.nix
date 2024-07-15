@@ -1,7 +1,9 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
+  inherit (lib.modules) mkIf;
+  inherit (lib.lists) optionals concatLists;
+
   sys = config.garden.system;
-  inherit (lib) mkIf optionals concatLists;
 in
 {
   security = {

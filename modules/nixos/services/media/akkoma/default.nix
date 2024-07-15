@@ -6,7 +6,9 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkServiceOption;
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
+
   inherit ((pkgs.formats.elixirConf { }).lib) mkRaw mkMap;
 
   rdomain = config.networking.domain;

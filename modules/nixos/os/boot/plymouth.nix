@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkEnableOption;
 
   cfg = config.garden.system.boot.plymouth;
 in

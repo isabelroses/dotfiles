@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 in
 {
   systemd = mkIf config.garden.system.video.enable {

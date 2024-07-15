@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkServiceOption;
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
 
   cfg = config.garden.services.database.mysql;
 in

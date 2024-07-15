@@ -5,12 +5,9 @@
   ...
 }:
 let
-  inherit (lib)
-    getExe
-    mapAttrs
-    escapeShellArg
-    concatMapStrings
-    ;
+  inherit (lib.meta) getExe;
+  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.strings) escapeShellArg concatMapStrings;
 in
 {
   programs.nushell = {

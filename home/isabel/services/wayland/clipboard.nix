@@ -5,13 +5,11 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    isAcceptedDevice
-    isWayland
-    mkGraphicalService
-    getExe
-    ;
+  inherit (lib.meta) getExe;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isWayland isAcceptedDevice;
+  inherit (lib.services) mkGraphicalService;
+
   acceptedTypes = [
     "desktop"
     "laptop"

@@ -1,6 +1,6 @@
 { lib, osConfig, ... }:
 {
-  xfconf.settings = lib.mkIf osConfig.garden.programs.gui.fileManagers.thunar.enable {
+  xfconf.settings = lib.modules.mkIf osConfig.garden.programs.gui.fileManagers.thunar.enable {
     thunar = {
       "default-view" = "ThunarDetailsView";
       "misc-middle-click-in-tab" = true;

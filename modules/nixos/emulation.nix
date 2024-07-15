@@ -5,12 +5,9 @@
   ...
 }:
 let
-  inherit (lib)
-    mkEnableOption
-    mkOption
-    types
-    mkIf
-    ;
+  inherit (lib.modules) mkIf;
+  inherit (lib.types) listOf str;
+  inherit (lib.options) mkOption mkEnableOption;
 
   sys = config.garden.system;
 in
@@ -25,7 +22,7 @@ in
     '';
 
     systems = mkOption {
-      type = with types; listOf str;
+      type = listOf str;
       default = builtins.filter (system: system != pkgs.system) [
         "aarch64-linux"
         "i686-linux"

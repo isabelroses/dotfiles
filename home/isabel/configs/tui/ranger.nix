@@ -1,11 +1,15 @@
 {
+  lib,
   pkgs,
   config,
   osConfig,
-  lib,
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isAcceptedDevice;
+  inherit (lib.strings) optionalString;
+
   acceptedTypes = [
     "desktop"
     "laptop"
@@ -15,14 +19,12 @@ let
   ];
 in
 {
-  config =
-    lib.mkIf ((lib.isAcceptedDevice osConfig acceptedTypes) && osConfig.garden.programs.tui.enable)
-      {
-        home.packages = with pkgs; [ ranger ];
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes && osConfig.garden.programs.tui.enable) {
+    home.packages = [ pkgs.ranger ];
 
-        xdg.configFile."ranger/rc.conf".text = ''
-          set preview_images true
-          ${(lib.optionalString config.programs.kitty.enable "set preview_images_method kitty")}
-        '';
-      };
+    xdg.configFile."ranger/rc.conf".text = ''
+      set preview_images true
+      ${optionalString config.programs.kitty.enable "set preview_images_method kitty"}
+    '';
+  };
 }

@@ -1,11 +1,13 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib)
-    mkEnableOption
-    mkOption
-    types
-    mkIf
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types)
+    str
+    nullOr
+    int
+    bool
     ;
+  inherit (lib.modules) mkIf;
 
   cfg = config.garden.system.encryption;
 in
@@ -14,7 +16,7 @@ in
     enable = mkEnableOption "LUKS encryption";
 
     device = mkOption {
-      type = types.str; # this should actually be a list
+      type = str; # this should actually be a list
       default = "";
       description = ''
         The LUKS label for the device that will be decrypted on boot.
@@ -23,7 +25,7 @@ in
     };
 
     keyFile = mkOption {
-      type = with types; nullOr str;
+      type = nullOr str;
       default = null;
       description = ''
         The path to the keyfile that will be used to decrypt the device.
@@ -33,7 +35,7 @@ in
     };
 
     keySize = mkOption {
-      type = types.int;
+      type = int;
       default = 4096;
       description = ''
         The size of the keyfile in bytes.
@@ -41,7 +43,7 @@ in
     };
 
     fallbackToPassword = mkOption {
-      type = types.bool;
+      type = bool;
       default = !config.boot.initrd.systemd.enable;
       description = ''
         Whether or not to fallback to password authentication if the keyfile

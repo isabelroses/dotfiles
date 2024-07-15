@@ -1,11 +1,8 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib)
-    mkIf
-    mkOption
-    mkEnableOption
-    types
-    ;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) int str;
 
   cfg = config.garden.system.security;
 in
@@ -16,13 +13,13 @@ in
       enable = mkEnableOption "Enable auto-pruning of audit logs.";
 
       size = mkOption {
-        type = types.int;
+        type = int;
         default = 524288000; # roughly 500 megabytes
         description = "The maximum size of the audit log in bytes.";
       };
 
       dates = mkOption {
-        type = types.str;
+        type = str;
         default = "daily";
         example = "weekly";
         description = "How often cleaning is triggered. Passed to systemd.time";

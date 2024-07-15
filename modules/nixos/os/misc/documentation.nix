@@ -1,9 +1,10 @@
 { lib, ... }:
 let
-  inherit (lib) mkForce;
+  inherit (lib.modules) mkForce;
+  inherit (lib.attrsets) mapAttrs;
 in
 {
-  documentation = lib.mapAttrs (_: mkForce) {
+  documentation = mapAttrs (_: mkForce) {
     enable = false;
     dev.enable = false;
     doc.enable = false;

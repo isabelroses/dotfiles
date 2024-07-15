@@ -5,14 +5,16 @@
   ...
 }:
 let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib.types) bool;
 
   sys = config.garden.system;
 in
 {
   options.garden = {
     device.hasBluetooth = mkOption {
-      type = types.bool;
+      type = bool;
       default = true;
       description = "Whether or not the system has bluetooth support";
     };
@@ -20,7 +22,7 @@ in
     system.bluetooth.enable = mkEnableOption "Should the device load bluetooth drivers and enable blueman";
   };
 
-  config = lib.mkIf sys.bluetooth.enable {
+  config = mkIf sys.bluetooth.enable {
     garden.system.boot.extraKernelParams = [ "btusb" ];
     hardware.bluetooth = {
       enable = true;

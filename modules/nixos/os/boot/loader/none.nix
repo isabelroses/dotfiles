@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf mkForce;
+  inherit (lib.modules) mkIf mkForce;
   cfg = config.garden.system;
 in
 {

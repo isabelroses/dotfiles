@@ -1,6 +1,7 @@
 { lib, ... }:
 let
-  inherit (lib) mkOption types;
+  inherit (lib.options) mkOption;
+  inherit (lib.types) nullOr enum;
 in
 {
   imports = [
@@ -9,12 +10,10 @@ in
   ];
 
   options.garden.environment.loginManager = mkOption {
-    type = types.nullOr (
-      types.enum [
-        "greetd"
-        "sddm"
-      ]
-    );
+    type = nullOr (enum [
+      "greetd"
+      "sddm"
+    ]);
     default = "greetd";
     description = "The login manager to be used by the system.";
   };

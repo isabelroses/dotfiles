@@ -1,12 +1,9 @@
 { lib }:
 let
-  inherit (lib)
-    lists
-    filesystem
-    mapAttrsToList
-    filterAttrs
-    hasSuffix
-    ;
+  inherit (lib.lists) forEach filter;
+  inherit (lib.attrsets) filterAttrs mapAttrsToList;
+  inherit (lib.filesystem) listFilesRecursive;
+  inherit (lib.strings) hasSuffix;
 
   # filter files for the .nix suffix
   filterNixFiles = k: v: v == "regular" && hasSuffix ".nix" k;
@@ -14,14 +11,13 @@ let
   # import files that are selected by filterNixFiles
   importNixFiles =
     path:
-    (lists.forEach (
+    (forEach (
       mapAttrsToList (name: _: path + ("/" + name)) (filterAttrs filterNixFiles (builtins.readDir path))
     ))
       import;
 
   # import all nix files and directories
-  importNixFilesAndDirs =
-    dir: lists.filter (f: f != "default.nix") (filesystem.listFilesRecursive dir);
+  importNixFilesAndDirs = dir: filter (f: f != "default.nix") (listFilesRecursive dir);
 
   # return an int based on boolean value
   boolToNum = bool: if bool then 1 else 0;

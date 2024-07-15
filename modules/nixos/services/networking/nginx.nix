@@ -5,8 +5,11 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
+  inherit (lib.secrets) mkSecret;
+
   cfg = config.garden.services.networking.nginx;
-  inherit (lib) mkIf mkSecret mkServiceOption;
 in
 {
   options.garden.services.networking.nginx = mkServiceOption "nginx" { domain = "isabelroses.com"; };

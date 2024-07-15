@@ -7,10 +7,12 @@
 let
   inherit (inputs) self;
 
+  inherit (lib) nixosSystem;
   inherit (lib.lists) singleton concatLists;
   inherit (lib.attrsets) recursiveUpdate;
   inherit (lib.modules) mkMerge mkDefault;
   inherit (lib.hardware) ldTernary;
+  inherit (inputs.darwin.lib) darwinSystem;
 
   # mkSystem is a function that uses withSystem to give us inputs' and self'
   # it also assumes the the system type either nixos or darwin and uses the appropriate
@@ -28,7 +30,7 @@ let
 
         # yet another helper function that wraps lib.nixosSystem
         # or lib.darwinSystem based on the system type
-        mkSystem' = ldTernary pkgs lib.nixosSystem inputs.darwin.lib.darwinSystem;
+        mkSystem' = ldTernary pkgs nixosSystem darwinSystem;
 
         # this is used to determine the target system and modules that are going to be needed
         # for this specific system
@@ -37,8 +39,8 @@ let
       mkSystem' {
         # we use recursiveUpdate such that users can "override" the specialArgs
         specialArgs = recursiveUpdate {
-          inherit (self) lib;
           inherit
+            lib
             self
             self'
             inputs
@@ -80,11 +82,8 @@ let
       modules,
       ...
     }@args:
-    lib.nixosSystem {
-      specialArgs = {
-        inherit (self) lib;
-        inherit inputs self;
-      } // (args.specialArgs or { });
+    nixosSystem {
+      specialArgs = recursiveUpdate { inherit lib self inputs; } (args.specialArgs or { });
 
       modules = concatLists [
         # get an installer profile from nixpkgs to base the Isos off of

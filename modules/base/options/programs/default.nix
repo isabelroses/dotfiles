@@ -1,6 +1,7 @@
-{ config, lib, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.types) str;
 
   cfg = config.garden.programs;
 in
@@ -11,7 +12,7 @@ in
     # For programs that are not exactly limited to cli, tui or gui
     agnostic = {
       git.signingKey = mkOption {
-        type = types.str;
+        type = str;
         default = "";
         description = "The default gpg key used for signing commits";
       };

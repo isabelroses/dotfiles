@@ -6,8 +6,8 @@
   ...
 }:
 let
-  inherit (lib) getExe;
   inherit (builtins) readFile;
+  inherit (lib.meta) getExe;
 in
 {
   home = {
