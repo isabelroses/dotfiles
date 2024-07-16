@@ -42,9 +42,22 @@ let
   # a function that checks if a list contains a list of given strings
   containsStrings =
     { list, targetStrings }: builtins.all (s: builtins.any (x: x == s) list) targetStrings;
+
+  giturl =
+    {
+      domain,
+      alias,
+      user ? "git",
+      ...
+    }:
+    {
+      "https://${domain}/".insteadOf = "${alias}:";
+      "ssh://${user}@${domain}/".pushInsteadOf = "${alias}:";
+    };
 in
 {
   inherit
+    giturl
     filterNixFiles
     importNixFiles
     importNixFilesAndDirs

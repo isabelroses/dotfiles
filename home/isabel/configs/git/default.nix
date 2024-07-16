@@ -9,5 +9,6 @@
     ./ignores.nix
     ./lazygit.nix
     ./pager.nix
+    ./urls.nix
   ];
 }
