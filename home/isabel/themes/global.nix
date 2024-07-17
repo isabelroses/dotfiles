@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  osConfig,
   ...
 }:
 {
@@ -19,7 +20,7 @@
     };
 
     # pointer / cursor theming
-    home.pointerCursor = lib.modules.mkIf pkgs.stdenv.isLinux {
+    home.pointerCursor = lib.modules.mkIf (pkgs.stdenv.isLinux && osConfig.garden.programs.gui.enable) {
       size = 24;
       gtk.enable = true;
       x11.enable = true;
