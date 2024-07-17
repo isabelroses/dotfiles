@@ -29,15 +29,26 @@
           inherit excludes;
 
           hooks = {
+            # make sure our nix code is of good quality before we commit
+            nil = mkHook "nil";
+            statix = mkHook "statix";
+            deadnix = mkHook "deadnix";
+
+            actionlint = mkHook "actionlint";
+            # commitizen = mkHook "commitizen";
+
+            # ensure we have nice formatting
+            prettier = mkHook' "prettier" { settings.write = true; };
+            treefmt = mkHook' "treefmt" { package = config.treefmt.build.wrapper; };
+            editorconfig-checker = mkHook' "editorconfig" {
+              enable = lib.mkForce false;
+              always_run = true;
+            };
             nixfmt = mkHook "nixfmt" // {
               package = pkgs.nixfmt-rfc-style;
             };
-            actionlint = mkHook "actionlint";
-            # commitizen = mkHook "commitizen";
-            # nil = mkHook "nil";
 
-            prettier = mkHook' "prettier" { settings.write = true; };
-
+            # make sure there are no typos in the code
             typos = mkHook' "typos" {
               settings = {
                 write = true;
@@ -51,13 +62,6 @@
                 '';
               };
             };
-
-            editorconfig-checker = mkHook' "editorconfig" {
-              enable = lib.mkForce false;
-              always_run = true;
-            };
-
-            treefmt = mkHook' "treefmt" { package = config.treefmt.build.wrapper; };
           };
         };
       };
