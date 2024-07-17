@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  inputs',
   osConfig,
   ...
 }:
@@ -12,7 +13,8 @@ let
   progs = osConfig.garden.programs;
   cfg = progs.gui.browsers.chromium;
 
-  chrome_pkg = if cfg.ungoogled then pkgs.ungoogled-chromium else pkgs.chromium;
+  # chrome_pkg = if cfg.ungoogled then pkgs.ungoogled-chromium else pkgs.chromium;
+  chrome_pkg = inputs'.beapkgs.packages.thorium;
 in
 {
   config = mkIf cfg.enable {
@@ -32,23 +34,8 @@ in
           "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
         ];
 
-      # extraOpts = {
-      #   "AutofillAddressEnabled" = false;
-      #   "AutofillCreditCardEnabled" = false;
-      #   "BuiltInDnsClientEnabled" = false;
-      #   "DeviceMetricsReportingEnabled" = true;
-      #   "ReportDeviceCrashReportInfo" = false;
-      #   "PasswordManagerEnabled" = false;
-      #   "SpellcheckEnabled" = true;
-      #   "SpellcheckLanguage" = [
-      #     "en-GB"
-      #     "en-US"
-      #   ];
-      #   "VoiceInteractionHotwordEnabled" = false;
-      # };
-
       package = chrome_pkg.override {
-        enableWideVine = true;
+        enableWideVine = false;
 
         commandLineArgs =
           [
