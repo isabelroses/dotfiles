@@ -11,7 +11,7 @@
       nix-direnv = prev.nix-direnv.override { nix = config.nix.package; };
       nix-index = prev.nix-index.override { nix = config.nix.package; };
 
-      lix = inputs'.lix.packages.default.overrideAttrs (oldAttrs: {
+      lix = inputs'.lix.packages.default.overrideAttrs (_: {
         # I've upstreamed this, waiting for merge
         patches = [
           ./patches/0001-show-description.patch
