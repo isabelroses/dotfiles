@@ -70,9 +70,6 @@ in
           "--disable-speech-synthesis-api"
         ]
         ++ optionals (isWayland osConfig) [
-          "--use-gl=egl"
-
-          # Wayland
           "--ozone-platform=wayland"
           "--enable-features=UseOzonePlatform"
         ];
