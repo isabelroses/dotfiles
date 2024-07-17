@@ -9,7 +9,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixpkgs-unstable";
+      ref = "nixos-unstable";
     };
 
     # lix a good fork of nix
@@ -36,9 +36,8 @@
     # improved support for wsl
     nixos-wsl = {
       type = "github";
-      owner = "getchoo"; # nix-community
+      owner = "nix-community";
       repo = "NixOS-WSL";
-      ref = "hardware-graphics";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
