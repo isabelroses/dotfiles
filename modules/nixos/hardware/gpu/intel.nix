@@ -30,6 +30,8 @@ in
       ];
     };
 
+    environment.systemPackages = with pkgs; [ intel-gpu-tools ];
+
     environment.variables = mkIf (config.hardware.graphics.enable && device.gpu != "hybrid-nv") {
       VDPAU_DRIVER = "va_gl";
     };

@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 let
   inherit (lib.modules) mkIf;
   inherit (config.garden) device;
@@ -19,7 +14,5 @@ in
         "enable_gvt=1"
       ];
     };
-
-    environment.systemPackages = with pkgs; [ intel-gpu-tools ];
   };
 }
