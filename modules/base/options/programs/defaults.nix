@@ -28,8 +28,9 @@ in
       type = enum [
         "firefox"
         "chromium"
+        "thorium"
       ];
-      default = "chromium";
+      default = "thorium";
     };
 
     editor = mkOption {

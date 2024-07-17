@@ -69,6 +69,9 @@ in
             default = cfg.gui.enable;
           };
           ungoogled = mkEnableOption "Enable ungoogled-chromium Tweaks";
+          thorium = mkEnableOption "Enable thorium Tweaks" // {
+            default = true;
+          };
         };
 
         firefox.enable = mkEnableOption "Firefox browser";

@@ -5,9 +5,7 @@
   ...
 }:
 let
-  inherit (lib.lists) elem;
   inherit (lib.modules) mkIf;
-  inherit (lib.strings) getName;
   inherit (lib.options) mkEnableOption;
 
   cfg = config.garden.programs.gaming;
@@ -27,61 +25,49 @@ in
       extraCompatPackages = [ pkgs.proton-ge-bin.steamcompattool ];
     };
 
-    nixpkgs = {
-      config = {
-        allowUnfreePredicate =
-          pkg:
-          elem (getName pkg) [
-            "steam"
-            "steam-original"
-            "steam-runtime"
-          ];
-      };
-
-      overlays = [
-        (_: prev: {
-          steam = prev.steam.override (
-            {
-              extraPkgs ? _: [ ],
-              ...
-            }:
-            {
-              extraPkgs =
-                pkgs':
-                (extraPkgs pkgs')
-                ++ (with pkgs'; [
-                  # Add missing dependencies
-                  libgdiplus
-                  keyutils
-                  libkrb5
-                  libpng
-                  libpulseaudio
-                  libvorbis
-                  stdenv.cc.cc.lib
-                  xorg.libXcursor
-                  xorg.libXi
-                  xorg.libXinerama
-                  xorg.libXScrnSaver
-                  at-spi2-atk
-                  fmodex
-                  gtk3
-                  gtk3-x11
-                  harfbuzz
-                  icu
-                  glxinfo
-                  inetutils
-                  libthai
-                  mono5
-                  pango
-                  stdenv.cc.cc.lib
-                  strace
-                  zlib
-                  libunwind # for titanfall 2 Northstart launcher
-                ]);
-            }
-          );
-        })
-      ];
-    };
+    nixpkgs.overlays = [
+      (_: prev: {
+        steam = prev.steam.override (
+          {
+            extraPkgs ? _: [ ],
+            ...
+          }:
+          {
+            extraPkgs =
+              pkgs':
+              (extraPkgs pkgs')
+              ++ (with pkgs'; [
+                # Add missing dependencies
+                libgdiplus
+                keyutils
+                libkrb5
+                libpng
+                libpulseaudio
+                libvorbis
+                stdenv.cc.cc.lib
+                xorg.libXcursor
+                xorg.libXi
+                xorg.libXinerama
+                xorg.libXScrnSaver
+                at-spi2-atk
+                fmodex
+                gtk3
+                gtk3-x11
+                harfbuzz
+                icu
+                glxinfo
+                inetutils
+                libthai
+                mono5
+                pango
+                stdenv.cc.cc.lib
+                strace
+                zlib
+                libunwind # for titanfall 2 Northstart launcher
+              ]);
+          }
+        );
+      })
+    ];
   };
 }

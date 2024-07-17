@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  defaults,
   ...
 }:
 let
@@ -47,7 +48,7 @@ let
     (lib.genAttrs code (_: [ "nvim.desktop" ]))
     // (lib.genAttrs media (_: [ "mpv.desktop" ]))
     // (lib.genAttrs images (_: [ "viewnoir.desktop" ]))
-    // (lib.genAttrs browser (_: [ "chromium.desktop" ]))
+    // (lib.genAttrs browser (_: [ "${defaults.browser}.desktop" ]))
     // {
       "application/pdf" = [ "org.pwmt.zathura.desktop" ];
       "x-scheme-handler/spotify" = [ "spotify.desktop" ];

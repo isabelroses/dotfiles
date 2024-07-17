@@ -99,7 +99,7 @@ in
 
           api.ENABLE_SWAGGER = false;
 
-          default.APP_NAME = "iztea";
+          DEFAULT.APP_NAME = "iztea";
           attachment.ALLOWED_TYPES = "*/*";
 
           ui = {
