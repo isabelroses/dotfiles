@@ -25,7 +25,6 @@ in
         yq # yaml parser
         vhs # programmatically make gifs
         glow # markdown preview
-      ]
-      ++ optionals stdenv.isLinux [ cached-nix-shell ];
+      ];
   };
 }

@@ -1,6 +1,6 @@
 {
   imports = [
-    ./gh.nix
+    ./github-notis.nix
     ./kdeconnect.nix
     ./nextcloud.nix
     ./nix-index.nix

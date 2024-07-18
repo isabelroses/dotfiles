@@ -12,8 +12,8 @@ in
     home.packages = with pkgs; [
       # wishlist # fancy ssh
       glow # fancy markdown
-      fx # fancy jq
-      gum # a nicer scripting
+      # fx # fancy jq
+      # gum # a nicer scripting
     ];
   };
 }

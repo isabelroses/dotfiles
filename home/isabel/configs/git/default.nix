@@ -1,6 +1,6 @@
 {
   imports = [
-    ./addons.nix
+    # ./addons.nix
     ./aliases.nix
     ./darwin.nix
     ./gh-dash.nix
