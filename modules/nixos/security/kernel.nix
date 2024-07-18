@@ -14,6 +14,7 @@ in
     forcePageTableIsolation = true;
 
     # User namespaces are required for sandboxing.
+    # this means you cannot set `"user.max_user_namespaces" = 0;` in sysctl
     allowUserNamespaces = true;
 
     # Disable unprivileged user namespaces, unless containers are enabled
@@ -22,9 +23,15 @@ in
     allowSimultaneousMultithreading = true;
   };
 
+  # you can find out whats recommended for you, by following these steps
+  # > sudo sysctl -a > sysctl.txt
+  # > kernel-hardening-checker -l /proc/cmdline -c /proc/config.gz -s ./sysctl.txt
   boot = {
     # better read up
     # https://docs.kernel.org/admin-guide/sysctl/vm.html
+    #
+    # a good place to quickly find what each setting does
+    # https://sysctl-explorer.net/
     kernel.sysctl = mkIf (config.garden.device.type != "wsl") {
       # The Magic SysRq key is a key combo that allows users connected to the
       # system console of a Linux kernel to perform some low-level commands.
@@ -33,7 +40,7 @@ in
 
       # Restrict ptrace() usage to processes with a pre-defined relationship
       # (e.g., parent/child)
-      # "kernel.yama.ptrace_scope" = 2;
+      "kernel.yama.ptrace_scope" = 3;
 
       # Hide kptrs even for processes with CAP_SYSLOG
       "kernel.kptr_restrict" = 2;
@@ -79,6 +86,18 @@ in
       # you wish to boot into a different kernel, but I do not require kexec. Disabling it
       # patches a potential security hole in our system.
       "kernel.kexec_load_disabled" = true;
+
+      # Disable TIOCSTI ioctl, which allows a user to insert characters into the input queue of a terminal
+      # this has been known for a long time to be used in privilege escalation attacks
+      "dev.tty.legacy_tiocsti" = 0;
+
+      # Disable the ability to load kernel modules, we already load the ones that we need
+      # FIXME: this breaks boot, so we should track down what modules we need to boot if
+      # we are going to commit to enabling this
+      # "kernel.modules_disabled" = 1;
+
+      # This enables hardening for the BPF JIT compiler, however it costs at a performance cost
+      # "net.core.bpf_jit_harden" = 2;
     };
 
     # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
