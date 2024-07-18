@@ -43,24 +43,25 @@ in
         antialias = true;
 
         # create all the fonts and set the fallback to the symbols nerd font
-        defaultFonts = {
-          monospace = [
-            config.garden.style.font.name
-            "Symbols Nerd Font"
-          ];
-          sansSerif = [
-            config.garden.style.font.name
-            "Symbols Nerd Font"
-          ];
-          serif = [
-            config.garden.style.font.name
-            "Symbols Nerd Font"
-          ];
-          emoji = [
-            "Noto Color Emoji"
-            "Symbols Nerd Font"
-          ];
-        };
+        defaultFonts =
+          let
+            fnts = [
+              config.garden.style.font.name
+              "Symbols Nerd Font"
+              # fallbacks
+              "Noto Sans Symbols"
+              "Noto Sans Symbols2"
+            ];
+          in
+          {
+            monospace = fnts;
+            sansSerif = fnts;
+            serif = fnts;
+            emoji = [
+              "Noto Color Emoji"
+              "Symbols Nerd Font"
+            ];
+          };
       };
 
       # this can allow us to save some storage space
