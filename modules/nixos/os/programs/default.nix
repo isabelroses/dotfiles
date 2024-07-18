@@ -12,7 +12,10 @@ in
 {
   programs = {
     # less pager
-    less.enable = true;
+    less = {
+      enable = true;
+      lessopen = null; # don't install perl thanks
+    };
 
     bash.promptInit = mkIf (isModernShell config) ''
       eval "$(${getExe pkgs.starship} init bash)"
