@@ -2,7 +2,6 @@
   lib,
   pkgs,
   inputs',
-  config,
   osConfig,
   ...
 }:
@@ -17,8 +16,17 @@ in
   config = mkIf (isWayland osConfig && programs.gui.bars.ags.enable) {
     home.packages = [ inputs'.ags.packages.ags ];
 
-    systemd.user.services.ags = lib.services.mkGraphicalService {
-      Unit.Description = "ags, our bar";
+    systemd.user.services.ags = {
+      Install.WantedBy = [ "graphical-session.target" ];
+
+      Unit = {
+        Description = "ags, our bar";
+        After = [ "graphical-session-pre.target" ];
+        PartOf = [
+          "tray.target"
+          "graphical-session.target"
+        ];
+      };
 
       Service = {
         Restart = "always";
