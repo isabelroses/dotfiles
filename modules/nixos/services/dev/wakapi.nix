@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  inputs,
   config,
   ...
 }:
@@ -15,8 +14,6 @@ let
   cfg = config.garden.services.dev.wakapi;
 in
 {
-  imports = [ inputs.beapkgs.nixosModules.default ];
-
   options.garden.services.dev.wakapi = mkServiceOption "wakapi" {
     port = 15912;
     domain = "wakapi.${rdomain}";
