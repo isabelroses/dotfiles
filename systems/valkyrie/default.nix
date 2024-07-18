@@ -2,7 +2,7 @@
   config.garden = {
     device = {
       type = "wsl";
-      cpu = "intel";
+      cpu = null;
       gpu = null;
       hasTPM = true;
       monitors = [ ];

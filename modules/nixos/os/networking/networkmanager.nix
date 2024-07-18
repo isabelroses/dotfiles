@@ -6,12 +6,15 @@
 }:
 let
   inherit (lib.modules) mkIf mkForce;
+  inherit (lib.lists) optionals;
 
   dev = config.garden.device;
   sys = config.garden.system;
 in
 {
-  environment.systemPackages = with pkgs; [ networkmanagerapplet ];
+  environment.systemPackages = optionals config.garden.programs.gui.enable [
+    pkgs.networkmanagerapplet
+  ];
 
   networking.networkmanager = {
     enable = true;
