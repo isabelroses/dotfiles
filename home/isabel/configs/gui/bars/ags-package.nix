@@ -25,7 +25,6 @@ stdenvNoCC.mkDerivation {
     mkdir -p $out
     cp -r assets $out
     cp -r style $out
-    cp -r widget $out
     cp -f main.js $out/config.js
   '';
 }
