@@ -156,9 +156,13 @@
 
     ags = {
       type = "github";
-      owner = "Aylur";
+      owner = "isabelroses";
       repo = "ags";
-      inputs.nixpkgs.follows = "nixpkgs-small";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs-small";
+        systems.follows = "systems";
+      };
     };
 
     # I am not recompling this thanks

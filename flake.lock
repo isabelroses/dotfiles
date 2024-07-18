@@ -29,18 +29,21 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs-small"
+        ],
+        "systems": [
+          "systems"
         ]
       },
       "locked": {
-        "lastModified": 1721228801,
-        "narHash": "sha256-cuqMXJs1Zkh6yfwx1mG5/zyvxST8cm+XXQ1xXJMHQhY=",
-        "owner": "Aylur",
+        "lastModified": 1721340149,
+        "narHash": "sha256-G2gwEWS3cCHTH1LVyXNSPCwoZ2gTRNMfPVwctOq/Fx4=",
+        "owner": "isabelroses",
         "repo": "ags",
-        "rev": "60c4fdcca841b9375bca68ce14b4dbac07f7c503",
+        "rev": "9473a006acfdd9ec29cfd4ba1c15820d7a583625",
         "type": "github"
       },
       "original": {
-        "owner": "Aylur",
+        "owner": "isabelroses",
         "repo": "ags",
         "type": "github"
       }

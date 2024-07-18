@@ -58,7 +58,7 @@ in
       ++ optionals (defaults.bar == "ags") [
         "${mod}, D, exec, ags -t launcher"
         "${mod}, escape, exec, ags -t powermenu"
-        "${mod} SHIFT, R, exec, ags --quit ; ags"
+        "${mod} SHIFT, R, exec, ags --quit"
       ]
       ++ (concatLists (
         genList (
