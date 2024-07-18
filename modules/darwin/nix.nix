@@ -1,7 +1,4 @@
-{ inputs, ... }:
 {
-  imports = [ inputs.beapkgs.darwinModules.default ];
-
   nix = {
     # nix gc works slightly differently on darwin, so we need to adjust the
     # interval such that it works properly here.

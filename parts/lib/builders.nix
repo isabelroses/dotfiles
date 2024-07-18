@@ -49,17 +49,12 @@ let
         } (args.specialArgs or { });
 
         modules = concatLists [
-          [
-            # depending on the base operating system we can only use some options therefore these
-            # options means that we can limit these options to only those given operating systems
-            "${self}/modules/${target}"
+          # depending on the base operating system we can only use some options therefore these
+          # options means that we can limit these options to only those given operating systems
+          [ "${self}/modules/${target}" ]
 
-            # import home-manager for our target system
-            inputs.home-manager."${target}Modules".home-manager
-
-            # configurations based on that are imported based hostname
-            "${self}/systems/${args.host}"
-          ]
+          # configurations based on that are imported based hostname
+          [ "${self}/systems/${args.host}" ]
 
           (singleton {
             config = {

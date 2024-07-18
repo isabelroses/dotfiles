@@ -1,8 +1,9 @@
+{ pkgs, ... }:
 {
   programs.nh = {
     enable = true;
     clean = {
-      enable = false;
+      enable = pkgs.stdenv.isDarwin;
       dates = "daily";
     };
   };
