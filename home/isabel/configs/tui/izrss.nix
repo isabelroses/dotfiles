@@ -9,7 +9,7 @@ in
       enable = true;
 
       settings = {
-        size = "full";
+        reader.size = "full";
 
         urls = [
           "https://isabelroses.com/feed.xml"
