@@ -239,6 +239,7 @@
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
         flake-parts.follows = "flake-parts";
         flake-utils.follows = "flake-utils";
         beapkgs.follows = "beapkgs";
