@@ -97,7 +97,7 @@ This repository contains my **personal** configuration for my systems. Its reall
     - [meta](../modules/profiles/meta) Optimized configurations for different natures (e.g., headless, graphical)
 
 > [!TIP]
-> If you were looking for my custom modules or packages you should direct yourself to [isabelroses/beapkgs](https://github.com/isabelroses/beapkgs).
+> If you were looking for my custom modules or packages you should direct yourself to [isabelroses/beapkgs](https://github.com/isabelroses/beapkgs). Since there are remote modules and not all of them are clearly remote modules, it is worth looking through the [beapkgs docs](https://isabelroses.github.io/beapkgs/).
 
 ### Usage Notes
 
@@ -151,7 +151,7 @@ For the full list of templates you can look in the [templates](../parts/template
   > `curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash`
 - Exclude nix from time machine backups
   > `sudo tmutil addexclusion -v /nix`
-- `nix run nix-darwin -- switch --flake ~/.config/flake#<host>`
+- `nix run --extra-experimental-features 'nix-command flakes' nix-darwin -- switch --flake ~/.config/flake#<host>`
 - Then good news you can use the `switch` alias that exists for the future
 
 #### Small bits
