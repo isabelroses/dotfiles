@@ -24,5 +24,4 @@
   # and this will create users with a different script then the perl one
   # so it may cause breakages, be warned
   systemd.sysusers.enable = true;
-
 }
