@@ -21,7 +21,14 @@
     # really need, you may consider enabling nh and using `nh os switch` instead
     # which is actually a really good alternative to using this
     disableInstallerTools = true;
+
+    # we can use this to warn us if we have perl installed
+    # forbiddenDependenciesRegexes = [ "perl" ];
   };
+
+  # WARNING: this can break things, perticualarly if you use containers
+  # personally I don't so it should be fine to disable this
+  boot.enableContainers = false;
 
   # WARNING: this is an experimental feature, and it is not enabled by default
   # and this will create users with a different script then the perl one

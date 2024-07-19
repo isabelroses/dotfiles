@@ -13,7 +13,7 @@ let
 in
 {
   environment.systemPackages = optionals config.garden.programs.gui.enable [
-    pkgs.networkmanagerapplet
+    pkgs.networkmanagerapplet # provides nm-connection-editor
   ];
 
   networking.networkmanager = {

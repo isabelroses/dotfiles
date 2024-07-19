@@ -11,9 +11,9 @@ in
   environment.systemPackages = with pkgs; [
     # packages necessary for thunar thumbnails
     xfce.tumbler
-    libgsf # of files
     ffmpegthumbnailer
-    kdePackages.ark # GUI archiver for thunar archive plugin
+    # needed to extract files
+    xarchiver
   ];
 
   programs = {
@@ -27,6 +27,7 @@ in
       ];
     };
 
+    # we need dconf to interact with gtk
     dconf.enable = true;
 
     # gnome's keyring manager

@@ -8,8 +8,6 @@ in
 
     gnome = {
       glib-networking.enable = true;
-      evolution-data-server.enable = true;
-      gnome-online-accounts.enable = true;
       gnome-keyring.enable = true; # this makes it so i don't have to enter my password every time i log in
 
       # I don't need remote desktop
