@@ -8,6 +8,6 @@
     ./networking # networking
     ./programs # common programs
     ./services # common services
-    # ./pearless.nix # pearless specific configurations
+    ./perless.nix # perless specific configurations
   ];
 }

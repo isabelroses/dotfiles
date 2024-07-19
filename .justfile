@@ -31,10 +31,15 @@ update *input:
 # setup our nixos and darwin builder
 [private]
 [macos]
-builder command *args: verify
-  darwin-rebuild {{command}} --flake . {{args}} |& nom
+builder goal *args: verify
+  darwin-rebuild {{goal}} --flake . {{args}} |& nom
 
 [private]
 [linux]
-builder command *args: verify
-  sudo nixos-rebuild {{command}} --flake . {{args}} |& nom
+builder goal *args: verify
+  nh os {{goal}} -- {{args}}
+
+# we have this setup incase i ever want to go back and use the old stuff
+[linux]
+classic goal *args: verify
+  sudo nixos-rebuild {{goal}} --flake . {{args}} |& nom
