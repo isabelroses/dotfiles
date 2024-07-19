@@ -30,7 +30,7 @@ in
     enableNushellIntegration = config.programs.nushell.enable;
 
     # modified from from @i077
-    # store direnv in cache and not pre project
+    # store direnv in cache and not per project
     stdlib = ''
       : ''${XDG_CACHE_HOME:=$HOME/.cache}
       declare -A direnv_layout_dirs
