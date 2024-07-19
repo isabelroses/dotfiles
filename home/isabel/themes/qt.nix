@@ -19,16 +19,8 @@ in
   config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.isLinux) {
     qt = {
       enable = true;
-
-      platformTheme = {
-        name = "kvantum";
-        package = null;
-      };
-
-      style = {
-        name = "kvantum";
-        package = null;
-      };
+      platformTheme.name = "kvantum";
+      style.name = "kvantum";
     };
 
     home.sessionVariables = {
