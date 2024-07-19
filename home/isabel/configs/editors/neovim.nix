@@ -5,11 +5,8 @@
   ...
 }:
 let
-  cfg = osConfig.garden.programs;
+  cfg = osConfig.garden.programs.agnostic.editors.neovim;
 in
 {
-  # need this one for uni
-  home.packages = lib.lists.optionals cfg.agnostic.editors.neovim.enable [
-    inputs'.izvim.packages.default
-  ];
+  home.packages = lib.lists.optionals cfg.enable [ inputs'.izvim.packages.default ];
 }

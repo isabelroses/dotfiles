@@ -22,6 +22,7 @@ in
           default = true;
         };
         vscode.enable = mkEnableOption "VScode editor";
+        zed.enable = mkEnableOption "Zed editor";
         micro.enable = mkEnableOption "Micro editor";
       };
 
