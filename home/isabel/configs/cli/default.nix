@@ -9,7 +9,6 @@
     ./freeze.nix
     ./fzf.nix
     ./hyfetch.nix
-    ./nix.nix
     ./ripgrep.nix
     ./starship.nix
     # ./tealdear.nix

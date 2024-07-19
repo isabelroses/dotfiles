@@ -27,7 +27,8 @@ in
     home.pointerCursor = lib.modules.mkIf en {
       size = 24;
       gtk.enable = true;
-      x11.enable = true;
+      # this adds extra deps, so lets only enable it on wayland
+      x11.enable = !(lib.validators.isWayland osConfig);
     };
   };
 }
