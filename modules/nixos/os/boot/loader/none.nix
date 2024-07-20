@@ -1,10 +1,10 @@
 { lib, config, ... }:
 let
   inherit (lib.modules) mkIf mkForce;
-  cfg = config.garden.system;
+  cfg = config.garden.system.boot;
 in
 {
-  config = mkIf (cfg.boot.loader == "none") {
+  config = mkIf (cfg.loader == "none") {
     boot.loader = {
       grub.enable = mkForce false;
       systemd-boot.enable = mkForce false;

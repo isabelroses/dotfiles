@@ -1,11 +1,22 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (lib.modules) mkIf mkDefault;
   inherit (lib.attrsets) optionalAttrs;
+  inherit (lib.options) mkEnableOption mkPackageOption;
 
   cfg = config.garden.system.boot;
 in
 {
+  options.garden.system.boot.memtest = {
+    enable = mkEnableOption "memtest86+";
+    package = mkPackageOption pkgs "memtest86plus" { };
+  };
+
   config = mkIf (cfg.loader == "systemd-boot") {
     boot.loader = {
       systemd-boot =

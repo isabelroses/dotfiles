@@ -2,7 +2,6 @@
   imports = [
     ./gaming # super cool procrastinations related things
     ./hardware # hardware - bluetooth etc.
-    ./options # options, for quick configuration
     ./os # system configurations
     ./security # keeping the system safe
     ./services # allows for per-system system services to be enabled

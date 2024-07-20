@@ -7,12 +7,18 @@
 }:
 let
   inherit (lib.modules) mkIf mkForce;
+  inherit (lib.options) mkEnableOption;
   sys = config.garden.system.boot;
 in
 {
+  # https://wiki.nixos.org/wiki/Secure_Boot
+  # Secure Boot, my love keeping my valorant working on windows
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
-  # Secure Boot, my love keeping my valorant working on windows
+  options.garden.system.boot.secureBoot = mkEnableOption ''
+    secure-boot and load necessary packages, say good bye to systemd-boot
+  '';
+
   config = mkIf sys.secureBoot {
     environment.systemPackages = [ pkgs.sbctl ];
 
