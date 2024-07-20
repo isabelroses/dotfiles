@@ -3,11 +3,9 @@
   systems = import inputs.systems;
 
   perSystem =
-    { config, system, ... }:
+    { system, ... }:
     {
-      _module.args.pkgs = config.legacyPackages;
-
-      legacyPackages = import inputs.nixpkgs {
+      _module.args.pkgs = import inputs.nixpkgs {
         inherit system;
         config = {
           allowUnfree = true;
