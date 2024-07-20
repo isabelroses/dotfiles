@@ -1,8 +1,8 @@
 diff --git a/src/nix/flake.cc b/src/nix/flake.cc
-index 84c659023a5..65bbac53f75 100644
+index 3f9f8f99b06..48bec08c1be 100644
 --- a/src/nix/flake.cc
 +++ b/src/nix/flake.cc
-@@ -1240,25 +1240,45 @@ struct CmdFlakeShow : FlakeCommand, MixJSON
+@@ -1243,25 +1243,45 @@ struct CmdFlakeShow : FlakeCommand, MixJSON
                  auto showDerivation = [&]()
                  {
                      auto name = visitor.getAttr(state->sName)->getString();
@@ -41,8 +41,8 @@ index 84c659023a5..65bbac53f75 100644
 +
 +                            // If the string is too long then resize add ellipses
 +                            std::string desc;
-+                            if (length > 80) {
-+                                trimmed.resize(80);
++                            if (length > 77) {
++                                trimmed.resize(77);
 +                                desc = trimmed.append("...");
 +                            }
 +                            else {
@@ -58,7 +58,7 @@ index 84c659023a5..65bbac53f75 100644
                  };
  
 diff --git a/tests/functional/flakes/show.sh b/tests/functional/flakes/show.sh
-index 22e1f419376..d60adb99f45 100755
+index 22e1f419376..3d91613ee4a 100755
 --- a/tests/functional/flakes/show.sh
 +++ b/tests/functional/flakes/show.sh
 @@ -87,3 +87,28 @@ assert show_output.legacyPackages.${builtins.currentSystem}.AAAAAASomeThingsFail
@@ -88,5 +88,5 @@ index 22e1f419376..d60adb99f45 100755
 +test "$(awk -F '[:] ' '/aNoDescription/{print $NF}' ./show-output.txt)" = "package 'simple'"
 +test "$(awk -F '[:] ' '/bOneLineDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - 'one line'"
 +test "$(awk -F '[:] ' '/cMultiLineDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - 'line one'"
-+test "$(awk -F '[:] ' '/dLongDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - '01234567890123456789012345678901234567890123456789012345678901234567890123456789...'"
++test "$(awk -F '[:] ' '/dLongDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - '01234567890123456789012345678901234567890123456789012345678901234567890123456...'"
 +test "$(awk -F '[:] ' '/eEmptyDescription/{print $NF}' ./show-output.txt)" = "package 'simple'"
