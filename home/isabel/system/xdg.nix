@@ -47,8 +47,10 @@ let
   associations =
     (lib.genAttrs code (_: [ "nvim.desktop" ]))
     // (lib.genAttrs media (_: [ "mpv.desktop" ]))
-    // (lib.genAttrs images (_: [ "viewnoir.desktop" ]))
-    // (lib.genAttrs browser (_: [ "${defaults.browser}.desktop" ]))
+    // (lib.genAttrs images (_: [ "viewnior.desktop" ]))
+    // (lib.genAttrs browser (_: [
+      "${if defaults.browser == "thorium" then "thorium-browser" else defaults.browser}.desktop"
+    ]))
     // {
       "application/pdf" = [ "org.pwmt.zathura.desktop" ];
       "x-scheme-handler/spotify" = [ "spotify.desktop" ];
