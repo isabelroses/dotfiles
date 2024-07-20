@@ -27,7 +27,6 @@ in
 
       extraRules = [
         {
-          # allow wheel group to run nixos-rebuild without password
           groups = [ "wheel" ];
 
           commands =
@@ -37,6 +36,8 @@ in
             in
             [
               {
+                # why store and not current system?
+                # this is because we use switch-to-configuration on rebuild
                 command = "${storePath}/*/bin/switch-to-configuration";
                 options = [
                   "SETENV"
