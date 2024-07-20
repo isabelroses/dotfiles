@@ -1,0 +1,2 @@
+- [] look into syncthing over nextcloud
+- [x] move mediawiki stuff
