@@ -6,12 +6,10 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    template
-    mkSecret
-    mkServiceOption
-    ;
+  inherit (lib) template;
+  inherit (lib.modules) mkIf;
+  inherit (lib.services) mkServiceOption;
+  inherit (lib.secrets) mkSecret;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.mailserver;
