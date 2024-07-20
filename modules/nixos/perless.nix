@@ -22,6 +22,16 @@
     # which is actually a really good alternative to using this
     disableInstallerTools = true;
 
+    # I would rather use the rust implementation of the switch-to-configuration
+    # called switch-to-configuration-ng, a thankfully perlless switcher.
+    # It is a much better, faster and smaller implementation
+    # WARNING: it is broken on WSL with a PR open to fix it
+    # https://github.com/NixOS/nixpkgs/pull/321662
+    switch = {
+      enable = false; # disable the old implementation
+      enableNg = true; # enable the new implementation
+    };
+
     # we can use this to warn us if we have perl installed
     # forbiddenDependenciesRegexes = [ "perl" ];
   };
