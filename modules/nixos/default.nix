@@ -5,8 +5,8 @@
     ./os # system configurations
     ./security # keeping the system safe
     ./services # allows for per-system system services to be enabled
-    ./themes # themes for the system
 
+    ./catppuccin.nix # our system theming
     ./emulation.nix # emulation setup
     ./encryption.nix # keeping my stuff hidden from you strange people
     ./nix.nix # nix settings for nixos only systems
