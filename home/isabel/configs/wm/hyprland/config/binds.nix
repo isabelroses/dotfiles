@@ -20,7 +20,6 @@ in
         # window management
         "${mod}, Q, killactive,"
         # "${mod} SHIFT, Q, exit,"
-        "${mod} SHIFT, c, exec, hyprctl reload"
         "${mod}, F, fullscreen,"
         "${mod}, Space, togglefloating,"
         "${mod}, P, pseudo," # dwindle
@@ -58,7 +57,7 @@ in
       ++ optionals (defaults.bar == "ags") [
         "${mod}, D, exec, ags -t launcher"
         "${mod}, escape, exec, ags -t powermenu"
-        "${mod} SHIFT, R, exec, ags --quit"
+        "${mod} SHIFT, R, exec, systemctl --user restart ags.service"
       ]
       ++ (concatLists (
         genList (
