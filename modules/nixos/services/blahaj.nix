@@ -61,7 +61,8 @@ in
           wantedBy = [ "multi-user.target" ];
 
           script = ''
-            ${getExe pkgs.git} -c safe.directory=/srv/storage/blahaj/nixpkgs -C /srv/storage/blahaj/nixpkgs pull origin master
+            ${getExe pkgs.git} -c safe.directory=/srv/storage/blahaj/nixpkgs \
+              -C /srv/storage/blahaj/nixpkgs pull origin master
           '';
 
           serviceConfig = {
