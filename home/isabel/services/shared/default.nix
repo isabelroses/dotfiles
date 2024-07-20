@@ -2,9 +2,10 @@
   imports = [
     ./github-notis.nix
     ./kdeconnect.nix
-    ./nextcloud.nix
+    # ./nextcloud.nix
     ./nix-index.nix
     ./rnnoise.nix
+    ./syncthing.nix
     ./tray.nix
   ];
 }

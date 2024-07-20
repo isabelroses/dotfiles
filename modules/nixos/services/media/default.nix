@@ -6,5 +6,6 @@
     ./matrix.nix
     ./nextcloud.nix
     ./photoprism.nix
+    ./syncthing.nix
   ];
 }
