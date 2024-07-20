@@ -53,5 +53,5 @@ let
 in
 {
   flake.lib = finalLib;
-  perSystem = _: { _module.args.lib = finalLib; };
+  perSystem._module.args.lib = finalLib;
 }

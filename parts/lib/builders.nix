@@ -7,20 +7,18 @@
 let
   inherit (inputs) self;
 
-  inherit (lib) nixosSystem;
-  inherit (lib.lists) singleton concatLists;
-  inherit (lib.attrsets) recursiveUpdate;
-  inherit (lib.modules) mkMerge mkDefault;
+  inherit (lib.lists) optionals singleton concatLists;
+  inherit (lib.attrsets) recursiveUpdate optionalAttrs;
+  inherit (lib.modules) mkMerge mkDefault evalModules;
   inherit (lib.hardware) ldTernary;
-  inherit (inputs.darwin.lib) darwinSystem;
 
   # mkSystem is a function that uses withSystem to give us inputs' and self'
   # it also assumes the the system type either nixos or darwin and uses the appropriate
   mkSystem =
     {
       host,
-      modules,
       system,
+      modules,
       ...
     }@args:
     withSystem system (
@@ -28,44 +26,63 @@ let
       let
         pkgs = inputs.nixpkgs.legacyPackages.${system};
 
-        # yet another helper function that wraps lib.nixosSystem
-        # or lib.darwinSystem based on the system type
-        mkSystem' = ldTernary pkgs nixosSystem darwinSystem;
-
         # this is used to determine the target system and modules that are going to be needed
         # for this specific system
         target = ldTernary pkgs "nixos" "darwin";
-      in
-      mkSystem' {
-        # we use recursiveUpdate such that users can "override" the specialArgs
-        specialArgs = recursiveUpdate {
-          inherit
-            lib
-            self
-            self'
-            inputs
-            inputs'
-            ;
-        } (args.specialArgs or { });
 
-        modules = concatLists [
-          # depending on the base operating system we can only use some options therefore these
-          # options means that we can limit these options to only those given operating systems
-          [ "${self}/modules/${target}" ]
+        eval = evalModules {
+          # we use recursiveUpdate such that users can "override" the specialArgs
+          specialArgs = recursiveUpdate {
+            # create the modulesPath based on the system, we need
+            modulesPath = ldTernary pkgs "${inputs.nixpkgs}/nixos/modules" "${inputs.darwin}/modules";
 
-          # configurations based on that are imported based hostname
-          [ "${self}/systems/${args.host}" ]
+            # laying it out this way is completely arbitrary, however it looks nice i guess
+            inherit lib;
+            inherit self self';
+            inherit inputs inputs';
+          } (args.specialArgs or { });
 
-          (singleton {
-            config = {
-              garden.system.hostname = args.host;
+          # A nominal type for modules. When set and non-null, this adds a check to
+          # make sure that only compatible modules are imported.
+          class = target;
+
+          modules = concatLists [
+            # depending on the base operating system we can only use some options therefore these
+            # options means that we can limit these options to only those given operating systems
+            [ "${self}/modules/${target}" ]
+
+            # configurations based on that are imported based hostname
+            [ "${self}/systems/${args.host}" ]
+
+            # we need to import the module list for our system
+            # this is either the nixos modules list provided by nixpkgs
+            # or the darwin modules list provided by nix darwin
+            (import (
+              ldTernary pkgs "${inputs.nixpkgs}/nixos/modules/module-list.nix"
+                "${inputs.darwin}/modules/module-list.nix"
+            ))
+
+            (singleton {
+              networking.hostName = args.host;
+              # you can also do this as system = args.system; however for evalModules
+              # this will not work, so we do this instead
               nixpkgs.hostPlatform = mkDefault args.system;
-            };
-          })
+            })
 
-          (args.modules or [ ])
-        ];
-      }
+            # if we are on darwin we need to import the nixpkgs source, its used in some
+            # modules, if this is not set then you will get an error
+            (optionals pkgs.stdenv.isDarwin (singleton {
+              nixpkgs.source = mkDefault inputs.nixpkgs;
+            }))
+
+            (args.modules or [ ])
+          ];
+        };
+      in
+      # we broke don't just call evalModules here because we need to be able to
+      # append system to the final evaluated result since nix darwin uses this to switch
+      # the configuration on and off
+      eval // optionalAttrs pkgs.stdenv.isDarwin { system = eval.config.system.build.toplevel; }
     );
 
   # mkIso is a helper function that wraps mkSystem to create an iso
@@ -77,7 +94,7 @@ let
       modules,
       ...
     }@args:
-    nixosSystem {
+    lib.nixosSystem {
       specialArgs = recursiveUpdate { inherit lib self inputs; } (args.specialArgs or { });
 
       modules = concatLists [
