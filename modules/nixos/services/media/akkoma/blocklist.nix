@@ -94,6 +94,7 @@
     "imouto.pics" = "Lolicon, pedophilia";
     "yesmap.net" = "pedophilia";
     "layer02.net" = "Transphobia";
+    "paravielfalt.zone" = "pedophilia";
   };
 
   followers_only = {
