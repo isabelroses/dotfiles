@@ -20,8 +20,6 @@ in
 {
   imports = [ inputs.agenix.nixosModules.default ];
 
-  environment.systemPackages = [ pkgs.agenix ];
-
   age = {
     # check the main users ssh key and the system key to see if it is safe
     # to decrypt the secrets
