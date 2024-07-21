@@ -1,3 +1,7 @@
+{ lib, pkgs, ... }:
+let
+  inherit (lib.meta) getExe;
+in
 {
   programs.fish = {
     enable = true;
@@ -20,6 +24,8 @@
     shellAbbrs = { };
 
     shellInit = ''
+      ${getExe pkgs.nix-your-shell} fish | source
+
       # Ghostty supports auto-injection but nix-darwin hard overwrites XDG_DATA_DIRS
       # which make it so that we can't use the auto-injection. We have to source
       # manually. From https://github.com/mitchellh/nixos-config/blob/74ede9378860d4807780eac80c5d685e334d59e9/users/mitchellh/config.fish#L43-L51.
