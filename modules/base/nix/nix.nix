@@ -36,13 +36,8 @@ in
       options = "--delete-older-than 3d";
     };
 
+    # https://docs.lix.systems/manual/lix/nightly/command-ref/conf-file.html
     settings = {
-      # disable the flake registry since it worsens perf
-      flake-registry = pkgs.writers.writeJSON "flakes-empty.json" {
-        flakes = [ ];
-        version = 2;
-      };
-
       # Free up to 20GiB whenever there is less than 5GB left.
       # this setting is in bytes, so we multiply with 1024 by 3
       min-free = "${toString (5 * 1024 * 1024 * 1024)}";
@@ -66,8 +61,12 @@ in
         "isabel"
       ];
 
+      # disallow the use of flake registries to resolve flake references
+      use-registries = false;
+
       # let the system decide the number of max jobs
       max-jobs = "auto";
+
       # build inside sandboxed environments
       # we only enable this on linux because it servirly breaks on darwin
       sandbox = pkgs.stdenv.isLinux;
@@ -88,25 +87,44 @@ in
       # show more log lines for failed builds, as this happens alot and is useful
       log-lines = 30;
 
-      # enable new nix command and flakes and also "unintended" recursion as well as content addressed nix
+      # https://docs.lix.systems/manual/lix/nightly/contributing/experimental-features.html
       extra-experimental-features = [
+        # enables flakes, needed for this config
         "flakes"
+
+        # enables the nix3 commands, a requirement for flakes
         "nix-command"
+
+        # allow nix to call itself
         "recursive-nix"
+
+        # allow nix to build and use content addressable derivations, these are nice beaccase
+        # they prevent rebuilds when changes to the derivation do not result in changes to the derivation's output
         "ca-derivations"
+
+        # Allows Nix to automatically pick UIDs for builds, rather than creating nixbld* user accounts
+        # which is BEYOND annoying, which makes this a really nice feature to have
         "auto-allocate-uids"
+
+        # allows Nix to execute builds inside cgroups
+        # remember you must also enable use-cgroups in the nix.conf or settings
         "cgroups"
+
+        # allow passing installables to nix repl, making its interface consistent with the other experimental commands
         "repl-flake"
 
-        # the below are removed because lix is based on nix 2.18 which did not have these features
-        # "git-hashing"
-        # "verified-fetches"
-        # "configurable-impure-env"
+        # disallow unquoted URLs as part of the Nix language syntax
+        # this are explicitly derpricated and are unused in nixpkgs, so we should ensure that we are not using them
+        "no-url-literals"
       ];
 
       # don't warn me if the current working tree is dirty
       # i don't need the warning because i'm working on it right now
       warn-dirty = false;
+
+      # the defaults to false even if the experimental feature is enabled
+      # so we need to enable it here, this is also only available on linux, so we should check for that
+      use-cgroups = pkgs.stdenv.isLinux;
 
       # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
       http-connections = 50;
@@ -117,6 +135,10 @@ in
 
       # build from source if the build fails from a binary source
       # fallback = true;
+
+      # this defaults to true, however it slows down evaluation so maybe we should disable it
+      # some day, but we do need it for catppuccin/nix so maybe not too soon
+      allow-import-from-derivation = true;
 
       # for direnv GC roots
       keep-derivations = true;
