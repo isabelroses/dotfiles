@@ -73,6 +73,14 @@ let
             # modules, if this is not set then you will get an error
             (optionals pkgs.stdenv.isDarwin (singleton {
               nixpkgs.source = mkDefault inputs.nixpkgs;
+              system = {
+                # i don't quite know why this is set but upstream does it so i will too
+                checks.verifyNixPath = false;
+                # we use these values to keep track of what upstream revision we are on, this also
+                # prevents us from recreating docs for the same configuration build if nothing has changed
+                darwinVersionSuffix = ".${inputs.darwin.shortRev or inputs.darwin.dirtyShortRev or "dirty"}";
+                darwinRevision = inputs.darwin.rev or inputs.darwin.dirtyRev or "dirty";
+              };
             }))
 
             (args.modules or [ ])
