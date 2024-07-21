@@ -12,6 +12,13 @@
       ref = "nixpkgs-unstable";
     };
 
+    nixpkgs-wsl = {
+      type = "github";
+      owner = "jmbaur";
+      repo = "nixpkgs";
+      ref = "stc-ng-wsl";
+    };
+
     # lix a good fork of nix
     lix = {
       type = "git";
@@ -106,7 +113,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        flake-utils.follows = "flake-utils";
         pre-commit-hooks-nix.follows = "";
         flake-compat.follows = "";
       };

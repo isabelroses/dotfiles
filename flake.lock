@@ -536,9 +536,6 @@
         "flake-parts": [
           "flake-parts"
         ],
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -546,11 +543,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1721501207,
-        "narHash": "sha256-umzgs8hXYUyQe6wJm7AnJ3kx8M/h0/WXR2OemAZs3Qs=",
+        "lastModified": 1721581642,
+        "narHash": "sha256-Bd9ujkwkxwAYCnYKEKeY1fjsvD4vyiFjFS20Lxr/FD4=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "60e4578feca3d894f1474a9b08780c9a5433ad08",
+        "rev": "f3b4ade14392861388265e949b7007a8b62e21dc",
         "type": "github"
       },
       "original": {
@@ -753,6 +750,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-wsl": {
+      "locked": {
+        "lastModified": 1719028529,
+        "narHash": "sha256-fjPgm5bz+5bh1K0oSl0Z0T8F+zJjMhrCaNgQABSVdsY=",
+        "owner": "jmbaur",
+        "repo": "nixpkgs",
+        "rev": "3d1ecbd9c8a509f9faac2919e93890f1774ccba8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jmbaur",
+        "ref": "stc-ng-wsl",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1721466660,
@@ -791,6 +804,7 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-small": "nixpkgs-small",
+        "nixpkgs-wsl": "nixpkgs-wsl",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems_2",
         "treefmt-nix": "treefmt-nix",
