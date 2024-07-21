@@ -32,6 +32,9 @@ let
 
         eval = evalModules {
           # we use recursiveUpdate such that users can "override" the specialArgs
+          #
+          # This should only be used for special arguments that need to be evaluated
+          # when resolving module structure (like in imports).
           specialArgs = recursiveUpdate {
             # create the modulesPath based on the system, we need
             modulesPath = ldTernary pkgs "${inputs.nixpkgs}/nixos/modules" "${inputs.darwin}/modules";
