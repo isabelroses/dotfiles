@@ -1,7 +1,7 @@
 {
   imports = [ ./hardware.nix ];
 
-  config.garden = {
+  garden = {
     device = {
       type = "hybrid";
       cpu = "intel";

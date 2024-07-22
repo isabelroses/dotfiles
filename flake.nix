@@ -12,6 +12,7 @@
       ref = "nixpkgs-unstable";
     };
 
+    # temporary nixpkgs for a wsl issue
     nixpkgs-wsl = {
       type = "github";
       owner = "jmbaur";

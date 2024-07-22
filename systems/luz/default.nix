@@ -5,7 +5,7 @@
     ./services.nix
   ];
 
-  config.garden = {
+  garden = {
     device = {
       type = "server";
       cpu = "amd";

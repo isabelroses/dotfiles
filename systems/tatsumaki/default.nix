@@ -1,5 +1,5 @@
 {
-  config.garden = {
+  garden = {
     device.type = "laptop";
 
     system = {
