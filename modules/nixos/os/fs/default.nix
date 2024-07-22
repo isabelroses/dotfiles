@@ -1,11 +1,12 @@
 { lib, config, ... }:
 let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
   inherit (lib.types) listOf str;
   inherit (lib.options) mkOption;
-  inherit (lib.lists) elem;
+  inherit (lib.lists) elem map;
 
-  inherit (config.garden.system) fs;
+  # we remap ntfs3 to ntfs as they are the same thing for nix
+  fs = map (f: { ntfs3 = "ntfs"; }.${f} or f) config.garden.system.fs;
 in
 {
   options.garden.system.fs = mkOption {
@@ -22,56 +23,35 @@ in
     '';
   };
 
-  config = mkMerge [
-    (mkIf (fs == [ ]) {
-      warnings = [
-        ''
-          You have not added any filesystems to be supported by your system. You may end up with an unbootable system!
+  config = {
+    warnings = mkIf (fs == [ ]) [
+      ''
+        You have not set any filesystems in your configuration. This is not recommended
+        as it may lead to a unusable system.
 
-          Consider setting {option}`config.garden.system.fs` in your configuration
-        ''
-      ];
-    })
+        Please set {option}`config.garden.system.fs` in your configuration to remedy this.
+      ''
+    ];
 
-    (mkIf (elem "btrfs" fs) {
+    services = {
       # clean btrfs devices
-      services.btrfs.autoScrub = {
+      btrfs.autoScrub = mkIf (elem "btrfs" fs) {
         enable = true;
+        interval = "weekly";
         fileSystems = [ "/" ];
       };
 
-      # fix: initrd.systemd.enable
-      boot = {
-        supportedFilesystems = [ "btrfs" ];
-        initrd = {
-          supportedFilesystems = [ "btrfs" ];
-        };
+      # discard blocks that are not in use by the filesystem, good for SSDs health
+      fstrim = {
+        enable = true;
+        interval = "weekly";
       };
-    })
+    };
 
-    (mkIf (elem "ext4" fs) {
-      boot = {
-        supportedFilesystems = [ "ext4" ];
-        initrd = {
-          supportedFilesystems = [ "ext4" ];
-        };
-      };
-    })
-
-    (mkIf (elem "exfat" fs) {
-      boot = {
-        supportedFilesystems = [ "exfat" ];
-        initrd = {
-          supportedFilesystems = [ "exfat" ];
-        };
-      };
-    })
-
-    # accept both ntfs and ntfs3 as valid values
-    (mkIf ((elem "ntfs" fs) || (elem "ntfs3" fs)) {
-      boot = {
-        supportedFilesystems = [ "ntfs" ];
-      };
-    })
-  ];
+    # include our allowed file systems in the supported fileSystems lists
+    boot = {
+      supportedFilesystems = fs;
+      initrd.supportedFilesystems = fs;
+    };
+  };
 }
