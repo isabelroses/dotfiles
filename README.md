@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="dots" src="./dots.svg" width="150" />
+  <img alt="dots" src="./.github/dots.svg" width="150" />
   <h1>isabel's dotfiles</h1>
 
   <img alt="stars" src="https://img.shields.io/github/stars/isabelroses/dotfiles?color=f5c2e7&labelColor=303446&style=for-the-badge&logo=starship&logoColor=f5c2e7" />
@@ -18,17 +18,17 @@
 
    <p align="center">
       light mode
-      <img src="./images/lightmode.png" width="800px" />
+      <img src="./.github/images/lightmode.png" width="800px" />
    </p>
 
    <p align="center">
       wezterm + chromium
-      <img src="./images/blur.png" width="800px" />
+      <img src="./.github/images/blur.png" width="800px" />
    </p>
 
    <p align="center">
       neovim
-      <img src="./images/nvim.png" width="800px" />
+      <img src="./.github/images/nvim.png" width="800px" />
    </p>
 </details>
 
@@ -74,27 +74,27 @@ This repository contains my **personal** configuration for my systems. Its reall
 
 ### Config layout
 
-- 🏠 [home](../home/) Where all home-manager configurations lie
-- 🖥️ [systems](../systems/)
-  - ☀️ [Amaterasu](../systems/amatarasu/) My high-end gaming machine
-  - 🐉 [Hydra](../systems/hydra/) A super mid spec laptop
-  - ⚸ [Lilith](../systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
-  - 🪄 [Luz](../systems/luz/) A server configuration for some of my infrastructure
-  - 𖤍 [Valkyrie](../systems/valkyrie/) A WSL2 host, designed to be a development environment on Windows
-  - 💮 [Tatsumaki](../systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
-- 🧩 [parts](../parts/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
-  - 📚 [lib](../parts/lib/) Useful repeated functions
-  - 🛠️ [templates](../parts/templates/) Templates for setting up development environments
-  - 👾 [modules](../parts/modules/) Exported modules for NixOS, home-manager and Nix Darwin
-- 🔌 [modules](../modules/)
-  - [base](../modules/base/) The base configuration settings, which are common between all systems
-  - [darwin](../modules/darwin/) Pre-made modules for exclusively darwin systems
-  - [nixos](../modules/nixos/) Pre cooked modules for exclusively nixos systems
-  - [iso](../modules/iso/) Pre-configured modules prepared for making NixOS iso images
-  - [extra](../modules/extra) Extra configuration modules, for home-manager and Nix Darwin and NixOS
-  - [profiles](../modules/profiles/) Pre-made profiles for different system types
-    - [hardware](../modules/profiles/hardware) Optimized settings for different devices (e.g., laptop, servers, desktop)
-    - [meta](../modules/profiles/meta) Optimized configurations for different natures (e.g., headless, graphical)
+- 🏠 [home](./home/) Where all home-manager configurations lie
+- 🖥️ [systems](./systems/)
+  - ☀️ [Amaterasu](./systems/amatarasu/) My high-end gaming machine
+  - 🐉 [Hydra](./systems/hydra/) A super mid spec laptop
+  - ⚸ [Lilith](./systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
+  - 🪄 [Luz](./systems/luz/) A server configuration for some of my infrastructure
+  - 𖤍 [Valkyrie](./systems/valkyrie/) A WSL2 host, designed to be a development environment on Windows
+  - 💮 [Tatsumaki](./systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
+- 🧩 [parts](./parts/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
+  - 📚 [lib](./parts/lib/) Useful repeated functions
+  - 🛠️ [templates](./parts/templates/) Templates for setting up development environments
+  - 👾 [modules](./parts/modules/) Exported modules for NixOS, home-manager and Nix Darwin
+- 🔌 [modules](./modules/)
+  - [base](./modules/base/) The base configuration settings, which are common between all systems
+  - [darwin](./modules/darwin/) Pre-made modules for exclusively darwin systems
+  - [nixos](./modules/nixos/) Pre cooked modules for exclusively nixos systems
+  - [iso](./modules/iso/) Pre-configured modules prepared for making NixOS iso images
+  - [extra](./modules/extra) Extra configuration modules, for home-manager and Nix Darwin and NixOS
+  - [profiles](./modules/profiles/) Pre-made profiles for different system types
+    - [hardware](./modules/profiles/hardware) Optimized settings for different devices (e.g., laptop, servers, desktop)
+    - [meta](./modules/profiles/meta) Optimized configurations for different natures (e.g., headless, graphical)
 
 > [!TIP]
 > If you were looking for my custom modules or packages you should direct yourself to [isabelroses/beapkgs](https://github.com/isabelroses/beapkgs). Since there are remote modules and not all of them are clearly remote modules, it is worth looking through the [beapkgs docs](https://isabelroses.github.io/beapkgs/).
@@ -137,7 +137,7 @@ For the full list of templates you can look in the [templates](../parts/template
 ##### NixOS
 
 - Install [NixOS](https://nixos.org/download), you might need to follow the [manual](https://nixos.org/manual/nixos/stable/index.html#sec-installation)
-  You might want to use the [lilith iso configuration](../hosts/lilith/), provided in this repository
+  You might want to use the [lilith iso configuration](./hosts/lilith/), provided in this repository
   - To build it you can run `nix build .#images.lilith`.
   - Or you can download it from the [release page](https://github.com/isabelroses/dotfiles/releases/latest).
 - Clone this repository to `~/.config/flake`
