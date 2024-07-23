@@ -69,7 +69,14 @@ let
               networking.hostName = args.host;
               # you can also do this as system = args.system; however for evalModules
               # this will not work, so we do this instead
-              nixpkgs.hostPlatform = mkDefault args.system;
+              nixpkgs = {
+                hostPlatform = mkDefault args.system;
+                # The path to the nixpkgs sources used to build the system.
+                # This is automatically set up to be the store path of the nixpkgs flake used to build
+                # the system if using lib.nixosSystem, and is otherwise null by default.
+                # so that means that we should set it to our nixpkgs flake output path
+                flake.source = inputs.nixpkgs.outPath;
+              };
             })
 
             # if we are on darwin we need to import the nixpkgs source, its used in some
