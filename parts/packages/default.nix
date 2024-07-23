@@ -15,6 +15,8 @@
 
         # WARNING: This greatly assumes that lix will never merge a CL that breaks
         # the tests. But I choose to disable them anyway because the build time is faster
+        # We _also_ have to disable checks since they will fail since we cannot patch the package.nix
+        # to add the extra deps that are needed for the tests that i had added
         doCheck = false;
       });
     };

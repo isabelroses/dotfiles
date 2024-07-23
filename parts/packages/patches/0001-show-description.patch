@@ -1,8 +1,81 @@
+diff --git a/doc/manual/change-authors.yml b/doc/manual/change-authors.yml
+index f56a1e6fb..49df7f5df 100644
+--- a/doc/manual/change-authors.yml
++++ b/doc/manual/change-authors.yml
+@@ -65,10 +65,17 @@ horrors:
+ iFreilicht:
+   github: iFreilicht
+ 
++isabelroses:
++  forgejo: isabelroses
++  github: isabelroses
++
+ jade:
+   forgejo: jade
+   github: lf-
+ 
++kjeremy:
++  github: kjeremy
++
+ kloenk:
+   forgejo: kloenk
+   github: kloenk
+diff --git a/doc/manual/rl-next/nix-flake-show-description.md b/doc/manual/rl-next/nix-flake-show-description.md
+new file mode 100644
+index 000000000..e819a3a29
+--- /dev/null
++++ b/doc/manual/rl-next/nix-flake-show-description.md
+@@ -0,0 +1,37 @@
++---
++synopsis: "Lix will now show the package descriptions in when running `nix flake show`."
++cls: [1540]
++issues: []
++credits: [kjeremy, isabelroses]
++category: Improvements
++---
++
++When running `nix flake show`, Lix will now show the package descriptions, if they exist.
++
++Before:
++
++```shell
++$ nix flake show
++path:/home/isabel/dev/lix-show?lastModified=1721736108&narHash=sha256-Zo8HP1ur7Q2b39hKUEG8EAh/opgq8xJ2jvwQ/htwO4Q%3D
++└───packages
++    └───x86_64-linux
++        ├───aNoDescription: package 'simple'
++        ├───bOneLineDescription: package 'simple'
++        ├───cMultiLineDescription: package 'simple'
++        ├───dLongDescription: package 'simple'
++        └───eEmptyDescription: package 'simple'
++```
++
++After:
++
++```shell
++$ nix flake show
++path:/home/isabel/dev/lix-show?lastModified=1721736108&narHash=sha256-Zo8HP1ur7Q2b39hKUEG8EAh/opgq8xJ2jvwQ/htwO4Q%3D
++└───packages
++    └───x86_64-linux
++        ├───aNoDescription: package 'simple'
++        ├───bOneLineDescription: package 'simple' - 'one line'
++        ├───cMultiLineDescription: package 'simple' - 'line one'
++        ├───dLongDescription: package 'simple' - 'abcdefghijklmnopqrstuvwxyz'
++        └───eEmptyDescription: package 'simple'
++```
 diff --git a/src/nix/flake.cc b/src/nix/flake.cc
-index 3f9f8f99b06..48bec08c1be 100644
+index 63b250d13..9d18b81b8 100644
 --- a/src/nix/flake.cc
 +++ b/src/nix/flake.cc
-@@ -1243,25 +1243,45 @@ struct CmdFlakeShow : FlakeCommand, MixJSON
+@@ -15,6 +15,7 @@
+ #include "registry.hh"
+ #include "eval-cache.hh"
+ #include "markdown.hh"
++#include "terminal.hh"
+ 
+ #include <nlohmann/json.hpp>
+ #include <queue>
+@@ -1225,25 +1226,42 @@ struct CmdFlakeShow : FlakeCommand, MixJSON
                  auto showDerivation = [&]()
                  {
                      auto name = visitor.getAttr(state->sName)->getString();
@@ -35,21 +108,18 @@ index 3f9f8f99b06..48bec08c1be 100644
 +                            "package";
 +                        if (description && !description->empty()) {
 +                            // Trim the string and only display the first line of the description.
-+                            auto trimmed = nix::trim(*description);
-+                            auto newLinePos = trimmed.find('\n');
-+                            auto length = newLinePos != std::string::npos ? newLinePos : trimmed.size();
++                            auto desc = nix::trim(*description);
++                            auto firstLineDesc = desc.substr(0, desc.find('\n'));
 +
-+                            // If the string is too long then resize add ellipses
-+                            std::string desc;
-+                            if (length > 77) {
-+                                trimmed.resize(77);
-+                                desc = trimmed.append("...");
-+                            }
-+                            else {
-+                                desc = trimmed.substr(0, length);
++                            std::string output = fmt("%s: %s '%s' - '%s'", headerPrefix, type, name, firstLineDesc);
++                            if (output.size() > getWindowSize().second) {
++                                // we resize to 4 less then the window size to account for the "...'" we append to
++                                // the final string, we also include the ' since that is removed when we truncate the string
++                                output.resize(getWindowSize().second - 4);
++                                output.append("...'");
 +                            }
 +
-+                            logger->cout("%s: %s '%s' - '%s'", headerPrefix, type, name, desc);
++                            logger->cout("%s", output.c_str());
 +                        }
 +                        else {
 +                            logger->cout("%s: %s '%s'", headerPrefix, type, name);
@@ -58,10 +128,10 @@ index 3f9f8f99b06..48bec08c1be 100644
                  };
  
 diff --git a/tests/functional/flakes/show.sh b/tests/functional/flakes/show.sh
-index 22e1f419376..3d91613ee4a 100755
+index a3d300552..25f481575 100644
 --- a/tests/functional/flakes/show.sh
 +++ b/tests/functional/flakes/show.sh
-@@ -87,3 +87,28 @@ assert show_output.legacyPackages.${builtins.currentSystem}.AAAAAASomeThingsFail
+@@ -85,3 +85,31 @@ assert show_output.legacyPackages.${builtins.currentSystem}.AAAAAASomeThingsFail
  assert show_output.legacyPackages.${builtins.currentSystem}.simple.name == "simple";
  true
  '
@@ -77,16 +147,20 @@ index 22e1f419376..3d91613ee4a 100755
 +        line two
 +      ''; };
 +      dLongDescription = import ./simple.nix // { meta.description = ''
-+        01234567890123456789012345678901234567890123456789012345678901234567890123456789abcdefg
++        abcdefghijklmnopqrstuvwxyz
 +      ''; };
 +      eEmptyDescription = import ./simple.nix // { meta.description = ""; };
 +    };
 +  };
 +}
 +EOF
-+nix flake show > ./show-output.txt
++unbuffer sh -c '
++  stty rows 20 cols 100
++  nix flake show > show-output.txt
++'
 +test "$(awk -F '[:] ' '/aNoDescription/{print $NF}' ./show-output.txt)" = "package 'simple'"
 +test "$(awk -F '[:] ' '/bOneLineDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - 'one line'"
 +test "$(awk -F '[:] ' '/cMultiLineDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - 'line one'"
-+test "$(awk -F '[:] ' '/dLongDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - '01234567890123456789012345678901234567890123456789012345678901234567890123456...'"
++test "$(awk -F '[:] ' '/dLongDescription/{print $NF}' ./show-output.txt)" = "package 'simple' - 'abcdefghijklmnopqrs...'"
 +test "$(awk -F '[:] ' '/eEmptyDescription/{print $NF}' ./show-output.txt)" = "package 'simple'"
+
