@@ -4,6 +4,7 @@
     {
       packages.lix = inputs'.lix.packages.default.overrideAttrs (_: {
         # I've upstreamed this, waiting for merge
+        # https://gerrit.lix.systems/c/lix/+/1540
         patches = [ ./patches/0001-show-description.patch ];
 
         # Kinda funny right
