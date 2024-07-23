@@ -28,4 +28,8 @@ in
     # home-manager is so strange and needs these declared multiple times
     fish.enable = true;
   };
+
+  # disable stub-ld, this exists to kill dynamically linked executables, since they cannot work
+  # on NixOS, however we know that so we don't need to see the warning
+  environment.stub-ld.enable = false;
 }
