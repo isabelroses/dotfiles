@@ -61,8 +61,13 @@ in
         "isabel"
       ];
 
-      # disallow the use of flake registries to resolve flake references
-      use-registries = false;
+      # we don't want to track the registry, but we do want to allow the usage
+      # of the `flake:` references, so we need to enable use-registries
+      use-registries = true;
+      flake-registry = pkgs.writers.writeJSON "flakes-empty.json" {
+        flakes = [ ];
+        version = 2;
+      };
 
       # let the system decide the number of max jobs
       max-jobs = "auto";
