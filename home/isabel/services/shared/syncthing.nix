@@ -18,7 +18,11 @@ in
   config = mkIf (isAcceptedDevice osConfig acceptedTypes) {
     services.syncthing = {
       enable = true;
-      tray.enable = pkgs.stdenv.isLinux && osConfig.garden.programs.gui.enable;
+
+      tray = {
+        enable = pkgs.stdenv.isLinux && osConfig.garden.programs.gui.enable;
+        command = "syncthingtray --wait";
+      };
     };
   };
 }
