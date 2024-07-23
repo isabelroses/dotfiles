@@ -1,7 +1,6 @@
 # WARNING: it will become very apparent very quickly that this is not a good idea
 # or perhaps a bad idea, or something like that. maybe we should turn back now
 # but im committed to the bit, now we pray i don't endup with a broken system
-#
 { lib, ... }:
 {
   system = {
