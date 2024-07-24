@@ -3,14 +3,13 @@
 # but im committed to the bit, now we pray i don't endup with a broken system
 { lib, config, ... }:
 let
-  inherit (lib.modules) mkForce;
-  inherit (lib.attrsets) optionalAttrs;
+  inherit (lib.modules) mkIf mkForce mkMerge;
   inherit (lib.options) mkEnableOption;
 in
 {
   options.garden.system.banPerl = mkEnableOption "Ban perl from being installed";
 
-  config =
+  config = mkMerge [
     {
       system = {
         # WARNING: this leaves you without commands like `nixos-rebuild` which you don't
@@ -32,9 +31,9 @@ in
       # this can break things, perticualarly if you use containers
       # personally I don't so it should be fine to disable this
       boot.enableContainers = false;
-
     }
-    // optionalAttrs config.garden.system.banPerl {
+
+    (mkIf config.garden.system.banPerl {
       # since we enable a hover fs we also need to allow for that filesystem in the supported filesystems
       boot = {
         supportedFilesystems = [ "erofs" ];
@@ -68,5 +67,6 @@ in
         # we can use this to warn us if we have perl installed
         forbiddenDependenciesRegexes = [ "perl" ];
       };
-    };
+    })
+  ];
 }
