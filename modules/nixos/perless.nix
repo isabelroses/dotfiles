@@ -34,7 +34,7 @@ in
       boot.enableContainers = false;
 
     }
-    // optionalAttrs config.garden.system.allowPerl {
+    // optionalAttrs config.garden.system.banPerl {
       # since we enable a hover fs we also need to allow for that filesystem in the supported filesystems
       boot = {
         supportedFilesystems = [ "erofs" ];
