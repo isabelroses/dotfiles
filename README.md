@@ -11,7 +11,7 @@
 
 <br />
 
-![Preview image](./images/main.png)
+![Preview image](./.github/images/main.png)
 
 <details>
    <summary>more previews</summary>
