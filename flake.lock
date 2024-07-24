@@ -159,6 +159,24 @@
         "type": "github"
       }
     },
+    "comfywm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+        "lastModified": 1721849258,
+        "narHash": "sha256-RtOcrtUNEt/e/LZGLGwJ1rBmpyIRlKZZXczFRAJJ178=",
+        "path": "/home/isabel/dev/comfywm",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/isabel/dev/comfywm",
+        "type": "path"
+      }
+    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -574,7 +592,7 @@
           "nixpkgs"
         ],
         "pre-commit-hooks-nix": [],
-        "rust-overlay": "rust-overlay_3"
+        "rust-overlay": "rust-overlay_4"
       },
       "locked": {
         "lastModified": 1721581642,
@@ -654,7 +672,7 @@
           "izvim",
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_2"
+        "rust-overlay": "rust-overlay_3"
       },
       "locked": {
         "lastModified": 1717086091,
@@ -823,6 +841,7 @@
         "arkenfox": "arkenfox",
         "beapkgs": "beapkgs",
         "catppuccin": "catppuccin",
+        "comfywm": "comfywm",
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "flake-parts": "flake-parts",
@@ -868,6 +887,27 @@
     },
     "rust-overlay_2": {
       "inputs": {
+        "nixpkgs": [
+          "comfywm",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1721701191,
+        "narHash": "sha256-nM4szL90VeZHZEC5rFfaiiPNTVOmsihdtk2QSP1l37I=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "4674ff2c2e5423a0cebe16e61aa874c359306af4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_3": {
+      "inputs": {
         "flake-utils": [
           "izvim",
           "nil",
@@ -893,7 +933,7 @@
         "type": "github"
       }
     },
-    "rust-overlay_3": {
+    "rust-overlay_4": {
       "inputs": {
         "nixpkgs": [
           "lanzaboote",

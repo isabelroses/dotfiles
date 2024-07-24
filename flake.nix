@@ -172,6 +172,11 @@
       };
     };
 
+    comfywm = {
+      url = "path:/home/isabel/dev/comfywm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # I am not recompling this thanks
     hyprland = {
       type = "git";
