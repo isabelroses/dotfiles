@@ -2,7 +2,7 @@
 .DS_Store
 
 # Ignore nixos build outputs
-result
+result*
 .direnv/
 
 # Ignore pre-commit config
