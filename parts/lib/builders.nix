@@ -27,8 +27,6 @@ let
     withSystem system (
       { self', inputs', ... }:
       let
-        pkgs = inputs.nixpkgs.legacyPackages.${system};
-
         eval = evalModules {
           # we use recursiveUpdate such that users can "override" the specialArgs
           #
@@ -52,11 +50,11 @@ let
           modules = concatLists [
             # depending on the base operating system we can only use some options therefore these
             # options means that we can limit these options to only those given operating systems
-            [ "${self}/modules/${target}" ]
+            [ "${self}/modules/${target}/default.nix" ]
 
             # configurations based on that are imported based hostname,
             # these don't exist for iso systems (at the moment) so we ignore those
-            (optionals (target != "iso") [ "${self}/systems/${args.host}" ])
+            (optionals (target != "iso") [ "${self}/systems/${args.host}/default.nix" ])
 
             # get an installer profile from nixpkgs to base the Isos off of
             # this is useful because it makes things alot easier
@@ -91,7 +89,7 @@ let
 
             # if we are on darwin we need to import the nixpkgs source, its used in some
             # modules, if this is not set then you will get an error
-            (optionals pkgs.stdenv.isDarwin (singleton {
+            (optionals (target == "darwin") (singleton {
               # without supplying an upstream nixpkgs source, nix-darwin will not be able to build
               # and will complain and log an error demanding that you must set this value
               nixpkgs.source = mkDefault inputs.nixpkgs;
@@ -114,7 +112,7 @@ let
       # we broke don't just call evalModules here because we need to be able to
       # append system to the final evaluated result since nix darwin uses this to switch
       # the configuration on and off
-      eval // optionalAttrs pkgs.stdenv.isDarwin { system = eval.config.system.build.toplevel; }
+      eval // optionalAttrs (target == "darwin") { system = eval.config.system.build.toplevel; }
     );
 
   # mkSystems is a wrapper for mkNixSystem to create a list of systems
