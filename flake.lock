@@ -115,11 +115,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1721867719,
-        "narHash": "sha256-UB4SVw5YBBdDZHL5wow2ObJ0WoHxancKY//Cxq+3/XI=",
+        "lastModified": 1721905635,
+        "narHash": "sha256-0otSg0Ws96e+N5lF+8G4xeMr2gZZG3nMdWb9+WTalzI=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "372845f62d716a17aea6553cac91145face1d1e4",
+        "rev": "1756722c0532b782d53838d110916b4fdd7ef2ae",
         "type": "github"
       },
       "original": {

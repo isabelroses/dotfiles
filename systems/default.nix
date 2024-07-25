@@ -2,8 +2,7 @@
 let
   inherit (inputs.self) lib;
 
-  inherit (lib.modules) mkMerge;
-  inherit (lib.builders) mkIsos mkSystems;
+  inherit (lib.builders) mkSystems;
   inherit (lib.lists) concatLists;
 
   # modules
@@ -50,57 +49,59 @@ in
     darwinConfigurations = mkSystems [
       {
         host = "tatsumaki";
-        system = "aarch64-darwin";
+        arch = "aarch64";
+        target = "darwin";
         modules = concatLists [ shared ];
       }
     ];
 
-    nixosConfigurations = mkMerge [
-      (mkSystems [
-        {
-          host = "hydra";
-          system = "x86_64-linux";
-          modules = [
-            laptop
-            graphical
-          ] ++ concatLists [ shared ];
-        }
+    nixosConfigurations = mkSystems [
+      {
+        host = "hydra";
+        arch = "x86_64";
+        target = "nixos";
+        modules = [
+          laptop
+          graphical
+        ] ++ concatLists [ shared ];
+      }
 
-        {
-          host = "amaterasu";
-          system = "x86_64-linux";
-          modules = [
-            desktop
-            graphical
-          ] ++ concatLists [ shared ];
-        }
+      {
+        host = "amaterasu";
+        arch = "x86_64";
+        target = "nixos";
+        modules = [
+          desktop
+          graphical
+        ] ++ concatLists [ shared ];
+      }
 
-        {
-          host = "valkyrie";
-          system = "x86_64-linux";
-          modules = concatLists [
-            wsl
-            shared
-          ];
-        }
+      {
+        host = "valkyrie";
+        arch = "x86_64";
+        target = "nixos";
+        modules = concatLists [
+          wsl
+          shared
+        ];
+      }
 
-        {
-          host = "luz";
-          system = "x86_64-linux";
-          modules = concatLists [
-            server
-            shared
-          ];
-        }
-      ])
+      {
+        host = "luz";
+        arch = "x86_64";
+        target = "nixos";
+        modules = concatLists [
+          server
+          shared
+        ];
+      }
 
-      (mkIsos [
-        {
-          host = "lilith";
-          system = "x86_64-linux";
-          modules = [ headless ];
-        }
-      ])
+      {
+        host = "lilith";
+        arch = "x86_64";
+        target = "iso";
+        modules = [ headless ];
+      }
     ];
 
     # NOTE: we redeclare the iso images here, such that they can easily be built

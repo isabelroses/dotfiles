@@ -10,25 +10,24 @@ let
   inherit (lib.lists) optionals singleton concatLists;
   inherit (lib.attrsets) recursiveUpdate optionalAttrs;
   inherit (lib.modules) mkMerge mkDefault evalModules;
-  inherit (lib.hardware) ldTernary;
 
   # mkSystem is a function that uses withSystem to give us inputs' and self'
   # it also assumes the the system type either nixos or darwin and uses the appropriate
   mkSystem =
     {
       host,
-      system,
+      arch ? "x86_64",
+      target ? "nixos",
       modules,
       ...
     }@args:
+    let
+      system = if (target == "iso" || target == "nixos") then "${arch}-linux" else "${arch}-${target}";
+    in
     withSystem system (
       { self', inputs', ... }:
       let
         pkgs = inputs.nixpkgs.legacyPackages.${system};
-
-        # this is used to determine the target system and modules that are going to be needed
-        # for this specific system
-        target = ldTernary pkgs "nixos" "darwin";
 
         eval = evalModules {
           # we use recursiveUpdate such that users can "override" the specialArgs
@@ -37,7 +36,8 @@ let
           # when resolving module structure (like in imports).
           specialArgs = recursiveUpdate {
             # create the modulesPath based on the system, we need
-            modulesPath = ldTernary pkgs "${inputs.nixpkgs}/nixos/modules" "${inputs.darwin}/modules";
+            modulesPath =
+              if target == "darwin" then "${inputs.darwin}/modules" else "${inputs.nixpkgs}/nixos/modules";
 
             # laying it out this way is completely arbitrary, however it looks nice i guess
             inherit lib;
@@ -54,23 +54,33 @@ let
             # options means that we can limit these options to only those given operating systems
             [ "${self}/modules/${target}" ]
 
-            # configurations based on that are imported based hostname
-            [ "${self}/systems/${args.host}" ]
+            # configurations based on that are imported based hostname,
+            # these don't exist for iso systems (at the moment) so we ignore those
+            (optionals (target != "iso") [ "${self}/systems/${args.host}" ])
+
+            # get an installer profile from nixpkgs to base the Isos off of
+            # this is useful because it makes things alot easier
+            (optionals (target == "iso") [
+              "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix"
+            ])
 
             # we need to import the module list for our system
             # this is either the nixos modules list provided by nixpkgs
             # or the darwin modules list provided by nix darwin
             (import (
-              ldTernary pkgs "${inputs.nixpkgs}/nixos/modules/module-list.nix"
+              if target == "darwin" then
                 "${inputs.darwin}/modules/module-list.nix"
+              else
+                "${inputs.nixpkgs}/nixos/modules/module-list.nix"
             ))
 
             (singleton {
               networking.hostName = args.host;
-              # you can also do this as system = args.system; however for evalModules
-              # this will not work, so we do this instead
               nixpkgs = {
-                hostPlatform = mkDefault args.system;
+                # you can also do this as `inherit system;` with the normal `lib.nixosSystem`
+                # however for evalModules this will not work, so we do this instead
+                hostPlatform = mkDefault system;
+
                 # The path to the nixpkgs sources used to build the system.
                 # This is automatically set up to be the store path of the nixpkgs flake used to build
                 # the system if using lib.nixosSystem, and is otherwise null by default.
@@ -82,10 +92,14 @@ let
             # if we are on darwin we need to import the nixpkgs source, its used in some
             # modules, if this is not set then you will get an error
             (optionals pkgs.stdenv.isDarwin (singleton {
+              # without supplying an upstream nixpkgs source, nix-darwin will not be able to build
+              # and will complain and log an error demanding that you must set this value
               nixpkgs.source = mkDefault inputs.nixpkgs;
+
               system = {
                 # i don't quite know why this is set but upstream does it so i will too
                 checks.verifyNixPath = false;
+
                 # we use these values to keep track of what upstream revision we are on, this also
                 # prevents us from recreating docs for the same configuration build if nothing has changed
                 darwinVersionSuffix = ".${inputs.darwin.shortRev or inputs.darwin.dirtyShortRev or "dirty"}";
@@ -103,47 +117,9 @@ let
       eval // optionalAttrs pkgs.stdenv.isDarwin { system = eval.config.system.build.toplevel; }
     );
 
-  # mkIso is a helper function that wraps mkSystem to create an iso
-  # DO NOT use mkSystem here as it is overkill for isos, furthermore we cannot use darwinSystem here
-  mkIso =
-    {
-      host,
-      system,
-      modules,
-      ...
-    }@args:
-    lib.nixosSystem {
-      specialArgs = recursiveUpdate { inherit lib self inputs; } (args.specialArgs or { });
-
-      modules = concatLists [
-        # get an installer profile from nixpkgs to base the Isos off of
-        [ "${inputs.nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix" ]
-
-        # import our custom modules for the iso
-        [ "${self}/modules/iso" ]
-
-        # set the hostname for the iso
-        (singleton {
-          networking.hostName = args.host;
-          nixpkgs.hostPlatform = mkDefault args.system;
-        })
-
-        # load any extra arguments the user has supplied
-        (args.modules or [ ])
-      ];
-    };
-
   # mkSystems is a wrapper for mkNixSystem to create a list of systems
   mkSystems = systems: mkMerge (map (system: { ${system.host} = mkSystem system; }) systems);
-
-  # mkIsos likewise to mkSystems is a wrapper for mkIso to create a list of isos
-  mkIsos = isos: mkMerge (map (iso: { ${iso.host} = mkIso iso; }) isos);
 in
 {
-  inherit
-    mkIso
-    mkIsos
-    mkSystem
-    mkSystems
-    ;
+  inherit mkSystem mkSystems;
 }
