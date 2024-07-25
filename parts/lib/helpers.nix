@@ -48,11 +48,19 @@ let
       domain,
       alias,
       user ? "git",
+      port ? null,
       ...
     }:
     {
       "https://${domain}/".insteadOf = "${alias}:";
-      "ssh://${user}@${domain}/".pushInsteadOf = "${alias}:";
+      "ssh://${user}@${domain}${
+        if (builtins.isNull port) then
+          ""
+        else if (builtins.isInt port) then
+          ":" + (builtins.toString port)
+        else
+          ":" + port
+      }/".pushInsteadOf = "${alias}:";
     };
 in
 {
