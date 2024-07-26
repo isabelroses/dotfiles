@@ -159,6 +159,27 @@
         "type": "github"
       }
     },
+    "comfywm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay_2"
+      },
+      "locked": {
+        "lastModified": 1721991058,
+        "narHash": "sha256-o+Gr3PtgH8Bs9nwSyVXd7kUrf++P7lKKiKQmktyB9So=",
+        "ref": "refs/heads/main",
+        "rev": "7ff3257afa1a2279e6992fc5923cbccc4a1ada5b",
+        "revCount": 3,
+        "type": "git",
+        "url": "ssh://git@git.isabelroses.com:2222/isabel/comfywm"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@git.isabelroses.com:2222/isabel/comfywm"
+      }
+    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -574,7 +595,7 @@
           "nixpkgs"
         ],
         "pre-commit-hooks-nix": [],
-        "rust-overlay": "rust-overlay_3"
+        "rust-overlay": "rust-overlay_4"
       },
       "locked": {
         "lastModified": 1721581642,
@@ -654,7 +675,7 @@
           "izvim",
           "nixpkgs"
         ],
-        "rust-overlay": "rust-overlay_2"
+        "rust-overlay": "rust-overlay_3"
       },
       "locked": {
         "lastModified": 1717086091,
@@ -823,6 +844,7 @@
         "arkenfox": "arkenfox",
         "beapkgs": "beapkgs",
         "catppuccin": "catppuccin",
+        "comfywm": "comfywm",
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "flake-parts": "flake-parts",
@@ -868,6 +890,27 @@
     },
     "rust-overlay_2": {
       "inputs": {
+        "nixpkgs": [
+          "comfywm",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1721701191,
+        "narHash": "sha256-nM4szL90VeZHZEC5rFfaiiPNTVOmsihdtk2QSP1l37I=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "4674ff2c2e5423a0cebe16e61aa874c359306af4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_3": {
+      "inputs": {
         "flake-utils": [
           "izvim",
           "nil",
@@ -893,7 +936,7 @@
         "type": "github"
       }
     },
-    "rust-overlay_3": {
+    "rust-overlay_4": {
       "inputs": {
         "nixpkgs": [
           "lanzaboote",
