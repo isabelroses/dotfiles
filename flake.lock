@@ -167,14 +167,17 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1721849258,
-        "narHash": "sha256-RtOcrtUNEt/e/LZGLGwJ1rBmpyIRlKZZXczFRAJJ178=",
-        "path": "/home/isabel/dev/comfywm",
-        "type": "path"
+        "lastModified": 1721991058,
+        "narHash": "sha256-o+Gr3PtgH8Bs9nwSyVXd7kUrf++P7lKKiKQmktyB9So=",
+        "ref": "refs/heads/main",
+        "rev": "7ff3257afa1a2279e6992fc5923cbccc4a1ada5b",
+        "revCount": 3,
+        "type": "git",
+        "url": "ssh://git@git.isabelroses.com:2222/isabel/comfywm"
       },
       "original": {
-        "path": "/home/isabel/dev/comfywm",
-        "type": "path"
+        "type": "git",
+        "url": "ssh://git@git.isabelroses.com:2222/isabel/comfywm"
       }
     },
     "crane": {

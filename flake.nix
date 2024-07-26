@@ -173,7 +173,9 @@
     };
 
     comfywm = {
-      url = "path:/home/isabel/dev/comfywm";
+      url = "git+ssh://git@git.isabelroses.com:2222/isabel/comfywm";
+      # url = "path:/home/isabel/dev/comfywm";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
