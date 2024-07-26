@@ -805,22 +805,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-wsl": {
-      "locked": {
-        "lastModified": 1719028529,
-        "narHash": "sha256-fjPgm5bz+5bh1K0oSl0Z0T8F+zJjMhrCaNgQABSVdsY=",
-        "owner": "jmbaur",
-        "repo": "nixpkgs",
-        "rev": "3d1ecbd9c8a509f9faac2919e93890f1774ccba8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "jmbaur",
-        "ref": "stc-ng-wsl",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1721782431,
@@ -860,7 +844,6 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-small": "nixpkgs-small",
-        "nixpkgs-wsl": "nixpkgs-wsl",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems_2",
         "treefmt-nix": "treefmt-nix",

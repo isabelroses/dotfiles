@@ -12,14 +12,6 @@
       ref = "nixpkgs-unstable";
     };
 
-    # temporary nixpkgs for a wsl issue
-    nixpkgs-wsl = {
-      type = "github";
-      owner = "jmbaur";
-      repo = "nixpkgs";
-      ref = "stc-ng-wsl";
-    };
-
     # lix a good fork of nix
     lix = {
       type = "git";
