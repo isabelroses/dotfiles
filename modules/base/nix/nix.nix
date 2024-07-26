@@ -127,10 +127,6 @@ in
       # i don't need the warning because i'm working on it right now
       warn-dirty = false;
 
-      # the defaults to false even if the experimental feature is enabled
-      # so we need to enable it here, this is also only available on linux, so we should check for that
-      use-cgroups = pkgs.stdenv.isLinux;
-
       # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
       http-connections = 50;
 

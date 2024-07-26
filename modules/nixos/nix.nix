@@ -21,7 +21,10 @@ in
     daemonIOSchedPriority = 7;
 
     settings = {
-      use-cgroups = true; # execute builds inside cgroups
+      # the defaults to false even if the experimental feature is enabled
+      # so we need to enable it here, this is also only available on linux
+      # and the option is explicitly removed on darwin so we have to have this here
+      use-cgroups = true;
 
       extra-platforms = config.boot.binfmt.emulatedSystems;
     };
