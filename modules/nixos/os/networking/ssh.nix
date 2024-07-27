@@ -60,6 +60,7 @@ in
       }
     ];
 
+    # TODO: abstract this
     # find these with `ssh-keyscan <hostname>`
     knownHosts = {
       github-rsa = {

@@ -9,6 +9,8 @@ in
     block = [
       "fakenews"
       "gambling"
+      "porn"
+      # "social"
     ];
   };
 }

@@ -19,11 +19,13 @@ in
     networking.firewall = {
       enable = true;
       package = pkgs.iptables;
+
       allowedTCPPorts = [
         443
         8080
       ];
       allowedUDPPorts = [ ];
+
       allowedTCPPortRanges = mkIf programs.gui.kdeconnect.enable [
         {
           from = 1714;
@@ -36,10 +38,16 @@ in
           to = 1764;
         }
       ];
+
+      # allow servers to be pinnged, but not our clients
       allowPing = device.type == "server";
+
+      # make a much smaller and easier to read log
       logReversePathDrops = true;
       logRefusedConnections = false;
-      checkReversePath = mkForce false; # Don't filter DHCP packets, according to nixops-libvirtd
+
+      # Don't filter DHCP packets, according to nixops-libvirtd
+      checkReversePath = mkForce false;
     };
   };
 }
