@@ -12,6 +12,6 @@
     ./ripgrep.nix
     ./starship.nix
     # ./tealdear.nix
-    # ./zoxide.nix
+    ./zoxide.nix
   ];
 }
