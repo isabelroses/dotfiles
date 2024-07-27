@@ -11,16 +11,19 @@ in
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   config = {
-    services.smartd.enable = mkForce false; # Unavailable - device lacks SMART capability.
+    services = {
+      smartd.enable = mkForce false; # Unavailable - device lacks SMART capability.
+
+      # Needed by the Hetzner Cloud password reset feature
+      qemuGuest.enable = true;
+    };
 
     boot = {
       growPartition = !config.boot.initrd.systemd.enable;
       kernelParams = [ "net.ifnames=0" ];
-      kernel = {
-        sysctl = {
-          "net.ipv4.ip_forward" = true;
-          "net.ipv6.conf.all.forwarding" = true;
-        };
+      kernel.sysctl = {
+        "net.ipv4.ip_forward" = true;
+        "net.ipv6.conf.all.forwarding" = true;
       };
 
       initrd.availableKernelModules = [
