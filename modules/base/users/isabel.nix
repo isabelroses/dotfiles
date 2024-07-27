@@ -17,7 +17,7 @@ in
     {
       openssh.authorizedKeys.keys = keys;
       home = "/${ldTernary pkgs "home" "Users"}/isabel";
-      shell = ldTernary pkgs pkgs.fish pkgs.zsh;
+      shell = pkgs.fish;
     }
     // (ldTernary pkgs {
       isNormalUser = true;
