@@ -40,6 +40,7 @@
             # ensure we have nice formatting
             prettier = mkHook' "prettier" { settings.write = true; };
             treefmt = mkHook' "treefmt" { package = config.treefmt.build.wrapper; };
+            stylua = mkHook "stylua";
             editorconfig-checker = mkHook' "editorconfig" {
               enable = lib.mkForce false;
               always_run = true;
@@ -47,6 +48,9 @@
             nixfmt = mkHook "nixfmt" // {
               package = pkgs.nixfmt-rfc-style;
             };
+
+            # check for dead links
+            lychee = mkHook "lychee";
 
             # make sure there are no typos in the code
             typos = mkHook' "typos" {
