@@ -9,6 +9,7 @@
       excludes = [
         "flake.lock"
         "r'.+\.age$'"
+        "r'.+\.patch$'"
       ];
 
       mkHook = name: {
