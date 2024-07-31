@@ -8,7 +8,7 @@ let
   inherit (lib.hardware) ldTernary;
 in
 {
-  config.fonts =
+  fonts =
     {
       packages = with pkgs; [
         config.garden.style.font.package
