@@ -1,5 +1,5 @@
-local wezterm = require("wezterm")
 local utils = require("utils")
+local wezterm = require("wezterm")
 
 local c = {}
 if wezterm.c_builder then
