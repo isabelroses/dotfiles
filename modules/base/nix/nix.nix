@@ -15,6 +15,7 @@ in
   nix = {
     # keep tabs on this for cool new features
     # https://git.lix.systems/lix-project/lix/src/branch/main/doc/manual/rl-next
+    # or rendered https://docs.lix.systems/manual/lix/nightly/release-notes/rl-next.html
     #
     # You cannot build nix.exe with lix, I don't really know who this affects but...
     # https://akko.isabelroses.com/notice/AjMDXG28c8sLqhci0G
