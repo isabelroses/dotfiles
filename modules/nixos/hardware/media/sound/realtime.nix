@@ -6,7 +6,6 @@ let
   dev = config.garden.device;
 in
 {
-  # https://wiki.linuxaudio.org/wiki/system_configuration
   config = mkIf (cfg.enable && dev.hasSound) {
     users = {
       users.${config.garden.system.mainUser}.extraGroups = [ "audio" ];

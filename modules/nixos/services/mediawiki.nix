@@ -35,8 +35,8 @@ in
       };
 
       extraConfig = ''
-        $wgFavicon = "https://raw.githubusercontent.com/catppuccin/website/2024/public/favicon.png";
-        $wgLogos = ['icon' => "https://raw.githubusercontent.com/catppuccin/website/2024/public/favicon.png"];
+        $wgFavicon = "https://raw.githubusercontent.com/catppuccin/website/main/public/favicon.png";
+        $wgLogos = ['icon' => "https://raw.githubusercontent.com/catppuccin/website/main/public/favicon.png"];
 
         # set out own license
         # $wgRightsPage = "Project:About";

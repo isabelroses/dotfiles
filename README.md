@@ -55,7 +55,7 @@
 This repository contains my **personal** configuration for my systems. Its really important that you know it's **personal** and not everything will fit your needs or even work out of the box for you without some changes.
 
 > [!WARNING]
-> It's also significant to note that this configuration will **not** work if you do not change any of the [secrets](../secrets) since they are encrypted.
+> It's also significant to note that this configuration will **not** work if you do not change any of the [secrets](./secrets) since they are encrypted.
 
 > [!TIP]
 > You can find some cool blogs and people at the bottom of this file, or [click here](#additional-notes)
@@ -70,13 +70,13 @@ This repository contains my **personal** configuration for my systems. Its reall
 - Modular configuration, so you can add or remove parts of the configuration
 - Sensible defaults, so you can get started quickly
 - Docs kind of
-- [Catppuccin](https://github.com/catppuccin/catppucin) everywhere, with a hint of [evergarden](https://github.com/comfysage/evergarden)
+- [Catppuccin](https://github.com/catppuccin/catppuccin) everywhere, with a hint of [evergarden](https://github.com/comfysage/evergarden)
 
 ### Config layout
 
 - 🏠 [home](./home/) Where all home-manager configurations lie
 - 🖥️ [systems](./systems/)
-  - ☀️ [Amaterasu](./systems/amatarasu/) My high-end gaming machine
+  - ☀️ [Amaterasu](./systems/amaterasu) My high-end gaming machine
   - 🐉 [Hydra](./systems/hydra/) A super mid spec laptop
   - ⚸ [Lilith](./systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
   - 🪄 [Luz](./systems/luz/) A server configuration for some of my infrastructure
@@ -108,7 +108,7 @@ To use the templates there are two commands you can run, they are:
 - `nix flake init -t github:isabelroses/dotfiles#<template>` to initialize a new project with the template
 - `nix flake new -t github:isabelroses/dotfiles#<template> <out dir>` to create a new project in the specified directory
 
-For the full list of templates you can look in the [templates](../parts/templates/) directory or run `nix flake show github:isabelroses/dotfiles`.
+For the full list of templates you can look in the [templates](./parts/templates/) directory or run `nix flake show github:isabelroses/dotfiles`.
 
 <details>
 <summary>
@@ -137,7 +137,7 @@ For the full list of templates you can look in the [templates](../parts/template
 ##### NixOS
 
 - Install [NixOS](https://nixos.org/download), you might need to follow the [manual](https://nixos.org/manual/nixos/stable/index.html#sec-installation)
-  You might want to use the [lilith iso configuration](./hosts/lilith/), provided in this repository
+  You might want to use the [lilith iso configuration](./systems/lilith/), provided in this repository
   - To build it you can run `nix build .#images.lilith`.
   - Or you can download it from the [release page](https://github.com/isabelroses/dotfiles/releases/latest).
 - Clone this repository to `~/.config/flake`
