@@ -30,6 +30,7 @@
     };
 
     tool = {
+      editor = "nvim";
       pager = "bat";
 
       # Command used to preview a note during interactive fzf mode.
