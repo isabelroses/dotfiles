@@ -1,0 +1,178 @@
+From 94698ed4f8a1a78a7497792c648efc59d1f2f1e2 Mon Sep 17 00:00:00 2001
+From: piegames <git@piegames.de>
+Date: Mon, 22 Jul 2024 21:26:17 +0200
+Subject: [PATCH] libexpr/parser: Test experimental features
+
+Currently, the parser relies on the global experimental feature flags.
+In order to properly test conditional language features, we instead need
+to pass it around in the parser::State.
+
+This means that the parser cannot cache the result of isEnabled anymore,
+which wouldn't necessarily hurt performance if the function didn't
+perform a linear search on the list of enabled features on every single
+call. While we could simply evaluate once at the start of parsing and
+cache the result in the parser state, the more sustainable solution
+would be to fix `isEnabled` such that all callers may profit from the
+performance improvement.
+
+Change-Id: Ic9b9c5d882b6270e1114988b63e6064d36c25cf2
+---
+ src/libexpr/eval.cc                         |  8 ++++----
+ src/libexpr/eval.hh                         |  7 ++++---
+ src/libexpr/parser/parser.cc                |  6 ++++--
+ src/libexpr/parser/state.hh                 |  1 +
+ tests/unit/libexpr-support/tests/libexpr.hh |  4 ++--
+ tests/unit/libexpr/trivial.cc               | 17 +++++++++++++++++
+ 6 files changed, 32 insertions(+), 11 deletions(-)
+
+diff --git a/src/libexpr/eval.cc b/src/libexpr/eval.cc
+index c0e7a9a2e..fd1cc9cda 100644
+--- a/src/libexpr/eval.cc
++++ b/src/libexpr/eval.cc
+@@ -2795,20 +2795,20 @@ Expr & EvalState::parseExprFromFile(const SourcePath & path, std::shared_ptr<Sta
+ }
+ 
+ 
+-Expr & EvalState::parseExprFromString(std::string s_, const SourcePath & basePath, std::shared_ptr<StaticEnv> & staticEnv)
++Expr & EvalState::parseExprFromString(std::string s_, const SourcePath & basePath, std::shared_ptr<StaticEnv> & staticEnv, const ExperimentalFeatureSettings & xpSettings)
+ {
+     // NOTE this method (and parseStdin) must take care to *fully copy* their input
+     // into their respective Pos::Origin until the parser stops overwriting its input
+     // data.
+     auto s = make_ref<std::string>(s_);
+     s_.append("\0\0", 2);
+-    return *parse(s_.data(), s_.size(), Pos::String{.source = s}, basePath, staticEnv);
++    return *parse(s_.data(), s_.size(), Pos::String{.source = s}, basePath, staticEnv, xpSettings);
+ }
+ 
+ 
+-Expr & EvalState::parseExprFromString(std::string s, const SourcePath & basePath)
++Expr & EvalState::parseExprFromString(std::string s, const SourcePath & basePath, const ExperimentalFeatureSettings & xpSettings)
+ {
+-    return parseExprFromString(std::move(s), basePath, staticBaseEnv);
++    return parseExprFromString(std::move(s), basePath, staticBaseEnv, xpSettings);
+ }
+ 
+ 
+diff --git a/src/libexpr/eval.hh b/src/libexpr/eval.hh
+index e54eede40..67c288418 100644
+--- a/src/libexpr/eval.hh
++++ b/src/libexpr/eval.hh
+@@ -342,8 +342,8 @@ public:
+     /**
+      * Parse a Nix expression from the specified string.
+      */
+-    Expr & parseExprFromString(std::string s, const SourcePath & basePath, std::shared_ptr<StaticEnv> & staticEnv);
+-    Expr & parseExprFromString(std::string s, const SourcePath & basePath);
++    Expr & parseExprFromString(std::string s, const SourcePath & basePath, std::shared_ptr<StaticEnv> & staticEnv, const ExperimentalFeatureSettings & xpSettings = experimentalFeatureSettings);
++    Expr & parseExprFromString(std::string s, const SourcePath & basePath, const ExperimentalFeatureSettings & xpSettings = experimentalFeatureSettings);
+ 
+     Expr & parseStdin();
+ 
+@@ -566,7 +566,8 @@ private:
+         size_t length,
+         Pos::Origin origin,
+         const SourcePath & basePath,
+-        std::shared_ptr<StaticEnv> & staticEnv);
++        std::shared_ptr<StaticEnv> & staticEnv,
++        const ExperimentalFeatureSettings & xpSettings = experimentalFeatureSettings);
+ 
+     /**
+      * Current Nix call stack depth, used with `max-call-depth` setting to throw stack overflow hopefully before we run out of system stack.
+diff --git a/src/libexpr/parser/parser.cc b/src/libexpr/parser/parser.cc
+index a00586c36..08e848593 100644
+--- a/src/libexpr/parser/parser.cc
++++ b/src/libexpr/parser/parser.cc
+@@ -630,7 +630,7 @@ template<> struct BuildAST<grammar::expr::path> : p::maybe_nothing {};
+ 
+ template<> struct BuildAST<grammar::expr::uri> {
+     static void apply(const auto & in, ExprState & s, State & ps) {
+-       static bool noURLLiterals = experimentalFeatureSettings.isEnabled(Xp::NoUrlLiterals);
++       bool noURLLiterals = ps.xpSettings.isEnabled(Xp::NoUrlLiterals);
+        if (noURLLiterals)
+            throw ParseError({
+                .msg = HintFmt("URL literals are disabled"),
+@@ -831,7 +831,8 @@ Expr * EvalState::parse(
+     size_t length,
+     Pos::Origin origin,
+     const SourcePath & basePath,
+-    std::shared_ptr<StaticEnv> & staticEnv)
++    std::shared_ptr<StaticEnv> & staticEnv,
++    const ExperimentalFeatureSettings & xpSettings)
+ {
+     parser::State s = {
+         symbols,
+@@ -839,6 +840,7 @@ Expr * EvalState::parse(
+         basePath,
+         positions.addOrigin(origin, length),
+         exprSymbols,
++        xpSettings
+     };
+     parser::ExprState x;
+ 
+diff --git a/src/libexpr/parser/state.hh b/src/libexpr/parser/state.hh
+index 29889152e..30803a37e 100644
+--- a/src/libexpr/parser/state.hh
++++ b/src/libexpr/parser/state.hh
+@@ -19,6 +19,7 @@ struct State
+     SourcePath basePath;
+     PosTable::Origin origin;
+     const Expr::AstSymbols & s;
++    const ExperimentalFeatureSettings & xpSettings;
+ 
+     void dupAttr(const AttrPath & attrPath, const PosIdx pos, const PosIdx prevPos);
+     void dupAttr(Symbol attr, const PosIdx pos, const PosIdx prevPos);
+diff --git a/tests/unit/libexpr-support/tests/libexpr.hh b/tests/unit/libexpr-support/tests/libexpr.hh
+index 01dcbb34c..745aa168d 100644
+--- a/tests/unit/libexpr-support/tests/libexpr.hh
++++ b/tests/unit/libexpr-support/tests/libexpr.hh
+@@ -26,9 +26,9 @@ namespace nix {
+                 , state({}, store)
+             {
+             }
+-            Value eval(std::string input, bool forceValue = true) {
++            Value eval(std::string input, bool forceValue = true, const ExperimentalFeatureSettings & xpSettings = experimentalFeatureSettings) {
+                 Value v;
+-                Expr & e = state.parseExprFromString(input, state.rootPath(CanonPath::root));
++                Expr & e = state.parseExprFromString(input, state.rootPath(CanonPath::root), xpSettings);
+                 state.eval(e, v);
+                 if (forceValue)
+                     state.forceValue(v, noPos);
+diff --git a/tests/unit/libexpr/trivial.cc b/tests/unit/libexpr/trivial.cc
+index 171727ac7..19b62aff8 100644
+--- a/tests/unit/libexpr/trivial.cc
++++ b/tests/unit/libexpr/trivial.cc
+@@ -59,6 +59,11 @@ namespace nix {
+         ASSERT_THAT(v, IsFloatEq(1.234));
+     }
+ 
++    TEST_F(TrivialExpressionTest, pointfloat) {
++        auto v = eval(".234");
++        ASSERT_THAT(v, IsFloatEq(0.234));
++    }
++
+     TEST_F(TrivialExpressionTest, updateAttrs) {
+         auto v = eval("{ a = 1; } // { b = 2; a = 3; }");
+         ASSERT_THAT(v, IsAttrsOfSize(2));
+@@ -81,6 +86,18 @@ namespace nix {
+         ASSERT_THAT(v, IsTrue());
+     }
+ 
++    TEST_F(TrivialExpressionTest, urlLiteral) {
++        auto v = eval("https://nixos.org");
++        ASSERT_THAT(v, IsStringEq("https://nixos.org"));
++    }
++
++    TEST_F(TrivialExpressionTest, noUrlLiteral) {
++        ExperimentalFeatureSettings mockXpSettings;
++        mockXpSettings.set("experimental-features", "no-url-literals");
++
++        ASSERT_THROW(eval("https://nixos.org", true, mockXpSettings), Error);
++    }
++
+     TEST_F(TrivialExpressionTest, withFound) {
+         auto v = eval("with { a = 23; }; a");
+         ASSERT_THAT(v, IsIntEq(23));
+-- 
+2.45.2
+

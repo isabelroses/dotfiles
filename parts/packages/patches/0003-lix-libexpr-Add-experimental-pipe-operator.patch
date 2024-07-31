@@ -1,0 +1,265 @@
+From 1e71f9eee5af89a00bb3cacb0d12088d6f4655d2 Mon Sep 17 00:00:00 2001
+From: piegames <git@piegames.de>
+Date: Thu, 11 Jul 2024 10:49:15 +0200
+Subject: [PATCH] libexpr: Add experimental pipe operator
+
+The |> operator is a reverse function operator with low binding strength
+to replace lib.pipe. Implements RFC 148, see the RFC text for more
+details. Closes #438.
+
+Change-Id: I21df66e8014e0d4dd9753dd038560a2b0b7fd805
+---
+ doc/manual/change-authors.yml        |  5 +++++
+ doc/manual/rl-next/pipe-operator.md  | 10 ++++++++++
+ doc/manual/src/language/operators.md | 30 ++++++++++++++++++++++++++++
+ src/libexpr/parser/grammar.hh        | 26 +++++++++++++++---------
+ src/libexpr/parser/parser.cc         | 25 +++++++++++++++++++++++
+ src/libutil/experimental-features.cc | 10 ++++++++++
+ src/libutil/experimental-features.hh |  1 +
+ tests/unit/libexpr/trivial.cc        | 27 +++++++++++++++++++++++++
+ 8 files changed, 125 insertions(+), 9 deletions(-)
+ create mode 100644 doc/manual/rl-next/pipe-operator.md
+
+diff --git a/doc/manual/change-authors.yml b/doc/manual/change-authors.yml
+index f56a1e6fb..da52d8316 100644
+--- a/doc/manual/change-authors.yml
++++ b/doc/manual/change-authors.yml
+@@ -91,6 +91,11 @@ midnightveil:
+ ncfavier:
+   github: ncfavier
+ 
++piegames:
++  display_name: piegames
++  forgejo: piegames
++  github: piegamesde
++
+ puck:
+   display_name: puck
+   forgejo: puck
+diff --git a/doc/manual/rl-next/pipe-operator.md b/doc/manual/rl-next/pipe-operator.md
+new file mode 100644
+index 000000000..49dc01308
+--- /dev/null
++++ b/doc/manual/rl-next/pipe-operator.md
+@@ -0,0 +1,10 @@
++---
++synopsis: Pipe operator `|>` (experimental)
++issues: [fj#438]
++cls: [1654]
++category: Features
++credits: [piegames, horrors]
++---
++
++Implementation of the pipe operator (`|>`) in the language as described in [RFC 148](https://github.com/NixOS/rfcs/pull/148).
++The feature is still marked experimental, enable `--extra-experimental-features pipe-operator` to use it.
+diff --git a/doc/manual/src/language/operators.md b/doc/manual/src/language/operators.md
+index 6dcdc6eb0..ac4085f8f 100644
+--- a/doc/manual/src/language/operators.md
++++ b/doc/manual/src/language/operators.md
+@@ -26,6 +26,7 @@
+ | Logical conjunction (`AND`)            | *bool* `&&` *bool*                         | left          | 12         |
+ | Logical disjunction (`OR`)             | *bool* <code>\|\|</code> *bool*            | left          | 13         |
+ | [Logical implication]                  | *bool* `->` *bool*                         | none          | 14         |
++| \[Experimental\] [Function piping]     | *expr* |> *func*                           | left          | 15         |
+ 
+ [string]: ./values.md#type-string
+ [path]: ./values.md#type-path
+@@ -215,3 +216,32 @@ nix-repl> let f = x: 1; s = { func = f; }; in [ (f == f) (s == s) ]
+ Equivalent to `!`*b1* `||` *b2*.
+ 
+ [Logical implication]: #logical-implication
++
++## \[Experimental\] Function piping
++
++*This language feature is still experimental and may change at any time. Enable `--extra-experimental-features pipe-operator` to use it.*
++
++Pipes are a dedicated operator for function application, but with reverse order and a lower binding strength.
++This allows you to chain function calls together in way that is more natural to read and requires less parentheses.
++
++`a |> f b |> g` is equivalent to `g (f b a)`.
++
++Example code snippet:
++
++```nix
++defaultPrefsFile = defaultPrefs
++  |> lib.mapAttrsToList (
++    key: value: ''
++      // ${value.reason}
++      pref("${key}", ${builtins.toJSON value.value});
++    ''
++  )
++  |> lib.concatStringsSep "\n"
++  |> pkgs.writeText "nixos-default-prefs.js";
++```
++
++Note how `mapAttrsToList` is called with two arguments (the lambda and `defaultPrefs`),
++but moving the last argument in front of the rest improves the reading flow.
++This is common for functions with long first argument, including all `map`-like functions.
++
++[Function piping]: #experimental-function-piping
+diff --git a/src/libexpr/parser/grammar.hh b/src/libexpr/parser/grammar.hh
+index 82df63bc5..703621e5f 100644
+--- a/src/libexpr/parser/grammar.hh
++++ b/src/libexpr/parser/grammar.hh
+@@ -425,15 +425,19 @@ struct op {
+     struct minus      : _op<t::op_minus,             7> {};
+     struct not_       : _op<one<'!'>,                8, kind::unary> {};
+     struct update     : _op<TAO_PEGTL_STRING("//"),  9, kind::rightAssoc> {};
+-    struct less_eq    : _op<TAO_PEGTL_STRING("<="), 10, kind::nonAssoc> {};
+-    struct greater_eq : _op<TAO_PEGTL_STRING(">="), 10, kind::nonAssoc> {};
+-    struct less       : _op<one<'<'>,               10, kind::nonAssoc> {};
+-    struct greater    : _op<one<'>'>,               10, kind::nonAssoc> {};
+-    struct equals     : _op<TAO_PEGTL_STRING("=="), 11, kind::nonAssoc> {};
+-    struct not_equals : _op<TAO_PEGTL_STRING("!="), 11, kind::nonAssoc> {};
+-    struct and_       : _op<TAO_PEGTL_STRING("&&"), 12> {};
+-    struct or_        : _op<TAO_PEGTL_STRING("||"), 13> {};
+-    struct implies    : _op<TAO_PEGTL_STRING("->"), 14, kind::rightAssoc> {};
++
++    struct pipe_right : _op<TAO_PEGTL_STRING("|>"), 10> {};
++    struct pipe_left  : _op<TAO_PEGTL_STRING("<|"), 11, kind::rightAssoc> {};
++
++    struct less_eq    : _op<TAO_PEGTL_STRING("<="), 12, kind::nonAssoc> {};
++    struct greater_eq : _op<TAO_PEGTL_STRING(">="), 12, kind::nonAssoc> {};
++    struct less       : _op<seq<one<'<'>, not_at<one<'|'>>>, 12, kind::nonAssoc> {};
++    struct greater    : _op<one<'>'>,               12, kind::nonAssoc> {};
++    struct equals     : _op<TAO_PEGTL_STRING("=="), 13, kind::nonAssoc> {};
++    struct not_equals : _op<TAO_PEGTL_STRING("!="), 13, kind::nonAssoc> {};
++    struct and_       : _op<TAO_PEGTL_STRING("&&"), 14> {};
++    struct or_        : _op<TAO_PEGTL_STRING("||"), 15> {};
++    struct implies    : _op<TAO_PEGTL_STRING("->"), 16, kind::rightAssoc> {};
+ };
+ 
+ struct _expr {
+@@ -535,6 +539,8 @@ struct _expr {
+         operator_<op::greater>,
+         operator_<op::equals>,
+         operator_<op::not_equals>,
++        operator_<op::pipe_right>,
++        operator_<op::pipe_left>,
+         operator_<op::or_>,
+         operator_<op::and_>
+     > {};
+@@ -649,6 +655,8 @@ struct operator_semantics {
+             grammar::op::minus,
+             grammar::op::mul,
+             grammar::op::div,
++            grammar::op::pipe_right,
++            grammar::op::pipe_left,
+             has_attr
+         > op;
+     };
+diff --git a/src/libexpr/parser/parser.cc b/src/libexpr/parser/parser.cc
+index 08e848593..8ff655a09 100644
+--- a/src/libexpr/parser/parser.cc
++++ b/src/libexpr/parser/parser.cc
+@@ -114,6 +114,29 @@ struct ExprState
+         return std::make_unique<ExprCall>(pos, std::make_unique<ExprVar>(fn), std::move(args));
+     }
+ 
++    std::unique_ptr<Expr> pipe(PosIdx pos, State & state, bool flip = false)
++    {
++        if (!state.xpSettings.isEnabled(Xp::PipeOperator))
++            throw ParseError({
++                .msg = HintFmt("Pipe operator is disabled"),
++                .pos = state.positions[pos]
++            });
++
++        // Reverse the order compared to normal function application: arg |> fn
++        std::unique_ptr<Expr> fn, arg;
++        if (flip) {
++            fn = popExprOnly();
++            arg = popExprOnly();
++        } else {
++            arg = popExprOnly();
++            fn = popExprOnly();
++        }
++        std::vector<std::unique_ptr<Expr>> args{1};
++        args[0] = std::move(arg);
++
++        return std::make_unique<ExprCall>(pos, std::move(fn), std::move(args));
++    }
++
+     std::unique_ptr<Expr> order(PosIdx pos, bool less, State & state)
+     {
+         return call(pos, state.s.lessThan, !less);
+@@ -163,6 +186,8 @@ struct ExprState
+                 [&] (Op::concat)      { return applyBinary<ExprOpConcatLists>(pos); },
+                 [&] (has_attr & a)    { return applyUnary<ExprOpHasAttr>(std::move(a.path)); },
+                 [&] (Op::unary_minus) { return negate(pos, state); },
++                [&] (Op::pipe_right)  { return pipe(pos, state, true); },
++                [&] (Op::pipe_left)   { return pipe(pos, state); },
+             })(op)
+         };
+     }
+diff --git a/src/libutil/experimental-features.cc b/src/libutil/experimental-features.cc
+index 3a834293a..15a18c770 100644
+--- a/src/libutil/experimental-features.cc
++++ b/src/libutil/experimental-features.cc
+@@ -166,6 +166,16 @@ constexpr std::array<ExperimentalFeatureDetails, numXpFeatures> xpFeatureDetails
+             may confuse external tooling.
+         )",
+     },
++    {
++        .tag = Xp::PipeOperator,
++        .name = "pipe-operator",
++        .description = R"(
++            Enable new operators for function application to "pipe" arguments through a chain of functions similar to `lib.pipe`.
++            This implementation is based on Nix [RFC 148](https://github.com/NixOS/rfcs/pull/148).
++
++            Tracking issue: https://git.lix.systems/lix-project/lix/issues/438
++        )",
++    },
+     {
+         .tag = Xp::FetchClosure,
+         .name = "fetch-closure",
+diff --git a/src/libutil/experimental-features.hh b/src/libutil/experimental-features.hh
+index 38889e7bc..121318d23 100644
+--- a/src/libutil/experimental-features.hh
++++ b/src/libutil/experimental-features.hh
+@@ -21,6 +21,7 @@ enum struct ExperimentalFeature
+     NixCommand,
+     RecursiveNix,
+     NoUrlLiterals,
++    PipeOperator,
+     FetchClosure,
+     ReplFlake,
+     AutoAllocateUids,
+diff --git a/tests/unit/libexpr/trivial.cc b/tests/unit/libexpr/trivial.cc
+index 19b62aff8..62d0175cb 100644
+--- a/tests/unit/libexpr/trivial.cc
++++ b/tests/unit/libexpr/trivial.cc
+@@ -210,4 +210,31 @@ namespace nix {
+     TEST_F(TrivialExpressionTest, orCantBeUsed) {
+         ASSERT_THROW(eval("let or = 1; in or"), Error);
+     }
++
++    // pipes are gated behind an experimental feature flag
++    TEST_F(TrivialExpressionTest, pipeDisabled) {
++        ASSERT_THROW(eval("let add = l: r: l + r; in ''a'' |> add ''b''"), Error);
++        ASSERT_THROW(eval("let add = l: r: l + r; in ''a'' <| add ''b''"), Error);
++    }
++
++    TEST_F(TrivialExpressionTest, pipeRight) {
++        ExperimentalFeatureSettings mockXpSettings;
++        mockXpSettings.set("experimental-features", "pipe-operator");
++
++        auto v = eval("let add = l: r: l + r; in ''a'' |> add ''b''", true, mockXpSettings);
++        ASSERT_THAT(v, IsStringEq("ba"));
++        v = eval("let add = l: r: l + r; in ''a'' |> add ''b'' |> add ''c''", true, mockXpSettings);
++        ASSERT_THAT(v, IsStringEq("cba"));
++    }
++
++    TEST_F(TrivialExpressionTest, pipeLeft) {
++        ExperimentalFeatureSettings mockXpSettings;
++        mockXpSettings.set("experimental-features", "pipe-operator");
++
++        auto v = eval("let add = l: r: l + r; in add ''a'' <| ''b''", true, mockXpSettings);
++        ASSERT_THAT(v, IsStringEq("ab"));
++        v = eval("let add = l: r: l + r; in add ''a'' <| add ''b'' <| ''c''", true, mockXpSettings);
++        ASSERT_THAT(v, IsStringEq("abc"));
++    }
++
+ } /* namespace nix */
+-- 
+2.45.2
+

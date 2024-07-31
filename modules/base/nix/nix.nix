@@ -122,6 +122,10 @@ in
         # disallow unquoted URLs as part of the Nix language syntax
         # this are explicitly derpricated and are unused in nixpkgs, so we should ensure that we are not using them
         "no-url-literals"
+
+        # allow usage of the pipe operator in nix expressions
+        # I added the patches for this so we may as well use it
+        "pipe-operator"
       ];
 
       # don't warn me if the current working tree is dirty

@@ -6,9 +6,16 @@
     { inputs', ... }:
     {
       packages.lix = inputs'.lix.packages.default.overrideAttrs (_: {
-        # I've upstreamed this, waiting for merge
-        # https://gerrit.lix.systems/c/lix/+/1540
-        patches = [ ./patches/0001-show-description.patch ];
+        patches = [
+          # I've upstreamed this, waiting for merge
+          # https://gerrit.lix.systems/c/lix/+/1540
+          ./patches/0001-lix-show-description.patch
+
+          # preemptive merge of the pipe operator
+          # https://gerrit.lix.systems/c/lix/+/1654
+          ./patches/0002-lix-libexpr-parser-Test-experimental-features.patch
+          ./patches/0003-lix-libexpr-Add-experimental-pipe-operator.patch
+        ];
 
         # Kinda funny right
         # worth it https://akko.isabelroses.com/notice/AjlM7Vfq1zlgsEzk0G
