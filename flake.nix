@@ -106,6 +106,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        rust-overlay.follows = "beapkgs/rust-overlay";
         pre-commit-hooks-nix.follows = "";
         flake-compat.follows = "";
       };
@@ -168,7 +169,10 @@
       url = "git+ssh://git@git.isabelroses.com:2222/isabel/comfywm";
       # url = "path:/home/isabel/dev/comfywm";
 
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "beapkgs/rust-overlay";
+      };
     };
 
     # I am not recompling this thanks
@@ -199,14 +203,6 @@
         nixpkgs.follows = "nixpkgs-small";
         flake-utils.follows = "flake-utils";
       };
-    };
-
-    # Run unpatched dynamic binaries on NixOS
-    nix-ld = {
-      type = "github";
-      owner = "Mic92";
-      repo = "nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ### misc
@@ -249,7 +245,7 @@
         flake-parts.follows = "flake-parts";
         flake-utils.follows = "flake-utils";
         beapkgs.follows = "beapkgs";
-        git-hooks.follows = "git-hooks";
+        git-hooks.follows = "";
       };
     };
 
