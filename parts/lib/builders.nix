@@ -8,8 +8,8 @@ let
   inherit (inputs) self;
 
   inherit (lib.lists) optionals singleton concatLists;
-  inherit (lib.attrsets) recursiveUpdate optionalAttrs;
-  inherit (lib.modules) mkMerge mkDefault evalModules;
+  inherit (lib.attrsets) recursiveUpdate optionalAttrs listToAttrs;
+  inherit (lib.modules) mkDefault evalModules;
 
   # mkSystem is a function that uses withSystem to give us inputs' and self'
   # it also assumes the the system type either nixos or darwin and uses the appropriate
@@ -116,7 +116,14 @@ let
     );
 
   # mkSystems is a wrapper for mkNixSystem to create a list of systems
-  mkSystems = systems: mkMerge (map (system: { ${system.host} = mkSystem system; }) systems);
+  mkSystems =
+    systems:
+    listToAttrs (
+      map (system: {
+        name = system.host;
+        value = mkSystem system;
+      }) systems
+    );
 in
 {
   inherit mkSystem mkSystems;

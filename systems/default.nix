@@ -2,6 +2,7 @@
 let
   inherit (inputs.self) lib;
 
+  inherit (builtins) filter;
   inherit (lib.builders) mkSystems;
   inherit (lib.lists) concatLists;
 
@@ -43,66 +44,69 @@ let
     base
     homes
   ];
+
+  # This is a list of all the systems that exists on this flake
+  # always edit this list rather then chaning nixosConfigurations or darwinConfigurations
+  systems = [
+    {
+      host = "hydra";
+      arch = "x86_64";
+      target = "nixos";
+      modules = [
+        laptop
+        graphical
+      ] ++ concatLists [ shared ];
+    }
+
+    {
+      host = "tatsumaki";
+      arch = "aarch64";
+      target = "darwin";
+      modules = concatLists [ shared ];
+    }
+
+    {
+      host = "amaterasu";
+      arch = "x86_64";
+      target = "nixos";
+      modules = [
+        desktop
+        graphical
+      ] ++ concatLists [ shared ];
+    }
+
+    {
+      host = "valkyrie";
+      arch = "x86_64";
+      target = "nixos";
+      modules = concatLists [
+        wsl
+        shared
+      ];
+    }
+
+    {
+      host = "luz";
+      arch = "x86_64";
+      target = "nixos";
+      modules = concatLists [
+        server
+        shared
+      ];
+    }
+
+    {
+      host = "lilith";
+      arch = "x86_64";
+      target = "iso";
+      modules = [ headless ];
+    }
+  ];
 in
 {
   flake = {
-    darwinConfigurations = mkSystems [
-      {
-        host = "tatsumaki";
-        arch = "aarch64";
-        target = "darwin";
-        modules = concatLists [ shared ];
-      }
-    ];
-
-    nixosConfigurations = mkSystems [
-      {
-        host = "hydra";
-        arch = "x86_64";
-        target = "nixos";
-        modules = [
-          laptop
-          graphical
-        ] ++ concatLists [ shared ];
-      }
-
-      {
-        host = "amaterasu";
-        arch = "x86_64";
-        target = "nixos";
-        modules = [
-          desktop
-          graphical
-        ] ++ concatLists [ shared ];
-      }
-
-      {
-        host = "valkyrie";
-        arch = "x86_64";
-        target = "nixos";
-        modules = concatLists [
-          wsl
-          shared
-        ];
-      }
-
-      {
-        host = "luz";
-        arch = "x86_64";
-        target = "nixos";
-        modules = concatLists [
-          server
-          shared
-        ];
-      }
-
-      {
-        host = "lilith";
-        arch = "x86_64";
-        target = "iso";
-        modules = [ headless ];
-      }
-    ];
+    darwinConfigurations = mkSystems (filter (x: x.target == "darwin") systems);
+    nixosConfigurations = mkSystems (filter (x: x.target == "nixos" || x.target == "iso") systems);
 
     # NOTE: we redeclare the iso images here, such that they can easily be built
     # by the flake, with a short command `nix build .#images.lilith` for example
