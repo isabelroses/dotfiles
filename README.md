@@ -33,7 +33,6 @@
 </details>
 
 <!--toc:start-->
-
 - [Foreword](#foreword)
 - [What does this repo provided](#what-does-this-repo-provided)
 - [Config layout](#config-layout)
@@ -46,8 +45,8 @@
   - [Small bits](#small-bits)
 - [Additional notes](#additional-notes)
   - [Resources](#resources)
+  - [Projects / Configurations](#projects-configurations)
   - [People](#people)
-
 <!--toc:end-->
 
 ### Foreword
@@ -178,6 +177,17 @@ A collection of resources from people who just make good stuff.
 - [my own blog](https://isabelroses.com/blog/tag/nix)
 - [official wiki](https://wiki.nixos.org/wiki/NixOS_Wiki)
 - [zero to nix](https://zero-to-nix.com/start)
+
+#### Projects / Configurations
+
+These are some configuration or projects that I have taken inspiration from or find to be of a high quality that people should also consider reading.
+
+- [lovesegfault/nix-config](https://github.com/lovesegfault/nix-config)
+- [jakehamilton/config](https://github.com/jakehamilton/config)
+- [flake parts](https://flake.parts/)
+- [nixos-hardware](https://github.com/NixOS/nixos-hardware)
+- [getchoo/flake](https://github.com/getchoo/flake)
+- [uncenter/flake](https://github.com/uncenter/flake)
 
 #### People
 
