@@ -4,7 +4,6 @@
   environment.pathsToLink = [
     "/share/zsh"
     "/share/fish"
-    "/share/nushell"
     "/share/bash-completion"
   ];
 }
