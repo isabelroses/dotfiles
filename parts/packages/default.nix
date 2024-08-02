@@ -8,7 +8,8 @@
     {
       packages.lix =
         (inputs'.lix.packages.default.override {
-          aws-sdk-cpp = null;
+          # depends on https://gerrit.lix.systems/c/lix/+/1696
+          # aws-sdk-cpp = null;
 
           versionSuffix = "${
             builtins.substring 0 8 (inputs.lix.lastModifiedDate or inputs.lix.lastModified or "19700101")
@@ -16,10 +17,6 @@
         }).overrideAttrs
           (_: {
             patches = [
-              # allow users to remove aws-sdk
-              # https://gerrit.lix.systems/c/lix/+/1696
-              ./patches/lix-package-make-aws-sdk-cpp-build-input-optional.patch
-
               # preemptive merge of the pipe operator
               # https://gerrit.lix.systems/c/lix/+/1654
               ./patches/lix-libexpr-parser-Test-experimental-features.patch
