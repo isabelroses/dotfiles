@@ -8,8 +8,9 @@
     {
       packages.lix =
         (inputs'.lix.packages.default.override {
-          # depends on https://gerrit.lix.systems/c/lix/+/1696
-          # aws-sdk-cpp = null;
+          # sometimes this builds from source and i hate it
+          # plus i don't use the features it provides so lets just disable it
+          aws-sdk-cpp = null;
 
           versionSuffix = "${
             builtins.substring 0 8 (inputs.lix.lastModifiedDate or inputs.lix.lastModified or "19700101")
