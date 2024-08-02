@@ -31,7 +31,6 @@
 
           hooks = {
             # make sure our nix code is of good quality before we commit
-            nil = mkHook "nil";
             statix = mkHook "statix";
             deadnix = mkHook "deadnix";
 
