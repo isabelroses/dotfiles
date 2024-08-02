@@ -22,7 +22,7 @@ in
       systemd-boot =
         {
           enable = mkDefault true;
-          configurationLimit = null;
+          configurationLimit = 15; # prevent "too many" configuration from showing up on the boot menu
           consoleMode = mkDefault "max"; # the default is "keep"
 
           # Fix a security hole. See desc in nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
