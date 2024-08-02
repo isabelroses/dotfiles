@@ -7,7 +7,10 @@ let
   sys = config.garden.system;
 in
 {
-  options.garden.system.security.fixWebcam = mkEnableOption "Fix the broken webcam by un-blacklisting the related kernel module.";
+  options.garden.system.security = {
+    fixWebcam = mkEnableOption "Fix the broken webcam by un-blacklisting the related kernel module.";
+    noMitigations = mkEnableOption "Disable all CPU mitigations.";
+  };
 
   config = {
     security = {
@@ -107,57 +110,103 @@ in
       };
 
       # https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html
-      kernelParams = [
-        # NixOS produces many wakeups per second, which is bad for battery life.
-        # This kernel parameter disables the timer tick on the last 4 cores
-        "nohz_full=4-7"
+      kernelParams =
+        if sys.security.noMitigations then
+          [
+            # disables the L1 Terminal Fault (L1TF) mitigation, which is a hardware mitigation
+            # for L1TF (CVE-2018-3620 and CVE-2018-3646).
+            "l1tf=off"
 
-        # make stack-based attacks on the kernel harder
-        "randomize_kstack_offset=on"
+            # Disables the Microarchitectural Data Sampling (MDS) mitigation, which is
+            # a hardware mitigation for MDS (CVE-2018-12126, CVE-2018-12127, CVE-2018-12130, CVE-2019-11091)
+            "mds=off"
 
-        # controls the behavior of vsyscalls. this has been defaulted to none back in 2016 - break really old binaries for security
-        "vsyscall=none"
+            # Disables the Single Thread Indirect Branch Predictors (STIBP) feature,
+            # which is a hardware mitigation for Spectre variant 2
+            "no_stf_barrier"
 
-        # reduce most of the exposure of a heap attack to a single cache
-        "slab_nomerge"
+            # disables the Indirect Branch Predictor Barrier (IBPB) feature, which is a software
+            # mitigation for Spectre variant 2
+            "noibpb"
 
-        # Disable debugfs which exposes sensitive kernel data
-        "debugfs=off"
+            # disables the Indirect Branch Restricted Speculation (IBRS) feature, which is
+            # a hardware mitigation for Spectre variant 2 (CVE-2017-5715)
+            "noibrs"
 
-        # Sometimes certain kernel exploits will cause what is called an "oops" which is a kernel panic
-        # that is recoverable. This will make it unrecoverable, and therefore safe to those attacks
-        "oops=panic"
+            # disables the Kernel Page Table Isolation (KPTI) feature, which is a software
+            # mitigation for Meltdown (CVE-2017-5754)
+            "nopti"
 
-        # only allow signed modules
-        "module.sig_enforce=1"
+            # disables the Speculative Store Bypass Disable (SSBD) feature, which is a
+            # hardware mitigation for Spectre variant 4 (CVE-2018-3639)
+            "nospec_store_bypass_disable"
 
-        # blocks access to all kernel memory, even preventing administrators from being able to inspect and probe the kernel
-        "lockdown=confidentiality"
+            # disables all mitigations for Spectre variant 1 (CVE-2017-5753)
+            "nospectre_v1"
 
-        # enable buddy allocator free poisoning
-        "page_poison=on"
+            # disables all mitigations for Spectre variant 2, including IBRS and IBPB.
+            "nospectre_v2"
 
-        # performance improvement for direct-mapped memory-side-cache utilization, reduces the predictability of page allocations
-        "page_alloc.shuffle=1"
+            # enables Intel Transactional Synchronization Extensions (TSX), which can
+            # improve performance for certain workloads that use transactional memory
+            "tsx=on"
 
-        # for debugging kernel-level slab issues
-        "slub_debug=FZP"
+            # disables the TSX Asynchronous Abort (TAA) mitigation, which is a hardware 
+            # mitigation for TAA (CVE-2019-11135)
+            "tsx_async_abort=off"
 
-        # disable sysrq keys. sysrq is seful for debugging, but also insecure
-        "sysrq_always_enabled=0" # 0 | 1 # 0 means disabled
+            # Disable all mitigations
+            "mitigations=off"
+          ]
+        else
+          [
+            # NixOS produces many wakeups per second, which is bad for battery life.
+            # This kernel parameter disables the timer tick on the last 4 cores
+            "nohz_full=4-7"
 
-        # ignore access time (atime) updates on files, except when they coincide with updates to the ctime or mtime
-        "rootflags=noatime"
+            # make stack-based attacks on the kernel harder
+            "randomize_kstack_offset=on"
 
-        # linux security modules
-        "lsm=landlock,lockdown,yama,integrity,apparmor,bpf,tomoyo,selinux"
+            # controls the behavior of vsyscalls. this has been defaulted to none back in 2016 - break really old binaries for security
+            "vsyscall=none"
 
-        # prevent the kernel from blanking plymouth out of the fb
-        "fbcon=nodefer"
+            # reduce most of the exposure of a heap attack to a single cache
+            "slab_nomerge"
 
-        # this is stupid but it will make your machine fast!!!
-        # "mitigations=off"
-      ];
+            # Disable debugfs which exposes sensitive kernel data
+            "debugfs=off"
+
+            # Sometimes certain kernel exploits will cause what is called an "oops" which is a kernel panic
+            # that is recoverable. This will make it unrecoverable, and therefore safe to those attacks
+            "oops=panic"
+
+            # only allow signed modules
+            "module.sig_enforce=1"
+
+            # blocks access to all kernel memory, even preventing administrators from being able to inspect and probe the kernel
+            "lockdown=confidentiality"
+
+            # enable buddy allocator free poisoning
+            "page_poison=on"
+
+            # performance improvement for direct-mapped memory-side-cache utilization, reduces the predictability of page allocations
+            "page_alloc.shuffle=1"
+
+            # for debugging kernel-level slab issues
+            "slub_debug=FZP"
+
+            # disable sysrq keys. sysrq is seful for debugging, but also insecure
+            "sysrq_always_enabled=0" # 0 | 1 # 0 means disabled
+
+            # ignore access time (atime) updates on files, except when they coincide with updates to the ctime or mtime
+            "rootflags=noatime"
+
+            # linux security modules
+            "lsm=landlock,lockdown,yama,integrity,apparmor,bpf,tomoyo,selinux"
+
+            # prevent the kernel from blanking plymouth out of the fb
+            "fbcon=nodefer"
+          ];
 
       blacklistedKernelModules = concatLists [
         # Obscure network protocols
