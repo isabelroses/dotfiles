@@ -12,9 +12,7 @@
           # plus i don't use the features it provides so lets just disable it
           aws-sdk-cpp = null;
 
-          versionSuffix = "${
-            builtins.substring 0 8 (inputs.lix.lastModifiedDate or inputs.lix.lastModified or "19700101")
-          }-isabelroses_remix";
+          versionSuffix = "-isabelroses-${inputs.self.shortRev or inputs.self.dirtyShortRev or "dirty"}";
         }).overrideAttrs
           (_: {
             patches = [
@@ -22,6 +20,18 @@
               # https://gerrit.lix.systems/c/lix/+/1654
               ./patches/lix-libexpr-parser-Test-experimental-features.patch
               ./patches/lix-libexpr-Add-experimental-pipe-operator.patch
+
+              # improve cli colouring
+              # https://gerrit.lix.systems/c/lix/+/1702
+              ./patches/lix-Implement-forcing-CLI-colour-on-and-document-it-bett.patch
+
+              # show modified dates for flakes
+              # https://gerrit.lix.systems/c/lix/+/1700
+              ./patches/lix-nix-flake-metadata-print-modified-dates-for-input-fl.patch
+
+              # add a --call-package or -C cli option to build a package from the cli
+              # based on the work of https://github.com/privatevoid-net/nix-super
+              ./patches/lix-callpackage-cli.patch
             ];
 
             # Kinda funny right
