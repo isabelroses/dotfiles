@@ -1,6 +1,7 @@
 { lib, pkgs, ... }:
 let
   inherit (lib.meta) getExe;
+  inherit (lib.strings) optionalString;
 in
 {
   programs.fish = {
@@ -21,7 +22,10 @@ in
         end
       '';
     };
-    shellAbbrs = { };
+
+    loginShellInit = optionalString pkgs.stdenv.isDarwin ''
+      fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin 
+    '';
 
     shellInit = ''
       ${getExe pkgs.nix-your-shell} fish | source
