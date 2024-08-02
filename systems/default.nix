@@ -2,7 +2,7 @@
 let
   inherit (inputs.self) lib;
 
-  inherit (builtins) filter;
+  inherit (builtins) filter listToAttrs;
   inherit (lib.builders) mkSystems;
   inherit (lib.lists) concatLists;
 
@@ -46,7 +46,7 @@ let
   ];
 
   # This is a list of all the systems that exists on this flake
-  # always edit this list rather then chaning nixosConfigurations or darwinConfigurations
+  # always edit this list rather then changing nixosConfigurations or darwinConfigurations
   systems = [
     {
       host = "hydra";
@@ -111,6 +111,15 @@ in
     # NOTE: we redeclare the iso images here, such that they can easily be built
     # by the flake, with a short command `nix build .#images.lilith` for example
     # though you may prefer to use `nix-fast-build` for this
-    images.lilith = inputs.self.nixosConfigurations.lilith.config.system.build.isoImage;
+    images =
+      let
+        isos = filter (x: x.target == "iso") systems;
+      in
+      listToAttrs (
+        map (iso: {
+          name = iso.host;
+          value = inputs.self.nixosConfigurations.${iso.host}.config.system.build.isoImage;
+        }) isos
+      );
   };
 }
