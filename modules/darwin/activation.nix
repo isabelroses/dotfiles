@@ -8,6 +8,12 @@
       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     '';
 
+    # we need to run `chsh -s /run/current-system/sw/bin/fish` manually
+    # https://github.com/LnL7/nix-darwin/issues/811
+    extraextraActivation.text = ''
+      chsh -s /run/current-system/sw/bin/fish
+    '';
+
     # Settings that don't have an option in nix-darwin
     postActivation.text = ''
       echo "Allow apps from anywhere"
