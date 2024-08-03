@@ -30,8 +30,10 @@ end
 require("keybinds").apply(c)
 
 -- default shell
-if utils.is_linux() or utils.is_darwin() then
+if utils.is_linux() then
   c.default_prog = { "fish", "--login" }
+elseif utils.is_darwin() then
+  c.default_prog = { "/etc/profiles/per-user/isabel/bin/fish", "--login" }
 elseif utils.is_windows() then
   c.default_prog = { "wsl.exe" }
   c.default_domain = "WSL:NixOS"
