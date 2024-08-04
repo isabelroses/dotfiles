@@ -1,5 +1,14 @@
 {
   system.activationScripts = {
+    # Settings that don't have an option in nix-darwin
+    postActivation.text = ''
+      echo "Allow apps from anywhere"
+      SPCTL=$(spctl --status)
+      if ! [ "$SPCTL" = "assessments disabled" ]; then
+          sudo spctl --master-disable
+      fi
+    '';
+
     # activateSettings -u will reload the settings from the database and apply them to the current session,
     # so we do not need to logout and login again to make the changes take effect.
     #
@@ -10,17 +19,8 @@
 
     # we need to run `chsh -s /run/current-system/sw/bin/fish` manually
     # https://github.com/LnL7/nix-darwin/issues/811
-    extraextraActivation.text = ''
+    extraActivation.text = ''
       chsh -s /run/current-system/sw/bin/fish
-    '';
-
-    # Settings that don't have an option in nix-darwin
-    postActivation.text = ''
-      echo "Allow apps from anywhere"
-      SPCTL=$(spctl --status)
-      if ! [ "$SPCTL" = "assessments disabled" ]; then
-          sudo spctl --master-disable
-      fi
     '';
   };
 }
