@@ -5,7 +5,7 @@ in
 {
   nix = {
     gc = {
-      automatic = mkForce (!config.programs.nh.clean.enable);
+      automatic = mkForce false;
       dates = "Mon *-*-* 03:00";
     };
 
