@@ -18,7 +18,7 @@
 
     # I don't want to use aliases for packages, usually because its slow
     # and also because it can get confusing
-    allowAliases = false;
+    # allowAliases = false;
 
     # Maybe I can pickup so packages
     # Also a good idea to know which packages might be very out of date or broken
