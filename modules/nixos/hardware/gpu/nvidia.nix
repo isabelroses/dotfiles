@@ -97,7 +97,7 @@ in
           finegrained = mkDefault false;
         };
 
-        open = mkDefault false; # dont use the open drivers by default
+        open = false; # dont use the open drivers by default
         nvidiaSettings = false; # adds nvidia-settings to pkgs, so useless on nixos
         nvidiaPersistenced = true;
         forceFullCompositionPipeline = true;
