@@ -40,6 +40,7 @@
       bluetooth.enable = false;
       printing.enable = false;
       yubikeySupport.enable = true;
+      emulation.enable = false;
 
       security.auditd.enable = true;
 
