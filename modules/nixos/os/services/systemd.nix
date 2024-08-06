@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, ... }:
 let
   inherit (lib.modules) mkDefault;
 in
@@ -8,7 +8,7 @@ in
     # Fedora enables these options by default. See the 10-oomd-* files here:
     # https://src.fedoraproject.org/rpms/systemd/tree/acb90c49c42276b06375a66c73673ac3510255
     oomd = {
-      enable = !config.systemd.enableUnifiedCgroupHierarchy;
+      enable = true;
       enableRootSlice = true;
       enableUserSlices = true;
       enableSystemSlice = true;

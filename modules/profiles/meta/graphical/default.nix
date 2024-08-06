@@ -6,7 +6,6 @@
     ./services # services that enable better system management
 
     ./flatpak.nix # flatpak application
-    ./misc.nix # miscellaneous additional settings
     ./xserver.nix # extension of display manager but for only xserver
   ];
 }
