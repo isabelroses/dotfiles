@@ -170,11 +170,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722023901,
-        "narHash": "sha256-fb22s2Bp8Brq2yksc4UUXR+16kptgJq4nfh3JYHikz8=",
+        "lastModified": 1722970830,
+        "narHash": "sha256-7Hc02r2s6qzzhTyEQTR/3DA7hfLsX1nEaFtPaytZUO8=",
         "ref": "refs/heads/main",
-        "rev": "34db75eaf1a93733352c7bbb224c77694fcdabb3",
-        "revCount": 15,
+        "rev": "5919c968ba13dc6c6ccce3556c6e685a9e23b35a",
+        "revCount": 16,
         "type": "git",
         "url": "ssh://git@git.isabelroses.com:2222/isabel/comfywm"
       },
@@ -524,12 +524,8 @@
         "flake-parts": [
           "flake-parts"
         ],
-        "flake-utils": [
-          "flake-utils"
-        ],
         "git-hooks": [],
         "neovim-nix": "neovim-nix",
-        "nil": "nil",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -538,11 +534,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722844996,
-        "narHash": "sha256-xi+fBtRA1MwVjIcg914bAFtgGjR54Zqx9UfTyzj4bnU=",
+        "lastModified": 1722974466,
+        "narHash": "sha256-//OiZ4PaNZykBEpC0qHPs5dWcU4NMop0j7aepSKCH4U=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "0d02db0a03cb77926cd7bddb9a41bd37c69f365f",
+        "rev": "d62fc5ecb9ecbefae333cf6a3bd41d2de7409465",
         "type": "github"
       },
       "original": {
@@ -592,11 +588,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1722643724,
-        "narHash": "sha256-FrM0DN/i5kKB06/4KYNkY3mMGpC5hYQhaKtx1mneReU=",
+        "lastModified": 1722964233,
+        "narHash": "sha256-cmGUqAeZuiiRB3Ja10gFMM4cjrSjdDbeuKnFWExb+1c=",
         "ref": "refs/heads/main",
-        "rev": "66469fc281fc4abb3284574f77a8051fee8116b9",
-        "revCount": 16064,
+        "rev": "2c48460850186e5fb8152e7882baf9e29bb5e884",
+        "revCount": 16068,
         "type": "git",
         "url": "https://git.lix.systems/lix-project/lix.git"
       },
@@ -632,36 +628,6 @@
         "owner": "isabelroses",
         "ref": "dev",
         "repo": "neovim.nix",
-        "type": "github"
-      }
-    },
-    "nil": {
-      "inputs": {
-        "flake-utils": [
-          "izvim",
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "izvim",
-          "nixpkgs"
-        ],
-        "rust-overlay": [
-          "izvim",
-          "beapkgs",
-          "rust-overlay"
-        ]
-      },
-      "locked": {
-        "lastModified": 1717086091,
-        "narHash": "sha256-GmsEQa4HZeMfec37LZnwG/Lt/XmqFLXsjv5QWojeNiM=",
-        "owner": "oxalica",
-        "repo": "nil",
-        "rev": "ab3ddb8f063774cf7e22eb610f5ecfdb77309f3c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "nil",
         "type": "github"
       }
     },
