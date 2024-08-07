@@ -21,14 +21,6 @@
               ./patches/lix-libexpr-parser-Test-experimental-features.patch
               ./patches/lix-libexpr-Add-experimental-pipe-operator.patch
 
-              # improve cli colouring
-              # https://gerrit.lix.systems/c/lix/+/1702
-              ./patches/lix-Implement-forcing-CLI-colour-on-and-document-it-bett.patch
-
-              # show modified dates for flakes
-              # https://gerrit.lix.systems/c/lix/+/1700
-              ./patches/lix-nix-flake-metadata-print-modified-dates-for-input-fl.patch
-
               # add a --call-package or -C cli option to build a package from the cli
               # based on the work of https://github.com/privatevoid-net/nix-super
               ./patches/lix-callpackage-cli.patch
