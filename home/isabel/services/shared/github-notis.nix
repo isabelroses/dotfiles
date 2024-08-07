@@ -38,11 +38,7 @@ in
           ExecStart = getExe (
             pkgs.writeShellApplication {
               name = "github-notis";
-              runtimeInputs = with pkgs; [
-                gh
-                jq
-                libnotify
-              ];
+              runtimeInputs = builtins.attrValues { inherit (pkgs) gh jq libnotify; };
               text = ''
                 notis=$(gh api notifications | jq "length")
                 if [ "$notis" -gt 0 ]; then

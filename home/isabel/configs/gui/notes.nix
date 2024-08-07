@@ -1,16 +1,14 @@
 { pkgs, ... }:
 {
-  home.packages = with pkgs; [
+  home.packages = builtins.attrValues {
     # note taking with markdown
-    zk
-    (symlinkJoin {
+    inherit (pkgs) zk;
+
+    obsidian = pkgs.symlinkJoin {
       name = "obsidian-wrapped";
-      paths = [
-        obsidian
-        pandoc
-      ];
-    })
-  ];
+      paths = builtins.attrValues { inherit (pkgs) obsidian pandoc; };
+    };
+  };
 
   xdg.configFile."zk/config.toml".source = pkgs.writers.writeTOML "zk-conf.toml" {
     note = {

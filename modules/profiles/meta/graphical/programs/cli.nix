@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib.lists) optional;
   inherit (lib.validators) isWayland;
 in
 {
@@ -22,11 +22,7 @@ in
   };
 
   # determine which version of wine to use
-  environment.systemPackages =
-    with pkgs;
-    let
-      winePackage =
-        if (isWayland config) then wineWowPackages.waylandFull else wineWowPackages.stableFull;
-    in
-    mkIf config.garden.programs.agnostic.wine.enable [ winePackage ];
+  environment.systemPackages = optional config.garden.programs.agnostic.wine.enable (
+    if (isWayland config) then pkgs.wineWowPackages.waylandFull else pkgs.wineWowPackages.stableFull
+  );
 }

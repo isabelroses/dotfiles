@@ -186,10 +186,7 @@ in
         enable = true;
 
         package = pkgs.roundcube.withPlugins (
-          plugins: with plugins; [
-            persistent_login
-            carddav
-          ]
+          plugins: builtins.attrValues { inherit (plugins) persistent_login carddav; }
         );
 
         # database = {
@@ -198,7 +195,7 @@ in
         # };
         maxAttachmentSize = 50;
 
-        dicts = with pkgs.aspellDicts; [ en ];
+        dicts = [ pkgs.aspellDicts.en ];
 
         plugins = [
           "carddav"

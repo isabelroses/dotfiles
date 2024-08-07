@@ -40,9 +40,11 @@ in
     };
 
     # Yubico's official tools
-    environment.systemPackages = with pkgs; [
-      yubikey-manager # cli
-      yubikey-manager-qt # gui
-    ];
+    environment.systemPackages = builtins.attrValues {
+      inherit (pkgs)
+        yubikey-manager # cli
+        yubikey-manager-qt # gui
+        ;
+    };
   };
 }

@@ -31,23 +31,25 @@
         };
 
         nixpkgs = pkgs.mkShellNoCC {
-          packages = with pkgs; [
-            # package creation helpers
-            nurl
-            nix-init
+          packages = builtins.attrValues {
+            inherit (pkgs)
+              # package creation helpers
+              nurl
+              nix-init
 
-            # nixpkgs dev stuff
-            hydra-check
-            nixpkgs-lint
-            nixpkgs-review
-            nixpkgs-hammering
+              # nixpkgs dev stuff
+              hydra-check
+              nixpkgs-lint
+              nixpkgs-review
+              nixpkgs-hammering
 
-            # nix helpers
-            nix-melt
-            nix-tree
-            nix-inspect
-            nix-search-cli
-          ];
+              # nix helpers
+              nix-melt
+              nix-tree
+              nix-inspect
+              nix-search-cli
+              ;
+          };
         };
       };
     };

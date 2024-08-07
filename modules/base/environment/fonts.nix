@@ -10,30 +10,32 @@ in
 {
   fonts =
     {
-      packages = with pkgs; [
-        config.garden.style.font.package
+      packages = builtins.attrValues {
+        inherit (config.garden.style.font) package;
 
-        corefonts
+        inherit (pkgs)
+          corefonts
 
-        source-sans
-        source-serif
+          source-sans
+          source-serif
 
-        dejavu_fonts
-        inter
+          dejavu_fonts
+          inter
 
-        noto-fonts
+          noto-fonts
 
-        # fonts for none latin languages
-        noto-fonts-cjk-sans
-        noto-fonts-cjk-serif
+          # fonts for none latin languages
+          noto-fonts-cjk-sans
+          noto-fonts-cjk-serif
 
-        # install some emoji fonts
-        noto-fonts-color-emoji
-        material-icons
-        material-design-icons
+          # install some emoji fonts
+          noto-fonts-color-emoji
+          material-icons
+          material-design-icons
+          ;
 
-        (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
-      ];
+        nerdfonts = pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; };
+      };
     }
     // ldTernary pkgs {
       # if we are on linux we should create a fontconfig file

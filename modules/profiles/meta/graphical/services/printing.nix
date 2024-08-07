@@ -28,13 +28,11 @@ in
       printing = {
         enable = true;
 
-        drivers =
-          with pkgs;
-          [
-            gutenprint
-            hplip
-          ]
-          ++ cfg.extraDrivers;
+        drivers = builtins.attrValues {
+          inherit (pkgs) gutenprint hplip;
+
+          inherit (cfg) extraDrivers;
+        };
       };
 
       # required for network discovery of printers

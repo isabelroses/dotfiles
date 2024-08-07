@@ -14,14 +14,11 @@ in
     udisks2.enable = true;
 
     dbus = {
-      packages = with pkgs; [
-        dconf
-        gcr
-        udisks2
-      ];
       enable = true;
       # Use the faster dbus-broker instead of the classic dbus-daemon
       implementation = "broker";
+
+      packages = builtins.attrValues { inherit (pkgs) dconf gcr udisks2; };
     };
 
     # disable chrony in favor if systemd-timesyncd

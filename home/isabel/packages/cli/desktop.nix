@@ -19,10 +19,12 @@ let
 in
 {
   config = mkIf (isAcceptedDevice osConfig acceptedTypes && cfg.cli.enable && cfg.gui.enable) {
-    home.packages = with pkgs; [
-      libnotify # needed for some notifications
-      # bitwarden-cli # bitwarden, my chosen password manager
-      brightnessctl # brightness managed via cli
-    ];
+    home.packages = builtins.attrValues {
+      inherit (pkgs)
+        libnotify # needed for some notifications
+        # bitwarden-cli # bitwarden, my chosen password manager
+        brightnessctl # brightness managed via cli
+        ;
+    };
   };
 }

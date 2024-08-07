@@ -34,19 +34,22 @@ in
           pkgs.writeShellApplication {
             name = "ags-config-service-script";
 
-            runtimeInputs = with pkgs; [
-              dart-sass
-              swww
-              fd
-              brightnessctl
-              slurp
-              wl-clipboard
-              swappy
-              hyprpicker
-              pwvucontrol
-              which
-              inputs'.ags.packages.default
-            ];
+            runtimeInputs = builtins.attrValues {
+              inherit (pkgs)
+                dart-sass
+                swww
+                fd
+                brightnessctl
+                slurp
+                wl-clipboard
+                swappy
+                hyprpicker
+                pwvucontrol
+                which
+                ;
+
+              inherit (inputs'.ags.packages) ags;
+            };
 
             text = ''
               ags -c ${pkgs.callPackage ./ags-package.nix { }}/config.js

@@ -20,10 +20,12 @@ in
     };
 
     # enables AMDVLK & OpenCL support
-    hardware.graphics.extraPackages = with pkgs; [
-      # opencl drivers
-      rocm-opencl-icd
-      rocm-opencl-runtime
-    ];
+    hardware.graphics.extraPackages = builtins.attrValues {
+      inherit (pkgs)
+        # opencl drivers
+        rocm-opencl-icd
+        rocm-opencl-runtime
+        ;
+    };
   };
 }

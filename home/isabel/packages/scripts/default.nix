@@ -23,11 +23,7 @@ in
         source = getExe (
           pkgs.writeShellApplication {
             name = "preview";
-            runtimeInputs = with pkgs; [
-              bat
-              eza
-              catimg
-            ];
+            runtimeInputs = builtins.attrValues { inherit (pkgs) bat eza catimg; };
             text = readFile ./preview.sh;
           }
         );
@@ -47,12 +43,14 @@ in
         source = getExe (
           pkgs.writeShellApplication {
             name = "extract";
-            runtimeInputs = with pkgs; [
-              zip
-              unzip
-              gnutar
-              p7zip
-            ];
+            runtimeInputs = builtins.attrValues {
+              inherit (pkgs)
+                zip
+                unzip
+                gnutar
+                p7zip
+                ;
+            };
             text = readFile ./extract.sh;
           }
         );

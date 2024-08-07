@@ -60,22 +60,24 @@ in
         })
       ];
 
-      systemPackages = with pkgs; [
-        nvtopPackages.nvidia
+      systemPackages = builtins.attrValues {
+        inherit (pkgs.nvtopPackages) nvidia;
 
-        # mesa
-        mesa
+        inherit (pkgs)
+          # mesa
+          mesa
 
-        # vulkan
-        vulkan-tools
-        vulkan-loader
-        vulkan-validation-layers
-        vulkan-extension-layer
+          # vulkan
+          vulkan-tools
+          vulkan-loader
+          vulkan-validation-layers
+          vulkan-extension-layer
 
-        # libva
-        libva
-        libva-utils
-      ];
+          # libva
+          libva
+          libva-utils
+          ;
+      };
     };
 
     hardware = {
@@ -104,14 +106,19 @@ in
       };
 
       graphics = {
-        extraPackages = with pkgs; [
-          nvidia-vaapi-driver
-          # libva-vdpau-driver
-        ];
-        extraPackages32 = with pkgs.pkgsi686Linux; [
-          nvidia-vaapi-driver
-          # libva-vdpau-driver
-        ];
+        extraPackages = builtins.attrValues {
+          inherit (pkgs)
+            nvidia-vaapi-driver
+            # libva-vdpau-driver
+            ;
+        };
+
+        extraPackages32 = builtins.attrValues {
+          inherit (pkgs.pkgsi686Linux)
+            nvidia-vaapi-driver
+            # libva-vdpau-driver
+            ;
+        };
       };
     };
   };

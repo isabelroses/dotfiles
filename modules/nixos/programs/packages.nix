@@ -1,11 +1,13 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   # packages that should be on all deviecs
-  environment.systemPackages = with pkgs; [
-    git
-    curl
-    wget
-    pciutils
-    lshw
-  ];
+  environment.systemPackages = builtins.attrValues {
+    inherit (pkgs)
+      git
+      curl
+      wget
+      pciutils
+      lshw
+      ;
+  };
 }

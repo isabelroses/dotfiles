@@ -11,11 +11,13 @@ let
 in
 {
   config = mkIf (isWayland osConfig && cfg.cli.enable && cfg.gui.enable) {
-    home.packages = with pkgs; [
-      grim
-      slurp
-      wl-clipboard
-      cliphist
-    ];
+    home.packages = builtins.attrValues {
+      inherit (pkgs)
+        grim
+        slurp
+        wl-clipboard
+        cliphist
+        ;
+    };
   };
 }

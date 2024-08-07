@@ -32,7 +32,7 @@ in
     # allow me to open files and links in Windows from WSL
     environment = {
       variables.BROWSER = mkForce "wsl-open";
-      systemPackages = with pkgs; [ wsl-open ];
+      systemPackages = [ pkgs.wsl-open ];
     };
   };
 }

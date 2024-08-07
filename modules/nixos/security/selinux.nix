@@ -73,7 +73,7 @@ in
     };
 
     environment = {
-      systemPackages = with pkgs; [ policycoreutils ]; # for load_policy, fixfiles, setfiles, setsebool, semodile, and sestatus.
+      systemPackages = [ pkgs.policycoreutils ]; # for load_policy, fixfiles, setfiles, setsebool, semodile, and sestatus.
 
       # write selinux config to /etc/selinux
       etc."selinux/config".text = ''

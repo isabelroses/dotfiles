@@ -35,36 +35,42 @@ in
           {
             extraPkgs =
               pkgs':
-              (extraPkgs pkgs')
-              ++ (with pkgs'; [
-                # Add missing dependencies
-                libgdiplus
-                keyutils
-                libkrb5
-                libpng
-                libpulseaudio
-                libvorbis
-                stdenv.cc.cc.lib
-                xorg.libXcursor
-                xorg.libXi
-                xorg.libXinerama
-                xorg.libXScrnSaver
-                at-spi2-atk
-                fmodex
-                gtk3
-                gtk3-x11
-                harfbuzz
-                icu
-                glxinfo
-                inetutils
-                libthai
-                mono5
-                pango
-                stdenv.cc.cc.lib
-                strace
-                zlib
-                libunwind # for titanfall 2 Northstart launcher
-              ]);
+              builtins.attrValues {
+                extras = extraPkgs pkgs';
+
+                inherit (pkgs')
+                  # Add missing dependencies
+                  libgdiplus
+                  keyutils
+                  libkrb5
+                  libpng
+                  libpulseaudio
+                  libvorbis
+                  at-spi2-atk
+                  fmodex
+                  gtk3
+                  gtk3-x11
+                  harfbuzz
+                  icu
+                  glxinfo
+                  inetutils
+                  libthai
+                  mono5
+                  pango
+                  strace
+                  zlib
+                  libunwind # for titanfall 2 Northstart launcher
+                  ;
+
+                inherit (pkgs.stdenv.cc.cc) lib;
+
+                inherit (pkgs.xorg)
+                  libXcursor
+                  libXi
+                  libXinerama
+                  libXScrnSaver
+                  ;
+              };
           }
         );
       })

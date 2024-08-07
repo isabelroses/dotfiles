@@ -22,9 +22,6 @@ in
     };
 
     # benchmarking tools
-    environment.systemPackages = with pkgs; [
-      glxinfo
-      glmark2
-    ];
+    environment.systemPackages = builtins.attrValues { inherit (pkgs) glxinfo glmark2; };
   };
 }

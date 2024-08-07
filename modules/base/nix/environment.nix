@@ -33,6 +33,6 @@ in
       ];
 
     # git is required for flakes
-    systemPackages = with pkgs; [ git ];
+    systemPackages = [ pkgs.git ];
   };
 }

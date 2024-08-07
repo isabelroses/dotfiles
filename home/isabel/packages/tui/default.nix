@@ -9,11 +9,13 @@ let
 in
 {
   config = mkIf osConfig.garden.programs.tui.enable {
-    home.packages = with pkgs; [
-      # wishlist # fancy ssh
-      glow # fancy markdown
-      # fx # fancy jq
-      # gum # a nicer scripting
-    ];
+    home.packages = builtins.attrValues {
+      inherit (pkgs)
+        # wishlist # fancy ssh
+        glow # fancy markdown
+        # fx # fancy jq
+        # gum # a nicer scripting
+        ;
+    };
   };
 }

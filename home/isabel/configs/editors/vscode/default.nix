@@ -20,6 +20,8 @@ in
     programs.vscode = {
       enable = true;
       package = pkgs.vscode;
+
+      mutableExtensionsDir = true;
       extensions = with pkgs.vscode-extensions; [
         # THEMEING
         catppuccin.catppuccin-vsc
@@ -71,7 +73,6 @@ in
         unifiedjs.vscode-mdx
         valentjn.vscode-ltex
       ];
-      mutableExtensionsDir = true;
     };
 
     xdg.configFile = mkIf isLinux {

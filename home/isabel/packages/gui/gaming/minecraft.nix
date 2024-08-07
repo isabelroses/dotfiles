@@ -13,19 +13,21 @@ let
     hash = "sha256-BMJBJnIZZTP8l0O+8yOGSyW4S3SNOACa5ja/mqTRyzA=";
   };
 
-  javaPackages = with pkgs; [
-    # Java 8
-    temurin-jre-bin-8
-    zulu8
-    # Java 11
-    temurin-jre-bin-11
-    # Java 17
-    temurin-jre-bin-17
-    # Latest
-    temurin-jre-bin
-    zulu
-    graalvm-ce
-  ];
+  javaPackages = builtins.attrValues {
+    inherit (pkgs)
+      # Java 8
+      temurin-jre-bin-8
+      zulu8
+      # Java 11
+      temurin-jre-bin-11
+      # Java 17
+      temurin-jre-bin-17
+      # Latest
+      temurin-jre-bin
+      zulu
+      graalvm-ce
+      ;
+  };
 in
 {
   config = mkIf osConfig.garden.programs.gaming.minecraft.enable {
@@ -45,11 +47,7 @@ in
             # get java versions required by various minecraft versions
             # "write once run everywhere" my ass
             jdks = javaPackages;
-            additionalPrograms = with pkgs; [
-              gamemode
-              mangohud
-              jprofiler
-            ];
+            additionalPrograms = builtins.attrValues { inherit (pkgs) gamemode mangohud jprofiler; };
 
             # prismlauncher's glfw version to properly support wayland
             inherit glfw;

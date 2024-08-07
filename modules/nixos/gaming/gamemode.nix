@@ -11,14 +11,7 @@ let
 
   env = config.garden.environment;
 
-  programs = makeBinPath (
-    with pkgs;
-    [
-      hyprland
-      coreutils
-      systemd
-    ]
-  );
+  programs = makeBinPath (builtins.attrValues { inherit (pkgs) hyprland coreutils systemd; });
 
   startscript = pkgs.writeShellScript "gamemode-start" ''
     ${optionalString (env.desktop == "Hyprland") ''

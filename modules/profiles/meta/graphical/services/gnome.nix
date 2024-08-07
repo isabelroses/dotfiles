@@ -4,7 +4,7 @@ let
 in
 {
   services = {
-    udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+    udev.packages = [ pkgs.gnome.gnome-settings-daemon ];
 
     gnome = {
       glib-networking.enable = true;

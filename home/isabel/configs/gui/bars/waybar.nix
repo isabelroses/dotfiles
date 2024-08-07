@@ -12,7 +12,7 @@ let
 in
 {
   config = mkIf (isWayland osConfig && osConfig.garden.programs.gui.bars.waybar.enable) {
-    home.packages = with pkgs; [ wlogout ];
+    home.packages = [ pkgs.wlogout ];
 
     programs.waybar = {
       enable = true;

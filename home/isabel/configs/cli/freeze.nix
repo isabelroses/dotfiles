@@ -13,10 +13,7 @@ in
     home.packages = [
       (pkgs.symlinkJoin {
         name = "freeze";
-        paths = with pkgs; [
-          charm-freeze
-          librsvg
-        ];
+        paths = builtins.attrValues { inherit (pkgs) charm-freeze librsvg; };
       })
     ];
 

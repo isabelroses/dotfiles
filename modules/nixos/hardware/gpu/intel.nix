@@ -17,20 +17,20 @@ in
 
     # OpenCL support and VAAPI
     hardware.graphics = {
-      extraPackages = with pkgs; [
-        libva-vdpau-driver
-        intel-media-driver
-        (intel-vaapi-driver.override { enableHybridCodec = true; })
-      ];
+      extraPackages = builtins.attrValues {
+        inherit (pkgs) libva-vdpau-driver intel-media-driver;
 
-      extraPackages32 = with pkgs.pkgsi686Linux; [
-        libva-vdpau-driver
-        intel-media-driver
-        (intel-vaapi-driver.override { enableHybridCodec = true; })
-      ];
+        intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+      };
+
+      extraPackages32 = builtins.attrValues {
+        inherit (pkgs.pkgsi686Linux) libva-vdpau-driver intel-media-driver;
+
+        intel-vaapi-driver = pkgs.pkgsi686Linux.intel-vaapi-driver.override { enableHybridCodec = true; };
+      };
     };
 
-    environment.systemPackages = with pkgs; [ intel-gpu-tools ];
+    environment.systemPackages = [ pkgs.intel-gpu-tools ];
 
     environment.variables = mkIf (config.hardware.graphics.enable && device.gpu != "hybrid-nv") {
       VDPAU_DRIVER = "va_gl";

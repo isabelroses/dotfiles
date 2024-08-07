@@ -20,11 +20,7 @@ in
   config = mkIf cfg.enable {
     services.akkoma = {
       enable = true;
-      extraPackages = with pkgs; [
-        ffmpeg
-        exiftool
-        imagemagick
-      ];
+      extraPackages = builtins.attrValues { inherit (pkgs) ffmpeg exiftool imagemagick; };
 
       extraStatic = {
         "static/terms-of-service.html" = pkgs.writeText "terms-of-service.html" "Just be normal please";

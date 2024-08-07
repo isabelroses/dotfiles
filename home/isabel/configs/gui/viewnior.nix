@@ -16,7 +16,7 @@ let
 in
 {
   config = mkIf (isAcceptedDevice osConfig acceptedTypes && osConfig.garden.programs.gui.enable) {
-    home.packages = with pkgs; [ viewnior ];
+    home.packages = [ pkgs.viewnior ];
 
     xdg.configFile."viewnior/viewnior.conf".text = ''
       [prefs]
