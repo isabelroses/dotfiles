@@ -34,14 +34,10 @@
             size = 13.0;
           };
 
-        cursor = {
-          style = {
-            shape = "Beam";
-            blinking = "Off";
-          };
+        cursor.style = {
+          shape = "Beam";
+          blinking = "Off";
         };
-
-        dynamic_padding = true;
       };
     };
   };
