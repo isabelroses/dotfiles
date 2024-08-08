@@ -76,6 +76,11 @@
         discord.enable = true;
         zathura.enable = true;
 
+        terminals = {
+          wezterm.enable = true;
+          alacritty.enable = true;
+        };
+
         browsers = {
           chromium.enable = true;
           firefox.enable = false;
