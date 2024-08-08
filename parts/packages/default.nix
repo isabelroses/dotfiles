@@ -16,11 +16,6 @@
         }).overrideAttrs
           (oa: {
             patches = [
-              # preemptive merge of the pipe operator
-              # https://gerrit.lix.systems/c/lix/+/1654
-              ./patches/lix-libexpr-parser-Test-experimental-features.patch
-              ./patches/lix-libexpr-Add-experimental-pipe-operator.patch
-
               # add a --call-package or -C cli option to build a package from the cli
               # based on the work of https://github.com/privatevoid-net/nix-super
               ./patches/lix-callpackage-cli.patch
