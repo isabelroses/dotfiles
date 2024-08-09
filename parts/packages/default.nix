@@ -12,7 +12,7 @@
           # plus i don't use the features it provides so lets just disable it
           aws-sdk-cpp = null;
 
-          versionSuffix = "-isabelroses-${inputs.self.shortRev or inputs.self.dirtyShortRev or "dirty"}";
+          versionSuffix = "${inputs.lix.shortRev}-isabelroses";
         }).overrideAttrs
           (oa: {
             patches = [
