@@ -115,11 +115,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1723077350,
-        "narHash": "sha256-On0NrCiurVmAUMGe1VBjI0jz63/BED9kh9PxnY2hNqI=",
+        "lastModified": 1723163775,
+        "narHash": "sha256-u5QZjs468rhj8gKodXSIWab5hrJK2Soz2Bl7/wKedtk=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "1d381d52d660f8e616a8cc313f31be0a18156e0c",
+        "rev": "dfb940c282cc64b97eed17a9596f412b421617df",
         "type": "github"
       },
       "original": {
@@ -170,11 +170,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1723151697,
-        "narHash": "sha256-IYG0n+ZmCrN1goNH+nzSIGPRVPt1VRlJuspJc4yBY+U=",
+        "lastModified": 1723153472,
+        "narHash": "sha256-1jrBBGLlYsJmu1M0i7XOxB93+ccNbXStm+LtDQSoYJk=",
         "ref": "refs/heads/main",
-        "rev": "7121766b23484bd61d04fef2ed5a7237e0f6c6e8",
-        "revCount": 20,
+        "rev": "e3f661c1ae6560b32f8a94c3e6616aa159c242a0",
+        "revCount": 21,
         "type": "git",
         "url": "ssh://git@git.isabelroses.com:2222/isabel/comfywm"
       },
@@ -588,11 +588,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1723140921,
-        "narHash": "sha256-WRt4kYvg6cpnatF5zUCIUeurU67M7b4dk3oYdZ0cu9M=",
+        "lastModified": 1723158731,
+        "narHash": "sha256-FIXisGWmQpPjPcEKy/Xa6YvnUYg9KysfLsFq0biMIug=",
         "ref": "refs/heads/main",
-        "rev": "e03cd8b3a6f70c60f359fd683c2b25f8eba4da0d",
-        "revCount": 16094,
+        "rev": "3b902683e93ad21be3537ef77f3e5200fbbed900",
+        "revCount": 16108,
         "type": "git",
         "url": "https://git.lix.systems/lix-project/lix.git"
       },
@@ -775,11 +775,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722997267,
-        "narHash": "sha256-8Pncp8IKd0f0N711CRrCGTC4iLfBE+/5kaMqyWxnYic=",
+        "lastModified": 1723083652,
+        "narHash": "sha256-ait+SeO67n8b3lIaBWwuzVX6F1zyTJ0cY6cHWtvhTyc=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "d720bf3cebac38c2426d77ee2e59943012854cb8",
+        "rev": "69e0ad9289fc08ee5a313fb107f00e0f21e7cbb2",
         "type": "github"
       },
       "original": {
