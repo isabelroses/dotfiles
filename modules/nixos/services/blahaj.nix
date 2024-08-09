@@ -62,7 +62,7 @@ in
 
           script = ''
             ${getExe pkgs.git} -c safe.directory=/srv/storage/blahaj/nixpkgs \
-              -C /srv/storage/blahaj/nixpkgs pull origin master
+              -C /srv/storage/blahaj/nixpkgs pull origin master --rebase
           '';
 
           serviceConfig = {
