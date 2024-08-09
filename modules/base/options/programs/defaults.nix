@@ -17,11 +17,12 @@ in
 
     fileManager = mkOption {
       type = enum [
+        "cosmic-files"
         "thunar"
         "dolphin"
         "nemo"
       ];
-      default = "thunar";
+      default = "cosmic-files";
     };
 
     browser = mkOption {

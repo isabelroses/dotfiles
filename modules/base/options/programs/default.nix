@@ -88,9 +88,10 @@ in
       };
 
       fileManagers = {
-        thunar.enable = mkEnableOption "Enable thunar file manager" // {
+        cosmic-files.enable = mkEnableOption "Enable cosmic-files file manager" // {
           default = cfg.gui.enable;
         };
+        thunar.enable = mkEnableOption "Enable thunar file manager";
         dolphin.enable = mkEnableOption "Enable dolphin file manager";
         nemo.enable = mkEnableOption "Enable nemo file manager";
       };

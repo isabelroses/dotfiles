@@ -55,7 +55,11 @@ let
       "application/pdf" = [ "org.pwmt.zathura.desktop" ];
       "x-scheme-handler/spotify" = [ "spotify.desktop" ];
       "x-scheme-handler/discord" = [ "Discord.desktop" ];
-      "inode/directory" = [ "thunar.desktop" ];
+      "inode/directory" = [
+        "${
+          if defaults.fileManager == "cosmic-files" then "com.system76.CosmicFiles" else defaults.fileManager
+        }.desktop"
+      ];
     };
 
   template = lib.template.xdg;
