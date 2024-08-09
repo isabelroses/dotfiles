@@ -170,11 +170,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1723153472,
-        "narHash": "sha256-1jrBBGLlYsJmu1M0i7XOxB93+ccNbXStm+LtDQSoYJk=",
+        "lastModified": 1723236352,
+        "narHash": "sha256-S1nDcEsmEfcVRpCr8DUfIcOkwKyrkdysqxkszKuCT/Y=",
         "ref": "refs/heads/main",
-        "rev": "e3f661c1ae6560b32f8a94c3e6616aa159c242a0",
-        "revCount": 21,
+        "rev": "a4bb5f97b6845e8f4b4803cb271e703dfa437d35",
+        "revCount": 25,
         "type": "git",
         "url": "ssh://git@git.isabelroses.com:2222/isabel/comfywm"
       },
@@ -298,11 +298,11 @@
         "nixpkgs-stable": []
       },
       "locked": {
-        "lastModified": 1723056346,
-        "narHash": "sha256-YpzywjTAUHRRHcO8zz9x2gYqJ0JmZlcB9+RaUvD89qM=",
+        "lastModified": 1723202784,
+        "narHash": "sha256-qbhjc/NEGaDbyy0ucycubq4N3//gDFFH3DOmp1D3u1Q=",
         "owner": "cachix",
         "repo": "git-hooks.nix",
-        "rev": "3c977f1c9930f54066c085305b4b2291385e7a73",
+        "rev": "c7012d0c18567c889b948781bc74a501e92275d1",
         "type": "github"
       },
       "original": {
@@ -395,11 +395,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1723143710,
-        "narHash": "sha256-qbjodK+UgnQ2YdtKmuI1XEG84SZlid39rQo6Ap9NTqI=",
+        "lastModified": 1723224800,
+        "narHash": "sha256-2b+cECwR+3FL/ikuZnXE94H8bXdlnYUbhmi1KNpD/tc=",
         "ref": "refs/heads/main",
-        "rev": "4b4971c06fb02df00a2bd20b6b47b5d0e7d799a7",
-        "revCount": 5071,
+        "rev": "8b37e81374928856d8fd859b95a62c8bf4211901",
+        "revCount": 5073,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -534,11 +534,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722998456,
-        "narHash": "sha256-dkHeRXkSGS0I3TjWWol1VyedhUkRgd2TILXRSItIPd4=",
+        "lastModified": 1723233051,
+        "narHash": "sha256-zPbMszkzbCLb3GbwNp9MmenaZe5q/63QWNWQGM6nqDo=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "9ab38ce2a05c47d736c4f7454ecc7462621feaeb",
+        "rev": "7c6905f422aec6e491cf44050bf6e71029fdada4",
         "type": "github"
       },
       "original": {
@@ -588,11 +588,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1723158731,
-        "narHash": "sha256-FIXisGWmQpPjPcEKy/Xa6YvnUYg9KysfLsFq0biMIug=",
+        "lastModified": 1723231469,
+        "narHash": "sha256-RPkLAmxpWwrvh3rJX6EzOOLn/4U7J4J/fS+kCoe7E+U=",
         "ref": "refs/heads/main",
-        "rev": "3b902683e93ad21be3537ef77f3e5200fbbed900",
-        "revCount": 16108,
+        "rev": "790d1079e1da414f730c9d03c4c8ecc4c40d5c4d",
+        "revCount": 16117,
         "type": "git",
         "url": "https://git.lix.systems/lix-project/lix.git"
       },
@@ -709,11 +709,11 @@
     },
     "nixpkgs-small": {
       "locked": {
-        "lastModified": 1723111207,
-        "narHash": "sha256-WanxA10GYQol3RemQewSW1O1n3YjUWnHk6t4kOYQ4/4=",
+        "lastModified": 1723197662,
+        "narHash": "sha256-NSvqhZYv0LY2eh0a3yoAvJjGlWeOLSjmPpivSnY9pXg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fa12935a32af71ab3a8b4ff60ab3c37490eea336",
+        "rev": "0048951e7a3eba3dce8bf6ba893390d29375c5d0",
         "type": "github"
       },
       "original": {
@@ -725,11 +725,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1723019560,
-        "narHash": "sha256-O/kxmybNecC3Efr6ITOdtCzFv90/B2Iiedavj5aRWt0=",
+        "lastModified": 1723151389,
+        "narHash": "sha256-9AVY0ReCmSGXHrlx78+1RrqcDgVSRhHUKDVV1LLBy28=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f5129fb42b9c262318130a97b47516946da3e7d7",
+        "rev": "13fe00cb6c75461901f072ae62b5805baef9f8b2",
         "type": "github"
       },
       "original": {
