@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs,
+  config,
   ...
 }:
 let
@@ -54,12 +55,13 @@ in
       allowed-users = [
         "@wheel" # allow sudo users to mark the following values as trusted
         "root"
-        "isabel"
+        # we are assuming the main user owns the system and should be trusted
+        config.garden.system.mainUser
       ];
       trusted-users = [
         "@wheel" # allow sudo users to manage the nix store
         "root"
-        "isabel"
+        config.garden.system.mainUser
       ];
 
       # we don't want to track the registry, but we do want to allow the usage
