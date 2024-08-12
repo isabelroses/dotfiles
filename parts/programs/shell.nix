@@ -1,7 +1,6 @@
 {
   perSystem =
     {
-      lib,
       pkgs,
       self',
       config,
@@ -25,7 +24,7 @@
             pkgs.nix-output-monitor # get clean diff between generations
             inputs'.agenix.packages.agenix # secrets
             inputs'.deploy-rs.packages.deploy-rs # remote deployment
-          ] ++ lib.optionals pkgs.stdenv.isDarwin [ inputs'.darwin.packages.darwin-rebuild ];
+          ];
 
           inputsFrom = [ config.treefmt.build.devShell ];
         };

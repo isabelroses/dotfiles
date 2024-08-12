@@ -1,18 +1,11 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  inherit (lib.hardware) ldTernary;
-in
+{ config, ... }:
 {
   programs.nh = {
     enable = true;
 
     clean = {
       enable = !config.nix.gc.automatic;
-    } // ldTernary pkgs { dates = "daily"; } { interval = "daily"; };
+      dates = "daily";
+    };
   };
 }
