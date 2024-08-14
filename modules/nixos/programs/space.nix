@@ -10,7 +10,7 @@
     stub-ld.enable = false;
 
     # disable all packages installed by default, i prefer my own packages
-    # this list noramlly includes things like perl
+    # this list normally includes things like perl
     defaultPackages = lib.modules.mkForce [ ];
   };
 }
