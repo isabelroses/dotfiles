@@ -33,6 +33,7 @@
 </details>
 
 <!--toc:start-->
+
 - [Foreword](#foreword)
 - [What does this repo provided](#what-does-this-repo-provided)
 - [Config layout](#config-layout)
@@ -47,7 +48,7 @@
   - [Resources](#resources)
   - [Projects / Configurations](#projects-configurations)
   - [People](#people)
-<!--toc:end-->
+  <!--toc:end-->
 
 ### Foreword
 
