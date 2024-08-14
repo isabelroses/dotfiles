@@ -30,7 +30,7 @@
         };
       };
 
-      fs = [
+      fs.support = [
         "ext4"
         "vfat"
         "ntfs"

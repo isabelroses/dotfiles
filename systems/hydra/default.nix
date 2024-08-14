@@ -25,7 +25,7 @@
         plymouth.enable = false;
       };
 
-      fs = [
+      fs.support = [
         "btrfs"
         "vfat"
       ];

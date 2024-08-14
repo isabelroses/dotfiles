@@ -26,7 +26,7 @@
         tmpOnTmpfs = false;
       };
 
-      fs = [
+      fs.support = [
         "vfat"
         "exfat"
         "ext4"
