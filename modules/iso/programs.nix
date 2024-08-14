@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   # needed packages for the installer
   environment.systemPackages = builtins.attrValues {
@@ -7,6 +7,8 @@
       pciutils # going to need this for lspci
       gitMinimal # we only need a basic git install
       ;
+
+    installer = pkgs.callPackage ./installer.nix { nix = config.nix.package; };
   };
 
   # provide all hardware drivers, including proprietary ones

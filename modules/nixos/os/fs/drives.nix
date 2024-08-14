@@ -6,17 +6,24 @@ let
   cfg = config.garden.system.fs;
 in
 {
-  options.garden.system.fs.enableDefaults = mkEnableOption "Enable default filesystems";
+  options.garden.system.fs = {
+    enableDefaults = mkEnableOption "Enable default filesystems";
+    enableSwap = mkEnableOption "Enable swap";
+  };
 
-  config.fileSystems = mkIf cfg.enableDefaults {
-    "/" = {
-      device = "/dev/disk/by-label/ROOT";
-      fsType = "btrfs";
+  config = mkIf cfg.enableDefaults {
+    fileSystems = {
+      "/" = {
+        device = "/dev/disk/by-label/root";
+        fsType = "btrfs";
+      };
+
+      "/boot" = {
+        device = "/dev/disk/by-label/boot";
+        fsType = "vfat";
+      };
     };
 
-    "/boot" = {
-      device = "/dev/disk/by-label/BOOT";
-      fsType = "vfat";
-    };
+    swapDevices = mkIf cfg.enableSwap [ { device = "/dev/disk/by-label/swap"; } ];
   };
 }
