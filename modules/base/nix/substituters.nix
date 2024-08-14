@@ -9,7 +9,6 @@
       "https://catppuccin.cachix.org" # a cache for ctp nix
       "https://pre-commit-hooks.cachix.org" # pre commit hooks
       "https://hyprland.cachix.org" # hyprland
-      # "https://cache.lix.systems" # lix
     ];
 
     trusted-public-keys = [
@@ -20,7 +19,6 @@
       "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
       "pre-commit-hooks.cachix.org-1:Pkk3Panw5AW24TOv6kz3PvLhlH8puAsJTBbOPmBo7Rc="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      # "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
     ];
   };
 }

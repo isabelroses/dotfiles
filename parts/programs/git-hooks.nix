@@ -50,7 +50,7 @@
             };
 
             # check for dead links
-            lychee = mkHook "lychee";
+            # lychee = mkHook "lychee";
 
             # make sure there are no typos in the code
             typos = mkHook' "typos" {

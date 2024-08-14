@@ -1,4 +1,4 @@
-# Largely borrowed from https://github.com/chaossocial/about/blob/master/blocked_instances.md
+# Largely borrowed from https://github.com/chaossocial/about/blob/5137496d328dab0c5dbcddfcf90b467dfe21bc1e/blocked_instances.md
 {
   media_nsfw = {
     "sinblr.com" = "Untagged NSFW content";
@@ -49,7 +49,7 @@
     "lolicon.rocks" = "Lolicon";
     "mastodon.network" = "Imperaonation linking to porn";
     "mastodon.popps.org" = "Homophobia";
-    "meta-tube.de" = "Conspiracy, CoVid19 denier videos https://fediblock.org/blocklist/#meta-tube.de";
+    "meta-tube.de" = "Conspiracy, CoVid19 denier videos";
     "mostr.pub" = "nostr, unmoderated";
     "midnightride.rs" = "Discrimination";
     "mstdn.foxfam.club" = "Right wing twitter mirror";
