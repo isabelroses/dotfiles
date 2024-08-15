@@ -17,7 +17,7 @@ let
       helpers = import ./helpers.nix { inherit lib; };
       secrets = import ./secrets.nix { inherit inputs; };
       services = import ./services.nix { inherit lib; };
-      validators = import ./validators.nix { inherit lib; };
+      validators = import ./validators.nix;
 
       # we have to rexport the functions we want to use, but don't want to refer to the whole lib
       # "path". e.g. lib.hardware.isx86Linux can be shortened to lib.isx86Linux
@@ -38,7 +38,6 @@ let
       inherit (self.services) mkGraphicalService mkHyprlandService mkServiceOption;
       inherit (self.validators)
         ifTheyExist
-        ifGroupsExist
         isAcceptedDevice
         isWayland
         ifOneEnabled

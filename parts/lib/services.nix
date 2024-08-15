@@ -4,7 +4,6 @@ let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.attrsets) recursiveUpdate;
 
-  # make a service that is a part of the graphical session target
   mkGraphicalService = recursiveUpdate {
     Unit.PartOf = [ "graphical-session.target" ];
     Unit.After = [ "graphical-session.target" ];
@@ -17,6 +16,19 @@ let
     Install.WantedBy = [ "hyprland-session.target" ];
   };
 
+  /**
+    A quick way to use my services abstraction
+
+    # Arguments
+
+    - [name]: The name of the service
+
+    # Type
+
+    ```
+    mkServiceOption :: String -> (Int -> String -> String -> AttrSet) -> AttrSet
+    ```
+  */
   mkServiceOption =
     name:
     {

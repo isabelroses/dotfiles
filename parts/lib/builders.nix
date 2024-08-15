@@ -11,14 +11,35 @@ let
   inherit (lib.attrsets) recursiveUpdate optionalAttrs listToAttrs;
   inherit (lib.modules) mkDefault evalModules;
 
-  # mkSystem is a function that uses withSystem to give us inputs' and self'
-  # it also assumes the the system type either nixos or darwin and uses the appropriate
+  /**
+    mkSystem is a function that uses withSystem to give us inputs' and self'
+    it also assumes the the system type either nixos or darwin and uses the appropriate
+
+    # Type
+
+    ```
+    mkSystem :: AttrSet -> AttrSet
+    ```
+
+    # Example
+
+    ```nix
+      mkSystem {
+        host = "myhost";
+        arch = "x86_64";
+        target = "nixos";
+        modules = [ ./module.nix ];
+        specialArgs = { foo = "bar"; };
+      }
+    ```
+  */
   mkSystem =
     {
       host,
       arch ? "x86_64",
       target ? "nixos",
-      modules,
+      modules ? [ ],
+      specialArgs ? { },
       ...
     }@args:
     let
@@ -41,7 +62,7 @@ let
             inherit lib;
             inherit self self';
             inherit inputs inputs';
-          } (args.specialArgs or { });
+          } args.specialArgs;
 
           # A nominal type for modules. When set and non-null, this adds a check to
           # make sure that only compatible modules are imported.
@@ -105,7 +126,7 @@ let
               };
             }))
 
-            (args.modules or [ ])
+            args.modules
           ];
         };
       in
@@ -115,7 +136,29 @@ let
       eval // optionalAttrs (target == "darwin") { system = eval.config.system.build.toplevel; }
     );
 
-  # mkSystems is a wrapper for mkNixSystem to create a list of systems
+  /**
+    mkSystems is a wrapper for mkNixSystem to create a list of systems
+
+    # Type
+
+    ```
+    mkSystems :: List -> AttrSet
+    ```
+
+    # Example
+
+    ```nix
+      mkSystems [
+        {
+          host = "myhost";
+          arch = "x86_64";
+          target = "nixos";
+          modules = [ ./module.nix ];
+          specialArgs = { foo = "bar"; };
+        }
+      ]
+    ```
+  */
   mkSystems =
     systems:
     listToAttrs (
