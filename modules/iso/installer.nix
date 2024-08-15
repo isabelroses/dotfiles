@@ -1,6 +1,7 @@
 {
   nix,
   gum,
+  vim,
   parted,
   nixos-install-tools,
   writeShellApplication,
@@ -11,6 +12,7 @@ writeShellApplication {
   runtimeInputs = [
     nix
     gum
+    vim
     parted
     nixos-install-tools # for nixos-install
   ];
@@ -19,12 +21,10 @@ writeShellApplication {
     set -euxo pipefail
 
     echo "Welcome to the iznix installer!"
-    sleep 1
-    echo "Make sure you have edited the /root/flake/modules/iso/base-config.nix file in the flake to match your desired configuration"
 
     # get some information from the user
     hostname=$(gum input --placeholder "Enter hostname")
-    drive=$(lsblk -nlo NAME | gum choose --header "Select drive to install to")
+    drive=$(lsblk -nlo PATH | gum choose --header "Select drive to install to")
 
     # create some partitions
     parted "$drive" -- mklabel gpt
@@ -33,13 +33,24 @@ writeShellApplication {
     parted "$drive" -- mkpart boot fat32 1MB 1024MB
     parted "$drive" -- set 3 esp on
 
-    # setup the system specific configuration
-    mkdir -p /root/flake/"$hostname"
-    cp /root/flake/modules/iso/base-config.nix /root/flake/systems/"$hostname"/default.nix
-
     # copy across the iso's nixos flake to the target system
     mkdir -p /mnt/etc/nixos
-    cp -rT /root/flake /mnt/etc/nixos
+    cp -rT /iso/flake /mnt/etc/nixos
+
+    # setup the system specific configuration
+    mkdir -p /mnt/etc/nixos/systems/"$hostname"
+    cp /iso/flake/modules/iso/base-config.nix /mnt/etc/nixos/systems/"$hostname"/default.nix
+    # force the user to setup stuff
+    vim /mnt/etc/nixos/systems/"$hostname"/default.nix
+
+    # setup the git repository for the nixos configuration
+    git -C /mnt/etc/nixos init
+    git -C /mnt/etc/nixos remote add origin ssh://git@github.com/isabelroses/dotfiles.git
+    (
+      git -C /mnt/etc/nixos fetch && \
+      git -C /mnt/etc/nixos reset "origin/HEAD" && \
+      git -C /mnt/etc/nixos branch --set-upstream-to=origin/main main
+    ) || true
 
     # create some ssh keys with no passphrases
     mkdir -p /mnt/etc/ssh
