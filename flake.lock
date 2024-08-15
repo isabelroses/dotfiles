@@ -115,11 +115,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1723595787,
-        "narHash": "sha256-2+MJFti+7BZmKx8AjNubbeGIAZsbrXPxwK/QYGrW8vc=",
+        "lastModified": 1723682108,
+        "narHash": "sha256-XWmeLtnGNTxhmR/69I8EmVnOZHq0T/4+kJiRf98htxw=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "9bc2601d673a5869e903abde1d0722e35ef067c8",
+        "rev": "2f1266cbbe0906637b377a377280b9bfed119902",
         "type": "github"
       },
       "original": {
@@ -395,11 +395,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1723579231,
-        "narHash": "sha256-PL9C3aOetj+TS+vXvNhh7q5bm3g70oakg+iSu5eQBUQ=",
+        "lastModified": 1723656907,
+        "narHash": "sha256-11tgstIQZP3RRrBEF3ym9L6oS+vzqZJ7Mp6eB2PaN+0=",
         "ref": "refs/heads/main",
-        "rev": "3b4aabe04c7756fb0a70d78b6f0e701228f46345",
-        "revCount": 5087,
+        "rev": "197f8807900afc81c1c92ad17e621d1998ee268b",
+        "revCount": 5088,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -709,11 +709,11 @@
     },
     "nixpkgs-small": {
       "locked": {
-        "lastModified": 1723599198,
-        "narHash": "sha256-kFB8EB7ne/ujWIa7pY6UmcwbGfwUCL6NTGJrglWva40=",
+        "lastModified": 1723662386,
+        "narHash": "sha256-vcQ5OscW2Xa+7aVIFe624NUoYqULX6Gb8fydkjphrHU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "5a1fae64da2be3d09a8f289c6257146997827d1d",
+        "rev": "76d7f78b329d92766b46b5c51e8639a1b6983a52",
         "type": "github"
       },
       "original": {
@@ -775,11 +775,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1723515680,
-        "narHash": "sha256-nHdKymsHCVIh0Wdm4MvSgxcTTg34FJIYHRQkQYaSuvk=",
+        "lastModified": 1723602049,
+        "narHash": "sha256-Z/noCSn9WPkv7O77dWKLcBxe4Ub4bWyNzsL5JhjaQfw=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "4ee3d9e9569f70d7bb40f28804d6fe950c81eab3",
+        "rev": "ea0bf33a11a26a62c60123c49d96011da396602c",
         "type": "github"
       },
       "original": {
@@ -833,11 +833,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1723454642,
-        "narHash": "sha256-S0Gvsenh0II7EAaoc9158ZB4vYyuycvMGKGxIbERNAM=",
+        "lastModified": 1723656612,
+        "narHash": "sha256-6Sx+/VhRPLR+kRf6rnNUFMQ66DUz1DMYajixYUe+CUU=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "349de7bc435bdff37785c2466f054ed1766173be",
+        "rev": "4a6d7dccf80a1aa2d04cfaa88d9e5511542a2486",
         "type": "github"
       },
       "original": {
