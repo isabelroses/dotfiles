@@ -40,8 +40,7 @@ let
       target ? "nixos",
       modules ? [ ],
       specialArgs ? { },
-      ...
-    }@args:
+    }:
     let
       system = if (target == "iso" || target == "nixos") then "${arch}-linux" else "${arch}-${target}";
     in
@@ -62,7 +61,7 @@ let
             inherit lib;
             inherit self self';
             inherit inputs inputs';
-          } args.specialArgs;
+          } specialArgs;
 
           # A nominal type for modules. When set and non-null, this adds a check to
           # make sure that only compatible modules are imported.
@@ -75,7 +74,7 @@ let
 
             # configurations based on that are imported based hostname,
             # these don't exist for iso systems (at the moment) so we ignore those
-            (optionals (target != "iso") [ "${self}/systems/${args.host}/default.nix" ])
+            (optionals (target != "iso") [ "${self}/systems/${host}/default.nix" ])
 
             # get an installer profile from nixpkgs to base the Isos off of
             # this is useful because it makes things alot easier
@@ -93,8 +92,11 @@ let
                 "${inputs.nixpkgs}/nixos/modules/module-list.nix"
             ))
 
+            # TODO: learn what this means and why its needed to build the iso
+            (singleton { _module.args.modules = [ ]; })
+
             (singleton {
-              networking.hostName = args.host;
+              networking.hostName = host;
               # you can also do this as `inherit system;` with the normal `lib.nixosSystem`
               # however for evalModules this will not work, so we do this instead
               nixpkgs.hostPlatform = mkDefault system;
@@ -126,7 +128,8 @@ let
               };
             }))
 
-            args.modules
+            # import any additional modules that the user has provided
+            modules
           ];
         };
       in
