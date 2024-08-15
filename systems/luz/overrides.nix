@@ -43,5 +43,21 @@ in
         device = mkForce "/dev/sda";
       };
     };
+
+    # See
+    # - https://docs.hetzner.com/cloud/servers/static-configuration/
+    # - https://gist.github.com/nh2/6814728dc3bea1508323e9bf2213c28d#file-configuration-nix-L39-L65
+    # - https://github.com/nix-community/nixos-install-scripts/issues/3#issuecomment-752781335
+    networking = {
+      defaultGateway = {
+        address = "172.31.1.1";
+        interface = "ens3";
+      };
+
+      defaultGateway6 = {
+        address = "fe80::1";
+        interface = "ens3";
+      };
+    };
   };
 }
