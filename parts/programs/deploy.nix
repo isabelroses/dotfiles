@@ -5,8 +5,8 @@
     magicRollback = true;
 
     # TODO: make this a function, that detects systems by their name
-    nodes.luz = {
-      hostname = "luz";
+    nodes.minerva = {
+      hostname = "minerva";
       skipChecks = true;
       sshUser = "isabel";
       profiles.system = {
