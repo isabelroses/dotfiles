@@ -96,6 +96,16 @@ let
     }
 
     {
+      host = "minerva";
+      arch = "x86_64";
+      target = "nixos";
+      modules = concatLists [
+        server
+        shared
+      ];
+    }
+
+    {
       host = "lilith";
       arch = "x86_64";
       target = "iso";
