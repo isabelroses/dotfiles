@@ -79,7 +79,7 @@ This repository contains my **personal** configuration for my systems. Its reall
   - ☀️ [Amaterasu](./systems/amaterasu) My high-end gaming machine
   - 🐉 [Hydra](./systems/hydra/) A super mid spec laptop
   - ⚸ [Lilith](./systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
-  - 🪄 [Luz](./systems/luz/) A server configuration for some of my infrastructure
+  - ⚖️ [minerva](./systems/minerva/) A server configuration for some of my infrastructure
   - 𖤍 [Valkyrie](./systems/valkyrie/) A WSL2 host, designed to be a development environment on Windows
   - 💮 [Tatsumaki](./systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
 - 🧩 [parts](./parts/) NixOS parts breaking down the complex configuration into smaller more manageable chunks

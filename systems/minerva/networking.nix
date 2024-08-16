@@ -1,49 +1,65 @@
 { lib, ... }:
+let
+  inherit (lib.modules) mkForce;
+in
 {
-  # This file was populated at runtime with the networking
-  # details gathered from the active system.
+  # See
+  # - https://docs.hetzner.com/cloud/servers/static-configuration/
+  # - https://gist.github.com/nh2/6814728dc3bea1508323e9bf2213c28d#file-configuration-nix-L39-L65
+  # - https://github.com/nix-community/nixos-install-scripts/issues/3#issuecomment-752781335
   networking = {
-    nameservers = [ "8.8.8.8" ];
-    defaultGateway = "172.31.1.1";
+    defaultGateway = {
+      address = "172.31.1.1";
+      interface = "eth0";
+    };
+
     defaultGateway6 = {
       address = "fe80::1";
       interface = "eth0";
     };
 
-    dhcpcd.enable = lib.mkForce false;
-    usePredictableInterfaceNames = lib.mkForce false;
+    dhcpcd.enable = mkForce false;
+    usePredictableInterfaceNames = mkForce false;
+
     interfaces = {
       eth0 = {
-        ipv4.addresses = [
-          {
-            address = "91.107.198.173";
-            prefixLength = 32;
-          }
-        ];
-        ipv6.addresses = [
-          {
-            address = "2a01:4f8:c012:2f67::1";
-            prefixLength = 64;
-          }
-          {
-            address = "fe80::9400:3ff:fea1:ef91";
-            prefixLength = 64;
-          }
-        ];
-        ipv4.routes = [
-          {
-            address = "172.31.1.1";
-            prefixLength = 32;
-          }
-        ];
-        ipv6.routes = [
-          {
-            address = "fe80::1";
-            prefixLength = 128;
-          }
-        ];
-      };
+        ipv4 = {
+          addresses = [
+            {
+              address = "91.107.198.173";
+              prefixLength = 32;
+            }
+          ];
 
+          routes = [
+            {
+              address = "172.31.1.1";
+              prefixLength = 32;
+            }
+          ];
+
+        };
+
+        ipv6 = {
+          addresses = [
+            {
+              address = "2a01:4f8:c012:2f67::1";
+              prefixLength = 64;
+            }
+            {
+              address = "fe80::9400:3ff:fea1:ef91";
+              prefixLength = 64;
+            }
+          ];
+
+          routes = [
+            {
+              address = "fe80::1";
+              prefixLength = 128;
+            }
+          ];
+        };
+      };
     };
   };
 

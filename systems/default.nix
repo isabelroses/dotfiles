@@ -86,16 +86,6 @@ let
     }
 
     {
-      host = "luz";
-      arch = "x86_64";
-      target = "nixos";
-      modules = concatLists [
-        server
-        shared
-      ];
-    }
-
-    {
       host = "minerva";
       arch = "x86_64";
       target = "nixos";

@@ -3,7 +3,7 @@
     ./hardware.nix
     ./overrides.nix
     ./services.nix
-    #    ./networking.nix
+    ./networking.nix
   ];
 
   garden = {
