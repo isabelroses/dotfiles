@@ -35,6 +35,7 @@ in
           "networkmanager"
           "systemd-journal"
           "audio"
+          "pipewire" # this give us access to the rt limits
           "video"
           "input"
           "plugdev"

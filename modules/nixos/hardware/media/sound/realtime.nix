@@ -1,3 +1,5 @@
+# will be made pretty much redundant by
+#  https://github.com/NixOS/nixpkgs/pull/335066
 { lib, config, ... }:
 let
   inherit (lib.modules) mkIf;
