@@ -1,11 +1,17 @@
 {
   system.defaults = {
-    NSGlobalDomain."com.apple.swipescrolldirection" = false; # enable natural scrolling
+    # enable natural scrolling
+    NSGlobalDomain."com.apple.swipescrolldirection" = false;
 
     trackpad = {
-      Clicking = true; # enable tap to click
-      TrackpadRightClick = true; # enable two finger right click
-      TrackpadThreeFingerDrag = false; # enable three finger drag, disabled so I can swap workspaces with 3 fingers
+      # enable tap to click
+      Clicking = true;
+
+      # enable two finger right click
+      TrackpadRightClick = true;
+
+      # enable three finger drag, disabled so I can swap workspaces with 3 fingers
+      TrackpadThreeFingerDrag = false;
     };
   };
 }

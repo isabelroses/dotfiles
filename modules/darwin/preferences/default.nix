@@ -15,6 +15,7 @@
     ./finder.nix # Settings for Finder (file manager)
     ./images.nix # Screensaver, screenshots etc
     ./login.nix # Settings for the login screen
+    ./measurements.nix # Units and measurements
     ./misc.nix # Miscellaneous settings
     ./sound.nix # Sound settings
     ./theme.nix # Theme settings

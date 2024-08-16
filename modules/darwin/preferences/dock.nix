@@ -2,22 +2,48 @@
   system.defaults = {
     dock = {
       autohide = true;
-      autohide-delay = 0.0; # autohide delay
-      autohide-time-modifier = 1.0; # autohide animation duration
 
-      orientation = "bottom"; # dock position
-      tilesize = 1; # dock icon size
+      # autohide delay
+      autohide-delay = 0.0;
 
-      static-only = false; # show running apps
-      show-recents = false; # disable recent apps
-      showhidden = false; # show hidden apps
-      mru-spaces = false; # disable recent spaces
+      # autohide animation duration
+      autohide-time-modifier = 1.0;
+
+      # dock position
+      orientation = "bottom";
+
+      # dock icon size
+      tilesize = 1;
+
+      # show running apps
+      static-only = false;
+
+      # disable recent apps
+      show-recents = false;
+
+      # show hidden apps
+      showhidden = false;
+
+      # disable recent spaces
+      mru-spaces = false;
 
       # customize Hot Corners
-      # wvous-tl-corner = 2; # top-left - Mission Control
-      # wvous-tr-corner = 13; # top-right - Lock Screen
-      # wvous-bl-corner = 3; # bottom-left - Application Windows
-      # wvous-br-corner = 4; # bottom-right - Desktop
+      #  1: Disabled
+      #  2: Mission Control
+      #  3: Application Windows
+      #  4: Desktop
+      #  5: Start Screen Saver
+      #  6: Disable Screen Saver
+      #  7: Dashboard
+      #  10: Put Display to Sleep
+      #  11: Launchpad
+      #  12: Notification Center
+      #  13: Lock Screen
+      #  14: Quick Note
+      wvous-tl-corner = 1;
+      wvous-tr-corner = 1;
+      wvous-bl-corner = 1;
+      wvous-br-corner = 1;
     };
   };
 

@@ -1,13 +1,17 @@
 {
   system.defaults.CustomUserPreferences = {
-    "com.apple.spaces" = {
-      "spans-displays" = 0; # Display have separate spaces
-    };
+    # Display have separate spaces
+    "com.apple.spaces"."spans-displays" = 0;
 
     "com.apple.WindowManager" = {
-      EnableStandardClickToShowDesktop = 0; # Click wallpaper to reveal desktop
-      StandardHideDesktopIcons = 0; # Show items on desktop
-      HideDesktop = 0; # Do not hide items on desktop & stage manager
+      # Click wallpaper to reveal desktop
+      EnableStandardClickToShowDesktop = 0;
+
+      # Show items on desktop
+      StandardHideDesktopIcons = 0;
+
+      # Do not hide items on desktop & stage manager
+      HideDesktop = 0;
       StageManagerHideWidgets = 0;
       StandardHideWidgets = 0;
     };

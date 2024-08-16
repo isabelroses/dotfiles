@@ -3,6 +3,15 @@ let
   inherit (lib.modules) mkIf;
 in
 {
+  # https://github.com/koekeishiya/yabai#requirements-and-caveats
+  system.defaults = {
+    # whether to automatically rearrange spaces based on most recent use
+    dock.mru-spaces = false;
+
+    # Apple menu > System Preferences > Mission Control > Displays have separate Space
+    spaces.spans-displays = false;
+  };
+
   services.yabai = mkIf (config.garden.environment.desktop == "yabai") {
     enable = true;
     enableScriptingAddition = true;

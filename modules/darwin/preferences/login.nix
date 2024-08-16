@@ -1,6 +1,9 @@
 {
   system.defaults.loginwindow = {
-    GuestEnabled = false; # disable guest user
-    SHOWFULLNAME = false; # show full name in login window
+    # disable guest user
+    GuestEnabled = false;
+
+    # show full name in login window
+    SHOWFULLNAME = false;
   };
 }
