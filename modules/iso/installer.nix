@@ -28,10 +28,20 @@ writeShellApplication {
 
     # create some partitions
     parted "$drive" -- mklabel gpt
+    parted "$drive" -- mkpart boot fat32 1MB 1024MB
     parted "$drive" -- mkpart root btrfs 1024MB -8GB
     parted "$drive" -- mkpart swap linux-swap -8GB 100%
-    parted "$drive" -- mkpart boot fat32 1MB 1024MB
-    parted "$drive" -- set 3 esp on
+    parted "$drive" -- set 1 esp on
+
+    # format the partitions
+    mkfs.fat -F32 -n boot "$drive"1
+    mkfs.btrfs -L root "$drive"2
+
+    # mount the partitions whilst ensuring the directories exist
+    mkdir -p /mnt
+    mount "$drive"2 /mnt
+    mkdir -p /mnt/boot
+    mount "$drive"1 /mnt/boot
 
     # copy across the iso's nixos flake to the target system
     mkdir -p /mnt/etc/nixos
