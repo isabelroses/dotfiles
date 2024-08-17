@@ -121,13 +121,16 @@ in
         # allow passing installables to nix repl, making its interface consistent with the other experimental commands
         "repl-flake"
 
+        # allow usage of the pipe operator in nix expressions
+        "pipe-operator"
+      ];
+
+      # we can grcaefully remove things that are from older versions of nix
+      # using this feature,
+      deprecated-features = [
         # disallow unquoted URLs as part of the Nix language syntax
         # this are explicitly derpricated and are unused in nixpkgs, so we should ensure that we are not using them
-        "no-url-literals"
-
-        # allow usage of the pipe operator in nix expressions
-        # I added the patches for this so we may as well use it
-        "pipe-operator"
+        "url-literals"
       ];
 
       # don't warn me if the current working tree is dirty
