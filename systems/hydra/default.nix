@@ -89,6 +89,6 @@
       };
     };
 
-    services.networking.cloudflared.enable = true;
+    services.cloudflared.enable = true;
   };
 }

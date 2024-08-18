@@ -71,6 +71,6 @@
       gui.enable = false;
     };
 
-    services.dev.vscode-server.enable = true;
+    services.vscode-server.enable = true;
   };
 }

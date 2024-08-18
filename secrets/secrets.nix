@@ -55,6 +55,12 @@ in
   "mailserver/grafana-nohash.age".publicKeys = defAccess types.servers;
   "mailserver/git-nohash.age".publicKeys = defAccess types.servers;
 
+  # kanidm
+  "kanidm/admin-password.age".publicKeys = defAccess types.servers;
+  "kanidm/idm-admin-password.age".publicKeys = defAccess types.servers;
+  "kanidm/oauth2/grafana.age".publicKeys = defAccess types.servers;
+  "kanidm/oauth2/forgejo.age".publicKeys = defAccess types.servers;
+
   "grafana-oauth2.age".publicKeys = defAccess types.servers;
 
   "blahaj-env.age".publicKeys = defAccess types.servers;
