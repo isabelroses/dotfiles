@@ -1,8 +1,6 @@
 import options from "options";
 const notifs = await Service.import("notifications");
 
-// TODO: consider adding this to upstream
-
 const { blacklist } = options.notifications;
 
 export default function init() {

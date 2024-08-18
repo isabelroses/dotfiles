@@ -197,7 +197,6 @@ wezterm.on("format-tab-title", function(tab, tabs, _panes, conf, _hover, _max_wi
     end
   end
 
-  -- TODO: make colors configurable
   local rainbow = {
     conf.resolved_palette.ansi[2],
     conf.resolved_palette.indexed[16],
