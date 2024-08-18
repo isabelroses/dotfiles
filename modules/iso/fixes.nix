@@ -17,10 +17,5 @@
     "mdadm.conf".text = ''
       MAILADDR root
     '';
-
-    "systemd/pstore.conf".text = ''
-      [PStore]
-      Unlink=no
-    '';
   };
 }
