@@ -19,6 +19,11 @@ in
       enable = true;
       defaultUser = config.garden.system.mainUser;
       startMenuLaunchers = true;
+
+      interop = {
+        includePath = false;
+        register = true;
+      };
     };
 
     # disable features that don't work or don't make sense in WSL

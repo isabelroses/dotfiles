@@ -5,7 +5,7 @@
 
     clean = {
       enable = !config.nix.gc.automatic;
-      dates = "daily";
+      dates = "weekly";
     };
   };
 }
