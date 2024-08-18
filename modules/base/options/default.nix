@@ -1,7 +1,7 @@
 {
   imports = [
-    ./device
     ./programs
     ./environment
+    ./device.nix
   ];
 }
