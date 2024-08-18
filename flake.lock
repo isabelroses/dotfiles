@@ -114,11 +114,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1723886081,
-        "narHash": "sha256-buWzSLgeLuF22od/Y7qQH/yXZaVSHiFPI8FHk/HvX9U=",
+        "lastModified": 1723974499,
+        "narHash": "sha256-p+wc2YkfvFEeJjaJYDOsdELK8kP5X15gjpi1brLe1iI=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "04d9ee6f9ffa78aaf9d0e3c6bc63eb9bcc18928c",
+        "rev": "0eca735cd5b56e39f29bb3cb138a17c41b864c88",
         "type": "github"
       },
       "original": {
@@ -522,9 +522,7 @@
         ],
         "git-hooks": [],
         "neovim-nix": "neovim-nix",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs_2",
         "systems": [
           "systems"
         ]
@@ -718,6 +716,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1723637854,
+        "narHash": "sha256-med8+5DSWa2UnOqtdICndjDAEjxr5D7zaIiK4pn0Q7c=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c3aa7b8938b17aebd2deecf7be0636000d62a2b9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1723891200,
         "narHash": "sha256-uljX21+D/DZgb9uEFFG2dkkQbPZN+ig4Z6+UCLWFVAk=",
         "owner": "NixOS",
@@ -752,7 +766,7 @@
         "lix": "lix",
         "nix-index-db": "nix-index-db",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-small": "nixpkgs-small",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems",
