@@ -1,9 +1,13 @@
+{ lib, config, ... }:
+let
+  inherit (lib.lists) optional;
+
+  cfg = config.programs;
+in
 {
-  # enable completions for system packages
-  # and other stuff
-  environment.pathsToLink = [
-    "/share/zsh"
-    "/share/fish"
-    "/share/bash-completion"
-  ];
+  # if a given shell is enabled, add the corresponding completion paths
+  environment.pathsToLink =
+    optional (cfg.bash ? enable) "/share/bash-completion"
+    ++ optional cfg.zsh.enable "/share/zsh"
+    ++ optional cfg.fish.enable "/share/fish";
 }
