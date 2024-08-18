@@ -23,7 +23,7 @@ in
 
     systems = mkOption {
       type = listOf str;
-      default = builtins.filter (system: system != pkgs.system) [
+      default = builtins.filter (system: system != pkgs.stdenv.system) [
         "aarch64-linux"
         "i686-linux"
       ];
