@@ -32,7 +32,7 @@ in
       mkForce (mapAttrs (_: v: v.outPath) flakeInputs)
     );
 
-    # set up garbage collection to run daily, and removing packages after 3 days
+    # set up garbage collection to run <on the time frame specified per system>, and removing packages after 3 days
     gc = {
       automatic = true;
       options = "--delete-older-than 3d";

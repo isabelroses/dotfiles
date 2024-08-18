@@ -53,12 +53,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    warnings =
-      mkIf config.garden.system.encryption.device == "" [
-        ''
-          You have enabled LUKS encryption, but have not selected a device, you may not be able to decrypt your disk on boot.
-        ''
-      ];
+    warnings = mkIf (config.garden.system.encryption.device == "") [
+      ''
+        You have enabled LUKS encryption, but have not selected a device, you may not be able to decrypt your disk on boot.
+      ''
+    ];
 
     # mildly improves performance for the disk encryption
     boot = {

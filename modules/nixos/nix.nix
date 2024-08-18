@@ -1,13 +1,8 @@
-{ lib, config, ... }:
-let
-  inherit (lib.modules) mkForce;
-in
+{ config, ... }:
 {
   nix = {
-    gc = {
-      automatic = mkForce false;
-      dates = "Mon *-*-* 03:00";
-    };
+    # set the nix store to clean every Monday at 3am
+    gc.dates = "Mon *-*-* 03:00";
 
     # automatically optimize /nix/store by removing hard links
     optimise = {
@@ -30,5 +25,7 @@ in
     };
   };
 
+  # disable nixos auto updating
+  # one of the dumbest things that exists
   system.autoUpgrade.enable = false;
 }
