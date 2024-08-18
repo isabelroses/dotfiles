@@ -106,7 +106,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        rust-overlay.follows = "beapkgs/rust-overlay";
+        # rust-overlay.follows = "comfywm/rust-overlay";
         pre-commit-hooks-nix.follows = "";
         flake-compat.follows = "";
       };
@@ -169,10 +169,7 @@
       url = "git+ssh://git@git.isabelroses.com:2222/isabel/comfywm";
       # url = "path:/home/isabel/dev/comfywm";
 
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "beapkgs/rust-overlay";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # I am not recompling this thanks
