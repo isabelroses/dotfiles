@@ -15,7 +15,9 @@ const options = mkOptions(OPTIONS, {
       fg: opt("#cdd6f4"),
       widget: opt("#1e1e2e"),
       border: opt("#313244"),
-      wallpaper: opt(`/home/${Utils.USER}/media/pictures/wallpapers/00387.jpg`),
+      wallpaper: opt(
+        `/home/${Utils.USER}/media/pictures/wallpapers/GUHcHzna4AAa2Jw.jpeg`,
+      ),
     },
     light: {
       primary: {
