@@ -1,9 +1,16 @@
-{ lib, osConfig, ... }:
+{
+  lib,
+  osConfig,
+  inputs',
+  ...
+}:
 let
   inherit (lib.modules) mkIf;
 in
 {
   config = mkIf osConfig.garden.programs.gui.terminals.ghostty.enable {
+    home.packages = [ inputs'.ghostty.packages.ghostty ];
+
     xdg.configFile."ghostty/config".text = ''
       title = Ghostty
 

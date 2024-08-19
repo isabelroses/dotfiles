@@ -78,7 +78,8 @@
 
         terminals = {
           wezterm.enable = true;
-          alacritty.enable = true;
+          ghostty.enable = false;
+          alacritty.enable = false;
         };
 
         browsers = {

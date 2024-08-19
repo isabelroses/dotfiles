@@ -165,11 +165,23 @@
       };
     };
 
+    # my own wm
     comfywm = {
       url = "git+ssh://git@git.isabelroses.com:2222/isabel/comfywm";
       # url = "path:/home/isabel/dev/comfywm";
 
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # ghostty a new terminal emulator
+    ghostty = {
+      url = "git+ssh://git@github.com/ghostty-org/ghostty";
+
+      inputs = {
+        nixpkgs-unstable.follows = "nixpkgs-small";
+        zig-overlay.follows = "";
+        zls.follows = "";
+      };
     };
 
     # I am not recompling this thanks
