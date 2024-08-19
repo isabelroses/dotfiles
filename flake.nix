@@ -178,8 +178,9 @@
       url = "git+ssh://git@github.com/ghostty-org/ghostty";
 
       inputs = {
+        nixpkgs-stable.follows = "nixpkgs-small";
         nixpkgs-unstable.follows = "nixpkgs-small";
-        zig-overlay.follows = "";
+        zig.follows = "";
         zls.follows = "";
       };
     };
