@@ -249,7 +249,7 @@
       repo = "nvim";
 
       inputs = {
-        # nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
         flake-parts.follows = "flake-parts";
         beapkgs.follows = "beapkgs";
