@@ -60,10 +60,14 @@ in
           after = [ "network.target" ];
           wantedBy = [ "multi-user.target" ];
 
-          script = ''
-            ${getExe pkgs.git} -c safe.directory=/srv/storage/blahaj/nixpkgs \
-              -C /srv/storage/blahaj/nixpkgs pull origin master --rebase
-          '';
+          script =
+            let
+              cmd = "${getExe pkgs.git} -c safe.directory=/srv/storage/blahaj/nixpkgs -C /srv/storage/blahaj/nixpkgs";
+            in
+            ''
+              ${cmd} fetch origin
+              ${cmd} pull origin master --rebase
+            '';
 
           serviceConfig = {
             Type = "oneshot";
