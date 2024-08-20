@@ -7,15 +7,14 @@
 let
   inherit (lib.hardware) ldTernary;
   inherit (lib.validators) ifTheyExist;
-
-  keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2" ];
 in
 {
-  # boot.initrd.network.ssh.authorizedKeys = mkIf isLinux keys;
-
   users.users.isabel =
     {
-      openssh.authorizedKeys.keys = keys;
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2"
+      ];
+
       home = "/${ldTernary pkgs "home" "Users"}/isabel";
       shell = pkgs.fish;
     }
