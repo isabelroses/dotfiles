@@ -153,6 +153,8 @@ For the full list of templates you can look in the [templates](./parts/templates
   > `sudo tmutil addexclusion -v /nix`
 - `nix run --extra-experimental-features 'nix-command flakes' nix-darwin -- switch --flake ~/.config/flake#<host>`
 - Then good news you can use the `switch` alias that exists for the future
+- Uninstall the nix you originally installed
+  > `sudo -i nix-env --uninstall nix`
 
 #### Small bits
 
