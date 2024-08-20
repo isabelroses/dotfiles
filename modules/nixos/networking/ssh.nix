@@ -101,11 +101,11 @@ in
 
       git-isabelroses-rsa = {
         hostNames = [ "git.isabelroses.com" ];
-        publicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC30qar0Hn17YQOW/aPud1wegi5tXrrXEFGYA8OxWPxgdAqEwYm99FsDoThEMtRFavYOkzfyV3lCBJFRlXeaXC4iqLcDtaE5tQmKxnhPoSQa0moCTsy0TE4B5t0eTgIgNPOPu/7rfyVZCyRAA5RMA8mgM1L4DmuAlm74ExLlfXDnZKkZMU2o2N3ew/JPCLKMwp84e9gEEGlNV2cFVjh8eu1frykoc9YOMICGfEMdnMaScMpCu4OwFIhkzUowJUQMeFYQfQmzrFCR2j8Tn1ES8yEmc4xniEEOoTbdqq2Wqp+FFPLNWOWAW+/fqrxZ07gyYjByaXp/8Mp08xR9hZFn61NKtqFFnl9fgQj49jF58gZfg4jIzxRQaFStNK3dkcMNEkOXx+caKHzVHTQgwV2JNzz/7ZuB5vOaZh2ZNJw+M+9Z16xBVfd7daog0gt1bxFSYj6Y2/V9eET7+1Fgipfzs/rp6Zrr9MjpeRn8njDxh9DF24vz3k7SLoWZfzwjyeuU7E=";
+        publicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCcQrSjsd9ZUdT5co+JfeErQbRGBIjxPlouGuS9vq1xwi2twJ8iQkZ8uEwaTVFbru3IQSxIbeTtvorXlHdPDewWvTaXQdL0TvtrB/okc77cyHcuJxyN/OCW2FEfOPXwmC/cAJYGXbc1mul866k79h/GjQECRfO3wuENk1p6TynxRAS38nKCw5zY/XYY9CcSxb0yvv8luhCAD45cc5VImTsiphHWGDDwcD3/4xdml64fWKFo5Cc5AqaL3DQbrPMgB6B5JqtZTq5yN4JfjwpzzDFha6gAmtB5f7Fd2nIoBWa44FSnlIMACmOqlr0nqrtuvLMBaWxV6oJrW85jiQ/qaFSj8UextBjyg062qaZ1EHlqGrlOMyIqk6sgQ0mgEFcyH2vPcqVJRp8Wh6DVX5cQkNRNeDDcq5WmcxY7eWZyZCnYRkRPEcdk6X/xxWUY5aDy3fCEJV7HjcvPW7/9ERduAe1e2/3YHbIkGTv8OUIEWL8Z/Ai8lnQ+GZdrTr/Jjssilmk=";
       };
       git-isabelroses-ed25519 = {
         hostNames = [ "git.isabelroses.com" ];
-        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGHXU5QFwqTAW/3MrHXfeqRlit4VrxhymLLb32RFSZjf";
+        publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFluIN96lPhNvf2JsA2E+HjuQbDseD2sQJOgQbspJWW0";
       };
 
       git-auxolotl-rsa = {
