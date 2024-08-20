@@ -17,7 +17,7 @@
       url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs-small";
+        nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "";
         nix2container.follows = "";
         flake-compat.follows = "";
@@ -76,7 +76,7 @@
       repo = "deploy-rs";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs-small";
+        nixpkgs.follows = "nixpkgs";
         utils.follows = "flake-utils";
         flake-compat.follows = "";
       };
@@ -89,7 +89,7 @@
       repo = "git-hooks.nix";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs-small";
+        nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "";
         flake-compat.follows = "";
       };
@@ -118,7 +118,7 @@
       repo = "agenix";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs-small";
+        nixpkgs.follows = "nixpkgs";
         darwin.follows = "";
         home-manager.follows = "";
         systems.follows = "systems";
@@ -132,7 +132,7 @@
       repo = "arkenfox-nixos";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs-small";
+        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
         flake-compat.follows = "";
         pre-commit.follows = "";
@@ -147,7 +147,7 @@
       repo = "nixos-mailserver";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs-small";
+        nixpkgs.follows = "nixpkgs";
         nixpkgs-24_05.follows = "";
         flake-compat.follows = "";
       };
@@ -159,7 +159,7 @@
       repo = "ags";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs-small";
+        nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
       };
     };
@@ -177,8 +177,8 @@
       url = "git+ssh://git@github.com/ghostty-org/ghostty";
 
       inputs = {
-        nixpkgs-stable.follows = "nixpkgs-small";
-        nixpkgs-unstable.follows = "nixpkgs-small";
+        nixpkgs-stable.follows = "nixpkgs";
+        nixpkgs-unstable.follows = "nixpkgs";
         zig.follows = "";
         zls.follows = "";
       };
@@ -198,7 +198,7 @@
       type = "github";
       owner = "numtide";
       repo = "treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs-small";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ### Fixes
@@ -209,7 +209,7 @@
       repo = "nixos-vscode-server";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs-small";
+        nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -220,7 +220,7 @@
       type = "github";
       owner = "nix-community";
       repo = "nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs-small";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # declarative theme management
@@ -263,15 +263,6 @@
       owner = "numtide";
       repo = "flake-utils";
       inputs.systems.follows = "systems";
-    };
-
-    # we can remove some eval time with the smaller nixpkgs set
-    # do note that it moves faster but has less packages
-    nixpkgs-small = {
-      type = "github";
-      owner = "NixOS";
-      repo = "nixpkgs";
-      ref = "nixos-unstable-small";
     };
   };
 }
