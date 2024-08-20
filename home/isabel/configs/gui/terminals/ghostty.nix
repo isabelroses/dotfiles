@@ -14,18 +14,21 @@ in
     home.packages = optional pkgs.stdenv.isLinux inputs'.ghostty.packages.ghostty;
 
     xdg.configFile."ghostty/config".text = ''
-      title = Ghostty
-
       shell-integration = none
-
-      background-opacity = 0.95
-
-      font-family = ${osConfig.garden.style.font.name}
-      font-size = 13
 
       command = /etc/profiles/per-user/isabel/bin/fish --login
 
       theme = catppuccin-mocha
+      background-opacity = 0.95
+      cursor-style = bar
+      window-padding-x = 4,4
+      window-decoration = ${toString pkgs.stdenv.isDarwin}
+      gtk-titlebar = false
+
+      window-save-state = true
+
+      font-family = ${osConfig.garden.style.font.name}
+      font-size = 13
     '';
   };
 }
