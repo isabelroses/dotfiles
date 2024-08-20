@@ -11,7 +11,7 @@
       sshUser = "isabel";
       profiles.system = {
         user = "root";
-        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.luz;
+        path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.minerva;
       };
     };
   };
