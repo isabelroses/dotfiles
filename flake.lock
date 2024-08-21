@@ -606,15 +606,15 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1724194298,
-        "narHash": "sha256-5Jc0FWseQOD0I00LmU+gEqS0Ojy0XFRyNM4rG5I0Qvo=",
-        "rev": "ac6974777efdaa85715cf7838fe878665061f86c",
+        "lastModified": 1724137105,
+        "narHash": "sha256-wbMyscn1Ij5YQNbgwcxrssHSJzVeQmZZO0kb8HB5xjw=",
+        "rev": "df49d37b71e1a4bcb3ba9c567a6f8f5a07cba39a",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/ac6974777efdaa85715cf7838fe878665061f86c.tar.gz?rev=ac6974777efdaa85715cf7838fe878665061f86c"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/df49d37b71e1a4bcb3ba9c567a6f8f5a07cba39a.tar.gz?rev=df49d37b71e1a4bcb3ba9c567a6f8f5a07cba39a"
       },
       "original": {
         "type": "tarball",
-        "url": "https://git.lix.systems/lix-project/lix/archive/main.tar.gz"
+        "url": "https://git.lix.systems/lix-project/lix/archive/df49d37b71e1a4bcb3ba9c567a6f8f5a07cba39a.tar.gz"
       }
     },
     "neovim-nix": {

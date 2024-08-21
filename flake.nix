@@ -14,7 +14,7 @@
 
     # lix a good fork of nix
     lix = {
-      url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
+      url = "https://git.lix.systems/lix-project/lix/archive/df49d37b71e1a4bcb3ba9c567a6f8f5a07cba39a.tar.gz";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
