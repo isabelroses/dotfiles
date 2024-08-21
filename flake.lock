@@ -114,11 +114,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724114154,
-        "narHash": "sha256-1M532F7NmpOkqNA/6iTQs2RcBVsk35ruGzM7KXaogy8=",
+        "lastModified": 1724200571,
+        "narHash": "sha256-vbfYf5g9vvlTcO+YoqeTf0Wos54MhpRrNxX9vmwYEWE=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "4daa0dc0a97efddb1c5cc64ac2c2c0103ca3a0cd",
+        "rev": "30bd6cb152cea12ae62502d1973f644eb1c63178",
         "type": "github"
       },
       "original": {
@@ -145,11 +145,11 @@
     },
     "catppuccin": {
       "locked": {
-        "lastModified": 1724048768,
-        "narHash": "sha256-OZ9OXsPQi+fNdMM7SBPtU8OB1ntLzOvUwA/3zYJY6Eo=",
+        "lastModified": 1724156255,
+        "narHash": "sha256-rpUCeS/QZwQdJmDrvCm0hRi8bFvQNQKAnIMK5ZDBfpM=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "ff4128f8ea57879050145cf077a27b9d3a9cbf33",
+        "rev": "8886a68edadb1d93c7101337f995ffce4b410ff2",
         "type": "github"
       },
       "original": {
@@ -296,11 +296,11 @@
         "zls": []
       },
       "locked": {
-        "lastModified": 1724116117,
-        "narHash": "sha256-OCs/Z/qhaqjsAoisYhF2sH0YIbJxhpC2/XrdbYe/PZ8=",
+        "lastModified": 1724175906,
+        "narHash": "sha256-V4aYjELMU8UtqjU99lDqkwQpkv5vx0sSWq015ZZ91Mg=",
         "ref": "refs/heads/main",
-        "rev": "cac22bd1735f46c0817916647f7f0de8a26c2342",
-        "revCount": 7009,
+        "rev": "c9f40b7b8d22e2aa157c226e406485d85d2075f9",
+        "revCount": 7013,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -319,11 +319,11 @@
         "nixpkgs-stable": []
       },
       "locked": {
-        "lastModified": 1723803910,
-        "narHash": "sha256-yezvUuFiEnCFbGuwj/bQcqg7RykIEqudOy/RBrId0pc=",
+        "lastModified": 1724159077,
+        "narHash": "sha256-AddE0u6WbA5R7uxumw1Ka0oG5dv3cTtN0ppO/M/e0cg=",
         "owner": "cachix",
         "repo": "git-hooks.nix",
-        "rev": "bfef0ada09e2c8ac55bbcd0831bd0c9d42e651ba",
+        "rev": "1064a45e81a4e19cda98741b71219d9f4f136900",
         "type": "github"
       },
       "original": {
@@ -604,11 +604,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1724058824,
-        "narHash": "sha256-WkRs8plqBYxIgrcz1jenmxbcLVVpo9Z9Waot9qIlqmI=",
-        "rev": "e727dbc3a3d59d7742a24a2b394b63a04ecb4d24",
+        "lastModified": 1724194298,
+        "narHash": "sha256-5Jc0FWseQOD0I00LmU+gEqS0Ojy0XFRyNM4rG5I0Qvo=",
+        "rev": "ac6974777efdaa85715cf7838fe878665061f86c",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/e727dbc3a3d59d7742a24a2b394b63a04ecb4d24.tar.gz?rev=e727dbc3a3d59d7742a24a2b394b63a04ecb4d24"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/ac6974777efdaa85715cf7838fe878665061f86c.tar.gz?rev=ac6974777efdaa85715cf7838fe878665061f86c"
       },
       "original": {
         "type": "tarball",
@@ -723,11 +723,11 @@
     },
     "nixpkgs-small": {
       "locked": {
-        "lastModified": 1724050343,
-        "narHash": "sha256-tGRPGJKwczrM7793zaR74KnuYLMHArJvYXmGu8Wo9oI=",
+        "lastModified": 1724137240,
+        "narHash": "sha256-VjbV/91spoYpl+fD7cK1asDhQIjJduP0lT+SgeXtcIc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ed434d7889eddb68002d81bc25212f26ff8f2862",
+        "rev": "d2fa2514f041934a6aa261c66dc44829251cffd3",
         "type": "github"
       },
       "original": {
@@ -755,11 +755,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1724047581,
-        "narHash": "sha256-BypLrnMS2QvvdVhwWixppTOM3fLPC8eyJse0BNSbbfI=",
+        "lastModified": 1724177844,
+        "narHash": "sha256-G7Mf9uN9m8FimeP3eMHu/dOC4QS8QAzo0h4ZIlDHcCA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e9b5094b8f6e06a46f9f53bb97a9573b7cedf2a2",
+        "rev": "d13fa5a45a34e7c8be33474f58003914430bdc5a",
         "type": "github"
       },
       "original": {
