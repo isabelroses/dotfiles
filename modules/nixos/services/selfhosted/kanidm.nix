@@ -1,7 +1,12 @@
 # might need this later
 # https://discourse.nixos.org/t/reuse-lets-encrypt-acme-certificate-for-multiple-services-with-lego/6720
 # https://ashhhleyyy.dev/blog/2023-02-05-from-keycloak-to-kanidm
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (lib) template;
   inherit (lib.modules) mkIf;
@@ -28,14 +33,33 @@ in
     };
 
     age.secrets = {
-      kanidm-admin-password = mkSecret { file = "kanidm/admin-password"; };
-      kanidm-idm-admin-password = mkSecret { file = "kanidm/idm-admin-password"; };
-      kanidm-oauth2-grafana = mkSecret { file = "kanidm/oauth2/grafana"; };
-      kanidm-oauth2-forgejo = mkSecret { file = "kanidm/oauth2/forgejo"; };
+      kanidm-admin-password = mkSecret {
+        file = "kanidm/admin-password";
+        group = "kanidm";
+        mode = "440";
+      };
+      kanidm-idm-admin-password = mkSecret {
+        file = "kanidm/idm-admin-password";
+        group = "kanidm";
+        mode = "440";
+      };
+      kanidm-oauth2-grafana = mkSecret {
+        file = "kanidm/oauth2/grafana";
+        group = "kanidm";
+        mode = "440";
+      };
+      kanidm-oauth2-forgejo = mkSecret {
+        file = "kanidm/oauth2/forgejo";
+        group = "kanidm";
+        mode = "440";
+      };
     };
 
     services = {
       kanidm = {
+        # we need to change the package so we have patches that allow us to provision secrets
+        package = pkgs.kanidm.withSecretProvisioning;
+
         enableServer = true;
         serverSettings = {
           inherit (cfg) domain;
@@ -50,81 +74,83 @@ in
             path = "/srv/storage/kanidm/backups";
             schedule = "0 0 * * *";
           };
+        };
 
-          provision =
-            let
-              inherit (config.garden.system) mainUser;
-            in
-            {
-              enable = true;
+        provision =
+          let
+            inherit (config.garden.system) mainUser;
+          in
+          {
+            enable = true;
 
-              adminPasswordFile = config.age.secrets.kanidm-admin-password.path;
-              idmAdminPasswordFile = config.age.secrets.kanidm-idm-admin-password.path;
+            adminPasswordFile = config.age.secrets.kanidm-admin-password.path;
+            idmAdminPasswordFile = config.age.secrets.kanidm-idm-admin-password.path;
 
-              persons = {
-                ${mainUser} = {
-                  displayName = mainUser;
-                  legalName = mainUser;
-                  mailAddresses = [ "${mainUser}@${rdomain}" ];
-                  groups = [
-                    "grafana.access"
-                    "grafana.admins"
-                    "forgejo.access"
-                    "forgejo.admins"
+            persons = {
+              ${mainUser} = {
+                displayName = mainUser;
+                legalName = mainUser;
+                mailAddresses = [ "${mainUser}@${rdomain}" ];
+                groups = [
+                  "grafana.access"
+                  "grafana.admins"
+                  "forgejo.access"
+                  "forgejo.admins"
+                ];
+              };
+            };
+
+            groups = {
+              "grafana.access" = { };
+              "grafana.admins" = { };
+
+              "forgejo.access" = { };
+              "forgejo.admins" = { };
+            };
+
+            systems.oauth2 = {
+              grafana = {
+                displayName = "Grafana";
+                originUrl = "https://${cfg'.grafana.domain}/";
+                originLanding = "https://${cfg'.grafana.domain}/";
+                basicSecretFile = config.age.secrets.kanidm-oauth2-grafana.path;
+                preferShortUsername = true;
+                scopeMaps."grafana.access" = [
+                  "openid"
+                  "email"
+                  "profile"
+                ];
+                claimMaps.groups = {
+                  joinType = "array";
+                  valuesByGroup."grafana.admins" = [
+                    "editor"
+                    "admin"
+                    "server_admin"
                   ];
                 };
               };
 
-              groups = {
-                "grafana.access" = { };
-                "grafana.admins" = { };
-
-                "forgejo.access" = { };
-                "forgejo.admins" = { };
-              };
-
-              systems.oauth2 = {
-                grafana = {
-                  displayName = "Grafana";
-                  originUrl = "https://${cfg'.grafana.domain}/";
-                  basicSecretFile = config.age.secrets.kanidm-oauth2-grafana.path;
-                  preferShortUsername = true;
-                  scopeMaps."grafana.access" = [
-                    "openid"
-                    "email"
-                    "profile"
-                  ];
-                  claimMaps.groups = {
-                    joinType = "array";
-                    valuesByGroup = {
-                      "grafana.editors" = [ "editor" ];
-                      "grafana.admins" = [ "admin" ];
-                      "grafana.server-admins" = [ "server_admin" ];
-                    };
-                  };
-                };
-
-                forgejo = {
-                  displayName = "Forgejo";
-                  originUrl = "https://${cfg'.forgejo.domain}/";
-                  basicSecretFile = config.age.secrets.kanidm-oauth2-forgejo.path;
-                  scopeMaps."forgejo.access" = [
-                    "openid"
-                    "email"
-                    "profile"
-                  ];
-                  # WARNING: PKCE is currently not supported by gitea/forgejo,
-                  # see https://github.com/go-gitea/gitea/issues/21376
-                  allowInsecureClientDisablePkce = true;
-                  preferShortUsername = true;
-                  claimMaps.groups = {
-                    joinType = "array";
-                    valuesByGroup."forgejo.admins" = [ "admin" ];
-                  };
+              forgejo = {
+                displayName = "Forgejo";
+                originUrl = "https://${cfg'.forgejo.domain}/";
+                originLanding = "https://${cfg'.forgejo.domain}/";
+                basicSecretFile = config.age.secrets.kanidm-oauth2-forgejo.path;
+                scopeMaps."forgejo.access" = [
+                  "openid"
+                  "email"
+                  "profile"
+                ];
+                # WARNING: PKCE is currently not supported by gitea/forgejo,
+                # see https://github.com/go-gitea/gitea/issues/21376
+                allowInsecureClientDisablePkce = true;
+                preferShortUsername = true;
+                claimMaps.groups = {
+                  joinType = "array";
+                  valuesByGroup."forgejo.admins" = [ "admin" ];
                 };
               };
             };
-        };
+          };
       };
 
       nginx.virtualHosts.${cfg.domain} = {
