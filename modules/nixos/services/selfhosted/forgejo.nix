@@ -136,9 +136,19 @@ in
             HOST = "redis://:forgejo@localhost:6371";
           };
 
+          oauth2_client = {
+            ACCOUNT_LINKING = "login";
+            USERNAME = "nickname";
+            ENABLE_AUTO_REGISTRATION = false;
+            REGISTER_EMAIL_CONFIRM = false;
+            UPDATE_AVATAR = true;
+          };
+
           service = {
-            DISABLE_REGISTRATION = true;
+            DISABLE_REGISTRATION = false;
+            ALLOW_ONLY_INTERNAL_REGISTRATION = true;
             EMAIL_DOMAIN_ALLOWLIST = "isabelroses.com";
+            ALLOW_ONLY_EXTERNAL_REGISTRATION = false;
           };
 
           session = {
