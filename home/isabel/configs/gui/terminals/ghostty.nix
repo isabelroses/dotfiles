@@ -25,7 +25,7 @@ in
       window-decoration = ${toString pkgs.stdenv.isDarwin}
       gtk-titlebar = false
 
-      window-save-state = true
+      window-save-state = always
 
       font-family = ${osConfig.garden.style.font.name}
       font-size = 13
