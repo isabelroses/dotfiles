@@ -44,18 +44,23 @@ in
         enable = true;
         package = pkgs.wakapi;
 
-        inherit (cfg) domain port;
-        nginx.enable = true;
-
-        db = {
-          host = "/run/postgresql";
-        };
-
         passwordSaltFile = config.age.secrets.wakapi.path;
         smtpPasswordFile = config.age.secrets.wakapi-mailer.path;
 
         settings = {
           app.avatar_url_template = "https://www.gravatar.com/avatar/{email_hash}.png";
+
+          server = {
+            inherit (cfg) port;
+            public_url = "https://${cfg.domain}";
+          };
+
+          db = {
+            dialect = "postgres";
+            host = "/run/postgresql";
+            name = "wakapi";
+            user = "wakapi";
+          };
 
           security = {
             allow_signup = false;
@@ -80,7 +85,9 @@ in
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} = template.ssl rdomain;
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
+      } // template.ssl rdomain;
     };
   };
 }

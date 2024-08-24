@@ -114,11 +114,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724373373,
-        "narHash": "sha256-4yMY3aF91ZG3gD65DXOyXnS5b/0DTuu1wpRFivWKtQE=",
+        "lastModified": 1724503205,
+        "narHash": "sha256-0/hQvjR2BnFVg06J0shUyfPejKMTYSo+zmsQaKeAW8k=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "2eed1440f871d6dfff4b56f8ce83a29394a8dd8b",
+        "rev": "bc489edb2186cfa97917f6c1ed246aeabe61921c",
         "type": "github"
       },
       "original": {
