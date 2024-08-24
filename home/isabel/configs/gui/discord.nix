@@ -10,12 +10,10 @@ in
 {
   config = mkIf osConfig.garden.programs.gui.discord.enable {
     home.packages = mkIf pkgs.stdenv.isLinux [
-      pkgs.vesktop
-      # its broken, waiting till next update i guess
-      # (pkgs.discord.override {
-      #   withOpenASAR = true;
-      #   withVencord = true;
-      # })
+      (pkgs.discord.override {
+        withOpenASAR = true;
+        withVencord = true;
+      })
     ];
 
     # xdg.configFile."discord/settings.json".text = ''
