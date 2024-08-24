@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   inputs,
   osConfig,
   ...
@@ -19,6 +20,9 @@ in
   config = mkIf cfg.enable {
     programs.firefox = {
       enable = true;
+      package = pkgs.firefox.override {
+        speechSynthesisSupport = false;
+      };
 
       arkenfox = {
         enable = true;
