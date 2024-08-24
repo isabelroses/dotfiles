@@ -1,6 +1,5 @@
 # noisy diffs
 flake.lock -diff
-lazy-lock.json -diff
 
 # git lfs
 *.png filter=lfs diff=lfs merge=lfs -text
@@ -9,4 +8,4 @@ lazy-lock.json -diff
 *.age -text -diff
 
 # templates should not register on linguist
-flake/templates/* linguist-vendored
+parts/templates/* linguist-vendored
