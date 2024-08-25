@@ -1,9 +1,14 @@
-{ lib, inputs, ... }:
+{ inputs, ... }:
 {
   imports = [ inputs.git-hooks.flakeModule ];
 
   perSystem =
-    { pkgs, config, ... }:
+    {
+      lib,
+      pkgs,
+      config,
+      ...
+    }:
     let
       # don't format these
       excludes = [
@@ -12,15 +17,17 @@
         "r'.+\.patch$'"
       ];
 
-      mkHook = name: {
-        inherit excludes;
-        enable = true;
-        description = "pre commit hook for ${name}";
-        fail_fast = true;
-        verbose = true;
-      };
+      mkHook =
+        name: prev:
+        lib.attrsets.recursiveUpdate {
+          inherit excludes;
+          enable = true;
+          description = "pre commit hook for ${name}";
+          fail_fast = true;
+          verbose = true;
+        } prev;
 
-      mkHook' = name: prev: (mkHook name) // prev;
+      mkHook' = name: mkHook name { };
     in
     {
       pre-commit = {
@@ -31,29 +38,36 @@
 
           hooks = {
             # make sure our nix code is of good quality before we commit
-            statix = mkHook "statix";
-            deadnix = mkHook "deadnix";
+            statix = mkHook' "statix";
+            deadnix = mkHook' "deadnix";
 
-            actionlint = mkHook "actionlint";
-            # commitizen = mkHook "commitizen";
+            actionlint = mkHook "actionlint" {
+              files = "^.github/workflows/";
+            };
 
             # ensure we have nice formatting
-            prettier = mkHook' "prettier" { settings.write = true; };
-            treefmt = mkHook' "treefmt" { package = config.treefmt.build.wrapper; };
+            nixfmt = mkHook "nixfmt" {
+              package = pkgs.nixfmt-rfc-style;
+            };
+            prettier = mkHook "prettier" {
+              settings.write = true;
+            };
+            treefmt = mkHook "treefmt" {
+              package = config.treefmt.build.wrapper;
+            };
             stylua = mkHook "stylua";
-            editorconfig-checker = mkHook' "editorconfig" {
+            editorconfig-checker = mkHook "editorconfig" {
               enable = lib.mkForce false;
               always_run = true;
             };
-            nixfmt = mkHook "nixfmt" // {
-              package = pkgs.nixfmt-rfc-style;
-            };
 
             # check for dead links
-            # lychee = mkHook "lychee";
+            lychee = mkHook "lychee" {
+              excludes = [ "^(?!.*\.md$).*" ];
+            };
 
             # make sure there are no typos in the code
-            typos = mkHook' "typos" {
+            typos = mkHook "typos" {
               settings = {
                 write = true;
                 configuration = ''
