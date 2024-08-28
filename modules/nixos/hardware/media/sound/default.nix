@@ -8,7 +8,6 @@ in
     ./wireplum
 
     ./pulseaudio.nix
-    ./realtime.nix
     ./rtkit.nix
   ];
 
