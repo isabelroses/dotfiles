@@ -52,7 +52,6 @@ in
                   gtk3-x11
                   harfbuzz
                   icu
-                  glxinfo
                   inetutils
                   libthai
                   mono5

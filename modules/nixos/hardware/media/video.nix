@@ -11,7 +11,11 @@ let
   cfg = config.garden.system.video;
 in
 {
-  options.garden.system.video.enable = mkEnableOption "Does the device allow for graphical programs";
+  options.garden.system.video = {
+    enable = mkEnableOption "Does the device allow for graphical programs";
+
+    benchmarking.enable = mkEnableOption "Enable benchmarking tools";
+  };
 
   config = mkIf cfg.enable {
     hardware = {
@@ -22,6 +26,8 @@ in
     };
 
     # benchmarking tools
-    environment.systemPackages = builtins.attrValues { inherit (pkgs) glxinfo glmark2; };
+    environment.systemPackages = mkIf cfg.benchmarking.enable (
+      builtins.attrValues { inherit (pkgs) mesa-demos glmark2; }
+    );
   };
 }
