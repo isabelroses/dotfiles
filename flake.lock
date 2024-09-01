@@ -114,11 +114,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1725095811,
-        "narHash": "sha256-pv+RhLq/wNnmHyVMK2RO0OsF0nVM3NtmDCl9qppu8RA=",
+        "lastModified": 1725139834,
+        "narHash": "sha256-YMUrAEgFQ2l/99fWwI4oi2DGbZTZxliPEZ2w1/WjNjg=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "799e6e589ec85593bdc7ffb3444349b42fb1249f",
+        "rev": "2fe9c8da94e0973da2cf9fec30cd0ddc77b9d83d",
         "type": "github"
       },
       "original": {
@@ -296,11 +296,11 @@
         "zls": []
       },
       "locked": {
-        "lastModified": 1724969132,
-        "narHash": "sha256-XAYTVVxWoCXpHGqoNj0uhIbjD4MimFQXEke9eKYufK4=",
+        "lastModified": 1725125962,
+        "narHash": "sha256-fUhLgwWtKjAjlgmFW3ZfeIXbktYDd6DaMCKHd246QHI=",
         "ref": "refs/heads/main",
-        "rev": "602bf6ba1e1169750e233ed2431f71dbcf754362",
-        "revCount": 7103,
+        "rev": "f1aea10a84176ff4338f7d2f0bf1b9c700b41baa",
+        "revCount": 7111,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -416,11 +416,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1725032272,
-        "narHash": "sha256-A0AiFlPoqDK/IwUiV7SGIi8uW2zOqmmiZY6j8i367LU=",
+        "lastModified": 1725134108,
+        "narHash": "sha256-OIOBT4NKPmTUXTND0IDUfhX+8YBQztSvhJ91LfEK4Sk=",
         "ref": "refs/heads/main",
-        "rev": "c5fd5771814958ad274ea9abb961fff621a35b9c",
-        "revCount": 5165,
+        "rev": "a6315b0af4e417cf396649d9c5792d3c5420b713",
+        "revCount": 5172,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -725,11 +725,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1725036679,
-        "narHash": "sha256-Ri79ZOEcZJFLr6+LgS3A0WYyroL/PqEuO+lI7u+G2tE=",
+        "lastModified": 1725099143,
+        "narHash": "sha256-CHgumPZaC7z+WYx72WgaLt2XF0yUVzJS60rO4GZ7ytY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "dac9db29e0e7ff2071ccc47b720aaffc3e74b504",
+        "rev": "5629520edecb69630a3f4d17d3d33fc96c13f6fe",
         "type": "github"
       },
       "original": {
