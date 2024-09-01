@@ -80,6 +80,8 @@ in
         secrets.mailer.PASSWD = config.age.secrets.mailserver-git-nohash.path;
 
         settings = {
+          federation.ENABLED = true;
+
           server = {
             PROTOCOL = "http+unix";
             ROOT_URL = "https://${cfg.domain}";
