@@ -18,16 +18,13 @@
       ];
 
       mkHook =
-        name: prev:
+        prev:
         lib.attrsets.recursiveUpdate {
           inherit excludes;
           enable = true;
-          description = "pre commit hook for ${name}";
           fail_fast = true;
           verbose = true;
         } prev;
-
-      mkHook' = name: mkHook name { };
     in
     {
       pre-commit = {
@@ -38,36 +35,36 @@
 
           hooks = {
             # make sure our nix code is of good quality before we commit
-            statix = mkHook' "statix";
-            deadnix = mkHook' "deadnix";
+            statix = mkHook { };
+            deadnix = mkHook { };
 
-            actionlint = mkHook "actionlint" {
+            actionlint = mkHook {
               files = "^.github/workflows/";
             };
 
             # ensure we have nice formatting
-            nixfmt = mkHook "nixfmt" {
+            nixfmt = mkHook {
               package = pkgs.nixfmt-rfc-style;
             };
-            prettier = mkHook "prettier" {
+            prettier = mkHook {
               settings.write = true;
             };
-            treefmt = mkHook "treefmt" {
+            treefmt = mkHook {
               package = config.treefmt.build.wrapper;
             };
-            stylua = mkHook "stylua";
-            editorconfig-checker = mkHook "editorconfig" {
-              enable = lib.mkForce false;
+            stylua = mkHook { };
+            editorconfig-checker = mkHook {
+              enable = lib.modules.mkForce false;
               always_run = true;
             };
 
             # check for dead links
-            lychee = mkHook "lychee" {
+            lychee = mkHook {
               excludes = [ "^(?!.*\.md$).*" ];
             };
 
             # make sure there are no typos in the code
-            typos = mkHook "typos" {
+            typos = mkHook {
               settings = {
                 write = true;
                 configuration = ''
