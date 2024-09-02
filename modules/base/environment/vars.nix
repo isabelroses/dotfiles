@@ -3,7 +3,7 @@
   # variables that I want to set globally on all systems
   environment.variables = {
     EDITOR = "nvim";
-    VISUAL = "vscode";
+    VISUAL = "nvim";
     SUDO_EDITOR = "nvim";
 
     SYSTEMD_PAGERSECURE = "true";
