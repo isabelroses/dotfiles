@@ -93,11 +93,11 @@
         "pre-commit": []
       },
       "locked": {
-        "lastModified": 1721720317,
-        "narHash": "sha256-KH0ILX8EGa/A4Bgc6DtsbviG8qaLrzDDV1m1bIXJ+pw=",
+        "lastModified": 1725263787,
+        "narHash": "sha256-OSNjus8VSkLCSikN6Qeq+II1bwqTRJEwl6NJvFoQHoE=",
         "owner": "dwarfmaster",
         "repo": "arkenfox-nixos",
-        "rev": "92c9a287b7b98198c3ba5cdfc90218402e49c4b3",
+        "rev": "72addd96455cce49c0c8524c53aecd02cf20adec",
         "type": "github"
       },
       "original": {
@@ -296,11 +296,11 @@
         "zls": []
       },
       "locked": {
-        "lastModified": 1725209919,
-        "narHash": "sha256-Mv3L/a/Qa7sWtHP5kMGq3SJ/KYdiD1qeZZEoU5bvAWk=",
+        "lastModified": 1725328209,
+        "narHash": "sha256-15OUJeZkMMB8F9o+v3M1ddbBDlWnxGNihQ9T0pbeOMM=",
         "ref": "refs/heads/main",
-        "rev": "5ade197f91581a1d80eca5a734012aa60f40245e",
-        "revCount": 7122,
+        "rev": "b8b89acf5e56379d7876ee66f63a63fba0c6d7e0",
+        "revCount": 7165,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -416,11 +416,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1725219211,
-        "narHash": "sha256-17WA01XfBTuH1CJdGje3095K/7RUUL6lwQHEFq9t2Go=",
+        "lastModified": 1725310138,
+        "narHash": "sha256-LgX5xG/xdfWxie6ia9M+Fc825EH93kcwu5CFzFqIe5g=",
         "ref": "refs/heads/main",
-        "rev": "6934e7aa2b300bc4565855a4092fb34de8a9a8d2",
-        "revCount": 5178,
+        "rev": "8f9887b0c9443d6c2559feeec411daecb9780a97",
+        "revCount": 5181,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -678,11 +678,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724664098,
-        "narHash": "sha256-4SgV4jCoN5RffR1Mtn3HI1cjgHmARh+rZrpVlBclj9U=",
+        "lastModified": 1725298871,
+        "narHash": "sha256-+3GjkgCQ41dPiTc8egAs1vznQsj4w1+xE7RrDyXohLM=",
         "owner": "nix-community",
         "repo": "NixOS-WSL",
-        "rev": "345dfa06658a37873ca18aa205f409e4aaf1caa6",
+        "rev": "e3328f01dcb99241ac5ae69d9ace84512acca340",
         "type": "github"
       },
       "original": {
@@ -854,11 +854,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724833132,
-        "narHash": "sha256-F4djBvyNRAXGusJiNYInqR6zIMI3rvlp6WiKwsRISos=",
+        "lastModified": 1725271838,
+        "narHash": "sha256-VcqxWT0O/gMaeWTTjf1r4MOyG49NaNxW4GHTO3xuThE=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "3ffd842a5f50f435d3e603312eefa4790db46af5",
+        "rev": "9fb342d14b69aefdf46187f6bb80a4a0d97007cd",
         "type": "github"
       },
       "original": {
