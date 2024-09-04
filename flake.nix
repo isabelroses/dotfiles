@@ -180,7 +180,6 @@
         nixpkgs-stable.follows = "nixpkgs";
         nixpkgs-unstable.follows = "nixpkgs";
         zig.follows = "";
-        zls.follows = "";
       };
     };
 
