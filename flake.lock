@@ -554,11 +554,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1725443799,
-        "narHash": "sha256-EENFj/pu7UJc1C2aWPC+s2dP84RbnckmWUqBcUecv0w=",
+        "lastModified": 1725489937,
+        "narHash": "sha256-JCNgV1f2k4qLgjQI8Jgkrcloz2rL42IpxkCfKd8OjAo=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "fd0e1cd31999ea42683ea25c341a363f03938aa2",
+        "rev": "33902b3938fb37bf1bcb481f92a518c3f224cba1",
         "type": "github"
       },
       "original": {
@@ -618,6 +618,9 @@
     },
     "neovim-nix": {
       "inputs": {
+        "example": [
+          "izvim"
+        ],
         "flake-parts": [
           "izvim",
           "flake-parts"
@@ -632,16 +635,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1722759719,
-        "narHash": "sha256-bXQK4/KY79rATtb5ToNnUKiTVLC5MXcfaBNrq5AQRmE=",
-        "owner": "isabelroses",
+        "lastModified": 1725205441,
+        "narHash": "sha256-go26fmPdyBgwzHMostxKFAg23HekfD/L/U2Fnl00JN8=",
+        "owner": "nekowinston",
         "repo": "neovim.nix",
-        "rev": "7e818f94e3cd8c1b680ced77e502e643cda15365",
+        "rev": "36761e2fcd5e81fa3b39cb72d9fbcb92098edad8",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
-        "ref": "dev",
+        "owner": "nekowinston",
+        "ref": "feat/more-plugin-spec-fields",
         "repo": "neovim.nix",
         "type": "github"
       }

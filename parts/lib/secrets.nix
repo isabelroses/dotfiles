@@ -93,7 +93,6 @@ let
     // {
       inherit path;
     };
-
 in
 {
   inherit mkSecret mkSecretWithPath;
