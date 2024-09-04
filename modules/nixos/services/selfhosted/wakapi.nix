@@ -58,6 +58,7 @@ in
           db = {
             dialect = "postgres";
             host = "/run/postgresql";
+            port = 5432;
             name = "wakapi";
             user = "wakapi";
           };
