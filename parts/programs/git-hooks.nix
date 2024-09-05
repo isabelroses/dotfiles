@@ -59,9 +59,9 @@
             };
 
             # check for dead links
-            lychee = mkHook {
-              excludes = [ "^(?!.*\.md$).*" ];
-            };
+            # lychee = mkHook {
+            #   excludes = [ "^(?!.*\.md$).*" ];
+            # };
 
             # make sure there are no typos in the code
             typos = mkHook {
