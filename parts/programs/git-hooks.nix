@@ -5,7 +5,6 @@
   perSystem =
     {
       lib,
-      pkgs,
       config,
       ...
     }:
@@ -43,9 +42,7 @@
             };
 
             # ensure we have nice formatting
-            nixfmt = mkHook {
-              package = pkgs.nixfmt-rfc-style;
-            };
+            nixfmt-rfc-style = mkHook { };
             prettier = mkHook {
               settings.write = true;
             };
