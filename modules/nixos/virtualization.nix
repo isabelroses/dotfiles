@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (lib.meta) getExe;
   inherit (lib.lists) optionals;
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkEnableOption;
@@ -87,7 +88,7 @@ in
       services."distrobox-update" = {
         enable = true;
         script = ''
-          ${pkgs.distrobox}/bin/distrobox upgrade --all
+          ${getExe pkgs.distrobox} upgrade --all
         '';
         serviceConfig = {
           Type = "oneshot";
