@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (lib.validators) isAcceptedDevice;
   inherit (lib.services) mkGraphicalService;
@@ -26,7 +27,7 @@ in
       };
 
       Service = {
-        ExecStart = "${pkgs.nextcloud-client}/bin/nextcloud --background";
+        ExecStart = "${getExe pkgs.nextcloud-client} --background";
         Restart = "always";
         Slice = "background.slice";
       };

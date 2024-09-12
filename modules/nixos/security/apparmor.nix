@@ -1,4 +1,12 @@
-{ pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+let
+  inherit (lib.meta) getExe;
+in
 {
   services.dbus.apparmor = "disabled";
 
@@ -31,7 +39,7 @@
         enforce = false;
         enable = false;
         profile = ''
-          ${pkgs.sudo}/bin/sudo {
+          ${getExe pkgs.sudo} {
             file /** rwlkUx,
           }
         '';
@@ -41,7 +49,7 @@
         enforce = false;
         enable = false;
         profile = ''
-          ${config.nix.package}/bin/nix {
+          ${getExe config.nix.package} {
             unconfined,
           }
         '';

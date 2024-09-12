@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkForce;
   inherit (lib.validators) isWayland;
 
@@ -31,7 +32,7 @@ in
           screencast = {
             max_fps = 60;
             chooser_type = "simple";
-            chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";
+            chooser_cmd = "${getExe pkgs.slurp} -f %o -or";
           };
         };
       };
