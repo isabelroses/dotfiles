@@ -44,7 +44,10 @@
 
       security.auditd.enable = true;
 
-      networking.optimizeTcp = true;
+      networking = {
+        optimizeTcp = true;
+        wirelessBackend = "iwd";
+      };
 
       virtualization = {
         enable = false;
