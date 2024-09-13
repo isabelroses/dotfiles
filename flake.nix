@@ -155,7 +155,7 @@
 
     ags = {
       type = "github";
-      owner = "isabelroses";
+      owner = "aylur";
       repo = "ags";
 
       inputs = {
