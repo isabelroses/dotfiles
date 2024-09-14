@@ -114,11 +114,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726187916,
-        "narHash": "sha256-9YdtUpm5EWFSr1b26Mq3vCu2Qa2c8N2gBLZVuVfNeA8=",
+        "lastModified": 1726274278,
+        "narHash": "sha256-c9D4Sb1f6Pys9FNVp20oHACw9w52ABLG+/fg/Z1E0bg=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "baed97b04e81478e817698fbc70534fe915602c3",
+        "rev": "2e61ca31138a95a1065f7d671258f018821e54be",
         "type": "github"
       },
       "original": {
@@ -295,11 +295,11 @@
         "zig": []
       },
       "locked": {
-        "lastModified": 1726200062,
-        "narHash": "sha256-4x63M9u6ECGL3XeJMy3b4QX6jHSBjaMQ3YBE/yw9LXw=",
+        "lastModified": 1726247384,
+        "narHash": "sha256-TjFtOOw8yyqe2w35wbXu7OZYh4oPbysXsnnCZSFXiDA=",
         "ref": "refs/heads/main",
-        "rev": "32b3dfed9dc5f24064d5e5117cfa5672560b2ea8",
-        "revCount": 7293,
+        "rev": "9548ae532dac093990850154d4c4a9984863207d",
+        "revCount": 7306,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -359,11 +359,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726142087,
-        "narHash": "sha256-uT4TRd3PgreUD5sJaNioVfMemdyWFLoPHqN4AFszGmw=",
+        "lastModified": 1726222338,
+        "narHash": "sha256-KuA8ciNR8qCF3dQaCaeh0JWyQUgEwkwDHr/f49Q5/e8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "da8406a6ff556b86dc368e96ca8bd81b2704a91a",
+        "rev": "503af483e1b328691ea3a434d331995595fb2e3d",
         "type": "github"
       },
       "original": {
@@ -415,11 +415,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1726159284,
-        "narHash": "sha256-6xatk6CPY1F6xHF1gLGz7QExftEhV8Q5fI4BqVBVF3U=",
+        "lastModified": 1726246604,
+        "narHash": "sha256-cScS34F71HzhIUeMScfKrT7iSZA0tr8pGIjOqHF+ue8=",
         "ref": "refs/heads/main",
-        "rev": "118be4dea048df88fd21b84580fe62950c868c8f",
-        "revCount": 5215,
+        "rev": "d35e70a8c6599bb058cf86eb87c783ce1cf72471",
+        "revCount": 5218,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -727,11 +727,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1726108120,
-        "narHash": "sha256-Ji5wO1lLG99grI0qCRb6FyRPpH9tfdfD1QP/r7IlgfM=",
+        "lastModified": 1726206720,
+        "narHash": "sha256-tI7141IHDABMNgz4iXDo8agCp0SeTLbaIZ2DRndwcmk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "111ed8812c10d7dc3017de46cbf509600c93f551",
+        "rev": "673d99f1406cb09b8eb6feab4743ebdf70046557",
         "type": "github"
       },
       "original": {
