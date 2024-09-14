@@ -19,68 +19,68 @@ let
     hybrid = [ hydra ];
   };
 
-  defAccess = list: list ++ [ users.isabel ] ++ types.hybrid;
+  defAccess = list: { publicKeys = list ++ [ users.isabel ] ++ types.hybrid; };
 in
 {
-  "wakatime.age".publicKeys = defAccess (types.workstations ++ types.servers);
+  "wakatime.age" = defAccess (types.workstations ++ types.servers);
 
   # git ssh keys
-  "keys/gh.age".publicKeys = defAccess (types.workstations ++ types.servers);
-  "keys/gh-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
-  "keys/aur.age".publicKeys = defAccess (types.workstations ++ types.servers);
-  "keys/aur-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
-  "keys/gpg.age".publicKeys = defAccess types.workstations;
+  "keys/gh.age" = defAccess (types.workstations ++ types.servers);
+  "keys/gh-pub.age" = defAccess (types.workstations ++ types.servers);
+  "keys/aur.age" = defAccess (types.workstations ++ types.servers);
+  "keys/aur-pub.age" = defAccess (types.workstations ++ types.servers);
+  "keys/gpg.age" = defAccess types.workstations;
 
   # All nixos machines
-  "keys/nixos.age".publicKeys = defAccess (types.workstations ++ types.servers);
-  "keys/nixos-pub.age".publicKeys = defAccess (types.workstations ++ types.servers);
+  "keys/nixos.age" = defAccess (types.workstations ++ types.servers);
+  "keys/nixos-pub.age" = defAccess (types.workstations ++ types.servers);
 
   # ORACLE vps'
-  "keys/openvpn.age".publicKeys = defAccess types.workstations;
-  "keys/amity.age".publicKeys = defAccess types.workstations;
+  "keys/openvpn.age" = defAccess types.workstations;
+  "keys/amity.age" = defAccess types.workstations;
 
   # server
-  "cloudflare/hydra.age".publicKeys = defAccess types.servers;
-  "cloudflare/cert-api.age".publicKeys = defAccess types.servers;
+  "cloudflare/hydra.age" = defAccess types.servers;
+  "cloudflare/cert-api.age" = defAccess types.servers;
 
   # mailserver
-  "mailserver/isabel.age".publicKeys = defAccess types.servers;
-  "mailserver/vaultwarden.age".publicKeys = defAccess types.servers;
-  "mailserver/database.age".publicKeys = defAccess types.servers;
-  "mailserver/grafana.age".publicKeys = defAccess types.servers;
-  "mailserver/git.age".publicKeys = defAccess types.servers;
-  "mailserver/noreply.age".publicKeys = defAccess types.servers;
-  "mailserver/spam.age".publicKeys = defAccess types.servers;
+  "mailserver/isabel.age" = defAccess types.servers;
+  "mailserver/vaultwarden.age" = defAccess types.servers;
+  "mailserver/database.age" = defAccess types.servers;
+  "mailserver/grafana.age" = defAccess types.servers;
+  "mailserver/git.age" = defAccess types.servers;
+  "mailserver/noreply.age" = defAccess types.servers;
+  "mailserver/spam.age" = defAccess types.servers;
 
-  "mailserver/grafana-nohash.age".publicKeys = defAccess types.servers;
-  "mailserver/git-nohash.age".publicKeys = defAccess types.servers;
+  "mailserver/grafana-nohash.age" = defAccess types.servers;
+  "mailserver/git-nohash.age" = defAccess types.servers;
 
   # kanidm
-  "kanidm/admin-password.age".publicKeys = defAccess types.servers;
-  "kanidm/idm-admin-password.age".publicKeys = defAccess types.servers;
-  "kanidm/oauth2/grafana.age".publicKeys = defAccess types.servers;
-  "kanidm/oauth2/forgejo.age".publicKeys = defAccess types.servers;
+  "kanidm/admin-password.age" = defAccess types.servers;
+  "kanidm/idm-admin-password.age" = defAccess types.servers;
+  "kanidm/oauth2/grafana.age" = defAccess types.servers;
+  "kanidm/oauth2/forgejo.age" = defAccess types.servers;
 
-  "grafana-oauth2.age".publicKeys = defAccess types.servers;
+  "grafana-oauth2.age" = defAccess types.servers;
 
-  "blahaj-env.age".publicKeys = defAccess types.servers;
+  "blahaj-env.age" = defAccess types.servers;
 
-  "vikunja-env.age".publicKeys = defAccess types.servers;
+  "vikunja-env.age" = defAccess types.servers;
 
-  "nextcloud-passwd.age".publicKeys = defAccess types.servers;
+  "nextcloud-passwd.age" = defAccess types.servers;
 
-  "vaultwarden-env.age".publicKeys = defAccess types.servers;
+  "vaultwarden-env.age" = defAccess types.servers;
 
-  "matrix/env.age".publicKeys = defAccess types.servers;
-  "matrix/sync.age".publicKeys = defAccess types.servers;
+  "matrix/env.age" = defAccess types.servers;
+  "matrix/sync.age" = defAccess types.servers;
 
   # plausible
-  "plausible/key.age".publicKeys = defAccess types.servers;
-  "plausible/admin.age".publicKeys = defAccess types.servers;
+  "plausible/key.age" = defAccess types.servers;
+  "plausible/admin.age" = defAccess types.servers;
 
   #wakapi
-  "wakapi.age".publicKeys = defAccess types.servers;
-  "wakapi-mailer.age".publicKeys = defAccess types.servers;
+  "wakapi.age" = defAccess types.servers;
+  "wakapi-mailer.age" = defAccess types.servers;
 
-  "mongodb-passwd.age".publicKeys = defAccess types.servers;
+  "mongodb-passwd.age" = defAccess types.servers;
 }
