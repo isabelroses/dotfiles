@@ -32,8 +32,6 @@ in
 
   # Use environment options, minimal profile
   environment = {
-    noXlibs = mkDefault true;
-
     # we don't really need this warning on the minimal profile
     stub-ld.enable = mkForce false;
 
