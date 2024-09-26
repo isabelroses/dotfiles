@@ -1,12 +1,34 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+let
+  inherit (builtins) attrValues;
+  inherit (lib.strings) makeBinPath;
+in
 {
-  home.packages = builtins.attrValues {
+  home.packages = attrValues {
     # note taking with markdown
     inherit (pkgs) zk;
 
     obsidian = pkgs.symlinkJoin {
       name = "obsidian-wrapped";
-      paths = builtins.attrValues { inherit (pkgs) obsidian pandoc; };
+
+      paths = [ pkgs.obsidian ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+
+      postBuild = ''
+        wrapProgram $out/bin/obsidian \
+          --prefix PATH : ${
+            makeBinPath (attrValues {
+              inherit (pkgs)
+                # for the pandoc plugin
+                pandoc
+
+                # for the obsidian-git plugin
+                git
+                git-lfs
+                ;
+            })
+          }
+      '';
     };
   };
 
