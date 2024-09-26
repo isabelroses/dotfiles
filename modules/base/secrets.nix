@@ -9,7 +9,7 @@ let
   inherit (lib.modules) mkIf;
   inherit (lib.hardware) ldTernary;
   inherit (lib.secrets) mkSecret mkSecretWithPath;
-  inherit (pkgs.stdenv) isDarwin;
+  inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
   inherit (config.garden.system) mainUser;
   homeDir = config.home-manager.users.${mainUser}.home.homeDirectory;

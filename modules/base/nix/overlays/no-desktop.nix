@@ -5,7 +5,7 @@
 # this is so we don't have to build the original packages again
 _: prev: {
   btop =
-    if prev.stdenv.isLinux then
+    if prev.stdenv.hostPlatform.isLinux then
       prev.symlinkJoin {
         inherit (prev.btop) passthru;
         name = "btop-nodesktop";
@@ -18,7 +18,7 @@ _: prev: {
       prev.btop;
 
   fish =
-    if prev.stdenv.isLinux then
+    if prev.stdenv.hostPlatform.isLinux then
       prev.symlinkJoin {
         inherit (prev.fish) passthru meta;
         name = "fish-nodesktop";
@@ -31,7 +31,7 @@ _: prev: {
       prev.fish;
 
   ranger =
-    if prev.stdenv.isLinux then
+    if prev.stdenv.hostPlatform.isLinux then
       prev.symlinkJoin {
         inherit (prev.ranger) passthru;
         name = "ranger-nodesktop";

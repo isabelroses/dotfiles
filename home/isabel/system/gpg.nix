@@ -10,7 +10,7 @@ let
   inherit (osConfig.garden.system) video;
 in
 {
-  services.gpg-agent = mkIf pkgs.stdenv.isLinux {
+  services.gpg-agent = mkIf pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;
     enableFishIntegration = config.programs.fish.enable;

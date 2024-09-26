@@ -13,7 +13,7 @@ let
   env = config.garden.environment;
 in
 {
-  config = mkIf (sys.video.enable && pkgs.stdenv.isLinux) {
+  config = mkIf (sys.video.enable && pkgs.stdenv.hostPlatform.isLinux) {
     xdg.portal = {
       enable = true;
       # xdgOpenUsePortal = true;

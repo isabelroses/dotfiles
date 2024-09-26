@@ -6,7 +6,7 @@
   ...
 }:
 let
-  en = pkgs.stdenv.isLinux && osConfig.garden.programs.gui.enable;
+  en = pkgs.stdenv.hostPlatform.isLinux && osConfig.garden.programs.gui.enable;
 in
 {
   imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];

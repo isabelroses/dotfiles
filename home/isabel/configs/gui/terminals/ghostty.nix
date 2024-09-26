@@ -11,7 +11,7 @@ let
 in
 {
   config = mkIf osConfig.garden.programs.gui.terminals.ghostty.enable {
-    home.packages = optional pkgs.stdenv.isLinux inputs'.ghostty.packages.ghostty;
+    home.packages = optional pkgs.stdenv.hostPlatform.isLinux inputs'.ghostty.packages.ghostty;
 
     xdg.configFile."ghostty/config".text = ''
       shell-integration = none
@@ -22,7 +22,7 @@ in
       background-opacity = 0.95
       cursor-style = bar
       window-padding-x = 4,4
-      window-decoration = ${toString pkgs.stdenv.isDarwin}
+      window-decoration = ${toString pkgs.stdenv.hostPlatform.isDarwin}
       gtk-titlebar = false
 
       window-save-state = always

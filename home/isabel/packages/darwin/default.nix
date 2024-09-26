@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
 {
-  home.packages = lib.modules.mkIf pkgs.stdenv.isDarwin (
+  home.packages = lib.modules.mkIf pkgs.stdenv.hostPlatform.isDarwin (
     builtins.attrValues {
       inherit (pkgs)
         libwebp # WebP image format library

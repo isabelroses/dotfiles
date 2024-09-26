@@ -18,7 +18,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.isLinux) {
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
     xdg.systemDirs.data =
       let
         schema = pkgs.gsettings-desktop-schemas;

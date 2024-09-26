@@ -17,7 +17,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.isLinux) {
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
     systemd.user = {
       timers."github-notis" = {
         Install.WantedBy = [ "timers.target" ];

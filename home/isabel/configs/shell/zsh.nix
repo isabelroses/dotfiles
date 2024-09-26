@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.zsh = {
-    enable = pkgs.stdenv.isDarwin;
+    enable = pkgs.stdenv.hostPlatform.isDarwin;
 
     autosuggestion.enable = true;
     # enableCompletion = true;

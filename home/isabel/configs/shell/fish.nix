@@ -23,7 +23,7 @@ in
       '';
     };
 
-    loginShellInit = optionalString pkgs.stdenv.isDarwin ''
+    loginShellInit = optionalString pkgs.stdenv.hostPlatform.isDarwin ''
       fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin 
     '';
 

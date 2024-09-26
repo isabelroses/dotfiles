@@ -9,7 +9,7 @@ let
 in
 {
   config = mkIf osConfig.garden.programs.gui.discord.enable {
-    home.packages = mkIf pkgs.stdenv.isLinux [
+    home.packages = mkIf pkgs.stdenv.hostPlatform.isLinux [
       (pkgs.discord.override {
         withOpenASAR = true;
         withVencord = true;

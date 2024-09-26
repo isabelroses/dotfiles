@@ -17,7 +17,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.isLinux) {
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
     home.packages = [ pkgs.nextcloud-client ];
 
     systemd.user.services.nextcloud = mkGraphicalService {

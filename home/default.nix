@@ -37,7 +37,8 @@ in
       {
         nix.package = mkForce config.nix.package;
 
-        home.stateVersion = if pkgs.stdenv.isDarwin then "23.11" else config.system.stateVersion;
+        home.stateVersion =
+          if pkgs.stdenv.hostPlatform.isDarwin then "23.11" else config.system.stateVersion;
 
         # reload system units when changing configs
         systemd.user.startServices = mkDefault "sd-switch"; # or "legacy" if "sd-switch" breaks again

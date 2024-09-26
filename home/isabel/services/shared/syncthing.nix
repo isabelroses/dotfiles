@@ -20,7 +20,7 @@ in
       enable = true;
 
       tray = {
-        enable = pkgs.stdenv.isLinux && osConfig.garden.programs.gui.enable;
+        enable = pkgs.stdenv.hostPlatform.isLinux && osConfig.garden.programs.gui.enable;
         command = "syncthingtray --wait";
       };
     };

@@ -48,7 +48,7 @@ in
       # automatically optimise symlinks
       # Disable auto-optimise-store because of this issue:
       # https://github.com/NixOS/nix/issues/7273
-      auto-optimise-store = pkgs.stdenv.isLinux;
+      auto-optimise-store = pkgs.stdenv.hostPlatform.isLinux;
 
       # we need to create some trusted and allwed users so that we can use 
       # some features like substituters
@@ -77,7 +77,7 @@ in
 
       # build inside sandboxed environments
       # we only enable this on linux because it servirly breaks on darwin
-      sandbox = pkgs.stdenv.isLinux;
+      sandbox = pkgs.stdenv.hostPlatform.isLinux;
 
       # supported system features
       system-features = [
