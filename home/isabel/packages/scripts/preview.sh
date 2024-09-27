@@ -10,7 +10,7 @@ case "$(file --mime-type "$1")" in
   bat --color always --plain "$1"
   ;;
 *image*)
-  icat "$1"
+  ~/.local/bin/./icat "$1"
   ;;
 *pdf)
   catimg -w 100 -r 2 "$1"

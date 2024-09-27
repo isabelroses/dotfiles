@@ -2,11 +2,10 @@
   lib,
   pkgs,
   config,
-  osConfig,
   ...
 }:
 let
-  inherit (builtins) readFile;
+  inherit (builtins) readFile attrValues;
   inherit (lib.meta) getExe;
 in
 {
@@ -23,7 +22,7 @@ in
         source = getExe (
           pkgs.writeShellApplication {
             name = "preview";
-            runtimeInputs = builtins.attrValues { inherit (pkgs) bat eza catimg; };
+            runtimeInputs = attrValues { inherit (pkgs) bat eza catimg; };
             text = readFile ./preview.sh;
           }
         );
@@ -43,7 +42,7 @@ in
         source = getExe (
           pkgs.writeShellApplication {
             name = "extract";
-            runtimeInputs = builtins.attrValues {
+            runtimeInputs = attrValues {
               inherit (pkgs)
                 zip
                 unzip
@@ -55,23 +54,6 @@ in
           }
         );
       };
-
-      ".local/bin/lockdiff" = {
-        source = ./lockdiff.nu;
-        executable = true;
-      };
-
-      ".local/bin/nixpkgs-dev" = {
-        text = "nix develop ${osConfig.garden.environment.flakePath}#nixpkgs";
-        executable = true;
-      };
-
-      # ".local/bin/calcgrades.py" = {
-      #   source = pkgs.python3Packages.buildPythonPackage {
-      #     name = "calcgrades";
-      #     src = ./calcgrades.py;
-      #   };
-      # };
     };
   };
 }
