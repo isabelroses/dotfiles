@@ -6,6 +6,5 @@
     # ./ranger.nix
     # ./yazi.nix
     # ./zellij.nix
-    ./zzz.nix
   ];
 }

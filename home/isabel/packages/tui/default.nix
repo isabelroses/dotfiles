@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  inputs',
   osConfig,
   ...
 }:
@@ -20,6 +21,8 @@ in
           # fx # fancy jq
           # gum # a nicer scripting
           ;
+
+        inherit (inputs'.beapkgs.packages) zzz; # code snippets in the cli
       }
       ++ optionals cfg.gui.enable (
         builtins.attrValues {
