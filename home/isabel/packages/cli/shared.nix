@@ -26,8 +26,8 @@ in
           inherit (pkgs)
             jq # json parser
             yq # yaml parser
-            vhs # programmatically make gifs
-            glow # markdown preview
+            # vhs # programmatically make gifs
+            # glow # markdown preview
             ;
         }
       );
