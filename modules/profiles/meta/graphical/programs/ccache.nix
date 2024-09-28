@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib.lists) singleton optional;
+  inherit (lib.lists) singleton optionals;
   inherit (lib.trivial) const;
 
   cfg = config.programs.ccache;
@@ -21,7 +21,7 @@ in
 
   nix.settings.extra-sandbox-paths = [ cfg.cacheDir ];
 
-  nixpkgs.overlays = optional (cfg.enable && cfg.packageNames == [ ]) (
+  nixpkgs.overlays = optionals (cfg.enable && cfg.packageNames == [ ]) (
     singleton (
       const (super: {
         ccacheWrapper = super.ccacheWrapper.override {
