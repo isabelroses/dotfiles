@@ -26,7 +26,7 @@ in
 
       arkenfox = {
         enable = true;
-        version = "126.1";
+        version = "128.0";
       };
 
       profiles.arkenfox = {
@@ -52,6 +52,12 @@ in
               "2600"."2651"."browser.download.useDownloadDir" = {
                 enable = true;
                 value = true;
+              };
+
+              "5000" = {
+                "5003"."signon.rememberSignons".enable = true;
+                # enable search autocomplete
+                "5021"."keyword.enabled".value = true;
               };
             }
             (enableSections [
