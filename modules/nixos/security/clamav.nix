@@ -97,7 +97,11 @@ in
     };
 
     systemd = {
-      tmpfiles.rules = [ "D /var/lib/clamav 755 clamav clamav" ];
+      tmpfiles.settings."10-clamav"."/var/lib/clamav".D = {
+        mode = "755";
+        user = "clamav";
+        group = "clamav";
+      };
 
       services = {
         clamav-daemon = {

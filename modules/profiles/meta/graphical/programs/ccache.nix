@@ -8,7 +8,13 @@ in
     cacheDir = "/var/cache/sccache";
   };
 
-  systemd.tmpfiles.rules = [ "z ${config.programs.ccache.cacheDir} 770 root nixbld - -" ];
+  systemd.tmpfiles.settings."10-sccache".${cfg.cacheDir}.z = {
+    mode = "770";
+    user = "root";
+    group = "nixbld";
+    age = "-";
+    argument = "-";
+  };
 
   nix.settings.extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
 
