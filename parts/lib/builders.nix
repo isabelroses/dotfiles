@@ -92,23 +92,26 @@ let
                 "${inputs.nixpkgs}/nixos/modules/module-list.nix"
             ))
 
-            # TODO: learn what this means and why its needed to build the iso
-            (singleton { _module.args.modules = [ ]; })
-
             (singleton {
-              networking.hostName = host;
-              # you can also do this as `inherit system;` with the normal `lib.nixosSystem`
-              # however for evalModules this will not work, so we do this instead
-              nixpkgs.hostPlatform = mkDefault system;
-            })
+              # TODO: learn what this means and why its needed to build the iso
+              _module.args.modules = [ ];
 
-            # The path to the nixpkgs sources used to build the system.
-            # This is automatically set up to be the store path of the nixpkgs flake used to build
-            # the system if using lib.nixosSystem, and is otherwise null by default.
-            # so that means that we should set it to our nixpkgs flake output path
-            (optionals (target != "darwin") (singleton {
-              nixpkgs.flake.source = inputs.nixpkgs.outPath;
-            }))
+              # we set the systems hostname based on the host value
+              # which should be a string that is the hostname of the system
+              networking.hostName = host;
+
+              nixpkgs = {
+                # you can also do this as `inherit system;` with the normal `lib.nixosSystem`
+                # however for evalModules this will not work, so we do this instead
+                hostPlatform = mkDefault system;
+
+                # The path to the nixpkgs sources used to build the system.
+                # This is automatically set up to be the store path of the nixpkgs flake used to build
+                # the system if using lib.nixosSystem, and is otherwise null by default.
+                # so that means that we should set it to our nixpkgs flake output path
+                flake.source = inputs.nixpkgs.outPath;
+              };
+            })
 
             # if we are on darwin we need to import the nixpkgs source, its used in some
             # modules, if this is not set then you will get an error
