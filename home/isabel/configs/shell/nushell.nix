@@ -11,7 +11,7 @@ let
 in
 {
   programs.nushell = {
-    enable = true;
+    enable = false;
 
     shellAliases = builtins.removeAttrs config.home.shellAliases [ "mkdir" ];
 
@@ -23,11 +23,11 @@ in
 
     extraConfig =
       let
-        completions = cmds: ''
-          ${concatMapStrings (cmd: ''
+        completions =
+          cmds:
+          concatMapStrings (cmd: ''
             source "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${cmd}/${cmd}-completions.nu"
-          '') cmds}
-        '';
+          '') cmds;
 
         theme = "catppuccin-${config.catppuccin.flavor}";
       in
