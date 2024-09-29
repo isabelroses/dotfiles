@@ -29,7 +29,6 @@
       # `brew install --cask`
       casks = [
         "arc" # browser
-        "zed" # text editor
         # "loungy" # app launcher, too beta to use mainstream
         "raycast" # app launcher, and clipboard manager
         "inkscape" # vector graphics editor
