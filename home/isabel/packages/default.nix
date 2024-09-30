@@ -1,11 +1,8 @@
 {
   imports = [
-    ./cli # command line applications
-    ./darwin # macos specific applications
-    ./gui # graphical applications
-    ./scripts # useful shell scrips
-    ./tui # terminal interface applications
-
-    ./pentesting.nix # pentesting tools
+    ./cli # command line interface app confurations
+    ./gui # graphical interface app confurations
+    ./tui # terminal interface app confurations
+    ./misc # miscellaneous configurations
   ];
 }

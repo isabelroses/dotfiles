@@ -12,6 +12,15 @@ let
   cfg = osConfig.garden.programs;
 in
 {
+  imports = [
+    ./btop.nix
+    ./izrss.nix
+    # ./newsboat.nix
+    # ./ranger.nix
+    # ./yazi.nix
+    # ./zellij.nix
+  ];
+
   config = mkIf cfg.tui.enable {
     home.packages =
       builtins.attrValues {

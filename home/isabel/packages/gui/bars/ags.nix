@@ -61,7 +61,7 @@ in
 
     # when testing the config, uncommenting this can be useful
     # xdg.configFile."ags" = {
-    #   source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/home/${system.mainUser}/configs/gui/bars/ags";
+    #   source = config.lib.file.mkOutOfStoreSymlink "${environment.flakePath}/home/${system.mainUser}/packages/gui/bars/ags";
     #   recursive = true;
     # };
   };
