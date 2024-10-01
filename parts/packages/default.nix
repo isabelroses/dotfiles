@@ -19,6 +19,9 @@
               # add a --call-package or -C cli option to build a package from the cli
               # based on the work of https://github.com/privatevoid-net/nix-super
               ./patches/lix-callpackage-cli.patch
+
+              # allow flakes to trivially eval to attrsets
+              ./patches/lix-flake-trivial-eval.patch
             ];
 
             # Kinda funny right
