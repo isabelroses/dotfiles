@@ -7,20 +7,26 @@
 let
   inherit (builtins) elem;
   inherit (lib.trivial) pipe;
+  inherit (lib.lists) optionals;
   inherit (lib.attrsets) filterAttrs mapAttrs';
 in
 {
   environment = {
+    # git is required for flakes
+    systemPackages = [ pkgs.git ];
+
     # something something backwards compatibility something something nix channels
     etc =
       let
         inherit (config.nix) registry;
-        commonPaths = [
-          "self"
-          "nixpkgs"
-          "beapkgs"
-          "home-manager"
-        ];
+        commonPaths =
+          [
+            "nixpkgs"
+            "home-manager"
+          ]
+          ++ optionals pkgs.stdenv.hostPlatform.isDarwin [
+            "nix-darwin"
+          ];
       in
       pipe registry [
         (filterAttrs (name: _: (elem name commonPaths)))
@@ -31,8 +37,5 @@ in
           }
         ))
       ];
-
-    # git is required for flakes
-    systemPackages = [ pkgs.git ];
   };
 }
