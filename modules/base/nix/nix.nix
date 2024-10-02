@@ -123,14 +123,12 @@ in
 
         # allow usage of the pipe operator in nix expressions
         "pipe-operator"
-      ];
 
-      # we can grcaefully remove things that are from older versions of nix
-      # using this feature,
-      deprecated-features = [
-        # disallow unquoted URLs as part of the Nix language syntax
-        # this are explicitly derpricated and are unused in nixpkgs, so we should ensure that we are not using them
-        "url-literals"
+        # enable the use of the fetchClosure built-in function in the Nix language.
+        "fetch-closure"
+
+        # dependencies in derivations on the outputs of derivations that are themselves derivations outputs.
+        "dynamic-derivations"
       ];
 
       # don't warn me if the current working tree is dirty
