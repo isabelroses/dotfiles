@@ -9,8 +9,9 @@ let
   inherit (lib.attrsets) filterAttrs attrValues mapAttrs;
   inherit (lib.modules) mkForce;
   inherit (lib.hardware) ldTernary;
+  inherit (lib.types) isType;
 
-  flakeInputs = filterAttrs (name: value: (value ? outputs) && (name != "self")) inputs;
+  flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;
 in
 {
   nix = {
@@ -25,10 +26,10 @@ in
     package = pkgs.lix;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
-    registry = mapAttrs (_: v: { flake = v; }) flakeInputs;
+    registry = mapAttrs (_: flake: { inherit flake; }) flakeInputs;
 
     # We love legacy support (for now)
-    nixPath = ldTernary pkgs (attrValues (mapAttrs (k: v: "${k}=${v.outPath}") flakeInputs)) (
+    nixPath = ldTernary pkgs (attrValues (mapAttrs (k: v: "${k}=flake:${v.outPath}") flakeInputs)) (
       mkForce (mapAttrs (_: v: v.outPath) flakeInputs)
     );
 
