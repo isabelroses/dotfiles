@@ -60,7 +60,7 @@ in
         ]
 
         # Wayland
-        (mkIf (isWayland osConfig) [
+        (optionals (isWayland osConfig) [
           "--ozone-platform=wayland"
           "--enable-features=UseOzonePlatform"
         ])
@@ -84,7 +84,8 @@ in
         # Security
         [
           # Use strict extension verification
-          "--extension-content-verification=enforce_strict --extensions-install-verification=enforce_strict"
+          "--extension-content-verification=enforce_strict"
+          "--extensions-install-verification=enforce_strict"
           # Disable pings
           "--no-pings"
           # Require HTTPS for component updater
