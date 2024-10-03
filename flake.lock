@@ -114,11 +114,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1727743475,
-        "narHash": "sha256-fk7jVgG49VnbGz9ikob35R9FJYldoDFJDGKQ3yhU48Q=",
+        "lastModified": 1727916006,
+        "narHash": "sha256-o3PGj7nKdnjADPsAfPtq0dto3Ed37yvbyPYM6zs5xHQ=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "36367d0de77ec1603fab4d2bdeb7dce214147851",
+        "rev": "9d07f21e39418ca5b0990942a43725ea99729443",
         "type": "github"
       },
       "original": {
@@ -145,11 +145,11 @@
     },
     "catppuccin": {
       "locked": {
-        "lastModified": 1726952185,
-        "narHash": "sha256-l/HbsQjJMT6tlf8KCooFYi3J6wjIips3n6/aWAoLY4g=",
+        "lastModified": 1727910534,
+        "narHash": "sha256-IjdGPDnBNk3r5h02kiPTKUOfn+UiKNWlhy/ozC0NgyQ=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "630b559cc1cb4c0bdd525af506935323e4ccd5d1",
+        "rev": "bad96d3fabf8d2e8f0bf0c2cb899a9fccf01ea03",
         "type": "github"
       },
       "original": {
@@ -295,11 +295,11 @@
         "zig": []
       },
       "locked": {
-        "lastModified": 1727757228,
-        "narHash": "sha256-fBWbpl2jA2yXIlBxJ1lOcfreLrv1XLEb3YO2kiuiJSQ=",
+        "lastModified": 1727915808,
+        "narHash": "sha256-s0AMqReJFmSLVwZd7QKGdUiLNSMb7UeC47wix4G7U9A=",
         "ref": "refs/heads/main",
-        "rev": "a92c24159efea114534aaf5e0a7c70b7049ccced",
-        "revCount": 7577,
+        "rev": "0705e8dbb5b6c77022c707e4f83614e04d674094",
+        "revCount": 7596,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -318,11 +318,11 @@
         "nixpkgs-stable": []
       },
       "locked": {
-        "lastModified": 1727805723,
-        "narHash": "sha256-b8flytpuc4Ey/g3mcvpS/ICORcD4h56QDZeP5LogevY=",
+        "lastModified": 1727854478,
+        "narHash": "sha256-/odH2nUMAwkMgOS2nG2z0exLQNJS4S2LfMW0teqU7co=",
         "owner": "cachix",
         "repo": "git-hooks.nix",
-        "rev": "2f5ae3fc91db865eff2c5a418da85a0fbe6238a3",
+        "rev": "5f58871c9657b5fc0a7f65670fe2ba99c26c1d79",
         "type": "github"
       },
       "original": {
@@ -359,11 +359,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1727383923,
-        "narHash": "sha256-4/vacp3CwdGoPf8U4e/N8OsGYtO09WTcQK5FqYfJbKs=",
+        "lastModified": 1727817100,
+        "narHash": "sha256-dlyV9/eiWkm/Y/t2+k4CFZ29tBvCANmJogEYaHeAOTw=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "ffe2d07e771580a005e675108212597e5b367d2d",
+        "rev": "437ec62009fa8ceb684eb447d455ffba25911cf9",
         "type": "github"
       },
       "original": {
@@ -416,11 +416,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1727714556,
-        "narHash": "sha256-l4cPDA3xGtGdQmdSCAO2VyWg9xwW6//KwDYefdWtovQ=",
+        "lastModified": 1727900725,
+        "narHash": "sha256-yS4oC5G/FKrsrRjk03cGzTEXHAwfjP7azFHoKvlFfD8=",
         "ref": "refs/heads/main",
-        "rev": "5c6c300abfea2539ffad9bcbf857325eec5ab765",
-        "revCount": 5285,
+        "rev": "de68e065fe861d7ca01eca267df4c305bc6e73c2",
+        "revCount": 5287,
         "submodules": true,
         "type": "git",
         "url": "https://github.com/hyprwm/Hyprland"
@@ -580,11 +580,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1727722020,
-        "narHash": "sha256-PmAz4qr/Qo9Jdx7W3oOYPcelPoa1pt8VkyE3dkroARY=",
+        "lastModified": 1727837583,
+        "narHash": "sha256-jw4Zvyck+e6vmVtdoh0JE8E3YvgkJoMKj9nZoqVfVmw=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "8ffa9955b0140059420ffd3f72525947d603115b",
+        "rev": "4a8fed3518612180fc54052c85365aa67fd11fbf",
         "type": "github"
       },
       "original": {
@@ -753,11 +753,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1727777050,
-        "narHash": "sha256-5jw7zwOcWOpxTO6NCzmFZfq0klNGA+ktw+Yb3n35eUQ=",
+        "lastModified": 1727842290,
+        "narHash": "sha256-mnH2caarCN4trCgV++t9JtUwbbOGS0hvThdtod2J5Bk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d78d09350ac7dfe503cf48cbc59764aef4157b9a",
+        "rev": "3b266ab4521b8e4144b4c552cba978b0c35ef449",
         "type": "github"
       },
       "original": {
