@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  inputs',
   osConfig,
   ...
 }:
@@ -16,7 +15,6 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs'.hyprland.packages.default;
       xwayland.enable = true;
 
       systemd = {

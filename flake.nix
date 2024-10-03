@@ -183,15 +183,6 @@
       };
     };
 
-    # I am not recompling this thanks
-    hyprland = {
-      type = "git";
-      url = "https://github.com/hyprwm/Hyprland";
-      submodules = true;
-
-      inputs.systems.follows = "systems";
-    };
-
     # a tree-wide formatter
     treefmt-nix = {
       type = "github";
