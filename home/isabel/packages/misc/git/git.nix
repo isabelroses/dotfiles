@@ -1,4 +1,8 @@
-{ pkgs, osConfig, ... }:
+{
+  pkgs,
+  osConfig,
+  ...
+}:
 let
   cfg = osConfig.garden.programs.agnostic.git;
 in
@@ -8,6 +12,17 @@ in
     package = pkgs.gitFull;
     userName = "isabel";
     userEmail = "isabel" + "@" + "isabelroses" + "." + "com"; # obsfuscate email to prevent webscrapper spam
+
+    includes = [
+      {
+        condition = "gitdir:~/dev/uni/";
+        inherit (osConfig.age.secrets."uni-gitconf") path;
+      }
+      {
+        condition = "gitdir:~/Dev/uni/";
+        inherit (osConfig.age.secrets."uni-gitconf") path;
+      }
+    ];
 
     lfs = {
       enable = true;

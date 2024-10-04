@@ -8,6 +8,10 @@ in
     hashKnownHosts = true;
     compression = true;
 
+    includes = [
+      secrets.uni-ssh.path
+    ];
+
     matchBlocks = {
       # git clients
       "aur.archlinux.org" = {

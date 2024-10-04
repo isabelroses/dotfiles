@@ -61,6 +61,18 @@ in
         group = userGroup;
       };
 
+      # extra uni stuff
+      uni-gitconf = mkSecret {
+        file = "uni/gitconf";
+        owner = mainUser;
+        group = userGroup;
+      };
+      uni-ssh = mkSecret {
+        file = "uni/ssh";
+        owner = mainUser;
+        group = userGroup;
+      };
+
       # ORACLE vps'
       keys-openvpn = mkSecret {
         file = "keys/openvpn";

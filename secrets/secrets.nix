@@ -31,6 +31,9 @@ in
   "keys/aur-pub.age" = defAccess (types.workstations ++ types.servers);
   "keys/gpg.age" = defAccess types.workstations;
 
+  "uni/gitconf.age" = defAccess types.workstations;
+  "uni/ssh.age" = defAccess types.workstations;
+
   # All nixos machines
   "keys/nixos.age" = defAccess (types.workstations ++ types.servers);
   "keys/nixos-pub.age" = defAccess (types.workstations ++ types.servers);
