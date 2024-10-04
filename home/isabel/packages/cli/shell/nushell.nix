@@ -31,6 +31,7 @@ in
 
         theme = "catppuccin-${config.catppuccin.flavor}";
       in
+      # nu
       ''
         ${completions [
           "nix"
