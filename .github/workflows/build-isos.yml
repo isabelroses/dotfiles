@@ -36,6 +36,9 @@ jobs:
           StrictHostKeyChecking no
           EOF
 
+      - name: Install Just
+        uses: extractions/setup-just@v1
+
       - name: Install Lix
         uses: DeterminateSystems/nix-installer-action@main
         with:
@@ -48,7 +51,7 @@ jobs:
 
       - name: Build Lilith Iso
         continue-on-error: false
-        run: nix build -L .#images.lilith
+        run: just iso lilith
 
       - name: Upload Release Artifacts
         run: |

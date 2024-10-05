@@ -2,7 +2,7 @@
 let
   inherit (inputs.self) lib;
 
-  inherit (builtins) filter listToAttrs;
+  inherit (builtins) filter;
   inherit (lib.builders) mkSystems;
   inherit (lib.lists) concatLists;
 
@@ -107,19 +107,5 @@ in
   flake = {
     darwinConfigurations = mkSystems (filter (x: x.target == "darwin") systems);
     nixosConfigurations = mkSystems (filter (x: x.target == "nixos" || x.target == "iso") systems);
-
-    # NOTE: we redeclare the iso images here, such that they can easily be built
-    # by the flake, with a short command `nix build .#images.lilith` for example
-    # though you may prefer to use `nix-fast-build` for this
-    images =
-      let
-        isos = filter (x: x.target == "iso") systems;
-      in
-      listToAttrs (
-        map (iso: {
-          name = iso.host;
-          value = inputs.self.nixosConfigurations.${iso.host}.config.system.build.isoImage;
-        }) isos
-      );
   };
 }
