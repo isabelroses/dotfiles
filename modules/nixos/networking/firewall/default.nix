@@ -40,7 +40,7 @@ in
       ];
 
       # allow servers to be pinnged, but not our clients
-      allowPing = device.type == "server";
+      allowPing = device.type == "server" || device.type == "hybrid";
 
       # make a much smaller and easier to read log
       logReversePathDrops = true;
