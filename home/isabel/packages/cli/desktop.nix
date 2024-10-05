@@ -24,6 +24,7 @@ in
         libnotify # needed for some notifications
         # bitwarden-cli # bitwarden, my chosen password manager
         brightnessctl # brightness managed via cli
+        # vhs # programmatically make gifs
         ;
     };
   };
