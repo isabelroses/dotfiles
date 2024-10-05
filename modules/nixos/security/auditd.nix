@@ -4,32 +4,36 @@ let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) int str;
 
-  cfg = config.garden.system.security;
+  cfg = config.garden.system.security.auditd;
 in
 {
   options.garden.system.security.auditd = {
-    enable = mkEnableOption "Enable the audit daemon.";
+    enable = mkEnableOption "Enable the audit daemon";
+
     autoPrune = {
-      enable = mkEnableOption "Enable auto-pruning of audit logs.";
+      enable = mkEnableOption "Enable auto-pruning of audit logs" // {
+        default = cfg.enable;
+      };
 
       size = mkOption {
         type = int;
-        default = 524288000; # roughly 500 megabytes
-        description = "The maximum size of the audit log in bytes.";
+        default = 524288000; # ~500 megabytes
+        description = "The maximum size of the audit log in bytes";
       };
 
       dates = mkOption {
         type = str;
         default = "daily";
         example = "weekly";
-        description = "How often cleaning is triggered. Passed to systemd.time";
+        description = "How often the audit log should be pruned";
       };
     };
   };
 
-  config = mkIf cfg.auditd.enable {
+  config = mkIf cfg.enable {
     security = {
       auditd.enable = true;
+
       audit = {
         enable = true;
         backlogLimit = 8192;
@@ -38,27 +42,27 @@ in
       };
     };
 
-    systemd = {
+    # the audit log can grow quite large, so we _can_ automatically prune it
+    systemd = mkIf cfg.autoPrune.enable {
       timers."clean-audit-log" = {
         description = "Periodically clean audit log";
         wantedBy = [ "timers.target" ];
         timerConfig = {
-          OnCalendar = "daily";
+          OnCalendar = cfg.autoPrune.dates;
           Persistent = true;
         };
       };
 
-      # clean audit log if it's more than 524,288,000 bytes, which is roughly 500 megabytes
-      # it can grow MASSIVE in size if left unchecked
       services."clean-audit-log" = {
         script = ''
           set -eu
-          if [[ $(stat -c "%s" /var/log/audit/audit.log) -gt 524288000 ]]; then
+          if [[ $(stat -c "%s" /var/log/audit/audit.log) -gt ${toString cfg.autoPrune.size} ]]; then
             echo "Clearing Audit Log";
             rm -rvf /var/log/audit/audit.log;
             echo "Done!"
           fi
         '';
+
         serviceConfig = {
           Type = "oneshot";
           User = "root";
