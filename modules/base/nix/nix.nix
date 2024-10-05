@@ -2,7 +2,6 @@
   lib,
   pkgs,
   inputs,
-  config,
   ...
 }:
 let
@@ -12,6 +11,8 @@ let
   inherit (lib.types) isType;
 
   flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;
+
+  sudoers = ldTernary pkgs "@wheel" "@staff";
 in
 {
   nix = {
@@ -51,19 +52,10 @@ in
       # https://github.com/NixOS/nix/issues/7273
       auto-optimise-store = pkgs.stdenv.hostPlatform.isLinux;
 
-      # we need to create some trusted and allwed users so that we can use 
-      # some features like substituters
-      allowed-users = [
-        "@wheel" # allow sudo users to mark the following values as trusted
-        "root"
-        # we are assuming the main user owns the system and should be trusted
-        config.garden.system.mainUser
-      ];
-      trusted-users = [
-        "@wheel" # allow sudo users to manage the nix store
-        "root"
-        config.garden.system.mainUser
-      ];
+      # users or groups which are allowed to do anything with the Nix daemon
+      allowed-users = [ sudoers ];
+      # users or groups which are allowed to manage the nix store
+      trusted-users = [ sudoers ];
 
       # we don't want to track the registry, but we do want to allow the usage
       # of the `flake:` references, so we need to enable use-registries
