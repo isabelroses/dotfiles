@@ -40,8 +40,8 @@
         optimizeTcp = false;
 
         tailscale = {
-          enable = true;
-          isServer = true;
+          enable = false;
+          isServer = false;
           isClient = false;
         };
       };
@@ -64,11 +64,11 @@
       agnostic.git.signingKey = "7F2F6BD6997FCDF7";
 
       cli = {
-        enable = true;
-        modernShell.enable = true;
+        enable = false;
+        modernShell.enable = false;
       };
 
-      tui.enable = true;
+      tui.enable = false;
       gui.enable = false;
     };
   };
