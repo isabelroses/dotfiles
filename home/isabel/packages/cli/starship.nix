@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
   inherit (lib.strings) concatStrings;
 
   # TODO: come back and change this a bit
@@ -18,8 +19,8 @@ let
   };
 in
 {
-  programs.starship = {
-    inherit (osConfig.garden.programs.cli) enable;
+  programs.starship = mkIf osConfig.garden.programs.cli.enable {
+    enable = true;
     enableBashIntegration = config.programs.bash.enable;
     enableFishIntegration = config.programs.fish.enable;
     enableZshIntegration = config.programs.zsh.enable;
