@@ -25,6 +25,7 @@ let
       inherit (self.builders) mkSystems mkIsos;
       inherit (self.hardware) isx86Linux primaryMonitor ldTernary;
       inherit (self.helpers)
+        mkPubs
         giturl
         filterNixFiles
         importNixFiles
