@@ -2,16 +2,19 @@
   lib,
   pkgs,
   self,
+  osConfig,
   ...
 }:
 let
   inherit (lib.hardware) ldTernary;
+  inherit (lib.modules) mkIf;
+  inherit (lib.validators) isModernShell;
 in
 {
   imports = [ self.homeManagerModules.hyfetch ];
   disabledModules = [ "programs/hyfetch.nix" ];
 
-  programs.hyfetch = {
+  programs.hyfetch = mkIf (isModernShell osConfig) {
     enable = true;
 
     settings = {
