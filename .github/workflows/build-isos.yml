@@ -53,10 +53,15 @@ jobs:
         continue-on-error: false
         run: just iso lilith
 
+      - name: Build Valkyrie Tarball
+        continue-on-error: false
+        run: just tar valkyrie
+
       - name: Upload Release Artifacts
         run: |
           release=$(date +"%Y-%m-%d")
           gh release create "$release"
           gh release upload "$release" ./result/iso/*.iso
+          gh release upload "$release" nixos-wsl.tar.gz
         env:
           GH_TOKEN: ${{ github.token }}

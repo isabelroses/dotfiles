@@ -23,6 +23,11 @@ build pkg:
 [group('package')]
 iso image: (build "nixosConfigurations." + image + ".config.system.build.isoImage")
 
+# build the tarball, you must specify the host you want to build
+[group('package')]
+tar host:
+  sudo nix run .#nixosConfigurations.{{host}}.config.system.build.tarballBuilder
+
 [private]
 verify *args:
   nix-store --verify {{args}}
