@@ -44,8 +44,8 @@ in
     settings = {
       # Free up to 20GiB whenever there is less than 5GB left.
       # this setting is in bytes, so we multiply with 1024 by 3
-      min-free = "${toString (5 * 1024 * 1024 * 1024)}";
-      max-free = "${toString (20 * 1024 * 1024 * 1024)}";
+      min-free = 5 * 1024 * 1024 * 1024;
+      max-free = 20 * 1024 * 1024 * 1024;
 
       # automatically optimise symlinks
       # Disable auto-optimise-store because of this issue:
