@@ -15,6 +15,7 @@ let
       builders = import ./builders.nix { inherit lib inputs withSystem; };
       hardware = import ./hardware.nix;
       helpers = import ./helpers.nix { inherit lib; };
+      programs = import ./programs.nix { inherit lib; };
       secrets = import ./secrets.nix { inherit inputs; };
       services = import ./services.nix { inherit lib; };
       validators = import ./validators.nix;
@@ -35,6 +36,7 @@ let
         indexOf
         intListToStringList
         ;
+      inherit (self.programs) mkProgram;
       inherit (self.secrets) mkSecret mkSecretWithPath;
       inherit (self.services) mkGraphicalService mkHyprlandService mkServiceOption;
       inherit (self.validators)
