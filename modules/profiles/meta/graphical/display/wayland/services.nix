@@ -10,7 +10,7 @@ let
   inherit (lib.validators) isWayland;
 in
 {
-  config = mkIf (isWayland config && pkgs.stdenv.hostPlatform.isLinux) {
+  config = mkIf (isWayland config) {
     systemd.services.seatd = {
       enable = true;
       description = "Seat management daemon";
