@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   defaults,
   osConfig,
@@ -8,14 +7,13 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isWayland;
 
-  rofiPackage = if isWayland osConfig then pkgs.rofi-wayland else pkgs.rofi;
+  cfg = osConfig.garden.programs.rofi;
 in
 {
-  programs.rofi = mkIf osConfig.garden.programs.gui.launchers.rofi.enable {
+  programs.rofi = mkIf cfg.enable {
     enable = true;
-    package = rofiPackage.override { plugins = [ pkgs.rofi-rbw ]; };
+    inherit (cfg) package;
 
     extraConfig = {
       modi = "drun";

@@ -1,6 +1,6 @@
 { lib, osConfig, ... }:
 let
-  cfg = osConfig.garden.programs.gui.kdeconnect;
+  cfg = osConfig.garden.programs.kdeconnect;
 in
 {
   services.kdeconnect = lib.modules.mkIf cfg.enable {

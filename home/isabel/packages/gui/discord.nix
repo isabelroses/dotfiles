@@ -6,14 +6,12 @@
 }:
 let
   inherit (lib.modules) mkIf;
+  cfg = osConfig.garden.programs.discord;
 in
 {
-  config = mkIf osConfig.garden.programs.gui.discord.enable {
+  config = mkIf cfg.enable {
     home.packages = mkIf pkgs.stdenv.hostPlatform.isLinux [
-      (pkgs.discord.override {
-        withOpenASAR = true;
-        withVencord = true;
-      })
+      cfg.package
     ];
 
     # xdg.configFile."discord/settings.json".text = ''

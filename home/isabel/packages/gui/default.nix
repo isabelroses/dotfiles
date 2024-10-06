@@ -8,12 +8,12 @@
     ./gaming
     ./bars
     ./browsers
-    ./fileMangers
     ./launchers
     ./terminals
     ./wm
 
     ./discord.nix
+    ./file-manager.nix
     ./notes.nix
     ./swaync.nix
     ./viewnior.nix

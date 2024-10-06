@@ -66,27 +66,14 @@
     };
 
     programs = {
-      agnostic.git.signingKey = "7AFB9A49656E69F7";
-
       cli = {
         enable = true;
         modernShell.enable = true;
       };
-
       tui.enable = true;
+      gui.enable = true;
 
-      gui = {
-        enable = true;
-
-        kdeconnect = {
-          enable = false;
-          indicator.enable = true;
-        };
-
-        terminals.kitty.enable = true;
-
-        zathura.enable = true;
-      };
+      git.signingKey = "7AFB9A49656E69F7";
     };
 
     services.cloudflared.enable = true;

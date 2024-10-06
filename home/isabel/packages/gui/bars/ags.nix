@@ -10,11 +10,11 @@ let
   inherit (lib.meta) getExe;
   inherit (lib.validators) isWayland;
 
-  inherit (osConfig.garden) programs; # environment system;
+  cfg = osConfig.garden.programs.ags;
 in
 {
-  config = mkIf (isWayland osConfig && programs.gui.bars.ags.enable) {
-    home.packages = [ inputs'.ags.packages.ags ];
+  config = mkIf (isWayland osConfig && cfg.enable) {
+    home.packages = [ cfg.package ];
 
     systemd.user.services.ags = {
       Install.WantedBy = [ "graphical-session.target" ];

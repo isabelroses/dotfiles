@@ -9,13 +9,16 @@ let
   inherit (lib.validators) isWayland;
 
   inherit (osConfig.garden.style) font;
+  cfg = osConfig.garden.programs.waybar;
 in
 {
-  config = mkIf (isWayland osConfig && osConfig.garden.programs.gui.bars.waybar.enable) {
+  config = mkIf (isWayland osConfig && cfg.enable) {
     home.packages = [ pkgs.wlogout ];
 
     programs.waybar = {
       enable = true;
+      inherit (cfg) package;
+
       systemd.enable = true;
       catppuccin.enable = false;
 

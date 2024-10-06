@@ -1,17 +1,18 @@
 {
   lib,
   pkgs,
-  inputs',
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.lists) optional;
+
+  cfg = osConfig.garden.programs.ghostty;
 in
 {
-  config = mkIf osConfig.garden.programs.gui.terminals.ghostty.enable {
-    home.packages = optional pkgs.stdenv.hostPlatform.isLinux inputs'.ghostty.packages.ghostty;
+  config = mkIf cfg.enable {
+    home.packages = optional pkgs.stdenv.hostPlatform.isLinux cfg.package;
 
     xdg.configFile."ghostty/config".text = ''
       shell-integration = none

@@ -1,15 +1,16 @@
 {
-  pkgs,
+  lib,
   osConfig,
   ...
 }:
 let
-  cfg = osConfig.garden.programs.agnostic.git;
+  inherit (lib.modules) mkIf;
+  cfg = osConfig.garden.programs.git;
 in
 {
-  programs.git = {
+  programs.git = mkIf cfg.enable {
     enable = true;
-    package = pkgs.gitFull;
+    inherit (cfg) package;
     userName = "isabel";
     userEmail = "isabel" + "@" + "isabelroses" + "." + "com"; # obsfuscate email to prevent webscrapper spam
 

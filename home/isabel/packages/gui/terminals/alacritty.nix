@@ -1,43 +1,44 @@
 { lib, osConfig, ... }:
+let
+  family = osConfig.garden.style.font.name;
+
+  cfg = osConfig.garden.programs.alacritty;
+in
 {
-  config = lib.modules.mkIf osConfig.garden.programs.gui.terminals.alacritty.enable {
-    programs.alacritty = {
-      enable = true;
-      settings = {
-        window.opacity = 0.9;
+  programs.alacritty = lib.modules.mkIf cfg.enable {
+    enable = true;
+    inherit (cfg) package;
 
-        font =
-          let
-            family = osConfig.garden.style.font.name;
-          in
-          {
-            normal = {
-              inherit family;
-              style = "Regular";
-            };
+    settings = {
+      window.opacity = 0.9;
 
-            bold = {
-              inherit family;
-              style = "Bold";
-            };
+      font = {
+        size = 13.0;
 
-            italic = {
-              inherit family;
-              style = "Regular";
-            };
-
-            bold_italic = {
-              inherit family;
-              style = "Regular Bold";
-            };
-
-            size = 13.0;
-          };
-
-        cursor.style = {
-          shape = "Beam";
-          blinking = "Off";
+        normal = {
+          inherit family;
+          style = "Regular";
         };
+
+        bold = {
+          inherit family;
+          style = "Bold";
+        };
+
+        italic = {
+          inherit family;
+          style = "Regular";
+        };
+
+        bold_italic = {
+          inherit family;
+          style = "Regular Bold";
+        };
+      };
+
+      cursor.style = {
+        shape = "Beam";
+        blinking = "Off";
       };
     };
   };

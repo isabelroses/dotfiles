@@ -1,10 +1,9 @@
 {
   imports = [
-    ./darwin # macOS configurations
     ./editors # text editor / IDE configurations
     ./git # git client configurations
 
-    # pentesting packages
-    ./pentesting.nix
+    ./darwin.nxi # macOS configurations
+    ./pentesting.nix # pentesting packages
   ];
 }

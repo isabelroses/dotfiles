@@ -26,13 +26,13 @@ in
       ];
       allowedUDPPorts = [ ];
 
-      allowedTCPPortRanges = mkIf programs.gui.kdeconnect.enable [
+      allowedTCPPortRanges = mkIf programs.kdeconnect.enable [
         {
           from = 1714;
           to = 1764;
         }
       ];
-      allowedUDPPortRanges = mkIf programs.gui.kdeconnect.enable [
+      allowedUDPPortRanges = mkIf programs.kdeconnect.enable [
         {
           from = 1714;
           to = 1764;

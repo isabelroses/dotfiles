@@ -7,7 +7,7 @@
   ...
 }:
 let
-  cfg = osConfig.garden.programs.agnostic.editors.zed;
+  cfg = osConfig.garden.programs.zed;
 in
 {
   home.packages = lib.lists.optionals cfg.enable [ pkgs.zed-editor ];

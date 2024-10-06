@@ -16,7 +16,7 @@ let
   settingsFile = mkLink "${vscodeStore}/settings.json";
 in
 {
-  config = mkIf osConfig.garden.programs.agnostic.editors.vscode.enable {
+  config = mkIf osConfig.garden.programs.vscode.enable {
     programs.vscode = {
       enable = true;
       package = pkgs.vscode;

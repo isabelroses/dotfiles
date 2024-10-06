@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   inputs,
   osConfig,
   ...
@@ -9,7 +8,7 @@ let
   inherit (lib.modules) mkIf;
   inherit (lib.attrsets) genAttrs recursiveUpdate;
 
-  cfg = osConfig.garden.programs.gui.browsers.firefox;
+  cfg = osConfig.garden.programs.firefox;
 in
 {
   imports = [
@@ -20,9 +19,7 @@ in
   config = mkIf cfg.enable {
     programs.firefox = {
       enable = true;
-      package = pkgs.firefox.override {
-        speechSynthesisSupport = false;
-      };
+      inherit (cfg) package;
 
       arkenfox = {
         enable = true;

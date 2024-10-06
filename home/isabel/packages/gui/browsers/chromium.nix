@@ -1,7 +1,5 @@
 {
   lib,
-  pkgs,
-  inputs',
   osConfig,
   ...
 }:
@@ -12,15 +10,7 @@ let
   inherit (lib.validators) isWayland;
 
   progs = osConfig.garden.programs;
-  cfg = progs.gui.browsers.chromium;
-
-  chrome_pkg =
-    if cfg.ungoogled then
-      pkgs.ungoogled-chromium
-    else if cfg.thorium then
-      inputs'.beapkgs.packages.thorium
-    else
-      pkgs.chromium;
+  cfg = progs.chromium;
 in
 {
   programs.chromium = mkIf cfg.enable {
@@ -39,7 +29,7 @@ in
         "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
       ];
 
-    package = chrome_pkg.override {
+    package = cfg.package.override {
       enableWideVine = true;
 
       # https://github.com/secureblue/hardened-chromium

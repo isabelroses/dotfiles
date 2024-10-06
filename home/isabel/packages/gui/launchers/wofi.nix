@@ -6,10 +6,14 @@
 }:
 let
   inherit (lib.modules) mkIf;
+
+  cfg = osConfig.garden.programs.wofi;
 in
 {
-  programs.wofi = mkIf osConfig.garden.programs.gui.launchers.wofi.enable {
+  programs.wofi = mkIf cfg.enable {
     enable = true;
+    inherit (cfg) package;
+
     settings = {
       show = [
         "drun"
@@ -26,6 +30,7 @@ in
       normal_window = false;
       insensitive = true;
     };
+
     style = ''
       @define-color base #1e1e2e;
       @define-color mantle #181825;

@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  defaults,
   osConfig,
   ...
 }:
@@ -10,7 +11,7 @@ let
   inherit (lib.modules) mkIf;
 in
 {
-  config = mkIf (osConfig.garden.programs.gui.enable || pkgs.stdenv.hostPlatform.isDarwin) {
+  config = mkIf osConfig.garden.programs.notes.enable {
     home.packages = attrValues {
       # note taking with markdown
       inherit (pkgs) zk;
@@ -57,7 +58,7 @@ in
       };
 
       tool = {
-        editor = "nvim";
+        inherit (defaults) editor;
         pager = "bat";
 
         # Command used to preview a note during interactive fzf mode.

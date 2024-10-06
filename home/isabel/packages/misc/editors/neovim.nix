@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = osConfig.garden.programs.agnostic.editors.neovim;
+  cfg = osConfig.garden.programs.neovim;
 in
 {
   home.packages = lib.lists.optionals cfg.enable [ inputs'.izvim.packages.default ];
