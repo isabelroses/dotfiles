@@ -17,8 +17,8 @@ let
   # stole this from https://git.winston.sh/winston/deployment-flake/src/branch/main/config/services/gitea.nix who
   # stole it from https://github.com/getchoo
   theme = pkgs.fetchzip {
-    url = "https://github.com/catppuccin/gitea/releases/download/v0.4.1/catppuccin-gitea.tar.gz";
-    hash = "sha256-14XqO1ZhhPS7VDBSzqW55kh6n5cFZGZmvRCtMEh8JPI=";
+    url = "https://github.com/catppuccin/gitea/releases/download/v1.0.0/catppuccin-gitea.tar.gz";
+    hash = "sha256-UsYJJ1j9erMih4OlFon604g1LvkZI/UiLgMgdvnyvyA=";
     stripRoot = false;
   };
 in
