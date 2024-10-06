@@ -5,13 +5,12 @@
   ...
 }:
 let
-  inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.programs) mkProgram;
   inherit (lib.types) str;
+  inherit (lib.programs) mkProgram;
+  inherit (lib.options) mkOption mkEnableOption;
 in
 {
   options.garden.programs = {
-    wine = mkProgram pkgs "wine" { };
     zathura = mkProgram pkgs "zathura" { };
 
     discord = mkProgram pkgs "discord" {

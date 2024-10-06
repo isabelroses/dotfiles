@@ -6,6 +6,7 @@
   ...
 }:
 let
+  inherit (lib.options) mkPackageOption mkEnableOption;
   inherit (lib.programs) mkProgram;
 in
 {
@@ -15,8 +16,10 @@ in
       package.default = inputs'.beapkgs.packages.wezterm;
     };
 
-    ghostty = mkProgram pkgs "ghostty" {
-      package.default = inputs'.ghostty.packages.default;
+    # ghosty errors if we use mkProgram since the package is not in the nixpkgs
+    ghostty = {
+      enable = mkEnableOption "ghostty";
+      package = mkPackageOption inputs'.ghostty.packages "ghostty" { };
     };
 
     kitty = mkProgram pkgs "kitty" { };

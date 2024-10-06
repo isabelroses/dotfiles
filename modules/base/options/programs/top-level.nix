@@ -7,9 +7,6 @@ in
 {
   # these are options that will cause a mass rebuild by enabling multiple packages
   options.garden.programs = {
-    pentesting.enable = mkEnableOption "Enable packages designed for pentesting";
-    notes.enable = mkEnableOption "Enable note-taking programs";
-
     cli = {
       enable = mkEnableOption "Enable CLI programs" // {
         default = true;
@@ -22,5 +19,8 @@ in
     };
 
     gui.enable = mkEnableOption "Enable GUI programs";
+
+    pentesting.enable = mkEnableOption "Enable packages designed for pentesting";
+    notes.enable = mkEnableOption "Enable note-taking programs";
   };
 }

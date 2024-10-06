@@ -15,10 +15,10 @@ in
   config = mkIf cfg.gui.enable {
     home.packages =
       optionals cfg.cosmic-files.enable [ cfg.cosmic-files.package ]
-      ++ optionals cfg.nemo.enable attrValues {
+      ++ optionals cfg.nemo.enable (attrValues {
         inherit (cfg.nemo) package;
         inherit (pkgs) nemo-fileroller nemo-emblems;
-      }
+      })
       ++ optionals cfg.dolphin.enable [ cfg.dolphin.package ];
 
     xfconf.settings = mkIf cfg.thunar.enable {
