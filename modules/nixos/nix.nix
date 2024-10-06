@@ -24,8 +24,4 @@
       extra-platforms = config.boot.binfmt.emulatedSystems;
     };
   };
-
-  # disable nixos auto updating
-  # one of the dumbest things that exists
-  system.autoUpgrade.enable = false;
 }
