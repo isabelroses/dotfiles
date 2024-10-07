@@ -143,6 +143,36 @@ For the full list of templates you can look in the [templates](./parts/templates
 - Clone this repository to `~/.config/flake`
 - Run `sudo nixos-rebuild switch --flake ~/.config/flake#<host>`
 
+###### Dual boot
+
+If you would like to set up duel boot with Windows, you should consider enabling secure boot and to do so you should follow the [lanzaboote guide](https://github.com/nix-community/lanzaboote/blob/0bc127c631999c9555cae2b0cdad2128ff058259/docs/QUICK_START.md).
+
+1. Locate the Windows EFI partition
+
+```sh
+lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT
+```
+
+2. Mount the Windows EFI partition
+
+```sh
+sudo mkdir /mnt/winboot
+sudo mount /dev/nvme0n1p1 /mnt/winboot
+```
+
+3. Copy the Windows EFI files to the NixOS EFI partition
+
+```sh
+sudo rsync -av /mnt/winboot/EFI/Microsoft/ /boot/EFI/Microsoft/
+```
+
+4. Finally, clean up
+
+```sh
+sudo umount /mnt/winboot
+sudo rmdir /mnt/winboot
+```
+
 ##### macOS
 
 - Install [Lix](https://lix.systems/install/) the package manager
