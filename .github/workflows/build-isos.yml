@@ -37,7 +37,7 @@ jobs:
           EOF
 
       - name: Install Just
-        uses: extractions/setup-just@v1
+        uses: extractions/setup-just@v2
 
       - name: Install Lix
         uses: DeterminateSystems/nix-installer-action@main
