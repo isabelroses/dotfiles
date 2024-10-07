@@ -179,10 +179,8 @@ sudo rmdir /mnt/winboot
   > `curl -sSf -L https://install.lix.systems/lix | sh -s -- install`
 - Install [homebrew](https://brew.sh/)
   > `curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash`
-- Exclude nix from time machine backups
-  > `sudo tmutil addexclusion -v /nix`
-- `nix run --extra-experimental-features 'nix-command flakes' nix-darwin -- switch --flake ~/.config/flake#<host>`
-- Then good news you can use the `switch` alias that exists for the future
+- `nix run github:LnL7/nix-darwin -- switch --flake ~/.config/flake#<host>`
+- Then good news you can use `just switch` in the future
 - Uninstall the nix you originally installed
   > `sudo -i nix-env --uninstall nix`
 
