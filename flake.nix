@@ -164,6 +164,18 @@
       };
     };
 
+    homebrew = {
+      type = "github";
+      owner = "zhaofengli";
+      repo = "nix-homebrew";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix-darwin.follows = "darwin";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
     # my own wm
     comfywm = {
       url = "git+ssh://git@git.isabelroses.com:2222/isabel/comfywm";

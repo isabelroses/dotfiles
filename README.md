@@ -177,8 +177,6 @@ sudo rmdir /mnt/winboot
 
 - Install [Lix](https://lix.systems/install/) the package manager
   > `curl -sSf -L https://install.lix.systems/lix | sh -s -- install`
-- Install [homebrew](https://brew.sh/)
-  > `curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash`
 - `nix run github:LnL7/nix-darwin -- switch --flake ~/.config/flake#<host>`
 - Then good news you can use `just switch` in the future
 - Uninstall the nix you originally installed
