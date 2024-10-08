@@ -183,11 +183,22 @@ sudo rmdir /mnt/winboot
 ##### macOS
 
 1. Install [Lix](https://lix.systems/install/) the package manager
-   > `curl -sSf -L https://install.lix.systems/lix | sh -s -- install`
-2. `nix run github:LnL7/nix-darwin -- switch --flake ~/.config/flake#<host>`
-3. Then good news you can use `just switch` in the future
-4. Uninstall the nix you originally installed
-   > `sudo -i nix-env --uninstall lix`
+
+```sh
+curl -sSf -L https://install.lix.systems/lix | sh -s -- install
+```
+
+2. We shall then enter a nix development shell in order to get git and other required tools
+
+```sh
+nix develop
+```
+
+3. Now we need to switch to the configuration, remember to replace `<host>` with the system you are configuring
+
+```sh
+just provision <host>
+```
 
 #### Small bits
 

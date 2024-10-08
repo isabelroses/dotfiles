@@ -2,6 +2,19 @@
 default:
   @just --list --unsorted
 
+# setup our nixos and darwin builder
+[private]
+[group('rebuild')]
+builder goal *args:
+  nh os {{goal}} -- {{args}}
+
+# we have this setup incase i ever want to go back and use the old stuff
+[private]
+[linux]
+[group('rebuild')]
+classic goal *args:
+  sudo nixos-rebuild {{goal}} --flake . {{args}} |& nom
+
 # rebuild the boot
 [group('rebuild')]
 boot *args: (builder "boot" args)
@@ -13,6 +26,13 @@ test *args: (builder "test" args)
 # switch the new system configuration
 [group('rebuild')]
 switch *args: (builder "switch" args)
+
+[group('rebuild')]
+[macos]
+provision host:
+  nix run github:LnL7/nix-darwin -- switch --flake .#{{host}}
+  sudo -i nix-env --uninstall lix # we need to remove the none declarative install of lix
+
 
 # build the package, you must specify the package you want to build
 [group('package')]
@@ -28,6 +48,7 @@ iso image: (build "nixosConfigurations." + image + ".config.system.build.isoImag
 tar host:
   sudo nix run .#nixosConfigurations.{{host}}.config.system.build.tarballBuilder
 
+
 [private]
 verify *args:
   nix-store --verify {{args}}
@@ -39,7 +60,6 @@ repair: (verify "--check-contents --repair")
 # clean the nix store and optimise it
 [group('dev')]
 clean:
-  @sudo true
   nix-collect-garbage --delete-older-than 3d
   nix store optimise
 
@@ -52,14 +72,3 @@ check:
 [group('dev')]
 update *input:
   nix flake update {{input}} --refresh
-
-# setup our nixos and darwin builder
-[private]
-builder goal *args:
-  nh os {{goal}} -- {{args}}
-
-# we have this setup incase i ever want to go back and use the old stuff
-[private]
-[linux]
-classic goal *args:
-  sudo nixos-rebuild {{goal}} --flake . {{args}} |& nom
