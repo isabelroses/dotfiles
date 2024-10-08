@@ -24,7 +24,7 @@
       ghostty.enable = true;
       wezterm.enable = true;
       discord.enable = false;
-      git.signingKey = "5A87C993E20D89A1";
+      git.signingKey = "3E7C7A1B5DEDBB03";
     };
   };
 }
