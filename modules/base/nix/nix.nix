@@ -12,7 +12,7 @@ let
 
   flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;
 
-  sudoers = ldTernary pkgs "@wheel" "@staff";
+  sudoers = ldTernary pkgs "@wheel" "@admin";
 in
 {
   nix = {
