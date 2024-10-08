@@ -42,13 +42,15 @@
   - [Shortcuts](#shortcuts)
   - [Installation Notes](#installation-notes)
     - [NixOS](#nixos)
+      - [Dual boot](#dual-boot)
     - [macOS](#macos)
   - [Small bits](#small-bits)
 - [Additional notes](#additional-notes)
   - [Resources](#resources)
   - [Projects / Configurations](#projects-configurations)
   - [People](#people)
-  <!--toc:end-->
+
+<!--toc:end-->
 
 ### Foreword
 
@@ -136,12 +138,17 @@ For the full list of templates you can look in the [templates](./parts/templates
 
 ##### NixOS
 
-- Install [NixOS](https://nixos.org/download), you might need to follow the [manual](https://nixos.org/manual/nixos/stable/index.html#sec-installation)
-  You might want to use the [lilith iso configuration](./systems/lilith/), provided in this repository
-  - To build it you can run `nix build .#images.lilith`.
-  - Or you can download it from the [release page](https://github.com/isabelroses/dotfiles/releases/latest).
-- Clone this repository to `~/.config/flake`
-- Run `sudo nixos-rebuild switch --flake ~/.config/flake#<host>`
+You might want to use the [lilith iso configuration](./systems/lilith/), provided in this repository
+
+- To build it you can run `nix build .#images.lilith`.
+- Or you can download it from the [release page](https://github.com/isabelroses/dotfiles/releases/latest).
+
+If you opted to use the lilith iso image, you can use the `iznix-install` script to install it on your system.
+Otherwise, you can follow the steps below.
+
+1. Install [NixOS](https://nixos.org/download), you might need to follow the [manual](https://nixos.org/manual/nixos/stable/index.html#sec-installation)
+2. Clone this repository to `~/.config/flake`
+3. Run `sudo nixos-rebuild switch --flake ~/.config/flake#<host>`
 
 ###### Dual boot
 
@@ -175,12 +182,12 @@ sudo rmdir /mnt/winboot
 
 ##### macOS
 
-- Install [Lix](https://lix.systems/install/) the package manager
-  > `curl -sSf -L https://install.lix.systems/lix | sh -s -- install`
-- `nix run github:LnL7/nix-darwin -- switch --flake ~/.config/flake#<host>`
-- Then good news you can use `just switch` in the future
-- Uninstall the nix you originally installed
-  > `sudo -i nix-env --uninstall nix`
+1. Install [Lix](https://lix.systems/install/) the package manager
+   > `curl -sSf -L https://install.lix.systems/lix | sh -s -- install`
+2. `nix run github:LnL7/nix-darwin -- switch --flake ~/.config/flake#<host>`
+3. Then good news you can use `just switch` in the future
+4. Uninstall the nix you originally installed
+   > `sudo -i nix-env --uninstall lix`
 
 #### Small bits
 
