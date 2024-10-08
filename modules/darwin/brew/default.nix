@@ -72,6 +72,8 @@
       # For details, see https://github.com/mas-cli/mas
       masApps = { };
 
+      # if we don't do this nix-darwin may attempt to remove our taps
+      # even when they are managed by nix-homebrew
       taps = builtins.attrNames config.nix-homebrew.taps;
 
       # `brew install`
