@@ -2,7 +2,6 @@
 {
   programs.gh = {
     enable = true;
-    gitCredentialHelper.enable = true;
 
     extensions = builtins.attrValues {
       inherit (pkgs)
