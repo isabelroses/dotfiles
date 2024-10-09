@@ -401,11 +401,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728164875,
-        "narHash": "sha256-XfS+Xo24KyOy8+PedYatAL04Z2HyHsmWvNfNjZCST0M=",
+        "lastModified": 1728461413,
+        "narHash": "sha256-UOj0uiMuxG0u/eGwGZisC1z8S5JrJpreUCEvFO/jKZk=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "fc9e9ec2ec49961f2c085755556df0f982cedb01",
+        "rev": "7d158b79399a96983cc144edeed8079ea8cd47eb",
         "type": "github"
       },
       "original": {
@@ -491,8 +491,8 @@
       },
       "original": {
         "owner": "nekowinston",
-        "ref": "feat/more-plugin-spec-fields",
         "repo": "neovim.nix",
+        "rev": "36761e2fcd5e81fa3b39cb72d9fbcb92098edad8",
         "type": "github"
       }
     },
