@@ -1,5 +1,9 @@
 {
   system.defaults = {
+    # stop asking me if I'm sure I want to open an app downloaded from the internet
+    # I know i downloaded it, I'm sure
+    LaunchServices.LSQuarantine = false;
+
     NSGlobalDomain = {
       # disable auto capitalization
       NSAutomaticCapitalizationEnabled = false;
