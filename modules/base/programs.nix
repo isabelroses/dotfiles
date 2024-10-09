@@ -18,7 +18,7 @@ in
   # home-manager is so strange and needs these declared multiple times
   programs = {
     fish.enable = true;
-    zsh.enable = true;
+    zsh.enable = pkgs.stdenv.hostPlatform.isDarwin;
 
     bash = ldTernary pkgs { promptInit = bashPrompt; } { interactiveShellInit = bashPrompt; };
   };

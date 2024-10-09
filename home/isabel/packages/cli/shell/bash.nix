@@ -7,7 +7,7 @@
 {
   programs.bash = {
     enable = true;
-    # completion.enable = true;
+    enableCompletion = true;
 
     historyFile = "${config.xdg.stateHome}/bash/history";
     historyFileSize = 1000;
