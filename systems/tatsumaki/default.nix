@@ -7,7 +7,7 @@
     };
 
     environment = {
-      desktop = "yabai";
+      desktop = null;
       useHomeManager = true;
     };
 
