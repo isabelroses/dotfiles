@@ -72,6 +72,12 @@ in
         owner = mainUser;
         group = userGroup;
       };
+      uni-central = mkSecretWithPath {
+        file = "uni/central";
+        path = sshDir + "/uni-central";
+        owner = mainUser;
+        group = userGroup;
+      };
 
       # ORACLE vps'
       keys-openvpn = mkSecret {

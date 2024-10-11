@@ -33,6 +33,7 @@ in
 
   "uni/gitconf.age" = defAccess types.workstations;
   "uni/ssh.age" = defAccess types.workstations;
+  "uni/central.age" = defAccess types.workstations;
 
   # All nixos machines
   "keys/nixos.age" = defAccess (types.workstations ++ types.servers);
