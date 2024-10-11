@@ -54,17 +54,18 @@
 
 ### Foreword
 
-This repository contains my **personal** configuration for my systems. Its really important that you know it's **personal** and not everything will fit your needs or even work out of the box for you without some changes.
+This repository contains my **personal** configuration for my systems, so its really important that you know it's **personal** and not everything will fit your needs. 
+Therefore most things will not work out of the box without some changes, so be warned!!!!
 
 > [!WARNING]
-> It's also significant to note that this configuration will **not** work if you do not change any of the [secrets](./secrets) since they are encrypted.
+> Also to note that this configuration will **not** work if you do not change any of the [secrets](./secrets) since they are encrypted.
 
 > [!TIP]
 > You can find some cool blogs and people at the bottom of this file, or [click here](#additional-notes)
 
 ### What does this repo provided
 
-- Several applications and tools for the same purpose, so you can choose the one that best suits your needs
+- Several applications and tools for my needs, but you can choose the one that best suits your needs
   - `neovim`, `micro` and `vscode` for text editing
   - `firefox` and `chromium` for web browsing
   - `alacritty`, `kitty` and `wezterm` for terminal emulators
@@ -99,7 +100,7 @@ This repository contains my **personal** configuration for my systems. Its reall
     - [meta](./modules/profiles/meta) Optimized configurations for different natures (e.g., headless, graphical)
 
 > [!TIP]
-> If you were looking for my custom modules or packages you should direct yourself to [isabelroses/beapkgs](https://github.com/isabelroses/beapkgs). Since there are remote modules and not all of them are clearly remote modules, it is worth looking through the [beapkgs docs](https://isabelroses.github.io/beapkgs/).
+> When looking for my custom modules or packages you should direct yourself to [isabelroses/beapkgs](https://github.com/isabelroses/beapkgs). If you are specifically looking for remote modules (sometimes not clearly labelled), it is worth looking through the [beapkgs docs](https://isabelroses.github.io/beapkgs/).
 
 ### Usage Notes
 
@@ -152,7 +153,8 @@ Otherwise, you can follow the steps below.
 
 ###### Dual boot
 
-If you would like to set up duel boot with Windows, you should consider enabling secure boot and to do so you should follow the [lanzaboote guide](https://github.com/nix-community/lanzaboote/blob/0bc127c631999c9555cae2b0cdad2128ff058259/docs/QUICK_START.md).
+If you would like to set up duel boot with Windows, you should consider enabling secure boot. 
+To do so you should follow the [lanzaboote guide](https://github.com/nix-community/lanzaboote/blob/0bc127c631999c9555cae2b0cdad2128ff058259/docs/QUICK_START.md).
 
 1. Locate the Windows EFI partition
 
@@ -188,7 +190,7 @@ sudo rmdir /mnt/winboot
 curl -sSf -L https://install.lix.systems/lix | sh -s -- install
 ```
 
-2. We shall then enter a nix development shell in order to get git and other required tools
+2. Then enter a nix development shell in order to use git and other required tools
 
 ```sh
 nix develop
