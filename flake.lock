@@ -401,11 +401,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728577619,
-        "narHash": "sha256-zlkA+SzUIOGtzAkxwcZgbKDugB9ZiPMJC0uW+TKTIW8=",
+        "lastModified": 1728939235,
+        "narHash": "sha256-jVbOfswWZWYhkilf1CldDe/xg4gIwrSt2p82VDRqKyQ=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "ad1700678214bdc22651a7e9237e274723b8597c",
+        "rev": "5bc4ab03ba980cd1e49882f7256525c5c8b72899",
         "type": "github"
       },
       "original": {
@@ -480,17 +480,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1725205441,
+        "lastModified": 1726122135,
         "narHash": "sha256-go26fmPdyBgwzHMostxKFAg23HekfD/L/U2Fnl00JN8=",
-        "owner": "nekowinston",
+        "owner": "willruggiano",
         "repo": "neovim.nix",
-        "rev": "36761e2fcd5e81fa3b39cb72d9fbcb92098edad8",
+        "rev": "867d08bf296925a35a217f1d90975d0522142b9c",
         "type": "github"
       },
       "original": {
-        "owner": "nekowinston",
+        "owner": "willruggiano",
         "repo": "neovim.nix",
-        "rev": "36761e2fcd5e81fa3b39cb72d9fbcb92098edad8",
         "type": "github"
       }
     },
