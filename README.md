@@ -54,7 +54,7 @@
 
 ### Foreword
 
-This repository contains my **personal** configuration for my systems, so its really important that you know it's **personal** and not everything will fit your needs. 
+This repository contains my **personal** configuration for my systems, so its really important that you know it's **personal** and not everything will fit your needs.
 Therefore most things will not work out of the box without some changes, so be warned!!!!
 
 > [!WARNING]
@@ -153,7 +153,7 @@ Otherwise, you can follow the steps below.
 
 ###### Dual boot
 
-If you would like to set up duel boot with Windows, you should consider enabling secure boot. 
+If you would like to set up duel boot with Windows, you should consider enabling secure boot.
 To do so you should follow the [lanzaboote guide](https://github.com/nix-community/lanzaboote/blob/0bc127c631999c9555cae2b0cdad2128ff058259/docs/QUICK_START.md).
 
 1. Locate the Windows EFI partition
