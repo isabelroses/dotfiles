@@ -6,16 +6,29 @@
   ...
 }:
 let
-  cfg = osConfig.garden.programs.neovim;
+  inherit (lib.lists) optional;
+  inherit (lib.meta) getExe;
+
+  nvim = inputs'.izvim.packages.default;
+
+  prgs = osConfig.garden.programs;
+  cfg = prgs.neovim;
 in
 {
-  home.packages = lib.lists.optionals cfg.enable [
-    inputs'.izvim.packages.default
-    pkgs.neovide
-  ];
+  home.packages =
+    optional cfg.enable nvim
+    ++ optional prgs.gui.enable (
+      pkgs.symlinkJoin {
+        paths = [ pkgs.neovide ];
+        nativeBuildInputs = [ pkgs.makeWrapper ];
 
-  xdg.configFile."neovide/config.toml".text = ''
-    frame = none
-    title-hidden = true
-  '';
+        postBuild = ''
+          wrapProgram $out/bin/neovide \
+            --add-flags '--frame' \
+            --add-flags 'none' \
+            --add-flags '--neovim-bin' \
+            --add-flags '${getExe nvim}'
+        '';
+      }
+    );
 }
