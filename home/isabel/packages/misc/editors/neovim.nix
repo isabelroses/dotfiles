@@ -19,6 +19,7 @@ in
     optional cfg.enable nvim
     ++ optional prgs.gui.enable (
       pkgs.symlinkJoin {
+        name = "neovide-wrapped";
         paths = [ pkgs.neovide ];
         nativeBuildInputs = [ pkgs.makeWrapper ];
 
