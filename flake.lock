@@ -388,11 +388,6 @@
         "beapkgs": [
           "beapkgs"
         ],
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "git-hooks": [],
-        "neovim-nix": "neovim-nix",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -401,11 +396,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728942832,
-        "narHash": "sha256-i4YXZAynUP2TICPFLMb7615dBn7+sFTxrsqxvpjFssw=",
+        "lastModified": 1729020110,
+        "narHash": "sha256-/jCo4wUpz+uo7IKNjeBzTMbrOtKFGs32ndkqMpah9ws=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "e1806b813e6816b0dd60aa321bf20c19f4c7b476",
+        "rev": "e89412640748370cf3bf21b1351f35efad351848",
         "type": "github"
       },
       "original": {
@@ -459,38 +454,6 @@
       "original": {
         "type": "tarball",
         "url": "https://git.lix.systems/lix-project/lix/archive/main.tar.gz"
-      }
-    },
-    "neovim-nix": {
-      "inputs": {
-        "example": [
-          "izvim"
-        ],
-        "flake-parts": [
-          "izvim",
-          "flake-parts"
-        ],
-        "git-hooks": [
-          "izvim",
-          "git-hooks"
-        ],
-        "nixpkgs": [
-          "izvim",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1726122135,
-        "narHash": "sha256-go26fmPdyBgwzHMostxKFAg23HekfD/L/U2Fnl00JN8=",
-        "owner": "willruggiano",
-        "repo": "neovim.nix",
-        "rev": "867d08bf296925a35a217f1d90975d0522142b9c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "willruggiano",
-        "repo": "neovim.nix",
-        "type": "github"
       }
     },
     "nix-index-db": {

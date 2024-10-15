@@ -253,9 +253,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
-        flake-parts.follows = "flake-parts";
         beapkgs.follows = "beapkgs";
-        git-hooks.follows = "";
       };
     };
 
