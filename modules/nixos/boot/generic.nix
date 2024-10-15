@@ -207,7 +207,7 @@ in
         ]
         ++ optionals cfg.silentBoot [
           # tell the kernel to not be verbose, the voices are too loud
-          "quite"
+          "quiet"
 
           # kernel log message level
           "loglevel=3" # 1: system is unusable | 3: error condition | 7: very verbose
