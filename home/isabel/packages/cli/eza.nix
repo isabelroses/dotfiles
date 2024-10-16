@@ -11,7 +11,7 @@ in
 {
   programs.eza = mkIf (isModernShell osConfig) {
     enable = true;
-    icons = true;
+    icons = "auto";
 
     enableBashIntegration = config.programs.bash.enable;
     enableFishIntegration = config.programs.fish.enable;
