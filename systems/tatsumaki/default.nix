@@ -20,9 +20,13 @@
       gui.enable = false;
       notes.enable = true;
 
-      neovim.enable = true;
+      neovim = {
+        enable = true;
+        gui.enable = true;
+      };
+
       ghostty.enable = true;
-      wezterm.enable = true;
+      wezterm.enable = false;
       discord.enable = false;
       git.signingKey = "3E7C7A1B5DEDBB03";
     };

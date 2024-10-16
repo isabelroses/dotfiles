@@ -1,7 +1,6 @@
 { lib }:
 let
-  inherit (lib.options) mkEnableOption mkPackageOption mkOption;
-  inherit (lib.types) either str listOf;
+  inherit (lib.options) mkEnableOption mkPackageOption;
   inherit (lib.attrsets) recursiveUpdate;
 
   mkProgram =
@@ -9,10 +8,6 @@ let
     recursiveUpdate {
       enable = mkEnableOption "Enable ${name}";
       package = mkPackageOption pkgs name { };
-      args = mkOption {
-        type = either str (listOf str);
-        default = [ ];
-      };
     } extraConfig;
 in
 {
