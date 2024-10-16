@@ -24,25 +24,25 @@
       # to truly be declarative, we need to specify the exact revision of homebrew-core
       #
       # you can run the following command to get the latest rev and hash of homebrew-core
-      # nix-prefetch-github -- homebrew homebrew-core --nix
+      # nix-prefetch-github homebrew homebrew-core --nix
       taps = {
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "a90ad4a0000c75a8eefa306dc6417ea2d81b77a0";
-          hash = "sha256-OXuhuiBvbX4D3qlrdhfFTJQvj0hpkWIDRBYcJdgpoH0=";
+          rev = "6545fc1daaf4cf2a4953788ff6dc532e5318834f";
+          hash = "sha256-34dp9D/SySLexrWutYIOyUtB0bEvFGPOCqQpOjPSAxg=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "62dc67620117556a71fc5c2cfaccc677cf48c2b2";
-          hash = "sha256-dHFn19b3PJ7BiF6tiK3M9bCC7wNOuWYA7kxO5BoCD48=";
+          rev = "d7ec195d20a22dab9386365051ed8d93009e85df";
+          hash = "sha256-dCOcKgr87Z3zLuI3iwtnksEIuQtQoSpSkhLoOJf0gTU=";
         };
         "homebrew/homebrew-bundle" = pkgs.fetchFromGitHub {
-          owner = "Homebrew";
+          owner = "homebrew";
           repo = "homebrew-bundle";
-          rev = "61fa8774077c9f807639ca2cdc340a0bc3c65964";
-          hash = "sha256-UUExG70b1gGlSz06jlvck6au2STfcgPb5eOK79JABxI=";
+          rev = "19b9c3392b105a54e9cbcd285a9f4c6d1f4415c5";
+          hash = "sha256-v3CqwHyAOl+kint23CKHNOp8an9VTiWWEypS9k023D8=";
         };
       };
     };
