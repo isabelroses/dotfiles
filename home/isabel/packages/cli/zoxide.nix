@@ -15,5 +15,7 @@ in
     enableFishIntegration = config.programs.fish.enable;
     enableZshIntegration = config.programs.zsh.enable;
     enableNushellIntegration = config.programs.nushell.enable;
+
+    options = [ "--cmd cd" ];
   };
 }
