@@ -26,7 +26,6 @@ in
 
     git = mkProgram pkgs "git" {
       enable.default = config.garden.programs.cli.enable;
-      package.default = pkgs.gitFull;
 
       signingKey = mkOption {
         type = str;
