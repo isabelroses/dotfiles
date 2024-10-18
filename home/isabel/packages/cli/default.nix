@@ -1,7 +1,6 @@
 {
   imports = [
     # package list
-    ./scripts
     ./shared.nix
     ./desktop.nix
     ./wayland.nix
