@@ -81,11 +81,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1729039243,
-        "narHash": "sha256-nVZb/InPpBo9JqyOhPWeunaSlUUPA8LUqJ9SiH7jfIs=",
+        "lastModified": 1729212111,
+        "narHash": "sha256-yaSPGo0AM3d1Fc4ZvJoFDHYWFSL8n6Flf3yQOW3Db/U=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "83bf4e2d0b5330fe42682a6b4b03a2939b97d2eb",
+        "rev": "aa408e7444554cb55166bb3a21db115883c09269",
         "type": "github"
       },
       "original": {
@@ -273,11 +273,11 @@
         "zig": []
       },
       "locked": {
-        "lastModified": 1729085059,
-        "narHash": "sha256-PcAXbmf4OGIBH0O6vK/827lnWwC4N41kMt+dHi7VpOk=",
+        "lastModified": 1729209698,
+        "narHash": "sha256-oO0wYC689BqYF01bnUqT3QoLwaJO7KYQN+y/sZIssig=",
         "ref": "refs/heads/main",
-        "rev": "7b668d3dc1cd78e4600c9ed5de0027329fb4d098",
-        "revCount": 7724,
+        "rev": "d83fce794ff5195968f4fc832493c025931f81a3",
+        "revCount": 7728,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -337,11 +337,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1729027341,
-        "narHash": "sha256-IqWD7bA9iJVifvJlB4vs2KUXVhN+d9lECWdNB4jJ0tE=",
+        "lastModified": 1729174520,
+        "narHash": "sha256-QxCAdgQdeIOaCiE0Sr23s9lD0+T1b/wuz5pSiGwNrCQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2a4fd1cfd8ed5648583dadef86966a8231024221",
+        "rev": "e78cbb20276f09c1802e62d2f77fc93ec32da268",
         "type": "github"
       },
       "original": {
@@ -439,11 +439,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1728951119,
-        "narHash": "sha256-vUBgL8zJBDyj2serxdEVbNqe6pBN4YgWwhtg3XP8mpQ=",
-        "rev": "f6077314fa6aff862758095bb55fe844e9162a1d",
+        "lastModified": 1729199869,
+        "narHash": "sha256-buAN+K/8zIPo6dmb984BNOzZzQlK9TBdKPYLbdwWWGM=",
+        "rev": "52b64662a4924741e465b9caed6b2b4f8539aced",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/f6077314fa6aff862758095bb55fe844e9162a1d.tar.gz?rev=f6077314fa6aff862758095bb55fe844e9162a1d"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/52b64662a4924741e465b9caed6b2b4f8539aced.tar.gz?rev=52b64662a4924741e465b9caed6b2b4f8539aced"
       },
       "original": {
         "type": "tarball",
@@ -481,11 +481,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1728905507,
-        "narHash": "sha256-wQ/K5S3GbgInO3Rtl1NPVHzwBCNmZA++NNQWSQCZqCU=",
+        "lastModified": 1729203674,
+        "narHash": "sha256-WKB5NhenAnCXLK4zb5+qXYaBdh6th1DrdUj599HwvCw=",
         "owner": "nix-community",
         "repo": "NixOS-WSL",
-        "rev": "66bbd8fb32b6bb513ec093323081747945bb5f08",
+        "rev": "c75a9a62b283c67f5805ea5fd65de994c45872bc",
         "type": "github"
       },
       "original": {
@@ -528,11 +528,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1728863046,
-        "narHash": "sha256-DZBO2465PL5V89e8hFSJewyH4QbCPpW3ssws7ckT/0A=",
+        "lastModified": 1728979988,
+        "narHash": "sha256-GBJRnbFLDg0y7ridWJHAP4Nn7oss50/VNgqoXaf/RVk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d4f247e89f6e10120f911e2e2d2254a050d0f732",
+        "rev": "7881fbfd2e3ed1dfa315fca889b2cfd94be39337",
         "type": "github"
       },
       "original": {
