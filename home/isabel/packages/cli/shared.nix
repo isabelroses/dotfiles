@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  self',
   osConfig,
   ...
 }:
@@ -20,6 +21,8 @@ in
           wakatime-cli
           nix-output-monitor # much nicer nix build output
           ;
+
+        inherit (self'.packages) scripts;
       }
       ++ optionals cfg.cli.modernShell.enable (
         builtins.attrValues {

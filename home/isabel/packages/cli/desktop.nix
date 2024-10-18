@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  self',
   osConfig,
   ...
 }:
@@ -27,8 +26,6 @@ in
         brightnessctl # brightness managed via cli
         # vhs # programmatically make gifs
         ;
-
-      inherit (self'.packages) scripts;
     };
   };
 }
