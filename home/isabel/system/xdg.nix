@@ -65,10 +65,7 @@ let
   template = lib.template.xdg;
 in
 {
-  home = {
-    packages = mkIf isLinux [ pkgs.xdg-utils ];
-    sessionVariables = mkForce template.sysEnv;
-  };
+  home.sessionVariables = mkForce template.sysEnv;
 
   xdg = {
     enable = true;
