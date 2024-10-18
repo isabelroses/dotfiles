@@ -142,27 +142,6 @@
         "type": "github"
       }
     },
-    "comfywm": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "rust-overlay": "rust-overlay"
-      },
-      "locked": {
-        "lastModified": 1723727209,
-        "narHash": "sha256-0SNgrpRxZESFHOlg5YyIUBV0OR1UmpTNuAj4OTKfpQg=",
-        "ref": "refs/heads/main",
-        "rev": "c90c9e9bd923f0d66fbea7ce5ffc38db099d5742",
-        "revCount": 29,
-        "type": "git",
-        "url": "ssh://git@git.isabelroses.com:2222/isabel/comfywm"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@git.isabelroses.com:2222/isabel/comfywm"
-      }
-    },
     "crane": {
       "locked": {
         "lastModified": 1728776144,
@@ -414,7 +393,7 @@
           "nixpkgs"
         ],
         "pre-commit-hooks-nix": [],
-        "rust-overlay": "rust-overlay_2"
+        "rust-overlay": "rust-overlay"
       },
       "locked": {
         "lastModified": 1729064530,
@@ -549,7 +528,6 @@
         "arkenfox": "arkenfox",
         "beapkgs": "beapkgs",
         "catppuccin": "catppuccin",
-        "comfywm": "comfywm",
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "flake-parts": "flake-parts",
@@ -571,27 +549,6 @@
       }
     },
     "rust-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "comfywm",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1723083652,
-        "narHash": "sha256-ait+SeO67n8b3lIaBWwuzVX6F1zyTJ0cY6cHWtvhTyc=",
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "rev": "69e0ad9289fc08ee5a313fb107f00e0f21e7cbb2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oxalica",
-        "repo": "rust-overlay",
-        "type": "github"
-      }
-    },
-    "rust-overlay_2": {
       "inputs": {
         "nixpkgs": [
           "lanzaboote",

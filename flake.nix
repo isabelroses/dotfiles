@@ -105,7 +105,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        # rust-overlay.follows = "comfywm/rust-overlay";
         pre-commit-hooks-nix.follows = "";
         flake-compat.follows = "";
       };
@@ -177,12 +176,12 @@
     };
 
     # my own wm
-    comfywm = {
-      url = "git+ssh://git@git.isabelroses.com:2222/isabel/comfywm";
-      # url = "path:/home/isabel/dev/comfywm";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # comfywm = {
+    #   url = "git+ssh://git@git.isabelroses.com:2222/isabel/comfywm";
+    #   # url = "path:/home/isabel/dev/comfywm";
+    #
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # ghostty a new terminal emulator
     ghostty = {
