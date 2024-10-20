@@ -57,26 +57,38 @@ in
         "net.ipv4.tcp_congestion_control" = "bbr";
         "net.core.default_qdisc" = "cake";
 
-        "net.core.optmem_max" = 65536;
-        "net.core.rmem_default" = 1048576;
-        "net.core.rmem_max" = 16777216;
         "net.core.somaxconn" = 8192;
-        "net.core.wmem_default" = 1048576;
-        "net.core.wmem_max" = 16777216;
         "net.ipv4.ip_local_port_range" = "16384 65535";
-        "net.ipv4.tcp_max_syn_backlog" = 8192;
-        "net.ipv4.tcp_max_tw_buckets" = 2000000;
         "net.ipv4.tcp_mtu_probing" = 1;
-        "net.ipv4.tcp_rmem" = "4096 1048576 2097152";
         "net.ipv4.tcp_slow_start_after_idle" = 0;
-        "net.ipv4.tcp_tw_reuse" = 1;
-        "net.ipv4.tcp_wmem" = "4096 65536 16777216";
-        "net.ipv4.udp_rmem_min" = 8192;
-        "net.ipv4.udp_wmem_min" = 8192;
         "net.netfilter.nf_conntrack_generic_timeout" = 60;
         "net.netfilter.nf_conntrack_max" = 1048576;
         "net.netfilter.nf_conntrack_tcp_timeout_established" = 600;
         "net.netfilter.nf_conntrack_tcp_timeout_time_wait" = 1;
+
+        # buffer limits: 32M max, 16M default
+        "net.core.rmem_max" = 33554432;
+        "net.core.wmem_max" = 33554432;
+        "net.core.rmem_default" = 16777216;
+        "net.core.wmem_default" = 16777216;
+        "net.core.optmem_max" = 40960;
+
+        # Increase the maximum memory used by the TCP stack
+        # https://blog.cloudflare.com/the-story-of-one-latency-spike/
+        "net.ipv4.tcp_mem" = "786432 1048576 26777216";
+        "net.ipv4.tcp_rmem" = "4096 1048576 2097152";
+        "net.ipv4.tcp_wmem" = "4096 65536 16777216";
+
+        # http://www.nateware.com/linux-network-tuning-for-2013.html
+        "net.core.netdev_max_backlog" = 100000;
+        "net.core.netdev_budget" = 100000;
+        "net.core.netdev_budget_usecs" = 100000;
+        "net.ipv4.tcp_max_syn_backlog" = 30000;
+        "net.ipv4.tcp_max_tw_buckets" = 2000000;
+        "net.ipv4.tcp_tw_reuse" = 1;
+        "net.ipv4.tcp_fin_timeout" = 10;
+        "net.ipv4.udp_rmem_min" = 8192;
+        "net.ipv4.udp_wmem_min" = 8192;
       };
     };
   };
