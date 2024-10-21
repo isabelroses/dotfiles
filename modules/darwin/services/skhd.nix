@@ -38,7 +38,7 @@ in
         shift + alt - f : yabai -m window --toggle native-fullscreen
 
         # open apps
-        cmd - return : open -na "$HOME/Applications/Home Manager Apps/WezTerm.app"
+        cmd - return : open -na /Applications/Ghostty.app
         cmd - b : open -na "Arc"
         cmd - e : open -na "Finder"
 
