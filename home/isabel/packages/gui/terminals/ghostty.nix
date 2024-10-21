@@ -15,8 +15,6 @@ in
     home.packages = optional pkgs.stdenv.hostPlatform.isLinux cfg.package;
 
     xdg.configFile."ghostty/config".text = ''
-      shell-integration = none
-
       command = /etc/profiles/per-user/isabel/bin/fish --login
 
       theme = catppuccin-mocha
