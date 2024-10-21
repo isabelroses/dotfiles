@@ -17,8 +17,8 @@ in
 
       # Needed by the Hetzner Cloud password reset feature
       qemuGuest.enable = true;
-      qemu-guest-agent.path = [ pkgs.shadow ];
     };
+    systemd.services.qemu-guest-agent.path = [ pkgs.shadow ];
 
     system.stateVersion = mkForce "23.11";
 
