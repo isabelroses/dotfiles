@@ -4,5 +4,6 @@
     ./logs.nix
     ./monitoring.nix
     ./oomd.nix
+    ./serial.nix
   ];
 }
