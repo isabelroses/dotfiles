@@ -47,6 +47,9 @@ in
         passwordSaltFile = config.age.secrets.wakapi.path;
         smtpPasswordFile = config.age.secrets.wakapi-mailer.path;
 
+        # setup out postgresql database
+        database.createLocally = true;
+
         settings = {
           app.avatar_url_template = "https://www.gravatar.com/avatar/{email_hash}.png";
 
@@ -58,7 +61,7 @@ in
           db = {
             dialect = "postgres";
             host = "/run/postgresql";
-            port = 5432;
+            port = 5432; # this needs to be set otherwise the service will fail
             name = "wakapi";
             user = "wakapi";
           };
