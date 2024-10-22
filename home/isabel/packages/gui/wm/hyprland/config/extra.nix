@@ -1,9 +1,8 @@
 { lib, osConfig, ... }:
 let
   inherit (lib.lists) imap0;
-  inherit (lib.strings) optionalString;
+  inherit (lib.strings) optionalString concatLines;
   inherit (builtins)
-    concatStringsSep
     genList
     elemAt
     length
@@ -14,7 +13,7 @@ in
 {
   wayland.windowManager.hyprland.extraConfig =
     let
-      mapMonitors = concatStringsSep "\n" (
+      mapMonitors = concatLines (
         imap0 (
           i: monitor:
           ''monitor=${monitor},${
@@ -23,7 +22,7 @@ in
         ) monitors
       );
 
-      mapMonitorsToWs = concatStringsSep "\n" (
+      mapMonitorsToWs = concatLines (
         genList (x: ''
           workspace = ${toString (x + 1)}, monitor:${
             if (x + 1) <= 5 then

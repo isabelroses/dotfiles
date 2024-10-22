@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
   inherit (lib.modules) mkIf;
+  inherit (lib.strings) concatLines;
 in
 {
   # https://github.com/koekeishiya/yabai#requirements-and-caveats
@@ -38,12 +39,8 @@ in
     extraConfig =
       let
         rule = "yabai -m rule --add";
-        ignored =
-          app:
-          builtins.concatStringsSep "\n" (
-            map (e: ''${rule} app="${e}" manage=off sticky=off layer=above'') app
-          );
-        unmanaged = app: builtins.concatStringsSep "\n" (map (e: ''${rule} app="${e}" manage=off'') app);
+        ignored = app: concatLines (map (e: ''${rule} app="${e}" manage=off sticky=off layer=above'') app);
+        unmanaged = app: concatLines (map (e: ''${rule} app="${e}" manage=off'') app);
       in
       ''
         # auto-inject scripting additions
