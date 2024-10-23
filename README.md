@@ -251,3 +251,7 @@ Thanks to all these people otherwise this config and I would be lost.
 - [NotAShelf](https://github.com/notashelf), lots of valuable information
 - [Minion3665](https://github.com/Minion3665), for making me write better docs
 - [Thorn](https://git.avery.garden/thorn), picrewnix????
+
+And of course all those who star this repo!
+
+[![Star History Chart](https://api.star-history.com/svg?repos=isabelroses/dotfiles&type=Date)](https://star-history.com/#isabelroses/dotfiles&Date)
