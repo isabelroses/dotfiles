@@ -29,7 +29,11 @@
                 ./patches/lix-callpackage-cli.patch
 
                 # allow flakes to trivially eval to attrsets
+                # https://gerrit.lix.systems/c/lix/+/1209
                 ./patches/lix-flake-trivial-eval.patch
+
+                # https://gerrit.lix.systems/c/lix/+/2062
+                ./patches/lix-nix-shell-relative-args.patch
               ];
 
               # Kinda funny right

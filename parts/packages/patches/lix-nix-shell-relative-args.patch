@@ -1,0 +1,233 @@
+From 4b7f036e9af6340a86f617c75585212c77356be3 Mon Sep 17 00:00:00 2001
+From: KFears <kfearsoff@gmail.com>
+Date: Sun, 13 Oct 2024 03:19:25 +0400
+Subject: [PATCH] fix: nix-shell args are relative to script not cwd
+
+This is a backport of CppNix PR 11058
+
+Fixes #451
+
+Change-Id: I2a02d5dcb1ff5c496775d4d61c3367b2e8969deb
+---
+ doc/manual/change-authors.yml              |  5 ++++
+ doc/manual/rl-next/deprecated-features.md  |  1 +
+ doc/manual/rl-next/nix-shell-changes.md    | 27 ++++++++++++++++++++++
+ src/legacy/nix-build.cc                    |  8 ++++++-
+ src/libutil/deprecated-features.cc         | 11 ++++++++-
+ src/libutil/deprecated-features.hh         |  1 +
+ tests/functional/nix-shell.sh              | 21 +++++++++++++++++
+ tests/functional/shell.nix                 |  1 +
+ tests/functional/shell.shebang.expr        |  9 ++++++++
+ tests/functional/shell.shebang.legacy.expr | 10 ++++++++
+ 10 files changed, 92 insertions(+), 2 deletions(-)
+ create mode 100644 doc/manual/rl-next/nix-shell-changes.md
+ create mode 100755 tests/functional/shell.shebang.expr
+ create mode 100755 tests/functional/shell.shebang.legacy.expr
+
+diff --git a/doc/manual/change-authors.yml b/doc/manual/change-authors.yml
+index 60c0924c7..75cccc2c6 100644
+--- a/doc/manual/change-authors.yml
++++ b/doc/manual/change-authors.yml
+@@ -78,6 +78,11 @@ jade:
+   forgejo: jade
+   github: lf-
+ 
++kfears:
++  display_name: KFears
++  forgejo: kfearsoff
++  github: kfearsoff
++
+ kjeremy:
+   github: kjeremy
+ 
+diff --git a/doc/manual/rl-next/deprecated-features.md b/doc/manual/rl-next/deprecated-features.md
+index 97a660da2..fc29db798 100644
+--- a/doc/manual/rl-next/deprecated-features.md
++++ b/doc/manual/rl-next/deprecated-features.md
+@@ -2,6 +2,7 @@
+ synopsis: Deprecated language features
+ issues: [fj#437]
+ cls: [1785, 1736, 1735, 1744]
++prs: [11058]
+ category: Breaking Changes
+ credits: [piegames, horrors]
+ ---
+diff --git a/doc/manual/rl-next/nix-shell-changes.md b/doc/manual/rl-next/nix-shell-changes.md
+new file mode 100644
+index 000000000..27c68de0d
+--- /dev/null
++++ b/doc/manual/rl-next/nix-shell-changes.md
+@@ -0,0 +1,27 @@
++---
++synopsis: Changes to nix-shell
++issues: [fj#451]
++cls: [2062]
++prs: [11058]
++category: Breaking Changes
++credits: [roberth, kfears]
++---
++
++`nix-shell` shebang received a simple, but backwards-incompatible change. This is a fix of a long-standing issue,
++so the previous behaviour can be used with the `--extra-deprecated-features` flag.
++
++Let's consider a script like this in `~/foo/bar`:
++
++```shell
++#!/usr/bin/env nix-shell
++#!nix-shell --expr 'import ./shell.nix'
++#!nix-shell --arg toolset './greeting-tools.nix'
++#!nix-shell -i bash
++hello
++```
++
++When `nix-shell-shebang-arguments-relative-to-script` is set to `true` (default), `shell.nix` will be taken from `~/foo/bar/shell.nix`.
++
++When `nix-shell-shebang-arguments-relative-to-script` is set to `false` (such as when used with
++`--extra-deprecated-features nix-shell-shebang-arguments-relative-to-script`), or previous to this version, `shell.nix`
++will be taken from `~/shell.nix`.
+diff --git a/src/legacy/nix-build.cc b/src/legacy/nix-build.cc
+index eb9b6cd8d..aecaeeab7 100644
+--- a/src/legacy/nix-build.cc
++++ b/src/legacy/nix-build.cc
+@@ -9,6 +9,8 @@
+ 
+ #include <nlohmann/json.hpp>
+ 
++#include "config.hh"
++#include "deprecated-features.hh"
+ #include "parsed-derivations.hh"
+ #include "store-api.hh"
+ #include "local-fs-store.hh"
+@@ -242,8 +244,12 @@ static void main_nix_build(int argc, char * * argv)
+         exprs = {state->parseStdin()};
+     else
+         for (auto i : left) {
++            auto baseDir = inShebang && !packages ? absPath(dirOf(script)) : i;
+             if (fromArgs)
+-                exprs.push_back(state->parseExprFromString(std::move(i), state->rootPath(CanonPath::fromCwd())));
++                exprs.push_back(state->parseExprFromString(
++                    std::move(i),
++                    (inShebang && featureSettings.isEnabled(Dep::NixShellShebangArgumentsRelativeToScript)) ? lookupFileArg(*state, baseDir) : state->rootPath(CanonPath::fromCwd())
++                ));
+             else {
+                 auto absolute = i;
+                 try {
+diff --git a/src/libutil/deprecated-features.cc b/src/libutil/deprecated-features.cc
+index 4de4c8ec7..b4609e618 100644
+--- a/src/libutil/deprecated-features.cc
++++ b/src/libutil/deprecated-features.cc
+@@ -24,7 +24,7 @@ struct DeprecatedFeatureDetails
+  * feature, we either have no issue at all if few features are not added
+  * at the end of the list, or a proper merge conflict if they are.
+  */
+-constexpr size_t numDepFeatures = 1 + static_cast<size_t>(Dep::UrlLiterals);
++constexpr size_t numDepFeatures = 1 + static_cast<size_t>(Dep::NixShellShebangArgumentsRelativeToScript);
+ 
+ constexpr std::array<DeprecatedFeatureDetails, numDepFeatures> depFeatureDetails = {{
+     {
+@@ -52,6 +52,15 @@ constexpr std::array<DeprecatedFeatureDetails, numDepFeatures> depFeatureDetails
+             Allow unquoted URLs as part of the Nix language syntax.
+         )",
+     },
++    {
++        .tag = Dep::NixShellShebangArgumentsRelativeToScript,
++        .name = "nix-shell-shebang-arguments-relative-to-script",
++        .description = R"(
++            Resolve file path arguments for `nix-shell` shebangs relative to the current working directory.
++
++            Without this option set, files are resolved relative to the directory containing the script in question.
++        )",
++    },
+ }};
+ 
+ static_assert(
+diff --git a/src/libutil/deprecated-features.hh b/src/libutil/deprecated-features.hh
+index bdff1bcdb..1e9d08394 100644
+--- a/src/libutil/deprecated-features.hh
++++ b/src/libutil/deprecated-features.hh
+@@ -21,6 +21,7 @@ enum struct DeprecatedFeature
+     RecSetOverrides,
+     AncientLet,
+     UrlLiterals,
++    NixShellShebangArgumentsRelativeToScript,
+ };
+ 
+ enum struct DeprecatedFeatures {};
+diff --git a/tests/functional/nix-shell.sh b/tests/functional/nix-shell.sh
+index 04c83138e..7a27ddd56 100644
+--- a/tests/functional/nix-shell.sh
++++ b/tests/functional/nix-shell.sh
+@@ -59,6 +59,27 @@ chmod a+rx $TEST_ROOT/shell.shebang.sh
+ output=$($TEST_ROOT/shell.shebang.sh abc def)
+ [ "$output" = "foo bar abc def" ]
+ 
++# Test nix-shell shebang mode with an alternate working directory
++sed -e "s|@ENV_PROG@|$(type -P env)|" shell.shebang.expr > $TEST_ROOT/shell.shebang.expr
++chmod a+rx $TEST_ROOT/shell.shebang.expr
++# Should fail due to expressions using relative path
++! $TEST_ROOT/shell.shebang.expr bar
++cp shell.nix config.nix $TEST_ROOT
++# Should succeed
++echo "cwd: $PWD"
++output=$($TEST_ROOT/shell.shebang.expr bar)
++[ "$output" = foo ]
++
++# Test nix-shell shebang mode with an alternate working directory
++sed -e "s|@ENV_PROG@|$(type -P env)|" shell.shebang.legacy.expr > $TEST_ROOT/shell.shebang.legacy.expr
++chmod a+rx $TEST_ROOT/shell.shebang.legacy.expr
++# Should fail due to expressions using relative path
++mkdir -p "$TEST_ROOT/somewhere-unrelated"
++pushd "$TEST_ROOT/somewhere-unrelated"
++output="$TEST_ROOT/shell.shebang.legacy.expr bar"
++popd
++[[ $(realpath "$output") != $(realpath "$TEST_ROOT/somewhere-unrelated") ]]
++
+ # Test nix-shell shebang mode again with metacharacters in the filename.
+ # First word of filename is chosen to not match any file in the test root.
+ sed -e "s|@ENV_PROG@|$(type -P env)|" shell.shebang.sh > $TEST_ROOT/spaced\ \\\'\"shell.shebang.sh
+diff --git a/tests/functional/shell.nix b/tests/functional/shell.nix
+index 92d94fbc2..ad44aab68 100644
+--- a/tests/functional/shell.nix
++++ b/tests/functional/shell.nix
+@@ -51,6 +51,7 @@ let pkgs = rec {
+     ASCII_PERCENT = "%";
+     ASCII_AT = "@";
+     TEST_inNixShell = if inNixShell then "true" else "false";
++    FOO = fooContents;
+     inherit stdenv;
+     outputs = ["dev" "out"];
+   };
+diff --git a/tests/functional/shell.shebang.expr b/tests/functional/shell.shebang.expr
+new file mode 100755
+index 000000000..01b03d5dd
+--- /dev/null
++++ b/tests/functional/shell.shebang.expr
+@@ -0,0 +1,9 @@
++#! @ENV_PROG@ nix-shell
++#! nix-shell "{ script, path, ... }: assert path == ./shell.nix; script { }"
++#! nix-shell --no-substitute
++#! nix-shell --expr
++#! nix-shell --arg script "import ./shell.nix"
++#! nix-shell --arg path "./shell.nix"
++#! nix-shell -A shellDrv
++#! nix-shell -i bash
++echo "$FOO"
+diff --git a/tests/functional/shell.shebang.legacy.expr b/tests/functional/shell.shebang.legacy.expr
+new file mode 100755
+index 000000000..022de3cef
+--- /dev/null
++++ b/tests/functional/shell.shebang.legacy.expr
+@@ -0,0 +1,10 @@
++#! @ENV_PROG@ nix-shell
++#! nix-shell "{ script, path, ... }: assert path == ./shell.nix; script { fooContents = toString ./.; }"
++#! nix-shell --no-substitute
++#! nix-shell --expr
++#! nix-shell --arg script "import ((builtins.getEnv ''TEST_ROOT'')+''/shell.nix'')"
++#! nix-shell --arg path "./shell.nix"
++#! nix-shell -A shellDrv
++#! nix-shell -i bash
++#! nix-shell --extra-deprecated-features nix-shell-shebang-arguments-relative-to-script
++echo "$FOO"
+-- 
+2.46.1
+
