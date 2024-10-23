@@ -76,7 +76,6 @@ in
   "vaultwarden-env.age" = defAccess types.servers;
 
   "matrix/env.age" = defAccess types.servers;
-  "matrix/sync.age" = defAccess types.servers;
 
   # plausible
   "plausible/key.age" = defAccess types.servers;

@@ -18,7 +18,6 @@ let
   serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
   clientConfig = {
     "m.homeserver".base_url = "https://${cfg.domain}";
-    "org.matrix.msc3575.proxy".url = "https://matrix-sync.${rdomain}";
   };
 
   mkWellKnown = data: ''
@@ -37,16 +36,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets = {
-      matrix = mkSecret {
-        file = "matrix/env";
-        owner = "matrix-synapse";
-      };
-
-      matrix-sync = mkSecret {
-        file = "matrix/sync";
-        owner = "matrix-synapse";
-      };
+    age.secrets.matrix = mkSecret {
+      file = "matrix/env";
+      owner = "matrix-synapse";
     };
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
@@ -68,30 +60,15 @@ in
         '';
       };
 
-      nginx.virtualHosts = {
-        ${rdomain} = {
-          locations = {
-            "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
-            "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
-            "/_matrix".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
-            "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
-          };
-          serverAliases = [ "${cfg.domain}" ];
-        } // template.ssl rdomain;
-
-        "matrix-sync.${rdomain}" = {
-          locations."/".proxyPass = "http://[${bindAddress}]:8002";
-        } // template.ssl rdomain;
-      };
-
-      matrix-sliding-sync = {
-        enable = true;
-        environmentFile = config.age.secrets.matrix-sync.path;
-        settings = {
-          SYNCV3_BINDADDR = "[${bindAddress}]:8002";
-          SYNCV3_SERVER = "https://${rdomain}";
+      nginx.virtualHosts.${rdomain} = {
+        locations = {
+          "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
+          "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
+          "/_matrix".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
+          "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
         };
-      };
+        serverAliases = [ "${cfg.domain}" ];
+      } // template.ssl rdomain;
 
       matrix-synapse = {
         enable = true;
