@@ -60,6 +60,12 @@ repair: (verify "--check-contents --repair")
 # clean the nix store and optimise it
 [group('dev')]
 clean:
+  nh clean all -K 3d
+  nix store optimise
+
+[private]
+[group('dev')]
+oldclean:
   nix-collect-garbage --delete-older-than 3d
   nix store optimise
 
