@@ -35,6 +35,7 @@ in
             "zsh"
             "fish"
             "n?vim"
+            "akkoma"
           ];
           prefer = concatStringsSep "|" [
             "Web Content"
