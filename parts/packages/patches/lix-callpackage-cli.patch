@@ -1,7 +1,7 @@
-diff --git c/src/libcmd/command.hh i/src/libcmd/command.hh
+diff --git i/src/libcmd/command.hh w/src/libcmd/command.hh
 index 6c6c81718..f19f44225 100644
---- c/src/libcmd/command.hh
-+++ i/src/libcmd/command.hh
+--- i/src/libcmd/command.hh
++++ w/src/libcmd/command.hh
 @@ -115,6 +115,7 @@ struct SourceExprCommand : virtual Args, MixFlakeOptions
  {
      std::optional<Path> file;
@@ -10,10 +10,10 @@ index 6c6c81718..f19f44225 100644
  
      SourceExprCommand();
  
-diff --git c/src/libcmd/installables.cc i/src/libcmd/installables.cc
-index 711cf1b07..059318400 100644
---- c/src/libcmd/installables.cc
-+++ i/src/libcmd/installables.cc
+diff --git i/src/libcmd/installables.cc w/src/libcmd/installables.cc
+index b81d4e0fd..0c2529420 100644
+--- i/src/libcmd/installables.cc
++++ w/src/libcmd/installables.cc
 @@ -165,6 +165,19 @@ SourceExprCommand::SourceExprCommand()
          .labels = {"expr"},
          .handler = {&expr}
@@ -46,8 +46,8 @@ index 711cf1b07..059318400 100644
 +            throw UsageError("'--file', '--expr' and '--call-package' are exclusive");
  
          // FIXME: backward compatibility hack
--        if (file) evalSettings.pureEval = false;
-+        if (file || callPackageFile) evalSettings.pureEval = false;
+-        if (file) evalSettings.pureEval.override(false);
++        if (file || callPackageFile) evalSettings.pureEval.override(false);
  
          auto state = getEvalState();
          auto vFile = state->allocValue();
@@ -63,4 +63,3 @@ index 711cf1b07..059318400 100644
              auto & e = state->parseExprFromString(*expr, state->rootPath(CanonPath::fromCwd()));
              state->eval(e, *vFile);
          }
-
