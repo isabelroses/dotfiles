@@ -7,6 +7,7 @@
 }:
 let
   inherit (lib.programs) mkProgram;
+  inherit (lib.strings) optionalString;
   inherit (lib.meta) getExe;
 in
 {
@@ -29,10 +30,9 @@ in
 
           postBuild = ''
             wrapProgram $out/bin/neovide \
-              --add-flags '--frame' \
-              --add-flags 'none' \
               --add-flags '--neovim-bin' \
-              --add-flags '${getExe config.garden.programs.neovim.package}'
+              --add-flags '${getExe config.garden.programs.neovim.package}' \
+              ${optionalString pkgs.stdenv.hostPlatform.isLinux "--add-flags '--frame' --add-flags 'none'"}
           '';
         };
       };
