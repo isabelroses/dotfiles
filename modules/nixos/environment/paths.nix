@@ -7,7 +7,7 @@ in
 {
   # if a given shell is enabled, add the corresponding completion paths
   environment.pathsToLink =
-    optional (cfg.bash ? enable) "/share/bash-completion"
+    optional (if (cfg.bash ? enable) then cfg.bash.enable else false) "/share/bash-completion"
     ++ optional cfg.zsh.enable "/share/zsh"
     ++ optional cfg.fish.enable "/share/fish";
 }
