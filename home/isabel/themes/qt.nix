@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  config,
   osConfig,
   ...
 }:
@@ -21,29 +20,8 @@ in
     qt = {
       enable = true;
       platformTheme.name = "kvantum";
-      style = {
-        name = "kvantum";
-        # FIXME: remove when 24.11 is released
-        catppuccin.enable = false;
-      };
+      style.name = "kvantum";
     };
-
-    xdg.configFile =
-      let
-        inherit (config.catppuccin) accent;
-        variant = config.catppuccin.flavor;
-        theme = pkgs.catppuccin-kvantum.override { inherit accent variant; };
-        themeName = "catppuccin-${variant}-${accent}";
-      in
-      {
-        "Kvantum/${themeName}".source = "${theme}/share/Kvantum/${themeName}";
-        "Kvantum/kvantum.kvconfig" = {
-          text = ''
-            [General]
-            theme=${themeName}
-          '';
-        };
-      };
 
     home.sessionVariables = {
       # scaling - 1 means no scaling
