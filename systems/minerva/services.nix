@@ -16,7 +16,6 @@
     atuin.enable = true;
     forgejo.enable = true;
     wakapi.enable = true;
-    vscode-server.enable = false;
     plausible.enable = false;
 
     # social

@@ -69,7 +69,5 @@
 
       git.signingKey = "08A97B9A107A1798";
     };
-
-    services.vscode-server.enable = true;
   };
 }

@@ -202,19 +202,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ### Fixes
-    # remote ssh vscode server
-    vscode-server = {
-      type = "github";
-      owner = "nix-community";
-      repo = "nixos-vscode-server";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-      };
-    };
-
     ### misc
     # a index for nixpkgs
     nix-index-db = {
