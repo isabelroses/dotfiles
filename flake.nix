@@ -223,7 +223,6 @@
       type = "github";
       owner = "isabelroses";
       repo = "beapkgs";
-      # url = "git+file:/home/isabel/dev/beapkgs";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
