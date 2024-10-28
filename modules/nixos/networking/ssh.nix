@@ -12,7 +12,7 @@ in
     enable = true;
     startWhenNeeded = true;
 
-    allowSFTP = false;
+    allowSFTP = true;
 
     settings = {
       # Don't allow root  login
