@@ -33,7 +33,7 @@
                 ./patches/lix-flake-trivial-eval.patch
 
                 # https://gerrit.lix.systems/c/lix/+/2062
-                ./patches/lix-nix-shell-relative-args.patch
+                # ./patches/lix-nix-shell-relative-args.patch
               ];
 
               # Kinda funny right
