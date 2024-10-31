@@ -1,7 +1,7 @@
 {
   lib,
-  pkgs,
   self,
+  inputs',
   osConfig,
   ...
 }:
@@ -16,6 +16,7 @@ in
 
   programs.hyfetch = mkIf (isModernShell osConfig) {
     enable = true;
+    package = inputs'.beapkgs.packages.hyfetch;
 
     settings = {
       preset = "lesbian";
@@ -27,58 +28,65 @@ in
         custom_colors = [ ];
         fore_back = null;
       };
-      backend = "neofetch";
-      distro = null;
+      backend = "fastfetch";
+      distro = ldTernary "nixos_small" "macos_small";
       pride_month_shown = [ ];
       pride_month_disable = true;
     };
 
-    neofetchConfig = ''
-      print_info() {
-      prin " \n \n ╭───────┤ $(color 5)${ldTernary pkgs " NixOS" " MacOS"} $(color 15)├───────╮"
-      info " " kernel
-      info " " wm
-      info " " shell
-      info " " term
-      # info "󰏖 " packages
-      info "󰍛 " memory
-      info "󰔛 " uptime
-      prin " \n \n ╰─────────────────────────╯"
-      prin " \n \n \n \n $(color 1) \n $(color 2) \n $(color 3) \n $(color 4) \n $(color 5) \n $(color 6) \n $(color 7) \n $(color 0)"
-      }
-
-      kernel_shorthand="on"
-      uptime_shorthand="on"
-      memory_percent="on"
-      memory_unit="gib"
-      package_managers="on"
-      shell_path="off"
-      shell_version="off"
-      cpu_brand="off"
-      cpu_speed="off"
-      cpu_cores="off"
-      cpu_temp="off"
-      gpu_brand="on"
-      gpu_type="all"
-      refresh_rate="off"
-      colors=(distro)
-      bold="off"
-      separator=""
-
-      image_backend="ascii"
-      image_source=${
-        ldTernary pkgs "/home/isabel/media/pictures" "/Users/isabel/Pictures"
-      }/pfps/avatar # auto /path/to/img /path/to/ascii
-      image_size="200px" # auto 00px 00% none
-
-      ascii_distro=${ldTernary pkgs "NixOS" "Mac"}_small
-      ascii_colors=(distro)
-      ascii_bold="on"
-
-      image_loop="true"
-      crop_mode="normal" # normal fit fill
-      crop_offset="center" # northwest north northeast west center east southwest south southeast
-      gap=1 # num -num
-    '';
+    fastfetchConfig = {
+      logo = {
+        type = "small";
+        padding.top = 1;
+      };
+      display.separator = " ";
+      modules = [
+        {
+          key = "╭───────────╮";
+          type = "custom";
+        }
+        {
+          key = "│ {#35} kernel  {#keys}│";
+          type = "kernel";
+        }
+        {
+          key = "│ {#34}{icon} distro  {#keys}│";
+          type = "os";
+        }
+        {
+          key = "│ {#36} wm {#keys}│";
+          type = "de";
+        }
+        {
+          key = "│ {#32} shell   {#keys}│";
+          type = "shell";
+        }
+        {
+          key = "│ {#31} term    {#keys}│";
+          type = "terminal";
+        }
+        {
+          key = "│ {#35}󰍛 memory  {#keys}│";
+          type = "memory";
+        }
+        {
+          key = "│ {#33}󰔛 uptime  {#keys}│";
+          type = "uptime";
+        }
+        {
+          key = "├───────────┤";
+          type = "custom";
+        }
+        {
+          key = "│ {#39} colors  {#keys}│";
+          type = "colors";
+          symbol = "circle";
+        }
+        {
+          key = "╰───────────╯";
+          type = "custom";
+        }
+      ];
+    };
   };
 }

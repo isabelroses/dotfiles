@@ -57,8 +57,18 @@ in
       '';
     };
 
-    neofetchConfig = mkOption {
+    fastfetchConfig = mkOption {
       default = { };
+      inherit (settingsFormat) type;
+      description = ''
+        Configuration written to {file}`$XDG_CONFIG_HOME/fastfetch/config.jsonc`.
+        See <https://github.com/fastfetch-cli/fastfetch/wiki/Json-Schema>
+        for the documentation.
+      '';
+    };
+
+    neofetchConfig = mkOption {
+      default = null;
       type = nullOr (either path lines);
       description = ''
         Configuration written to {file}`$XDG_CONFIG_HOME/neofetch/config.conf`.
@@ -74,7 +84,10 @@ in
       "hyfetch.json" = mkIf (cfg.settings != { }) {
         source = settingsFormat.generate "hyfetch.json" cfg.settings;
       };
-      "neofetch/config.conf" = mkIf (cfg.neofetchConfig != { }) {
+      "fastfetch/config.jsonc" = mkIf (cfg.fastfetchConfig != { }) {
+        source = settingsFormat.generate "config.jsonc" cfg.fastfetchConfig;
+      };
+      "neofetch/config.conf" = mkIf (cfg.neofetchConfig != null) {
         source =
           if isPath cfg.neofetchConfig || isStorePath cfg.neofetchConfig then
             cfg.neofetchConfig
