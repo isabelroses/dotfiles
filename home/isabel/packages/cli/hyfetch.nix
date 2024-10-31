@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   self,
   inputs',
   osConfig,
@@ -29,7 +30,7 @@ in
         fore_back = null;
       };
       backend = "fastfetch";
-      distro = ldTernary "nixos_small" "macos_small";
+      distro = ldTernary pkgs "nixos_small" "macos_small";
       pride_month_shown = [ ];
       pride_month_disable = true;
     };
