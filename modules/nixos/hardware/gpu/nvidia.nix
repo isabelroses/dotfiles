@@ -9,7 +9,6 @@ let
   inherit (lib.modules)
     mkIf
     mkMerge
-    mkForce
     mkDefault
     ;
   inherit (lib.validators) isWayland;
@@ -83,7 +82,6 @@ in
     hardware = {
       nvidia = {
         package = mkDefault config.boot.kernelPackages.nvidiaPackages.latest;
-        modesetting.enable = mkForce true;
 
         prime.offload =
           let
