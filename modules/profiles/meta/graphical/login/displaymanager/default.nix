@@ -13,6 +13,7 @@ in
     type = nullOr (enum [
       "greetd"
       "sddm"
+      "cosmic-greeter"
     ]);
     default = "greetd";
     description = "The login manager to be used by the system.";

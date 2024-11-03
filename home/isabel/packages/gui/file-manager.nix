@@ -12,7 +12,7 @@ let
   cfg = osConfig.garden.programs;
 in
 {
-  config = mkIf cfg.gui.enable {
+  config = mkIf (cfg.gui.enable && !osConfig.garden.environment.isWM) {
     home.packages =
       optionals cfg.cosmic-files.enable [ cfg.cosmic-files.package ]
       ++ optionals cfg.nemo.enable (attrValues {

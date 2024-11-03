@@ -16,7 +16,6 @@
     ./file-manager.nix
     ./notes.nix
     ./swaync.nix
-    ./viewnior.nix
     ./zathura.nix
   ];
 }

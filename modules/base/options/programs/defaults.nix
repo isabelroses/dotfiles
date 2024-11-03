@@ -46,6 +46,7 @@ in
       type = nullOr (enum [
         "rofi"
         "wofi"
+        "cosmic-launcher"
       ]);
       default = "rofi";
     };
@@ -62,6 +63,7 @@ in
       type = nullOr (enum [
         "swaylock"
         "gtklock"
+        "cosmic-greeter"
       ]);
       default = "gtklock";
       description = ''

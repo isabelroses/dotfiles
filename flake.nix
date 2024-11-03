@@ -152,6 +152,18 @@
       };
     };
 
+    cosmic = {
+      type = "github";
+      owner = "lilyinstarlight";
+      repo = "nixos-cosmic";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "";
+        flake-compat.follows = "";
+      };
+    };
+
     ags = {
       type = "github";
       owner = "aylur";

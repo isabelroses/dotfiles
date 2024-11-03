@@ -142,6 +142,29 @@
         "type": "github"
       }
     },
+    "cosmic": {
+      "inputs": {
+        "flake-compat": [],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-stable": [],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1730597759,
+        "narHash": "sha256-DStWygV/fV3aU8VWN4wIG4Mjpq7s540gUD4A103u+Zo=",
+        "owner": "lilyinstarlight",
+        "repo": "nixos-cosmic",
+        "rev": "db3975340480a6c2532398991f3a47f74df17eed",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lilyinstarlight",
+        "repo": "nixos-cosmic",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1730060262,
@@ -393,7 +416,7 @@
           "nixpkgs"
         ],
         "pre-commit-hooks-nix": [],
-        "rust-overlay": "rust-overlay"
+        "rust-overlay": "rust-overlay_2"
       },
       "locked": {
         "lastModified": 1730107060,
@@ -528,6 +551,7 @@
         "arkenfox": "arkenfox",
         "beapkgs": "beapkgs",
         "catppuccin": "catppuccin",
+        "cosmic": "cosmic",
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "flake-parts": "flake-parts",
@@ -548,6 +572,27 @@
       }
     },
     "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "cosmic",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1730514457,
+        "narHash": "sha256-cjFX208s9pyaOfMvF9xI6WyafyXINqdhMF7b1bMQpLI=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "1ff38ca26eb31858e4dfe7fe738b6b3ce5d74922",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "rust-overlay_2": {
       "inputs": {
         "nixpkgs": [
           "lanzaboote",
