@@ -4,11 +4,6 @@ let
   inherit (lib.types) nullOr enum;
 in
 {
-  imports = [
-    ./greetd.nix
-    ./sddm.nix
-  ];
-
   options.garden.environment.loginManager = mkOption {
     type = nullOr (enum [
       "greetd"
