@@ -3,5 +3,5 @@ let
   inherit (config.garden) environment;
 in
 {
-  services.displayManager.cosmic-greeter.embale = environment.loginManager == "cosmic-greeter";
+  services.displayManager.cosmic-greeter.enable = environment.loginManager == "cosmic-greeter";
 }

@@ -20,7 +20,6 @@ in
       pkgs.cosmic-edit
       pkgs.cosmic-term
       pkgs.cosmic-store
-      pkgs.cosmic-idle
     ];
 
     garden = {

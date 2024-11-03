@@ -59,7 +59,7 @@
     };
 
     environment = {
-      desktop = "Hyprland";
+      desktop = "cosmic";
       useHomeManager = true;
     };
 

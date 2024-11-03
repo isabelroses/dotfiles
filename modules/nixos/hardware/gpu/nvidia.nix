@@ -52,7 +52,6 @@ in
         { LIBVA_DRIVER_NAME = "nvidia"; }
 
         (mkIf (isWayland config) {
-          WLR_NO_HARDWARE_CURSORS = "1";
           # GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
 
           WLR_DRM_DEVICES = mkDefault "/dev/dri/card1";
@@ -100,21 +99,19 @@ in
         open = false; # dont use the open drivers by default
         nvidiaSettings = false; # adds nvidia-settings to pkgs, so useless on nixos
         nvidiaPersistenced = true;
-        forceFullCompositionPipeline = true;
+        # forceFullCompositionPipeline = true;
       };
 
       graphics = {
         extraPackages = builtins.attrValues {
           inherit (pkgs)
             nvidia-vaapi-driver
-            # libva-vdpau-driver
             ;
         };
 
         extraPackages32 = builtins.attrValues {
           inherit (pkgs.pkgsi686Linux)
             nvidia-vaapi-driver
-            # libva-vdpau-driver
             ;
         };
       };

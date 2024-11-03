@@ -29,8 +29,8 @@ in
     '';
   };
 
-  config.services.greetd = {
-    enable = environment.loginManager == "greetd";
+  config.services.greetd = mkIf (environment.loginManager == "greetd") {
+    enable = true;
     vt = 2;
     restart = !system.autoLogin;
 
