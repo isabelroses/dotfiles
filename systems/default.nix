@@ -15,26 +15,24 @@ let
   # profiles module, these are sensible defaults for given hardware sets
   # or meta profiles that are used to configure the system based on the requirements of the given machine
   profilesPath = modulePath + /profiles; # the base directory for the types module
-  hardwareProfilesPath = profilesPath + /hardware; # the base directory for the hardware profiles
-  metaProfilesPath = profilesPath + /meta; # the base directory for the meta profiles
 
   # hardware profiles
-  laptop = hardwareProfilesPath + /laptop; # for laptop type configurations
-  desktop = hardwareProfilesPath + /desktop; # for desktop type configurations
+  laptop = profilesPath + /laptop; # for laptop type configurations
+  desktop = profilesPath + /desktop; # for desktop type configurations
   # for server type configurations
   server = [
     headless
-    (hardwareProfilesPath + /server)
+    (profilesPath + /server)
   ];
   # for wsl systems
   wsl = [
     headless
-    (hardwareProfilesPath + /wsl)
+    (profilesPath + /wsl)
   ];
 
   # meta profiles
-  graphical = metaProfilesPath + /graphical; # for systems that have a graphical interface
-  headless = metaProfilesPath + /headless; # for headless systems
+  graphical = profilesPath + /graphical; # for systems that have a graphical interface
+  headless = profilesPath + /headless; # for headless systems
 
   # home-manager
   homes = ../home; # home-manager configurations
