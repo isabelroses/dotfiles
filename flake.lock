@@ -152,11 +152,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1731116135,
-        "narHash": "sha256-IJ7SViFR2APiuV3k+8v6NIMI1K7oP0Q3cNNfrdlbefU=",
+        "lastModified": 1731194950,
+        "narHash": "sha256-L4iDWpljs1zGhWKULbfSYJrHRGE+2eMx8cXDjT9IB8g=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "c74c207183e32f23a94b4bb8b69bc5064db98894",
+        "rev": "20a65ed1a6c936529c5ec43716f6c600c14bae68",
         "type": "github"
       },
       "original": {
@@ -187,11 +187,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1731032247,
-        "narHash": "sha256-OjLft7fwkmiRLXQsGAudGFZxEYXOT0nHwrQ9GbsBqJ4=",
+        "lastModified": 1731153869,
+        "narHash": "sha256-3Ftf9oqOypcEyyrWJ0baVkRpvQqroK/SVBFLvU3nPuc=",
         "owner": "lnl7",
         "repo": "nix-darwin",
-        "rev": "2fbf4a8417c28cf45bae6e6e97248cbbd9b78632",
+        "rev": "5c74ab862c8070cbf6400128a1b56abb213656da",
         "type": "github"
       },
       "original": {
@@ -275,11 +275,11 @@
         "zig": []
       },
       "locked": {
-        "lastModified": 1731023348,
-        "narHash": "sha256-9k2ynQywm8AWi27C2o+/KAFpqV6PwZgaSyqhSqW8ZOs=",
+        "lastModified": 1731182230,
+        "narHash": "sha256-fFMFH0n+4r9NL/AobvFwSs+PA+F5yiOiImkfi3RJF2k=",
         "ref": "refs/heads/main",
-        "rev": "75fe0b2dfb200dda2622b0fbc790e9451ffff236",
-        "revCount": 7916,
+        "rev": "72659d48ac0e27d815fb8b0b96eb8aa2614a4dd9",
+        "revCount": 7940,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -441,11 +441,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1731087338,
-        "narHash": "sha256-9J8+Pyb/WtzZ+AU5XJLvpVSILN742z37C4CrbnYXkuo=",
-        "rev": "116895acb1fb5b09e8c1b867f345f6c8ca09647a",
+        "lastModified": 1731182928,
+        "narHash": "sha256-HGB1lMqGjPWIWozrl5QyPgBkmabhiursawlvjs+B5zM=",
+        "rev": "efb04754be4248a2249836d352b5bebec6904d1d",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/116895acb1fb5b09e8c1b867f345f6c8ca09647a.tar.gz?rev=116895acb1fb5b09e8c1b867f345f6c8ca09647a"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/efb04754be4248a2249836d352b5bebec6904d1d.tar.gz?rev=efb04754be4248a2249836d352b5bebec6904d1d"
       },
       "original": {
         "type": "tarball",
