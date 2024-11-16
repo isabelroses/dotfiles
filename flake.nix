@@ -168,11 +168,7 @@
       type = "github";
       owner = "aylur";
       repo = "ags";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     homebrew = {

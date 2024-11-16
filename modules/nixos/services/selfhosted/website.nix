@@ -15,6 +15,7 @@ let
   cfg = config.garden.services.isabelroses-website;
 
   serve = "/srv/storage/isabelroses.com";
+  package = inputs'.beapkgs.packages.isabelroses-website;
 in
 {
   options.garden.services.isabelroses-website = mkServiceOption "isabelroses-website" {
@@ -27,17 +28,18 @@ in
       description = "isabelroses.com";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = [ inputs'.beapkgs.packages.isabelroses-website ];
+      path = [ package ];
 
       environment = {
-        SERVE_DIR = serve;
+        DONOS_FILE = "${serve}/donos.json";
+        PORT = toString cfg.port;
       };
 
       serviceConfig = {
         Type = "simple";
         ReadWritePaths = [ serve ];
         DynamicUser = true;
-        ExecStart = "${getExe inputs'.beapkgs.packages.isabelroses-website}";
+        ExecStart = getExe package;
         Restart = "always";
       };
     };
