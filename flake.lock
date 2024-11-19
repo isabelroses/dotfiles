@@ -491,6 +491,31 @@
         "type": "github"
       }
     },
+    "nix-topology": {
+      "inputs": {
+        "devshell": [],
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "pre-commit-hooks": []
+      },
+      "locked": {
+        "lastModified": 1730803396,
+        "narHash": "sha256-5ycWNOxmR/wPftlSWLQEZ3odOIE3rPvSd2qjd5+nLAE=",
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "rev": "82dbbdc3c4f8f86fefdee8d8875fd4fd9276881a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oddlama",
+        "repo": "nix-topology",
+        "type": "github"
+      }
+    },
     "nixos-wsl": {
       "inputs": {
         "flake-compat": [],
@@ -583,6 +608,7 @@
         "lanzaboote": "lanzaboote",
         "lix": "lix",
         "nix-index-db": "nix-index-db",
+        "nix-topology": "nix-topology",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
         "simple-nixos-mailserver": "simple-nixos-mailserver",

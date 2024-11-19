@@ -17,6 +17,7 @@
     ./nix.nix # nix settings for nixos only systems
     ./perless.nix # perless specific configurations
     ./remote-modules.nix # modules that are not in this repo, and don't have a nice place to be imported in
+    ./topology.nix # our systems topology
     ./virtualization.nix # docker, QEMU, waydroid etc.
   ];
 }
