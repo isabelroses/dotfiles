@@ -1,0 +1,36 @@
+name: Generate Topology
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 1 * *" # On the first of every month at 3:00 AM
+
+jobs:
+  generate-topology:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Install Lix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
+          logger: pretty
+          diagnostic-endpoint: ""
+
+      - name: Build from the matrix
+        run: nix build -L .#topology.x86_64-linux.config.output
+
+      - name: Move files
+        run: |
+          cp result/main.svg ./.github/images/topology.svg
+          chmod 644 ./.github/images/topology.svg
+
+      - name: Commit & Push
+        uses: endbug/add-and-commit@v9
+        with:
+          message: "chore: generate topology"

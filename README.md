@@ -32,6 +32,8 @@
    </p>
 </details>
 
+![image of my flakes topology](./.github/images/topology.svg)
+
 <!--toc:start-->
 
 - [Foreword](#foreword)
