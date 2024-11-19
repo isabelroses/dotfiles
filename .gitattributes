@@ -1,10 +1,6 @@
 # noisy diffs
 flake.lock -diff
 
-# git lfs
-*.png filter=lfs diff=lfs merge=lfs -text
-*.webp filter=lfs diff=lfs merge=lfs -text
-
 # treat age files as binarys
 *.age -text -diff
 
