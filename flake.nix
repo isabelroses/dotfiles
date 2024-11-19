@@ -138,6 +138,17 @@
       };
     };
 
+    # Nix topology a way to generate diagrams of your nix config
+    nix-topology = {
+      url = "github:oddlama/nix-topology";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        pre-commit-hooks.follows = "";
+        devshell.follows = "";
+      };
+    };
+
     ### Additional packages
     # a plain simple way to host a mail server
     simple-nixos-mailserver = {
