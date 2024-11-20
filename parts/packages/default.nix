@@ -30,10 +30,7 @@
 
                 # allow flakes to trivially eval to attrsets
                 # https://gerrit.lix.systems/c/lix/+/1209
-                ./patches/lix-flake-trivial-eval.patch
-
-                # https://gerrit.lix.systems/c/lix/+/2062
-                # ./patches/lix-nix-shell-relative-args.patch
+                # ./patches/lix-flake-trivial-eval.patch
               ];
 
               # Kinda funny right
@@ -41,7 +38,7 @@
               postPatch =
                 (oa.postPatch or "")
                 + ''
-                  substituteInPlace src/libmain/shared.cc \
+                  substituteInPlace lix/libmain/shared.cc \
                     --replace-fail "(Lix, like Nix)" "(Lix, like Nix but for lesbians)"
                 '';
 
