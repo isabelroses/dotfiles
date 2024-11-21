@@ -16,6 +16,8 @@ in
     discord = mkProgram pkgs "discord" {
       package.default = pkgs.discord.override {
         withOpenASAR = true;
+        # discord will by default be wrapped with vencord - the cutest discord client mod
+        # go to https://vencord.dev/ for more information
         withVencord = true;
       };
     };
