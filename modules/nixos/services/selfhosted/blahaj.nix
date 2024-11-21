@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   inputs',
   ...
@@ -28,54 +27,20 @@ in
       };
     };
 
-    systemd = {
-      timers."blahaj-nixpkgs" = {
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnBootSec = "30m";
-          OnUnitActiveSec = "30m";
-          Unit = "blahaj-nixpkgs.service";
-        };
-      };
+    systemd.services = {
+      blahaj = {
+        description = "blahaj";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
 
-      services = {
-        blahaj = {
-          description = "blahaj";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
-
-          serviceConfig = {
-            Type = "simple";
-            User = "blahaj";
-            Group = "blahaj";
-            ReadWritePaths = [ "/srv/storage/blahaj/nixpkgs" ];
-            EnvironmentFile = config.age.secrets.blahaj-env.path;
-            ExecStart = getExe inputs'.beapkgs.packages.blahaj;
-            Restart = "always";
-          } // template.systemd;
-        };
-
-        "blahaj-nixpkgs" = {
-          description = "blahaj update nixpkgs";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
-
-          script =
-            let
-              cmd = "${getExe pkgs.git} -c safe.directory=/srv/storage/blahaj/nixpkgs -C /srv/storage/blahaj/nixpkgs";
-            in
-            ''
-              ${cmd} fetch origin
-              ${cmd} pull origin master --rebase
-            '';
-
-          serviceConfig = {
-            Type = "oneshot";
-            User = "blahaj";
-            Group = "blahaj";
-            ReadWritePaths = [ "/srv/storage/blahaj/nixpkgs" ];
-          } // template.systemd;
-        };
+        serviceConfig = {
+          Type = "simple";
+          User = "blahaj";
+          Group = "blahaj";
+          EnvironmentFile = config.age.secrets.blahaj-env.path;
+          ExecStart = getExe inputs'.beapkgs.packages.blahaj;
+          Restart = "always";
+        } // template.systemd;
       };
     };
   };
