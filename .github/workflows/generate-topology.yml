@@ -27,8 +27,8 @@ jobs:
 
       - name: Move files
         run: |
-          cp result/main.svg ./.github/images/topology.svg
-          chmod 644 ./.github/images/topology.svg
+          nix shell nixpkgs#imagemagick
+          magick ./result/topology.svg ./.github/images/topology.png
 
       - name: Commit & Push
         uses: endbug/add-and-commit@v9

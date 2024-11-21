@@ -32,7 +32,7 @@
    </p>
 </details>
 
-![image of my flakes topology](./.github/images/topology.svg)
+![image of my flakes topology](./.github/images/topology.png)
 
 <!--toc:start-->
 
