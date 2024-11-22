@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib.hardware) ldTernary;
-  inherit (lib.validators) ifTheyExist;
+  inherit (lib.validators) ifTheyExist isModernShell;
 in
 {
   users.users.isabel =
@@ -16,7 +16,7 @@ in
       ];
 
       home = "/${ldTernary pkgs "home" "Users"}/isabel";
-      shell = pkgs.fish;
+      shell = if (isModernShell config) then pkgs.fish else pkgs.bashInteractive;
     }
     // (ldTernary pkgs {
       isNormalUser = true;

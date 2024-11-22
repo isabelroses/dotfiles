@@ -2,8 +2,13 @@
   lib,
   pkgs,
   config,
+  osConfig,
   ...
 }:
+let
+  inherit (lib.validators) isModernShell;
+  inherit (lib.modules) mkIf;
+in
 {
   programs.bash = {
     enable = true;
@@ -22,7 +27,7 @@
       "no_empty_cmd_completion"
     ];
 
-    initExtra = ''
+    initExtra = mkIf (isModernShell osConfig) ''
       if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
       then
         shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""

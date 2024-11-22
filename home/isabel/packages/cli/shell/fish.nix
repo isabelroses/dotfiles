@@ -1,11 +1,17 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  osConfig,
+  ...
+}:
 let
   inherit (lib.meta) getExe;
   inherit (lib.strings) optionalString;
+  inherit (lib.validators) isModernShell;
 in
 {
   programs.fish = {
-    enable = true;
+    enable = isModernShell osConfig;
     plugins = [ ];
 
     functions = {
