@@ -1,11 +1,4 @@
-{ inputs, ... }:
 let
-  inherit (inputs.self) lib;
-
-  inherit (builtins) filter;
-  inherit (lib.builders) mkSystems;
-  inherit (lib.lists) concatLists;
-
   # modules
   modulePath = ../modules; # the base module path
 
@@ -42,68 +35,54 @@ let
     base
     homes
   ];
+in
+{
+  # this is how we get the custom module `config.hosts`
+  imports = [ ./flake-module.nix ];
 
-  # This is a list of all the systems that exists on this flake
-  # always edit this list rather then changing nixosConfigurations or darwinConfigurations
-  systems = [
-    {
-      host = "hydra";
-      arch = "x86_64";
-      target = "nixos";
-      modules = [
-        laptop
-        graphical
-      ] ++ concatLists [ shared ];
-    }
+  # This is the list of system configuration
+  #
+  # the defaults consists of the following:
+  #  arch = "x86_64";
+  #  target = "nixos";
+  # deployable = false;
+  #  modules = [ ];
+  #  specialArgs = { };
+  config.hosts = {
+    hydra.modules = [
+      laptop
+      graphical
+      shared
+    ];
 
-    {
-      host = "tatsumaki";
+    tatsumaki = {
       arch = "aarch64";
       target = "darwin";
-      modules = concatLists [ shared ];
-    }
+      modules = [ shared ];
+    };
 
-    {
-      host = "amaterasu";
-      arch = "x86_64";
-      target = "nixos";
+    amaterasu.modules = [
+      desktop
+      graphical
+      shared
+    ];
+
+    valkyrie.modules = [
+      wsl
+      shared
+    ];
+
+    minerva = {
+      deployable = true;
       modules = [
-        desktop
-        graphical
-      ] ++ concatLists [ shared ];
-    }
-
-    {
-      host = "valkyrie";
-      arch = "x86_64";
-      target = "nixos";
-      modules = concatLists [
-        wsl
-        shared
-      ];
-    }
-
-    {
-      host = "minerva";
-      arch = "x86_64";
-      target = "nixos";
-      modules = concatLists [
         server
         shared
       ];
-    }
+    };
 
-    {
-      host = "lilith";
-      arch = "x86_64";
+    lilith = {
       target = "iso";
       modules = [ headless ];
-    }
-  ];
-in
-{
-  flake = {
-    darwinConfigurations = mkSystems (filter (x: x.target == "darwin") systems);
-    nixosConfigurations = mkSystems (filter (x: x.target == "nixos" || x.target == "iso") systems);
+    };
   };
 }

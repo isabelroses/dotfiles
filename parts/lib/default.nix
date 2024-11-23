@@ -23,7 +23,7 @@ let
       # we have to rexport the functions we want to use, but don't want to refer to the whole lib
       # "path". e.g. lib.hardware.isx86Linux can be shortened to lib.isx86Linux
       # NOTE: never rexport templates
-      inherit (self.builders) mkSystems mkIsos;
+      inherit (self.builders) mkSystems;
       inherit (self.hardware) isx86Linux primaryMonitor ldTernary;
       inherit (self.helpers)
         mkPubs

@@ -7,8 +7,12 @@
 let
   inherit (inputs) self;
 
-  inherit (lib.lists) optionals singleton concatLists;
-  inherit (lib.attrsets) recursiveUpdate optionalAttrs listToAttrs;
+  inherit (builtins)
+    filter
+    pathExists
+    ;
+  inherit (lib.lists) optionals singleton flatten;
+  inherit (lib.attrsets) recursiveUpdate;
   inherit (lib.modules) mkDefault evalModules;
 
   /**
@@ -25,8 +29,8 @@ let
 
     ```nix
       mkSystem {
-        host = "myhost";
-        arch = "x86_64";
+        name = "myhost";
+        system = "x86_64-linux";
         target = "nixos";
         modules = [ ./module.nix ];
         specialArgs = { foo = "bar"; };
@@ -35,15 +39,12 @@ let
   */
   mkSystem =
     {
-      host,
-      arch ? "x86_64",
+      name,
       target ? "nixos",
+      system ? "x86_64-linux",
       modules ? [ ],
       specialArgs ? { },
     }:
-    let
-      system = if (target == "iso" || target == "nixos") then "${arch}-linux" else "${arch}-${target}";
-    in
     withSystem system (
       { self', inputs', ... }:
       let
@@ -67,14 +68,16 @@ let
           # make sure that only compatible modules are imported.
           class = target;
 
-          modules = concatLists [
-            # depending on the base operating system we can only use some options therefore these
-            # options means that we can limit these options to only those given operating systems
-            [ "${self}/modules/${target}/default.nix" ]
+          modules = flatten [
+            (filter pathExists [
+              # depending on the base operating system we can only use some options therefore these
+              # options means that we can limit these options to only those given operating systems
+              "${self}/modules/${target}/default.nix"
 
-            # configurations based on that are imported based hostname,
-            # these don't exist for iso systems (at the moment) so we ignore those
-            (optionals (target != "iso") [ "${self}/systems/${host}/default.nix" ])
+              # configurations based on that are imported based hostname,
+              # these don't exist for iso systems (at the moment) so we ignore those
+              "${self}/systems/${name}/default.nix"
+            ])
 
             # get an installer profile from nixpkgs to base the Isos off of
             # this is useful because it makes things alot easier
@@ -98,7 +101,7 @@ let
 
               # we set the systems hostname based on the host value
               # which should be a string that is the hostname of the system
-              networking.hostName = host;
+              networking.hostName = name;
 
               nixpkgs = {
                 # you can also do this as `inherit system;` with the normal `lib.nixosSystem`
@@ -136,44 +139,16 @@ let
           ];
         };
       in
-      # we broke don't just call evalModules here because we need to be able to
-      # append system to the final evaluated result since nix darwin uses this to switch
-      # the configuration on and off
-      eval // optionalAttrs (target == "darwin") { system = eval.config.system.build.toplevel; }
-    );
-
-  /**
-    mkSystems is a wrapper for mkNixSystem to create a list of systems
-
-    # Type
-
-    ```
-    mkSystems :: List -> AttrSet
-    ```
-
-    # Example
-
-    ```nix
-      mkSystems [
+      if (target == "nixos" || target == "iso") then
+        { nixosConfigurations.${name} = eval; }
+      else
         {
-          host = "myhost";
-          arch = "x86_64";
-          target = "nixos";
-          modules = [ ./module.nix ];
-          specialArgs = { foo = "bar"; };
+          darwinConfigurations.${name} = eval // {
+            system = eval.config.system.build.toplevel;
+          };
         }
-      ]
-    ```
-  */
-  mkSystems =
-    systems:
-    listToAttrs (
-      map (system: {
-        name = system.host;
-        value = mkSystem system;
-      }) systems
     );
 in
 {
-  inherit mkSystem mkSystems;
+  inherit mkSystem;
 }

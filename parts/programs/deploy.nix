@@ -2,16 +2,15 @@
   lib,
   self,
   inputs,
+  config,
   ...
 }:
 let
-  inherit (builtins) mapAttrs;
+  inherit (builtins) elem mapAttrs attrNames;
   inherit (lib.attrsets) filterAttrs;
-  inherit (lib.lists) elem;
 
-  # create a list of all systems that are allowed to be deployed
-  allowedSystems = [ "minerva" ];
-  # then extract those systems that we allow to be deployed from our nixosConfigurations
+  # extract the names of the systems that we want to deploy
+  allowedSystems = attrNames (filterAttrs (_: attrs: attrs.deployable) config.hosts);
   systems = filterAttrs (name: _: elem name allowedSystems) self.nixosConfigurations;
 
   # then create a list of nodes that we want to deploy that we can pass to the deploy configuration
