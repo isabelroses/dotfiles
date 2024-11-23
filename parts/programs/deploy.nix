@@ -20,7 +20,7 @@ let
     sshUser = "isabel";
     profiles.system = {
       user = "root";
-      path = inputs.deploy-rs.lib.${node.config.nixpkgs.hostPlatform.system}.activate.nixos node;
+      path = inputs.deploy-rs.lib.${config.hosts.${name}.system}.activate.nixos node;
     };
   }) systems;
 in
