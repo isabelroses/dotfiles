@@ -52,11 +52,9 @@ in
             };
 
             modules = mkOption {
-              type =
-                let
-                  typ = types.listOf (types.either types.path types.pathInStore);
-                in
-                types.either (types.listOf typ) typ;
+              # we really expect a list of paths but i want to accept lists of lists of lists and so on
+              # since they will be flattened in the final function that applies the settings
+              type = types.listOf types.anything;
               default = [ ];
             };
 

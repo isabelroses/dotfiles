@@ -45,7 +45,7 @@ in
   # the defaults consists of the following:
   #  arch = "x86_64";
   #  target = "nixos";
-  # deployable = false;
+  #  deployable = false;
   #  modules = [ ];
   #  specialArgs = { };
   config.hosts = {
