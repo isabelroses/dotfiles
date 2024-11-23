@@ -175,7 +175,7 @@ local colors = {
 
 local mappings = {
   -- custom flavor
-  evergarden = "Evergarden",
+  evergarden = "Catppuccin Evergarden",
   espresso = "Catppuccin Espresso",
   -- default flavors
   mocha = "Catppuccin Mocha",

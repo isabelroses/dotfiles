@@ -57,8 +57,6 @@ else
   c.window_padding = { left = 10, right = 0, top = 0, bottom = 0 }
 end
 
-c.adjust_window_size_when_changing_font_size = false
-
 -- fonts
 c.font = wezterm.font_with_fallback({
   "Maple Mono",
