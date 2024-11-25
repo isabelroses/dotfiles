@@ -17,7 +17,7 @@
     {
       packages = forAllSystems (pkgs: {
         example = pkgs.callPackage ./default.nix { };
-        default = self.packages.example;
+        default = self.packages.${pkgs.stdenv.hostPlatform.system}.example;
       });
 
       devShells = forAllSystems (pkgs: {
