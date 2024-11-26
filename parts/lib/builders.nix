@@ -79,6 +79,16 @@ let
               "${self}/systems/${name}/default.nix"
             ])
 
+            # we can't import these for isos since they are supposed to be minimal
+            # and would bloat the iso massively if we did import them
+            (optionals (target != "iso") [
+              # import the home module, which is users for configuring users via home-manager
+              "${self}/home/default.nix"
+
+              # import the base module, this contains the common configurations between all systems
+              "${self}/modules/base/default.nix"
+            ])
+
             # get an installer profile from nixpkgs to base the Isos off of
             # this is useful because it makes things alot easier
             (optionals (target == "iso") [
