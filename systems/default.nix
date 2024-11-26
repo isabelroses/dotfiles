@@ -65,5 +65,11 @@ in
       target = "iso";
       modules = [ headless ];
     };
+
+    # comfy's hosts
+    cottage.modules = [
+      laptop
+      graphical
+    ];
   };
 }
