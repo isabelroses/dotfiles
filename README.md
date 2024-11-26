@@ -46,6 +46,7 @@
     - [NixOS](#nixos)
       - [Dual boot](#dual-boot)
     - [macOS](#macos)
+  - [Configuration](#configuration)
   - [Small bits](#small-bits)
 - [Additional notes](#additional-notes)
   - [Resources](#resources)
@@ -204,6 +205,26 @@ nix develop
 ```sh
 just provision <host>
 ```
+
+#### Configuration
+
+##### getting started
+
+To start configurating your system keep in mind that there are two sides to
+your configurion: the user side and system side.
+
+###### user
+
+The user side is configured in `/home/<user>`.
+
+To set up a user configuration it must be declared in
+`/modules/base/users/options.nix` and `/modules/base/users/<user>.nix`.
+
+###### system
+
+The user side is configured in `/systems/<hostname>`.
+
+To set up a system configuration it must be declared in `/systems/default.nix`.
 
 #### Small bits
 
