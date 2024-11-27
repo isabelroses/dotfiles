@@ -71,5 +71,9 @@ in
       laptop
       graphical
     ];
+
+    wisp.modules = [
+      wsl
+    ];
   };
 }
