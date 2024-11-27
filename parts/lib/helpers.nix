@@ -199,7 +199,7 @@ let
     # Example
 
     ```nix
-    giturl { domain = "github.com", alias = "gh"; }
+    giturl { domain = "github.com"; alias = "gh"; }
     => {
       "https://github.com/".insteadOf = "gh:";
       "ssh://git@github.com/".pushInsteadOf = "gh:";
