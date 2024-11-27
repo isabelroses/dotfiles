@@ -25,6 +25,7 @@ in
       SYSTEMD_PAGERSECURE = "true";
       PAGER = "less -FR";
       FLAKE = osConfig.garden.environment.flakePath;
+      NH_FLAKE = osConfig.garden.environment.flakePath;
     };
   };
 }

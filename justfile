@@ -2,11 +2,19 @@
 default:
   @just --list --unsorted
 
-# setup our nixos and darwin builder
+# setup our nixos builder
 [private]
+[linux]
 [group('rebuild')]
 builder goal *args:
   nh os {{goal}} -- {{args}}
+
+# setup our darwin builder
+[private]
+[macos]
+[group('rebuild')]
+builder goal *args:
+  nh darwin {{goal}} -- {{args}}
 
 # we have this setup incase i ever want to go back and use the old stuff
 [private]
