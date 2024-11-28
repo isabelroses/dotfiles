@@ -80,7 +80,7 @@ in
 
     hardware = {
       nvidia = {
-        package = mkDefault config.boot.kernelPackages.nvidiaPackages.latest;
+        package = mkDefault config.boot.kernelPackages.nvidiaPackages.beta;
 
         prime.offload =
           let
