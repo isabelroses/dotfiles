@@ -7,8 +7,7 @@
 }:
 let
   inherit (lib.modules) mkIf mkAfter;
-  inherit (lib.attrsets) mapAttrs;
-  inherit (lib.strings) escapeShellArg concatMapStrings;
+  inherit (lib.strings) concatMapStrings;
 
   cfg = osConfig.garden.programs.nushell;
 in
@@ -29,10 +28,12 @@ in
 
         shellAliases = builtins.removeAttrs config.home.shellAliases [ "mkdir" ];
 
+        # what a mess
+        # GPGHOME breaks all nushell really badly
         environmentVariables = {
           DIRENV_LOG_FORMAT = "";
           # PATH = "($env.PATH | split row (char esep) | append [${escapeShellArgs config.home.sessionPath}])";
-        } // mapAttrs (_: v: (escapeShellArg v)) config.home.sessionVariables;
+        };
 
         extraConfig =
           let

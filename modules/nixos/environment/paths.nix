@@ -2,7 +2,7 @@
 let
   inherit (lib.lists) optional;
 
-  cfg = config.programs;
+  cfg = config.garden.programs;
 in
 {
   # if a given shell is enabled, add the corresponding completion paths

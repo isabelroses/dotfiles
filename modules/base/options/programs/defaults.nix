@@ -1,10 +1,21 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   inherit (lib.options) mkOption;
   inherit (lib.types) enum nullOr;
+  inherit (lib.hardware) ldTernary;
 in
 {
   options.garden.programs.defaults = {
+    shell = mkOption {
+      type = enum [
+        "bash"
+        "zsh"
+        "fish"
+        "nushell"
+      ];
+      default = ldTernary pkgs "bash" "zsh";
+    };
+
     terminal = mkOption {
       type = enum [
         "alacritty"
