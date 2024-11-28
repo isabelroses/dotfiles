@@ -1,7 +1,13 @@
-{ pkgs, ... }:
+{ lib, osConfig, ... }:
+let
+  inherit (lib.modules) mkIf;
+
+  cfg = osConfig.garden.programs.zsh;
+in
 {
-  programs.zsh = {
-    enable = pkgs.stdenv.hostPlatform.isDarwin;
+  programs.zsh = mkIf cfg.enable {
+    enable = true;
+    inherit (cfg) package;
 
     autosuggestion.enable = true;
     # enableCompletion = true;

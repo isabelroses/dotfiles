@@ -85,6 +85,7 @@
       wezterm.enable = true;
       zathura.enable = true;
       rofi.enable = true;
+      fish.enable = true;
     };
   };
 }

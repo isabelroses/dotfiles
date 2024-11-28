@@ -29,6 +29,7 @@
       wezterm.enable = false;
       discord.enable = false;
       git.signingKey = "3E7C7A1B5DEDBB03";
+      fish.enable = true;
     };
   };
 }

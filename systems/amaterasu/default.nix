@@ -78,6 +78,7 @@
       wezterm.enable = true;
       ghostty.enable = true;
       chromium.enable = true;
+      fish.enable = true;
     };
   };
 }

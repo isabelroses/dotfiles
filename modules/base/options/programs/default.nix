@@ -10,6 +10,7 @@
     ./files.nix
     ./launchers.nix
     ./misc.nix
+    ./shells.nix
     ./terminals.nix
   ];
 }

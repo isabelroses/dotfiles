@@ -17,8 +17,8 @@ in
 {
   # home-manager is so strange and needs these declared multiple times
   programs = {
-    fish.enable = isModernShell config;
-    zsh.enable = pkgs.stdenv.hostPlatform.isDarwin;
+    fish.enable = config.garden.programs.fish.enable;
+    zsh.enable = config.garden.programs.zsh.enable;
 
     bash = ldTernary pkgs { promptInit = bashPrompt; } { interactiveShellInit = bashPrompt; };
   };

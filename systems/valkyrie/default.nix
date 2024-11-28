@@ -68,6 +68,7 @@
       gui.enable = false;
 
       git.signingKey = "08A97B9A107A1798";
+      fish.enable = true;
     };
   };
 }
