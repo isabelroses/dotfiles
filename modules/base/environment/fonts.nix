@@ -34,7 +34,7 @@ in
           material-design-icons
           ;
 
-        nerdfonts = pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; };
+        inherit (pkgs.nerd-fonts) symbols-only;
       };
     }
     // ldTernary pkgs {
