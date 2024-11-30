@@ -1,8 +1,8 @@
 diff --git i/lix/libcmd/command.hh w/lix/libcmd/command.hh
-index 27f242f54..4faf7c24a 100644
+index 0f9ec66e7..1617afb5c 100644
 --- i/lix/libcmd/command.hh
 +++ w/lix/libcmd/command.hh
-@@ -115,6 +115,7 @@ struct SourceExprCommand : virtual Args, MixFlakeOptions
+@@ -111,6 +111,7 @@ struct SourceExprCommand : virtual Args, MixFlakeOptions
  {
      std::optional<Path> file;
      std::optional<std::string> expr;
@@ -11,7 +11,7 @@ index 27f242f54..4faf7c24a 100644
      SourceExprCommand();
  
 diff --git i/lix/libcmd/installables.cc w/lix/libcmd/installables.cc
-index f4e799390..7dbf38f10 100644
+index 1a51a36d3..ec2df929f 100644
 --- i/lix/libcmd/installables.cc
 +++ w/lix/libcmd/installables.cc
 @@ -165,6 +165,19 @@ SourceExprCommand::SourceExprCommand()
@@ -34,7 +34,7 @@ index f4e799390..7dbf38f10 100644
  }
  
  MixReadOnlyOption::MixReadOnlyOption()
-@@ -430,12 +443,12 @@ Installables SourceExprCommand::parseInstallables(
+@@ -426,12 +439,12 @@ Installables SourceExprCommand::parseInstallables(
  {
      Installables result;
  
@@ -50,16 +50,15 @@ index f4e799390..7dbf38f10 100644
 +        if (file || callPackageFile) evalSettings.pureEval.override(false);
  
          auto state = getEvalState();
-         auto vFile = state->allocValue();
-@@ -446,7 +459,10 @@ Installables SourceExprCommand::parseInstallables(
+         auto vFile = state->mem.allocValue();
+@@ -442,6 +455,10 @@ Installables SourceExprCommand::parseInstallables(
          }
          else if (file)
              state->evalFile(lookupFileArg(*state, *file), *vFile);
--        else {
 +        else if (callPackageFile) {
-+            auto & e = state->parseExprFromString(fmt("(import <nixpkgs> {}).callPackage %s {}", CanonPath::fromCwd(*callPackageFile)), state->rootPath(CanonPath::fromCwd()));
++            auto & e = state->parseExprFromString(fmt("(import <nixpkgs> {}).callPackage %s {}", CanonPath::fromCwd(*callPackageFile)), CanonPath::fromCwd());
 +            state->eval(e, *vFile);
-+        } else {
-             auto & e = state->parseExprFromString(*expr, state->rootPath(CanonPath::fromCwd()));
++        }
+         else {
+             auto & e = state->parseExprFromString(*expr, CanonPath::fromCwd());
              state->eval(e, *vFile);
-         }
