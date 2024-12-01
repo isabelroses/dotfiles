@@ -8,7 +8,7 @@
     # If a package is broken, I don't want it
     allowBroken = false;
     # But occasionally we need to install some anyway so we can predicated those
-    # these are usually packages like electron because discord and others love 
+    # these are usually packages like electron because discord and others love
     # to take their sweet time updating it
     permittedInsecurePackages = [ ];
 

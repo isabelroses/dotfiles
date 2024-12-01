@@ -151,7 +151,7 @@ in
             # improve performance for certain workloads that use transactional memory
             "tsx=on"
 
-            # disables the TSX Asynchronous Abort (TAA) mitigation, which is a hardware 
+            # disables the TSX Asynchronous Abort (TAA) mitigation, which is a hardware
             # mitigation for TAA (CVE-2019-11135)
             "tsx_async_abort=off"
 
