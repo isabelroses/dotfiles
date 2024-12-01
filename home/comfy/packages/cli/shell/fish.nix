@@ -51,6 +51,8 @@ in
         set -g theme_display_date no
         set -g theme_nerd_fonts yes
         set -g theme_newline_cursor yes
+
+        set SHELL ${getExe config.programs.fish.package}
       '';
     };
 
