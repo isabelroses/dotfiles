@@ -81,7 +81,7 @@ in
       ];
 
       # continue building derivations even if one fails
-      # this is important for keeping a nice cache of derivations, usually because I walk away 
+      # this is important for keeping a nice cache of derivations, usually because I walk away
       # from my PC when building and it would be annoying to deal with nothing saved
       keep-going = true;
 

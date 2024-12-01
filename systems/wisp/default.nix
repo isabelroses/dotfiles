@@ -13,7 +13,7 @@
 
     system = {
       mainUser = "comfy";
-      users = ["comfy"];
+      users = [ "comfy" ];
 
       boot = {
         loader = "none";
