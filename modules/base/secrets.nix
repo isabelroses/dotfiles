@@ -50,6 +50,16 @@ in
         owner = mainUser;
         group = userGroup;
       };
+      keys-comfy-gh = mkSecret {
+        file = "keys/comfy-gh";
+        owner = mainUser;
+        group = userGroup;
+      };
+      keys-comfy-gh-pub = mkSecret {
+        file = "keys/comfy-gh-pub";
+        owner = mainUser;
+        group = userGroup;
+      };
       keys-aur = mkSecret {
         file = "keys/aur";
         owner = mainUser;

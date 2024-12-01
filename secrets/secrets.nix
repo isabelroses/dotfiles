@@ -132,4 +132,6 @@ in
 
   # comfys keys
   "keys/comfy.age" = defAccessComfy (types.workstations ++ types.servers);
+  "keys/comfy-gh.age" = defAccessComfy (types.workstations ++ types.servers);
+  "keys/comfy-gh-pub.age" = defAccessComfy (types.workstations ++ types.servers);
 }

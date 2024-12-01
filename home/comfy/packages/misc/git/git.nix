@@ -11,14 +11,8 @@ in
   programs.git = mkIf cfg.enable {
     enable = true;
     inherit (cfg) package;
-    userName = "comfy";
+    userName = "comfysage";
     userEmail = "67917529+comfysage@users.noreply.github.com";
-
-    # git commit signing
-    signing = {
-      key = cfg.signingKey;
-      signByDefault = true;
-    };
 
     extraConfig = {
       core.editor = osConfig.garden.programs.defaults.editor;
@@ -35,7 +29,7 @@ in
       };
       commit.gpgsign = true;
       gpg.format = "ssh";
-      user.signingkey = "~/.ssh/id_rsa.pub";
+      user.signingkey = osConfig.age.secrets.keys-comfy-gh.path;
       # personal preference
       init.defaultBranch = "main";
       # prevent data corruption

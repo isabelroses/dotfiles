@@ -1,3 +1,7 @@
+{ osConfig, ... }:
+let
+  inherit (osConfig.age) secrets;
+in
 {
   programs.ssh = {
     enable = true;
@@ -9,6 +13,7 @@
       "github.com" = {
         user = "git";
         hostname = "github.com";
+        identityFile = secrets.keys-comfy-gh.path;
       };
 
       "gitlab.com" = {
