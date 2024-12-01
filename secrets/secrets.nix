@@ -1,12 +1,40 @@
 let
-  users.isabel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2 isabel@isabelroses.com";
+  users = {
+    isabel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2";
+    comfy = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKxTuK2A7wbXnjkIhDrze4B5Uj2rnpmPAWGjPDMPiyk";
+  };
 
   hosts = {
-    hydra = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKMJroewVs8Iyf+/Ofk6q36D1OzVW0b04yyS3IVwNmCb";
-    amaterasu = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILNvBuKUksco5TldoEMthQcvr6TOh9Aun93kYUAq22gE";
-    minerva = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFluIN96lPhNvf2JsA2E+HjuQbDseD2sQJOgQbspJWW0";
-    tatsumaki = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFK5AFIUzlIoFmyz5/Ni1F3Xj1tppj/pMXD9GfMP4DV";
-    valkyrie = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHnhUMQ+BtvcfPKJJbR8nFAQIB9KbrKRJlZSsheCL0j6";
+    hydra = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKMJroewVs8Iyf+/Ofk6q36D1OzVW0b04yyS3IVwNmCb";
+      owner = "isabel";
+    };
+    amaterasu = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILNvBuKUksco5TldoEMthQcvr6TOh9Aun93kYUAq22gE";
+      owner = "isabel";
+    };
+    minerva = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFluIN96lPhNvf2JsA2E+HjuQbDseD2sQJOgQbspJWW0";
+      owner = "isabel";
+    };
+    tatsumaki = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFK5AFIUzlIoFmyz5/Ni1F3Xj1tppj/pMXD9GfMP4DV";
+      owner = "isabel";
+    };
+    valkyrie = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHnhUMQ+BtvcfPKJJbR8nFAQIB9KbrKRJlZSsheCL0j6";
+      owner = "isabel";
+    };
+
+    # comfys hosts
+    cottage = {
+      key = "";
+      owner = "comfy";
+    };
+    wisp = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7cduddxQbnFeBWjt9L6Uml5mjnfEOxZqd4LoyRDTmg";
+      owner = "comfy";
+    };
   };
 
   types = with hosts; {
@@ -15,75 +43,93 @@ let
       amaterasu
       tatsumaki
       valkyrie
+      wisp
+      cottage
     ];
     hybrid = [ hydra ];
   };
 
-  defAccess = list: { publicKeys = list ++ [ users.isabel ] ++ types.hybrid; };
+  defAccess =
+    list: urs:
+    let
+      listcombined = list ++ types.hybrid;
+      filtered = builtins.filter (host: builtins.any (x: host.owner == x) urs) listcombined;
+      keys = builtins.map (host: host.key) filtered;
+    in
+    {
+      publicKeys = keys ++ map (user: users.${user}) urs;
+    };
+
+  defAccessIsabel = list: defAccess list [ "isabel" ];
+  defAccessComfy = list: defAccess list [ "comfy" ];
 in
 {
-  "wakatime.age" = defAccess (types.workstations ++ types.servers);
+  # isabel's secrets
+  "wakatime.age" = defAccessIsabel (types.workstations ++ types.servers);
 
   # git ssh keys
-  "keys/gh.age" = defAccess (types.workstations ++ types.servers);
-  "keys/gh-pub.age" = defAccess (types.workstations ++ types.servers);
-  "keys/aur.age" = defAccess (types.workstations ++ types.servers);
-  "keys/aur-pub.age" = defAccess (types.workstations ++ types.servers);
-  "keys/gpg.age" = defAccess types.workstations;
+  "keys/gh.age" = defAccessIsabel (types.workstations ++ types.servers);
+  "keys/gh-pub.age" = defAccessIsabel (types.workstations ++ types.servers);
+  "keys/aur.age" = defAccessIsabel (types.workstations ++ types.servers);
+  "keys/aur-pub.age" = defAccessIsabel (types.workstations ++ types.servers);
+  "keys/gpg.age" = defAccessIsabel types.workstations;
 
-  "uni/gitconf.age" = defAccess types.workstations;
-  "uni/ssh.age" = defAccess types.workstations;
-  "uni/central.age" = defAccess types.workstations;
+  "uni/gitconf.age" = defAccessIsabel types.workstations;
+  "uni/ssh.age" = defAccessIsabel types.workstations;
+  "uni/central.age" = defAccessIsabel types.workstations;
 
   # All nixos machines
-  "keys/nixos.age" = defAccess (types.workstations ++ types.servers);
-  "keys/nixos-pub.age" = defAccess (types.workstations ++ types.servers);
+  "keys/nixos.age" = defAccessIsabel (types.workstations ++ types.servers);
+  "keys/nixos-pub.age" = defAccessIsabel (types.workstations ++ types.servers);
 
   # ORACLE vps'
-  "keys/openvpn.age" = defAccess types.workstations;
-  "keys/amity.age" = defAccess types.workstations;
+  "keys/openvpn.age" = defAccessIsabel types.workstations;
+  "keys/amity.age" = defAccessIsabel types.workstations;
 
   # server
-  "cloudflare/hydra.age" = defAccess types.servers;
-  "cloudflare/cert-api.age" = defAccess types.servers;
+  "cloudflare/hydra.age" = defAccessIsabel types.servers;
+  "cloudflare/cert-api.age" = defAccessIsabel types.servers;
 
   # mailserver
-  "mailserver/isabel.age" = defAccess types.servers;
-  "mailserver/vaultwarden.age" = defAccess types.servers;
-  "mailserver/database.age" = defAccess types.servers;
-  "mailserver/grafana.age" = defAccess types.servers;
-  "mailserver/git.age" = defAccess types.servers;
-  "mailserver/noreply.age" = defAccess types.servers;
-  "mailserver/spam.age" = defAccess types.servers;
+  "mailserver/isabel.age" = defAccessIsabel types.servers;
+  "mailserver/vaultwarden.age" = defAccessIsabel types.servers;
+  "mailserver/database.age" = defAccessIsabel types.servers;
+  "mailserver/grafana.age" = defAccessIsabel types.servers;
+  "mailserver/git.age" = defAccessIsabel types.servers;
+  "mailserver/noreply.age" = defAccessIsabel types.servers;
+  "mailserver/spam.age" = defAccessIsabel types.servers;
 
-  "mailserver/grafana-nohash.age" = defAccess types.servers;
-  "mailserver/git-nohash.age" = defAccess types.servers;
+  "mailserver/grafana-nohash.age" = defAccessIsabel types.servers;
+  "mailserver/git-nohash.age" = defAccessIsabel types.servers;
 
   # kanidm
-  "kanidm/admin-password.age" = defAccess types.servers;
-  "kanidm/idm-admin-password.age" = defAccess types.servers;
-  "kanidm/oauth2/grafana.age" = defAccess types.servers;
-  "kanidm/oauth2/forgejo.age" = defAccess types.servers;
+  "kanidm/admin-password.age" = defAccessIsabel types.servers;
+  "kanidm/idm-admin-password.age" = defAccessIsabel types.servers;
+  "kanidm/oauth2/grafana.age" = defAccessIsabel types.servers;
+  "kanidm/oauth2/forgejo.age" = defAccessIsabel types.servers;
 
-  "grafana-oauth2.age" = defAccess types.servers;
+  "grafana-oauth2.age" = defAccessIsabel types.servers;
 
-  "blahaj-env.age" = defAccess types.servers;
+  "blahaj-env.age" = defAccessIsabel types.servers;
 
-  "vikunja-env.age" = defAccess types.servers;
+  "vikunja-env.age" = defAccessIsabel types.servers;
 
-  "nextcloud-passwd.age" = defAccess types.servers;
+  "nextcloud-passwd.age" = defAccessIsabel types.servers;
 
-  "vaultwarden-env.age" = defAccess types.servers;
+  "vaultwarden-env.age" = defAccessIsabel types.servers;
 
-  "matrix/env.age" = defAccess types.servers;
+  "matrix/env.age" = defAccessIsabel types.servers;
 
   # plausible
-  "plausible/key.age" = defAccess types.servers;
-  "plausible/admin.age" = defAccess types.servers;
+  "plausible/key.age" = defAccessIsabel types.servers;
+  "plausible/admin.age" = defAccessIsabel types.servers;
 
   #wakapi
-  "wakapi.age" = defAccess types.servers;
-  "wakapi-mailer.age" = defAccess types.servers;
+  "wakapi.age" = defAccessIsabel types.servers;
+  "wakapi-mailer.age" = defAccessIsabel types.servers;
 
-  "mongodb-passwd.age" = defAccess types.servers;
+  "mongodb-passwd.age" = defAccessIsabel types.servers;
+
+  # comfys keys
+  "keys/comfy.age" = defAccessComfy (types.workstations ++ types.servers);
 }
