@@ -67,6 +67,8 @@
       };
       tui.enable = true;
       gui.enable = false;
+
+      fish.enable = true;
     };
   };
 }

@@ -3,7 +3,7 @@
   home.shellAliases = {
     mkdir = "mkdir -pv"; # always create pearent directory
     df = "df -h"; # human readblity
-    rs = "sudo reboot";
+    reboot = "systemctl reboot";
     sysctl = "sudo systemctl";
     jctl = "journalctl -p 3 -xb"; # get error messages from journalctl
     lg = "lazygit";
