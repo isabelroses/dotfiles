@@ -2,6 +2,6 @@
 * @isabelroses
 
 # give comfysage all the things she wants
-/home/comfysage/* @comfysage
+/home/comfy/* @comfysage
 /systems/cottage/* @comfysage
-/modules/base/users/comfy.nix @comfysage
+/systems/wisp/* @comfysage
