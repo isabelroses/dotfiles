@@ -33,5 +33,9 @@ in
         description = "The default gpg key used for signing commits";
       };
     };
+
+    cocogitto = mkProgram pkgs "cocogitto" {
+      enable.default = config.garden.programs.cli.enable;
+    };
   };
 }

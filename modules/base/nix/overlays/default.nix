@@ -15,5 +15,7 @@
 
     # remove desktop files from apps because i find them annoying
     (final: prev: import ./no-desktop.nix final prev)
+
+    (final: prev: import ./funni.nix final prev)
   ];
 }

@@ -16,6 +16,7 @@
     ./fd.nix
     ./freeze.nix
     ./fzf.nix
+    ./goc.nix
     ./hyfetch.nix
     ./ripgrep.nix
     ./starship.nix
