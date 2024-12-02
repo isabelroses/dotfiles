@@ -1,12 +1,12 @@
-From b37c93ebbaaa083f484b6af0a994338b0c780542 Mon Sep 17 00:00:00 2001
+From 6e7306960bd9279c70fe2aa2056c22f79a9dc4ca Mon Sep 17 00:00:00 2001
 From: isabel <isabel@isabelroses.com>
-Date: Mon, 2 Dec 2024 18:05:29 +0000
+Date: Mon, 2 Dec 2024 22:13:10 +0000
 Subject: [PATCH] feat(builtins): abs
 ---
  lix/libexpr/builtins/abs.md |  5 +++++
  lix/libexpr/meson.build     |  1 +
- lix/libexpr/primops.cc      | 11 ++++++++++-
- 3 files changed, 16 insertions(+), 1 deletion(-)
+ lix/libexpr/primops.cc      | 10 ++++++++++
+ 3 files changed, 16 insertions(+)
  create mode 100644 lix/libexpr/builtins/abs.md
 
 diff --git a/lix/libexpr/builtins/abs.md b/lix/libexpr/builtins/abs.md
@@ -33,7 +33,7 @@ index dcbc12e7d..628dda384 100644
    'builtins/addDrvOutputDependencies.md',
    'builtins/all.md',
 diff --git a/lix/libexpr/primops.cc b/lix/libexpr/primops.cc
-index 7b9ea06cc..8b4d88f51 100644
+index 7b9ea06cc..f65d0946a 100644
 --- a/lix/libexpr/primops.cc
 +++ b/lix/libexpr/primops.cc
 @@ -2443,6 +2443,16 @@ static void prim_bitXor(EvalState & state, const PosIdx pos, Value * * args, Val
@@ -53,14 +53,6 @@ index 7b9ea06cc..8b4d88f51 100644
  static void prim_lessThan(EvalState & state, const PosIdx pos, Value * * args, Value & v)
  {
      state.forceValue(*args[0], pos);
-@@ -2452,7 +2462,6 @@ static void prim_lessThan(EvalState & state, const PosIdx pos, Value * * args, V
-     v.mkBool(comp(args[0], args[1]));
- }
- 
--
- /*************************************************************
-  * String manipulation
-  *************************************************************/
 -- 
 2.44.1
 

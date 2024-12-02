@@ -30,10 +30,9 @@
 
                 # add more builtins to lix, this consists of the following:
                 # - `builtins.abs` which will get you a absolute value of a number
-                #   also available from ./patches/lix-feat-builtins-abs.patch
+                ./patches/lix-feat-builtins-abs.patch
                 # - `builtins.greaterThan` which will return true if the first argument is greater than the second
-                #   also available from ./patches/lix-feat-builtins-greaterThan.patch
-                ./patches/lix-feat-builtins-combined.patch
+                ./patches/lix-feat-builtins-greaterThan.patch
               ];
 
               # Kinda funny right
