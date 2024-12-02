@@ -24,13 +24,16 @@
           }).overrideAttrs
             (oa: {
               patches = [
-                # add a --call-package or -C cli option to build a package from the cli
+                # adds a --call-package or -C cli option to build a package from the cli
                 # based on the work of https://github.com/privatevoid-net/nix-super
                 ./patches/lix-callpackage-cli.patch
 
-                # allow flakes to trivially eval to attrsets
-                # https://gerrit.lix.systems/c/lix/+/1209
-                # ./patches/lix-flake-trivial-eval.patch
+                # add more builtins to lix, this consists of the following:
+                # - `builtins.abs` which will get you a absolute value of a number
+                #   also available from ./patches/lix-feat-builtins-abs.patch
+                # - `builtins.greaterThan` which will return true if the first argument is greater than the second
+                #   also available from ./patches/lix-feat-builtins-greaterThan.patch
+                ./patches/lix-feat-builtins-combined.patch
               ];
 
               # Kinda funny right

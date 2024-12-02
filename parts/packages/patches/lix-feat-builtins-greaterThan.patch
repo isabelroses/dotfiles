@@ -1,8 +1,19 @@
-diff --git c/lix/libexpr/builtins/greaterThan.md i/lix/libexpr/builtins/greaterThan.md
+From 5f1102487d572b5d7acf02ac5358dfbb03d64917 Mon Sep 17 00:00:00 2001
+From: isabel <isabel@isabelroses.com>
+Date: Mon, 2 Dec 2024 17:47:35 +0000
+Subject: [PATCH] feat(builtins): greaterThan
+---
+ lix/libexpr/builtins/greaterThan.md |  7 +++++++
+ lix/libexpr/meson.build             |  1 +
+ lix/libexpr/primops.cc              | 21 +++++++++++++++++++--
+ 3 files changed, 27 insertions(+), 2 deletions(-)
+ create mode 100644 lix/libexpr/builtins/greaterThan.md
+
+diff --git a/lix/libexpr/builtins/greaterThan.md b/lix/libexpr/builtins/greaterThan.md
 new file mode 100644
 index 000000000..3bb2787c7
 --- /dev/null
-+++ i/lix/libexpr/builtins/greaterThan.md
++++ b/lix/libexpr/builtins/greaterThan.md
 @@ -0,0 +1,7 @@
 +---
 +name: greaterThan
@@ -11,10 +22,10 @@ index 000000000..3bb2787c7
 +Return `true` if the number *e1* is greater than the number *e2*, and
 +`false` otherwise. Evaluation aborts if either *e1* or *e2* does not
 +evaluate to a number.
-diff --git c/lix/libexpr/meson.build i/lix/libexpr/meson.build
+diff --git a/lix/libexpr/meson.build b/lix/libexpr/meson.build
 index dcbc12e7d..98cdd6725 100644
---- c/lix/libexpr/meson.build
-+++ i/lix/libexpr/meson.build
+--- a/lix/libexpr/meson.build
++++ b/lix/libexpr/meson.build
 @@ -87,6 +87,7 @@ builtin_definitions = files(
    'builtins/getContext.md',
    'builtins/getEnv.md',
@@ -23,10 +34,10 @@ index dcbc12e7d..98cdd6725 100644
    'builtins/groupBy.md',
    'builtins/hasAttr.md',
    'builtins/hasContext.md',
-diff --git c/lix/libexpr/primops.cc i/lix/libexpr/primops.cc
+diff --git a/lix/libexpr/primops.cc b/lix/libexpr/primops.cc
 index 7b9ea06cc..8dcbeedb6 100644
---- c/lix/libexpr/primops.cc
-+++ i/lix/libexpr/primops.cc
+--- a/lix/libexpr/primops.cc
++++ b/lix/libexpr/primops.cc
 @@ -2195,6 +2195,9 @@ static void prim_genList(EvalState & state, const PosIdx pos, Value * * args, Va
  static void prim_lessThan(EvalState & state, const PosIdx pos, Value * * args, Value & v);
  
@@ -69,3 +80,6 @@ index 7b9ea06cc..8dcbeedb6 100644
  
  /*************************************************************
   * String manipulation
+-- 
+2.44.1
+

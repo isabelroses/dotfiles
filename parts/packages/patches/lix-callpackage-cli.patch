@@ -1,7 +1,19 @@
-diff --git i/lix/libcmd/command.hh w/lix/libcmd/command.hh
+From 4ab398fd9629c8ddeec7ca4f43747beac444d2b3 Mon Sep 17 00:00:00 2001
+From: isabel <isabel@isabelroses.com>
+Date: Mon, 2 Dec 2024 17:48:34 +0000
+Subject: [PATCH] feat(cli): add callPackage flag
+
+adds a --call-package or -C cli option to build a package from the cli
+based on the work of https://github.com/privatevoid-net/nix-super
+---
+ lix/libcmd/command.hh      |  1 +
+ lix/libcmd/installables.cc | 25 +++++++++++++++++++++----
+ 2 files changed, 22 insertions(+), 4 deletions(-)
+
+diff --git a/lix/libcmd/command.hh b/lix/libcmd/command.hh
 index 0f9ec66e7..1617afb5c 100644
---- i/lix/libcmd/command.hh
-+++ w/lix/libcmd/command.hh
+--- a/lix/libcmd/command.hh
++++ b/lix/libcmd/command.hh
 @@ -111,6 +111,7 @@ struct SourceExprCommand : virtual Args, MixFlakeOptions
  {
      std::optional<Path> file;
@@ -10,10 +22,10 @@ index 0f9ec66e7..1617afb5c 100644
  
      SourceExprCommand();
  
-diff --git i/lix/libcmd/installables.cc w/lix/libcmd/installables.cc
+diff --git a/lix/libcmd/installables.cc b/lix/libcmd/installables.cc
 index 1a51a36d3..ec2df929f 100644
---- i/lix/libcmd/installables.cc
-+++ w/lix/libcmd/installables.cc
+--- a/lix/libcmd/installables.cc
++++ b/lix/libcmd/installables.cc
 @@ -165,6 +165,19 @@ SourceExprCommand::SourceExprCommand()
          .labels = {"expr"},
          .handler = {&expr}
@@ -62,3 +74,6 @@ index 1a51a36d3..ec2df929f 100644
          else {
              auto & e = state->parseExprFromString(*expr, CanonPath::fromCwd());
              state->eval(e, *vFile);
+-- 
+2.44.1
+

@@ -1,0 +1,122 @@
+From b3781cd99d9328ea09892e34564d4851239f92e6 Mon Sep 17 00:00:00 2001
+From: isabel <isabel@isabelroses.com>
+Date: Mon, 2 Dec 2024 18:34:04 +0000
+Subject: [PATCH] feat(builtins): add more
+---
+ lix/libexpr/builtins/abs.md         |  5 +++++
+ lix/libexpr/builtins/greaterThan.md |  7 +++++++
+ lix/libexpr/meson.build             |  2 ++
+ lix/libexpr/primops.cc              | 30 +++++++++++++++++++++++++++--
+ 4 files changed, 42 insertions(+), 2 deletions(-)
+ create mode 100644 lix/libexpr/builtins/abs.md
+ create mode 100644 lix/libexpr/builtins/greaterThan.md
+
+diff --git a/lix/libexpr/builtins/abs.md b/lix/libexpr/builtins/abs.md
+new file mode 100644
+index 000000000..6c8ab27a2
+--- /dev/null
++++ b/lix/libexpr/builtins/abs.md
+@@ -0,0 +1,5 @@
++---
++name: abs
++args: [e]
++---
++Return the absolute value of the number *e*.
+diff --git a/lix/libexpr/builtins/greaterThan.md b/lix/libexpr/builtins/greaterThan.md
+new file mode 100644
+index 000000000..3bb2787c7
+--- /dev/null
++++ b/lix/libexpr/builtins/greaterThan.md
+@@ -0,0 +1,7 @@
++---
++name: greaterThan
++args: [e1, e2]
++---
++Return `true` if the number *e1* is greater than the number *e2*, and
++`false` otherwise. Evaluation aborts if either *e1* or *e2* does not
++evaluate to a number.
+diff --git a/lix/libexpr/meson.build b/lix/libexpr/meson.build
+index dcbc12e7d..ea27c65e0 100644
+--- a/lix/libexpr/meson.build
++++ b/lix/libexpr/meson.build
+@@ -46,6 +46,7 @@ libexpr_settings_header = custom_target(
+ 
+ builtin_definitions = files(
+   'builtins/abort.md',
++  'builtins/abs.md',
+   'builtins/add.md',
+   'builtins/addDrvOutputDependencies.md',
+   'builtins/all.md',
+@@ -87,6 +88,7 @@ builtin_definitions = files(
+   'builtins/getContext.md',
+   'builtins/getEnv.md',
+   'builtins/getFlake.md',
++  'builtins/greaterThan.md',
+   'builtins/groupBy.md',
+   'builtins/hasAttr.md',
+   'builtins/hasContext.md',
+diff --git a/lix/libexpr/primops.cc b/lix/libexpr/primops.cc
+index 7b9ea06cc..4b63d6678 100644
+--- a/lix/libexpr/primops.cc
++++ b/lix/libexpr/primops.cc
+@@ -2195,6 +2195,9 @@ static void prim_genList(EvalState & state, const PosIdx pos, Value * * args, Va
+ static void prim_lessThan(EvalState & state, const PosIdx pos, Value * * args, Value & v);
+ 
+ 
++static void prim_greaterThan(EvalState & state, const PosIdx pos, Value * * args, Value & v);
++
++
+ static void prim_sort(EvalState & state, const PosIdx pos, Value * * args, Value & v)
+ {
+     state.forceList(*args[1], pos, "while evaluating the second argument passed to builtins.sort");
+@@ -2220,8 +2223,13 @@ static void prim_sort(EvalState & state, const PosIdx pos, Value * * args, Value
+            should be outside the lambda creation */
+         if (args[0]->isPrimOp()) {
+             auto ptr = args[0]->primOp->fun.target<decltype(&prim_lessThan)>();
+-            if (ptr && *ptr == prim_lessThan)
+-                return CompareValues(state, noPos, "while evaluating the ordering function passed to builtins.sort")(a, b);
++            if (ptr) {
++                if (*ptr == prim_lessThan) {
++                    return CompareValues(state, noPos, "while evaluating the ordering function passed to builtins.sort")(a, b);
++                } else if (*ptr == prim_greaterThan) {
++                    return CompareValues(state, noPos, "while evaluating the ordering function passed to builtins.sort")(b, a);
++                }
++            }
+         }
+ 
+         Value * vs[] = {a, b};
+@@ -2443,6 +2451,16 @@ static void prim_bitXor(EvalState & state, const PosIdx pos, Value * * args, Val
+     v.mkInt(i1.value ^ i2.value);
+ }
+ 
++static void prim_abs(EvalState & state, const PosIdx pos, Value * * args, Value & v)
++{
++    state.forceValue(*args[0], pos);
++    if (args[0]->type() == nFloat)
++        v.mkFloat(std::abs(state.forceFloat(*args[0], pos, "while evaluating the argument passed to builtins.abs")));
++    else {
++        v.mkInt(std::abs(state.forceInt(*args[0], pos, "while evaluating the argument passed to builtins.abs").value));
++    }
++}
++
+ static void prim_lessThan(EvalState & state, const PosIdx pos, Value * * args, Value & v)
+ {
+     state.forceValue(*args[0], pos);
+@@ -2452,6 +2470,14 @@ static void prim_lessThan(EvalState & state, const PosIdx pos, Value * * args, V
+     v.mkBool(comp(args[0], args[1]));
+ }
+ 
++static void prim_greaterThan(EvalState & state, const PosIdx pos, Value * * args, Value & v)
++{
++    state.forceValue(*args[0], pos);
++    state.forceValue(*args[1], pos);
++    // pos is exact here, no need for a message.
++    CompareValues comp(state, noPos, "");
++    v.mkBool(comp(args[1], args[0]));
++}
+ 
+ /*************************************************************
+  * String manipulation
+-- 
+2.44.1
+
