@@ -27,6 +27,8 @@ in
         autoSquash = true;
         autoStash = true;
       };
+      merge.ff = "only";
+
       commit.gpgsign = true;
       gpg.format = "ssh";
       user.signingkey = osConfig.age.secrets.keys-comfy-gh.path;
