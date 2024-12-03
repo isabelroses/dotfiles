@@ -28,6 +28,7 @@ in
         autoStash = true;
       };
       merge.ff = "only";
+      push.autoSetupRemote = true;
 
       commit.gpgsign = true;
       gpg.format = "ssh";
