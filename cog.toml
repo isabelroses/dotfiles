@@ -23,9 +23,7 @@ cog verify --file $1
 
 [changelog]
 path = "CHANGELOG.md"
-authors = [
-  { signature = "robin roses", username = "comfysage" }
-]
+authors = [{ signature = "robin roses", username = "comfysage" }]
 
 [bump_profiles]
 
