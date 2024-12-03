@@ -115,7 +115,7 @@ in
           systems.oauth2 = {
             grafana = {
               displayName = "Grafana";
-              originUrl = "https://${cfg'.grafana.domain}/";
+              originUrl = "https://${cfg'.grafana.domain}/login/generic_oauth";
               originLanding = "https://${cfg'.grafana.domain}/";
               basicSecretFile = config.age.secrets.kanidm-oauth2-grafana.path;
               preferShortUsername = true;
@@ -136,7 +136,7 @@ in
 
             forgejo = {
               displayName = "Forgejo";
-              originUrl = "https://${cfg'.forgejo.domain}/";
+              originUrl = "https://${cfg'.forgejo.domain}/user/oauth2/kanidm/callback";
               originLanding = "https://${cfg'.forgejo.domain}/";
               basicSecretFile = config.age.secrets.kanidm-oauth2-forgejo.path;
               scopeMaps."forgejo.access" = [
