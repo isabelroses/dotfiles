@@ -17,6 +17,9 @@
 
           DIRENV_LOG_FORMAT = "";
 
+          FLAKE = ".";
+          NH_FLAKE = ".";
+
           packages = [
             pkgs.git # flakes require git
             pkgs.just # quick and easy task runner
