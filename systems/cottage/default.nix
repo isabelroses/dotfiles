@@ -1,3 +1,4 @@
+{ inputs', ... }:
 {
   imports = [ ./hardware.nix ];
 
@@ -86,6 +87,8 @@
       zathura.enable = true;
       rofi.enable = true;
       fish.enable = true;
+
+      neovim.package = inputs'.ivy.packages.default;
     };
   };
 }

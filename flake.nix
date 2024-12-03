@@ -261,6 +261,18 @@
       };
     };
 
+    ivy = {
+      type = "github";
+      owner = "comfysage";
+      repo = "ivy";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+        beapkgs.follows = "beapkgs";
+      };
+    };
+
     # exists for ".follows"
     flake-utils = {
       type = "github";

@@ -398,6 +398,32 @@
         "type": "github"
       }
     },
+    "ivy": {
+      "inputs": {
+        "beapkgs": [
+          "beapkgs"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1733231356,
+        "narHash": "sha256-USkNiG/wGPEyWEc47T7xksJ3NtWaLxN4vs2gw1Pt6Bk=",
+        "owner": "comfysage",
+        "repo": "ivy",
+        "rev": "767a3aed2500b6e4b5a490394fca1fadf86e500b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "comfysage",
+        "repo": "ivy",
+        "type": "github"
+      }
+    },
     "izvim": {
       "inputs": {
         "beapkgs": [
@@ -604,6 +630,7 @@
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
         "homebrew": "homebrew",
+        "ivy": "ivy",
         "izvim": "izvim",
         "lanzaboote": "lanzaboote",
         "lix": "lix",

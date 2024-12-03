@@ -1,3 +1,4 @@
+{ inputs', ... }:
 {
   garden = {
     device = {
@@ -69,6 +70,8 @@
       gui.enable = false;
 
       fish.enable = true;
+
+      neovim.package = inputs'.ivy.packages.default;
     };
   };
 }
