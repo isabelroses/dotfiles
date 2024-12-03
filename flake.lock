@@ -100,11 +100,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1733014359,
-        "narHash": "sha256-V7EmjB45TouyBWij5Ev3o8A5F4EJTfneBqdEu2xWk6k=",
+        "lastModified": 1733186699,
+        "narHash": "sha256-/1cRfEnTCueP2yBxkAkJaS6rFLaUBZ99mwJa5JLe8g8=",
         "owner": "isabelroses",
         "repo": "beapkgs",
-        "rev": "c2ecdd888026bbe7f80176b3007503f72d1e3400",
+        "rev": "4259b46d7913f7642caf26530ca273a4bcbd63f1",
         "type": "github"
       },
       "original": {
@@ -294,11 +294,11 @@
         "zig": []
       },
       "locked": {
-        "lastModified": 1733085012,
-        "narHash": "sha256-YWMxixH+rQSsVV4ItUHqUAoUG5Lr4bP4CKb3vaiI22I=",
+        "lastModified": 1733179821,
+        "narHash": "sha256-dKJpRERwG4b/HBsG/U4VLXn603dOU3nfYsqghQr4OYw=",
         "ref": "refs/heads/main",
-        "rev": "2cb334f2937ce9ca4f8233d227579ba2a98b7530",
-        "revCount": 8149,
+        "rev": "91ae0e16f4ef142d86b59b489e4f0610ac60f3fd",
+        "revCount": 8153,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -358,11 +358,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1733085484,
-        "narHash": "sha256-dVmNuUajnU18oHzBQWZm1BQtANCHaqNuxTHZQ+GN0r8=",
+        "lastModified": 1733175814,
+        "narHash": "sha256-zFOtOaqjzZfPMsm1mwu98syv3y+jziAq5DfWygaMtLg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c1fee8d4a60b89cae12b288ba9dbc608ff298163",
+        "rev": "bf23fe41082aa0289c209169302afd3397092f22",
         "type": "github"
       },
       "original": {
