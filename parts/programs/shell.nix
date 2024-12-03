@@ -23,6 +23,7 @@
           packages = [
             pkgs.git # flakes require git
             pkgs.just # quick and easy task runner
+            pkgs.cocogitto # git helpers
             self'.formatter # nix formatter
             pkgs.nix-output-monitor # get clean diff between generations
             inputs'.agenix.packages.agenix # secrets
