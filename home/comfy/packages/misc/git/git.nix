@@ -31,7 +31,7 @@ in
 
       commit.gpgsign = true;
       gpg.format = "ssh";
-      user.signingkey = osConfig.age.secrets.keys-comfy-gh.path;
+      user.signingkey = osConfig.age.secrets.keys-gh.path;
       # personal preference
       init.defaultBranch = "main";
       # prevent data corruption
