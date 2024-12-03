@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.hardware) ldTernary;
   inherit (lib.secrets) mkSecret mkSecretWithPath;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
@@ -31,89 +31,94 @@ in
     secretsDir = mkIf isDarwin "/private/tmp/agenix";
     secretsMountPoint = mkIf isDarwin "/private/tmp/agenix.d";
 
-    secrets = {
-      wakatime = mkSecretWithPath {
-        file = "wakatime";
-        path = homeDir + "/.config/wakatime/.wakatime.cfg";
-        owner = mainUser;
-        group = userGroup;
-      };
+    secrets = mkMerge [
+      (mkIf (mainUser == "isabel") {
+        wakatime = mkSecretWithPath {
+          file = "wakatime";
+          path = homeDir + "/.config/wakatime/.wakatime.cfg";
+          owner = mainUser;
+          group = userGroup;
+        };
 
-      # git ssh keys
-      keys-gh = mkSecret {
-        file = "keys/gh";
-        owner = mainUser;
-        group = userGroup;
-      };
-      keys-gh-pub = mkSecret {
-        file = "keys/gh-pub";
-        owner = mainUser;
-        group = userGroup;
-      };
-      keys-comfy-gh = mkSecret {
-        file = "keys/comfy-gh";
-        owner = mainUser;
-        group = userGroup;
-      };
-      keys-comfy-gh-pub = mkSecret {
-        file = "keys/comfy-gh-pub";
-        owner = mainUser;
-        group = userGroup;
-      };
-      keys-aur = mkSecret {
-        file = "keys/aur";
-        owner = mainUser;
-        group = userGroup;
-      };
-      keys-aur-pub = mkSecret {
-        file = "keys/aur-pub";
-        owner = mainUser;
-        group = userGroup;
-      };
+        # git ssh keys
+        keys-gh = mkSecret {
+          file = "keys/gh";
+          owner = mainUser;
+          group = userGroup;
+        };
+        keys-gh-pub = mkSecret {
+          file = "keys/gh-pub";
+          owner = mainUser;
+          group = userGroup;
+        };
+        keys-aur = mkSecret {
+          file = "keys/aur";
+          owner = mainUser;
+          group = userGroup;
+        };
+        keys-aur-pub = mkSecret {
+          file = "keys/aur-pub";
+          owner = mainUser;
+          group = userGroup;
+        };
 
-      # extra uni stuff
-      uni-gitconf = mkSecret {
-        file = "uni/gitconf";
-        owner = mainUser;
-        group = userGroup;
-      };
-      uni-ssh = mkSecret {
-        file = "uni/ssh";
-        owner = mainUser;
-        group = userGroup;
-      };
-      uni-central = mkSecretWithPath {
-        file = "uni/central";
-        path = sshDir + "/uni-central";
-        owner = mainUser;
-        group = userGroup;
-      };
+        # extra uni stuff
+        uni-gitconf = mkSecret {
+          file = "uni/gitconf";
+          owner = mainUser;
+          group = userGroup;
+        };
+        uni-ssh = mkSecret {
+          file = "uni/ssh";
+          owner = mainUser;
+          group = userGroup;
+        };
+        uni-central = mkSecretWithPath {
+          file = "uni/central";
+          path = sshDir + "/uni-central";
+          owner = mainUser;
+          group = userGroup;
+        };
 
-      # ORACLE vps'
-      keys-openvpn = mkSecret {
-        file = "keys/openvpn";
-        owner = mainUser;
-        group = userGroup;
-      };
-      keys-amity = mkSecret {
-        file = "keys/amity";
-        owner = mainUser;
-        group = userGroup;
-      };
+        # ORACLE vps'
+        keys-openvpn = mkSecret {
+          file = "keys/openvpn";
+          owner = mainUser;
+          group = userGroup;
+        };
+        keys-amity = mkSecret {
+          file = "keys/amity";
+          owner = mainUser;
+          group = userGroup;
+        };
 
-      # All nixos machines
-      keys-nixos = mkSecretWithPath {
-        file = "keys/nixos";
-        path = sshDir + "/id_ed25519";
-        owner = mainUser;
-        group = userGroup;
-      };
-      keys-nixos-pub = mkSecretWithPath {
-        file = "keys/nixos-pub";
-        path = sshDir + "/id_ed25519.pub";
-        owner = mainUser;
-        group = userGroup;
-      };
-    };
+        # All nixos machines
+        keys-nixos = mkSecretWithPath {
+          file = "keys/nixos";
+          path = sshDir + "/id_ed25519";
+          owner = mainUser;
+          group = userGroup;
+        };
+        keys-nixos-pub = mkSecretWithPath {
+          file = "keys/nixos-pub";
+          path = sshDir + "/id_ed25519.pub";
+          owner = mainUser;
+          group = userGroup;
+        };
+      })
+
+      (mkIf (mainUser == "comfy") {
+        keys-gh = mkSecret {
+          file = "keys/comfy-gh";
+          owner = mainUser;
+          group = userGroup;
+        };
+        keys-gh-pub = mkSecret {
+          file = "keys/comfy-gh-pub";
+          owner = mainUser;
+          group = userGroup;
+        };
+      })
+    ];
   };
 }

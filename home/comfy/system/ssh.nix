@@ -13,7 +13,7 @@ in
       "github.com" = {
         user = "git";
         hostname = "github.com";
-        identityFile = secrets.keys-comfy-gh.path;
+        identityFile = secrets.keys-gh.path;
       };
 
       "gitlab.com" = {
