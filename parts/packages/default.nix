@@ -33,6 +33,8 @@
                 ./patches/lix-feat-builtins-abs.patch
                 # - `builtins.greaterThan` which will return true if the first argument is greater than the second
                 ./patches/lix-feat-builtins-greaterThan.patch
+                # - `builtins.pow` which will raise the first argument to the power of the second
+                ./patches/lix-feat-builtins-pow.patch
               ];
 
               # Kinda funny right

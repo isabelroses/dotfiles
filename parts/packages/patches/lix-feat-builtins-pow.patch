@@ -1,0 +1,69 @@
+From 078f184a1cf98bd435370c826eb268081fd47008 Mon Sep 17 00:00:00 2001
+From: isabel <isabel@isabelroses.com>
+Date: Wed, 4 Dec 2024 21:49:25 +0000
+Subject: [PATCH] feat(builtins): pow
+---
+ lix/libexpr/builtins/pow.md |  5 +++++
+ lix/libexpr/meson.build     |  1 +
+ lix/libexpr/primops.cc      | 21 +++++++++++++++++++++
+ 3 files changed, 27 insertions(+)
+ create mode 100644 lix/libexpr/builtins/pow.md
+
+diff --git a/lix/libexpr/builtins/pow.md b/lix/libexpr/builtins/pow.md
+new file mode 100644
+index 000000000..4a21084b9
+--- /dev/null
++++ b/lix/libexpr/builtins/pow.md
+@@ -0,0 +1,5 @@
++---
++name: pow
++args: [e1, e2]
++---
++Return the result of *e1* to the power of *e2*.
+diff --git a/lix/libexpr/meson.build b/lix/libexpr/meson.build
+index dcbc12e7d..47442c22c 100644
+--- a/lix/libexpr/meson.build
++++ b/lix/libexpr/meson.build
+@@ -118,6 +118,7 @@ builtin_definitions = files(
+   'builtins/path.md',
+   'builtins/pathExists.md',
+   'builtins/placeholder.md',
++  'builtins/pow.md',
+   'builtins/readDir.md',
+   'builtins/readFile.md',
+   'builtins/readFileType.md',
+diff --git a/lix/libexpr/primops.cc b/lix/libexpr/primops.cc
+index 7b9ea06cc..ca69a2fe0 100644
+--- a/lix/libexpr/primops.cc
++++ b/lix/libexpr/primops.cc
+@@ -2420,6 +2420,27 @@ static void prim_div(EvalState & state, const PosIdx pos, Value * * args, Value
+     }
+ }
+ 
++static void prim_pow(EvalState & state, const PosIdx pos, Value * * args, Value & v)
++{
++    state.forceValue(*args[0], pos);
++    state.forceValue(*args[1], pos);
++
++    if (args[0]->type() == nFloat || args[1]->type() == nFloat) {
++        NixFloat f1 = state.forceFloat(*args[0], pos, "while evaluating the first operand of the exponentiation");
++        NixFloat f2 = state.forceFloat(*args[1], pos, "while evaluating the second operand of the exponentiation");
++        v.mkFloat(std::pow(f1, f2));
++    } else {
++        auto i1 = state.forceInt(*args[0], pos, "while evaluating the first operand of the exponentiation");
++        auto i2 = state.forceInt(*args[1], pos, "while evaluating the second operand of the exponentiation");
++
++        if (i2 < 0)
++            state.error<EvalError>("negative exponent in %1% ^ %2%", i1, i2).atPos(pos).debugThrow();
++
++        auto result = std::pow(i1.value, i2.value);
++        v.mkInt(result);
++    }
++}
++
+ static void prim_bitAnd(EvalState & state, const PosIdx pos, Value * * args, Value & v)
+ {
+     auto i1 = state.forceInt(*args[0], pos, "while evaluating the first argument passed to builtins.bitAnd");
+-- 
+2.44.1
+
