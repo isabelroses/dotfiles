@@ -1,12 +1,12 @@
-From 078f184a1cf98bd435370c826eb268081fd47008 Mon Sep 17 00:00:00 2001
+From b89d3ff243691d2b2d108fef9ad5fe931042aed1 Mon Sep 17 00:00:00 2001
 From: isabel <isabel@isabelroses.com>
-Date: Wed, 4 Dec 2024 21:49:25 +0000
+Date: Thu, 5 Dec 2024 17:33:24 +0000
 Subject: [PATCH] feat(builtins): pow
 ---
  lix/libexpr/builtins/pow.md |  5 +++++
  lix/libexpr/meson.build     |  1 +
- lix/libexpr/primops.cc      | 21 +++++++++++++++++++++
- 3 files changed, 27 insertions(+)
+ lix/libexpr/primops.cc      | 10 ++++++++++
+ 3 files changed, 16 insertions(+)
  create mode 100644 lix/libexpr/builtins/pow.md
 
 diff --git a/lix/libexpr/builtins/pow.md b/lix/libexpr/builtins/pow.md
@@ -33,10 +33,10 @@ index dcbc12e7d..47442c22c 100644
    'builtins/readFile.md',
    'builtins/readFileType.md',
 diff --git a/lix/libexpr/primops.cc b/lix/libexpr/primops.cc
-index 7b9ea06cc..ca69a2fe0 100644
+index 328ce250b..45b3589d1 100644
 --- a/lix/libexpr/primops.cc
 +++ b/lix/libexpr/primops.cc
-@@ -2420,6 +2420,27 @@ static void prim_div(EvalState & state, const PosIdx pos, Value * * args, Value
+@@ -2425,6 +2425,16 @@ static void prim_div(EvalState & state, const PosIdx pos, Value * * args, Value
      }
  }
  
@@ -45,20 +45,9 @@ index 7b9ea06cc..ca69a2fe0 100644
 +    state.forceValue(*args[0], pos);
 +    state.forceValue(*args[1], pos);
 +
-+    if (args[0]->type() == nFloat || args[1]->type() == nFloat) {
-+        NixFloat f1 = state.forceFloat(*args[0], pos, "while evaluating the first operand of the exponentiation");
-+        NixFloat f2 = state.forceFloat(*args[1], pos, "while evaluating the second operand of the exponentiation");
-+        v.mkFloat(std::pow(f1, f2));
-+    } else {
-+        auto i1 = state.forceInt(*args[0], pos, "while evaluating the first operand of the exponentiation");
-+        auto i2 = state.forceInt(*args[1], pos, "while evaluating the second operand of the exponentiation");
-+
-+        if (i2 < 0)
-+            state.error<EvalError>("negative exponent in %1% ^ %2%", i1, i2).atPos(pos).debugThrow();
-+
-+        auto result = std::pow(i1.value, i2.value);
-+        v.mkInt(result);
-+    }
++    NixFloat f1 = state.forceFloat(*args[0], pos, "while evaluating the first operand of the exponentiation");
++    NixFloat f2 = state.forceFloat(*args[1], pos, "while evaluating the second operand of the exponentiation");
++    v.mkFloat(std::pow(f1, f2));
 +}
 +
  static void prim_bitAnd(EvalState & state, const PosIdx pos, Value * * args, Value & v)
