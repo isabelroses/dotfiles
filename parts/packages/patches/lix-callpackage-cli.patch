@@ -1,6 +1,6 @@
-From 65e47fd58d933b75a2e75777eb36e28873d98be3 Mon Sep 17 00:00:00 2001
+From c2cbfa20d7a86517945d4586ac9170793924eae9 Mon Sep 17 00:00:00 2001
 From: isabel <isabel@isabelroses.com>
-Date: Thu, 5 Dec 2024 17:05:38 +0000
+Date: Fri, 6 Dec 2024 11:31:53 +0000
 Subject: [PATCH] feat(cli): add callPackage flag
 
 adds a --call-package or -C cli option to build a package from the cli
@@ -11,7 +11,7 @@ based on the work of https://github.com/privatevoid-net/nix-super
  2 files changed, 22 insertions(+), 4 deletions(-)
 
 diff --git a/lix/libcmd/command.hh b/lix/libcmd/command.hh
-index 478032116..40ee997db 100644
+index 90199145c..97safe5a8f 100644
 --- a/lix/libcmd/command.hh
 +++ b/lix/libcmd/command.hh
 @@ -111,6 +111,7 @@ struct SourceExprCommand : virtual Args, MixFlakeOptions
@@ -23,7 +23,7 @@ index 478032116..40ee997db 100644
      SourceExprCommand();
  
 diff --git a/lix/libcmd/installables.cc b/lix/libcmd/installables.cc
-index 700f5115a..8141d6ab4 100644
+index 9970d4319..8a229e76c 100644
 --- a/lix/libcmd/installables.cc
 +++ b/lix/libcmd/installables.cc
 @@ -165,6 +165,19 @@ SourceExprCommand::SourceExprCommand()
@@ -46,7 +46,16 @@ index 700f5115a..8141d6ab4 100644
  }
  
  MixReadOnlyOption::MixReadOnlyOption()
-@@ -428,12 +441,12 @@ Installables SourceExprCommand::parseInstallables(
+@@ -428,7 +441,7 @@ ref<eval_cache::EvalCache> openEvalCache(
+ ref<eval_cache::CachingEvaluator> SourceExprCommand::getEvaluator()
+ {
+     // FIXME: backward compatibility hack
+-    if (file) {
++    if (file || callPackageFile) {
+         evalSettings.pureEval.override(false);
+     }
+ 
+@@ -440,9 +453,9 @@ Installables SourceExprCommand::parseInstallables(
  {
      Installables result;
  
@@ -57,23 +66,18 @@ index 700f5115a..8141d6ab4 100644
 +        if ((file && expr) || (file && callPackageFile) || (expr && callPackageFile))
 +            throw UsageError("'--file', '--expr' and '--call-package' are exclusive");
  
-         // FIXME: backward compatibility hack
--        if (file) {
-+        if (file || callPackageFile) {
-             evalSettings.pureEval.override(false);
-             getEvalState()->paths.allowedPaths.reset();
-         }
-@@ -447,6 +460,10 @@ Installables SourceExprCommand::parseInstallables(
+         auto evaluator = getEvaluator();
+         auto vFile = evaluator->mem.allocValue();
+@@ -453,6 +466,10 @@ Installables SourceExprCommand::parseInstallables(
          }
          else if (file)
-             state.evalFile(lookupFileArg(state, *file), *vFile);
+             state.evalFile(lookupFileArg(*evaluator, *file), *vFile);
 +        else if (callPackageFile) {
-+            auto & e = state.parseExprFromString(fmt("(import <nixpkgs> {}).callPackage %s {}", CanonPath::fromCwd(*callPackageFile)), CanonPath::fromCwd());
++            auto & e = evaluator->parseExprFromString(fmt("(import <nixpkgs> {}).callPackage %s {}", CanonPath::fromCwd(*callPackageFile)), CanonPath::fromCwd());
 +            state.eval(e, *vFile);
 +        }
          else {
-             auto & e = state.parseExprFromString(*expr, CanonPath::fromCwd());
+             auto & e = evaluator->parseExprFromString(*expr, CanonPath::fromCwd());
              state.eval(e, *vFile);
 -- 
 2.44.1
-
