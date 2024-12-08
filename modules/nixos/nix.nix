@@ -1,8 +1,8 @@
 { config, ... }:
 {
   nix = {
-    # set the nix store to clean every day at 3am
-    gc.dates = "* *-*-* 03:00";
+    # set the nix store to clean every Monday at 3am
+    gc.dates = "Mon *-*-* 03:00";
 
     # automatically optimize /nix/store by removing hard links
     optimise = {
