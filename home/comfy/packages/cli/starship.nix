@@ -6,7 +6,6 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.strings) concatStrings;
 
   # TODO: come back and change this a bit
   ss = symbol: style: {
@@ -15,7 +14,7 @@ let
   };
   ssv = symbol: style: {
     inherit symbol;
-    format = "via [$symbol](${style})";
+    format = "with [$symbol](${style})";
   };
 in
 {
@@ -28,18 +27,19 @@ in
 
     settings = {
       add_newline = true;
-      format = concatStrings [
-        "[╭╴](238)$os"
-        "$all[╰─󰁔](237)$character"
-      ];
+      format = "$all$character";
 
       character = {
-        success_symbol = "";
-        error_symbol = "";
+        success_symbol = "[󰧟](green)";
+        error_symbol = "[󰧟](red)";
+        vimcmd_symbol = "[󰝦](bright-black)";
+        vimcmd_replace_one_symbol = "[r](bright-black)";
+        vimcmd_replace_symbol = "[R](bright-black)";
+        vimcmd_visual_symbol = "[󰝦](purple)";
       };
 
       username = {
-        style_user = "white";
+        style_user = "bright-white";
         style_root = "black";
         format = "[$user]($style) ";
         show_always = true;
@@ -51,7 +51,12 @@ in
         home_symbol = "󰋞 ";
         read_only_style = "197";
         read_only = "  ";
-        format = "at [$path]($style)[$read_only]($read_only_style) ";
+        style = "cyan";
+        format = "[$path]($style)[$read_only]($read_only_style) ";
+        truncate_to_repo = true;
+        before_repo_root_style = "";
+        repo_root_style = "cyan";
+        repo_root_format = "[\\[$repo_root\\]]($repo_root_style) [$path]($style)[$read_only]($read_only_style) ";
 
         substitutions = {
           "󰋞 /Documents" = "󰈙 ";
@@ -123,25 +128,25 @@ in
       nix_shell = ssv " " "blue";
 
       git_branch = {
-        symbol = "󰊢 ";
-        format = "on [$symbol$branch]($style) ";
+        symbol = "󰘬 ";
+        format = "on [$branch]($style) ";
         truncation_length = 4;
         truncation_symbol = "…/";
-        style = "bold green";
+        style = "green";
       };
       git_status = {
-        format = "[\\($all_status$ahead_behind\\)]($style) ";
+        format = "[$all_status$ahead_behind]($style) ";
         style = "bold green";
-        conflicted = "🏳";
-        up_to_date = " ";
-        untracked = " ";
+        conflicted = "=";
+        up_to_date = "󰄬 ";
+        untracked = "? ";
         ahead = "⇡\${count}";
         diverged = "⇕⇡\${ahead_count}⇣\${behind_count}";
         behind = "⇣\${count}";
         stashed = "󰏗 ";
-        modified = " ";
+        modified = "M ";
         staged = "[++\\($count\\)](green)";
-        renamed = "󰖷 ";
+        renamed = " ";
         deleted = " ";
       };
 
