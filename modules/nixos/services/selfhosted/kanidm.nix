@@ -136,7 +136,7 @@ in
 
             forgejo = {
               displayName = "Forgejo";
-              originUrl = "https://${cfg'.forgejo.domain}/user/oauth2/kanidm/callback";
+              originUrl = "https://${cfg'.forgejo.domain}/user/oauth2/Isabel%27s%20SSO/callback";
               originLanding = "https://${cfg'.forgejo.domain}/";
               basicSecretFile = config.age.secrets.kanidm-oauth2-forgejo.path;
               scopeMaps."forgejo.access" = [

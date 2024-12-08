@@ -147,7 +147,7 @@ in
           };
 
           service = {
-            DISABLE_REGISTRATION = false;
+            DISABLE_REGISTRATION = true;
             ALLOW_ONLY_INTERNAL_REGISTRATION = true;
             EMAIL_DOMAIN_ALLOWLIST = "isabelroses.com";
             ALLOW_ONLY_EXTERNAL_REGISTRATION = false;
