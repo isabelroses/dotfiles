@@ -223,7 +223,8 @@ let
           ":" + (builtins.toString port)
         else
           ":" + port
-      }/".pushInsteadOf = "${alias}:";
+      }/".pushInsteadOf =
+        "${alias}:";
     };
 
   /**
