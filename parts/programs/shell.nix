@@ -1,6 +1,7 @@
 {
   perSystem =
     {
+      lib,
       pkgs,
       self',
       config,
@@ -20,15 +21,18 @@
           FLAKE = ".";
           NH_FLAKE = ".";
 
-          packages = [
-            pkgs.git # flakes require git
-            pkgs.just # quick and easy task runner
-            pkgs.cocogitto # git helpers
-            self'.formatter # nix formatter
-            pkgs.nix-output-monitor # get clean diff between generations
-            inputs'.agenix.packages.agenix # secrets
-            inputs'.deploy-rs.packages.deploy-rs # remote deployment
-          ];
+          packages =
+            [
+              pkgs.git # flakes require git
+              pkgs.just # quick and easy task runner
+              pkgs.cocogitto # git helpers
+              self'.formatter # nix formatter
+              pkgs.nix-output-monitor # get clean diff between generations
+              inputs'.agenix.packages.agenix # secrets
+            ]
+            ++ lib.lists.optionals pkgs.stdenv.hostPlatform.isLinux [
+              inputs'.deploy-rs.packages.deploy-rs # remote deployment
+            ];
 
           inputsFrom = [ config.treefmt.build.devShell ];
         };
