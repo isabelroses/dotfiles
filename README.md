@@ -46,6 +46,7 @@
     - [NixOS](#nixos)
       - [Dual boot](#dual-boot)
     - [macOS](#macos)
+  - [Configuration](#configuration)
   - [Small bits](#small-bits)
 - [Additional notes](#additional-notes)
   - [Resources](#resources)
@@ -87,6 +88,7 @@ Therefore most things will not work out of the box without some changes, so be w
   - ⚖️ [minerva](./systems/minerva/) A server configuration for some of my infrastructure
   - 𖤍 [Valkyrie](./systems/valkyrie/) A WSL2 host, designed to be a development environment on Windows
   - 💮 [Tatsumaki](./systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
+  - 🌱 [cottage](./systems/cottage/) A mid spec laptop
 - 🧩 [parts](./parts/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
   - 📚 [lib](./parts/lib/) Useful repeated functions
   - 🛠️ [templates](./parts/templates/) Templates for setting up development environments
@@ -203,6 +205,26 @@ nix develop
 ```sh
 just provision <host>
 ```
+
+#### Configuration
+
+##### getting started
+
+To start configurating your system keep in mind that there are two sides to
+your configurion: the user side and system side.
+
+###### user
+
+The user side is configured in `/home/<user>`.
+
+To set up a user configuration it must be declared in
+`/modules/base/users/options.nix` and `/modules/base/users/<user>.nix`.
+
+###### system
+
+The user side is configured in `/systems/<hostname>`.
+
+To set up a system configuration it must be declared in `/systems/default.nix`.
 
 #### Small bits
 
