@@ -148,11 +148,11 @@
     },
     "catppuccin": {
       "locked": {
-        "lastModified": 1733908662,
-        "narHash": "sha256-vuyqYX91/kEs+oYAw0az5A/JHeIX8hrv06WtLmhfZ5A=",
+        "lastModified": 1734055912,
+        "narHash": "sha256-KyS4QJ/zfruToq3NmxKQQ2/4WNlzznMaGNO7Aq1kozQ=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "5dfc780ad24353d01161c3c5784200ef042019af",
+        "rev": "7e17c6946516d6599b9ccd4b04447e6567506a1e",
         "type": "github"
       },
       "original": {
@@ -294,11 +294,11 @@
         "zig": []
       },
       "locked": {
-        "lastModified": 1733944485,
-        "narHash": "sha256-fozSJ8Mn4JZL2V6WZRUkICEO2toufJkILLkTZ9CZ68w=",
+        "lastModified": 1734050696,
+        "narHash": "sha256-7DulCtU2xsRq4Op2cCjJpQLmsyqqaMv1DR0A7VV/YA4=",
         "ref": "refs/heads/main",
-        "rev": "ab60fbc096674da013e87c769f2d79a4f30944f6",
-        "revCount": 8212,
+        "rev": "ddb51122d0d93458f826881a6179564f3b1a6091",
+        "revCount": 8245,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -358,11 +358,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1733951607,
-        "narHash": "sha256-CN6q6iCzxI1gkNyk4xLdwaMKi10r7n+aJkRzWj8PXwQ=",
+        "lastModified": 1734043726,
+        "narHash": "sha256-e9YAMReFV1fDPcZLFC2pa4k/8TloSXeX0z2VysNMAoA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6e5b2d9e8014b5572e3367937a329e7053458d34",
+        "rev": "3066cc58f552421a2c5414e78407fa5603405b1e",
         "type": "github"
       },
       "original": {
@@ -411,11 +411,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1733828320,
-        "narHash": "sha256-wK/W+2Vl8E8On1ONrDZmcrTCHb26ouRENpjLRbRf4KU=",
+        "lastModified": 1734001133,
+        "narHash": "sha256-nswhNbbJjwqmNcd/obGn/kN+hsbCNy2PejlEqMzNhPw=",
         "owner": "comfysage",
         "repo": "ivy",
-        "rev": "7ffddc463e4c97cdbe393c48e7fa7026cf4fff68",
+        "rev": "b91de7429cdb1a8d1c6a016be67ee1a257e2ce58",
         "type": "github"
       },
       "original": {
@@ -437,11 +437,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1733886439,
-        "narHash": "sha256-wu6lA0VVzvB5UBfdAOf1b6U9THDcGGsAGrft23EdsK0=",
+        "lastModified": 1734000693,
+        "narHash": "sha256-8x543scA4VVczkWbrKExcQoi9j+aFqzILSRlEjSEVe8=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "52c534482952692ca22bc0105c6a115e55c00f88",
+        "rev": "f5e12835b4acfdc932f5f3f33e87194fb2591202",
         "type": "github"
       },
       "original": {
