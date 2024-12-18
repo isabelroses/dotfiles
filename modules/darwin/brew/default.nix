@@ -29,20 +29,20 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "2a17dad39c312a0d5d36b0e4792b00c033a6538e";
-          hash = "sha256-lyGgK26i65d+RRvjKVuqtN/TK3/VJjXl5IEvlV3q25g=";
+          rev = "d9364733bb6335303aaf85826ffac24363223580";
+          hash = "sha256-+8vl8bF8ZvckNvAwKpB6LGgkmE6ocmkZhsxynOuHpTU=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "1d08c9dc4686d0dc965e23e99d3f5e70e6ed5110";
-          hash = "sha256-gbBbCFWuYJveMX0g0IU5lnauI6ozYcesn1hjWPC+gp8=";
+          rev = "10c4660a4a45b0ce0a22813d4ceda37cc915d95e";
+          hash = "sha256-8o2T8HmK5IuoSYHiBB/G9QyzCJDpy2/Md0rxYlqiFO4=";
         };
         "homebrew/homebrew-bundle" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-bundle";
-          rev = "ffd64496166d710c4f0eaf220d5c18744ec1a4f6";
-          hash = "sha256-AtXWguWd/I7QjPAmJQbzlmCr5RSfcifQHz44tqvR0i8=";
+          rev = "da206fb73a461c83ddecf244014d24c0e4601847";
+          hash = "sha256-yTlCEDS9sHd1ZaN62bLWHbVbdsO8ZC8iuoDq1lrSxSg=";
         };
       };
     };
@@ -83,6 +83,7 @@
       casks = [
         "arc" # browser
         # "loungy" # app launcher, too beta to use mainstream
+        "gimp" # image editor
         "raycast" # app launcher, and clipboard manager
         "inkscape" # vector graphics editor
         "intellij-idea" # IDE
