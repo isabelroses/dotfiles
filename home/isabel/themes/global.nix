@@ -17,10 +17,18 @@ in
       flavor = "mocha";
       accent = "pink";
 
-      pointerCursor = {
+      cursors = {
         enable = en;
         accent = "dark";
       };
+
+      gtk = {
+        enable = true;
+        icon.enable = true;
+      };
+
+      # I want to disable some
+      waybar.enable = false;
     };
 
     # pointer / cursor theming

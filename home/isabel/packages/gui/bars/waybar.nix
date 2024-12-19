@@ -20,7 +20,6 @@ in
       inherit (cfg) package;
 
       systemd.enable = true;
-      catppuccin.enable = false;
 
       settings.mainBar = {
         layer = "top";

@@ -37,11 +37,6 @@ in
     gtk = {
       enable = true;
 
-      catppuccin = {
-        enable = true;
-        icon.enable = true;
-      };
-
       font = {
         inherit (cfg.font) name size;
       };
