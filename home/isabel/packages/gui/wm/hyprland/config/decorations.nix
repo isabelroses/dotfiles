@@ -7,9 +7,11 @@
     inactive_opacity = 1.0;
     fullscreen_opacity = 1.0;
 
-    drop_shadow = true;
-    "col.shadow" = "rgb(11111B)";
-    "col.shadow_inactive" = "rgba(11111B00)";
+    shadow = {
+      enabled = true;
+      color = "rgb(11111B)";
+      color_inactive = "rgba(11111B00)";
+    };
 
     blur = {
       enabled = true;
