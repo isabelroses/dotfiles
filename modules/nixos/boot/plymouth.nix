@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (lib.meta) getExe';
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkEnableOption;
 
@@ -14,19 +15,12 @@ in
   options.garden.system.boot.plymouth.enable = mkEnableOption "plymouth boot splash";
 
   config = mkIf cfg.enable {
-    boot.plymouth = {
-      enable = true;
-      catppuccin.enable = true;
-    };
+    boot.plymouth.enable = true;
 
     # make plymouth work with sleep
     powerManagement = {
-      powerDownCommands = ''
-        ${pkgs.plymouth} --show-splash
-      '';
-      resumeCommands = ''
-        ${pkgs.plymouth} --quit
-      '';
+      powerDownCommands = "${getExe' pkgs.plymouth "plymouth"} --show-splash";
+      resumeCommands = "${getExe' pkgs.plymouth "plymouth"} --quit";
     };
   };
 }
