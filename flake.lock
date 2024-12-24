@@ -171,11 +171,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1734917829,
-        "narHash": "sha256-i+Kdkna3gHDS9oa+wWAKecgHYcSmliSC0cy/8Jr09Qc=",
+        "lastModified": 1735004289,
+        "narHash": "sha256-cJmBhr59xQXwkvF+EZPhKTebgHyqXoei8u2Qq2QJYzE=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "25ff8461583661b330672a0e3ae71f4eba260d77",
+        "rev": "b9bfb93c7632a0e007a3a05fe77c0475d05e045a",
         "type": "github"
       },
       "original": {
@@ -316,11 +316,11 @@
         "zig": []
       },
       "locked": {
-        "lastModified": 1734893212,
-        "narHash": "sha256-wLDWfQLih0VRc7fh5ZYlZ53qRn8WLXn0U/Vxv6A2YaE=",
+        "lastModified": 1734993715,
+        "narHash": "sha256-UzrBPYrdSSJPEkuBTylJVEsgl9KcHV4u32HUrWZ9qxQ=",
         "ref": "refs/heads/main",
-        "rev": "28c40f9bae1386893ba4dd46d969b76d61682f78",
-        "revCount": 8393,
+        "rev": "42cdaa45454d1d38f5d483b713877407ea3fc1bf",
+        "revCount": 8424,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -380,11 +380,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1734893686,
-        "narHash": "sha256-JUEZn9MmpLGsW4J3luSX+R4BhcThccYpYg5AuKW7zG0=",
+        "lastModified": 1734992499,
+        "narHash": "sha256-f9UyHMTb+BwF6RDZ8eO9HOkSlKeeSPBlcYhMmV1UNIk=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "edb8b00e4d17b2116b60eca50f38ac68f12b9ab4",
+        "rev": "f1b1786ea77739dcd181b920d430e30fb1608b8a",
         "type": "github"
       },
       "original": {
@@ -487,11 +487,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1734820165,
-        "narHash": "sha256-qkPmnVYb6w2KdipyigI9ipNR7A8dsFStBRH5sZ+rmqA=",
+        "lastModified": 1734994463,
+        "narHash": "sha256-S9MgfQjNt4J3I7obdLOVY23h+Yl/hnyibwGfOl+1uOE=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "26a59c1b037e43f82b0fada2a218aeb128bc5d21",
+        "rev": "93e6f0d77548be8757c11ebda5c4235ef4f3bc67",
         "type": "github"
       },
       "original": {
@@ -702,11 +702,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1734435836,
-        "narHash": "sha256-kMBQ5PRiFLagltK0sH+08aiNt3zGERC2297iB6vrvlU=",
+        "lastModified": 1734856068,
+        "narHash": "sha256-Q+CB1ajsJg4Z9HGHTBAGY1q18KpnnkmF/eCTLUY6FQ0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4989a246d7a390a859852baddb1013f825435cee",
+        "rev": "93ff48c9be84a76319dac293733df09bbbe3f25c",
         "type": "github"
       },
       "original": {
@@ -832,11 +832,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1734704479,
-        "narHash": "sha256-MMi74+WckoyEWBRcg/oaGRvXC9BVVxDZNRMpL+72wBI=",
+        "lastModified": 1734982074,
+        "narHash": "sha256-N7M37KP7cHWoXicuE536GrVvU8nMDT/gpI1kja2hkdg=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "65712f5af67234dad91a5a4baee986a8b62dbf8f",
+        "rev": "e41e948cf097cbf96ba4dff47a30ea6891af9f33",
         "type": "github"
       },
       "original": {
