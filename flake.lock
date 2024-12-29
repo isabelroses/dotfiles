@@ -33,11 +33,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735346534,
-        "narHash": "sha256-geDO7T1mbCr9dhc7JWPor+zsCBMwbJL2ADq9I3r+B9g=",
+        "lastModified": 1735430786,
+        "narHash": "sha256-y3GiH8wFEQh4HNBfW1jlSORxwCzsKB8URufYAGo8zQE=",
         "owner": "aylur",
         "repo": "ags",
-        "rev": "bb963edccb61be0f40cb8767ab2bf45324fff3f3",
+        "rev": "99f1c3f5b51ac86a42319ef25ef2cea413379505",
         "type": "github"
       },
       "original": {
@@ -157,11 +157,11 @@
         "nuscht-search": "nuscht-search"
       },
       "locked": {
-        "lastModified": 1735263930,
-        "narHash": "sha256-vU7SkHINr+NqmZeFLA11plsaUfazKKpdEhI/oTJbK3Q=",
+        "lastModified": 1735399522,
+        "narHash": "sha256-1lIjMEBvtxJH3V7c66D8pN/pPp4xsFGz6PjcOYX/Niw=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "a2e641bc6b17129d81d54019e14c9956784c69c6",
+        "rev": "8b6baed3d010416da6295805012b12cfa05c09f7",
         "type": "github"
       },
       "original": {
@@ -208,11 +208,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1735263434,
-        "narHash": "sha256-5Bn1c2sWzedpGV+PNfXtoainQ3uUKkx/v7T3N6lKKms=",
+        "lastModified": 1735436182,
+        "narHash": "sha256-6ec0d4ppRBNge5RcT7ug41qz8+Gpg0nuY6QUmNq22Vw=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "e5fdfe023742172ec0e7af0ca6d88362228d14b7",
+        "rev": "10701247e9312a667f41fcb144000151a23168ae",
         "type": "github"
       },
       "original": {
@@ -243,11 +243,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735218083,
-        "narHash": "sha256-MoUAbmXz9TEr7zlKDRO56DBJHe30+7B5X7nhXm+Vpc8=",
+        "lastModified": 1735427049,
+        "narHash": "sha256-rTpBl3xmKYDQTRWF8CRk/r1FoKPDVwqLHGoU7tfECvY=",
         "owner": "lnl7",
         "repo": "nix-darwin",
-        "rev": "bc03f7818771a75716966ce8c23110b715eff2aa",
+        "rev": "53a0c2fe6ed46ab33fc4a221c9f907a7b4c8a91c",
         "type": "github"
       },
       "original": {
@@ -388,11 +388,11 @@
         "zig": []
       },
       "locked": {
-        "lastModified": 1735335581,
-        "narHash": "sha256-D7AnTrsZLlC67ixT+djxolTSnM8zVcL1P/ZjTqfhpAY=",
+        "lastModified": 1735425895,
+        "narHash": "sha256-mHLbYANKHajJUIXgZXBeebMcJrmwIKPNxOP5vgGTit0=",
         "ref": "refs/heads/main",
-        "rev": "bee21880149129f9373a35e9df0d39c223481709",
-        "revCount": 8511,
+        "rev": "5293fc9c2f19b7e01472de8c2ef08bef603b754a",
+        "revCount": 8543,
         "type": "git",
         "url": "ssh://git@github.com/ghostty-org/ghostty"
       },
@@ -495,11 +495,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735343815,
-        "narHash": "sha256-p7IJP/97zJda/wwCn1T2LJBz4olF5LjNf4uwhuyvARo=",
+        "lastModified": 1735381016,
+        "narHash": "sha256-CyCZFhMUkuYbSD6bxB/r43EdmDE7hYeZZPTCv0GudO4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "b7a7cd5dd1a74a9fe86ed4e016f91c78483b527a",
+        "rev": "10e99c43cdf4a0713b4e81d90691d22c6a58bdf2",
         "type": "github"
       },
       "original": {
@@ -936,11 +936,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1735180071,
-        "narHash": "sha256-ceUDFBsLf5Cz3GlhQAdaJsEfi5s1MDjDsO9VvPFoKAE=",
+        "lastModified": 1735352767,
+        "narHash": "sha256-3zXufMRWUdwmp8/BTmxVW/k4MyqsPjLnnt/IlQyZvhc=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "550e1f10be4a504747a7894c35e887e61235763b",
+        "rev": "a16b9a7cac7f4d39a84234d62e91890370c57d76",
         "type": "github"
       },
       "original": {
@@ -980,11 +980,11 @@
         "nixpkgs-24_11": []
       },
       "locked": {
-        "lastModified": 1734884447,
-        "narHash": "sha256-HA9fAmGNGf0cOYrhgoa+B6BxNVqGAYXfLyx8zIS0ZBY=",
+        "lastModified": 1735230346,
+        "narHash": "sha256-zgR8NTiNDPVNrfaiOlB9yHSmCqFDo7Ks2IavaJ2dZo4=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "63209b1def2c9fc891ad271f474a3464a5833294",
+        "rev": "dc0569066e79ae96184541da6fa28f35a33fbf7b",
         "type": "gitlab"
       },
       "original": {
