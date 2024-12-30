@@ -202,17 +202,6 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    # ghostty a new terminal emulator
-    ghostty = {
-      url = "git+ssh://git@github.com/ghostty-org/ghostty";
-
-      inputs = {
-        nixpkgs-stable.follows = "nixpkgs";
-        nixpkgs-unstable.follows = "nixpkgs";
-        zig.follows = "";
-      };
-    };
-
     # a tree-wide formatter
     treefmt-nix = {
       type = "github";
@@ -235,6 +224,16 @@
       type = "github";
       owner = "catppuccin";
       repo = "nix";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "";
+        home-manager.follows = "";
+        home-manager-stable.follows = "";
+        nuscht-search.follows = "";
+        catppuccin-v1_1.follows = "";
+        catppuccin-v1_2.follows = "";
+      };
     };
 
     ### my programs
