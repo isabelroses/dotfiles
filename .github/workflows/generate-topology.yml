@@ -28,7 +28,7 @@ jobs:
       - name: Move files
         run: |
           nix shell nixpkgs#imagemagick
-          magick ./result/topology.svg ./.github/images/topology.png
+          magick ./result/topology.svg ./docs/src/images/topology.png
 
       - name: Commit & Push
         uses: endbug/add-and-commit@v9
