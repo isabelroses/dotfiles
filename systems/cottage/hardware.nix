@@ -19,7 +19,7 @@
       ];
     };
 
-    "/home/comfy" = {
+    "/home/robin" = {
       device = "/dev/disk/by-label/tanuki";
       fsType = "ext4";
     };

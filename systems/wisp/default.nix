@@ -13,8 +13,8 @@
     };
 
     system = {
-      mainUser = "comfy";
-      users = [ "comfy" ];
+      mainUser = "robin";
+      users = [ "robin" ];
 
       boot = {
         loader = "none";

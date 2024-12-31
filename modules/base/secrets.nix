@@ -107,14 +107,14 @@ in
         };
       })
 
-      (mkIf (mainUser == "comfy") {
+      (mkIf (mainUser == "robin") {
         keys-gh = mkSecret {
-          file = "keys/comfy-gh";
+          file = "keys/robin-gh";
           owner = mainUser;
           group = userGroup;
         };
         keys-gh-pub = mkSecret {
-          file = "keys/comfy-gh-pub";
+          file = "keys/robin-gh-pub";
           owner = mainUser;
           group = userGroup;
         };

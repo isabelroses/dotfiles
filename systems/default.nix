@@ -66,7 +66,7 @@ in
       modules = [ headless ];
     };
 
-    # comfy's hosts
+    # robin's hosts
     cottage.modules = [
       laptop
       graphical

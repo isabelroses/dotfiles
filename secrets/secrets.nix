@@ -1,7 +1,7 @@
 let
   users = {
     isabel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2";
-    comfy = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKxTuK2A7wbXnjkIhDrze4B5Uj2rnpmPAWGjPDMPiyk";
+    robin = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKKxTuK2A7wbXnjkIhDrze4B5Uj2rnpmPAWGjPDMPiyk";
   };
 
   hosts = {
@@ -26,14 +26,14 @@ let
       owner = "isabel";
     };
 
-    # comfys hosts
+    # robin's hosts
     cottage = {
       key = "";
-      owner = "comfy";
+      owner = "robin";
     };
     wisp = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7cduddxQbnFeBWjt9L6Uml5mjnfEOxZqd4LoyRDTmg";
-      owner = "comfy";
+      owner = "robin";
     };
   };
 
@@ -61,7 +61,7 @@ let
     };
 
   defAccessIsabel = list: defAccess list [ "isabel" ];
-  defAccessComfy = list: defAccess list [ "comfy" ];
+  defAccessRobin = list: defAccess list [ "robin" ];
 in
 {
   # isabel's secrets
@@ -130,8 +130,8 @@ in
 
   "mongodb-passwd.age" = defAccessIsabel types.servers;
 
-  # comfys keys
-  "keys/comfy.age" = defAccessComfy (types.workstations ++ types.servers);
-  "keys/comfy-gh.age" = defAccessComfy (types.workstations ++ types.servers);
-  "keys/comfy-gh-pub.age" = defAccessComfy (types.workstations ++ types.servers);
+  # robin's keys
+  "keys/robin.age" = defAccessRobin (types.workstations ++ types.servers);
+  "keys/robin-gh.age" = defAccessRobin (types.workstations ++ types.servers);
+  "keys/robin-gh-pub.age" = defAccessRobin (types.workstations ++ types.servers);
 }
