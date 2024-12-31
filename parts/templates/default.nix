@@ -34,5 +34,10 @@
       path = ./rust;
       description = "A Rust template";
     };
+
+    nix = {
+      path = ./nix;
+      description = "A Nix template";
+    };
   };
 }
