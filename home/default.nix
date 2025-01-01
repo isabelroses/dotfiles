@@ -9,7 +9,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkForce mkDefault;
+  inherit (lib.modules) mkDefault;
   inherit (lib.attrsets) genAttrs;
   inherit (config.garden.programs) defaults;
 in
@@ -34,9 +34,9 @@ in
 
     # we should define grauntied common modules here
     sharedModules = [
-      {
-        nix.package = mkForce config.nix.package;
+      inputs.beapkgs.homeManagerModules.default
 
+      {
         home.stateVersion =
           if pkgs.stdenv.hostPlatform.isDarwin then "23.11" else config.system.stateVersion;
 
