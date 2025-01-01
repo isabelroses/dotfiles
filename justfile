@@ -91,3 +91,8 @@ check:
 [group('dev')]
 update *input:
   nix flake update {{input}} --refresh
+
+# build & serve the docs locally
+[group('dev')]
+serve:
+  nix run {{flake}}#docs.serve
