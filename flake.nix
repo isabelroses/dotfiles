@@ -17,7 +17,7 @@
       url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
 
       inputs = {
-        # nixpkgs.follows = "nixpkgs";
+        nixpkgs.follows = "nixpkgs";
         pre-commit-hooks.follows = "";
         nix2container.follows = "";
         flake-compat.follows = "";
