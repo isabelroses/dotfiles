@@ -1,3 +1,6 @@
+flake_var := env_var('FLAKE')
+flake := if flake_var =~ '^\.*$' { justfile_directory() } else { flake_var }
+
 [private]
 default:
   @just --list --unsorted
@@ -21,7 +24,7 @@ builder goal *args:
 [linux]
 [group('rebuild')]
 classic goal *args:
-  sudo nixos-rebuild {{goal}} --flake . {{args}} |& nom
+  sudo nixos-rebuild {{goal}} --flake {{flake}} {{args}} |& nom
 
 # rebuild the boot
 [group('rebuild')]
@@ -38,14 +41,14 @@ switch *args: (builder "switch" args)
 [group('rebuild')]
 [macos]
 provision host:
-  nix run github:LnL7/nix-darwin -- switch --flake .#{{host}}
+  nix run github:LnL7/nix-darwin -- switch --flake {{flake}}#{{host}}
   sudo -i nix-env --uninstall lix # we need to remove the none declarative install of lix
 
 
 # build the package, you must specify the package you want to build
 [group('package')]
 build pkg:
-  nix build .#{{pkg}} --log-format internal-json -v |& nom --json
+  nix build {{flake}}#{{pkg}} --log-format internal-json -v |& nom --json
 
 # build the iso image, you must specify the image you want to build
 [group('package')]
@@ -54,7 +57,7 @@ iso image: (build "nixosConfigurations." + image + ".config.system.build.isoImag
 # build the tarball, you must specify the host you want to build
 [group('package')]
 tar host:
-  sudo nix run .#nixosConfigurations.{{host}}.config.system.build.tarballBuilder
+  sudo nix run {{flake}}#nixosConfigurations.{{host}}.config.system.build.tarballBuilder
 
 
 [private]
