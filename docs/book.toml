@@ -1,0 +1,19 @@
+[book]
+authors = ["Isabel Roses", "Robin Roses"]
+language = "en"
+multilingual = false
+src = "src"
+title = "dotfiles"
+
+[build]
+build-dir = "./dist"
+
+[output.html]
+default-theme = "latte"
+preferred-dark-theme = "mocha"
+git-repository-url = "https://dotfiles.isabelroses.com"
+git-repository-icon = "fa-code-fork"
+cname = "dotfiles.isabelroses.com"
+additional-css = ["./theme/catppuccin.css", "./theme/catppuccin-alerts.css"]
+
+[preprocessor.alerts]

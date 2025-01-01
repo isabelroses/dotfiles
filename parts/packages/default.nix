@@ -14,6 +14,8 @@
           extract
           ;
 
+        docs = pkgs.callPackage ./docs.nix { };
+
         lix =
           (inputs'.lix.packages.default.override {
             # sometimes this builds from source and i hate it

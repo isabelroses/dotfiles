@@ -1,0 +1,21 @@
+- 🏠 [home](https:/github.com/isabelroses/dotfiles/tree/main//home/) Where all home-manager configurations lie
+- 🖥️ [systems](https:/github.com/isabelroses/dotfiles/tree/main//systems/)
+  - ☀️ [Amaterasu](https:/github.com/isabelroses/dotfiles/tree/main//systems/amaterasu) My high-end gaming machine
+  - 🐉 [Hydra](https:/github.com/isabelroses/dotfiles/tree/main//systems/hydra/) A super mid spec laptop
+  - ⚸ [Lilith](https:/github.com/isabelroses/dotfiles/tree/main//systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
+  - ⚖️ [minerva](https:/github.com/isabelroses/dotfiles/tree/main//systems/minerva/) A server configuration for some of my infrastructure
+  - 𖤍 [Valkyrie](https:/github.com/isabelroses/dotfiles/tree/main//systems/valkyrie/) A WSL2 host, designed to be a development environment on Windows
+  - 💮 [Tatsumaki](https:/github.com/isabelroses/dotfiles/tree/main//systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
+- 🧩 [parts](https:/github.com/isabelroses/dotfiles/tree/main//parts/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
+  - 📚 [lib](https:/github.com/isabelroses/dotfiles/tree/main//parts/lib/) Useful repeated functions
+  - 🛠️ [templates](https:/github.com/isabelroses/dotfiles/tree/main//parts/templates/) Templates for setting up development environments
+  - 👾 [modules](https:/github.com/isabelroses/dotfiles/tree/main//parts/modules/) Exported modules for NixOS, home-manager and Nix Darwin
+- 🔌 [modules](https:/github.com/isabelroses/dotfiles/tree/main//modules/)
+  - [base](https:/github.com/isabelroses/dotfiles/tree/main//modules/base/) The base configuration settings, which are common between all systems
+  - [darwin](https:/github.com/isabelroses/dotfiles/tree/main//modules/darwin/) Pre-made modules for exclusively darwin systems
+  - [nixos](https:/github.com/isabelroses/dotfiles/tree/main//modules/nixos/) Pre cooked modules for exclusively nixos systems
+  - [iso](https:/github.com/isabelroses/dotfiles/tree/main//modules/iso/) Pre-configured modules prepared for making NixOS iso images
+  - [extra](https:/github.com/isabelroses/dotfiles/tree/main//modules/extra) Extra configuration modules, for home-manager and Nix Darwin and NixOS
+  - [profiles](https:/github.com/isabelroses/dotfiles/tree/main//modules/profiles/) Pre-made profiles for different system types
+    - [hardware](https:/github.com/isabelroses/dotfiles/tree/main/modules/profiles/hardware) Optimized settings for different devices (e.g., laptop, servers, desktop)
+    - [meta](https:/github.com/isabelroses/dotfiles/tree/main/modules/profiles/meta) Optimized configurations for different natures (e.g., headless, graphical)
