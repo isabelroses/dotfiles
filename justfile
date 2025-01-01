@@ -65,6 +65,8 @@ verify *args:
 [group('dev')]
 repair: (verify "--check-contents --repair")
 
+alias fix := repair
+
 # clean the nix store and optimise it
 [group('dev')]
 clean:
