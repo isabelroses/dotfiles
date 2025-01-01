@@ -11,7 +11,7 @@ build-dir = "./dist"
 [output.html]
 default-theme = "latte"
 preferred-dark-theme = "mocha"
-git-repository-url = "https://dotfiles.isabelroses.com"
+git-repository-url = "https://github.com/isabelroses/dotfiles"
 git-repository-icon = "fa-code-fork"
 cname = "dotfiles.isabelroses.com"
 additional-css = ["./theme/catppuccin.css", "./theme/catppuccin-alerts.css"]
