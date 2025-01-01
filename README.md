@@ -11,28 +11,28 @@
 
 <br />
 
-![Preview image](./.github/images/main.png)
+![Preview image](./docs/images/main.png)
 
 <details>
    <summary>more previews</summary>
 
    <p align="center">
       light mode
-      <img src="./.github/images/lightmode.png" width="800px" />
+      <img src="./docs/images/lightmode.png" width="800px" />
    </p>
 
    <p align="center">
       wezterm + chromium
-      <img src="./.github/images/blur.png" width="800px" />
+      <img src="./docs/images/blur.png" width="800px" />
    </p>
 
    <p align="center">
       neovim
-      <img src="./.github/images/nvim.png" width="800px" />
+      <img src="./docs/images/nvim.png" width="800px" />
    </p>
 </details>
 
-![image of my flakes topology](./.github/images/topology.png)
+![image of my flakes topology](./docs/images/topology.png)
 
 ### Foreword
 
