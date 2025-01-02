@@ -1,33 +1,40 @@
 {
   lib,
   pkgs,
+  config,
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.lists) optional;
 
   cfg = osConfig.garden.programs.ghostty;
 in
 {
-  config = mkIf cfg.enable {
-    home.packages = optional pkgs.stdenv.hostPlatform.isLinux cfg.package;
+  programs.ghostty = mkIf cfg.enable {
+    enable = true;
 
-    xdg.configFile."ghostty/config".text = ''
-      command = /etc/profiles/per-user/isabel/bin/fish --login
+    # FIXME: ghostty is broken on darwin
+    package = if pkgs.stdenv.hostPlatform.isLinux then cfg.package else pkgs.bashInteractive;
 
-      theme = catppuccin-mocha
-      background-opacity = 0.95
-      cursor-style = bar
-      window-padding-x = 4,4
-      window-decoration = ${toString pkgs.stdenv.hostPlatform.isDarwin}
-      gtk-titlebar = false
+    enableBashIntegration = config.programs.bash.enable;
+    enableFishIntegration = config.programs.fish.enable;
+    enableZshIntegration = config.programs.zsh.enable;
 
-      window-save-state = always
+    settings = {
+      command = "/etc/profiles/per-user/robin/bin/fish --login";
 
-      font-family = ${osConfig.garden.style.font.name}
-      font-size = 13
-    '';
+      theme = "catppuccin-mocha";
+      background-opacity = 0.95;
+      cursor-style = "bar";
+      window-padding-x = "4,4";
+      window-decoration = toString pkgs.stdenv.hostPlatform.isDarwin;
+      gtk-titlebar = false;
+
+      window-save-state = "always";
+
+      font-family = osConfig.garden.style.font.name;
+      font-size = 13;
+    };
   };
 }
