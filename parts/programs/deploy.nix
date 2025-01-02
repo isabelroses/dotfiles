@@ -10,7 +10,7 @@ let
   inherit (lib.attrsets) filterAttrs;
 
   # extract the names of the systems that we want to deploy
-  allowedSystems = attrNames (filterAttrs (_: attrs: attrs.deployable) config.hosts);
+  allowedSystems = attrNames (filterAttrs (_: attrs: attrs.deployable) config.easyHosts.hosts);
   systems = filterAttrs (name: _: elem name allowedSystems) self.nixosConfigurations;
 
   # then create a list of nodes that we want to deploy that we can pass to the deploy configuration

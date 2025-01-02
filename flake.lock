@@ -254,6 +254,21 @@
         "type": "github"
       }
     },
+    "easy-hosts": {
+      "locked": {
+        "lastModified": 1735848211,
+        "narHash": "sha256-d8RnaYPEBN/6MePnexG578VMcAdzJBaazCP4sVzqNEQ=",
+        "owner": "isabelroses",
+        "repo": "easy-hosts",
+        "rev": "4b68df6980251a805fd1d19f92c9910d5289d4cd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "repo": "easy-hosts",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -684,6 +699,7 @@
         "cosmic": "cosmic",
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
+        "easy-hosts": "easy-hosts",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "git-hooks": "git-hooks",

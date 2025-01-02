@@ -68,6 +68,14 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    easy-hosts = {
+      type = "github";
+      owner = "isabelroses";
+      repo = "easy-hosts";
+
+      # url = "git+file:/Users/isabel/dev/easy-hosts";
+    };
+
     ### Flake management
     # deploy systems remotely
     deploy-rs = {

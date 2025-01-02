@@ -1,4 +1,7 @@
+{ self, inputs, ... }:
 let
+  inherit (self) lib;
+
   # profiles module, these are sensible defaults for given hardware sets
   # or meta profiles that are used to configure the system based on the requirements of the given machine
   profilesPath = ../modules/profiles; # the base directory for the types module
@@ -25,55 +28,74 @@ let
 in
 {
   # this is how we get the custom module `config.hosts`
-  imports = [ ./flake-module.nix ];
+  imports = [ inputs.easy-hosts.flakeModule ];
 
-  # This is the list of system configuration
-  #
-  # the defaults consists of the following:
-  #  arch = "x86_64";
-  #  target = "nixos";
-  #  deployable = false;
-  #  modules = [ ];
-  #  specialArgs = { };
-  config.hosts = {
-    # isabel's hosts
-    hydra.modules = [
-      laptop
-      graphical
-    ];
+  config.easyHosts = {
+    shared.specialArgs = { inherit lib; };
 
-    tatsumaki = {
-      arch = "aarch64";
-      target = "darwin";
+    perClass = class: {
+      modules = [
+        (lib.lists.optionals (class != "iso") [
+          # import the home module, which is users for configuring users via home-manager
+          "${self}/home/default.nix"
+
+          # import the base module, this contains the common configurations between all systems
+          "${self}/modules/base/default.nix"
+        ])
+
+        # import the class module, this contains the common configurations between all systems of the same class
+        "${self}/modules/${class}/default.nix"
+      ];
     };
 
-    amaterasu.modules = [
-      desktop
-      graphical
-    ];
+    # This is the list of system configuration
+    #
+    # the defaults consists of the following:
+    #  arch = "x86_64";
+    #  class = "nixos";
+    #  deployable = false;
+    #  modules = [ ];
+    #  specialArgs = { };
+    hosts = {
+      # isabel's hosts
+      hydra.modules = [
+        laptop
+        graphical
+      ];
 
-    valkyrie.modules = [
-      wsl
-    ];
+      tatsumaki = {
+        arch = "aarch64";
+        class = "darwin";
+      };
 
-    minerva = {
-      deployable = true;
-      modules = [ server ];
+      amaterasu.modules = [
+        desktop
+        graphical
+      ];
+
+      valkyrie.modules = [
+        wsl
+      ];
+
+      minerva = {
+        deployable = true;
+        modules = [ server ];
+      };
+
+      lilith = {
+        class = "iso";
+        modules = [ headless ];
+      };
+
+      # robin's hosts
+      cottage.modules = [
+        laptop
+        graphical
+      ];
+
+      wisp.modules = [
+        wsl
+      ];
     };
-
-    lilith = {
-      target = "iso";
-      modules = [ headless ];
-    };
-
-    # robin's hosts
-    cottage.modules = [
-      laptop
-      graphical
-    ];
-
-    wisp.modules = [
-      wsl
-    ];
   };
 }
