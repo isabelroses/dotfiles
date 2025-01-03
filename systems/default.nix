@@ -27,7 +27,6 @@ let
   headless = profilesPath + /headless; # for headless systems
 in
 {
-  # this is how we get the custom module `config.hosts`
   imports = [ inputs.easy-hosts.flakeModule ];
 
   config.easyHosts = {
@@ -35,6 +34,9 @@ in
 
     perClass = class: {
       modules = [
+        # import the class module, this contains the common configurations between all systems of the same class
+        "${self}/modules/${class}/default.nix"
+
         (lib.lists.optionals (class != "iso") [
           # import the home module, which is users for configuring users via home-manager
           "${self}/home/default.nix"
@@ -42,9 +44,6 @@ in
           # import the base module, this contains the common configurations between all systems
           "${self}/modules/base/default.nix"
         ])
-
-        # import the class module, this contains the common configurations between all systems of the same class
-        "${self}/modules/${class}/default.nix"
       ];
     };
 
