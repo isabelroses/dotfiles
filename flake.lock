@@ -49,24 +49,22 @@
     "arkenfox": {
       "inputs": {
         "flake-compat": [],
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nixpkgs": [
           "nixpkgs"
         ],
         "pre-commit": []
       },
       "locked": {
-        "lastModified": 1725263787,
-        "narHash": "sha256-OSNjus8VSkLCSikN6Qeq+II1bwqTRJEwl6NJvFoQHoE=",
-        "owner": "dwarfmaster",
+        "lastModified": 1736011875,
+        "narHash": "sha256-uwf8WWlz/xDO4Pn3m5IJoB/1CfJzInRepx9kP6T1oS0=",
+        "owner": "isabelroses",
         "repo": "arkenfox-nixos",
-        "rev": "72addd96455cce49c0c8524c53aecd02cf20adec",
+        "rev": "c7f63bd3bb35d8dc0a2fd4e6d9b84fb03c3fb439",
         "type": "github"
       },
       "original": {
-        "owner": "dwarfmaster",
+        "owner": "isabelroses",
+        "ref": "chore-remove-fu",
         "repo": "arkenfox-nixos",
         "type": "github"
       }
@@ -397,9 +395,6 @@
     "homebrew": {
       "inputs": {
         "brew-src": "brew-src",
-        "flake-utils": [
-          "flake-utils"
-        ],
         "nix-darwin": [
           "darwin"
         ],
@@ -408,15 +403,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1732145543,
-        "narHash": "sha256-VRQh/lvCSko9YV7haXyPt7DSp+EkgjjBv/9U4cY9c50=",
-        "owner": "zhaofengli",
+        "lastModified": 1736011721,
+        "narHash": "sha256-Kk/cVtkxwfHNoB6nINUarMLTtyAEvH+ohzxKBptMzzg=",
+        "owner": "isabelroses",
         "repo": "nix-homebrew",
-        "rev": "ac3945ee614f69ab89c6935b3f0567028de5f012",
+        "rev": "77d88873ad5fddcb43857b24e20a354838fb1d31",
         "type": "github"
       },
       "original": {
-        "owner": "zhaofengli",
+        "owner": "isabelroses",
+        "ref": "chore-drop-fu",
         "repo": "nix-homebrew",
         "type": "github"
       }

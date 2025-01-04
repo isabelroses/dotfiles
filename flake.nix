@@ -98,7 +98,6 @@
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "";
         flake-compat.follows = "";
       };
     };
@@ -126,21 +125,21 @@
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
         darwin.follows = "";
         home-manager.follows = "";
-        systems.follows = "systems";
       };
     };
 
     # firefox user.js
     arkenfox = {
       type = "github";
-      owner = "dwarfmaster";
+      owner = "isabelroses";
       repo = "arkenfox-nixos";
+      ref = "chore-remove-fu";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
         flake-compat.follows = "";
         pre-commit.follows = "";
       };
@@ -192,13 +191,13 @@
 
     homebrew = {
       type = "github";
-      owner = "zhaofengli";
+      owner = "isabelroses";
       repo = "nix-homebrew";
+      ref = "chore-drop-fu";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nix-darwin.follows = "darwin";
-        flake-utils.follows = "flake-utils";
       };
     };
 
