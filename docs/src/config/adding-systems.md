@@ -7,7 +7,7 @@ To set up a system configuration it must be declared in `/systems/default.nix`.
   - default: "x86_64"
   - options: "x86_64", "aarch64"
 
-- target:
+- class:
 
   - default: "nixos"
   - options: "nixos", "darwin", "iso"
@@ -34,3 +34,5 @@ To set up a system configuration it must be declared in `/systems/default.nix`.
 
 - specialArgs:
   - default: "{ }"
+
+Please consult [easy-hosts](https://github.com/isabelroses/easy-hosts) for more information on how to set up a system configuration.
