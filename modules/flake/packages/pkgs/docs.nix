@@ -5,12 +5,12 @@
   fetchurl,
   simple-http-server,
   writeShellApplication,
-  ...
+  self,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   name = "docs";
 
-  src = ../../docs;
+  src = self + /docs;
 
   nativeBuildInputs = [
     mdbook

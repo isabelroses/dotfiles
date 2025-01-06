@@ -1,11 +1,24 @@
-pkgs:
+{
+  writeShellApplication,
+  symlinkJoin,
+  bat,
+  eza,
+  catimg,
+  zip,
+  unzip,
+  gnutar,
+  p7zip,
+}:
 let
-  inherit (builtins) readFile attrValues;
-  inherit (pkgs) writeShellApplication;
+  inherit (builtins) readFile;
 
   preview = writeShellApplication {
     name = "preview";
-    runtimeInputs = attrValues { inherit (pkgs) bat eza catimg; };
+    runtimeInputs = [
+      bat
+      eza
+      catimg
+    ];
     text = readFile ./preview.sh;
   };
 
@@ -17,21 +30,19 @@ let
   # Extract the compressed file with the correct tool based on the extension
   extract = writeShellApplication {
     name = "extract";
-    runtimeInputs = attrValues {
-      inherit (pkgs)
-        zip
-        unzip
-        gnutar
-        p7zip
-        ;
-    };
+    runtimeInputs = [
+      zip
+      unzip
+      gnutar
+      p7zip
+    ];
     text = readFile ./extract.sh;
   };
 in
 {
   inherit preview icat extract;
 
-  scripts = pkgs.symlinkJoin {
+  scripts = symlinkJoin {
     name = "scripts";
     paths = [
       preview

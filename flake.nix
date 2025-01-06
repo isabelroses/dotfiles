@@ -1,7 +1,8 @@
 {
   description = "Isabel's dotfiles";
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } { imports = [ ./parts ]; };
+  outputs =
+    inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } { imports = [ ./modules/flake ]; };
 
   inputs = {
     # our main package supplier
@@ -41,7 +42,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
-        flake-utils.follows = "flake-utils";
       };
     };
 

@@ -1,0 +1,3 @@
+{
+  imports = [ ./lib.nix ];
+}
