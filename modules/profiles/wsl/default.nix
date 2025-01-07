@@ -34,6 +34,9 @@ in
 
     networking.tcpcrypt.enable = mkForce false;
 
+    # resolv.conf is managed by wsl
+    services.resolved.enable = mkForce false;
+
     # allow me to open files and links in Windows from WSL
     environment = {
       variables.BROWSER = mkForce "wsl-open";
