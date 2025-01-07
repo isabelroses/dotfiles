@@ -36,6 +36,7 @@ in
 
     # resolv.conf is managed by wsl
     services.resolved.enable = mkForce false;
+    security.apparmor.enable = mkForce false;
 
     # allow me to open files and links in Windows from WSL
     environment = {

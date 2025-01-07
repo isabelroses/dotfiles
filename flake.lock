@@ -254,11 +254,11 @@
     },
     "easy-hosts": {
       "locked": {
-        "lastModified": 1735945981,
-        "narHash": "sha256-bNosnq5CmycKP3+oTvjBsYqXkBTtUA1BC4ARcctoh3A=",
+        "lastModified": 1736281452,
+        "narHash": "sha256-GKzTLcuLQX7bSsmrsvh4TbwOR8isgqdj3Qor32H4GVs=",
         "owner": "isabelroses",
         "repo": "easy-hosts",
-        "rev": "0e6d4f90bcbe77a8ce1235d35053f5f1f80a1b49",
+        "rev": "87629203c4989ea1abe9d8f7d703809532bde11f",
         "type": "github"
       },
       "original": {
