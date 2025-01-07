@@ -11,27 +11,32 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build (${{ matrix.system }})
+    runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
         package:
           - lix
+        include:
+          - os: ubuntu-latest
+            system: x86_64-linux
+          - os: macos-latest
+            system: aarch64-darwin
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          lfs: false
 
       - name: Install Lix
         uses: DeterminateSystems/nix-installer-action@main
         with:
-          source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
+          source-url: https://install.lix.systems/lix/lix-installer-${{ matrix.system }}
           logger: pretty
           diagnostic-endpoint: ""
-
-      - name: Nix Magic Cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
+          extra-conf: |
+            substituters = https://nix-community.cachix.org https://isabelroses.cachix.org https://catppuccin.cachix.org https://cache.nixos.org/
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU=
 
       - name: Setup cachix
         uses: cachix/cachix-action@v15
