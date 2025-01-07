@@ -86,10 +86,19 @@ in
     minerva.hardware.info = "A server for some of my infrastructure";
 
     valkyrie = {
-      hardware.info = "WSL2 host, devenv on Windows";
+      hardware.info = "WSL2 system, devenv on Windows";
 
       guestType = "wsl";
       parent = "amaterasu";
+    };
+
+    cottage.hardware.info = "A laptop for my partner";
+
+    wisp = {
+      hardware.info = "A WSL2 system, on cottage";
+
+      guestType = "wsl";
+      parent = "cottage";
     };
   };
 

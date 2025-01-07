@@ -6,9 +6,9 @@
   - 🐉 [Hydra](https:/github.com/isabelroses/dotfiles/tree/main/systems/hydra/) A super mid spec laptop
   - ⚸ [Lilith](https:/github.com/isabelroses/dotfiles/tree/main/systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
   - ⚖️ [minerva](https:/github.com/isabelroses/dotfiles/tree/main/systems/minerva/) A server configuration for some of my infrastructure
-  - 𖤍 [Valkyrie](https:/github.com/isabelroses/dotfiles/tree/main/systems/valkyrie/) A WSL2 host, designed to be a development environment on Windows
+  - 𖤍 [Valkyrie](https:/github.com/isabelroses/dotfiles/tree/main/systems/valkyrie/) A WSL2 system, designed to be a development environment on Windows
   - 💮 [Tatsumaki](https:/github.com/isabelroses/dotfiles/tree/main/systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
-  - ✨ [wisp](https:/github.com/isabelroses/dotfiles/tree/main/systems/wisp/) A WSL2 host, on cottage
+  - ✨ [wisp](https:/github.com/isabelroses/dotfiles/tree/main/systems/wisp/) A WSL2 system, on cottage
 - 🔌 [modules](https:/github.com/isabelroses/dotfiles/tree/main/modules/)
   - [base](https:/github.com/isabelroses/dotfiles/tree/main/modules/base/) The base configuration settings, which are common between all systems
   - [darwin](https:/github.com/isabelroses/dotfiles/tree/main/modules/darwin/) Pre-made modules for exclusively darwin systems

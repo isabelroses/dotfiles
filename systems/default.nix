@@ -9,18 +9,8 @@ let
   # hardware profiles
   laptop = profilesPath + /laptop; # for laptop type configurations
   desktop = profilesPath + /desktop; # for desktop type configurations
-
-  # for server type configurations
-  server = [
-    headless
-    (profilesPath + /server)
-  ];
-
-  # for wsl systems
-  wsl = [
-    headless
-    (profilesPath + /wsl)
-  ];
+  server = profilesPath + /server; # for server type configurations
+  wsl = profilesPath + /wsl; # for wsl systems
 
   # meta profiles
   graphical = profilesPath + /graphical; # for systems that have a graphical interface
@@ -74,11 +64,15 @@ in
 
       valkyrie.modules = [
         wsl
+        headless
       ];
 
       minerva = {
         deployable = true;
-        modules = [ server ];
+        modules = [
+          server
+          headless
+        ];
       };
 
       lilith = {
@@ -94,6 +88,7 @@ in
 
       wisp.modules = [
         wsl
+        headless
       ];
     };
   };
