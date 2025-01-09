@@ -37,8 +37,6 @@ in
         "diffie-hellman-group18-sha512"
         "sntrup761x25519-sha512@openssh.com"
         "diffie-hellman-group-exchange-sha256"
-        "ext-info-s"
-        "kex-strict-s-v00@openssh.com"
         "mlkem768x25519-sha256"
         "sntrup761x25519-sha512"
       ];
