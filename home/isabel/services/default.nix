@@ -1,7 +1,12 @@
 {
   imports = [
-    ./shared # Always on services
-    ./wayland # wayland-only services
-    #./x11 # x11-only services
+    ./clipboard.nix
+    ./github-notis.nix
+    ./kdeconnect.nix
+    # ./nextcloud.nix
+    # ./nix-index.nix
+    ./rnnoise.nix
+    ./syncthing.nix
+    ./tray.nix
   ];
 }
