@@ -8,7 +8,6 @@
 
   garden = {
     device = {
-      type = "server";
       cpu = "amd";
       gpu = null;
       hasTPM = false;

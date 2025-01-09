@@ -3,7 +3,6 @@
 
   garden = {
     device = {
-      type = "hybrid";
       cpu = "intel";
       gpu = null;
       monitors = [ "eDP-1" ];

@@ -1,7 +1,6 @@
 {
   garden = {
     device = {
-      type = "wsl";
       cpu = null;
       gpu = null;
       hasTPM = true;

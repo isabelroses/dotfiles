@@ -3,7 +3,6 @@
 
   garden = {
     device = {
-      type = "desktop";
       cpu = "intel";
       gpu = "nvidia";
       hasTPM = true;

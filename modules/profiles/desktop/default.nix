@@ -1,1 +1,1 @@
-{ }
+{ garden.device.type = "desktop"; }

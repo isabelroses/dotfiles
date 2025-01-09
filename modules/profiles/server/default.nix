@@ -4,4 +4,6 @@ let
 in
 {
   time.timeZone = mkForce "UTC";
+
+  garden.device.type = "server";
 }

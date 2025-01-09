@@ -15,6 +15,8 @@ in
   ];
 
   config = {
+    garden.device.type = "wsl";
+
     wsl = {
       enable = true;
       defaultUser = config.garden.system.mainUser;

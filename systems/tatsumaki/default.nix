@@ -2,9 +2,7 @@
   garden = {
     device.type = "laptop";
 
-    system = {
-      mainUser = "isabel";
-    };
+    system.mainUser = "isabel";
 
     environment = {
       desktop = null;

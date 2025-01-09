@@ -2,6 +2,8 @@
 let
   inherit (self) lib;
 
+  inherit (lib.lists) optionals;
+
   # profiles module, these are sensible defaults for given hardware sets
   # or meta profiles that are used to configure the system based on the requirements of the given machine
   profilesPath = ../modules/profiles; # the base directory for the types module
@@ -11,6 +13,7 @@ let
   desktop = profilesPath + /desktop; # for desktop type configurations
   server = profilesPath + /server; # for server type configurations
   wsl = profilesPath + /wsl; # for wsl systems
+  hybrid = profilesPath + /hybrid; # for systems that are a mix of laptop and server
 
   # meta profiles
   graphical = profilesPath + /graphical; # for systems that have a graphical interface
@@ -27,7 +30,7 @@ in
         # import the class module, this contains the common configurations between all systems of the same class
         "${self}/modules/${class}/default.nix"
 
-        (lib.lists.optionals (class != "iso") [
+        (optionals (class != "iso") [
           # import the home module, which is users for configuring users via home-manager
           "${self}/home/default.nix"
 
@@ -48,7 +51,7 @@ in
     hosts = {
       # isabel's hosts
       hydra.modules = [
-        laptop
+        hybrid
         graphical
       ];
 
