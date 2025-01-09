@@ -1,4 +1,9 @@
-{ self, config, ... }:
+{
+  self,
+  inputs,
+  config,
+  ...
+}:
 {
   nixpkgs.overlays = [
     # i want to use my own overlays
@@ -8,7 +13,7 @@
 
     # this file exists to work around issues with nixpkgs that may arise
     # hopefully that means its empty a lot
-    (final: prev: import ./fixes.nix final prev)
+    (final: prev: import ./fixes.nix { inherit final prev inputs; })
 
     # we minimize the amount of packages that are installed
     (_: prev: import ./nix.nix { inherit config prev; })

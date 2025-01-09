@@ -1,4 +1,6 @@
 {
+  beapkgs.cache.enable = true;
+
   # substituters to use
   nix.settings = {
     # don't worry that you cannot see cache.nixos.org here, it is added by default
