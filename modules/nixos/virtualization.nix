@@ -6,8 +6,8 @@
 }:
 let
   inherit (lib.meta) getExe;
-  inherit (lib.lists) optionals;
-  inherit (lib.modules) mkIf;
+  inherit (lib.lists) optionals concatLists;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption;
 
   sys = config.garden.system;
@@ -23,45 +23,58 @@ in
     waydroid.enable = mkEnableOption "waydroid";
   };
 
-  config = mkIf cfg.enable {
-    environment.systemPackages =
-      optionals cfg.qemu.enable [
-        pkgs.virt-manager
-        pkgs.virt-viewer
-      ]
-      ++ optionals cfg.docker.enable [
-        pkgs.podman
-        pkgs.podman-compose
-      ]
-      ++ optionals (cfg.docker.enable && sys.video.enable) [ pkgs.lxd-lts ]
-      ++ optionals cfg.distrobox.enable [ pkgs.distrobox ]
-      ++ optionals cfg.waydroid.enable [ pkgs.waydroid ];
+  config = mkIf cfg.enable (mkMerge [
+    {
+      environment.systemPackages = concatLists [
+        (optionals cfg.qemu.enable [
+          pkgs.virt-manager
+          pkgs.virt-viewer
+        ])
 
-    virtualisation = {
-      # qemu
-      kvmgt.enable = true;
-      spiceUSBRedirection.enable = true;
+        (optionals cfg.docker.enable [
+          pkgs.podman
+          pkgs.podman-compose
+        ])
 
-      libvirtd = mkIf cfg.qemu.enable {
+        (optionals (cfg.docker.enable && sys.video.enable) [ pkgs.lxd-lts ])
+
+        (optionals cfg.distrobox.enable [ pkgs.distrobox ])
+
+        (optionals cfg.waydroid.enable [ pkgs.waydroid ])
+      ];
+    }
+
+    {
+      virtualisation = {
+        kvmgt.enable = true;
+        spiceUSBRedirection.enable = true;
+
+        waydroid.enable = cfg.waydroid.enable;
+        lxd.enable = cfg.waydroid.enable;
+      };
+    }
+
+    (mkIf cfg.qemu.enable {
+      virtualisation.libvirtd = {
         enable = true;
+
         qemu = {
           package = pkgs.qemu_kvm;
+          swtpm.enable = true;
           ovmf = {
             enable = true;
             packages = [ pkgs.OVMFFull.fd ];
           };
-          swtpm.enable = true;
         };
       };
+    })
 
-      # podman
-      podman = mkIf (cfg.docker.enable || cfg.podman.enable) {
+    (mkIf (cfg.docker.enable || cfg.podman.enable) {
+      virtualisation.podman = {
         enable = true;
         dockerCompat = true;
         dockerSocket.enable = true;
-        defaultNetwork.settings = {
-          dns_enabled = true;
-        };
+        defaultNetwork.settings.dns_enabled = true;
         enableNvidia = builtins.any (driver: driver == "nvidia") config.services.xserver.videoDrivers;
         autoPrune = {
           enable = true;
@@ -69,31 +82,30 @@ in
           dates = "weekly";
         };
       };
+    })
 
-      waydroid.enable = cfg.waydroid.enable;
-      lxd.enable = cfg.waydroid.enable;
-    };
+    (mkIf cfg.distrobox.enable {
+      systemd.user = {
+        timers."distrobox-update" = {
+          enable = true;
+          wantedBy = [ "timers.target" ];
+          timerConfig = {
+            OnBootSec = "1h";
+            OnUnitActiveSec = "1d";
+            Unit = "distrobox-update.service";
+          };
+        };
 
-    systemd.user = mkIf cfg.distrobox.enable {
-      timers."distrobox-update" = {
-        enable = true;
-        wantedBy = [ "timers.target" ];
-        timerConfig = {
-          OnBootSec = "1h";
-          OnUnitActiveSec = "1d";
-          Unit = "distrobox-update.service";
+        services."distrobox-update" = {
+          enable = true;
+          script = ''
+            ${getExe pkgs.distrobox} upgrade --all
+          '';
+          serviceConfig = {
+            Type = "oneshot";
+          };
         };
       };
-
-      services."distrobox-update" = {
-        enable = true;
-        script = ''
-          ${getExe pkgs.distrobox} upgrade --all
-        '';
-        serviceConfig = {
-          Type = "oneshot";
-        };
-      };
-    };
-  };
+    })
+  ]);
 }

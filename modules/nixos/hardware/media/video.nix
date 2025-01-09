@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.hardware) isx86Linux;
   inherit (lib.options) mkEnableOption;
   cfg = config.garden.system.video;
@@ -17,17 +17,20 @@ in
     benchmarking.enable = mkEnableOption "Enable benchmarking tools";
   };
 
-  config = mkIf cfg.enable {
-    hardware = {
-      graphics = {
+  config = mkIf cfg.enable (mkMerge [
+    {
+      hardware.graphics = {
         enable = true;
         enable32Bit = isx86Linux pkgs;
       };
-    };
+    }
 
     # benchmarking tools
-    environment.systemPackages = mkIf cfg.benchmarking.enable (
-      builtins.attrValues { inherit (pkgs) mesa-demos glmark2; }
-    );
-  };
+    (mkIf cfg.benchmarking.enable {
+      environment.systemPackages = [
+        pkgs.mesa-demos
+        pkgs.glmark2
+      ];
+    })
+  ]);
 }

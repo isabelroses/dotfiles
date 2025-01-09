@@ -28,9 +28,7 @@ in
           lifecycler = {
             address = cfg.host;
             ring = {
-              kvstore = {
-                store = "inmemory";
-              };
+              kvstore.store = "inmemory";
               replication_factor = 1;
             };
           };
@@ -83,11 +81,7 @@ in
         compactor = {
           working_directory = "${lcfg.dataDir}/compactor-work";
           shared_store = "filesystem";
-          compactor_ring = {
-            kvstore = {
-              store = "inmemory";
-            };
-          };
+          compactor_ring.kvstore.store = "inmemory";
         };
       };
       # user, group, dataDir, extraFlags, (configFile)

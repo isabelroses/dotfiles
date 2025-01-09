@@ -32,13 +32,18 @@ in
     ];
 
     wifi = {
-      backend = sys.networking.wirelessBackend; # this can be iwd or wpa_supplicant, use wpa_s until iwd support is stable
+      # this can be iwd or wpa_supplicant, use wpa_s until iwd support is stable
+      backend = sys.networking.wirelessBackend;
+
       # The below is disabled as my uni hated me for it
       # macAddress = "random"; # use a random mac address on every boot, this can scew with static ip
       powersave = true;
-      scanRandMacAddress = true; # MAC address randomization of a Wi-Fi device during scanning
+
+      # MAC address randomization of a Wi-Fi device during scanning
+      scanRandMacAddress = true;
     };
 
-    ethernet.macAddress = mkIf (dev.type != "server") "random"; # causes server to be unreachable over SSH
+    # causes server to be unreachable over SSH
+    ethernet.macAddress = mkIf (dev.type != "server") "random";
   };
 }

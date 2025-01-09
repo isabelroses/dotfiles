@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.types) listOf str;
   inherit (lib.options) mkOption;
   inherit (lib.lists) elem map;
@@ -23,35 +23,39 @@ in
     '';
   };
 
-  config = {
-    warnings = mkIf (fs == [ ]) [
-      ''
-        You have not set any filesystems in your configuration. This is not recommended
-        as it may lead to a unusable system.
+  config = mkMerge [
+    {
+      # discard blocks that are not in use by the filesystem, good for SSDs health
+      services.fstrim = {
+        enable = true;
+        interval = "weekly";
+      };
 
-        Please set {option}`config.garden.system.fs` in your configuration to remedy this.
-      ''
-    ];
+      # include our allowed file systems in the supported fileSystems lists
+      boot = {
+        supportedFilesystems = fs;
+        initrd.supportedFilesystems = fs;
+      };
+    }
 
-    services = {
-      # clean btrfs devices
-      btrfs.autoScrub = mkIf (elem "btrfs" fs) {
+    # clean btrfs devices
+    (mkIf (elem "btrfs" fs) {
+      services.btrfs.autoScrub = {
         enable = true;
         interval = "weekly";
         fileSystems = [ "/" ];
       };
+    })
 
-      # discard blocks that are not in use by the filesystem, good for SSDs health
-      fstrim = {
-        enable = true;
-        interval = "weekly";
-      };
-    };
+    (mkIf (fs == [ ]) {
+      warnings = [
+        ''
+          You have not set any filesystems in your configuration. This is not recommended
+          as it may lead to a unusable system.
 
-    # include our allowed file systems in the supported fileSystems lists
-    boot = {
-      supportedFilesystems = fs;
-      initrd.supportedFilesystems = fs;
-    };
-  };
+          Please set {option}`config.garden.system.fs` in your configuration to remedy this.
+        ''
+      ];
+    })
+  ];
 }

@@ -1,6 +1,4 @@
+#  flush the L1 data cache before entering guests
 {
-  security.virtualisation = {
-    #  flush the L1 data cache before entering guests
-    flushL1DataCache = "always";
-  };
+  security.virtualisation.flushL1DataCache = "always";
 }

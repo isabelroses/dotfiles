@@ -9,6 +9,7 @@
     ./bars
     ./browsers
     ./launchers
+    ./screenlock
     ./terminals
     ./wm
 

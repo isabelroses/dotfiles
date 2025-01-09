@@ -24,8 +24,10 @@ in
       photoprism = {
         enable = true;
         inherit (cfg) port;
-        originalsPath = "/var/lib/private/photoprism/originals";
         address = cfg.host;
+
+        originalsPath = "/var/lib/private/photoprism/originals";
+
         settings = {
           PHOTOPRISM_ADMIN_USER = "admin";
           PHOTOPRISM_ADMIN_PASSWORD = "L38*%puzpXX!j$7!";

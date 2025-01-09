@@ -50,8 +50,8 @@ in
           redis = true;
         };
 
-        extraApps = with config.services.nextcloud.package.packages.apps; {
-          inherit contacts calendar;
+        extraApps = {
+          inherit (config.services.nextcloud.package.packages.apps) contacts calendar;
         };
 
         autoUpdateApps = {
@@ -83,10 +83,8 @@ in
           };
         };
 
-        phpOptions = {
-          # fix the opcache "buffer is almost full" error in admin overview
-          "opcache.interned_strings_buffer" = "16";
-        };
+        # fix the opcache "buffer is almost full" error in admin overview
+        phpOptions."opcache.interned_strings_buffer" = "16";
       };
 
       nginx.virtualHosts.${cfg.domain} = template.ssl rdomain;

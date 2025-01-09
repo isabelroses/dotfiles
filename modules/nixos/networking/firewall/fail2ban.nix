@@ -26,6 +26,7 @@ in
           mode = aggressive
         '';
       }
+
       (mkIf cfg.vaultwarden.enable {
         # vaultwarden and vaultwarden admin interface jails
         vaultwarden = ''

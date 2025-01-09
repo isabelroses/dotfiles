@@ -1,18 +1,22 @@
+{ lib, ... }:
 let
-  common = {
-    enableGnomeKeyring = true;
-    gnupg = {
-      enable = true;
-      noAutostart = true;
-      storeOnly = true;
-    };
-  };
+  inherit (lib.attrsets) genAttrs;
 in
 {
   # unlock GPG keyring on login
-  security.pam.services = {
-    login = common;
-    greetd = common;
-    tuigreet = common;
-  };
+  security.pam.services =
+    genAttrs
+      [
+        "login"
+        "greetd"
+        "tuigreet"
+      ]
+      (_: {
+        enableGnomeKeyring = true;
+        gnupg = {
+          enable = true;
+          noAutostart = true;
+          storeOnly = true;
+        };
+      });
 }

@@ -32,6 +32,7 @@ in
         "plausible"
         "matrix-sliding-sync"
       ];
+
       ensureUsers = [
         {
           name = "postgres";

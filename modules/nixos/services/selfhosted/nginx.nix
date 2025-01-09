@@ -21,18 +21,16 @@ in
       group = "nginx";
     };
 
-    networking.domain = cfg.domain;
+    networking = { inherit (cfg) domain; };
 
-    security = {
-      acme = {
-        acceptTerms = true;
-        defaults.email = "isabel@${cfg.domain}";
+    security.acme = {
+      acceptTerms = true;
+      defaults.email = "isabel@${cfg.domain}";
 
-        certs.${cfg.domain} = {
-          extraDomainNames = [ "*.${cfg.domain}" ];
-          dnsProvider = "cloudflare";
-          credentialsFile = config.age.secrets."cloudflare-cert-api".path;
-        };
+      certs.${cfg.domain} = {
+        extraDomainNames = [ "*.${cfg.domain}" ];
+        dnsProvider = "cloudflare";
+        credentialsFile = config.age.secrets."cloudflare-cert-api".path;
       };
     };
 

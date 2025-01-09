@@ -8,7 +8,7 @@ let
   inherit (lib.modules) mkIf;
 in
 {
-  systemd = mkIf config.garden.system.video.enable {
+  systemd = mkIf (config.garden.system.video.enable && config.garden.environment.isWM) {
     user.services.polkit-pantheon-authentication-agent-1 = {
       description = "Pantheon PolicyKit agent";
       serviceConfig = {

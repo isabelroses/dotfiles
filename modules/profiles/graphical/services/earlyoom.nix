@@ -2,6 +2,45 @@
 let
   inherit (lib.modules) mkForce;
   inherit (builtins) concatStringsSep;
+
+  avoid = concatStringsSep "|" [
+    "(h|H)yprland"
+    "sway"
+    "Xwayland"
+    "cryptsetup"
+    "dbus-.*"
+    "gpg-agent"
+    "greetd"
+    "ssh-agent"
+    ".*qemu-system.*"
+    "sddm"
+    "sshd"
+    "systemd"
+    "systemd-.*"
+    "wezterm"
+    "kitty"
+    "bash"
+    "zsh"
+    "fish"
+    "n?vim"
+    "akkoma"
+  ];
+
+  prefer = concatStringsSep "|" [
+    "Web Content"
+    "Isolated Web Co"
+    "firefox.*"
+    "chrom(e|ium).*"
+    "electron"
+    "dotnet"
+    ".*.exe"
+    "java.*"
+    "pipewire(.*)"
+    "nix"
+    "npm"
+    "node"
+    "pipewire(.*)"
+  ];
 in
 {
   # https://dataswamp.org/~solene/2022-09-28-earlyoom.html
@@ -13,51 +52,11 @@ in
       enableNotifications = true; # annoying, but we want to know what's killed
       freeSwapThreshold = 2;
       freeMemThreshold = 2;
-      extraArgs =
-        let
-          avoid = concatStringsSep "|" [
-            "(h|H)yprland"
-            "sway"
-            "Xwayland"
-            "cryptsetup"
-            "dbus-.*"
-            "gpg-agent"
-            "greetd"
-            "ssh-agent"
-            ".*qemu-system.*"
-            "sddm"
-            "sshd"
-            "systemd"
-            "systemd-.*"
-            "wezterm"
-            "kitty"
-            "bash"
-            "zsh"
-            "fish"
-            "n?vim"
-            "akkoma"
-          ];
-          prefer = concatStringsSep "|" [
-            "Web Content"
-            "Isolated Web Co"
-            "firefox.*"
-            "chrom(e|ium).*"
-            "electron"
-            "dotnet"
-            ".*.exe"
-            "java.*"
-            "pipewire(.*)"
-            "nix"
-            "npm"
-            "node"
-            "pipewire(.*)"
-          ];
-        in
-        [
-          "-g"
-          "--avoid '(^|/)(${avoid})'" # things that we want to avoid killing
-          "--prefer '(^|/)(${prefer})'" # things we want to remove fast
-        ];
+      extraArgs = [
+        "-g"
+        "--avoid '(^|/)(${avoid})'" # things that we want to avoid killing
+        "--prefer '(^|/)(${prefer})'" # things we want to remove fast
+      ];
 
       # we should ideally write the logs into a designated log file; or even better, to the journal
       # for now we can hope this echo sends the log to somewhere we can observe later

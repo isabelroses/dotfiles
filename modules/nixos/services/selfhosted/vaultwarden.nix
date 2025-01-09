@@ -32,6 +32,7 @@ in
         enable = true;
         environmentFile = config.age.secrets.vaultwarden-env.path;
         backupDir = "/srv/storage/vaultwarden/backup";
+
         config = {
           DOMAIN = "https://${cfg.domain}";
           ROCKET_ADDRESS = cfg.host;

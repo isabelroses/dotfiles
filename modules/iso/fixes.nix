@@ -1,5 +1,8 @@
 { inputs, ... }:
 {
+  # We don't want to alter the iso image itself so we prevent rebuilds
+  system.switch.enable = false;
+
   # fixes "too many open files"
   security.pam.loginLimits = [
     {

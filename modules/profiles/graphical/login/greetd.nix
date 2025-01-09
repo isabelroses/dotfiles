@@ -48,8 +48,8 @@ in
       };
 
       initial_session = mkIf system.autoLogin {
-        user = "${system.mainUser}";
-        command = "${environment.desktop}";
+        user = system.mainUser;
+        command = environment.desktop;
       };
     };
   };

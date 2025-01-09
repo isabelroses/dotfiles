@@ -29,9 +29,7 @@ in
       };
     };
 
-    garden.services = {
-      postgresql.enable = true;
-    };
+    garden.services.postgresql.enable = true;
 
     services = {
       plausible = {

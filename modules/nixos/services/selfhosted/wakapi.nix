@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
@@ -42,7 +41,6 @@ in
     services = {
       wakapi = {
         enable = true;
-        package = pkgs.wakapi;
 
         passwordSaltFile = config.age.secrets.wakapi.path;
         smtpPasswordFile = config.age.secrets.wakapi-mailer.path;

@@ -16,13 +16,16 @@ in
       group = "cloudflared";
     };
 
-    users.groups.cloudflared = { };
-    users.users.cloudflared = {
-      description = "Cloudflared user";
-      home = "/var/lib/cloudflared";
-      isSystemUser = true;
-      group = "cloudflared";
-      createHome = true;
+    users = {
+      groups.cloudflared = { };
+
+      users.cloudflared = {
+        description = "Cloudflared user";
+        home = "/var/lib/cloudflared";
+        isSystemUser = true;
+        group = "cloudflared";
+        createHome = true;
+      };
     };
 
     services.cloudflared = {

@@ -15,7 +15,7 @@ in
     allowSFTP = true;
 
     settings = {
-      # Don't allow root  login
+      # Don't allow root login
       PermitRootLogin = "no";
 
       # only allow key based logins and not password
@@ -37,6 +37,10 @@ in
         "diffie-hellman-group18-sha512"
         "sntrup761x25519-sha512@openssh.com"
         "diffie-hellman-group-exchange-sha256"
+        "ext-info-s"
+        "kex-strict-s-v00@openssh.com"
+        "mlkem768x25519-sha256"
+        "sntrup761x25519-sha512"
       ];
 
       # Use Macs recommended by `nixpkgs#ssh-audit`

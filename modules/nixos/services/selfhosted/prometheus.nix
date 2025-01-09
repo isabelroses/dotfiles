@@ -14,6 +14,7 @@ in
       prometheus = {
         enable = true;
         inherit (cfg) port;
+
         globalConfig = {
           scrape_interval = "10s";
           scrape_timeout = "2s";

@@ -108,6 +108,7 @@ in
             THEMES = builtins.concatStringsSep "," (
               [ "auto,forgejo-auto,forgejo-dark,forgejo-light,arc-gree,gitea" ]
               ++ (map (name: removePrefix "theme-" (removeSuffix ".css" name)) (
+                # IFD, https://github.com/catppuccin/nix/pull/179
                 builtins.attrNames (builtins.readDir theme)
               ))
             );

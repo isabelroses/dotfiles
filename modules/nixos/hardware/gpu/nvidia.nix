@@ -12,6 +12,8 @@ let
     mkDefault
     ;
   inherit (lib.validators) isWayland;
+
+  isHybrid = device.gpu == "hybrid-nv";
 in
 {
   config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
@@ -82,14 +84,10 @@ in
       nvidia = {
         package = mkDefault config.boot.kernelPackages.nvidiaPackages.beta;
 
-        prime.offload =
-          let
-            isHybrid = device.gpu == "hybrid-nv";
-          in
-          {
-            enable = isHybrid;
-            enableOffloadCmd = isHybrid;
-          };
+        prime.offload = {
+          enable = isHybrid;
+          enableOffloadCmd = isHybrid;
+        };
 
         powerManagement = {
           enable = mkDefault true;
@@ -103,17 +101,8 @@ in
       };
 
       graphics = {
-        extraPackages = builtins.attrValues {
-          inherit (pkgs)
-            nvidia-vaapi-driver
-            ;
-        };
-
-        extraPackages32 = builtins.attrValues {
-          inherit (pkgs.pkgsi686Linux)
-            nvidia-vaapi-driver
-            ;
-        };
+        extraPackages = [ pkgs.nvidia-vaapi-driver ];
+        extraPackages32 = [ pkgs.pkgsi686Linux.nvidia-vaapi-driver ];
       };
     };
   };

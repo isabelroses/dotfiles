@@ -6,12 +6,12 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.lists) optionals;
+  inherit (lib.lists) optionals concatLists;
 in
 {
   config = mkIf osConfig.garden.programs.gui.enable {
-    home.packages =
-      builtins.attrValues {
+    home.packages = concatLists [
+      (builtins.attrValues {
         # inherit (pkgs)
         #   bitwarden-desktop # password manager
         #   jellyfin-media-player
@@ -20,10 +20,12 @@ in
         #   inkscape # vector graphics editor
         #   gimp # image editor
         #   ;
-      }
+      })
+
       # if the sound option exists then continue the to check if sound.enable is true
-      ++ optionals ((osConfig.garden.system ? sound) && osConfig.garden.system.sound.enable) [
+      (optionals ((osConfig.garden.system ? sound) && osConfig.garden.system.sound.enable) [
         pkgs.pwvucontrol
-      ];
+      ])
+    ];
   };
 }

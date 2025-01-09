@@ -40,15 +40,13 @@ in
 
           dns_config = {
             override_local_dns = true;
-            base_domain = "${rdomain}";
+            base_domain = rdomain;
             magic_dns = true;
-            domains = [ "${cfg.domain}" ];
+            domains = [ cfg.domain ];
             nameservers = [ "9.9.9.9" ];
           };
 
-          log = {
-            level = "warn";
-          };
+          log.level = "warn";
 
           ip_prefixes = [
             "100.64.0.0/10"
@@ -61,9 +59,7 @@ in
           db_user = "headscale";
 
           # TODO: logtail
-          logtail = {
-            enabled = false;
-          };
+          logtail.enabled = false;
 
           disable_check_updates = true;
         };

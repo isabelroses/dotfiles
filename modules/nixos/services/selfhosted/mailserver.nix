@@ -191,6 +191,7 @@ in
         #   host = "/run/postgresql";
         #   password = "";
         # };
+
         maxAttachmentSize = 50;
 
         dicts = [ pkgs.aspellDicts.en ];
@@ -227,6 +228,7 @@ in
           "bl.spamcop.net"
           "blacklist.woody.ch"
         ];
+
         dnsBlacklistOverrides = ''
           ${rdomain} OK
           ${config.mailserver.fqdn} OK
@@ -235,9 +237,7 @@ in
           192.168.0.0/16 OK
         '';
 
-        config = {
-          smtp_hello_name = config.mailserver.fqdn;
-        };
+        config.smtp_hello_name = config.mailserver.fqdn;
       };
 
       phpfpm.pools.roundcube.settings = {

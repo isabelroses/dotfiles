@@ -1,26 +1,31 @@
-{
-  systemd =
-    let
-      extraConfig = ''
-        DefaultTimeoutStartSec=15s
-        DefaultTimeoutStopSec=15s
-        DefaultTimeoutAbortSec=15s
-        DefaultDeviceTimeoutSec=15s
-      '';
-    in
-    {
-      inherit extraConfig;
-      user = {
-        inherit extraConfig;
-      };
+{ lib, ... }:
+let
+  inherit (lib.attrsets) genAttrs;
 
-      services = {
-        "getty@tty1".enable = false;
-        "autovt@tty1".enable = false;
-        "getty@tty7".enable = false;
-        "autovt@tty7".enable = false;
-        "kmsconvt@tty1".enable = false;
-        "kmsconvt@tty7".enable = false;
-      };
-    };
+  extraConfig = ''
+    DefaultTimeoutStartSec=15s
+    DefaultTimeoutStopSec=15s
+    DefaultTimeoutAbortSec=15s
+    DefaultDeviceTimeoutSec=15s
+  '';
+in
+{
+  systemd = {
+    inherit extraConfig;
+    user = { inherit extraConfig; };
+
+    services =
+      genAttrs
+        [
+          "getty@tty1"
+          "autovt@tty1"
+          "getty@tty7"
+          "autovt@tty7"
+          "kmsconvt@tty1"
+          "kmsconvt@tty7"
+        ]
+        (_: {
+          enable = false;
+        });
+  };
 }
