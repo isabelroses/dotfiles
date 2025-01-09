@@ -1,13 +1,16 @@
 name: Build and populate cache
 
 on:
-  workflow_dispatch:
   push:
     paths:
-      - "flake/pkgs"
+      - "modules/flake/packages"
       - "**.lock"
-  schedule:
-    - cron: "0 2 * * *"
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Bump Flake Inputs
+    types:
+      - completed
 
 jobs:
   build:
