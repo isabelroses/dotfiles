@@ -1,17 +1,21 @@
 {
+  stdenv,
+  mkShell,
+
+  # extra tooling
   clippy,
   rustfmt,
-  callPackage,
   rust-analyzer,
+
+  inputs, # our inputs
+  self ? inputs.self,
 }:
-let
-  mainPkg = callPackage ./default.nix { };
-in
-mainPkg.overrideAttrs (oa: {
-  nativeBuildInputs = [
-    # Additional rust tooling
+mkShell {
+  inputsFrom = [ self.packages.${stdenv.hostPlatform.system}.default ];
+
+  packages = [
     clippy
     rustfmt
     rust-analyzer
-  ] ++ (oa.nativeBuildInputs or [ ]);
-})
+  ];
+}

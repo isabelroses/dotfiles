@@ -1,14 +1,18 @@
 {
+  stdenv,
+  mkShellNoCC,
+
+  # extra tooling
   just,
   texlive,
-  callPackage,
-  ...
+
+  inputs, # our inputs
+  self ? inputs.self,
 }:
-let
-  mainPkg = callPackage ./default.nix { };
-in
-mainPkg.overrideAttrs (oa: {
-  buildInputs = [
+mkShellNoCC {
+  inputsFrom = [ self.packages.${stdenv.hostPlatform.system}.default ];
+
+  packages = [
     just
 
     (texlive.combine {
@@ -19,5 +23,9 @@ mainPkg.overrideAttrs (oa: {
         pdfpages
         ;
     })
-  ] ++ (oa.nativeBuildInputs or [ ]);
-})
+  ];
+
+  shellHook = ''
+    echo "Hello, world!"
+  '';
+}

@@ -1,16 +1,21 @@
 {
+  stdenv,
+  mkShellNoCC,
+
+  # extra tooling
   go,
   gopls,
   goreleaser,
-  callPackage,
+
+  inputs, # our inputs
+  self ? inputs.self,
 }:
-let
-  mainPkg = callPackage ./default.nix { };
-in
-mainPkg.overrideAttrs (oa: {
-  nativeBuildInputs = [
+mkShellNoCC {
+  inputsFrom = [ self.packages.${stdenv.hostPlatform.system}.default ];
+
+  packages = [
     go
     gopls
     goreleaser
-  ] ++ (oa.nativeBuildInputs or [ ]);
-})
+  ];
+}

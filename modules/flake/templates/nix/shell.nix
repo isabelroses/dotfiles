@@ -1,10 +1,16 @@
 {
-  eza,
-  callPackage,
+  stdenv,
+  mkShellNoCC,
+
+  inputs, # our inputs
+  self ? inputs.self,
 }:
-let
-  mainPkg = callPackage ./default.nix { };
-in
-mainPkg.overrideAttrs (oa: {
-  nativeBuildInputs = [ eza ] ++ (oa.nativeBuildInputs or [ ]);
-})
+mkShellNoCC {
+  inputsFrom = [ self.packages.${stdenv.hostPlatform.system}.default ];
+
+  packages = [ ];
+
+  shellHook = ''
+    echo "Hello, world!"
+  '';
+}

@@ -1,23 +1,26 @@
 {
+  stdenv,
+  mkShellNoCC,
+
+  # extra tooling
   eslint_d,
   prettierd,
-  callPackage,
-  writeShellScriptBin,
+  typescript,
+
+  inputs, # our inputs
+  self ? inputs.self,
 }:
-let
-  mainPkg = callPackage ./default.nix { };
-  mkNpxAlias = name: writeShellScriptBin name "npx ${name} \"$@\"";
-in
-mainPkg.overrideAttrs (oa: {
-  nativeBuildInputs = [
+mkShellNoCC {
+  inputsFrom = [ self.packages.${stdenv.hostPlatform.system}.default ];
+
+  packages = [
     eslint_d
     prettierd
-    (mkNpxAlias "tsc")
-    (mkNpxAlias "tsserver")
-  ] ++ (oa.nativeBuildInputs or [ ]);
+    typescript
+  ];
 
   shellHook = ''
     eslint_d start # start eslint daemon
     eslint_d status # inform user about eslint daemon status
   '';
-})
+}

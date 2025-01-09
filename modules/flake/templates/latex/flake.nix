@@ -6,7 +6,7 @@
   };
 
   outputs =
-    { self, nixpkgs }:
+    { self, nixpkgs }@inputs:
     let
       forAllSystems =
         function:
@@ -21,7 +21,7 @@
       });
 
       devShells = forAllSystems (pkgs: {
-        default = pkgs.callPackage ./shell.nix { };
+        default = pkgs.callPackage ./shell.nix { inherit inputs; };
       });
 
       overlays.default = final: _: { example = final.callPackage ./default.nix { }; };
