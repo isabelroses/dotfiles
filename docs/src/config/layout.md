@@ -1,29 +1,29 @@
-- 📚 [docs](https:/github.com/isabelroses/dotfiles/tree/main/docs/) The documentation for the dotfiles
-- 🏠 [home](https:/github.com/isabelroses/dotfiles/tree/main/home/) Where all home-manager configurations lie
-- 🖥️ [systems](https:/github.com/isabelroses/dotfiles/tree/main/systems/)
-  - ☀️ [Amaterasu](https:/github.com/isabelroses/dotfiles/tree/main/systems/amaterasu/) My high-end gaming machine
-  - 🏡 [Cottage](https:/github.com/isabelroses/dotfiles/tree/main/systems/cottage/) A Lowend laptop, its not great but it gets the job done
-  - 🐉 [Hydra](https:/github.com/isabelroses/dotfiles/tree/main/systems/hydra/) A super mid spec laptop
-  - ⚸ [Lilith](https:/github.com/isabelroses/dotfiles/tree/main/systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
-  - ⚖️ [minerva](https:/github.com/isabelroses/dotfiles/tree/main/systems/minerva/) A server configuration for some of my infrastructure
-  - 𖤍 [Valkyrie](https:/github.com/isabelroses/dotfiles/tree/main/systems/valkyrie/) A WSL2 system, designed to be a development environment on Windows
-  - 💮 [Tatsumaki](https:/github.com/isabelroses/dotfiles/tree/main/systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
-  - ✨ [wisp](https:/github.com/isabelroses/dotfiles/tree/main/systems/wisp/) A WSL2 system, on cottage
-- 🔌 [modules](https:/github.com/isabelroses/dotfiles/tree/main/modules/)
-  - [base](https:/github.com/isabelroses/dotfiles/tree/main/modules/base/) The base configuration settings, which are common between all systems
-  - [darwin](https:/github.com/isabelroses/dotfiles/tree/main/modules/darwin/) Pre-made modules for exclusively darwin systems
-  - [nixos](https:/github.com/isabelroses/dotfiles/tree/main/modules/nixos/) Pre cooked modules for exclusively nixos systems
-  - [iso](https:/github.com/isabelroses/dotfiles/tree/main/modules/iso/) Pre-configured modules prepared for making NixOS iso images
-  - [extra](https:/github.com/isabelroses/dotfiles/tree/main/modules/extra/) Extra configuration modules, for home-manager and Nix Darwin and NixOS
-  - [parts](https:/github.com/isabelroses/dotfiles/tree/main/modules/falake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
-    - 📚 [lib](https:/github.com/isabelroses/dotfiles/tree/main/modules/flake/lib/) Useful repeated functions
-    - 🛠️ [templates](https:/github.com/isabelroses/dotfiles/tree/main/modules/flake/templates/) Templates for setting up development environments
-    - 👾 [modules](https:/github.com/isabelroses/dotfiles/tree/main/modules/flake/modules.nix) Exported modules for NixOS, home-manager and Nix Darwin
-    - 📦 [packages](https:/github.com/isabelroses/dotfiles/tree/main/modules/flake/packages.nix) Packages that are not available in the official Nixpkgs
-  - [profiles](https:/github.com/isabelroses/dotfiles/tree/main/modules/profiles/) Pre-made profiles for different system types
-    - [desktop](https:/github.com/isabelroses/dotfiles/tree/main/modules/profiles/desktop/) A profile for desktop systems
-    - [graphical](https:/github.com/isabelroses/dotfiles/tree/main/modules/profiles/graphical/) A profile for graphical systems
-    - [headless](https:/github.com/isabelroses/dotfiles/tree/main/modules/profiles/headless/) A profile for headless systems
-    - [laptop](https:/github.com/isabelroses/dotfiles/tree/main/modules/profiles/laptop/) A profile for laptop systems
-    - [server](https:/github.com/isabelroses/dotfiles/tree/main/modules/profiles/server/) A profile for server systems
-    - [wsl](https:/github.com/isabelroses/dotfiles/tree/main/modules/profiles/wsl/) A profile for WSL2 systems
+- 📚 [docs](https://github.com/isabelroses/dotfiles/tree/main/docs/) The documentation for the dotfiles
+- 🏠 [home](https://github.com/isabelroses/dotfiles/tree/main/home/) Where all home-manager configurations lie
+- 🖥️ [systems](https://github.com/isabelroses/dotfiles/tree/main/systems/)
+  - ☀️ [Amaterasu](https://github.com/isabelroses/dotfiles/tree/main/systems/amaterasu/) My high-end gaming machine
+  - 🏡 [Cottage](https://github.com/isabelroses/dotfiles/tree/main/systems/cottage/) A Lowend laptop, its not great but it gets the job done
+  - 🐉 [Hydra](https://github.com/isabelroses/dotfiles/tree/main/systems/hydra/) A super mid spec laptop
+  - ⚸ [Lilith](https://github.com/isabelroses/dotfiles/tree/main/systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
+  - ⚖️ [minerva](https://github.com/isabelroses/dotfiles/tree/main/systems/minerva/) A server configuration for some of my infrastructure
+  - 𖤍 [Valkyrie](https://github.com/isabelroses/dotfiles/tree/main/systems/valkyrie/) A WSL2 system, designed to be a development environment on Windows
+  - 💮 [Tatsumaki](https://github.com/isabelroses/dotfiles/tree/main/systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
+  - ✨ [wisp](https://github.com/isabelroses/dotfiles/tree/main/systems/wisp/) A WSL2 system, on cottage
+- 🔌 [modules](https://github.com/isabelroses/dotfiles/tree/main/modules/)
+  - [base](https://github.com/isabelroses/dotfiles/tree/main/modules/base/) The base configuration settings, which are common between all systems
+  - [darwin](https://github.com/isabelroses/dotfiles/tree/main/modules/darwin/) Pre-made modules for exclusively darwin systems
+  - [nixos](https://github.com/isabelroses/dotfiles/tree/main/modules/nixos/) Pre cooked modules for exclusively nixos systems
+  - [iso](https://github.com/isabelroses/dotfiles/tree/main/modules/iso/) Pre-configured modules prepared for making NixOS iso images
+  - [extra](https://github.com/isabelroses/dotfiles/tree/main/modules/extra/) Extra configuration modules, for home-manager and Nix Darwin and NixOS
+  - [parts](https://github.com/isabelroses/dotfiles/tree/main/modules/falake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
+    - 📚 [lib](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/lib/) Useful repeated functions
+    - 🛠️ [templates](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/templates/) Templates for setting up development environments
+    - 👾 [modules](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/modules.nix) Exported modules for NixOS, home-manager and Nix Darwin
+    - 📦 [packages](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/packages.nix) Packages that are not available in the official Nixpkgs
+  - [profiles](https://github.com/isabelroses/dotfiles/tree/main/modules/profiles/) Pre-made profiles for different system types
+    - [desktop](https://github.com/isabelroses/dotfiles/tree/main/modules/profiles/desktop/) A profile for desktop systems
+    - [graphical](https://github.com/isabelroses/dotfiles/tree/main/modules/profiles/graphical/) A profile for graphical systems
+    - [headless](https://github.com/isabelroses/dotfiles/tree/main/modules/profiles/headless/) A profile for headless systems
+    - [laptop](https://github.com/isabelroses/dotfiles/tree/main/modules/profiles/laptop/) A profile for laptop systems
+    - [server](https://github.com/isabelroses/dotfiles/tree/main/modules/profiles/server/) A profile for server systems
+    - [wsl](https://github.com/isabelroses/dotfiles/tree/main/modules/profiles/wsl/) A profile for WSL2 systems
