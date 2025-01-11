@@ -249,13 +249,9 @@
     ### my programs
     beapkgs = {
       type = "github";
-      owner = "isabelroses";
+      owner = "tgirlcloud";
       repo = "beapkgs";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     izvim = {

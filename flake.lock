@@ -92,21 +92,20 @@
     },
     "beapkgs": {
       "inputs": {
-        "flake-compat": [],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1736469673,
-        "narHash": "sha256-VDd1MbQ9AIpKLr1i1GLYTVF4sdZWqPmJP5Lh8BzPuNg=",
-        "owner": "isabelroses",
+        "lastModified": 1736598355,
+        "narHash": "sha256-MQqhWOfTvan3tAUI0h3IIQhCG9FBiI2/zDjQPKSkeH0=",
+        "owner": "tgirlcloud",
         "repo": "beapkgs",
-        "rev": "8aee57038aabac75d7ce5e54eadccd5681dffafc",
+        "rev": "20d78bc479c10a1d79cd66e36fbb2717f2606efe",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
+        "owner": "tgirlcloud",
         "repo": "beapkgs",
         "type": "github"
       }
@@ -456,11 +455,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736304778,
-        "narHash": "sha256-Bx4aX2D17KaIVtghdDKyPz+y+RL1OhdyA8jg/Cp9Q68=",
+        "lastModified": 1736607399,
+        "narHash": "sha256-s9zOGbA9vBTcphJGq51UIw1hljGRa7ERv+2kMHjFS3Y=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "c3c8777e2ac67845e8405d501ef736a82ea1ca88",
+        "rev": "fab1a58cc5f0893772a56a977db6c33d1291a5eb",
         "type": "github"
       },
       "original": {
