@@ -28,6 +28,7 @@ in
 
     age.secrets = {
       mailserver-isabel = mkSecret { file = "mailserver/isabel"; };
+      mailserver-robin = mkSecret { file = "mailserver/robin"; };
       mailserver-vaultwarden = mkSecret { file = "mailserver/vaultwarden"; };
       mailserver-database = mkSecret { file = "mailserver/database"; };
       mailserver-grafana = mkSecret { file = "mailserver/grafana"; };
@@ -100,6 +101,19 @@ in
             "root@${rdomain}"
             "postmaster"
             "postmaster@${rdomain}"
+          ];
+        };
+
+        "robin@${rdomain}" = {
+          hashedPasswordFile = config.age.secrets.mailserver-robin.path;
+          aliases = [
+            "robin"
+            "robinwobin"
+            "robinwobin@${rdomain}"
+            "comfy"
+            "comfy@${rdomain}"
+            "comfysage"
+            "comfysage@${rdomain}"
           ];
         };
 

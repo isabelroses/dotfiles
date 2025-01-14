@@ -19,8 +19,6 @@ let
 
   cfg = config.garden.services.kanidm;
   cfg' = config.garden.services;
-
-  inherit (config.garden.system) mainUser;
 in
 {
   options.garden.services.kanidm = mkServiceOption "kanidm" {
@@ -89,15 +87,25 @@ in
           idmAdminPasswordFile = config.age.secrets.kanidm-idm-admin-password.path;
 
           persons = {
-            ${mainUser} = {
-              displayName = mainUser;
-              legalName = mainUser;
-              mailAddresses = [ "${mainUser}@${rdomain}" ];
+            isabel = {
+              displayName = "isabel";
+              legalName = "isabel";
+              mailAddresses = [ "isabel@${rdomain}" ];
               groups = [
                 "grafana.access"
                 "grafana.admins"
                 "forgejo.access"
                 "forgejo.admins"
+              ];
+            };
+
+            robin = {
+              displayName = "robin";
+              legalName = "robin";
+              mailAddresses = [ "robin@${rdomain}" ];
+              groups = [
+                "grafana.access"
+                "forgejo.access"
               ];
             };
           };

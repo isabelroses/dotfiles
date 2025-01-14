@@ -62,6 +62,7 @@ let
 
   defAccessIsabel = list: defAccess list [ "isabel" ];
   defAccessRobin = list: defAccess list [ "robin" ];
+  defAccessAll = list: defAccess list (builtins.attrNames users);
 in
 {
   # isabel's secrets
@@ -92,6 +93,7 @@ in
 
   # mailserver
   "mailserver/isabel.age" = defAccessIsabel types.servers;
+  "mailserver/robin.age" = defAccessAll types.servers;
   "mailserver/vaultwarden.age" = defAccessIsabel types.servers;
   "mailserver/database.age" = defAccessIsabel types.servers;
   "mailserver/grafana.age" = defAccessIsabel types.servers;
@@ -124,7 +126,7 @@ in
   "plausible/key.age" = defAccessIsabel types.servers;
   "plausible/admin.age" = defAccessIsabel types.servers;
 
-  #wakapi
+  # wakapi
   "wakapi.age" = defAccessIsabel types.servers;
   "wakapi-mailer.age" = defAccessIsabel types.servers;
 
