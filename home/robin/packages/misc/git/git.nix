@@ -11,8 +11,8 @@ in
   programs.git = mkIf cfg.enable {
     enable = true;
     inherit (cfg) package;
-    userName = "comfysage";
-    userEmail = "67917529+comfysage@users.noreply.github.com";
+    userName = "robin";
+    userEmail = "comfysage" + "@" + "isabelroses" + "." + "com";
 
     extraConfig = {
       core.editor = osConfig.garden.programs.defaults.editor;
