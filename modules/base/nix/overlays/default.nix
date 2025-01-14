@@ -1,6 +1,5 @@
 {
   self,
-  inputs,
   config,
   ...
 }:
@@ -13,7 +12,7 @@
 
     # this file exists to work around issues with nixpkgs that may arise
     # hopefully that means its empty a lot
-    (final: prev: import ./fixes.nix { inherit final prev inputs; })
+    # (final: prev: import ./fixes.nix { inherit final prev inputs; })
 
     # we minimize the amount of packages that are installed
     (_: prev: import ./nix.nix { inherit config prev; })

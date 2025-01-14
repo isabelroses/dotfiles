@@ -13,9 +13,6 @@
       ref = "nixpkgs-unstable";
     };
 
-    # TODO: remove after https://github.com/NixOS/nixpkgs/pull/371815
-    nixpkgs-regression.url = "github:Mic92/nixpkgs/matrix-synapse";
-
     # lix a good fork of nix
     lix = {
       url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";

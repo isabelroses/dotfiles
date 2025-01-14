@@ -666,22 +666,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-regression_2": {
-      "locked": {
-        "lastModified": 1736331458,
-        "narHash": "sha256-sHrVn57OSZ0ABStuxevVrfgmZKTamKwNW/0G+FUpgvo=",
-        "owner": "Mic92",
-        "repo": "nixpkgs",
-        "rev": "7b2d7afbcc73cb0719e0bae137ad16a5e8b9f746",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "ref": "matrix-synapse",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -706,7 +690,6 @@
         "nix-topology": "nix-topology",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-regression": "nixpkgs-regression_2",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix"
