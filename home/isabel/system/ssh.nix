@@ -59,7 +59,7 @@ in
 
       # my local servers / clients
       "hydra".hostname = "192.168.86.3";
-      "tatsumaki".hostname = "192.168.1.123";
+      "tatsumaki".hostname = "192.168.1.217";
     };
   };
 }
