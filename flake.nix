@@ -191,9 +191,8 @@
 
     homebrew = {
       type = "github";
-      owner = "isabelroses";
+      owner = "zhaofengli";
       repo = "nix-homebrew";
-      ref = "chore-drop-fu";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
