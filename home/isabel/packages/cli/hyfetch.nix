@@ -55,7 +55,7 @@ in
           type = "os";
         }
         {
-          key = "│ {#36} wm {#keys}│";
+          key = "│ {#36} wm      {#keys}│";
           type = "de";
         }
         {
