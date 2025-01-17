@@ -401,16 +401,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1736011721,
+        "lastModified": 1736041957,
         "narHash": "sha256-Kk/cVtkxwfHNoB6nINUarMLTtyAEvH+ohzxKBptMzzg=",
-        "owner": "isabelroses",
+        "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "77d88873ad5fddcb43857b24e20a354838fb1d31",
+        "rev": "a6d99cc7436fc18c097b3536d9c45c0548c694c8",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
-        "ref": "chore-drop-fu",
+        "owner": "zhaofengli",
         "repo": "nix-homebrew",
         "type": "github"
       }
