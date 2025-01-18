@@ -22,10 +22,14 @@ let
   name = "${hostname}-${config.system.nixos.release}-${rev}-${pkgs.stdenv.hostPlatform.uname.processor}";
 in
 {
-  isoImage = {
+  image = {
     # From the name defined before we end up with: name.iso
-    isoName = mkImageMediaOverride "${name}.iso";
+    baseName = mkImageMediaOverride name;
 
+    extension = "iso";
+  };
+
+  isoImage = {
     # volumeID is used is used by stage 1 of the boot process, so it must be distintctive
     volumeID = mkImageMediaOverride name;
 
