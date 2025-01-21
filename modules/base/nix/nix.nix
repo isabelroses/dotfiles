@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  self',
   inputs,
   ...
 }:
@@ -24,7 +25,7 @@ in
     # https://akko.isabelroses.com/notice/AjMDXG28c8sLqhci0G
     #
     # NOTE: we are also using a specifically patched version, you can see this from overlays/lix.nix
-    package = pkgs.lix;
+    package = self'.packages.lix;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = mapAttrs (_: flake: { inherit flake; }) flakeInputs;

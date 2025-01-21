@@ -1,15 +1,9 @@
 {
-  self,
   config,
   ...
 }:
 {
   nixpkgs.overlays = [
-    # i want to use my own overlays
-    # this is also how we pull in the patches applied to lix,
-    # we do it this way such that we can build lix with ci, which is useful
-    self.overlays.default
-
     # this file exists to work around issues with nixpkgs that may arise
     # hopefully that means its empty a lot
     # (final: prev: import ./fixes.nix { inherit final prev inputs; })
