@@ -1,0 +1,150 @@
+From 3cb1fd0d2da927ad91a21f720d0cba947ced0769 Mon Sep 17 00:00:00 2001
+From: Jade Lovelace <lix@jade.fyi>
+Date: Tue, 21 Jan 2025 21:29:36 -0800
+Subject: [PATCH] FileTransfer: fix race condition on awaitData
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+There's a race condition where awaitData could early-return for data
+coming from a 404 response or similar and thus not rethrow the exception
+that is forthcoming.
+
+This would then cause substitution failures like below since the exception
+isn't caught in HttpBinaryCacheStore::getFile as intended, but instead
+by an exception handler downstream of `drain()` which would error out
+the entire operation.
+
+Symptom:
+
+ » nix-build ./docs-service.nix -o "docs-service-result"
+error: unable to download 'https://cache.nixos.org/7mr3fy8w66gi5inmf0jkkkl90lxy4jyg.narinfo': HTTP e
+error 404 ()
+
+       response body:
+
+This is kind of a hack in how it is implemented: it assumes that you
+can't intentionally be receiving a large unsuccessful response since in
+such a case, `awaitData` will wait for finish() to be called to throw an
+exception and will never escape until the download finishes, while
+continuing to buffer the entire response into memory, which could be bad
+if an error response had a large payload.
+
+That said, nobody is sending Lix 1GiB of 404, so meh I guess, and this
+is how it is seemingly intended to work. That was a design flaw of the
+thing before any of the Lix team got our paws on it.
+
+I tested this by adding _exit(0) inside the expected exception catch and
+then running the offending command repeatedly to see if the symptom ever
+appeared again, and it did not.
+
+Needs cherry-pick to 2.92 and a 2.92.1 release once reviewed.
+
+Fixes: https://git.lix.systems/lix-project/lix/issues/635
+Change-Id: If54f6eeaad60b5ca9d5b77d4d9232da1d295e7d1
+---
+ doc/manual/rl-next/filetransfer-race.md | 17 +++++++++++++++++
+ lix/libstore/filetransfer.cc            | 20 ++++++++++++++++----
+ 2 files changed, 33 insertions(+), 4 deletions(-)
+ create mode 100644 doc/manual/rl-next/filetransfer-race.md
+
+diff --git a/doc/manual/rl-next/filetransfer-race.md b/doc/manual/rl-next/filetransfer-race.md
+new file mode 100644
+index 000000000..c52f6a4c2
+--- /dev/null
++++ b/doc/manual/rl-next/filetransfer-race.md
+@@ -0,0 +1,17 @@
++---
++synopsis: "Fix race condition causing substitution failure"
++issues: [fj#635]
++cls: [2411]
++category: Fixes
++credits: jade
++---
++
++We fixed a race condition bug with the following symptom appearing intermittently when substituting derivations:
++
++```
++ » nix-build ./docs-service.nix -o "docs-service-result"
++error: unable to download 'https://cache.nixos.org/7mr3fy8w66gi5inmf0jkkkl90lxy4jyg.narinfo': HTTP e
++error 404 ()
++
++       response body:
++```
+diff --git a/lix/libstore/filetransfer.cc b/lix/libstore/filetransfer.cc
+index 967e40954..6fc81d00b 100644
+--- a/lix/libstore/filetransfer.cc
++++ b/lix/libstore/filetransfer.cc
+@@ -47,6 +47,12 @@ struct curlFileTransfer : public FileTransfer
+         {
+             bool done = false;
+             std::exception_ptr exc;
++            /**
++             * Interlock against reading data before an exception for a failed status comes in.
++             * Don't read data before doneSetupWithSuccessCode becomes true.
++             */
++            bool doneSetupWithSuccessCode = false;
++            /** Chunk of data */
+             std::string data;
+         };
+ 
+@@ -211,6 +217,9 @@ struct curlFileTransfer : public FileTransfer
+             if (headersDone) {
+                 return;
+             }
++            auto httpStatus = getHTTPStatus();
++            // Now permit reading `data` since we know what the status code is and it probably is not going to throw in setup.
++            downloadState.lock()->doneSetupWithSuccessCode = successfulStatuses.count(httpStatus) > 0;
+ 
+             char * effectiveUriCStr = nullptr;
+             curl_easy_getinfo(req.get(), CURLINFO_EFFECTIVE_URL, &effectiveUriCStr);
+@@ -218,7 +227,7 @@ struct curlFileTransfer : public FileTransfer
+                 result.effectiveUri = effectiveUriCStr;
+             }
+ 
+-            result.cached = getHTTPStatus() == 304;
++            result.cached = httpStatus == 304;
+ 
+             metadataPromise.set_value(result);
+             headersDone = true;
+@@ -237,6 +246,7 @@ struct curlFileTransfer : public FileTransfer
+ 
+                 // when the buffer is full (as determined by a historical magic value) we
+                 // pause the transfer and wait for the receiver to unpause it when ready.
++                // FIXME(jade): doesn't this let you just hand someone 1GiB of 404 without any consequences?
+                 if (successfulStatuses.count(getHTTPStatus()) && state->data.size() > 1024 * 1024) {
+                     return CURL_WRITEFUNC_PAUSE;
+                 }
+@@ -332,7 +342,7 @@ struct curlFileTransfer : public FileTransfer
+             if (callbackException)
+                 failEx(callbackException);
+ 
+-            else if (code == CURLE_OK && successfulStatuses.count(httpStatus))
++            else if (code == CURLE_OK && successfulStatuses.count(httpStatus) > 0)
+             {
+                 act.progress(bodySize, bodySize);
+                 downloadState.lock()->done = true;
+@@ -390,8 +400,10 @@ struct curlFileTransfer : public FileTransfer
+                 }
+ 
+                 std::optional<std::string> response;
+-                if (!successfulStatuses.count(httpStatus))
++                if (successfulStatuses.count(httpStatus) == 0) {
+                     response = std::move(downloadState.lock()->data);
++                }
++
+                 auto exc =
+                     code == CURLE_ABORTED_BY_CALLBACK && _isInterrupted
+                     ? FileTransferError(Interrupted, std::move(response), "%s of '%s' was interrupted", verb(), uri)
+@@ -880,7 +892,7 @@ struct curlFileTransfer : public FileTransfer
+                 while (buffered.empty()) {
+                     auto state(transfer->downloadState.lock());
+ 
+-                    if (!state->data.empty()) {
++                    if (state->doneSetupWithSuccessCode && !state->data.empty()) {
+                         chunk = std::move(state->data);
+                         buffered = chunk;
+                         totalReceived += chunk.size();
+-- 
+2.44.1
+

@@ -19,6 +19,9 @@
       ./patches/lix-feat-builtins-greaterThan.patch
       # - `builtins.pow` which will raise the first argument to the power of the second
       ./patches/lix-feat-builtins-pow.patch
+
+      # https://gerrit.lix.systems/c/lix/+/2411
+      ./patches/0001-FileTransfer-fix-race-condition-on-awaitData.patch
     ];
 
     # Kinda funny right
