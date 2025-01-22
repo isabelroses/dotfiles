@@ -1,6 +1,6 @@
-From 3cb1fd0d2da927ad91a21f720d0cba947ced0769 Mon Sep 17 00:00:00 2001
-From: Jade Lovelace <lix@jade.fyi>
-Date: Tue, 21 Jan 2025 21:29:36 -0800
+From de58cd6e80d3ab2ae6ec9e0a5a12c8e0b003f308 Mon Sep 17 00:00:00 2001
+From: eldritch horrors <pennae@lix.systems>
+Date: Wed, 22 Jan 2025 20:10:41 +0100
 Subject: [PATCH] FileTransfer: fix race condition on awaitData
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -8,7 +8,8 @@ Content-Transfer-Encoding: 8bit
 
 There's a race condition where awaitData could early-return for data
 coming from a 404 response or similar and thus not rethrow the exception
-that is forthcoming.
+that is forthcoming, and a related race during transfer setup (which
+could retry a transfer *twice* per retry round).
 
 This would then cause substitution failures like below since the exception
 isn't caught in HttpBinaryCacheStore::getFile as intended, but instead
@@ -18,8 +19,7 @@ the entire operation.
 Symptom:
 
  » nix-build ./docs-service.nix -o "docs-service-result"
-error: unable to download 'https://cache.nixos.org/7mr3fy8w66gi5inmf0jkkkl90lxy4jyg.narinfo': HTTP e
-error 404 ()
+error: unable to download 'https://cache.nixos.org/7mr3fy8w66gi5inmf0jkkkl90lxy4jyg.narinfo': HTTP error 404 ()
 
        response body:
 
@@ -41,110 +41,153 @@ appeared again, and it did not.
 Needs cherry-pick to 2.92 and a 2.92.1 release once reviewed.
 
 Fixes: https://git.lix.systems/lix-project/lix/issues/635
+Co-Authored-By: lix@jade.fyi
 Change-Id: If54f6eeaad60b5ca9d5b77d4d9232da1d295e7d1
 ---
- doc/manual/rl-next/filetransfer-race.md | 17 +++++++++++++++++
- lix/libstore/filetransfer.cc            | 20 ++++++++++++++++----
- 2 files changed, 33 insertions(+), 4 deletions(-)
- create mode 100644 doc/manual/rl-next/filetransfer-race.md
+ lix/libstore/filetransfer.cc        | 37 +++++++++++++++++++----------
+ tests/unit/libstore/filetransfer.cc |  9 +++++++
+ 2 files changed, 34 insertions(+), 12 deletions(-)
 
-diff --git a/doc/manual/rl-next/filetransfer-race.md b/doc/manual/rl-next/filetransfer-race.md
-new file mode 100644
-index 000000000..c52f6a4c2
---- /dev/null
-+++ b/doc/manual/rl-next/filetransfer-race.md
-@@ -0,0 +1,17 @@
-+---
-+synopsis: "Fix race condition causing substitution failure"
-+issues: [fj#635]
-+cls: [2411]
-+category: Fixes
-+credits: jade
-+---
-+
-+We fixed a race condition bug with the following symptom appearing intermittently when substituting derivations:
-+
-+```
-+ » nix-build ./docs-service.nix -o "docs-service-result"
-+error: unable to download 'https://cache.nixos.org/7mr3fy8w66gi5inmf0jkkkl90lxy4jyg.narinfo': HTTP e
-+error 404 ()
-+
-+       response body:
-+```
 diff --git a/lix/libstore/filetransfer.cc b/lix/libstore/filetransfer.cc
-index 967e40954..6fc81d00b 100644
+index 967e40954..d15550b0b 100644
 --- a/lix/libstore/filetransfer.cc
 +++ b/lix/libstore/filetransfer.cc
-@@ -47,6 +47,12 @@ struct curlFileTransfer : public FileTransfer
-         {
-             bool done = false;
-             std::exception_ptr exc;
-+            /**
-+             * Interlock against reading data before an exception for a failed status comes in.
-+             * Don't read data before doneSetupWithSuccessCode becomes true.
-+             */
-+            bool doneSetupWithSuccessCode = false;
-+            /** Chunk of data */
-             std::string data;
-         };
+@@ -56,7 +56,7 @@ struct curlFileTransfer : public FileTransfer
+         std::unique_ptr<FILE, decltype([](FILE * f) { fclose(f); })> uploadData;
+         Sync<DownloadState> downloadState;
+         std::condition_variable downloadEvent;
+-        bool headersDone = false;
++        bool headersDone = false, metadataReturned = false;
+         std::promise<FileTransferResult> metadataPromise;
+         std::string statusMsg;
  
-@@ -211,6 +217,9 @@ struct curlFileTransfer : public FileTransfer
-             if (headersDone) {
+@@ -193,7 +193,7 @@ struct curlFileTransfer : public FileTransfer
+         {
+             auto state = downloadState.lock();
+             assert(!state->done && !state->exc);
+-            if (!headersDone) {
++            if (!metadataReturned) {
+                 metadataPromise.set_exception(ex);
+             }
+             state->exc = ex;
+@@ -212,15 +212,20 @@ struct curlFileTransfer : public FileTransfer
                  return;
              }
-+            auto httpStatus = getHTTPStatus();
-+            // Now permit reading `data` since we know what the status code is and it probably is not going to throw in setup.
-+            downloadState.lock()->doneSetupWithSuccessCode = successfulStatuses.count(httpStatus) > 0;
  
++            auto status = getHTTPStatus();
++
              char * effectiveUriCStr = nullptr;
              curl_easy_getinfo(req.get(), CURLINFO_EFFECTIVE_URL, &effectiveUriCStr);
-@@ -218,7 +227,7 @@ struct curlFileTransfer : public FileTransfer
+             if (effectiveUriCStr) {
                  result.effectiveUri = effectiveUriCStr;
              }
  
 -            result.cached = getHTTPStatus() == 304;
-+            result.cached = httpStatus == 304;
++            result.cached = status == 304;
++            if (successfulStatuses.contains(status)) {
++                metadataPromise.set_value(result);
++                metadataReturned = true;
++            }
  
-             metadataPromise.set_value(result);
+-            metadataPromise.set_value(result);
              headersDone = true;
-@@ -237,6 +246,7 @@ struct curlFileTransfer : public FileTransfer
+         }
  
-                 // when the buffer is full (as determined by a historical magic value) we
-                 // pause the transfer and wait for the receiver to unpause it when ready.
-+                // FIXME(jade): doesn't this let you just hand someone 1GiB of 404 without any consequences?
-                 if (successfulStatuses.count(getHTTPStatus()) && state->data.size() > 1024 * 1024) {
-                     return CURL_WRITEFUNC_PAUSE;
-                 }
-@@ -332,7 +342,7 @@ struct curlFileTransfer : public FileTransfer
-             if (callbackException)
-                 failEx(callbackException);
+@@ -786,7 +791,8 @@ struct curlFileTransfer : public FileTransfer
+             , data(std::move(data))
+             , noBody(noBody)
+         {
+-            metadata = withRetries([&] { return startTransfer(uri); });
++            auto setup = [&] { return startTransfer(uri); };
++            metadata = withRetries(setup, setup);
+         }
  
--            else if (code == CURLE_OK && successfulStatuses.count(httpStatus))
-+            else if (code == CURLE_OK && successfulStatuses.count(httpStatus) > 0)
-             {
-                 act.progress(bodySize, bodySize);
-                 downloadState.lock()->done = true;
-@@ -390,8 +400,10 @@ struct curlFileTransfer : public FileTransfer
-                 }
+         ~TransferSource()
+@@ -801,15 +807,17 @@ struct curlFileTransfer : public FileTransfer
+             }
+         }
  
-                 std::optional<std::string> response;
--                if (!successfulStatuses.count(httpStatus))
-+                if (successfulStatuses.count(httpStatus) == 0) {
-                     response = std::move(downloadState.lock()->data);
-+                }
-+
-                 auto exc =
-                     code == CURLE_ABORTED_BY_CALLBACK && _isInterrupted
-                     ? FileTransferError(Interrupted, std::move(response), "%s of '%s' was interrupted", verb(), uri)
-@@ -880,7 +892,7 @@ struct curlFileTransfer : public FileTransfer
+-        auto withRetries(auto fn) -> decltype(fn())
++        auto withRetries(auto && initial, auto && retry) -> decltype(initial())
+         {
+             std::optional<std::string> retryContext;
+             while (true) {
+                 try {
+                     if (retryContext) {
+-                        attemptRetry(*retryContext);
++                        prepareRetry(*retryContext);
++                        return retry();
++                    } else {
++                        return initial();
+                     }
+-                    return fn();
+                 } catch (FileTransferError & e) {
+                     // If this is a transient error, then maybe retry after a while. after any
+                     // bytes have been received we require range support to proceed, otherwise
+@@ -843,7 +851,7 @@ struct curlFileTransfer : public FileTransfer
+             }
+         }
+ 
+-        bool attemptRetry(const std::string & context)
++        void prepareRetry(const std::string & context)
+         {
+             thread_local std::minstd_rand random{std::random_device{}()};
+             std::uniform_real_distribution<> dist(0.0, 0.5);
+@@ -855,7 +863,10 @@ struct curlFileTransfer : public FileTransfer
+             }
+ 
+             std::this_thread::sleep_for(std::chrono::milliseconds(ms));
++        }
+ 
++        void restartTransfer()
++        {
+             // use the effective URI of the previous transfer for retries. this avoids
+             // some silent corruption if a redirect changes between starting and retry
+             const auto & uri = metadata.effectiveUri.empty() ? this->uri : metadata.effectiveUri;
+@@ -868,13 +879,11 @@ struct curlFileTransfer : public FileTransfer
+                 metadata.immutableUrl.value_or(""),
+                 newMeta.immutableUrl.value_or("")
+             );
+-
+-            return true;
+         }
+ 
+         bool awaitData()
+         {
+-            return withRetries([&] {
++            auto waitForData = [&] {
+                 /* Grab data if available, otherwise wait for the download
+                    thread to wake us up. */
                  while (buffered.empty()) {
-                     auto state(transfer->downloadState.lock());
+@@ -896,6 +905,10 @@ struct curlFileTransfer : public FileTransfer
+                 }
  
--                    if (!state->data.empty()) {
-+                    if (state->doneSetupWithSuccessCode && !state->data.empty()) {
-                         chunk = std::move(state->data);
-                         buffered = chunk;
-                         totalReceived += chunk.size();
+                 return true;
++            };
++            return withRetries(waitForData, [&] {
++                restartTransfer();
++                return waitForData();
+             });
+         }
+ 
+diff --git a/tests/unit/libstore/filetransfer.cc b/tests/unit/libstore/filetransfer.cc
+index 52369ee11..7e14430a4 100644
+--- a/tests/unit/libstore/filetransfer.cc
++++ b/tests/unit/libstore/filetransfer.cc
+@@ -426,4 +426,13 @@ TEST(FileTransfer, DISABLED_interrupt)
+     ASSERT_THROW(ft->download(fmt("http://[::1]:%d/index", port)).second->drain(), FileTransferError);
+ }
+ 
++TEST(FileTransfer, setupErrorsAreMetadata)
++{
++    auto [port, srv] = serveHTTP({
++        {"404 try again later", "content-length: 1\r\n", [] { return "X"; }},
++    });
++    auto ft = makeFileTransfer(0);
++    ASSERT_THROW(ft->upload(fmt("http://[::1]:%d", port), ""), FileTransferError);
++}
++
+ }
 -- 
-2.44.1
+2.47.0
 
