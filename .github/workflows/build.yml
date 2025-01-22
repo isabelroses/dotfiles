@@ -3,7 +3,7 @@ name: Build and populate cache
 on:
   push:
     paths:
-      - "modules/flake/packages"
+      - "modules/flake/packages/**/*"
       - "**.lock"
   workflow_dispatch:
   workflow_run:
@@ -18,9 +18,8 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
+      fail-fast: false
       matrix:
-        package:
-          - lix
         include:
           - os: ubuntu-latest
             system: x86_64-linux
@@ -49,4 +48,11 @@ jobs:
           authToken: "${{ secrets.CACHIX_TOKEN }}"
 
       - name: Build from the matrix
-        run: nix build -L .#${{ matrix.package }}
+        run: |
+          nix run \
+            github:Mic92/nix-fast-build -- \
+            --no-nom \
+            --skip-cached \
+            --systems '${{ matrix.system }}' \
+            --option accept-flake-config true \
+            --flake '.#packages.${{ matrix.system }}'
