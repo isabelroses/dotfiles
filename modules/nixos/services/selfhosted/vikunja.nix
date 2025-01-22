@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  inputs',
+  ...
+}:
 let
   inherit (lib) template;
   inherit (lib.modules) mkIf;
@@ -30,6 +35,8 @@ in
     services = {
       vikunja = {
         enable = true;
+        package = inputs'.nixpkgs-reggresion.legacyPackages.vikunja;
+
         inherit (cfg) port;
         frontendHostname = cfg.domain;
         frontendScheme = "https";

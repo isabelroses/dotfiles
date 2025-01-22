@@ -505,11 +505,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1737468268,
-        "narHash": "sha256-RVR/Wh+iTTmw3IYe9b52Gho3If9iGc6Xxpw+gmJZ50s=",
-        "rev": "9b290081147fb2abf79d2d1e0afd72d1490145f2",
+        "lastModified": 1737579991,
+        "narHash": "sha256-5IKNJQP+3XWLd/s7SXGvL6ZzFwk8wDDm0QGBTQ6fw9M=",
+        "rev": "1fe6064ceded2a9a81ab1725d545a670d14add28",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/9b290081147fb2abf79d2d1e0afd72d1490145f2.tar.gz?rev=9b290081147fb2abf79d2d1e0afd72d1490145f2"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/1fe6064ceded2a9a81ab1725d545a670d14add28.tar.gz?rev=1fe6064ceded2a9a81ab1725d545a670d14add28"
       },
       "original": {
         "type": "tarball",
@@ -649,6 +649,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-reggresion": {
+      "locked": {
+        "lastModified": 1737501597,
+        "narHash": "sha256-zECXv7QuFqBJ36CgvObJ5I9XPIYhkh2W1F3LHFSF2mg=",
+        "owner": "leona-ya",
+        "repo": "nixpkgs",
+        "rev": "d6b0a4ce9f735bb4f3fdedcf68951ca0246dcc5d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "leona-ya",
+        "ref": "push-ryonnsmyolmm",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -689,6 +705,7 @@
         "nix-topology": "nix-topology",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-reggresion": "nixpkgs-reggresion",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix"

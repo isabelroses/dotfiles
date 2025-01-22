@@ -13,6 +13,13 @@
       ref = "nixpkgs-unstable";
     };
 
+    nixpkgs-reggresion = {
+      type = "github";
+      owner = "leona-ya";
+      repo = "nixpkgs";
+      ref = "push-ryonnsmyolmm";
+    };
+
     # lix a good fork of nix
     lix = {
       url = "https://git.lix.systems/lix-project/lix/archive/main.tar.gz";
