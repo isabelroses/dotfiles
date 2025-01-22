@@ -65,6 +65,9 @@
               settings = {
                 write = true;
                 configuration = ''
+                  [files]
+                  extend-exclude = [ "**/*.patch" ]
+
                   [default.extend-words]
                   "ags" = "ags"
                   "GIR" = "GIR"
