@@ -44,7 +44,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     };
 
     catppuccin-alerts = fetchurl {
-      url = "https://github.com/catppuccin/mdBook/releases/latest/download/catppuccin-alerts.css";
+      url = "https://github.com/catppuccin/mdBook/releases/v3.1.0/download/catppuccin-alerts.css";
       sha256 = "1grbgvhg5sgqfryds22mhvb5sfn83zcga84wyqiy4bgl5wbawwsf";
     };
 
