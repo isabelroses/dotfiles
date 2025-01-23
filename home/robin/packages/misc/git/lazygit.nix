@@ -10,6 +10,7 @@
         nerdFontsVersion = 3;
         authorColors = {
           comfysage = "#b2c98f";
+          robin = "#b2c98f";
           isabel = "#f5c2e7";
         };
       };
