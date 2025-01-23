@@ -151,6 +151,7 @@ in
       };
 
       battery.disabled = true;
+      cmd_duration.disabled = true;
     };
   };
 }
