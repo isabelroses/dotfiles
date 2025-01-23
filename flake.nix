@@ -237,16 +237,7 @@
       type = "github";
       owner = "catppuccin";
       repo = "nix";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "";
-        home-manager.follows = "";
-        home-manager-stable.follows = "";
-        nuscht-search.follows = "";
-        catppuccin-v1_1.follows = "";
-        catppuccin-v1_2.follows = "";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ### my programs
