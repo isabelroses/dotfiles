@@ -42,17 +42,8 @@
             };
 
             # ensure we have nice formatting
-            nixfmt-rfc-style = mkHook { };
-            prettier = mkHook {
-              settings.write = true;
-            };
             treefmt = mkHook {
               package = config.treefmt.build.wrapper;
-            };
-            stylua = mkHook { };
-            editorconfig-checker = mkHook {
-              enable = lib.modules.mkForce false;
-              always_run = true;
             };
 
             # check for dead links

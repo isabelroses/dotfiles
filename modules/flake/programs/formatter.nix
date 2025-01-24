@@ -16,6 +16,8 @@
           # TODO: configure this to not be ugly
           # yamlfmt.enable = true;
 
+          just.enable = true;
+
           nixfmt = {
             enable = true;
             package = pkgs.nixfmt-rfc-style;
@@ -29,6 +31,8 @@
               editorconfig = true;
             };
           };
+
+          stylua.enable = true;
 
           shfmt = {
             enable = true;
