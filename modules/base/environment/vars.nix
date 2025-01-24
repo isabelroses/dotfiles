@@ -1,14 +1,17 @@
 { config, ... }:
+let
+  inherit (config.garden.programs) defaults;
+in
 {
   # variables that I want to set globally on all systems
   environment.variables = {
-    EDITOR = "nvim";
-    VISUAL = "nvim";
-    SUDO_EDITOR = "nvim";
+    EDITOR = defaults.editor;
+    VISUAL = defaults.editor;
+    SUDO_EDITOR = defaults.editor;
 
     SYSTEMD_PAGERSECURE = "true";
-    PAGER = "less -FR";
-    MANPAGER = "nvim +Man!";
+    PAGER = defaults.pager;
+    MANPAGER = defaults.manpager;
 
     # Some programs like `nh` use the FLAKE env var to determine the flake path
     FLAKE = config.garden.environment.flakePath;
