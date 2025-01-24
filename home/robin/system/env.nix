@@ -23,7 +23,8 @@ in
       VISUAL = defaults.editor;
       TERMINAL = defaults.terminal;
       SYSTEMD_PAGERSECURE = "true";
-      PAGER = "less -FR";
+      PAGER = defaults.pager;
+      MANPAGER = defaults.manpager;
       FLAKE = osConfig.garden.environment.flakePath;
       NH_FLAKE = osConfig.garden.environment.flakePath;
     };
