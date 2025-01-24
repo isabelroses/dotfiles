@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 let
   inherit (lib.options) mkOption;
-  inherit (lib.types) enum nullOr string;
+  inherit (lib.types) enum nullOr str;
   inherit (lib.hardware) ldTernary;
 in
 {
@@ -54,12 +54,12 @@ in
     };
 
     pager = mkOption {
-      type = string;
+      type = str;
       default = "less -FR";
     };
 
     manpager = mkOption {
-      type = string;
+      type = str;
       default = "nvim +Man!";
     };
 
