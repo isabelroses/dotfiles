@@ -259,6 +259,26 @@
         "type": "github"
       }
     },
+    "evergarden": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1736861843,
+        "narHash": "sha256-4JfdunwFNpWkCnCIG6kZRybBqNbPTJrlPvk/RQgJedM=",
+        "owner": "comfysage",
+        "repo": "evergarden",
+        "rev": "31f39772562b1c03a970f057cd5cbb8cff1e68fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "comfysage",
+        "repo": "evergarden",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -686,6 +706,7 @@
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
         "easy-hosts": "easy-hosts",
+        "evergarden": "evergarden",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "git-hooks": "git-hooks",

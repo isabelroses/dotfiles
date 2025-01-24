@@ -240,6 +240,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    evergarden = {
+      type = "github";
+      owner = "comfysage";
+      repo = "evergarden";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ### my programs
     beapkgs = {
       type = "github";
