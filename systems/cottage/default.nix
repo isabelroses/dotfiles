@@ -1,6 +1,8 @@
-{ inputs', ... }:
 {
-  imports = [ ./hardware.nix ];
+  imports = [
+    ./hardware.nix
+    ./users.nix
+  ];
 
   garden = {
     device = {
@@ -13,9 +15,6 @@
     };
 
     system = {
-      mainUser = "robin";
-      users = [ "robin" ];
-
       boot = {
         loader = "systemd-boot";
         secureBoot = true;
@@ -71,23 +70,5 @@
     };
 
     style.font.name = "Maple Mono NF";
-
-    programs = {
-      cli = {
-        enable = true;
-        modernShell.enable = true;
-      };
-
-      tui.enable = true;
-      gui.enable = true;
-
-      kitty.enable = true;
-      wezterm.enable = true;
-      zathura.enable = true;
-      rofi.enable = true;
-      fish.enable = true;
-
-      neovim.package = inputs'.ivy.packages.default;
-    };
   };
 }

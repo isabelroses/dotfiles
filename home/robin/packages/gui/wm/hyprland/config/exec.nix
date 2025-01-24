@@ -1,13 +1,13 @@
 {
   lib,
   config,
-  defaults,
   ...
 }:
 let
   inherit (lib.lists) optionals;
 
   pointer = config.home.pointerCursor;
+  inherit (config.garden.programs) defaults;
 in
 {
   wayland.windowManager.hyprland.settings = {

@@ -1,13 +1,14 @@
 {
   lib,
   pkgs,
+  config,
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.validators) isWayland;
-  cfg = osConfig.garden.programs;
+  cfg = config.garden.programs;
 in
 {
   config = mkIf (isWayland osConfig && cfg.cli.enable && cfg.gui.enable) {

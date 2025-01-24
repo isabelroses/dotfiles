@@ -1,7 +1,9 @@
-{ lib, defaults, ... }:
+{ lib, config, ... }:
 let
   inherit (lib.lists) optionals;
   inherit (builtins) toString genList concatLists;
+
+  inherit (config.garden.programs) defaults;
 
   mod = "SUPER";
 in

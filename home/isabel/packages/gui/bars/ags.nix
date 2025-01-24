@@ -2,6 +2,7 @@
   lib,
   pkgs,
   inputs',
+  config,
   osConfig,
   ...
 }:
@@ -10,7 +11,7 @@ let
   inherit (lib.meta) getExe;
   inherit (lib.validators) isWayland;
 
-  cfg = osConfig.garden.programs.ags;
+  cfg = config.garden.programs.ags;
 in
 {
   config = mkIf (isWayland osConfig && cfg.enable) {

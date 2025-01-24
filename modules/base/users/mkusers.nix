@@ -13,9 +13,12 @@ in
 {
   users.users = genAttrs config.garden.system.users (
     name:
+    let
+      hm = config.home-manager.users.${name};
+    in
     {
       home = "/" + (ldTernary pkgs "home" "Users") + "/" + name;
-      shell = config.garden.programs.${config.garden.programs.defaults.shell}.package;
+      shell = hm.garden.programs.${hm.garden.programs.defaults.shell}.package;
     }
     // (ldTernary pkgs {
       uid = mkDefault 1000;

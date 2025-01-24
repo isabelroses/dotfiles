@@ -1,11 +1,12 @@
 {
   lib,
   pkgs,
+  config,
   osConfig,
   ...
 }:
 let
-  cfg = osConfig.garden.programs.zathura;
+  cfg = config.garden.programs.zathura;
 in
 {
   config = lib.modules.mkIf cfg.enable {

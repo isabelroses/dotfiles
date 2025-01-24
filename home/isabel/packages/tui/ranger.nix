@@ -19,7 +19,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes && osConfig.garden.programs.tui.enable) {
+  config = mkIf (isAcceptedDevice osConfig acceptedTypes && config.garden.programs.tui.enable) {
     home.packages = [ pkgs.ranger ];
 
     xdg.configFile."ranger/rc.conf".text = ''

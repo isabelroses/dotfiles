@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   osConfig,
   ...
 }:
@@ -9,7 +10,7 @@ let
   inherit (lib.validators) isWayland;
 
   inherit (osConfig.garden.style) font;
-  cfg = osConfig.garden.programs.waybar;
+  cfg = config.garden.programs.waybar;
 in
 {
   config = mkIf (isWayland osConfig && cfg.enable) {

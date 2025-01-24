@@ -1,8 +1,8 @@
-{ lib, osConfig, ... }:
+{ lib, config, ... }:
 let
   inherit (lib.modules) mkIf;
 
-  cfg = osConfig.garden.programs.zsh;
+  cfg = config.garden.programs.zsh;
 in
 {
   programs.zsh = mkIf cfg.enable {

@@ -17,7 +17,7 @@ let
   ];
 in
 {
-  programs.direnv = mkIf (isAcceptedDevice osConfig acceptedTypes && isModernShell osConfig) {
+  programs.direnv = mkIf (isAcceptedDevice osConfig acceptedTypes && isModernShell config) {
     enable = true;
     silent = true;
 

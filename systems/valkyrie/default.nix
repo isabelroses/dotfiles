@@ -1,4 +1,6 @@
 {
+  imports = [ ./users.nix ];
+
   garden = {
     device = {
       cpu = null;
@@ -11,8 +13,6 @@
     };
 
     system = {
-      mainUser = "isabel";
-
       boot = {
         loader = "none";
         secureBoot = false;
@@ -56,18 +56,6 @@
     environment = {
       desktop = null;
       useHomeManager = true;
-    };
-
-    programs = {
-      cli = {
-        enable = true;
-        modernShell.enable = true;
-      };
-      tui.enable = true;
-      gui.enable = false;
-
-      git.signingKey = "08A97B9A107A1798";
-      fish.enable = true;
     };
   };
 }

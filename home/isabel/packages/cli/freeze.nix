@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   osConfig,
   ...
 }:
@@ -9,7 +10,7 @@ let
   inherit (lib.validators) isModernShell;
 in
 {
-  config = mkIf (isModernShell osConfig) {
+  config = mkIf (isModernShell config) {
     home.packages = [
       (pkgs.symlinkJoin {
         name = "freeze";

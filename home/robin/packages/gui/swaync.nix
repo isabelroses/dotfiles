@@ -1,14 +1,14 @@
 {
   lib,
   pkgs,
-  osConfig,
+  config,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
 in
 {
-  services.swaync = mkIf osConfig.garden.programs.waybar.enable {
+  services.swaync = mkIf config.garden.programs.waybar.enable {
     enable = true;
 
     style = pkgs.fetchurl {

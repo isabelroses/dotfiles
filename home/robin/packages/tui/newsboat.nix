@@ -1,11 +1,10 @@
 {
   lib,
-  pkgs,
-  osConfig,
+  config,
   ...
 }:
 {
-  programs.newsboat = lib.modules.mkIf osConfig.garden.programs.tui.enable {
+  programs.newsboat = lib.modules.mkIf config.garden.programs.tui.enable {
     enable = true;
     autoReload = true;
     maxItems = 0;
@@ -76,12 +75,5 @@
         url = "https://maia.crimew.gay/feed.xml";
       }
     ];
-
-    extraConfig = builtins.readFile (
-      pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/catppuccin/newsboat/main/themes/dark";
-        sha256 = "09x50g74mld8zv8r6a873j52zx3w86qv3mc7g4fhzr85911cz799";
-      }
-    );
   };
 }

@@ -1,4 +1,7 @@
-{ config, defaults, ... }:
+{ config, ... }:
+let
+  inherit (config.garden.programs) defaults;
+in
 {
   wayland.windowManager.sway = {
     config = {

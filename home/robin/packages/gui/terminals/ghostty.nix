@@ -8,7 +8,7 @@
 let
   inherit (lib.modules) mkIf;
 
-  cfg = osConfig.garden.programs.ghostty;
+  cfg = config.garden.programs.ghostty;
 in
 {
   programs.ghostty = mkIf cfg.enable {

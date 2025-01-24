@@ -1,15 +1,18 @@
 {
   lib,
   pkgs,
+  config,
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.lists) optionals;
+
+  hasSound = (osConfig.garden.system ? sound) && osConfig.garden.system.sound.enable;
 in
 {
-  config = mkIf osConfig.garden.programs.gui.enable {
+  config = mkIf config.garden.programs.gui.enable {
     home.packages =
       builtins.attrValues {
         # inherit (pkgs)
@@ -22,7 +25,7 @@ in
         #   ;
       }
       # if the sound option exists then continue the to check if sound.enable is true
-      ++ optionals ((osConfig.garden.system ? sound) && osConfig.garden.system.sound.enable) [
+      ++ optionals hasSound [
         pkgs.pwvucontrol
       ];
   };

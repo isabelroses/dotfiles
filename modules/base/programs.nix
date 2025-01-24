@@ -1,25 +1,8 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  inherit (lib.modules) mkIf;
-  inherit (lib.meta) getExe;
-  inherit (lib.validators) isModernShell;
-  inherit (lib.hardware) ldTernary;
-
-  bashPrompt = mkIf (isModernShell config) ''
-    eval "$(${getExe pkgs.starship} init bash)"
-  '';
-in
+{ config, ... }:
 {
   # home-manager is so strange and needs these declared multiple times
   programs = {
-    fish.enable = config.garden.programs.fish.enable;
-    zsh.enable = config.garden.programs.zsh.enable;
-
-    bash = ldTernary pkgs { promptInit = bashPrompt; } { interactiveShellInit = bashPrompt; };
+    fish.enable = config.garden.meta.fish;
+    zsh.enable = config.garden.meta.zsh;
   };
 }

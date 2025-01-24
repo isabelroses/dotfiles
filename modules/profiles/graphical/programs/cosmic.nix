@@ -22,13 +22,14 @@ in
       pkgs.cosmic-store
     ];
 
-    garden = {
-      environment.loginManager = "cosmic-greeter";
-
-      programs.defaults = {
-        fileManager = "cosmic-files";
-        launcher = "cosmic-launcher";
-      };
-    };
+    # TODO: handle this, by refactoring some env to be per user
+    # garden = {
+    #   environment.loginManager = "cosmic-greeter";
+    #
+    #   programs.defaults = {
+    #     fileManager = "cosmic-files";
+    #     launcher = "cosmic-launcher";
+    #   };
+    # };
   };
 }

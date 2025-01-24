@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  osConfig,
   ...
 }:
 let
@@ -11,7 +10,7 @@ let
   inherit (lib.strings) optionalString;
 in
 {
-  programs = mkIf osConfig.garden.programs.fish.enable {
+  programs = mkIf config.garden.programs.fish.enable {
     fish = {
       enable = true;
       plugins = [ ];

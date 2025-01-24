@@ -1,10 +1,10 @@
 {
   lib,
-  osConfig,
+  config,
   ...
 }:
 let
-  cfg = osConfig.garden.programs.wezterm;
+  cfg = config.garden.programs.wezterm;
 in
 {
   config = lib.modules.mkIf cfg.enable {

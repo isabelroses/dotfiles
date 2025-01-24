@@ -8,7 +8,7 @@ let
   inherit (lib.modules) mkIf;
 in
 {
-  config = mkIf config.garden.programs.thunar.enable {
+  config = mkIf config.garden.meta.thunar {
     environment.systemPackages = builtins.attrValues {
       inherit (pkgs)
         ffmpegthumbnailer

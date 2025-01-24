@@ -1,14 +1,14 @@
 {
   lib,
   pkgs,
+  config,
   inputs',
-  osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
 
-  cfg = osConfig.garden.programs;
+  cfg = config.garden.programs;
 in
 {
   imports = [

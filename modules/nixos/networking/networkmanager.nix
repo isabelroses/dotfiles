@@ -12,7 +12,7 @@ let
   sys = config.garden.system;
 in
 {
-  environment.systemPackages = optionals config.garden.programs.gui.enable [
+  environment.systemPackages = optionals config.garden.meta.gui [
     pkgs.networkmanagerapplet # provides nm-connection-editor
   ];
 

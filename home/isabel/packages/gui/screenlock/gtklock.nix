@@ -2,13 +2,15 @@
   lib,
   pkgs,
   self,
+  config,
   osConfig,
-  defaults,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.validators) isWayland;
+
+  inherit (config.garden.programs) defaults;
 in
 {
   imports = [ self.homeManagerModules.gtklock ];

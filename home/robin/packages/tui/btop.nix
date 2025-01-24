@@ -1,6 +1,6 @@
-{ lib, osConfig, ... }:
+{ lib, config, ... }:
 {
-  config = lib.modules.mkIf osConfig.garden.programs.tui.enable {
+  config = lib.modules.mkIf config.garden.programs.tui.enable {
     programs.btop = {
       enable = true;
       settings = {

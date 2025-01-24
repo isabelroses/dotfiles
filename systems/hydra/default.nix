@@ -1,5 +1,8 @@
 {
-  imports = [ ./hardware.nix ];
+  imports = [
+    ./hardware.nix
+    ./users.nix
+  ];
 
   garden = {
     device = {
@@ -12,8 +15,6 @@
     };
 
     system = {
-      mainUser = "isabel";
-
       boot = {
         loader = "systemd-boot";
         secureBoot = false;
@@ -62,18 +63,6 @@
     environment = {
       desktop = "Hyprland";
       useHomeManager = true;
-    };
-
-    programs = {
-      cli = {
-        enable = true;
-        modernShell.enable = true;
-      };
-      tui.enable = true;
-      gui.enable = true;
-
-      git.signingKey = "7AFB9A49656E69F7";
-      fish.enable = true;
     };
 
     services.cloudflared.enable = true;

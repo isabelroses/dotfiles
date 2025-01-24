@@ -1,11 +1,12 @@
 {
   lib,
+  config,
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  cfg = osConfig.garden.programs.git;
+  cfg = config.garden.programs.git;
 in
 {
   programs.git = mkIf cfg.enable {
@@ -15,7 +16,7 @@ in
     userEmail = "comfysage" + "@" + "isabelroses" + "." + "com";
 
     extraConfig = {
-      core.editor = osConfig.garden.programs.defaults.editor;
+      core.editor = config.garden.programs.defaults.editor;
 
       # Qol
       color.ui = "auto";

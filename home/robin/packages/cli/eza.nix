@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  osConfig,
   ...
 }:
 let
@@ -9,7 +8,7 @@ let
   inherit (lib.validators) isModernShell;
 in
 {
-  programs.eza = mkIf (isModernShell osConfig) {
+  programs.eza = mkIf (isModernShell config) {
     enable = true;
     icons = "auto";
 

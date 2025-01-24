@@ -1,5 +1,6 @@
 {
   lib,
+  config,
   osConfig,
   ...
 }:
@@ -9,8 +10,7 @@ let
   inherit (lib.strings) concatMapStrings;
   inherit (lib.validators) isWayland;
 
-  progs = osConfig.garden.programs;
-  cfg = progs.chromium;
+  cfg = config.garden.programs.chromium;
 in
 {
   programs.chromium = mkIf cfg.enable {
@@ -24,7 +24,7 @@ in
         "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
         "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
       ]
-      ++ optionals progs.gaming.enable [
+      ++ optionals osConfig.garden.programs.gaming.enable [
         "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
         "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
       ];

@@ -1,17 +1,18 @@
 {
   lib,
   pkgs,
-  defaults,
-  osConfig,
+  config,
   ...
 }:
 let
   inherit (builtins) attrValues;
   inherit (lib.strings) makeBinPath;
   inherit (lib.modules) mkIf;
+
+  inherit (config.garden.programs) defaults;
 in
 {
-  config = mkIf osConfig.garden.programs.notes.enable {
+  config = mkIf config.garden.programs.notes.enable {
     home.packages = attrValues {
       # note taking with markdown
       inherit (pkgs) zk;

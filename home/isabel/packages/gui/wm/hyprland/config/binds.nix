@@ -1,9 +1,10 @@
-{ lib, defaults, ... }:
+{ lib, config, ... }:
 let
   inherit (lib.lists) optionals;
   inherit (builtins) toString genList concatLists;
 
   mod = "SUPER";
+  inherit (config.garden.programs) defaults;
 in
 {
   wayland.windowManager.hyprland.settings = {

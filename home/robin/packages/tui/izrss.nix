@@ -1,10 +1,10 @@
-{ lib, osConfig, ... }:
+{ lib, config, ... }:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.validators) isModernShell;
 in
 {
-  config = mkIf (isModernShell osConfig && osConfig.garden.programs.tui.enable) {
+  config = mkIf (isModernShell config && config.garden.programs.tui.enable) {
     programs.izrss = {
       enable = true;
 

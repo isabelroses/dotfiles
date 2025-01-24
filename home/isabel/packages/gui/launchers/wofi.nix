@@ -1,13 +1,13 @@
 {
   lib,
-  defaults,
-  osConfig,
+  config,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
 
-  cfg = osConfig.garden.programs.wofi;
+  cfg = config.garden.programs.wofi;
+  inherit (config.garden.programs) defaults;
 in
 {
   programs.wofi = mkIf cfg.enable {

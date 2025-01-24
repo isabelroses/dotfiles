@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   osConfig,
   ...
 }:
@@ -9,7 +10,7 @@ let
   inherit (lib.lists) optionals;
   inherit (lib.modules) mkIf;
 
-  cfg = osConfig.garden.programs;
+  cfg = config.garden.programs;
 in
 {
   config = mkIf (cfg.gui.enable && !osConfig.garden.environment.isWM) {

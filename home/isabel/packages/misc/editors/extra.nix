@@ -1,11 +1,11 @@
 {
   lib,
   pkgs,
-  osConfig,
+  config,
   ...
 }:
 let
-  cfg = osConfig.garden.programs;
+  cfg = config.garden.programs;
 
   inherit (lib.lists) optionals;
 in

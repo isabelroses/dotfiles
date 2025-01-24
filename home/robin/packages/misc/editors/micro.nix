@@ -1,6 +1,6 @@
-{ lib, osConfig, ... }:
+{ lib, config, ... }:
 {
-  programs.micro = lib.modules.mkIf osConfig.garden.programs.micro.enable {
+  programs.micro = lib.modules.mkIf config.garden.programs.micro.enable {
     enable = true;
     settings = {
       "autosu" = true;

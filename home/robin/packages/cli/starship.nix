@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  osConfig,
   ...
 }:
 let
@@ -18,7 +17,7 @@ let
   };
 in
 {
-  programs.starship = mkIf osConfig.garden.programs.cli.enable {
+  programs.starship = mkIf config.garden.programs.cli.enable {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;
     enableFishIntegration = config.programs.fish.enable;

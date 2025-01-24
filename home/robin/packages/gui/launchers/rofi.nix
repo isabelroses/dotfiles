@@ -1,14 +1,15 @@
 {
   lib,
   config,
-  defaults,
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
 
-  cfg = osConfig.garden.programs.rofi;
+  inherit (config.garden.programs) defaults;
+
+  cfg = config.garden.programs.rofi;
 in
 {
   programs.rofi = mkIf cfg.enable {

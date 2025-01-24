@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  config,
+  osConfig,
   ...
 }:
 let
@@ -13,7 +13,7 @@ in
     rofi = mkProgram pkgs "rofi" {
       package.default =
         let
-          pkg = if isWayland config then pkgs.rofi-wayland else pkgs.rofi;
+          pkg = if isWayland osConfig then pkgs.rofi-wayland else pkgs.rofi;
         in
         pkg.override { plugins = [ pkgs.rofi-rbw ]; };
     };

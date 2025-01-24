@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib.modules) mkIf mkForce;
-  inherit (config.garden) programs device;
+  inherit (config.garden) meta device;
 in
 {
   imports = [ ./fail2ban.nix ];
@@ -26,13 +26,13 @@ in
       ];
       allowedUDPPorts = [ ];
 
-      allowedTCPPortRanges = mkIf programs.kdeconnect.enable [
+      allowedTCPPortRanges = mkIf meta.kdeconnect [
         {
           from = 1714;
           to = 1764;
         }
       ];
-      allowedUDPPortRanges = mkIf programs.kdeconnect.enable [
+      allowedUDPPortRanges = mkIf meta.kdeconnect [
         {
           from = 1714;
           to = 1764;

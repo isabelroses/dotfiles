@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  osConfig,
   ...
 }:
 let
@@ -9,7 +8,7 @@ let
   inherit (lib.validators) isModernShell;
 in
 {
-  programs.atuin = mkIf (isModernShell osConfig) {
+  programs.atuin = mkIf (isModernShell config) {
     enable = true;
 
     enableBashIntegration = config.programs.bash.enable;

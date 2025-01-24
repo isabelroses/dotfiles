@@ -1,14 +1,14 @@
 {
   lib,
   inputs,
-  osConfig,
+  config,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.attrsets) genAttrs recursiveUpdate;
 
-  cfg = osConfig.garden.programs.firefox;
+  cfg = config.garden.programs.firefox;
 in
 {
   imports = [

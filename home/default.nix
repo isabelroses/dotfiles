@@ -11,7 +11,6 @@
 let
   inherit (lib.modules) mkDefault;
   inherit (lib.attrsets) genAttrs;
-  inherit (config.garden.programs) defaults;
 in
 {
   home-manager = {
@@ -26,7 +25,6 @@ in
         self
         inputs'
         self'
-        defaults
         ;
     };
 
@@ -35,6 +33,8 @@ in
     # we should define grauntied common modules here
     sharedModules = [
       inputs.beapkgs.homeManagerModules.default
+
+      (self + /modules/home/default.nix)
 
       {
         home.stateVersion =

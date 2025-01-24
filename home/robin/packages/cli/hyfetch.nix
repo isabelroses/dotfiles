@@ -3,7 +3,7 @@
   pkgs,
   self,
   inputs',
-  osConfig,
+  config,
   ...
 }:
 let
@@ -15,7 +15,7 @@ in
   imports = [ self.homeManagerModules.hyfetch ];
   disabledModules = [ "programs/hyfetch.nix" ];
 
-  programs.hyfetch = mkIf (isModernShell osConfig) {
+  programs.hyfetch = mkIf (isModernShell config) {
     enable = true;
     package = inputs'.beapkgs.packages.hyfetch;
 

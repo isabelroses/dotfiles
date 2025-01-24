@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  osConfig,
   ...
 }:
 let
@@ -14,7 +13,7 @@ let
   find = "${getExe pkgs.fd} --type=f --hidden --exclude=.git";
 in
 {
-  programs.fzf = mkIf (isModernShell osConfig) {
+  programs.fzf = mkIf (isModernShell config) {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;
     enableZshIntegration = config.programs.zsh.enable;

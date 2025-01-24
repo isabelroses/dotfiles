@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  osConfig,
   ...
 }:
 let
@@ -10,7 +9,7 @@ let
   inherit (lib.attrsets) mapAttrs;
   inherit (lib.strings) escapeShellArg concatMapStrings;
 
-  cfg = osConfig.garden.programs.nushell;
+  cfg = config.garden.programs.nushell;
 in
 {
   config = mkIf cfg.enable {

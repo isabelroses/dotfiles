@@ -5,14 +5,6 @@ let
   inherit (lib.types) enum listOf str;
 in
 {
-  config.warnings = optionals (config.garden.system.users == [ ]) [
-    ''
-      You have not added any users to be supported by your system. You may end up with an unbootable system!
-
-      Consider setting {option}`config.garden.system.users` in your configuration
-    ''
-  ];
-
   options.garden.system = {
     mainUser = mkOption {
       type = enum config.garden.system.users;
@@ -29,4 +21,12 @@ in
       '';
     };
   };
+
+  config.warnings = optionals (config.garden.system.users == [ ]) [
+    ''
+      You have not added any users to be supported by your system. You may end up with an unbootable system!
+
+      Consider setting {option}`config.garden.system.users` in your configuration
+    ''
+  ];
 }

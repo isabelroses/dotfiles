@@ -1,11 +1,12 @@
 {
   lib,
+  config,
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  cfg = osConfig.garden.programs.git;
+  cfg = config.garden.programs.git;
 in
 {
   programs.git = mkIf cfg.enable {

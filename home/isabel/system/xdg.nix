@@ -2,12 +2,13 @@
   lib,
   pkgs,
   config,
-  defaults,
   ...
 }:
 let
   inherit (lib.modules) mkIf mkForce;
   inherit (pkgs.stdenv) isLinux;
+
+  inherit (config.garden.programs) defaults;
 
   browser = [
     "text/html"

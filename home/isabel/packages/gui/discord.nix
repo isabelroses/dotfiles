@@ -1,12 +1,12 @@
 {
   lib,
   pkgs,
-  osConfig,
+  config,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  cfg = osConfig.garden.programs.discord;
+  cfg = config.garden.programs.discord;
 in
 {
   config = mkIf cfg.enable {

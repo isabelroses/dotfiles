@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   osConfig,
   ...
 }:
@@ -15,7 +16,7 @@ let
     "hybrid"
   ];
 
-  cfg = osConfig.garden.programs;
+  cfg = config.garden.programs;
 in
 {
   config = mkIf (isAcceptedDevice osConfig acceptedTypes && cfg.cli.enable && cfg.gui.enable) {

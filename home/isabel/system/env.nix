@@ -3,11 +3,12 @@
   pkgs,
   config,
   osConfig,
-  defaults,
   ...
 }:
 let
   inherit (lib.lists) optional;
+
+  inherit (config.garden.programs) defaults;
 in
 {
   home = {

@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  osConfig,
   ...
 }:
 let
@@ -11,7 +10,7 @@ let
   inherit (lib.validators) isModernShell;
 in
 {
-  programs.fzf = mkIf (isModernShell osConfig) {
+  programs.fzf = mkIf (isModernShell config) {
     enable = true;
     enableBashIntegration = config.programs.bash.enable;
     enableZshIntegration = config.programs.zsh.enable;

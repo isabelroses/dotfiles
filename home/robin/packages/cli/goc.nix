@@ -1,7 +1,7 @@
-{ lib, osConfig, ... }:
+{ lib, config, ... }:
 let
   inherit (lib.modules) mkIf;
-  cfg = osConfig.garden.programs.cocogitto;
+  cfg = config.garden.programs.cocogitto;
 in
 {
   config = mkIf cfg.enable {

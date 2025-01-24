@@ -1,8 +1,13 @@
-{ lib, osConfig, ... }:
+{
+  lib,
+  config,
+  osConfig,
+  ...
+}:
 let
   family = osConfig.garden.style.font.name;
 
-  cfg = osConfig.garden.programs.alacritty;
+  cfg = config.garden.programs.alacritty;
 in
 {
   programs.alacritty = lib.modules.mkIf cfg.enable {

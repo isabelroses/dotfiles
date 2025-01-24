@@ -2,14 +2,13 @@
   lib,
   pkgs,
   config,
-  osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf mkAfter;
   inherit (lib.strings) concatMapStrings;
 
-  cfg = osConfig.garden.programs.nushell;
+  cfg = config.garden.programs.nushell;
 
   completions =
     cmds:

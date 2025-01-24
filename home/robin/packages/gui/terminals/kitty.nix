@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = osConfig.garden.programs.kitty;
+  cfg = config.garden.programs.kitty;
 in
 {
   programs.kitty = lib.modules.mkIf cfg.enable {

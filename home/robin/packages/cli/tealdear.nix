@@ -1,10 +1,10 @@
-{ lib, osConfig, ... }:
+{ lib, config, ... }:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.validators) isModernShell;
 in
 {
-  programs.tealdeer = mkIf (isModernShell osConfig) {
+  programs.tealdeer = mkIf (isModernShell config) {
     enable = true;
     settings = {
       display = {
