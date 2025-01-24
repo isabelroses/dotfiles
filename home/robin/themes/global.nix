@@ -30,6 +30,7 @@ in
       # I want to disable some
       bat.enable = false;
       waybar.enable = false;
+      yazi.enable = false;
     };
 
     # pointer / cursor theming
