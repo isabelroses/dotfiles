@@ -1,11 +1,26 @@
-{ lib, osConfig, ... }:
+{
+  inputs,
+  lib,
+  defaults,
+  osConfig,
+  ...
+}:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.validators) isModernShell;
+
+  syntax = import ../../themes/textmate.nix { inherit (inputs.evergarden) palette; };
 in
 {
   programs.bat = mkIf (isModernShell osConfig) {
-    # We activate it like this so that catppuccin is applied
     enable = true;
+    themes."evergarden".src = syntax;
+    config.theme = "evergarden";
+
+    config = {
+      inherit (defaults) pager;
+      color = "always";
+      style = "changes";
+    };
   };
 }

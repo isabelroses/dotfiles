@@ -28,6 +28,7 @@ in
       };
 
       # I want to disable some
+      bat.enable = false;
       waybar.enable = false;
     };
 
