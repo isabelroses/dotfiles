@@ -8,7 +8,6 @@
     ./overlays.nix # nixpkgs overlays for custom packages and patches
     ./packages # our custom packages provided by the flake
     ./programs # programs that run in the dev shell
-    ./templates # programing templates for the quick setup of new programing environments
 
     ./args.nix # the base args that is passed to the flake
   ];

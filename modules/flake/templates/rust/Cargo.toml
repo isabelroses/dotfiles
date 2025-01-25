@@ -1,8 +1,0 @@
-[package]
-name = "example-rust"
-version = "0.0.1"
-license = "MIT"
-description = "A example rust project using nix"
-homepage = "https://github.com/isabelroses/example-rust"
-authors = ["Isabel Roses <isabel@isabelroses.com>"]
-edition = "2021"
