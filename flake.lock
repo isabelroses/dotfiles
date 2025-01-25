@@ -97,11 +97,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737679203,
-        "narHash": "sha256-dnWT/zJtqaf4FXg/eAHD/T8B14+dDWgcbH7XTSI3TlY=",
+        "lastModified": 1737765545,
+        "narHash": "sha256-GkYqFgp3pZ9aHLYyksBcvXRWLtFEy6oK9KgvWR0lfRs=",
         "owner": "tgirlcloud",
         "repo": "beapkgs",
-        "rev": "059ac20d24e7cdbeeeaa535574cfa921c756ae22",
+        "rev": "30542c90859dd24bb7a2b217cdac052077bf2eaa",
         "type": "github"
       },
       "original": {
@@ -172,11 +172,11 @@
         "nixpkgs-stable": []
       },
       "locked": {
-        "lastModified": 1737668936,
-        "narHash": "sha256-6rDozHAgJmdsUrIggrIxcjSq8lQeFuh9WjyqhhLEqDE=",
+        "lastModified": 1737737985,
+        "narHash": "sha256-qQvUk3zPDV5IsnPAQAYxLm479hOj3zlZy4k+0PzzyMg=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "4152cf7f0caab4821f009ee132f8ff016f537630",
+        "rev": "c09628bdaecece885ee78614245a077fe3805f0a",
         "type": "github"
       },
       "original": {
@@ -266,11 +266,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1736861843,
-        "narHash": "sha256-4JfdunwFNpWkCnCIG6kZRybBqNbPTJrlPvk/RQgJedM=",
+        "lastModified": 1737728046,
+        "narHash": "sha256-sLedFfotVwVsMh80cwOOTAM6ftCqm618rhOa4zkdoVI=",
         "owner": "comfysage",
         "repo": "evergarden",
-        "rev": "31f39772562b1c03a970f057cd5cbb8cff1e68fc",
+        "rev": "0397bb17531c8f9b9bda1d0676c4a290a170bd3b",
         "type": "github"
       },
       "original": {
@@ -391,11 +391,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737669579,
-        "narHash": "sha256-v9WQ3c4ctwPMfdBZMZxpdM9xXev4uChce4BxOpvsu0E=",
+        "lastModified": 1737762889,
+        "narHash": "sha256-5HGG09bh/Yx0JA8wtBMAzt0HMCL1bYZ93x4IqzVExio=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "7b9ece1bf3c8780cde9b975b28c2d9ccd7e9cdb9",
+        "rev": "daf04c5950b676f47a794300657f1d3d14c1a120",
         "type": "github"
       },
       "original": {
@@ -519,11 +519,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1737685511,
-        "narHash": "sha256-MaEXnCh4IommpeED1jDjRHL8UiJXMRorx9JfYBj6bEE=",
-        "rev": "402aca87c0ddb636ceeca4ec836ed11fa917ecad",
+        "lastModified": 1737770806,
+        "narHash": "sha256-mdtBGOkNySRbQ1zkroCdyOHFqMOZSOJCPxjXTpCaWvc=",
+        "rev": "5a41803f744822377587f784ded0e6a061b39cd4",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/402aca87c0ddb636ceeca4ec836ed11fa917ecad.tar.gz?rev=402aca87c0ddb636ceeca4ec836ed11fa917ecad"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/5a41803f744822377587f784ded0e6a061b39cd4.tar.gz?rev=5a41803f744822377587f784ded0e6a061b39cd4"
       },
       "original": {
         "type": "tarball",
@@ -649,32 +649,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1737557748,
-        "narHash": "sha256-BaMuhctP1x00+8cBE2cJveJQb70/tWHI50MHj/ZrtOY=",
+        "lastModified": 1737717945,
+        "narHash": "sha256-ET91TMkab3PmOZnqiJQYOtSGvSTvGeHoegAv4zcTefM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "606996d74f6e2a12635d41c1bf58bfc7ea3bb5ec",
+        "rev": "ecd26a469ac56357fd333946a99086e992452b6a",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-reggresion": {
-      "locked": {
-        "lastModified": 1737501597,
-        "narHash": "sha256-zECXv7QuFqBJ36CgvObJ5I9XPIYhkh2W1F3LHFSF2mg=",
-        "owner": "leona-ya",
-        "repo": "nixpkgs",
-        "rev": "d6b0a4ce9f735bb4f3fdedcf68951ca0246dcc5d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "leona-ya",
-        "ref": "push-ryonnsmyolmm",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -720,7 +704,6 @@
         "nix-topology": "nix-topology",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-reggresion": "nixpkgs-reggresion",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix"
