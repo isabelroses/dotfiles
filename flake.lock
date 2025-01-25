@@ -248,13 +248,13 @@
       "locked": {
         "lastModified": 1736680851,
         "narHash": "sha256-KUkO4H0W+1u5piwAzIzCuVhamQ0L3io8vR61NrODtHs=",
-        "owner": "isabelroses",
+        "owner": "tgirlcloud",
         "repo": "easy-hosts",
         "rev": "450d2ae463bb8fb55194f33073ebdd83b8b7ddaa",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
+        "owner": "tgirlcloud",
         "repo": "easy-hosts",
         "type": "github"
       }

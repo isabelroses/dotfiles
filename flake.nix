@@ -70,7 +70,7 @@
 
     easy-hosts = {
       type = "github";
-      owner = "isabelroses";
+      owner = "tgirlcloud";
       repo = "easy-hosts";
 
       # url = "git+file:/Users/isabel/dev/easy-hosts";
