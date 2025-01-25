@@ -40,12 +40,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru = {
     catppuccin-mdbook = fetchurl {
       url = "https://github.com/catppuccin/mdBook/releases/download/v3.1.0/catppuccin.css";
-      sha256 = "04fyl5fl0q1sj0i7i5zmkj11gakyfpqmbbr82x8hyk3d5p089mr7";
+      hash = "sha256-J9eEwC1tTA9RFyivVfF1fqoXgpz1l3gikDpgQF2h3hE=";
     };
 
     catppuccin-alerts = fetchurl {
-      url = "https://github.com/catppuccin/mdBook/releases/v3.1.0/download/catppuccin-alerts.css";
-      sha256 = "1grbgvhg5sgqfryds22mhvb5sfn83zcga84wyqiy4bgl5wbawwsf";
+      url = "https://github.com/catppuccin/mdBook/releases/download/v3.1.0/catppuccin-alerts.css";
+      hash = "sha256-TnOuFi/0LeIj9pwg9dgfyDpd1oZVCN18dvjp8uB+K78=";
     };
 
     serve = writeShellApplication {
