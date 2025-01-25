@@ -14,7 +14,7 @@ To set up a system configuration it must be declared in `/systems/default.nix`.
 
 - system:
 
-  - default: `constructSystem config.hosts.<hostname>.target config.hosts.<hostname>.arch`
+  - default: `constructSystem config.easyHosts.hosts.<hostname>.target config.easyHosts.hosts.<hostname>.arch`
   - note: This is a function that constructs the system configuration, it will make `x86_64-linux` by from the `target` and `arch` attributes or `aarch64-darwin`
 
 - deployable:
@@ -35,4 +35,5 @@ To set up a system configuration it must be declared in `/systems/default.nix`.
 - specialArgs:
   - default: "{ }"
 
-Please consult [easy-hosts](https://github.com/isabelroses/easy-hosts) for more information on how to set up a system configuration.
+> [!TIP]
+> Please consult [easy-hosts](https://github.com/isabelroses/easy-hosts) for more information on how to set up a system configuration.
