@@ -5,7 +5,7 @@
     users = [ "robin" ];
   };
 
-  users.robin.garden = {
+  home-manager.users.robin.garden = {
     programs = {
       cli = {
         enable = true;
