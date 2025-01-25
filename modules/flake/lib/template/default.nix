@@ -34,7 +34,13 @@ let
   };
 
   xdg = import ./xdg.nix;
+  textmate = import ./textmate.nix;
 in
 {
-  inherit ssl systemd xdg;
+  inherit
+    ssl
+    systemd
+    xdg
+    textmate
+    ;
 }

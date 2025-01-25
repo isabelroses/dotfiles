@@ -1,4 +1,6 @@
 {
+  lib,
+  pkgs,
   inputs,
   ...
 }:
@@ -19,7 +21,10 @@ in
         active = mkBoth palette.text palette.surface0;
       in
       {
-        syntect_theme = import ../../../themes/textmate.nix { inherit palette; };
+        syntect_theme = pkgs.writeTextFile {
+          name = "syntax-evergarden";
+          text = lib.templates.textmate palette;
+        };
 
         cwd = mkFg palette.aqua;
         hovered = active;

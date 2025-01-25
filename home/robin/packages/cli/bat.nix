@@ -10,13 +10,14 @@ let
 
   inherit (config.garden.programs) defaults;
 
-  syntax = import ../../themes/textmate.nix { inherit (inputs.evergarden) palette; };
+  inherit (inputs.evergarden) palette;
 in
 {
   programs.bat = mkIf (isModernShell config) {
     enable = true;
-    themes."evergarden".src = syntax;
     config.theme = "evergarden";
+
+    themes.evergarden = lib.templates.textmate palette;
 
     config = {
       inherit (defaults) pager;
