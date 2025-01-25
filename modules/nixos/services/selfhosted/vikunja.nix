@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  inputs',
   ...
 }:
 let
@@ -35,7 +34,6 @@ in
     services = {
       vikunja = {
         enable = true;
-        package = inputs'.nixpkgs-reggresion.legacyPackages.vikunja;
 
         inherit (cfg) port;
         frontendHostname = cfg.domain;
