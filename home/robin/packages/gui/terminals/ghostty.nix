@@ -21,6 +21,9 @@ in
     enableFishIntegration = config.programs.fish.enable;
     enableZshIntegration = config.programs.zsh.enable;
 
+    # produces an error, due to our ghostty darwin hack
+    installBatSyntax = pkgs.stdenv.hostPlatform.isLinux;
+
     settings = {
       command = "/etc/profiles/per-user/robin/bin/fish --login";
 
