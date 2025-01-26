@@ -3,7 +3,7 @@
     mainUser = "isabel";
   };
 
-  users.isabel.garden = {
+  home-manager.users.isabel.garden = {
     environment = {
       desktop = null;
     };

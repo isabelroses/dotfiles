@@ -1,5 +1,5 @@
 {
-  imports = [ ./usrs.nix ];
+  imports = [ ./users.nix ];
 
   garden = {
     device.type = "laptop";
