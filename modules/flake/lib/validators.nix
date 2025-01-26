@@ -100,7 +100,28 @@ let
   isModernShell =
     conf: conf.garden.programs.cli.enable && conf.garden.programs.cli.modernShell.enable;
 
-  # TODO: document
+  /**
+    check if a predicate for any user config is true
+
+    # Arguments
+
+    - [conf] the configuration that nixosConfigurations provides
+    - [cond] predicate function to check against config variable
+    - [path] attr path to the config variable
+
+    # Type
+
+    ```
+    anyHome :: AttrSet -> (Any -> Bool) -> List -> Bool
+    ```
+
+    # Example
+
+    ```nix
+    anyHome config (cfg: cfg.enable && cfg.modernShell.enable) [ "garden" "programs" "cli" ]
+    => true
+    ```
+  */
   anyHome =
     conf: cond: path:
     let
