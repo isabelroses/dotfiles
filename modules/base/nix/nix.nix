@@ -41,6 +41,9 @@ in
       options = "--delete-older-than 3d";
     };
 
+    # disable usage of nix channels
+    channel.enable = false;
+
     # https://docs.lix.systems/manual/lix/nightly/command-ref/conf-file.html
     settings = {
       # Free up to 20GiB whenever there is less than 5GB left.
@@ -61,10 +64,7 @@ in
       # we don't want to track the registry, but we do want to allow the usage
       # of the `flake:` references, so we need to enable use-registries
       use-registries = true;
-      flake-registry = pkgs.writers.writeJSON "flakes-empty.json" {
-        flakes = [ ];
-        version = 2;
-      };
+      flake-registry = "";
 
       # let the system decide the number of max jobs
       max-jobs = "auto";
@@ -90,7 +90,7 @@ in
       log-lines = 30;
 
       # https://docs.lix.systems/manual/lix/nightly/contributing/experimental-features.html
-      extra-experimental-features = [
+      experimental-features = [
         # enables flakes, needed for this config
         "flakes"
 
@@ -123,6 +123,9 @@ in
 
         # dependencies in derivations on the outputs of derivations that are themselves derivations outputs.
         "dynamic-derivations"
+
+        # allow parsing TOML timestamps via builtins.fromTOML
+        "parse-toml-timestamps"
       ];
 
       # don't warn me if the current working tree is dirty
