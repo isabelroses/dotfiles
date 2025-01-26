@@ -52,10 +52,5 @@
         distrobox.enable = false;
       };
     };
-
-    environment = {
-      desktop = null;
-      useHomeManager = true;
-    };
   };
 }

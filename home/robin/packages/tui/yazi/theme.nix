@@ -23,7 +23,7 @@ in
       {
         syntect_theme = pkgs.writeTextFile {
           name = "syntax-evergarden";
-          text = lib.templates.textmate palette;
+          text = lib.template.textmate palette;
         };
 
         cwd = mkFg palette.aqua;

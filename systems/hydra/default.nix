@@ -60,11 +60,6 @@
       };
     };
 
-    environment = {
-      desktop = "Hyprland";
-      useHomeManager = true;
-    };
-
     services.cloudflared.enable = true;
   };
 }

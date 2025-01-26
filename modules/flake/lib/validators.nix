@@ -1,5 +1,13 @@
+{ lib, ... }:
 let
-  inherit (builtins) elem filter hasAttr;
+  inherit (lib.attrsets) getAttrFromPath;
+
+  inherit (builtins)
+    elem
+    filter
+    hasAttr
+    any
+    ;
 
   /**
     a function that will append a list of groups if they exist in config.users.groups
@@ -67,7 +75,7 @@ let
     => true
     ```
   */
-  isWayland = conf: conf.garden.environment.desktop != null && conf.garden.environment.isWayland;
+  isWayland = conf: conf.garden.meta.isWayland;
 
   /**
     check if the device is modernShell-ready
@@ -91,6 +99,24 @@ let
   */
   isModernShell =
     conf: conf.garden.programs.cli.enable && conf.garden.programs.cli.modernShell.enable;
+
+  # TODO: document
+  anyHome =
+    conf: cond: path:
+    let
+      list = map (
+        user:
+        getAttrFromPath (
+          [
+            "home-manager"
+            "users"
+            user
+          ]
+          ++ path
+        ) conf
+      ) conf.garden.system.users;
+    in
+    any cond list;
 in
 {
   inherit
@@ -98,5 +124,6 @@ in
     isAcceptedDevice
     isWayland
     isModernShell
+    anyHome
     ;
 }

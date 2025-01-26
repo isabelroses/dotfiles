@@ -6,6 +6,10 @@
   };
 
   home-manager.users.robin.garden = {
+    environment = {
+      desktop = null;
+    };
+
     programs = {
       cli = {
         enable = true;

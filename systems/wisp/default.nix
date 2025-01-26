@@ -1,4 +1,6 @@
 {
+  imports = [ ./users.nix ];
+
   garden = {
     device = {
       cpu = null;
@@ -11,9 +13,6 @@
     };
 
     system = {
-      mainUser = "robin";
-      users = [ "robin" ];
-
       boot = {
         loader = "none";
         secureBoot = false;
@@ -52,11 +51,6 @@
         podman.enable = false;
         distrobox.enable = false;
       };
-    };
-
-    environment = {
-      desktop = null;
-      useHomeManager = true;
     };
   };
 }

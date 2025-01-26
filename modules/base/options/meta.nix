@@ -1,46 +1,76 @@
 { lib, config, ... }:
 let
-  inherit (lib.lists) map any;
   inherit (lib.trivial) id;
   inherit (lib.options) mkOption;
-  inherit (lib.types) bool;
+  inherit (lib.validators) anyHome;
+  inherit (lib.strings) concatStringsSep;
 
-  inherit (config.garden.system) users;
-
-  isAllowed =
-    item: any id (map (user: config.home-manager.users.${user}.garden.programs.${item}.enable) users);
-
+  mkMetaOption =
+    path:
+    mkOption {
+      default = anyHome config id path;
+      example = true;
+      description = "Does ${concatStringsSep "." path} meet the requirements";
+      type = lib.types.bool;
+    };
 in
 {
   options.garden.meta = {
-    zsh = mkOption {
-      default = isAllowed "zsh";
-      description = "Enable zsh";
-      type = bool;
-    };
+    zsh = mkMetaOption [
+      "garden"
+      "programs"
+      "zsh"
+      "enable"
+    ];
+    fish = mkMetaOption [
+      "garden"
+      "programs"
+      "fish"
+      "enable"
+    ];
+    thunar = mkMetaOption [
+      "garden"
+      "programs"
+      "thunar"
+      "enable"
+    ];
+    kdeconnect = mkMetaOption [
+      "garden"
+      "programs"
+      "kdeconnect"
+      "enable"
+    ];
+    gui = mkMetaOption [
+      "garden"
+      "programs"
+      "gui"
+      "enable"
+    ];
 
-    fish = mkOption {
-      default = isAllowed "fish";
-      description = "Enable fish";
-      type = bool;
-    };
+    isWayland = mkMetaOption [
+      "garden"
+      "meta"
+      "isWayland"
+    ];
+    isWM = mkMetaOption [
+      "garden"
+      "meta"
+      "isWM"
+    ];
 
-    thunar = mkOption {
-      default = isAllowed "thunar";
-      description = "Enable Thunar";
-      type = bool;
-    };
-
-    kdeconnect = mkOption {
-      default = isAllowed "kdeconnect";
-      description = "Enable KDE Connect";
-      type = bool;
-    };
-
-    gui = mkOption {
-      default = isAllowed "gui";
-      description = "Enable GUI programs";
-      type = bool;
-    };
+    hyprland =
+      let
+        path = [
+          "garden"
+          "environment"
+          "desktop"
+        ];
+      in
+      mkOption {
+        default = anyHome config (v: v == "Hyprland") path;
+        example = true;
+        description = "Does ${concatStringsSep "." path} meet the requirements";
+        type = lib.types.bool;
+      };
   };
 }

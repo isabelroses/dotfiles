@@ -6,6 +6,10 @@
   };
 
   home-manager.users.robin.garden = {
+    environment = {
+      desktop = "Hyprland";
+    };
+
     programs = {
       cli = {
         enable = true;

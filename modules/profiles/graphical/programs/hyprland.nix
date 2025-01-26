@@ -7,10 +7,10 @@
 let
   inherit (lib.modules) mkIf;
 
-  env = config.garden.environment;
+  inherit (config.garden) meta;
 in
 {
-  config = mkIf (env.desktop == "Hyprland") {
+  config = mkIf meta.hyprland {
     services.displayManager.sessionPackages = [ pkgs.hyprland ];
   };
 }

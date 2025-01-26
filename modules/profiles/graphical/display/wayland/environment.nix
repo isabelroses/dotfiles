@@ -4,13 +4,13 @@ let
   inherit (lib.strings) optionalString;
   inherit (lib.validators) isWayland;
 
-  env = config.garden.environment;
+  inherit (config.garden) meta;
 in
 {
   config = mkIf (isWayland config) {
     environment = {
       etc."greetd/environments".text = mkIf config.services.greetd.enable ''
-        ${optionalString (env.desktop == "Hyprland") "Hyprland"}
+        ${optionalString meta.hyprland "Hyprland"}
         fish
       '';
 

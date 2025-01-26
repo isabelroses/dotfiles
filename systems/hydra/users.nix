@@ -4,6 +4,10 @@
   };
 
   home-manager.users.isabel.garden = {
+    environment = {
+      desktop = "Hyprland";
+    };
+
     programs = {
       cli = {
         enable = true;

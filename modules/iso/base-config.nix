@@ -45,10 +45,11 @@
         wirelessBackend = "iwd";
       };
     };
+  };
 
+  home-manager.users.isabel = {
     environment = {
       desktop = "Hyprland";
-      useHomeManager = true;
     };
 
     programs = {

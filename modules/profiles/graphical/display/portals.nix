@@ -10,10 +10,10 @@ let
   inherit (lib.validators) isWayland;
 
   sys = config.garden.system;
-  env = config.garden.environment;
+  inherit (config.garden) meta;
 in
 {
-  config = mkIf (sys.video.enable && env.isWM) {
+  config = mkIf (sys.video.enable && meta.isWM) {
     xdg.portal = {
       enable = true;
       # xdgOpenUsePortal = true;
@@ -27,7 +27,7 @@ in
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
       wlr = {
-        enable = mkForce (isWayland config && env.desktop != "Hyprland");
+        enable = mkForce (isWayland config && meta.hyprland);
         settings = {
           screencast = {
             max_fps = 60;

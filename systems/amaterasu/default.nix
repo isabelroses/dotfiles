@@ -57,10 +57,5 @@
         distrobox.enable = false;
       };
     };
-
-    environment = {
-      desktop = "cosmic";
-      useHomeManager = true;
-    };
   };
 }

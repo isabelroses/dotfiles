@@ -4,6 +4,10 @@
   };
 
   home-manager.users.isabel.garden = {
+    environment = {
+      desktop = "cosmic";
+    };
+
     programs = {
       cli = {
         enable = true;

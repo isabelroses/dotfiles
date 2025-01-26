@@ -4,6 +4,10 @@
   };
 
   users.isabel.garden = {
+    environment = {
+      desktop = null;
+    };
+
     programs = {
       cli = {
         enable = true;

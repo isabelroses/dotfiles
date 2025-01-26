@@ -64,11 +64,6 @@
       };
     };
 
-    environment = {
-      desktop = "Hyprland";
-      useHomeManager = true;
-    };
-
     style.font.name = "Maple Mono NF";
   };
 }

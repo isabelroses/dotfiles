@@ -7,13 +7,18 @@
 }:
 let
   inherit (lib.modules) mkIf;
+  inherit (lib.validators) anyHome;
 
-  env = config.garden.environment;
+  cond = anyHome config (v: v == "cosmic") [
+    "garden"
+    "environment"
+    "desktop"
+  ];
 in
 {
   imports = [ inputs.cosmic.nixosModules.default ];
 
-  config = mkIf (env.desktop == "cosmic") {
+  config = mkIf cond {
     services.desktopManager.cosmic.enable = true;
 
     environment.cosmic.excludePackages = [
@@ -22,14 +27,6 @@ in
       pkgs.cosmic-store
     ];
 
-    # TODO: handle this, by refactoring some env to be per user
-    # garden = {
-    #   environment.loginManager = "cosmic-greeter";
-    #
-    #   programs.defaults = {
-    #     fileManager = "cosmic-files";
-    #     launcher = "cosmic-launcher";
-    #   };
-    # };
+    garden.environment.loginManager = "cosmic-greeter";
   };
 }

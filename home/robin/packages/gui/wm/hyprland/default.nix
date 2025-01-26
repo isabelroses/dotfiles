@@ -1,16 +1,16 @@
 {
   lib,
   pkgs,
-  osConfig,
+  config,
   ...
 }:
 let
-  inherit (osConfig.garden) environment;
+  env = config.garden.environment;
 in
 {
   imports = [ ./config ];
 
-  config = lib.modules.mkIf (environment.desktop == "Hyprland") {
+  config = lib.modules.mkIf (env.desktop == "Hyprland") {
     home.packages = builtins.attrValues { inherit (pkgs) grim swww hyprpicker; };
 
     wayland.windowManager.hyprland = {

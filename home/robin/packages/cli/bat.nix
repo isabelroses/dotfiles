@@ -17,7 +17,7 @@ in
     enable = true;
     config.theme = "evergarden";
 
-    themes.evergarden = lib.templates.textmate palette;
+    themes.evergarden = lib.template.textmate palette;
 
     config = {
       inherit (defaults) pager;

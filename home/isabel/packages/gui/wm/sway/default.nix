@@ -1,6 +1,6 @@
-{ lib, osConfig, ... }:
+{ lib, config, ... }:
 let
-  inherit (osConfig.garden) environment;
+  inherit (config.garden) environment;
 in
 {
   imports = [ ./config.nix ];
