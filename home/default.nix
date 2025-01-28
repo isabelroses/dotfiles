@@ -34,7 +34,7 @@ in
     sharedModules = [
       inputs.beapkgs.homeManagerModules.default
 
-      ./base/default.nix
+      (self + /modules/home/default.nix)
 
       {
         home.stateVersion =
