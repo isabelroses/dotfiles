@@ -87,8 +87,9 @@ in
       hera = {
         arch = "aarch64";
         modules = [
-          headless
           rpi
+          server
+          headless
         ];
       };
 
