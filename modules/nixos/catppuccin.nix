@@ -1,9 +1,21 @@
-{ inputs, ... }:
+{
+  lib,
+  config,
+  inputs,
+  ...
+}:
+let
+  inherit (lib.validators) isAcceptedDevice;
+  nonAccepted = [
+    "server"
+    "wsl"
+  ];
+in
 {
   imports = [ inputs.catppuccin.nixosModules.catppuccin ];
 
   config.catppuccin = {
-    enable = true;
+    enable = !(isAcceptedDevice config nonAccepted);
     flavor = "mocha";
   };
 }
