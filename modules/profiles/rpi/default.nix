@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   inputs,
   ...
@@ -10,7 +11,7 @@
   ];
 
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_rpi3;
+    kernelPackages = lib.modules.mkForce pkgs.linuxKernel.packages.linux_rpi3;
 
     # The last console argument in the list that linux can find at boot will receive kernel logs.
     # The serial ports listed here are:
