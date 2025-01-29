@@ -1,13 +1,13 @@
 {
   lib,
   pkgs,
-  inputs,
+  modulePath,
   ...
 }:
 {
   imports = [
-    (inputs.nixpkgs + "/nixos/modules/installer/sd-card/sd-image-aarch64.nix")
-    (inputs.nixpkgs + "/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix")
+    (modulePath + "/installer/sd-card/sd-image-aarch64.nix")
+    (modulePath + "/installer/sd-card/sd-image-raspberrypi.nix")
   ];
 
   boot = {
