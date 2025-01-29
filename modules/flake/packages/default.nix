@@ -4,7 +4,12 @@
 { inputs, ... }:
 {
   perSystem =
-    { pkgs, inputs', ... }:
+    {
+      pkgs,
+      self',
+      inputs',
+      ...
+    }:
     let
       inherit (pkgs) callPackage;
     in
@@ -19,6 +24,7 @@
 
         lix = callPackage ./pkgs/lix/package.nix { inherit inputs' inputs; };
         docs = callPackage ./pkgs/docs.nix { inherit (inputs) self; };
+        installer = callPackage ./pkgs/installer/package.nix { nix = self'.packages.lix; };
       };
     };
 }
