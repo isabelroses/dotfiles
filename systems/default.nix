@@ -13,6 +13,7 @@ let
   desktop = profilesPath + /desktop; # for desktop type configurations
   server = profilesPath + /server; # for server type configurations
   wsl = profilesPath + /wsl; # for wsl systems
+  rpi = profilesPath + /rpi; # for raspberry pi systems
   hybrid = profilesPath + /hybrid; # for systems that are a mix of laptop and server
 
   # meta profiles
@@ -81,6 +82,14 @@ in
       lilith = {
         class = "iso";
         modules = [ headless ];
+      };
+
+      hera = {
+        arch = "aarch64";
+        modules = [
+          headless
+          rpi
+        ];
       };
 
       # robin's hosts
