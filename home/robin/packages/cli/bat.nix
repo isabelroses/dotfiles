@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   inputs,
   ...
@@ -17,7 +18,10 @@ in
     enable = true;
     config.theme = "evergarden";
 
-    themes.evergarden = lib.template.textmate palette;
+    themes.evergarden.src = pkgs.writeTextFile {
+      name = "syntax-evergarden";
+      text = lib.template.textmate palette;
+    };
 
     config = {
       inherit (defaults) pager;
