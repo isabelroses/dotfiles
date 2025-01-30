@@ -134,6 +134,7 @@ in
 
   # robin's keys
   "keys/robin.age" = defAccessRobin (types.workstations ++ types.servers);
+  "keys/robin-gpg.age" = defAccessRobin types.workstations;
   "keys/robin-gh.age" = defAccessRobin (types.workstations ++ types.servers);
   "keys/robin-gh-pub.age" = defAccessRobin (types.workstations ++ types.servers);
   "keys/robin-email.age" = defAccessRobin (types.workstations ++ types.servers);

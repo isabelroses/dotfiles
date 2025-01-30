@@ -111,6 +111,11 @@ in
       })
 
       (mkIf (mainUser == "robin") {
+        keys-gpg = mkSecret {
+          file = "keys/robin-gpg";
+          owner = mainUser;
+          group = userGroup;
+        };
         keys-gh = mkSecret {
           file = "keys/robin-gh";
           owner = mainUser;
