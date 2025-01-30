@@ -25,6 +25,8 @@ jobs:
             system: x86_64-linux
           - os: macos-latest
             system: aarch64-darwin
+          - os: ubuntu-24.04-arm
+            system: aarch64-linux
 
     steps:
       - name: Checkout
