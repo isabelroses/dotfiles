@@ -10,7 +10,7 @@ let
   inherit (lib.attrsets) filterAttrs;
 
   # extract the names of the systems that we want to deploy
-  deployableSystems = attrNames (filterAttrs (_: attrs: attrs.deployable) config.easyHosts.hosts);
+  deployableSystems = attrNames (filterAttrs (_: attrs: attrs.deployable) config.easy-hosts.hosts);
 
   easyHostsFromDeployableSystems = filterAttrs (
     name: _: elem name deployableSystems
@@ -33,7 +33,7 @@ in
         profiles.system = {
           user = "root";
           sshUser = node.config.garden.system.mainUser or "root";
-          path = inputs.deploy-rs.lib.${config.easyHosts.hosts.${name}.system}.activate.nixos node;
+          path = inputs.deploy-rs.lib.${config.easy-hosts.hosts.${name}.system}.activate.nixos node;
         };
       }) easyHostsFromDeployableSystems;
     };

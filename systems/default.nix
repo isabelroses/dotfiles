@@ -2,7 +2,7 @@
 let
   inherit (self) lib;
 
-  inherit (lib.lists) optionals;
+  inherit (lib.lists) optionals concatLists;
 
   # profiles module, these are sensible defaults for given hardware sets
   # or meta profiles that are used to configure the system based on the requirements of the given machine
@@ -23,13 +23,15 @@ in
 {
   imports = [ inputs.easy-hosts.flakeModule ];
 
-  config.easyHosts = {
+  config.easy-hosts = {
     shared.specialArgs = { inherit lib; };
 
     perClass = class: {
-      modules = [
-        # import the class module, this contains the common configurations between all systems of the same class
-        "${self}/modules/${class}/default.nix"
+      modules = concatLists [
+        [
+          # import the class module, this contains the common configurations between all systems of the same class
+          "${self}/modules/${class}/default.nix"
+        ]
 
         (optionals (class != "iso") [
           # import the home module, which is users for configuring users via home-manager
