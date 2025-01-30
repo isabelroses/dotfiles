@@ -121,6 +121,11 @@ in
           owner = mainUser;
           group = userGroup;
         };
+        keys-email = mkSecret {
+          file = "keys/robin-email";
+          owner = mainUser;
+          group = userGroup;
+        };
       })
     ];
   };
