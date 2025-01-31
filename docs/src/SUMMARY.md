@@ -10,6 +10,7 @@
 - [templates](config/templates.md)
 - [adding systems](config/adding-systems.md)
 - [adding users](config/adding-users.md)
+- [adding packages](config/adding-packages.md)
 
 # Further Reading
 
