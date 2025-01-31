@@ -1,5 +1,7 @@
 ### docs
 
 - lix patches
-- `lib.validators.anyHome`
+- attrs for packages
+
+### Code
 

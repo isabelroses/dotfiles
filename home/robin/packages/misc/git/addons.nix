@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  home.packages = builtins.attrValues {
+  garden.packages = {
     inherit (pkgs)
       gist # manage github gists
       # act # local github actions - littrally does not work

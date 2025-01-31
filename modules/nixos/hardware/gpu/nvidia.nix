@@ -49,35 +49,33 @@ in
       kernelParams = [ "nvidia_drm.fbdev=1" ];
     };
 
-    environment = {
-      sessionVariables = mkMerge [
-        { LIBVA_DRIVER_NAME = "nvidia"; }
+    environment.sessionVariables = mkMerge [
+      { LIBVA_DRIVER_NAME = "nvidia"; }
 
-        (mkIf (isWayland config) {
-          # GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
+      (mkIf (isWayland config) {
+        # GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
 
-          WLR_DRM_DEVICES = mkDefault "/dev/dri/card1";
-        })
-      ];
+        WLR_DRM_DEVICES = mkDefault "/dev/dri/card1";
+      })
+    ];
 
-      systemPackages = builtins.attrValues {
-        inherit (pkgs.nvtopPackages) nvidia;
+    garden.packages = {
+      inherit (pkgs.nvtopPackages) nvidia;
 
-        inherit (pkgs)
-          # mesa
-          mesa
+      inherit (pkgs)
+        # mesa
+        mesa
 
-          # vulkan
-          vulkan-tools
-          vulkan-loader
-          vulkan-validation-layers
-          vulkan-extension-layer
+        # vulkan
+        vulkan-tools
+        vulkan-loader
+        vulkan-validation-layers
+        vulkan-extension-layer
 
-          # libva
-          libva
-          libva-utils
-          ;
-      };
+        # libva
+        libva
+        libva-utils
+        ;
     };
 
     hardware = {

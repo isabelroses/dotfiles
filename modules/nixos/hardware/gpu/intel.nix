@@ -6,6 +6,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
+  inherit (builtins) attrValues;
   inherit (config.garden) device;
 in
 {
@@ -17,13 +18,13 @@ in
 
     # OpenCL support and VAAPI
     hardware.graphics = {
-      extraPackages = builtins.attrValues {
+      extraPackages = attrValues {
         inherit (pkgs) libva-vdpau-driver intel-media-driver;
 
         intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
       };
 
-      extraPackages32 = builtins.attrValues {
+      extraPackages32 = attrValues {
         inherit (pkgs.pkgsi686Linux) libva-vdpau-driver intel-media-driver;
 
         intel-vaapi-driver = pkgs.pkgsi686Linux.intel-vaapi-driver.override { enableHybridCodec = true; };

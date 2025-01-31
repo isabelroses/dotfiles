@@ -7,13 +7,13 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.lists) optionals;
+  inherit (lib.attrsets) optionalAttrs;
   cfg = config.garden.programs;
 in
 {
   config = mkIf cfg.cli.enable {
-    home.packages =
-      builtins.attrValues {
+    garden.packages =
+      {
         inherit (pkgs)
           unzip
           rsync
@@ -24,14 +24,11 @@ in
 
         inherit (self'.packages) scripts;
       }
-      ++ optionals cfg.cli.modernShell.enable (
-        builtins.attrValues {
-          inherit (pkgs)
-            jq # json parser
-            yq # yaml parser
-            glow # markdown preview
-            ;
-        }
-      );
+      // optionalAttrs cfg.cli.modernShell.enable {
+        inherit (pkgs)
+          jq # json parser
+          yq # yaml parser
+          ;
+      };
   };
 }

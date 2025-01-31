@@ -11,7 +11,7 @@ in
   imports = [ ./config ];
 
   config = lib.modules.mkIf (env.desktop == "Hyprland") {
-    home.packages = builtins.attrValues { inherit (pkgs) grim swww hyprpicker; };
+    garden.packages = { inherit (pkgs) swww hyprpicker; };
 
     wayland.windowManager.hyprland = {
       enable = true;

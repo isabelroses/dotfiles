@@ -11,7 +11,7 @@ in
   imports = [ ./minecraft.nix ];
 
   config = lib.modules.mkIf programs.gaming.enable {
-    home.packages = builtins.attrValues {
+    garden.packages = {
       inherit (pkgs)
         gamescope
         legendary-gl

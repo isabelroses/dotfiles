@@ -12,7 +12,7 @@ let
 in
 {
   config = mkIf (isWayland osConfig && cfg.cli.enable && cfg.gui.enable) {
-    home.packages = builtins.attrValues {
+    garden.packages = {
       inherit (pkgs)
         grim
         slurp

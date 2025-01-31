@@ -41,7 +41,7 @@ in
     };
 
     # Yubico's official tools
-    environment.systemPackages = builtins.attrValues {
+    garden.packages = {
       inherit (pkgs)
         yubikey-manager # cli
         yubikey-manager-qt # gui

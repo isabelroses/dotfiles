@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   # packages that should be on all deviecs
-  environment.systemPackages = builtins.attrValues {
+  garden.packages = {
     inherit (pkgs)
       git
       curl

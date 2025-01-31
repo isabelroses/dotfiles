@@ -7,7 +7,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.lists) optionals;
+  inherit (lib.attrsets) optionalAttrs;
 
   cfg = config.garden.programs;
 in
@@ -22,8 +22,8 @@ in
   ];
 
   config = mkIf cfg.tui.enable {
-    home.packages =
-      builtins.attrValues {
+    garden.packages =
+      {
         inherit (pkgs)
           # wishlist # fancy ssh
           glow # fancy markdown
@@ -33,10 +33,8 @@ in
 
         inherit (inputs'.beapkgs.packages) zzz; # code snippets in the cli
       }
-      ++ optionals cfg.gui.enable (
-        builtins.attrValues {
-          inherit (pkgs) manga-tui; # tui manga finder + reader
-        }
-      );
+      // optionalAttrs cfg.gui.enable {
+        inherit (pkgs) manga-tui; # tui manga finder + reader
+      };
   };
 }

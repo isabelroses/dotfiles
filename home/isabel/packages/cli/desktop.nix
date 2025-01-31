@@ -20,7 +20,7 @@ let
 in
 {
   config = mkIf (isAcceptedDevice osConfig acceptedTypes && cfg.cli.enable && cfg.gui.enable) {
-    home.packages = builtins.attrValues {
+    garden.packages = {
       inherit (pkgs)
         libnotify # needed for some notifications
         # bitwarden-cli # bitwarden, my chosen password manager

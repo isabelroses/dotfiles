@@ -6,23 +6,22 @@
   ...
 }:
 let
-  inherit (builtins) attrValues;
-  inherit (lib.lists) optionals concatLists;
+  inherit (lib.attrsets) optionalAttrs mergeAttrsList;
   inherit (lib.modules) mkIf;
 
   cfg = config.garden.programs;
 in
 {
   config = mkIf (cfg.gui.enable && osConfig.garden.meta.isWM) {
-    home.packages = concatLists [
-      (optionals cfg.cosmic-files.enable [ cfg.cosmic-files.package ])
+    garden.packages = mergeAttrsList [
+      (optionalAttrs cfg.cosmic-files.enable { inherit (cfg.cosmic-files) package; })
 
-      (optionals cfg.nemo.enable (attrValues {
+      (optionalAttrs cfg.nemo.enable {
         inherit (cfg.nemo) package;
         inherit (pkgs) nemo-fileroller nemo-emblems;
-      }))
+      })
 
-      (optionals cfg.dolphin.enable [ cfg.dolphin.package ])
+      (optionalAttrs cfg.dolphin.enable { inherit (cfg.dolphin) package; })
     ];
 
     xfconf.settings = mkIf cfg.thunar.enable {

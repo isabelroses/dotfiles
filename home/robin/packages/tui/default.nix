@@ -21,7 +21,7 @@ in
   ];
 
   config = mkIf cfg.tui.enable {
-    home.packages = builtins.attrValues {
+    garden.packages = {
       inherit (pkgs)
         # wishlist # fancy ssh
         glow # fancy markdown

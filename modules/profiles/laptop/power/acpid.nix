@@ -6,7 +6,7 @@
   # handle ACPI events
   services.acpid.enable = true;
 
-  environment.systemPackages = builtins.attrValues { inherit (pkgs) acpi powertop; };
+  garden.packages = { inherit (pkgs) acpi powertop; };
 
   boot = {
     kernelModules = [ "acpi_call" ];

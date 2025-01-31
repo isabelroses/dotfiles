@@ -25,11 +25,11 @@ in
       in
       [ "${schema}/share/gsettings-schemas/${schema.name}" ];
 
-    home = {
-      packages = [
-        pkgs.glib # gsettings
-      ];
+    garden.packages = {
+      inherit (pkgs) glib; # gsettings
+    };
 
+    home = {
       # gtk applications should use xdg specified settings
       sessionVariables.GTK_USE_PORTAL = "1";
     };

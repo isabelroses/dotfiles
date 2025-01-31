@@ -7,14 +7,14 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.lists) optionals;
+  inherit (lib.attrsets) optionalAttrs;
 
   hasSound = (osConfig.garden.system ? sound) && osConfig.garden.system.sound.enable;
 in
 {
   config = mkIf config.garden.programs.gui.enable {
-    home.packages =
-      builtins.attrValues {
+    garden.packages =
+      {
         # inherit (pkgs)
         #   bitwarden-desktop # password manager
         #   jellyfin-media-player
@@ -25,8 +25,8 @@ in
         #   ;
       }
       # if the sound option exists then continue the to check if sound.enable is true
-      ++ optionals hasSound [
-        pkgs.pwvucontrol
-      ];
+      // optionalAttrs hasSound {
+        inherit (pkgs) pwvucontrol;
+      };
   };
 }

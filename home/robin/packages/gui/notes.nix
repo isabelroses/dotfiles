@@ -13,7 +13,7 @@ let
 in
 {
   config = mkIf config.garden.programs.notes.enable {
-    home.packages = attrValues {
+    garden.packages = {
       # note taking with markdown
       inherit (pkgs) zk;
 

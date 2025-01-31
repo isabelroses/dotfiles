@@ -11,12 +11,12 @@ let
 in
 {
   config = mkIf (isModernShell config) {
-    home.packages = [
-      (pkgs.symlinkJoin {
+    garden.packages = {
+      freeze-wrapped = pkgs.symlinkJoin {
         name = "freeze";
         paths = builtins.attrValues { inherit (pkgs) charm-freeze librsvg; };
-      })
-    ];
+      };
+    };
 
     xdg.configFile."freeze/user.json".text = builtins.toJSON {
       theme = "catppuccin-mocha";

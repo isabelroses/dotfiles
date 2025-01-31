@@ -9,7 +9,7 @@ let
 in
 {
   config = mkIf config.garden.meta.thunar {
-    environment.systemPackages = builtins.attrValues {
+    garden.packages = {
       inherit (pkgs)
         ffmpegthumbnailer
         # needed to extract files
