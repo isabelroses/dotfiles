@@ -1,7 +1,4 @@
-{ inputs, ... }:
 {
-  imports = [ inputs.nix-index-db.hmModules.nix-index ];
-
   config = {
     # auto-run programs using nix-index-database
     home.sessionVariables.NIX_AUTO_RUN = "1";

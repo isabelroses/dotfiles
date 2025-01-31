@@ -217,14 +217,6 @@
     };
 
     ### misc
-    # a index for nixpkgs
-    nix-index-db = {
-      type = "github";
-      owner = "nix-community";
-      repo = "nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # declarative theme management
     catppuccin = {
       type = "github";
