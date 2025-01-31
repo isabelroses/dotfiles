@@ -7,6 +7,7 @@
 }:
 let
   inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.meta) getExe;
   inherit (lib.hardware) ldTernary;
   inherit (lib.secrets) mkSecret mkSecretWithPath;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
@@ -27,6 +28,8 @@ in
       "/etc/ssh/ssh_host_ed25519_key"
       "${sshDir}/id_ed25519"
     ];
+
+    ageBin = getExe pkgs.rage;
 
     secretsDir = mkIf isDarwin "/private/tmp/agenix";
     secretsMountPoint = mkIf isDarwin "/private/tmp/agenix.d";
