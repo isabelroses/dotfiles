@@ -6,42 +6,24 @@
 }:
 let
   inherit (builtins) attrValues;
-  inherit (lib.strings) makeBinPath;
   inherit (lib.modules) mkIf;
 
   inherit (config.garden.programs) defaults;
 in
 {
-  config = mkIf config.garden.programs.notes.enable {
-    garden.packages = {
-      # note taking with markdown
-      inherit (pkgs) zk;
+  config.garden.programs = mkIf config.garden.programs.notes.enable {
+    obsidian.runtimeInputs = attrValues {
+      inherit (pkgs)
+        # for the pandoc plugin
+        pandoc
 
-      obsidian = pkgs.symlinkJoin {
-        name = "obsidian-wrapped";
-
-        paths = [ pkgs.obsidian ];
-        nativeBuildInputs = [ pkgs.makeWrapper ];
-
-        postBuild = ''
-          wrapProgram $out/bin/obsidian \
-            --prefix PATH : ${
-              makeBinPath (attrValues {
-                inherit (pkgs)
-                  # for the pandoc plugin
-                  pandoc
-
-                  # for the obsidian-git plugin
-                  git
-                  git-lfs
-                  ;
-              })
-            }
-        '';
-      };
+        # for the obsidian-git plugin
+        git
+        git-lfs
+        ;
     };
 
-    xdg.configFile."zk/config.toml".source = pkgs.writers.writeTOML "zk-conf.toml" {
+    zk.settings = {
       note = {
         # The default title used for new note, if no `--title` flag is provided.
         default-title = "untitled";
