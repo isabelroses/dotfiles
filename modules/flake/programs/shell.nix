@@ -14,8 +14,6 @@
           name = "dotfiles";
           meta.description = "Development shell for this configuration";
 
-          shellHook = config.pre-commit.installationScript;
-
           DIRENV_LOG_FORMAT = "";
 
           FLAKE = ".";
