@@ -53,13 +53,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # we can use this to provide overridable systems
-    systems = {
-      type = "github";
-      owner = "nix-systems";
-      repo = "default";
-    };
-
     # bring all the mess together with flake-parts
     flake-parts = {
       type = "github";
@@ -80,21 +73,9 @@
     # deploy systems remotely
     deploy-rs = {
       type = "github";
-      owner = "serokell";
+      owner = "isabelroses";
       repo = "deploy-rs";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-        flake-compat.follows = "";
-      };
-    };
-
-    # this adds pre commit hooks via nix to our repo
-    git-hooks = {
-      type = "github";
-      owner = "cachix";
-      repo = "git-hooks.nix";
+      ref = "no-fu";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -145,17 +126,6 @@
       };
     };
 
-    # Nix topology a way to generate diagrams of your nix config
-    nix-topology = {
-      url = "github:oddlama/nix-topology";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-utils.follows = "flake-utils";
-        pre-commit-hooks.follows = "";
-        devshell.follows = "";
-      };
-    };
-
     ### Additional packages
     # a plain simple way to host a mail server
     simple-nixos-mailserver = {
@@ -182,13 +152,6 @@
       };
     };
 
-    ags = {
-      type = "github";
-      owner = "aylur";
-      repo = "ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     homebrew = {
       type = "github";
       owner = "zhaofengli";
@@ -199,14 +162,6 @@
         nix-darwin.follows = "darwin";
       };
     };
-
-    # my own wm
-    # comfywm = {
-    #   url = "git+ssh://git@git.isabelroses.com:2222/isabel/comfywm";
-    #   # url = "path:/home/isabel/dev/comfywm";
-    #
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
 
     # a tree-wide formatter
     treefmt-nix = {
@@ -264,12 +219,11 @@
       };
     };
 
-    # exists for ".follows"
-    flake-utils = {
+    # transative deps
+    systems = {
       type = "github";
-      owner = "numtide";
-      repo = "flake-utils";
-      inputs.systems.follows = "systems";
+      owner = "nix-systems";
+      repo = "default";
     };
   };
 }
