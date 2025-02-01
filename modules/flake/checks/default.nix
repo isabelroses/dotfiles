@@ -1,3 +1,7 @@
 {
-  imports = [ ./lib.nix ];
+  imports = [
+    ./lib.nix
+    ./deploy.nix
+    ./formatting.nix
+  ];
 }

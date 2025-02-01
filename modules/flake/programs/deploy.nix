@@ -17,25 +17,18 @@ let
   ) self.nixosConfigurations;
 in
 {
-  flake = {
-    checks = {
-      x86_64-linux = inputs.deploy-rs.lib.x86_64-linux.deployChecks self.deploy;
-      aarch64-linux = inputs.deploy-rs.lib.aarch64-linux.deployChecks self.deploy;
-    };
+  flake.deploy = {
+    autoRollback = true;
+    magicRollback = true;
 
-    deploy = {
-      autoRollback = true;
-      magicRollback = true;
-
-      # then create a list of nodes that we want to deploy that we can pass to the deploy configuration
-      nodes = mapAttrs (name: node: {
-        hostname = name;
-        profiles.system = {
-          user = "root";
-          sshUser = node.config.garden.system.mainUser or "root";
-          path = inputs.deploy-rs.lib.${config.easy-hosts.hosts.${name}.system}.activate.nixos node;
-        };
-      }) easyHostsFromDeployableSystems;
-    };
+    # then create a list of nodes that we want to deploy that we can pass to the deploy configuration
+    nodes = mapAttrs (name: node: {
+      hostname = name;
+      profiles.system = {
+        user = "root";
+        sshUser = node.config.garden.system.mainUser or "root";
+        path = inputs.deploy-rs.lib.${config.easy-hosts.hosts.${name}.system}.activate.nixos node;
+      };
+    }) easyHostsFromDeployableSystems;
   };
 }
