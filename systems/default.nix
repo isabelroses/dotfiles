@@ -85,13 +85,13 @@ in
         modules = [ headless ];
       };
 
-      hera = {
-        arch = "aarch64";
-        modules = [
-          server
-          headless
-        ];
-      };
+      # hera = {
+      #   arch = "aarch64";
+      #   modules = [
+      #     server
+      #     headless
+      #   ];
+      # };
 
       # robin's hosts
       cottage.modules = [
