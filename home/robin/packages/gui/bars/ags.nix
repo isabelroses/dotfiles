@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs',
   osConfig,
   ...
 }:
@@ -47,9 +46,8 @@ in
                 hyprpicker
                 pwvucontrol
                 which
+                ags
                 ;
-
-              inherit (inputs'.ags.packages) ags;
             };
 
             text = ''

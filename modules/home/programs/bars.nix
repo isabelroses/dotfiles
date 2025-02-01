@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs',
   ...
 }:
 let
@@ -13,7 +12,6 @@ in
     ags = mkProgram pkgs "ags" {
       enable.default =
         (config.garden.environment.desktop == "Hyprland") && config.garden.programs.gui.enable;
-      package.default = inputs'.ags.packages.ags;
     };
 
     waybar = mkProgram pkgs "waybar" { };
