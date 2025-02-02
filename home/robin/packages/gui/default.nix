@@ -14,7 +14,7 @@
 
     ./discord.nix
     ./file-manager.nix
-    ./notes.nix
+    ./obsidian.nix
     ./swaync.nix
     ./zathura.nix
   ];

@@ -1,28 +1,15 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
 let
-  inherit (builtins) attrValues;
   inherit (lib.modules) mkIf;
 
   inherit (config.garden.programs) defaults;
 in
 {
   config.garden.programs = mkIf config.garden.programs.notes.enable {
-    obsidian.runtimeInputs = attrValues {
-      inherit (pkgs)
-        # for the pandoc plugin
-        pandoc
-
-        # for the obsidian-git plugin
-        git
-        git-lfs
-        ;
-    };
-
     zk.settings = {
       note = {
         # The default title used for new note, if no `--title` flag is provided.
