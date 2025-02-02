@@ -158,16 +158,16 @@ local colors = {
     sapphire = "#9BB5CF",
     blue = "#9BB5CF",
     lavender = "#D6A0D1",
-    text = "#D9E4DC",
-    subtext1 = "#C9D6D0",
-    subtext0 = "#AEC2BE",
-    overlay2 = "#99ADAD",
-    overlay1 = "#6E8585",
-    overlay0 = "#5E6C70",
-    surface2 = "#46545B",
-    surface1 = "#3D494F",
-    surface0 = "#343E44",
-    base = "#252B2E",
+    text = "#DDDECF",
+    subtext1 = "#CACCBE",
+    subtext0 = "#94AAA0",
+    overlay2 = "#839E9A",
+    overlay1 = "#738A8B",
+    overlay0 = "#617377",
+    surface2 = "#4F5E62",
+    surface1 = "#3D494D",
+    surface0 = "#313B40",
+    base = "#232A2E",
     mantle = "#1C2225",
     crust = "#171C1F",
   },
@@ -189,13 +189,17 @@ function M.select(palette, flavor, accent)
   -- shorthand to check for the Latte flavor
   local isLatte = palette == "latte"
 
+  local cursor = c.rosewater
+  if flavor == "evergarden" then
+    cursor = c.green
+  end
   return {
     foreground = c.text,
     background = c.base,
 
     cursor_fg = isLatte and c.base or c.crust,
-    cursor_bg = c.rosewater,
-    cursor_border = c.rosewater,
+    cursor_bg = cursor,
+    cursor_border = cursor,
 
     selection_fg = c.text,
     selection_bg = c.surface2,
@@ -205,25 +209,25 @@ function M.select(palette, flavor, accent)
     split = c.overlay0,
 
     ansi = {
-      isLatte and c.subtext1 or c.surface1,
+      isLatte and c.text or c.base,
       c.red,
       c.green,
       c.yellow,
       c.blue,
       c.pink,
       c.teal,
-      isLatte and c.surface2 or c.subtext1,
+      isLatte and c.surface2 or c.subtext0,
     },
 
     brights = {
-      isLatte and c.subtext0 or c.surface2,
-      c.red,
+      isLatte and c.subtext1 or c.surface0,
+      c.peach,
       c.green,
       c.yellow,
       c.blue,
       c.pink,
       c.teal,
-      isLatte and c.surface1 or c.subtext0,
+      isLatte and c.surface1 or c.overlay2,
     },
 
     indexed = { [16] = c.peach, [17] = c.rosewater },
@@ -309,10 +313,7 @@ function M.apply_to_config(c, opts)
     local overrides = o.token_overrides[flavor]
     color_schemes[name] = tableMerge(spec, overrides)
   end
-  if c.color_schemes == nil then
-    c.color_schemes = {}
-  end
-  c.color_schemes = tableMerge(c.color_schemes, color_schemes)
+  c.color_schemes = tableMerge(c.color_schemes or {}, color_schemes)
 
   if opts.sync then
     c.color_scheme = select_for_appearance(wezterm.gui.get_appearance(), {

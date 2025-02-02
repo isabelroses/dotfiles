@@ -186,6 +186,17 @@ local roman_numerals = {
   "Ⅻ",
 }
 
+local get_rainbow = function(conf)
+  return {
+    conf.resolved_palette.ansi[3],
+    conf.resolved_palette.ansi[4],
+    conf.resolved_palette.indexed[16],
+    conf.resolved_palette.ansi[2],
+    conf.resolved_palette.ansi[6],
+    conf.resolved_palette.ansi[5],
+  }
+end
+
 -- custom tab bar
 wezterm.on("format-tab-title", function(tab, tabs, _panes, conf, _hover, _max_width)
   local colours = conf.resolved_palette.tab_bar
@@ -197,14 +208,7 @@ wezterm.on("format-tab-title", function(tab, tabs, _panes, conf, _hover, _max_wi
     end
   end
 
-  local rainbow = {
-    conf.resolved_palette.ansi[2],
-    conf.resolved_palette.indexed[16],
-    conf.resolved_palette.ansi[4],
-    conf.resolved_palette.ansi[3],
-    conf.resolved_palette.ansi[5],
-    conf.resolved_palette.ansi[6],
-  }
+  local rainbow = get_rainbow(conf)
 
   local i = tab.tab_index % 6
   local active_bg = rainbow[i + 1]
@@ -305,7 +309,9 @@ wezterm.on("update-status", function(window, _pane)
   if not present then
     return
   end
+
   local palette = conf.resolved_palette
+  local rainbow = get_rainbow(conf)
 
   local leader = ""
   if C.leader.enabled then
@@ -315,7 +321,7 @@ wezterm.on("update-status", function(window, _pane)
     end
     leader = wezterm.format({
       { Foreground = { Color = palette.background } },
-      { Background = { Color = palette.ansi[5] } },
+      { Background = { Color = rainbow[1] } },
       { Text = " " .. leader_text .. C.p },
     })
   end
@@ -337,11 +343,11 @@ wezterm.on("update-status", function(window, _pane)
   end
 
   local first_tab_active = window:mux_window():tabs_with_info()[1].is_active
-  local divider_bg = first_tab_active and palette.ansi[2] or palette.tab_bar.inactive_tab.bg_color
+  local divider_bg = first_tab_active and rainbow[1] or palette.tab_bar.inactive_tab.bg_color
 
   local divider = wezterm.format({
     { Background = { Color = divider_bg } },
-    { Foreground = { Color = palette.ansi[5] } },
+    { Foreground = { Color = palette.ansi[3] } },
     { Text = C.div.r },
   })
 
