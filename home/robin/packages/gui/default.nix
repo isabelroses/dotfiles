@@ -15,7 +15,7 @@
     ./discord.nix
     ./file-manager.nix
     ./obsidian.nix
-    ./swaync.nix
+    # ./swaync.nix
     ./zathura.nix
   ];
 }
