@@ -24,10 +24,6 @@
     ];
   };
 
-  # we also need to enable the nix-daemon service to ensure that nix is
-  # always running in the background.
-  services.nix-daemon.enable = true;
-
   # use 'nix run github:LnL7/nix-darwin#darwin-uninstaller' instead
   system.includeUninstaller = false;
 }
