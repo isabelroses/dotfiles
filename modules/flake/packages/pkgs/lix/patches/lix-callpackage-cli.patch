@@ -1,6 +1,6 @@
-From c2cbfa20d7a86517945d4586ac9170793924eae9 Mon Sep 17 00:00:00 2001
+From d8895167839d4f57e9cae4ca5d92441c258ee5de Mon Sep 17 00:00:00 2001
 From: isabel <isabel@isabelroses.com>
-Date: Fri, 6 Dec 2024 11:31:53 +0000
+Date: Sun, 2 Feb 2025 10:43:43 +0000
 Subject: [PATCH] feat(cli): add callPackage flag
 
 adds a --call-package or -C cli option to build a package from the cli
@@ -11,7 +11,7 @@ based on the work of https://github.com/privatevoid-net/nix-super
  2 files changed, 22 insertions(+), 4 deletions(-)
 
 diff --git a/lix/libcmd/command.hh b/lix/libcmd/command.hh
-index 90199145c..97safe5a8f 100644
+index 96e707c1f..63efcdc9f 100644
 --- a/lix/libcmd/command.hh
 +++ b/lix/libcmd/command.hh
 @@ -111,6 +111,7 @@ struct SourceExprCommand : virtual Args, MixFlakeOptions
@@ -23,10 +23,10 @@ index 90199145c..97safe5a8f 100644
      SourceExprCommand();
  
 diff --git a/lix/libcmd/installables.cc b/lix/libcmd/installables.cc
-index 9970d4319..8a229e76c 100644
+index 5781eee21..792c95dc1 100644
 --- a/lix/libcmd/installables.cc
 +++ b/lix/libcmd/installables.cc
-@@ -165,6 +165,19 @@ SourceExprCommand::SourceExprCommand()
+@@ -167,6 +167,19 @@ SourceExprCommand::SourceExprCommand()
          .labels = {"expr"},
          .handler = {&expr}
      });
@@ -46,7 +46,7 @@ index 9970d4319..8a229e76c 100644
  }
  
  MixReadOnlyOption::MixReadOnlyOption()
-@@ -428,7 +441,7 @@ ref<eval_cache::EvalCache> openEvalCache(
+@@ -430,7 +443,7 @@ ref<eval_cache::EvalCache> openEvalCache(
  ref<eval_cache::CachingEvaluator> SourceExprCommand::getEvaluator()
  {
      // FIXME: backward compatibility hack
@@ -55,7 +55,7 @@ index 9970d4319..8a229e76c 100644
          evalSettings.pureEval.override(false);
      }
  
-@@ -440,9 +453,9 @@ Installables SourceExprCommand::parseInstallables(
+@@ -442,9 +455,9 @@ Installables SourceExprCommand::parseInstallables(
  {
      Installables result;
  
@@ -68,10 +68,10 @@ index 9970d4319..8a229e76c 100644
  
          auto evaluator = getEvaluator();
          auto vFile = evaluator->mem.allocValue();
-@@ -453,6 +466,10 @@ Installables SourceExprCommand::parseInstallables(
+@@ -455,6 +468,10 @@ Installables SourceExprCommand::parseInstallables(
          }
          else if (file)
-             state.evalFile(lookupFileArg(*evaluator, *file), *vFile);
+             state.evalFile(state.aio.blockOn(lookupFileArg(*evaluator, *file)), *vFile);
 +        else if (callPackageFile) {
 +            auto & e = evaluator->parseExprFromString(fmt("(import <nixpkgs> {}).callPackage %s {}", CanonPath::fromCwd(*callPackageFile)), CanonPath::fromCwd());
 +            state.eval(e, *vFile);
@@ -80,4 +80,5 @@ index 9970d4319..8a229e76c 100644
              auto & e = evaluator->parseExprFromString(*expr, CanonPath::fromCwd());
              state.eval(e, *vFile);
 -- 
-2.44.1
+2.47.0
+
