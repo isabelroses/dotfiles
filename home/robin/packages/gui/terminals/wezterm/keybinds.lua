@@ -59,7 +59,7 @@ map("t", "ALT", changeCtpFlavor)
 
 local mods
 if utils.is_windows() then
-  mods = "ALT"
+  mods = "SHIFT"
 else
   mods = "SUPER"
 end
