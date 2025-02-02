@@ -9,8 +9,10 @@ let
   inherit (config.garden.programs) defaults;
 in
 {
-  config.garden.programs = mkIf config.garden.programs.notes.enable {
-    zk.settings = {
+  config = mkIf config.garden.programs.notes.enable {
+    programs.bat.enable = true;
+
+    garden.programs.zk.settings = {
       note = {
         # The default title used for new note, if no `--title` flag is provided.
         default-title = "untitled";
@@ -24,7 +26,7 @@ in
         id-charset = "hex";
 
         # Length of the generated IDs.
-        id-length = 6;
+        id-length = 8;
       };
 
       tool = {
