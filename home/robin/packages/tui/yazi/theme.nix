@@ -1,11 +1,10 @@
 {
   lib,
   pkgs,
-  inputs,
   ...
 }:
 let
-  inherit (inputs.evergarden) palette;
+  inherit (lib.evergarden) palette;
 
   mkFg = fg: { fg = "#${fg}"; };
   mkBg = bg: { bg = "#${bg}"; };

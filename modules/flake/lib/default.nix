@@ -3,9 +3,9 @@
 # we can then use that elsewhere like our hosts
 { inputs, ... }:
 let
-  lib0 = inputs.nixpkgs.lib;
+  nixpkgsLib = inputs.nixpkgs.lib;
 
-  gardenLib = lib0.makeExtensible (
+  gardenLib = nixpkgsLib.fixedPoints.makeExtensible (
     self:
     let
       lib = self;
@@ -49,9 +49,14 @@ let
     }
   );
 
+  ext = nixpkgsLib.fixedPoints.composeManyExtensions [
+    (_: _: nixpkgsLib)
+    (_: _: inputs.evergarden.lib)
+  ];
+
   # we need to extend gardenLib with the nixpkgs lib to get the full set of functions
   # if we do it the otherway around we will get errors saying mkMerge and so on don't exist
-  finalLib = gardenLib.extend (_: _: lib0);
+  finalLib = gardenLib.extend ext;
 in
 {
   flake.lib = finalLib;

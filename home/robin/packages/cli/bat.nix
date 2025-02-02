@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 let
@@ -11,7 +10,7 @@ let
 
   inherit (config.garden.programs) defaults;
 
-  inherit (inputs.evergarden) palette;
+  inherit (lib.evergarden) palette;
 in
 {
   programs.bat = mkIf (isModernShell config) {

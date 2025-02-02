@@ -222,11 +222,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1738092583,
-        "narHash": "sha256-8BFTBYHVtEl1rtaLCEmSCqGrFsEyd5P2N5ujEaFW9Bk=",
+        "lastModified": 1738502228,
+        "narHash": "sha256-gHIpHWLYt0GWV4O6flLjy4IQooGpq37xYWBbbJRNvDs=",
         "owner": "comfysage",
         "repo": "evergarden",
-        "rev": "be3527f111aaceecef08d12682d62ab5263d92c7",
+        "rev": "09ccf4adef91d0380c173ffe5cd3775ab226e1cd",
         "type": "github"
       },
       "original": {
