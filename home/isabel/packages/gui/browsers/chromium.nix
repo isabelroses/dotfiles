@@ -7,7 +7,7 @@
 let
   inherit (lib.modules) mkIf;
   inherit (lib.lists) optionals concatLists;
-  inherit (lib.strings) concatMapStrings;
+  inherit (lib.strings) concatMapStrings enableFeature;
   inherit (lib.validators) isWayland;
 
   cfg = config.garden.programs.chromium;
@@ -43,9 +43,9 @@ in
 
         # Performance
         [
-          "--enable-gpu-rasterization"
-          "--enable-oop-rasterization"
-          "--enable-zero-copy"
+          (enableFeature true "gpu-rasterization")
+          (enableFeature true "oop-rasterization")
+          (enableFeature true "zero-copy")
           "--ignore-gpu-blocklist"
         ]
 
@@ -58,7 +58,7 @@ in
         # Etc
         [
           "--disk-cache=$XDG_RUNTIME_DIR/chromium-cache"
-          "--disable-reading-from-canvas"
+          (enableFeature false "reading-from-canvas")
           "--no-first-run"
           "--disable-wake-on-wifi"
           "--disable-breakpad"
@@ -67,8 +67,8 @@ in
           "--no-default-browser-check"
 
           # I don't need these, thus I disable them
-          "--disable-speech-api"
-          "--disable-speech-synthesis-api"
+          (enableFeature false "speech-api")
+          (enableFeature false "speech-synthesis-api")
         ]
 
         # Security
