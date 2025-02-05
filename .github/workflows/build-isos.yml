@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 3 1,15 * *" # Run on the 1st and 15th of every month at 3:00 AM
+  push:
+    paths:
+      - "github/workflows/build-isos.yml"
+      - ".github/actions/**/*"
 
 jobs:
   build-isos:
