@@ -99,7 +99,7 @@ let
   };
 in
 {
-  programs.firefox.profiles.arkenfox = {
+  programs.firefox.profiles.default = {
     extensions = builtins.attrValues extensions;
   };
 }

@@ -112,20 +112,6 @@
       };
     };
 
-    # firefox user.js
-    arkenfox = {
-      type = "github";
-      owner = "isabelroses";
-      repo = "arkenfox-nixos";
-      ref = "chore-remove-fu";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "";
-        pre-commit.follows = "";
-      };
-    };
-
     ### Additional packages
     # a plain simple way to host a mail server
     simple-nixos-mailserver = {

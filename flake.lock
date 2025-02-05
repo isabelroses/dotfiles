@@ -25,29 +25,6 @@
         "type": "github"
       }
     },
-    "arkenfox": {
-      "inputs": {
-        "flake-compat": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "pre-commit": []
-      },
-      "locked": {
-        "lastModified": 1736011875,
-        "narHash": "sha256-uwf8WWlz/xDO4Pn3m5IJoB/1CfJzInRepx9kP6T1oS0=",
-        "owner": "isabelroses",
-        "repo": "arkenfox-nixos",
-        "rev": "c7f63bd3bb35d8dc0a2fd4e6d9b84fb03c3fb439",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "ref": "chore-remove-fu",
-        "repo": "arkenfox-nixos",
-        "type": "github"
-      }
-    },
     "beapkgs": {
       "inputs": {
         "nixpkgs": [
@@ -530,7 +507,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "arkenfox": "arkenfox",
         "beapkgs": "beapkgs",
         "catppuccin": "catppuccin",
         "cosmic": "cosmic",
