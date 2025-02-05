@@ -1,12 +1,26 @@
 { self, ... }:
 let
   inherit (builtins) throw;
+
+  mkModule =
+    {
+      name ? "garden",
+      class,
+      modules,
+    }:
+    {
+      _class = class;
+      _file = "${self.outPath}/flake.nix#${class}Modules.${name}";
+
+      imports = modules;
+    };
 in
 {
-  modules = {
-    nixos = {
-      garden = {
-        imports = [
+  flake = {
+    nixosModules = {
+      garden = mkModule {
+        class = "nixos";
+        modules = [
           (self + /modules/base/default.nix)
           (self + /modules/nixos/default.nix)
         ];
@@ -16,9 +30,10 @@ in
       default = throw "There is no default module.";
     };
 
-    darwin = {
+    darwinModules = {
       garden = {
-        imports = [
+        class = "darwin";
+        modules = [
           (self + /modules/base/default.nix)
           (self + /modules/darwin/default.nix)
         ];
@@ -27,12 +42,23 @@ in
       default = throw "There is no default module.";
     };
 
-    homeManager = {
-      gtklock = self + /modules/extra/home-manager/gtklock.nix;
+    homeManagerModules = {
+      gtklock = mkModule {
+        name = "gtklock";
+        class = "homeManager";
+        modules = [ (self + /modules/extra/home-manager/gtklock.nix) ];
+      };
 
-      hyfetch = self + /modules/extra/home-manager/hyfetch.nix;
+      hyfetch = mkModule {
+        name = "gtklock";
+        class = "homeManager";
+        modules = [ (self + /modules/extra/home-manager/hyfetch.nix) ];
+      };
 
-      garden = self + /modules/home/default.nix;
+      garden = mkModule {
+        class = "homeManager";
+        modules = [ (self + /modules/home/default.nix) ];
+      };
 
       default = throw "There is no default module.";
     };
