@@ -23,6 +23,9 @@ jobs:
             system: aarch64-darwin
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Check Flake
         uses: ./.github/actions/check.yml
         with:

@@ -5,6 +5,8 @@ on:
     paths:
       - "modules/flake/packages/**/*"
       - "**.lock"
+      - ".github/actions/**/*"
+      - ".github/workflows/build.yml"
   workflow_dispatch:
   workflow_run:
     workflows:
