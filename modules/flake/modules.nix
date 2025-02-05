@@ -1,17 +1,40 @@
 { self, ... }:
 let
-  mkModule =
-    path: if builtins.isPath path then self + path else builtins.throw "${path} does not exist";
+  inherit (builtins) throw;
 in
 {
-  flake = {
-    homeManagerModules = {
-      gtklock = mkModule /modules/extra/home-manager/gtklock.nix;
-
-      hyfetch = mkModule /modules/extra/home-manager/hyfetch.nix;
+  modules = {
+    nixos = {
+      garden = {
+        imports = [
+          (self + /modules/base/default.nix)
+          (self + /modules/nixos/default.nix)
+        ];
+      };
 
       # i do not provide a default module, so throw an error
-      default = builtins.throw "There is no default module.";
+      default = throw "There is no default module.";
+    };
+
+    darwin = {
+      garden = {
+        imports = [
+          (self + /modules/base/default.nix)
+          (self + /modules/darwin/default.nix)
+        ];
+      };
+
+      default = throw "There is no default module.";
+    };
+
+    homeManager = {
+      gtklock = self + /modules/extra/home-manager/gtklock.nix;
+
+      hyfetch = self + /modules/extra/home-manager/hyfetch.nix;
+
+      garden = self + /modules/home/default.nix;
+
+      default = throw "There is no default module.";
     };
   };
 }
