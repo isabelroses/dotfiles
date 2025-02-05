@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Check Flake
-        uses: .github/actions/check.yml
+        uses: ./.github/actions/check.yml
         with:
           system: ${{ matrix.system }}
           os: ${{ matrix.os }}

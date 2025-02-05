@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Lix
-        uses: .github/actions/install-lix.yml
+        uses: ./.github/actions/install-lix.yml
         with:
           system: ${{ matrix.system }}
           os: ${{ matrix.os }}
