@@ -17,10 +17,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Lix
-        uses: ./.github/actions/install-lix.yml
+        uses: ./.github/actions/install-lix
         with:
           system: x86_64-linux
-          os: ubuntu-latest
 
       - name: Build Linux packages
         run: nix build -L .#docs

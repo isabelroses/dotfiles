@@ -7,7 +7,7 @@ on:
       - "**.nix"
       - "**.lock"
       - ".github/workflows/check.yml"
-      - ".github/actions/check.yml"
+      - ".github/actions/**/*"
 
 jobs:
   check-flake:
@@ -27,7 +27,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check Flake
-        uses: ./.github/actions/check.yml
+        uses: ./.github/actions/check
         with:
           system: ${{ matrix.system }}
-          os: ${{ matrix.os }}
