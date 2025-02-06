@@ -7,6 +7,7 @@
     ./gh.nix
     ./git.nix
     ./ignores.nix
+    ./jj.nix
     ./lazygit.nix
     ./pager.nix
     ./urls.nix
