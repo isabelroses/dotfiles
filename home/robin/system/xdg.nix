@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkForce;
+  inherit (lib.modules) mkIf;
   inherit (pkgs.stdenv) isLinux;
 
   inherit (config.garden.programs) defaults;
@@ -63,12 +63,8 @@ let
         }.desktop"
       ];
     };
-
-  template = self.lib.template.xdg;
 in
 {
-  home.sessionVariables = mkForce template.sysEnv;
-
   xdg = {
     enable = true;
 
@@ -100,11 +96,6 @@ in
       enable = isLinux;
       associations.added = associations;
       defaultApplications = associations;
-    };
-
-    configFile = {
-      "npm/npmrc" = template.npmrc;
-      "python/pythonrc" = template.pythonrc;
     };
   };
 }
