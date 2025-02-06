@@ -12,6 +12,8 @@ in
 {
   # pointer / cursor theming
   config.home.pointerCursor = lib.modules.mkIf en {
+    name = "Capitaine Cursors";
+    package = pkgs.capitaine-cursors-themed;
     size = 24;
     gtk.enable = true;
     # this adds extra deps, so lets only enable it on wayland
