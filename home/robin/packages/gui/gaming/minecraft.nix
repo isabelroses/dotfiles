@@ -1,12 +1,13 @@
 {
   lib,
+  self,
   pkgs,
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isWayland;
+  inherit (self.lib.validators) isWayland;
 
   catppuccin-mocha = pkgs.fetchzip {
     url = "https://github.com/PrismLauncher/Themes/releases/download/2024-04-01_1711994750/Catppuccin-Mocha-theme.zip";

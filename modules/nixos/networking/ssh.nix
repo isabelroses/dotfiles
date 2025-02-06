@@ -1,7 +1,7 @@
-{ lib, ... }:
+{ lib, self, ... }:
 let
   inherit (lib.modules) mkMerge;
-  inherit (lib.helpers) mkPubs;
+  inherit (self.lib.helpers) mkPubs;
 in
 {
   boot.initrd.network.ssh.authorizedKeys = [

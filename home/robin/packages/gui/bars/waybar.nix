@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   osConfig,
@@ -7,7 +8,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isWayland;
+  inherit (self.lib.validators) isWayland;
 
   inherit (osConfig.garden.style) font;
   cfg = config.garden.programs.waybar;

@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
@@ -8,10 +9,10 @@ let
   cfg = config.garden.services.forgejo;
   rdomain = config.networking.domain;
 
-  inherit (lib) template;
+  inherit (self.lib) template;
   inherit (lib.modules) mkIf mkAfter mkForce;
-  inherit (lib.services) mkServiceOption;
-  inherit (lib.secrets) mkSecret;
+  inherit (self.lib.services) mkServiceOption;
+  inherit (self.lib.secrets) mkSecret;
   inherit (lib.strings) removePrefix removeSuffix;
 
   # stole this from https://git.winston.sh/winston/deployment-flake/src/branch/main/config/services/gitea.nix who

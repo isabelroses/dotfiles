@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
@@ -62,7 +63,6 @@ let
         }.desktop"
       ];
     };
-
 in
 {
   xdg = {

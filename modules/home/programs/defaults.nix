@@ -1,8 +1,13 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  self,
+  pkgs,
+  ...
+}:
 let
   inherit (lib.options) mkOption;
   inherit (lib.types) enum nullOr str;
-  inherit (lib.hardware) ldTernary;
+  inherit (self.lib.hardware) ldTernary;
 in
 {
   options.garden.programs.defaults = {

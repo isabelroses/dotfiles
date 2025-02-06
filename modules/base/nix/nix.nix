@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  self,
   self',
   inputs,
   ...
@@ -8,7 +9,7 @@
 let
   inherit (lib.attrsets) filterAttrs attrValues mapAttrs;
   inherit (lib.modules) mkForce;
-  inherit (lib.hardware) ldTernary;
+  inherit (self.lib.hardware) ldTernary;
   inherit (lib.types) isType;
 
   flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;

@@ -1,15 +1,16 @@
 {
   lib,
+  self,
   config,
   inputs',
   ...
 }:
 let
-  inherit (lib) template;
+  inherit (self.lib) template;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
-  inherit (lib.services) mkServiceOption;
-  inherit (lib.secrets) mkSecret;
+  inherit (self.lib.services) mkServiceOption;
+  inherit (self.lib.secrets) mkSecret;
 in
 {
   options.garden.services.blahaj = mkServiceOption "blahaj" { };

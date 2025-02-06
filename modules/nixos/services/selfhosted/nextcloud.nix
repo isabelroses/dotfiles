@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
@@ -7,10 +8,10 @@
 let
   rdomain = config.networking.domain;
 
-  inherit (lib) template;
+  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
-  inherit (lib.services) mkServiceOption;
-  inherit (lib.secrets) mkSecret;
+  inherit (self.lib.services) mkServiceOption;
+  inherit (self.lib.secrets) mkSecret;
 
   cfg = config.garden.services.nextcloud;
 in

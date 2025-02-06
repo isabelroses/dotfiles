@@ -1,12 +1,13 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
 }:
 let
-  inherit (lib.programs) mkProgram;
-  inherit (lib.validators) isWayland;
+  inherit (self.lib.programs) mkProgram;
+  inherit (self.lib.validators) isWayland;
   inherit (lib.lists) optional;
 
   cfg = config.garden.programs.wine;

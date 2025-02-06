@@ -1,11 +1,12 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
 }:
 let
-  inherit (lib.hardware) ldTernary;
+  inherit (self.lib.hardware) ldTernary;
   inherit (lib.options) mkOption;
   inherit (lib.types) str;
 

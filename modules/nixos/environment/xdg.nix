@@ -1,6 +1,6 @@
-{ lib, ... }:
+{ self, ... }:
 let
-  template = lib.template.xdg;
+  template = self.lib.template.xdg;
 in
 {
   environment = {

@@ -1,6 +1,10 @@
-{ self, inputs, ... }:
+{
+  lib,
+  self,
+  inputs,
+  ...
+}:
 let
-  inherit (self) lib;
 
   inherit (lib.lists) optionals concatLists;
 
@@ -23,8 +27,6 @@ in
   imports = [ inputs.easy-hosts.flakeModule ];
 
   config.easy-hosts = {
-    shared.specialArgs = { inherit lib; };
-
     perClass = class: {
       modules = concatLists [
         [

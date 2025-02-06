@@ -1,8 +1,8 @@
-{ lib, ... }:
+{ lib, self, ... }:
 let
   inherit (lib.lists) map;
   inherit (lib.modules) mkMerge;
-  inherit (lib.helpers) giturl;
+  inherit (self.lib.helpers) giturl;
 in
 {
   programs.git.extraConfig.url = mkMerge (

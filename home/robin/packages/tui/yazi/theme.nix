@@ -1,10 +1,10 @@
 {
-  lib,
+  self,
   pkgs,
   ...
 }:
 let
-  inherit (lib.evergarden) palette;
+  inherit (self.lib.evergarden) palette;
 
   mkFg = fg: { fg = "#${fg}"; };
   mkBg = bg: { bg = "#${bg}"; };
@@ -22,7 +22,7 @@ in
       {
         syntect_theme = pkgs.writeTextFile {
           name = "syntax-evergarden";
-          text = lib.template.textmate palette;
+          text = self.lib.template.textmate palette;
         };
 
         cwd = mkFg palette.aqua;

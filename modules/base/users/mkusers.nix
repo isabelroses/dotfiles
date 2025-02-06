@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
@@ -7,8 +8,8 @@
 let
   inherit (lib.modules) mkDefault;
   inherit (lib.attrsets) genAttrs;
-  inherit (lib.hardware) ldTernary;
-  inherit (lib.validators) ifTheyExist;
+  inherit (self.lib.hardware) ldTernary;
+  inherit (self.lib.validators) ifTheyExist;
 in
 {
   users.users = genAttrs config.garden.system.users (

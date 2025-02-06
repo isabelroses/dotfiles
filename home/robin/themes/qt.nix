@@ -1,12 +1,13 @@
 {
   lib,
+  self,
   pkgs,
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) isAcceptedDevice;
 
   acceptedTypes = [
     "laptop"

@@ -1,12 +1,13 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
 }:
 let
   inherit (lib.types) str;
-  inherit (lib.programs) mkProgram;
+  inherit (self.lib.programs) mkProgram;
   inherit (lib.options) mkOption mkEnableOption;
 in
 {

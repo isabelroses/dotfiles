@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   osConfig,
   ...
@@ -7,8 +8,8 @@
 let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isWayland isAcceptedDevice;
-  inherit (lib.services) mkGraphicalService;
+  inherit (self.lib.validators) isWayland isAcceptedDevice;
+  inherit (self.lib.services) mkGraphicalService;
 
   acceptedTypes = [
     "desktop"

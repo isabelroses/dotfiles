@@ -1,16 +1,17 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isModernShell;
+  inherit (self.lib.validators) isModernShell;
 
   inherit (config.garden.programs) defaults;
 
-  inherit (lib.evergarden) palette;
+  inherit (self.lib.evergarden) palette;
 in
 {
   programs.bat = mkIf (isModernShell config) {
@@ -19,7 +20,7 @@ in
 
     themes.evergarden.src = pkgs.writeTextFile {
       name = "syntax-evergarden";
-      text = lib.template.textmate palette;
+      text = self.lib.template.textmate palette;
     };
 
     config = {
