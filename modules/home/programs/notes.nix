@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
@@ -7,7 +8,7 @@
 let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption;
-  inherit (lib.programs) mkProgram;
+  inherit (self.lib.programs) mkProgram;
   inherit (lib.strings) makeBinPath;
   inherit (lib.types) listOf package;
 

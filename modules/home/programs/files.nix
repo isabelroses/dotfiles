@@ -1,11 +1,11 @@
 {
-  lib,
+  self,
   pkgs,
   config,
   ...
 }:
 let
-  inherit (lib.programs) mkProgram;
+  inherit (self.lib.programs) mkProgram;
 in
 {
   options.garden.programs = {

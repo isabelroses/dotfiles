@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  self,
   config,
   osConfig,
   ...
@@ -8,7 +9,7 @@
 let
   inherit (lib.modules) mkIf;
   inherit (lib.meta) getExe;
-  inherit (lib.validators) isWayland;
+  inherit (self.lib.validators) isWayland;
 
   cfg = config.garden.programs.ags;
 in

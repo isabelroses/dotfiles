@@ -1,14 +1,15 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
 }:
 let
-  inherit (lib) template;
+  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
-  inherit (lib.services) mkServiceOption;
-  inherit (lib.secrets) mkSecret;
+  inherit (self.lib.services) mkServiceOption;
+  inherit (self.lib.secrets) mkSecret;
 
   rdomain = config.networking.domain;
 

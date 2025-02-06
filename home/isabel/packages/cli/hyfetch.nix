@@ -7,9 +7,9 @@
   ...
 }:
 let
-  inherit (lib.hardware) ldTernary;
+  inherit (self.lib.hardware) ldTernary;
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isModernShell;
+  inherit (self.lib.validators) isModernShell;
 in
 {
   imports = [ self.homeManagerModules.hyfetch ];

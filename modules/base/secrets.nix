@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   inputs,
@@ -8,8 +9,8 @@
 let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.meta) getExe;
-  inherit (lib.hardware) ldTernary;
-  inherit (lib.secrets) mkSecret mkSecretWithPath;
+  inherit (self.lib.hardware) ldTernary;
+  inherit (self.lib.secrets) mkSecret mkSecretWithPath;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
   inherit (config.garden.system) mainUser;

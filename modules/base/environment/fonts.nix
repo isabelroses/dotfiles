@@ -1,11 +1,11 @@
 {
-  lib,
+  self,
   pkgs,
   config,
   ...
 }:
 let
-  inherit (lib.hardware) ldTernary;
+  inherit (self.lib.hardware) ldTernary;
 in
 {
   fonts =

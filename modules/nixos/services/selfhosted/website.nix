@@ -1,14 +1,15 @@
 {
   lib,
+  self,
   config,
   inputs',
   ...
 }:
 let
-  inherit (lib) template;
+  inherit (self.lib) template;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
-  inherit (lib.services) mkServiceOption;
+  inherit (self.lib.services) mkServiceOption;
 
   inherit (config.networking) domain;
 

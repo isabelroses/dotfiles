@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   osConfig,
@@ -7,7 +8,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) isAcceptedDevice;
   cfg = osConfig.garden.style;
 
   acceptedTypes = [

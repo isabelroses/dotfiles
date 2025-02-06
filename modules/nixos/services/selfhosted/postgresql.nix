@@ -1,12 +1,13 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.services) mkServiceOption;
+  inherit (self.lib.services) mkServiceOption;
 
   cfg = config.garden.services;
 in

@@ -1,11 +1,11 @@
 {
-  lib,
+  self,
   config,
   inputs,
   ...
 }:
 let
-  inherit (lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) isAcceptedDevice;
   nonAccepted = [
     "server"
     "wsl"

@@ -1,8 +1,13 @@
-{ lib, config, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
-  inherit (lib) template;
+  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
-  inherit (lib.services) mkServiceOption;
+  inherit (self.lib.services) mkServiceOption;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.photoprism;

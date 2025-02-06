@@ -1,13 +1,14 @@
 {
   lib,
   pkgs,
+  self,
   config,
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isAcceptedDevice isModernShell;
+  inherit (self.lib.validators) isAcceptedDevice isModernShell;
 
   acceptedTypes = [
     "wsl"

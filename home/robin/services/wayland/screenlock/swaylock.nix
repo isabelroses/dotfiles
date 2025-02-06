@@ -1,13 +1,14 @@
 {
   lib,
   pkgs,
+  self,
   config,
   osConfig,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isWayland;
+  inherit (self.lib.validators) isWayland;
 
   inherit (config.garden.programs) defaults;
 in

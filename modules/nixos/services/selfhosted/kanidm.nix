@@ -3,15 +3,16 @@
 # https://ashhhleyyy.dev/blog/2023-02-05-from-keycloak-to-kanidm
 {
   lib,
+  self,
   pkgs,
   config,
   ...
 }:
 let
-  inherit (lib) template;
+  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
-  inherit (lib.services) mkServiceOption;
-  inherit (lib.secrets) mkSecret;
+  inherit (self.lib.services) mkServiceOption;
+  inherit (self.lib.secrets) mkSecret;
 
   rdomain = config.networking.domain;
   certs = config.security.acme.certs.${rdomain};

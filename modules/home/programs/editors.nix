@@ -1,12 +1,13 @@
 {
   lib,
+  self,
   pkgs,
   config,
   inputs',
   ...
 }:
 let
-  inherit (lib.programs) mkProgram;
+  inherit (self.lib.programs) mkProgram;
   inherit (lib.strings) optionalString;
   inherit (lib.meta) getExe;
 in

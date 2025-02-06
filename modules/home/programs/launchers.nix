@@ -1,12 +1,12 @@
 {
-  lib,
+  self,
   pkgs,
   osConfig,
   ...
 }:
 let
-  inherit (lib.validators) isWayland;
-  inherit (lib.programs) mkProgram;
+  inherit (self.lib.validators) isWayland;
+  inherit (self.lib.programs) mkProgram;
 in
 {
   options.garden.programs = {

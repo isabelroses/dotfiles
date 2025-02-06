@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   inputs',
@@ -7,7 +8,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.services) mkServiceOption;
+  inherit (self.lib.services) mkServiceOption;
 
   inherit ((pkgs.formats.elixirConf { }).lib) mkRaw mkMap;
 

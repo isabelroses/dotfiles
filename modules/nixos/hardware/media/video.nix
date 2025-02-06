@@ -1,12 +1,13 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
 }:
 let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.hardware) isx86Linux;
+  inherit (self.lib.hardware) isx86Linux;
   inherit (lib.options) mkEnableOption;
   cfg = config.garden.system.video;
 in

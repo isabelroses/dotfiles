@@ -1,8 +1,13 @@
-{ lib, config, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
-  inherit (lib.validators) isWayland;
+  inherit (self.lib.validators) isWayland;
 
   inherit (config.garden) meta;
 in

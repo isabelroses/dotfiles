@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
@@ -11,7 +12,7 @@ let
     mkMerge
     mkDefault
     ;
-  inherit (lib.validators) isWayland;
+  inherit (self.lib.validators) isWayland;
 
   isHybrid = device.gpu == "hybrid-nv";
 in

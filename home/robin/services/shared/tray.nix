@@ -1,7 +1,12 @@
-{ osConfig, lib, ... }:
+{
+  lib,
+  self,
+  osConfig,
+  ...
+}:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) isAcceptedDevice;
 
   acceptedTypes = [
     "lite"

@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
@@ -7,7 +8,7 @@
 let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isWayland;
+  inherit (self.lib.validators) isWayland;
 in
 {
   config = mkIf (isWayland config) {

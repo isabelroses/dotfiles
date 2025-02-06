@@ -1,13 +1,14 @@
 {
   lib,
   pkgs,
+  self,
   config,
   inputs,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) anyHome;
+  inherit (self.lib.validators) anyHome;
 
   cond = anyHome config (v: v == "cosmic") [
     "garden"

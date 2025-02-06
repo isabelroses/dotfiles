@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
@@ -63,7 +64,7 @@ let
       ];
     };
 
-  template = lib.template.xdg;
+  template = self.lib.template.xdg;
 in
 {
   home.sessionVariables = mkForce template.sysEnv;

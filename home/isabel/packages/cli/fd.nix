@@ -1,7 +1,12 @@
-{ lib, config, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.validators) isModernShell;
+  inherit (self.lib.validators) isModernShell;
 in
 {
   programs.fd = mkIf (isModernShell config) {
