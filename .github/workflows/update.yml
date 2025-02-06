@@ -30,7 +30,7 @@ jobs:
         with:
           title: "chore: update flake inputs"
           commit-message: "chore: update flake inputs"
-          new_branch: update-flake-inputs
+          branch: update-flake-inputs
 
   check-flake:
     name: Check (${{ matrix.system }})
