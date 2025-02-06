@@ -18,7 +18,8 @@
       tui.enable = true;
       gui.enable = false;
 
-      fish.enable = true;
+      zsh.enable = true;
+      defaults.shell = "zsh";
 
       neovim.package = inputs'.ivy.packages.default;
     };

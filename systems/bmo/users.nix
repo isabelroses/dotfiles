@@ -19,8 +19,8 @@
       gui.enable = true;
       notes.enable = true;
 
-      defaults.shell = "fish";
-      fish.enable = true;
+      zsh.enable = true;
+      defaults.shell = "zsh";
 
       neovim.package = inputs'.ivy.packages.default;
 
