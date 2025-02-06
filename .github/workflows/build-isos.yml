@@ -37,6 +37,7 @@ jobs:
         run: nix build -L .#nixosConfigurations.lilith.config.system.build.isoImage
 
       - name: Upload Release Artifacts
+        if: github.event_name == 'schedule'
         run: |
           release=$(date +"%Y-%m-%d")
           gh release create "$release"
