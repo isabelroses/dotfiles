@@ -15,7 +15,8 @@
   - [nixos](https://github.com/isabelroses/dotfiles/tree/main/modules/nixos/) Pre cooked modules for exclusively nixos systems
   - [iso](https://github.com/isabelroses/dotfiles/tree/main/modules/iso/) Pre-configured modules prepared for making NixOS iso images
   - [extra](https://github.com/isabelroses/dotfiles/tree/main/modules/extra/) Extra configuration modules, for home-manager and Nix Darwin and NixOS
-  - [parts](https://github.com/isabelroses/dotfiles/tree/main/modules/falake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
+  - [home](https://github/isabelroses/dotfiles/tree/main/modules/home/) Modules for home-manager
+  - [flake](https://github.com/isabelroses/dotfiles/tree/main/modules/falake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
     - 📚 [lib](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/lib/) Useful repeated functions
     - 🛠️ [templates](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/templates/) Templates for setting up development environments
     - 👾 [modules](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/modules.nix) Exported modules for NixOS, home-manager and Nix Darwin
