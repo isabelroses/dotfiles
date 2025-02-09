@@ -1,0 +1,23 @@
+name: Validate Nix Flake
+description: "Check the Nix flake for errors"
+
+inputs:
+  system:
+    required: true
+    description: "The system to install Lix for"
+
+runs:
+  using: composite
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Lix
+      uses: ./.github/actions/install-lix
+      with:
+        system: ${{ matrix.system }}
+
+    - name: Check Flake
+      shell: bash
+      run: nix flake check

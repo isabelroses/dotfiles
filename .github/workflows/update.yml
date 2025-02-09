@@ -9,25 +9,62 @@ jobs:
   update-lockfile:
     runs-on: ubuntu-latest
 
+    outputs:
+      pr: ${{ steps.pr.outputs.pull-request-number  }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install Lix
-        uses: DeterminateSystems/nix-installer-action@main
+        uses: ./.github/actions/install-lix
         with:
-          source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
-          logger: pretty
-          diagnostic-endpoint: ""
-          extra-conf: |
-            experimental-features = flakes nix-command recursive-nix pipe-operator
-            substituters = https://nix-community.cachix.org https://isabelroses.cachix.org https://catppuccin.cachix.org https://cache.nixos.org/
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU=
+          system: x86_64-linux
 
       - name: Update Lockfile
         run: nix flake update
 
-      - name: Commit and Push
-        uses: endbug/add-and-commit@v9
+      - name: Create Pull request
+        id: pr
+        uses: peter-evans/create-pull-request@v7
         with:
-          message: "chore: update flake inputs"
+          title: "chore: update flake inputs"
+          commit-message: "chore: update flake inputs"
+          branch: update-flake-inputs
+
+  check-flake:
+    name: Check (${{ matrix.system }})
+    needs: update-lockfile
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            system: x86_64-linux
+          - os: macos-latest
+            system: aarch64-darwin
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: "update-flake-inputs"
+
+      - name: Check Flake
+        uses: ./.github/actions/check
+        with:
+          system: ${{ matrix.system }}
+
+  merge:
+    name: Merge Pull Request
+    needs: [update-lockfile, check-flake]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Merge Pull Request
+        run: gh pr merge --squash --auto --delete-branch ${{ needs.update-lockfile.outputs.pr }}
+
