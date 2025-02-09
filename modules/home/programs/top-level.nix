@@ -20,7 +20,6 @@ in
 
     gui.enable = mkEnableOption "Enable GUI programs";
 
-    pentesting.enable = mkEnableOption "Enable packages designed for pentesting";
     notes.enable = mkEnableOption "Enable note-taking programs";
   };
 }

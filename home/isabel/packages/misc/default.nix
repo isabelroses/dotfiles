@@ -4,6 +4,5 @@
     ./git # git client configurations
 
     ./darwin.nix # macOS configurations
-    ./pentesting.nix # pentesting packages
   ];
 }
