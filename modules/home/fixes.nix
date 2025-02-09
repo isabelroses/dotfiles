@@ -9,7 +9,7 @@ let
   cfg = config.home.pointerCursor;
 in
 {
-  home.file = mkIf cfg.enable {
+  home.file = mkIf (cfg != null) {
     ".icons/default/index.theme".enable = false;
     ".icons/${cfg.name}".enable = false;
   };
