@@ -13,7 +13,6 @@
     ./wm
 
     ./discord.nix
-    ./file-manager.nix
     ./obsidian.nix
     # ./swaync.nix
     ./zathura.nix

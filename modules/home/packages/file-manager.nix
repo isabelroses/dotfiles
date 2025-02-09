@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   osConfig,
@@ -8,11 +9,28 @@
 let
   inherit (lib.attrsets) optionalAttrs mergeAttrsList;
   inherit (lib.modules) mkIf;
+  inherit (self.lib.programs) mkProgram;
 
   cfg = config.garden.programs;
 in
 {
-  config = mkIf (cfg.gui.enable && !osConfig.garden.meta.isWM) {
+  options.garden.programs = {
+    cosmic-files = mkProgram pkgs "cosmic-files" {
+      enable.default = config.garden.programs.gui.enable;
+    };
+
+    dolphin = mkProgram pkgs "dolphin" {
+      package.default = pkgs.kdePackages.dolphin;
+    };
+
+    nemo = mkProgram pkgs "nemo" {
+      package.default = pkgs.nemo-with-extensions;
+    };
+
+    thunar = mkProgram pkgs "thunar" { };
+  };
+
+  config = mkIf (cfg.gui.enable && osConfig.garden.meta.isWM) {
     garden.packages = mergeAttrsList [
       (optionalAttrs cfg.cosmic-files.enable { inherit (cfg.cosmic-files) package; })
 

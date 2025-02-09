@@ -14,7 +14,6 @@
     ./wm
 
     ./discord.nix
-    ./file-manager.nix
     ./notes.nix
     ./swaync.nix
     ./zathura.nix
