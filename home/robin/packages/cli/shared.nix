@@ -18,7 +18,6 @@ in
           unzip
           rsync
           just # cool build tool
-          wakatime-cli
           nix-output-monitor # much nicer nix build output
           ;
 
