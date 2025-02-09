@@ -1,8 +1,4 @@
-{
-  lib,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 let
   inherit (lib.modules) mkIf;
 
@@ -13,11 +9,14 @@ in
   config = mkIf (cfg.cli.enable && cfg.git.enable) {
     programs.jujutsu = {
       enable = true;
+
       settings = {
         user = {
           name = git.userName;
           email = git.userEmail;
         };
+
+        git.subprocess = true;
 
         ui = {
           default-command = "status";
