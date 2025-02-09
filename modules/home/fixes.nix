@@ -3,9 +3,14 @@
   config,
   ...
 }:
+let
+  inherit (lib.modules) mkIf;
+
+  cfg = config.home.pointerCursor;
+in
 {
-  home.file = lib.modules.mkIf config.garden.programs.gui.enable {
+  home.file = mkIf cfg.enable {
     ".icons/default/index.theme".enable = false;
-    ".icons/${config.home.pointerCursor.name}".enable = false;
+    ".icons/${cfg.name}".enable = false;
   };
 }
