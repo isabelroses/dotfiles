@@ -11,6 +11,7 @@
 - [adding systems](config/adding-systems.md)
 - [adding users](config/adding-users.md)
 - [adding packages](config/adding-packages.md)
+- [uninstalling](config/uninstalling.md)
 
 # Further Reading
 
