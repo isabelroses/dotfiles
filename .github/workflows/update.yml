@@ -67,5 +67,5 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Merge Pull Request
-        run: gh pr merge --squash --auto --delete-branch ${{ needs.update-lockfile.outputs.pr }}
+        run: gh pr merge --rebase --auto --delete-branch ${{ needs.update-lockfile.outputs.pr }}
 
