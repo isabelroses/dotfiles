@@ -29,20 +29,20 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "c371628e611907ecd41a49e125faec32f28801d7";
-          hash = "sha256-36lbNGYcpLC4WpzkfD/VL19fLIerDxcHkXht1s49VvM=";
+          rev = "e4a6a915ecdff0ed152a80974d119f0e23f5c770";
+          hash = "sha256-sF2oYvxFs+JToJADb4ghcipoXkJ5osifFqyPtfATQbE=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "15de4bb66438c4f8eab238e222e1dff4a0d3638e";
-          hash = "sha256-Au2ylmWhu99KxcyFjwIkxZ/sNVHc8L2TfeYNiGOyrf8=";
+          rev = "6730cf8cf330549a1083643ca64e73fcaca08880";
+          hash = "sha256-2bVu+v64NWqCWc55hZ/PEalDlyW661o7eBDgmgnxJYQ=";
         };
         "homebrew/homebrew-bundle" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-bundle";
-          rev = "e6dfce5ac7b17cd98507044f509b7ee716d4b3dc";
-          hash = "sha256-d7e9nLugP4j2+yEXYqzbFZTAT+e4do+X4GsMjKofl68=";
+          rev = "770e3a61ddee249668cd458d7ce124b00fb82e3d";
+          hash = "sha256-FqXeSNDCSVJL2eULAndW42do0sYwZgXob6CmqSRjr1U=";
         };
       };
     };
