@@ -11,6 +11,7 @@
       owner = "NixOS";
       repo = "nixpkgs";
       ref = "nixpkgs-unstable";
+      # ref = "1da52dd49a127ad74486b135898da2cef8c62665";
     };
 
     # lix a good fork of nix
@@ -28,8 +29,9 @@
     # improved support for darwin
     darwin = {
       type = "github";
-      owner = "lnl7";
+      owner = "isabelroses";
       repo = "nix-darwin";
+      ref = "tools";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -178,6 +180,9 @@
       type = "github";
       owner = "tgirlcloud";
       repo = "beapkgs";
+
+      # url = "git+file:/home/isabel/dev/tgirlcloud/beapkgs";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

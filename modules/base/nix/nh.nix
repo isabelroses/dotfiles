@@ -1,9 +1,13 @@
 {
-  lib,
+  pkgs,
+  self,
   config,
   inputs',
   ...
 }:
+let
+  inherit (self.lib.hardware) ldTernary;
+in
 {
   programs.nh = {
     enable = true;
@@ -18,11 +22,17 @@
   # WARNING: this leaves you without commands like `nixos-rebuild` which you don't
   # really need, you may consider enabling nh and using `nh os switch` instead
   # which is actually a really good alternative to using this
-  system =
-    {
-      disableInstallerTools = config.programs.nh.enable;
-    }
-    // lib.attrsets.optionalAttrs (config.system ? tools) {
-      tools.nixos-version.enable = true;
-    };
+  system = {
+    disableInstallerTools = config.programs.nh.enable;
+
+    tools =
+      ldTernary pkgs
+        {
+          nixos-version.enable = true;
+        }
+        {
+          darwin-version.enable = true;
+        };
+
+  };
 }

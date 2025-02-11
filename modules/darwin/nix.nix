@@ -23,7 +23,4 @@
       "x86-64-darwin"
     ];
   };
-
-  # use 'nix run github:LnL7/nix-darwin#darwin-uninstaller' instead
-  system.includeUninstaller = false;
 }
