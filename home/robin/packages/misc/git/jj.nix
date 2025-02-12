@@ -19,6 +19,8 @@ in
 
         ui = {
           default-command = "status";
+          diff-editor = "nvim-hunk";
+          merge-editor = "nvim-hunk";
         };
 
         templates = {
@@ -63,6 +65,21 @@ in
               )
             )
           '';
+        };
+
+        merge-tools.nvim = {
+          edit-args = [
+            "-d"
+            "$left"
+            "$right"
+          ];
+        };
+        merge-tools.nvim-hunk = {
+          program = "nvim";
+          edit-args = [
+            "-c"
+            "DiffEditor $left $right $output"
+          ];
         };
       };
     };
