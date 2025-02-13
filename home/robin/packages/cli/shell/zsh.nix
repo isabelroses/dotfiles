@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
   inherit (lib.modules) mkIf;
+  inherit (lib.strings) removePrefix;
 
   cfg = config.garden.programs.zsh;
 in
@@ -13,7 +14,7 @@ in
     enableCompletion = true;
     syntaxHighlighting.enable = true;
 
-    dotDir = ".config/zsh";
+    dotDir = (removePrefix (config.home.homeDirectory + "/") config.xdg.configHome) + "/zsh";
 
     history = {
       path = config.xdg.stateHome + "/zsh/history";
