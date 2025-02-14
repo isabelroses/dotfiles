@@ -22,7 +22,7 @@ let
       owner = "isabel";
     };
     valkyrie = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHnhUMQ+BtvcfPKJJbR8nFAQIB9KbrKRJlZSsheCL0j6";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOe51NV6Eyg2mKO/uCzFbmuoV4uVS/qfGVrmPT1ixuNA";
       owner = "isabel";
     };
 
