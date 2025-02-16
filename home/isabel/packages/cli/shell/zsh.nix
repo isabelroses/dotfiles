@@ -15,5 +15,12 @@ in
     syntaxHighlighting.enable = true;
 
     dotDir = (removePrefix (config.home.homeDirectory + "/") config.xdg.configHome) + "/zsh";
+
+    initExtra = ''
+      function title_precmd_hook() {
+        print -Pn "\e]0;$(pwd)\a"
+      }
+      precmd_functions+=title_precmd_hook
+    '';
   };
 }
