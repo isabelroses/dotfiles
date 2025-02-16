@@ -12,9 +12,12 @@ in
   imports = [ ./fail2ban.nix ];
 
   config = {
+    # TODO: IFD, we can remove that by getting the default config from
+    # https://github.com/evilsocket/opensnitch/blob/master/daemon/default-config.json
+    #
     # enable opensnitch firewall
     # inactive until opensnitch UI is opened
-    services.opensnitch.enable = device.type != "server";
+    # services.opensnitch.enable = device.type != "server";
 
     networking.firewall = {
       enable = true;
