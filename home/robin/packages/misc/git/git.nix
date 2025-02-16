@@ -15,6 +15,11 @@ in
     userName = "robin";
     userEmail = "comfysage" + "@" + "isabelroses" + "." + "com";
 
+    signing = {
+      format = "ssh";
+      signByDefault = true;
+    };
+
     extraConfig = {
       core.editor = config.garden.programs.defaults.editor;
 
@@ -31,8 +36,6 @@ in
       merge.ff = "only";
       push.autoSetupRemote = true;
 
-      commit.gpgsign = true;
-      gpg.format = "ssh";
       user.signingkey = osConfig.age.secrets.keys-gh.path;
       # personal preference
       init.defaultBranch = "main";

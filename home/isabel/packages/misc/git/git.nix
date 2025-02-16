@@ -34,6 +34,7 @@ in
     # git commit signing
     signing = {
       key = cfg.signingKey;
+      format = "openpgp";
       signByDefault = true;
     };
 
