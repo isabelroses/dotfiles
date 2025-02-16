@@ -19,5 +19,12 @@ in
     history = {
       path = config.xdg.stateHome + "/zsh/history";
     };
+
+    initExtra = ''
+      function title_precmd_hook() {
+        print -Pn "\e]0;$(pwd)\a"
+      }
+      precmd_functions+=title_precmd_hook
+    '';
   };
 }
