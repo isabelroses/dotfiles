@@ -17,6 +17,21 @@ in
           email = config.programs.git.userEmail;
         };
 
+        aliases = {
+          name = [
+            "bookmark"
+            "set"
+            "-r"
+            "git_head()"
+          ];
+          update = [
+            "bookmark"
+            "move"
+            "--to"
+            "git_head()"
+          ];
+        };
+
         ui = {
           default-command = "status";
           diff-editor = "nvim-hunk";
