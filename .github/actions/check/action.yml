@@ -20,4 +20,4 @@ runs:
 
     - name: Check Flake
       shell: bash
-      run: nix flake check
+      run: nix flake check --option allow-import-from-derivation false
