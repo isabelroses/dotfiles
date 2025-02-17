@@ -1157,9 +1157,7 @@ in
       };
 
       nginx = mkOption {
-        type =
-          with types;
-          nullOr (submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }));
+        type = with types; nullOr (submodule (import ./vhost-options.nix { inherit config lib; }));
         default = null;
         description = ''
           Extra configuration for the nginx virtual host of Akkoma.
@@ -1398,5 +1396,4 @@ in
   };
 
   meta.maintainers = with lib.maintainers; [ mvs ];
-  meta.doc = ./akkoma.md;
 }
