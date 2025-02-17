@@ -425,24 +425,22 @@ let
           AKKOMA_CONFIG_PATH="''${RUNTIME_DIRECTORY%%:*}/config.exs" \
           ERL_EPMD_ADDRESS="${cfg.dist.address}" \
           ERL_EPMD_PORT="${toString cfg.dist.epmdPort}" \
-          ERL_FLAGS=${
-            escapeShellArg (
-              escapeShellArgs (
-                [
-                  "-kernel"
-                  "inet_dist_use_interface"
-                  "$(cat ${erlAddr cfg.dist.address})"
-                  "-kernel"
-                  "inet_dist_listen_min"
-                  (toString cfg.dist.portMin)
-                  "-kernel"
-                  "inet_dist_listen_max"
-                  (toString cfg.dist.portMax)
-                ]
-                ++ cfg.dist.extraFlags
-              )
+          ERL_FLAGS="${
+            escapeShellArgs (
+              [
+                "-kernel"
+                "inet_dist_use_interface"
+                "$(cat ${erlAddr cfg.dist.address})"
+                "-kernel"
+                "inet_dist_listen_min"
+                (toString cfg.dist.portMin)
+                "-kernel"
+                "inet_dist_listen_max"
+                (toString cfg.dist.portMax)
+              ]
+              ++ cfg.dist.extraFlags
             )
-          } \
+          }" \
           RELEASE_COOKIE="$(<"''${RUNTIME_DIRECTORY%%:*}/cookie")" \
           RELEASE_NAME="akkoma" \
             exec "${cfg.package}/bin/$(basename "$0")" "$@"
