@@ -10,18 +10,9 @@ let
   rdomain = config.networking.domain;
 
   inherit (self.lib) template;
-  inherit (lib.modules) mkIf mkAfter mkForce;
+  inherit (lib.modules) mkIf mkForce;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
-  inherit (lib.strings) removePrefix removeSuffix;
-
-  # stole this from https://git.winston.sh/winston/deployment-flake/src/branch/main/config/services/gitea.nix who
-  # stole it from https://github.com/getchoo
-  theme = pkgs.fetchzip {
-    url = "https://github.com/catppuccin/gitea/releases/download/v1.0.0/catppuccin-gitea.tar.gz";
-    hash = "sha256-UsYJJ1j9erMih4OlFon604g1LvkZI/UiLgMgdvnyvyA=";
-    stripRoot = false;
-  };
 in
 {
   options.garden.services.forgejo = mkServiceOption "forgejo" {
@@ -54,20 +45,6 @@ in
         isSystemUser = true;
         createHome = false;
         group = "git";
-      };
-    };
-
-    systemd.services = {
-      forgejo = {
-        preStart =
-          let
-            inherit (config.services.forgejo) stateDir;
-          in
-          mkAfter ''
-            rm -rf ${stateDir}/custom/public/assets
-            mkdir -p ${stateDir}/custom/public/assets
-            ln -sf ${theme} ${stateDir}/custom/public/assets/css
-          '';
       };
     };
 
@@ -106,13 +83,6 @@ in
 
           ui = {
             DEFAULT_THEME = "catppuccin-mocha-pink";
-            THEMES = builtins.concatStringsSep "," (
-              [ "auto,forgejo-auto,forgejo-dark,forgejo-light,arc-gree,gitea" ]
-              ++ (map (name: removePrefix "theme-" (removeSuffix ".css" name)) (
-                # IFD, https://github.com/catppuccin/nix/pull/179
-                builtins.attrNames (builtins.readDir theme)
-              ))
-            );
           };
 
           "ui.meta" = {

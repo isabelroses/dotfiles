@@ -85,16 +85,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1739745225,
-        "narHash": "sha256-b/F1VUckXuZmvXjNPIdOFRSBR9gMIrKLG/r0xZ1uFBY=",
-        "owner": "catppuccin",
-        "repo": "nix",
-        "rev": "b7a9a2d0b6c2d2a01d6e2685bd91bf543dce3b91",
+        "lastModified": 1739823491,
+        "narHash": "sha256-zHAL5RJcWv/fq/3TJp3o+dNVPspxBp3gNy+pZn3MoSk=",
+        "owner": "Lichthagel",
+        "repo": "catppuccin-nix",
+        "rev": "0f15aaf2081bca1be2fd3ef7ba39e5275e65a0c0",
         "type": "github"
       },
       "original": {
-        "owner": "catppuccin",
-        "repo": "nix",
+        "owner": "Lichthagel",
+        "ref": "feat/gitea-forgejo",
+        "repo": "catppuccin-nix",
         "type": "github"
       }
     },

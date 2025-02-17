@@ -163,8 +163,9 @@
     # declarative theme management
     catppuccin = {
       type = "github";
-      owner = "catppuccin";
-      repo = "nix";
+      owner = "Lichthagel";
+      repo = "catppuccin-nix";
+      ref = "feat/gitea-forgejo";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
