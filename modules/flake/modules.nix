@@ -26,6 +26,12 @@ in
         ];
       };
 
+      akkoma-no-ifd = mkModule {
+        name = "akkoma-no-ifd";
+        class = "nixos";
+        modules = [ (self + /modules/extra/nixos/akkoma-no-ifd.nix) ];
+      };
+
       # i do not provide a default module, so throw an error
       default = throw "There is no default module.";
     };
@@ -43,6 +49,11 @@ in
     };
 
     homeManagerModules = {
+      garden = mkModule {
+        class = "homeManager";
+        modules = [ (self + /modules/home/default.nix) ];
+      };
+
       gtklock = mkModule {
         name = "gtklock";
         class = "homeManager";
@@ -53,11 +64,6 @@ in
         name = "gtklock";
         class = "homeManager";
         modules = [ (self + /modules/extra/home-manager/hyfetch.nix) ];
-      };
-
-      garden = mkModule {
-        class = "homeManager";
-        modules = [ (self + /modules/home/default.nix) ];
       };
 
       default = throw "There is no default module.";
