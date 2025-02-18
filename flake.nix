@@ -50,8 +50,9 @@
     # manage userspace with nix
     home-manager = {
       type = "github";
-      owner = "nix-community";
+      owner = "isabelroses";
       repo = "home-manager";
+      ref = "pointer-cursor-modernize";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
