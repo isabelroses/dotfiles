@@ -19,9 +19,8 @@ jobs:
         include:
           - os: ubuntu-latest
             system: x86_64-linux
-          # checks currently fail on darwin
-          # - os: macos-latest
-          #   system: aarch64-darwin
+          - os: macos-latest
+            system: aarch64-darwin
 
     steps:
       - name: Checkout

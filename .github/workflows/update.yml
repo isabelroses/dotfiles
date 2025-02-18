@@ -42,9 +42,8 @@ jobs:
         include:
           - os: ubuntu-latest
             system: x86_64-linux
-          # macos works but due to IFD fails
-          # - os: macos-latest
-          #   system: aarch64-darwin
+          - os: macos-latest
+            system: aarch64-darwin
 
     steps:
       - name: Checkout
