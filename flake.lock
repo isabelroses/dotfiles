@@ -314,11 +314,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1739704474,
-        "narHash": "sha256-tAqoWJHm5BruhxIqkrnQZTJUSHr9yK6Vn3suJEDCMiI=",
+        "lastModified": 1739918652,
+        "narHash": "sha256-CNaAIoW7D3UgEMDe6M9bcDJxZaQIWQXUi7L3BW86F9o=",
         "owner": "comfysage",
         "repo": "ivy",
-        "rev": "bee80249096961414c554fc96b12fa3e434c33df",
+        "rev": "821080270bf6d6bffb9174dba278b048f2a447e2",
         "type": "github"
       },
       "original": {
