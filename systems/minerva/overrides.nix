@@ -20,8 +20,6 @@ in
     };
     systemd.services.qemu-guest-agent.path = [ pkgs.shadow ];
 
-    system.stateVersion = mkForce "23.11";
-
     boot = {
       growPartition = !config.boot.initrd.systemd.enable;
       kernelParams = [ "net.ifnames=0" ];

@@ -43,8 +43,7 @@ in
         (self + /modules/home/default.nix)
 
         {
-          home.stateVersion =
-            if pkgs.stdenv.hostPlatform.isDarwin then "23.11" else config.system.stateVersion;
+          home.stateVersion = config.garden.system.stateVersion;
 
           # reload system units when changing configs
           systemd.user.startServices = mkDefault "sd-switch"; # or "legacy" if "sd-switch" breaks again

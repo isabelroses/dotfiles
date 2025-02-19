@@ -40,6 +40,7 @@ in
 
       config = {
         ":pleroma"."Pleroma.Web.Endpoint".url.host = cfg.domain;
+        ":pleroma"."Pleroma.Upload".base_url = "https://${cfg.domain}:443/media";
 
         ":pleroma".":instance" = {
           name = "not localhost";
