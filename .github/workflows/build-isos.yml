@@ -29,8 +29,6 @@ jobs:
 
       - name: Install Lix
         uses: ./.github/actions/install-lix
-        with:
-          system: x86_64-linux
 
       - name: Build Lilith Iso
         continue-on-error: false

@@ -18,8 +18,6 @@ jobs:
 
       - name: Install Lix
         uses: ./.github/actions/install-lix
-        with:
-          system: x86_64-linux
 
       - name: Build Linux packages
         run: nix build -L .#docs

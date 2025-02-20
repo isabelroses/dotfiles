@@ -1,18 +1,13 @@
 name: Install Lix
 description: "Install Lix for the specified system"
 
-inputs:
-  system:
-    required: true
-    description: "The system to install Lix for"
-
 runs:
   using: composite
 
   steps:
     - uses: DeterminateSystems/nix-installer-action@main
       with:
-        source-url: https://install.lix.systems/lix/lix-installer-${{ inputs.system }}
+        source-url: 'https://install.lix.systems/lix/lix-installer-${{ fromJSON(''{"X64":"x86_64","X86":"i686","ARM64":"aarch64","ARM":"armv7l"}'')[runner.arch] }}-${{ fromJSON(''{"Linux":"linux","macOS":"darwin","Windows":"windows"}'')[runner.os] }}'
         logger: pretty
         diagnostic-endpoint: ""
         extra-conf: |

@@ -18,8 +18,6 @@ jobs:
 
       - name: Install Lix
         uses: ./.github/actions/install-lix
-        with:
-          system: x86_64-linux
 
       - name: Update Lockfile
         run: nix flake update
@@ -53,8 +51,6 @@ jobs:
 
       - name: Check Flake
         uses: ./.github/actions/check
-        with:
-          system: ${{ matrix.system }}
 
   merge:
     name: Merge Pull Request

@@ -28,5 +28,3 @@ jobs:
 
       - name: Check Flake
         uses: ./.github/actions/check
-        with:
-          system: ${{ matrix.system }}

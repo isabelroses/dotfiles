@@ -37,8 +37,6 @@ jobs:
 
       - name: Install Lix
         uses: ./.github/actions/install-lix
-        with:
-          system: ${{ matrix.system }}
 
       - name: Setup cachix
         uses: cachix/cachix-action@v15
