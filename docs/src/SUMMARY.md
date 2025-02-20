@@ -9,13 +9,13 @@
 
 # Guides
 
-- [installation](config/installation.md)
-- [shortcuts](config/shortcuts.md)
-- [templates](config/templates.md)
-- [adding systems](config/adding-systems.md)
-- [adding users](config/adding-users.md)
-- [adding packages](config/adding-packages.md)
-- [uninstalling](config/uninstalling.md)
+- [installation](guides/installation.md)
+- [shortcuts](guides/shortcuts.md)
+- [templates](guides/templates.md)
+- [adding systems](guides/adding-systems.md)
+- [adding users](guides/adding-users.md)
+- [adding packages](guides/adding-packages.md)
+- [uninstalling](guides/uninstalling.md)
 
 # Further Reading
 
