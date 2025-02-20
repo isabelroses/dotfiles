@@ -3,6 +3,9 @@
 # you may want to not have to build this for yourself however
 { inputs, ... }:
 {
+  # get a list of packages for the host system, and if none exist use an empty set
+  flake.overlays.default = _: prev: import ./pkgs { pkgs = prev; };
+
   perSystem =
     {
       pkgs,
@@ -15,16 +18,16 @@
     in
     {
       packages = {
-        inherit (callPackage ./pkgs/scripts/package.nix { })
+        inherit (callPackage ./scripts/package.nix { })
           preview
           icat
           extract
           scripts
           ;
 
-        lix = callPackage ./pkgs/lix/package.nix { inherit inputs' inputs; };
-        docs = callPackage ./pkgs/docs.nix { inherit (inputs) self; };
-        installer = callPackage ./pkgs/installer/package.nix { nix = self'.packages.lix; };
+        lix = callPackage ./lix/package.nix { inherit inputs' inputs; };
+        docs = callPackage ./docs.nix { inherit (inputs) self; };
+        installer = callPackage ./installer/package.nix { nix = self'.packages.lix; };
       };
     };
 }

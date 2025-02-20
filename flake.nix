@@ -11,7 +11,6 @@
       owner = "NixOS";
       repo = "nixpkgs";
       ref = "nixpkgs-unstable";
-      # ref = "1da52dd49a127ad74486b135898da2cef8c62665";
     };
 
     # lix a good fork of nix

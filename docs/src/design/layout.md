@@ -17,10 +17,11 @@
   - [extra](https://github.com/isabelroses/dotfiles/tree/main/modules/extra/) Extra configuration modules, for home-manager and Nix Darwin and NixOS
   - [home](https://github/isabelroses/dotfiles/tree/main/modules/home/) Modules for home-manager
   - [flake](https://github.com/isabelroses/dotfiles/tree/main/modules/falake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
+    - ✅ [checks](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/checks/) Checks for the flake
     - 📚 [lib](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/lib/) Useful repeated functions
-    - 🛠️ [templates](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/templates/) Templates for setting up development environments
-    - 👾 [modules](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/modules.nix) Exported modules for NixOS, home-manager and Nix Darwin
     - 📦 [packages](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/packages.nix) Packages that are not available in the official Nixpkgs
+    - 👾 [modules](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/modules.nix) Exported modules for NixOS, home-manager and Nix Darwin
+    - 💾 [programs](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/programs) Additional flake-modules to configure
   - [profiles](https://github.com/isabelroses/dotfiles/tree/main/modules/profiles/) Pre-made profiles for different system types
     - [desktop](https://github.com/isabelroses/dotfiles/tree/main/modules/profiles/desktop/) A profile for desktop systems
     - [graphical](https://github.com/isabelroses/dotfiles/tree/main/modules/profiles/graphical/) A profile for graphical systems

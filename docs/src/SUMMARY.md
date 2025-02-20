@@ -2,10 +2,14 @@
 
 [Introduction](README.md)
 
-# Config
+# Design
+
+- [layout](design/layout.md)
+- [modules](./design/modules.md)
+
+# Guides
 
 - [installation](config/installation.md)
-- [layout](config/layout.md)
 - [shortcuts](config/shortcuts.md)
 - [templates](config/templates.md)
 - [adding systems](config/adding-systems.md)
