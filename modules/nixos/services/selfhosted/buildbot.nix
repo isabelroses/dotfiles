@@ -28,6 +28,7 @@ in
       buildbot-workers = mkSecret { file = "buildbot/workers"; };
       # buildbot-gh-webhook-secret = mkSecret { file = "buildbot/gh-webhook-secret"; };
       buildbot-gh-private-key = mkSecret { file = "buildbot/gh-private-key"; };
+      buildbot-gh-oauth = mkSecret { file = "buildbot/gh-oauth"; };
     };
 
     services.buildbot-nix = {
@@ -50,6 +51,8 @@ in
             id = 1153859;
             secretKeyFile = secrets.buildbot-gh-private-key.path;
           };
+          oauthId = "Iv23liSeLy6J7IS9awg1";
+          oauthSecretFile = secrets.buildbot-gh-oauth.path;
         };
       };
 

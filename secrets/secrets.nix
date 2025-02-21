@@ -95,6 +95,7 @@ in
   "buildbot/worker.age" = defAccessIsabel types.servers;
   "buildbot/workers.age" = defAccessIsabel types.servers;
   "buildbot/gh-private-key.age" = defAccessIsabel types.servers;
+  "buildbot/gh-oauth.age" = defAccessIsabel types.servers;
 
   # attic
   "attic/env.age" = defAccessIsabel types.servers;
