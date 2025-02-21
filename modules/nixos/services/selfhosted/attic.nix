@@ -38,13 +38,13 @@ in
           garbage-collection.interval = "0";
         };
       };
-    };
 
-    nginx.virtualHosts.${cfg.domain} = {
-      locations."/" = {
-        proxyPass = "http://${cfg.host}:${toString cfg.port}";
-      };
-    } // template.ssl rdomain;
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/" = {
+          proxyPass = "http://${cfg.host}:${toString cfg.port}";
+        };
+      } // template.ssl rdomain;
+    };
 
     # Add netrc file for this machine to do its normal thing with the cache, as a machine.
     # nix.settings.netrc-file = config.age.secrets."attic/netrc-file-pull-push".path;
