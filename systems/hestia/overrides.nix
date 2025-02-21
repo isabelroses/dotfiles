@@ -38,15 +38,19 @@ in
         kernelModules = [ "nvme" ];
       };
 
-      loader.grub = {
-        enable = true;
-        useOSProber = mkForce false;
-        efiSupport = mkForce false;
-        enableCryptodisk = false;
-        theme = mkForce null;
-        backgroundColor = mkForce null;
-        splashImage = mkForce null;
-        device = mkForce "/dev/sda";
+      loader = {
+        generationsDir.copyKernels = mkForce false;
+
+        grub = {
+          enable = true;
+          useOSProber = mkForce false;
+          efiSupport = mkForce false;
+          enableCryptodisk = false;
+          theme = mkForce null;
+          backgroundColor = mkForce null;
+          splashImage = mkForce null;
+          device = mkForce "/dev/sda";
+        };
       };
     };
   };
