@@ -150,6 +150,20 @@
       };
     };
 
+    # build bot for nix
+    buildbot-nix = {
+      type = "github";
+      owner = "nix-community";
+      repo = "buildbot-nix";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "";
+        hercules-ci-effects.follows = "";
+      };
+    };
+
     # a tree-wide formatter
     treefmt-nix = {
       type = "github";

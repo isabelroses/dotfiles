@@ -32,6 +32,10 @@
     ./headscale.nix
     ./nginx.nix
 
+    # nix builds
+    ./attic.nix
+    ./buildbot.nix
+
     # misc
     ./blahaj.nix
     ./kanidm.nix

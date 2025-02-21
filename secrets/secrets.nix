@@ -91,6 +91,14 @@ in
   "cloudflare/hydra.age" = defAccessIsabel types.servers;
   "cloudflare/cert-api.age" = defAccessIsabel types.servers;
 
+  # buildbot
+  "buildbot/worker.age" = defAccessIsabel types.servers;
+  "buildbot/workers.age" = defAccessIsabel types.servers;
+  "buildbot/gh-private-key.age" = defAccessIsabel types.servers;
+
+  # attic
+  "attic/env.age" = defAccessIsabel types.servers;
+
   # mailserver
   "mailserver/isabel.age" = defAccessIsabel types.servers;
   "mailserver/robin.age" = defAccessAll types.servers;
