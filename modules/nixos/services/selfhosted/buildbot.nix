@@ -58,7 +58,7 @@ in
 
       worker = {
         enable = true;
-        masterUrl = cfg.domain;
+        # masterUrl = cfg.domain;
         workerPasswordFile = secrets.buildbot-worker.path;
       };
     };
