@@ -16,8 +16,8 @@ let
   cfg = config.garden.services.akkoma;
 in
 {
-  disabledModules = [ "services/web-apps/akkoma.nix" ];
-  imports = [ self.nixosModules.akkoma-no-ifd ];
+  # disabledModules = [ "services/web-apps/akkoma.nix" ];
+  # imports = [ self.nixosModules.akkoma-no-ifd ];
 
   options.garden.services.akkoma = mkServiceOption "akkoma" { domain = "akko.${rdomain}"; };
 

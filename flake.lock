@@ -90,15 +90,16 @@
         "treefmt-nix": []
       },
       "locked": {
-        "lastModified": 1739456434,
-        "narHash": "sha256-uJAPcqNplLPM0L6vzZCkghyU6vLQzZm+zOzDODq/pY8=",
-        "owner": "nix-community",
+        "lastModified": 1740173525,
+        "narHash": "sha256-u6TN9G8yfNaGWHXjmx6yDDQ/RBTbZt1Ry+rW4z8Lm84=",
+        "owner": "isabelroses",
         "repo": "buildbot-nix",
-        "rev": "dfa7ed3c4e3b300b6e8bd02ffda6cbc6aa2b2817",
+        "rev": "1076bdafbe60718cb20e8323737ca98741c93f0f",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "isabelroses",
+        "ref": "meow",
         "repo": "buildbot-nix",
         "type": "github"
       }

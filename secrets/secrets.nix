@@ -95,9 +95,12 @@ in
   "buildbot/worker.age" = defAccessIsabel types.servers;
   "buildbot/workers.age" = defAccessIsabel types.servers;
   "buildbot/gh-private-key.age" = defAccessIsabel types.servers;
+  "buildbot/gh-webhook-secret.age" = defAccessIsabel types.servers;
+  "buildbot/gh-oauth.age" = defAccessIsabel types.servers;
 
   # attic
   "attic/env.age" = defAccessIsabel types.servers;
+  "attic/prod-auth-token.age" = defAccessIsabel types.servers;
 
   # mailserver
   "mailserver/isabel.age" = defAccessIsabel types.servers;

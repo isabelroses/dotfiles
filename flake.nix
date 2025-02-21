@@ -153,8 +153,9 @@
     # build bot for nix
     buildbot-nix = {
       type = "github";
-      owner = "nix-community";
+      owner = "isabelroses";
       repo = "buildbot-nix";
+      ref = "meow";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";

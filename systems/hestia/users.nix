@@ -17,6 +17,7 @@
       tui.enable = false;
       gui.enable = false;
 
+      git.enable = true;
       git.signingKey = "7F2F6BD6997FCDF7";
     };
   };
