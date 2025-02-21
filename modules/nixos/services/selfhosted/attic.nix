@@ -35,7 +35,7 @@ in
             endpoint = "https://604a41ff5d2574939efbb1c55bac090e.eu.r2.cloudflarestorage.com/meower";
           };
 
-          garbage-collection.interval = "0";
+          garbage-collection.interval = "0 hours";
         };
       };
 
