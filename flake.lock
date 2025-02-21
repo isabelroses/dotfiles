@@ -84,21 +84,20 @@
           "flake-parts"
         ],
         "hercules-ci-effects": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
+        "nixpkgs": "nixpkgs",
         "treefmt-nix": []
       },
       "locked": {
-        "lastModified": 1739456434,
-        "narHash": "sha256-uJAPcqNplLPM0L6vzZCkghyU6vLQzZm+zOzDODq/pY8=",
-        "owner": "nix-community",
+        "lastModified": 1740173525,
+        "narHash": "sha256-u6TN9G8yfNaGWHXjmx6yDDQ/RBTbZt1Ry+rW4z8Lm84=",
+        "owner": "isabelroses",
         "repo": "buildbot-nix",
-        "rev": "dfa7ed3c4e3b300b6e8bd02ffda6cbc6aa2b2817",
+        "rev": "1076bdafbe60718cb20e8323737ca98741c93f0f",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "isabelroses",
+        "ref": "meow",
         "repo": "buildbot-nix",
         "type": "github"
       }
@@ -500,18 +499,19 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1740019556,
-        "narHash": "sha256-vn285HxnnlHLWnv59Og7muqECNMS33mWLM14soFIv2g=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "dad564433178067be1fbdfcce23b546254b6d641",
-        "type": "github"
+        "lastModified": 1740134682,
+        "narHash": "sha256-snNnw6yHaP9wW8oZVp5iteYp2DhiJg2SSbvJ9KGeTJA=",
+        "ref": "nixos-unstable-small",
+        "rev": "4182af4269c07858876a9bc21de4298dbc6ce324",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/NixOS/nixpkgs"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "ref": "nixos-unstable-small",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/NixOS/nixpkgs"
       }
     },
     "nixpkgs-regression": {
@@ -527,6 +527,22 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "215d4d0fd80ca5163643b03a33fde804a29cc1e2",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1740019556,
+        "narHash": "sha256-vn285HxnnlHLWnv59Og7muqECNMS33mWLM14soFIv2g=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "dad564433178067be1fbdfcce23b546254b6d641",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -549,7 +565,7 @@
         "lanzaboote": "lanzaboote",
         "lix": "lix",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix"

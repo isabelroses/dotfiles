@@ -26,7 +26,7 @@ in
     age.secrets = {
       buildbot-worker = mkSecret { file = "buildbot/worker"; };
       buildbot-workers = mkSecret { file = "buildbot/workers"; };
-      # buildbot-gh-webhook-secret = mkSecret { file = "buildbot/gh-webhook-secret"; };
+      buildbot-gh-webhook-secret = mkSecret { file = "buildbot/gh-webhook-secret"; };
       buildbot-gh-private-key = mkSecret { file = "buildbot/gh-private-key"; };
       buildbot-gh-oauth = mkSecret { file = "buildbot/gh-oauth"; };
     };
@@ -46,7 +46,7 @@ in
         authBackend = "github";
         github = {
           enable = true;
-          # webhookSecretFile = secrets.buildbot-gh-webhook-secret.path;
+          webhookSecretFile = secrets.buildbot-gh-webhook-secret.path;
           authType.app = {
             id = 1153859;
             secretKeyFile = secrets.buildbot-gh-private-key.path;
