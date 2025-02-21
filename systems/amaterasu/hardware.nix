@@ -1,24 +1,48 @@
 {
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-uuid/f26dd3a6-7750-4e1e-a465-97fa9e9b9cc6";
-      fsType = "ext4";
-    };
+  disko.devices.disk = {
+    main = {
+      type = "disk";
+      device = "/dev/nvme1n1";
+      content = {
+        type = "gpt";
+        partitions = {
+          esp = {
+            label = "esp";
+            start = "1M";
+            end = "128M";
+            type = "EF00";
+            content = {
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
+              mountOptions = [ "umask=0077" ];
+            };
+          };
 
-    "/boot" = {
-      device = "/dev/disk/by-uuid/9AD9-AD9F";
-      fsType = "vfat";
-    };
+          root = {
+            label = "root";
+            start = "128MiB";
+            end = "-8GiB";
+            content = {
+              type = "btrfs";
+              mountpoint = "/";
+              mountOptions = [
+                "compress=zstd"
+                "noatime"
+              ];
+            };
+          };
 
-    "/mnt/windows" = {
-      device = "/dev/disk/by-uuid/01D925D0893A60B0";
-      fsType = "ntfs-3g";
-      options = [
-        "rw"
-        "uid=1000"
-      ];
+          swap = {
+            label = "swap";
+            start = "-8GiB";
+            end = "100%";
+            content = {
+              type = "swap";
+            };
+          };
+        };
+      };
     };
   };
-
-  swapDevices = [ { device = "/dev/disk/by-uuid/da541a24-b4cc-426f-bbb6-4cced93fa4cf"; } ];
 }

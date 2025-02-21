@@ -6,6 +6,7 @@
 }:
 let
   inherit (builtins) elem;
+  inherit (lib.trivial) pipe;
   inherit (lib.lists) optionals;
   inherit (lib.attrsets) filterAttrs mapAttrs';
   inherit (lib.modules) mkForce;
@@ -22,30 +23,23 @@ in
     etc =
       let
         inherit (config.nix) registry;
-        commonPaths = [
-          "self"
-          "nixpkgs"
-          "beapkgs"
-          "home-manager"
-        ];
-
-        flakes =
+        commonPaths =
           [
             "nixpkgs"
-            "beapkgs"
             "home-manager"
           ]
           ++ optionals pkgs.stdenv.hostPlatform.isDarwin [
             "nix-darwin"
           ];
       in
-      registry
-      |> filterAttrs (name: _: elem name flakes)
-      |> mapAttrs' (
-        name: value: {
-          name = "nix/path/${name}";
-          value.source = value.flake;
-        }
-      );
+      pipe registry [
+        (filterAttrs (name: _: (elem name commonPaths)))
+        (mapAttrs' (
+          name: value: {
+            name = "nix/path/${name}";
+            value.source = value.flake;
+          }
+        ))
+      ];
   };
 }

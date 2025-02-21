@@ -178,6 +178,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739841949,
+        "narHash": "sha256-lSOXdgW/1zi/SSu7xp71v+55D5Egz8ACv0STkj7fhbs=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "15dbf8cebd8e2655a883b74547108e089f051bf0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "easy-hosts": {
       "locked": {
         "lastModified": 1739315072,
@@ -513,6 +533,7 @@
         "cosmic": "cosmic",
         "darwin": "darwin",
         "deploy-rs": "deploy-rs",
+        "disko": "disko",
         "easy-hosts": "easy-hosts",
         "evergarden": "evergarden",
         "flake-parts": "flake-parts",
