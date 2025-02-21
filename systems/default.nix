@@ -82,6 +82,14 @@ in
         ];
       };
 
+      hestia = {
+        deployable = true;
+        modules = [
+          server
+          headless
+        ];
+      };
+
       lilith = {
         class = "iso";
         modules = [ headless ];

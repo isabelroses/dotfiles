@@ -6,14 +6,16 @@
   ...
 }:
 let
+  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
 
   cfg = config.garden.services.attic;
+  rdomain = config.networking.domain;
 in
 {
-  options.garden.services.attic = mkServiceOption "attic" { domain = "cache.tgirl.cloud"; };
+  options.garden.services.attic = mkServiceOption "attic" { domain = "cache.${rdomain}"; };
 
   config = mkIf config.garden.services.attic.enable {
     age.secrets.attic-env = mkSecret { file = "attic/env"; };
@@ -42,7 +44,7 @@ in
       locations."/" = {
         proxyPass = "http://${cfg.host}:${toString cfg.port}";
       };
-    };
+    } // template.ssl rdomain;
 
     # Add netrc file for this machine to do its normal thing with the cache, as a machine.
     # nix.settings.netrc-file = config.age.secrets."attic/netrc-file-pull-push".path;

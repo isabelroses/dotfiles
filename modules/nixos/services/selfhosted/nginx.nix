@@ -26,7 +26,7 @@ in
 
     security.acme = {
       acceptTerms = true;
-      defaults.email = "isabel@${cfg.domain}";
+      defaults.email = "isabel@isabelroses.com";
 
       certs.${cfg.domain} = {
         extraDomainNames = [ "*.${cfg.domain}" ];
