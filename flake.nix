@@ -158,6 +158,7 @@
       ref = "meow";
 
       inputs = {
+        nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         treefmt-nix.follows = "";
         hercules-ci-effects.follows = "";
