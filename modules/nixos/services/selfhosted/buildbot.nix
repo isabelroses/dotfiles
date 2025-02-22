@@ -47,6 +47,11 @@ in
           admins = [ "isabelroses" ];
           workersFile = secrets.buildbot-workers.path;
 
+          pullBased.repositories.infra = {
+            url = "https://github.com/isabelroses/dotfiles.git";
+            defaultBranch = "main";
+          };
+
           authBackend = "github";
           github = {
             enable = true;
