@@ -42,8 +42,13 @@ in
       init.defaultBranch = "main";
       repack.usedeltabaseoffset = "true";
       color.ui = "auto";
-      diff.algorithm = "histogram"; # a much better diff
       help.autocorrect = 10; # 1 second warning to a typo'd command
+
+      diff = {
+        algorithm = "histogram"; # a much better diff
+        colorMoved = "plain"; # show moved lines in a different color
+        mnemonicprefix = true;
+      };
 
       core.whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";
 
@@ -90,8 +95,6 @@ in
         enabled = true;
         autoupdate = true;
       };
-
-      diff.mnemonicprefix = true;
 
       # prevent data corruption
       transfer.fsckObjects = true;
