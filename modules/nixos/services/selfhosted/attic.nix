@@ -18,12 +18,16 @@ in
 {
   options.garden.services.attic = mkServiceOption "attic" {
     domain = "cache.${rdomain}";
+    host = "[::]";
     port = 8080;
   };
 
   config = mkIf config.garden.services.attic.enable {
     age.secrets = {
-      attic-env = mkSecret { file = "attic/env"; };
+      attic-env = mkSecret {
+        file = "attic/env";
+        owner = "atticd";
+      };
       attic-prod-auth-token = mkSecret { file = "attic/prod-auth-token"; };
     };
 
@@ -39,7 +43,19 @@ in
             bucket = "meower";
             type = "s3";
             region = "auto";
-            endpoint = "https://604a41ff5d2574939efbb1c55bac090e.eu.r2.cloudflarestorage.com/meower";
+            endpoint = "https://604a41ff5d2574939efbb1c55bac090e.r2.cloudflarestorage.com";
+          };
+
+          chunking = {
+            nar-size-threshold = 65536;
+            min-size = 16384;
+            avg-size = 65536;
+            max-size = 262144;
+          };
+
+          compression = {
+            type = "zstd";
+            level = 12;
           };
 
           garbage-collection.interval = "8 hours";

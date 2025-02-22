@@ -1,9 +1,5 @@
 { inputs', inputs }:
 (inputs'.lix.packages.default.override {
-  # sometimes this builds from source and i hate it
-  # plus i don't use the features it provides so lets just disable it
-  aws-sdk-cpp = null;
-
   versionSuffix = "${inputs.lix.shortRev}-isabelroses";
 }).overrideAttrs
   (oa: {

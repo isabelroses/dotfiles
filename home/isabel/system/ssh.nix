@@ -56,6 +56,7 @@ in
 
       # hetzner cloud vps
       "minerva".hostname = "91.107.198.173";
+      "hestia".hostname = "116.203.57.153";
 
       # my local servers / clients
       "hydra".hostname = "192.168.86.3";
