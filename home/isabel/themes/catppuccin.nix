@@ -8,10 +8,9 @@
 }:
 let
   inherit (self.lib.validators) isAcceptedDevice;
-  nonAccepted = [
-    "server"
-    "wsl"
-  ];
+  nonAccepted = [ "server" ];
+
+  isGui = pkgs.stdenv.hostPlatform.isLinux && config.garden.programs.gui.enable;
 in
 {
   imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
@@ -23,13 +22,13 @@ in
       accent = "pink";
 
       cursors = {
-        enable = pkgs.stdenv.hostPlatform.isLinux && config.garden.programs.gui.enable;
+        enable = isGui;
         accent = "dark";
       };
 
       gtk = {
-        enable = true;
-        icon.enable = true;
+        enable = isGui;
+        icon.enable = isGui;
       };
 
       # I don't even use the colors from the port
