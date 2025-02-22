@@ -63,6 +63,7 @@ in
 
             # occasionally generate this with
             # nix-your-shell nu | save $env.XDG_CONFIG_HOME/nushell/nix-your-shell.nu
+            # TODO: https://github.com/NixOS/nixpkgs/pull/383164
             source nix-your-shell.nu
 
             $env.config = {

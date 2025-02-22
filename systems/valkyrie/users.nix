@@ -16,11 +16,11 @@
       tui.enable = true;
       gui.enable = false;
 
-      defaults.shell = "nushell";
+      defaults.shell = "fish";
 
       git.signingKey = "3E7C7A1B5DEDBB03";
       fish.enable = true;
-      nushell.enable = true;
+      nushell.enable = false;
     };
   };
 }
