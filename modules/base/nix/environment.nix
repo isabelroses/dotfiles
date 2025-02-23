@@ -26,6 +26,7 @@ in
         commonPaths =
           [
             "nixpkgs"
+            "beapkgs"
             "home-manager"
           ]
           ++ optionals pkgs.stdenv.hostPlatform.isDarwin [

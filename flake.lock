@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740271544,
-        "narHash": "sha256-9fI3y2Pz4YVVu9XLHXHAjCYtp9j46xc3ZD1g39k48ZE=",
+        "lastModified": 1740344388,
+        "narHash": "sha256-EasQ0cXrecKUzPVtlpT9oAEVGrHVIWoZfYOkO0YjPcM=",
         "owner": "tgirlcloud",
         "repo": "beapkgs",
-        "rev": "6dbc95034a35b076188a1fcb6f2f7f0a0be058ba",
+        "rev": "b99705ff18aa47d59c1e513d955deb2e82996b24",
         "type": "github"
       },
       "original": {
