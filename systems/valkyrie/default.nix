@@ -44,6 +44,7 @@
         optimizeTcp = true;
       };
 
+      emulation.enable = true;
       virtualization = {
         enable = false;
         docker.enable = false;
