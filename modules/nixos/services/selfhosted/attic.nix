@@ -23,12 +23,9 @@ in
   };
 
   config = mkIf config.garden.services.attic.enable {
-    age.secrets = {
-      attic-env = mkSecret {
-        file = "attic/env";
-        owner = "atticd";
-      };
-      attic-prod-auth-token = mkSecret { file = "attic/prod-auth-token"; };
+    age.secrets.attic-env = mkSecret {
+      file = "attic/env";
+      owner = "atticd";
     };
 
     services = {
@@ -70,30 +67,6 @@ in
           '';
         };
       } // template.ssl rdomain;
-    };
-
-    # Add netrc file for this machine to do its normal thing with the cache, as a machine.
-    # nix.settings.netrc-file = config.age.secrets."attic/netrc-file-pull-push".path;
-
-    systemd.services.attic-watch-store = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      environment.HOME = "/var/lib/attic-watch-store";
-      serviceConfig = {
-        DynamicUser = true;
-        MemoryHigh = "5%";
-        MemoryMax = "10%";
-        LoadCredential = "prod-auth-token:${config.age.secrets.attic-prod-auth-token.path}";
-        StateDirectory = "attic-watch-store";
-      };
-      path = [ pkgs.attic-client ];
-      script = ''
-        set -eux -o pipefail
-        ATTIC_TOKEN=$(< $CREDENTIALS_DIRECTORY/prod-auth-token)
-        attic login prod https://${cfg.domain} $ATTIC_TOKEN
-        attic use prod
-        exec attic watch-store prod:prod
-      '';
     };
   };
 }

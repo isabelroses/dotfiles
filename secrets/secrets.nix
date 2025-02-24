@@ -101,6 +101,7 @@ in
   # attic
   "attic/env.age" = defAccessIsabel types.servers;
   "attic/prod-auth-token.age" = defAccessIsabel types.servers;
+  "attic/netrc.age" = defAccessIsabel types.servers;
 
   # mailserver
   "mailserver/isabel.age" = defAccessIsabel types.servers;
