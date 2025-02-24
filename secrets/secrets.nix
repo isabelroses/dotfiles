@@ -5,12 +5,24 @@ let
   };
 
   hosts = {
-    hydra = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKMJroewVs8Iyf+/Ofk6q36D1OzVW0b04yyS3IVwNmCb";
-      owner = "isabel";
-    };
     amaterasu = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILNvBuKUksco5TldoEMthQcvr6TOh9Aun93kYUAq22gE";
+      owner = "isabel";
+    };
+    # bmo = {
+    #   key = "";
+    #   owner = "robin";
+    # };
+    # cottage = {
+    #   key = "";
+    #   owner = "robin";
+    # };
+    hestia = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAk/dwdE6u2VIkQGLSi2zvxQbE4NqrsDw34sAZi6Ft9f";
+      owner = "isabel";
+    };
+    hydra = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKMJroewVs8Iyf+/Ofk6q36D1OzVW0b04yyS3IVwNmCb";
       owner = "isabel";
     };
     minerva = {
@@ -25,12 +37,6 @@ let
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOe51NV6Eyg2mKO/uCzFbmuoV4uVS/qfGVrmPT1ixuNA";
       owner = "isabel";
     };
-
-    # robin's hosts
-    cottage = {
-      key = "";
-      owner = "robin";
-    };
     wisp = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7cduddxQbnFeBWjt9L6Uml5mjnfEOxZqd4LoyRDTmg";
       owner = "robin";
@@ -38,13 +44,17 @@ let
   };
 
   types = with hosts; {
-    servers = [ minerva ];
+    servers = [
+      hestia
+      minerva
+    ];
     workstations = [
       amaterasu
+      # bmo
+      # cottage
       tatsumaki
       valkyrie
       wisp
-      cottage
     ];
     hybrid = [ hydra ];
   };
