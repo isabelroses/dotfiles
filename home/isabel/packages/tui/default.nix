@@ -31,7 +31,7 @@ in
           # gum # a nicer scripting
           ;
 
-        inherit (inputs'.beapkgs.packages) zzz; # code snippets in the cli
+        inherit (inputs'.tgirlpkgs.packages) zzz; # code snippets in the cli
       }
       // optionalAttrs cfg.gui.enable {
         inherit (pkgs) manga-tui; # tui manga finder + reader

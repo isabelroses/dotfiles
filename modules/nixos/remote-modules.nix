@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.beapkgs.nixosModules.default
+    inputs.tgirlpkgs.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
   ];
 }

@@ -11,7 +11,7 @@ in
 {
   programs.nh = {
     enable = true;
-    package = inputs'.beapkgs.packages.nh;
+    package = inputs'.tgirlpkgs.packages.nh;
 
     clean = {
       enable = !config.nix.gc.automatic;

@@ -12,7 +12,7 @@ in
   options.garden.programs = {
     wezterm = mkProgram pkgs "wezterm" {
       enable.default = config.garden.programs.gui.enable;
-      package.default = inputs'.beapkgs.packages.wezterm;
+      package.default = inputs'.tgirlpkgs.packages.wezterm;
     };
 
     ghostty = mkProgram pkgs "ghostty" { };

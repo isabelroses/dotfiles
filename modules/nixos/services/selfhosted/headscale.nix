@@ -74,7 +74,7 @@ in
         };
 
         locations."/web" = {
-          root = "${inputs'.beapkgs.packages.headscale-ui}/share";
+          root = "${inputs'.tgirlpkgs.packages.headscale-ui}/share";
         };
       } // template.ssl rdomain;
     };

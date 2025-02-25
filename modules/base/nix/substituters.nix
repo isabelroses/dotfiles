@@ -1,5 +1,5 @@
 {
-  beapkgs.cache.enable = true;
+  tgirlpkgs.cache.enable = true;
 
   # substituters to use
   nix.settings = {

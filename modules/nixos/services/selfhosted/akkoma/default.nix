@@ -35,7 +35,7 @@ in
         };
 
         "emoji/blobs" = pkgs.akkoma-emoji.blobs_gg;
-        "emoji/awesome" = inputs'.beapkgs.packages.emojis;
+        "emoji/awesome" = inputs'.tgirlpkgs.packages.emojis;
       };
 
       config = {

@@ -39,7 +39,7 @@ in
           User = "blahaj";
           Group = "blahaj";
           EnvironmentFile = config.age.secrets.blahaj-env.path;
-          ExecStart = getExe inputs'.beapkgs.packages.blahaj;
+          ExecStart = getExe inputs'.tgirlpkgs.packages.blahaj;
           Restart = "always";
         } // template.systemd;
       };

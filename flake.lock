@@ -25,68 +25,6 @@
         "type": "github"
       }
     },
-    "beapkgs": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1740444061,
-        "narHash": "sha256-rYcsPNwjdJd76vD1uOyDhCmX6k7FsmcznHgJZD8azGk=",
-        "owner": "tgirlcloud",
-        "repo": "beapkgs",
-        "rev": "60226151d8d6311d3656bcfde85f06d827295e88",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tgirlcloud",
-        "repo": "beapkgs",
-        "type": "github"
-      }
-    },
-    "beapkgs_2": {
-      "inputs": {
-        "nixpkgs": [
-          "ivy",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1740509855,
-        "narHash": "sha256-MF/avgYLs8JCVGvHUD22gzPZOiYoXxZw8aGB3NwK02c=",
-        "owner": "isabelroses",
-        "repo": "beapkgs",
-        "rev": "e1ad308a6272924280f13b9698a775f60250d4db",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "repo": "beapkgs",
-        "type": "github"
-      }
-    },
-    "beapkgs_3": {
-      "inputs": {
-        "nixpkgs": [
-          "izvim",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1740509855,
-        "narHash": "sha256-MF/avgYLs8JCVGvHUD22gzPZOiYoXxZw8aGB3NwK02c=",
-        "owner": "isabelroses",
-        "repo": "beapkgs",
-        "rev": "e1ad308a6272924280f13b9698a775f60250d4db",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "repo": "beapkgs",
-        "type": "github"
-      }
-    },
     "blobs": {
       "flake": false,
       "locked": {
@@ -369,7 +307,6 @@
     },
     "ivy": {
       "inputs": {
-        "beapkgs": "beapkgs_2",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": [
           "nixpkgs"
@@ -379,11 +316,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740389831,
-        "narHash": "sha256-B7uaiIOINZBLqdZBfvFwF90MmLj8oP86wWHJwEy6cUE=",
+        "lastModified": 1740510567,
+        "narHash": "sha256-EI5hkxbcqD3kOQjLHO6yPVqbjg6vn0ZeGCSPqf6XHxM=",
         "owner": "comfysage",
         "repo": "ivy",
-        "rev": "da8428ca9b5f1ed9d6b6c2b9c3a7da6b326a10a7",
+        "rev": "6a9407ebb135b59cbef3081660c0d8fc2d7ec243",
         "type": "github"
       },
       "original": {
@@ -394,7 +331,6 @@
     },
     "izvim": {
       "inputs": {
-        "beapkgs": "beapkgs_3",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -403,11 +339,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740063021,
-        "narHash": "sha256-UyzLCv4qSCjkXaBRmbP6JNWkH6vKwoYqbsX8pPhBcSk=",
+        "lastModified": 1740513393,
+        "narHash": "sha256-9NMUsk2Aj1TDO98761e/x4F56zQ+Psv0QZnHZn7rL9U=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "140fd66b6674a061d304f5186c822ee230d37fae",
+        "rev": "04b35595bc2d8fc6fe5fa7e6f02cc3fa7426f923",
         "type": "github"
       },
       "original": {
@@ -572,7 +508,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "beapkgs": "beapkgs",
         "buildbot-nix": "buildbot-nix",
         "catppuccin": "catppuccin",
         "cosmic": "cosmic",
@@ -591,6 +526,7 @@
         "nixpkgs": "nixpkgs",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems",
+        "tgirlpkgs": "tgirlpkgs",
         "treefmt-nix": "treefmt-nix"
       }
     },
@@ -650,6 +586,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tgirlpkgs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1740520529,
+        "narHash": "sha256-HBad5WQebHLcPpoaYaD6zBwX2bhOWHPk8E59a2nFpXo=",
+        "owner": "tgirlcloud",
+        "repo": "pkgs",
+        "rev": "13b177363191d5700d327c1ccd68fc38af8f9a3b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tgirlcloud",
+        "repo": "pkgs",
         "type": "github"
       }
     },

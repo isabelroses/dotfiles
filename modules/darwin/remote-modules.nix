@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.beapkgs.darwinModules.default
+    inputs.tgirlpkgs.darwinModules.default
     inputs.home-manager.darwinModules.home-manager
   ];
 }

@@ -16,7 +16,7 @@ let
   cfg = config.garden.services.isabelroses-website;
 
   serve = "/srv/storage/isabelroses.com";
-  package = inputs'.beapkgs.packages.isabelroses-website;
+  package = inputs'.tgirlpkgs.packages.isabelroses-website;
 in
 {
   options.garden.services.isabelroses-website = mkServiceOption "isabelroses-website" {

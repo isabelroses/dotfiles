@@ -17,7 +17,7 @@ in
 
   programs.hyfetch = mkIf (isModernShell config) {
     enable = true;
-    package = inputs'.beapkgs.packages.hyfetch;
+    package = inputs'.tgirlpkgs.packages.hyfetch;
 
     settings = {
       preset = "lesbian";

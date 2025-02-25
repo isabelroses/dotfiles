@@ -10,7 +10,7 @@ in
 {
   options.garden.programs = {
     chromium = mkProgram pkgs "chromium" {
-      package.default = inputs'.beapkgs.packages.thorium;
+      package.default = inputs'.tgirlpkgs.packages.thorium;
     };
 
     firefox = mkProgram pkgs "firefox" {

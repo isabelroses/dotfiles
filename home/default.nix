@@ -38,7 +38,7 @@ in
 
       # we should define grauntied common modules here
       sharedModules = [
-        inputs.beapkgs.homeManagerModules.default
+        inputs.tgirlpkgs.homeManagerModules.default
 
         (self + /modules/home/default.nix)
 

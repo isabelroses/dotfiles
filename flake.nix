@@ -190,13 +190,10 @@
     };
 
     ### my programs
-    beapkgs = {
+    tgirlpkgs = {
       type = "github";
       owner = "tgirlcloud";
-      repo = "beapkgs";
-
-      # url = "git+file:/home/isabel/dev/tgirlcloud/beapkgs";
-
+      repo = "pkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
