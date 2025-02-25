@@ -208,7 +208,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
-        beapkgs.follows = "beapkgs";
       };
     };
 
@@ -220,7 +219,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
-        beapkgs.follows = "beapkgs";
       };
     };
 

@@ -45,6 +45,48 @@
         "type": "github"
       }
     },
+    "beapkgs_2": {
+      "inputs": {
+        "nixpkgs": [
+          "ivy",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1740509855,
+        "narHash": "sha256-MF/avgYLs8JCVGvHUD22gzPZOiYoXxZw8aGB3NwK02c=",
+        "owner": "isabelroses",
+        "repo": "beapkgs",
+        "rev": "e1ad308a6272924280f13b9698a775f60250d4db",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "repo": "beapkgs",
+        "type": "github"
+      }
+    },
+    "beapkgs_3": {
+      "inputs": {
+        "nixpkgs": [
+          "izvim",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1740509855,
+        "narHash": "sha256-MF/avgYLs8JCVGvHUD22gzPZOiYoXxZw8aGB3NwK02c=",
+        "owner": "isabelroses",
+        "repo": "beapkgs",
+        "rev": "e1ad308a6272924280f13b9698a775f60250d4db",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "repo": "beapkgs",
+        "type": "github"
+      }
+    },
     "blobs": {
       "flake": false,
       "locked": {
@@ -327,9 +369,7 @@
     },
     "ivy": {
       "inputs": {
-        "beapkgs": [
-          "beapkgs"
-        ],
+        "beapkgs": "beapkgs_2",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": [
           "nixpkgs"
@@ -354,9 +394,7 @@
     },
     "izvim": {
       "inputs": {
-        "beapkgs": [
-          "beapkgs"
-        ],
+        "beapkgs": "beapkgs_3",
         "nixpkgs": [
           "nixpkgs"
         ],
