@@ -268,11 +268,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740432748,
-        "narHash": "sha256-BCeFtoJ/+LrZc03viRJWHfzAqqG8gPu/ikZeurv05xs=",
+        "lastModified": 1740494361,
+        "narHash": "sha256-Dd/GhJ9qKmUwuhgt/PAROG8J6YdU2ZjtJI9SQX5sVQI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c12dcc9b61429b2ad437a7d4974399ad8f910319",
+        "rev": "74f0a8546e3f2458c870cf90fc4b38ac1f498b17",
         "type": "github"
       },
       "original": {
@@ -339,11 +339,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740513393,
-        "narHash": "sha256-9NMUsk2Aj1TDO98761e/x4F56zQ+Psv0QZnHZn7rL9U=",
+        "lastModified": 1740524722,
+        "narHash": "sha256-JuBE3Ze+3bjfFtk5KNSSdJQEedeEFwKwhCq9G3rgFig=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "04b35595bc2d8fc6fe5fa7e6f02cc3fa7426f923",
+        "rev": "bb45ceafb9a6671b7ffff7d9e0d976c29c775a72",
         "type": "github"
       },
       "original": {
@@ -390,11 +390,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1740438732,
-        "narHash": "sha256-ecqqUbm1aXH7E3goRl+lprgTDI4vNvlrrSLOhemNv4s=",
-        "rev": "446af4c6fe389d3e44d9b33007a6336df81d6245",
+        "lastModified": 1740528905,
+        "narHash": "sha256-2mbs9sxM159MWoEfXavZO7sP0a8S4S0HJlFxj+lRGuw=",
+        "rev": "11cde67e21965be20e7aa982104f735a99aaa1ce",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/446af4c6fe389d3e44d9b33007a6336df81d6245.tar.gz?rev=446af4c6fe389d3e44d9b33007a6336df81d6245"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/11cde67e21965be20e7aa982104f735a99aaa1ce.tar.gz?rev=11cde67e21965be20e7aa982104f735a99aaa1ce"
       },
       "original": {
         "type": "tarball",
@@ -561,11 +561,11 @@
         "nixpkgs-24_11": []
       },
       "locked": {
-        "lastModified": 1740409919,
-        "narHash": "sha256-Y6m+gyRLZjFqoSspLZd3BWUdf9KAIYm/favaiAbmrY0=",
+        "lastModified": 1740437053,
+        "narHash": "sha256-exPTta4qI1ka9sk+jPcLogGffJ1OVXnAsTRqpeAXeNw=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "f23faf97d6668a4847be5d5c6399493e596b406d",
+        "rev": "c8ec4d5e432f5df4838eacd39c11828d23ce66ec",
         "type": "gitlab"
       },
       "original": {
