@@ -35,11 +35,22 @@ in
 
         shellAliases = builtins.removeAttrs config.home.shellAliases [ "mkdir" ];
 
-        # what a mess
-        # GPGHOME breaks all nushell really badly
-        environmentVariables = {
-          DIRENV_LOG_FORMAT = "";
-          # PATH = "($env.PATH | split row (char esep) | append [${escapeShellArgs config.home.sessionPath}])";
+        settings = {
+          show_banner = false;
+
+          rm.always_trash = true;
+          ls.clickable_links = true;
+
+          color_config = "(${theme})";
+          error_style = "fancy";
+
+          completions = {
+            case_sensitive = false;
+            quick = true;
+            partial = true;
+            algorithm = "fuzzy";
+            use_ls_colors = true;
+          };
         };
 
         extraConfig =
@@ -65,25 +76,6 @@ in
             # nix-your-shell nu | save $env.XDG_CONFIG_HOME/nushell/nix-your-shell.nu
             # TODO: https://github.com/NixOS/nixpkgs/pull/383164
             source nix-your-shell.nu
-
-            $env.config = {
-              show_banner: false,
-              rm: {
-                always_trash: true
-              }
-              ls: {
-                clickable_links: true
-              }
-              color_config: (${theme})
-              error_style: "fancy"
-              completions: {
-                case_sensitive: false
-                quick: true
-                partial: true
-                algorithm: "fuzzy"
-                use_ls_colors: true
-              }
-            }
           '';
       };
     };
