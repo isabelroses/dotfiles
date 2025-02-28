@@ -17,10 +17,6 @@ in
     # FIXME: ghostty is broken on darwin
     package = if pkgs.stdenv.hostPlatform.isLinux then cfg.package else null;
 
-    enableBashIntegration = config.programs.bash.enable;
-    enableFishIntegration = config.programs.fish.enable;
-    enableZshIntegration = config.programs.zsh.enable;
-
     settings = {
       command = "/etc/profiles/per-user/isabel/bin/fish --login";
 

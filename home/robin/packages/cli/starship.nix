@@ -19,10 +19,6 @@ in
 {
   programs.starship = mkIf config.garden.programs.cli.enable {
     enable = true;
-    enableBashIntegration = config.programs.bash.enable;
-    enableFishIntegration = config.programs.fish.enable;
-    enableZshIntegration = config.programs.zsh.enable;
-    enableNushellIntegration = config.programs.nushell.enable;
 
     settings = {
       add_newline = true;

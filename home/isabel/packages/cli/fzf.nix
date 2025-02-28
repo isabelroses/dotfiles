@@ -13,9 +13,6 @@ in
 {
   programs.fzf = mkIf (isModernShell config) {
     enable = true;
-    enableBashIntegration = config.programs.bash.enable;
-    enableZshIntegration = config.programs.zsh.enable;
-    enableFishIntegration = config.programs.fish.enable;
 
     colors = {
       fg = "#cdd6f4";

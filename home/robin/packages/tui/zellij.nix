@@ -7,9 +7,6 @@
   config = lib.modules.mkIf config.garden.programs.tui.enable {
     programs.zellij = {
       enable = true;
-      enableBashIntegration = config.programs.bash.enable;
-      enableFishIntegration = config.programs.fish.enable;
-      enableZshIntegration = config.programs.zsh.enable;
 
       settings = {
         default_shell = "fish";

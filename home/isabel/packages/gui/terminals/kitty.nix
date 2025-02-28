@@ -12,12 +12,6 @@ in
     enable = true;
     inherit (cfg) package;
 
-    shellIntegration = {
-      enableBashIntegration = config.programs.bash.enable;
-      enableFishIntegration = config.programs.fish.enable;
-      enableZshIntegration = config.programs.zsh.enable;
-    };
-
     settings = {
       background_opacity = "0.85";
       font_family = osConfig.garden.style.font.name;

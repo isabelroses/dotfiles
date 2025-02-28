@@ -12,10 +12,6 @@ in
 {
   services.gpg-agent = mkIf pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
-    enableBashIntegration = config.programs.bash.enable;
-    enableFishIntegration = config.programs.fish.enable;
-    enableZshIntegration = config.programs.zsh.enable;
-    enableNushellIntegration = config.programs.nushell.enable;
 
     pinentryPackage =
       if video.enable then

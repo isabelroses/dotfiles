@@ -25,11 +25,6 @@ in
     # faster, persistent implementation of use_nix and use_flake
     nix-direnv.enable = true;
 
-    enableBashIntegration = config.programs.bash.enable;
-    # enableFishIntegration = config.programs.fish.enable;
-    enableZshIntegration = config.programs.zsh.enable;
-    enableNushellIntegration = config.programs.nushell.enable;
-
     # modified from from @i077
     # store direnv in cache and not per project
     stdlib = ''
