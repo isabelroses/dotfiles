@@ -113,11 +113,11 @@
         "nixpkgs-stable": []
       },
       "locked": {
-        "lastModified": 1740623854,
-        "narHash": "sha256-M04/dCR3zHHVZjIcVMJ80XKRn7zyeMe/NQDf2RGcT/E=",
+        "lastModified": 1740709758,
+        "narHash": "sha256-GjeruX5MrdVwpyaUZvSiRVOQjqkHcRunlOYtX0PReV8=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "c5a9b54c1ed6586e60ed6acd2178704ce1824c19",
+        "rev": "7e02381dc8a7702481c5bcbb18d2759211a80de4",
         "type": "github"
       },
       "original": {
@@ -390,11 +390,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1740700266,
-        "narHash": "sha256-4ucbGdPUYmwE4ezj9fAw6Bm3/KEgOI3PTMKWv89KuIw=",
-        "rev": "5778998cfa2ba0e4cd49873c0b0892f9c81de247",
+        "lastModified": 1740781229,
+        "narHash": "sha256-H8i+LhDQr6PbAxFt37TXYoRkwHvGlSTuNJUrlE5bb0w=",
+        "rev": "99bc6867e8913ad8f5fa7d63fefd885743eac4c1",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/5778998cfa2ba0e4cd49873c0b0892f9c81de247.tar.gz?rev=5778998cfa2ba0e4cd49873c0b0892f9c81de247"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/99bc6867e8913ad8f5fa7d63fefd885743eac4c1.tar.gz?rev=99bc6867e8913ad8f5fa7d63fefd885743eac4c1"
       },
       "original": {
         "type": "tarball",
@@ -596,11 +596,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740703321,
-        "narHash": "sha256-AAxT8Dj48qeMUDcCGLQ8vQfgTloqDEHlUEamrN/bRcE=",
+        "lastModified": 1740789885,
+        "narHash": "sha256-6DNb29GtlKRadMTEXfwmA1ckwq0OS4YuKLdg+RAVKw0=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "cf4d6a675b1fa294526472dc46048933bd68b7a0",
+        "rev": "ef247ba49753c2ef2666c046ca23cd78302844c3",
         "type": "github"
       },
       "original": {
