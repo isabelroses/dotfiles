@@ -77,7 +77,10 @@
       taps = builtins.attrNames config.nix-homebrew.taps;
 
       # `brew install`
-      brews = [ "openjdk" ];
+      brews = [
+        "openjdk@21"
+        "openjdk@23"
+      ];
 
       # `brew install --cask`
       casks = [
