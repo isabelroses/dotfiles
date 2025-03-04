@@ -148,11 +148,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740524811,
-        "narHash": "sha256-s+Y6v9Gwc7knMrRWuyXSbRF4Sl8L80pZqFWRv+Lgago=",
+        "lastModified": 1741097597,
+        "narHash": "sha256-qvhKnqo7ul4pupWpjX4D4a+wenW+uYu1hym2BEvD3zA=",
         "owner": "isabelroses",
         "repo": "nix-darwin",
-        "rev": "d506f376a042597b778de1aa3c82b2e4964fd028",
+        "rev": "47d78d4b10646c8e2a433a4315b57c919da75c1e",
         "type": "github"
       },
       "original": {
