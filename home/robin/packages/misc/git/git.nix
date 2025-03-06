@@ -25,7 +25,12 @@ in
 
       # Qol
       color.ui = "auto";
-      diff.algorithm = "histogram"; # a much better diff
+
+      diff = {
+        algorithm = "histogram"; # a much better diff
+        colorMoved = "plain"; # show moved lines in a different color
+      };
+
       safe.directory = "*";
       # add some must-use flags
       pull.rebase = true;
