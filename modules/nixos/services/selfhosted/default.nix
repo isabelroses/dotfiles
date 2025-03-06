@@ -34,7 +34,7 @@
 
     # nix builds
     ./attic.nix
-    ./buildbot.nix
+    # ./buildbot.nix
 
     # misc
     ./blahaj.nix

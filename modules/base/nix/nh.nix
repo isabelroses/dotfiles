@@ -22,17 +22,19 @@ in
   # WARNING: this leaves you without commands like `nixos-rebuild` which you don't
   # really need, you may consider enabling nh and using `nh os switch` instead
   # which is actually a really good alternative to using this
-  system = {
-    disableInstallerTools = config.programs.nh.enable;
+  system =
+    ldTernary pkgs
+      {
+        disableInstallerTools = config.programs.nh.enable;
 
-    tools =
-      ldTernary pkgs
-        {
+        tools = {
           nixos-version.enable = true;
-        }
-        {
+        };
+      }
+      {
+        tools = {
+          enable = false;
           darwin-version.enable = true;
         };
-
-  };
+      };
 }

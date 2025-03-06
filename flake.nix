@@ -10,7 +10,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixpkgs-unstable";
+      ref = "nixos-unstable";
     };
 
     # lix a good fork of nix
@@ -30,7 +30,7 @@
       type = "github";
       owner = "isabelroses";
       repo = "nix-darwin";
-      ref = "tools";
+      ref = "cherry-picks";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -143,25 +143,11 @@
       type = "github";
       owner = "zhaofengli";
       repo = "nix-homebrew";
+      ref = "systemwide-activation";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nix-darwin.follows = "darwin";
-      };
-    };
-
-    # build bot for nix
-    buildbot-nix = {
-      type = "github";
-      owner = "isabelroses";
-      repo = "buildbot-nix";
-      ref = "meow";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        treefmt-nix.follows = "";
-        hercules-ci-effects.follows = "";
+        nix-darwin.follows = "";
       };
     };
 

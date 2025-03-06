@@ -58,32 +58,6 @@
         "type": "github"
       }
     },
-    "buildbot-nix": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "hercules-ci-effects": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "treefmt-nix": []
-      },
-      "locked": {
-        "lastModified": 1740173525,
-        "narHash": "sha256-u6TN9G8yfNaGWHXjmx6yDDQ/RBTbZt1Ry+rW4z8Lm84=",
-        "owner": "isabelroses",
-        "repo": "buildbot-nix",
-        "rev": "1076bdafbe60718cb20e8323737ca98741c93f0f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "ref": "meow",
-        "repo": "buildbot-nix",
-        "type": "github"
-      }
-    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": [
@@ -148,16 +122,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1741200626,
-        "narHash": "sha256-GDPlPRNd8PUEcx3AqOYj3uXwvn29gh5VHjlTjZiFruc=",
+        "lastModified": 1741294286,
+        "narHash": "sha256-QZMRQlHC+cE2ZMNhDy1xv95uALueLiGUtGVZEgOS5ZM=",
         "owner": "isabelroses",
         "repo": "nix-darwin",
-        "rev": "15b1bc8b1f4ace7dc9b308b706f87a0c274b6284",
+        "rev": "845521728669a0f18212f46e611b9f77e4b4836f",
         "type": "github"
       },
       "original": {
         "owner": "isabelroses",
-        "ref": "tools",
+        "ref": "cherry-picks",
         "repo": "nix-darwin",
         "type": "github"
       }
@@ -284,23 +258,22 @@
     "homebrew": {
       "inputs": {
         "brew-src": "brew-src",
-        "nix-darwin": [
-          "darwin"
-        ],
+        "nix-darwin": [],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1741032878,
-        "narHash": "sha256-s9YOBz8vAxPlI4wORma3D7km8wZOEe/7Hg/u3brmwUQ=",
+        "lastModified": 1741035886,
+        "narHash": "sha256-ngq0ZyPQw96I8gR2gcHP1Frf6sIWH1brqTa6E0Sj6zQ=",
         "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "a82c55b07f670a01da5a72b7a07fe41c256a4380",
+        "rev": "5f2002f55522b28f831303af6f5d9356906936b1",
         "type": "github"
       },
       "original": {
         "owner": "zhaofengli",
+        "ref": "systemwide-activation",
         "repo": "nix-homebrew",
         "type": "github"
       }
@@ -475,16 +448,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1741037377,
-        "narHash": "sha256-SvtvVKHaUX4Owb+PasySwZsoc5VUeTf1px34BByiOxw=",
+        "lastModified": 1741173522,
+        "narHash": "sha256-k7VSqvv0r1r53nUI/IfPHCppkUAddeXn843YlAC5DR0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "02032da4af073d0f6110540c8677f16d4be0117f",
+        "rev": "d69ab0d71b22fa1ce3dbeff666e6deb4917db049",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -508,7 +481,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "buildbot-nix": "buildbot-nix",
         "catppuccin": "catppuccin",
         "cosmic": "cosmic",
         "darwin": "darwin",
