@@ -3,13 +3,14 @@
   self,
   pkgs,
   config,
-  inputs',
   ...
 }:
 let
   inherit (self.lib.programs) mkProgram;
-  inherit (lib.strings) optionalString;
+  inherit (lib.strings) optionalString concatMapAttrsStringSep;
   inherit (lib.meta) getExe;
+
+  nv = config.garden.programs.neovim;
 in
 {
   options.garden.programs = {
@@ -19,10 +20,10 @@ in
 
     neovim = mkProgram pkgs "neovim" {
       enable.default = true;
-      package.default = inputs'.izvim.packages.default;
 
       gui = mkProgram pkgs "neovide" {
         enable.default = config.garden.programs.gui.enable;
+
         package.default = pkgs.symlinkJoin {
           name = "neovide-wrapped";
 
@@ -32,9 +33,17 @@ in
           postBuild = ''
             wrapProgram $out/bin/neovide \
               --add-flags '--neovim-bin' \
-              --add-flags '${getExe config.garden.programs.neovim.package}' \
-              ${optionalString pkgs.stdenv.hostPlatform.isLinux "--add-flags '--frame' --add-flags 'none'"}
+              --add-flags '${getExe nv.package}' \
+              ${optionalString (nv.gui.settings != { }) (
+                concatMapAttrsStringSep " " (name: value: "--add-flags '${name}=${value}'") nv.gui.settings
+              )}
           '';
+        };
+
+        settings = lib.mkOption {
+          type = lib.types.attrsOf lib.types.str;
+          default = { };
+          description = "Settings to pass to neovide";
         };
       };
     };

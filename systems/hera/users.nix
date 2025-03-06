@@ -1,3 +1,4 @@
+{ inputs', ... }:
 {
   garden.system = {
     mainUser = "isabel";
@@ -16,6 +17,8 @@
 
       tui.enable = false;
       gui.enable = false;
+
+      neovim.package = inputs'.izvim.packages.neovimMinimal;
     };
   };
 }

@@ -1,3 +1,4 @@
+{ inputs', ... }:
 {
   garden.system = {
     mainUser = "isabel";
@@ -21,6 +22,8 @@
       git.signingKey = "3E7C7A1B5DEDBB03";
       fish.enable = true;
       nushell.enable = false;
+
+      neovim.package = inputs'.izvim.packages.default;
     };
   };
 }

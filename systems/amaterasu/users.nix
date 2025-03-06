@@ -1,3 +1,4 @@
+{ inputs', ... }:
 {
   garden.system = {
     mainUser = "isabel";
@@ -24,6 +25,8 @@
       ghostty.enable = true;
       chromium.enable = true;
       fish.enable = true;
+
+      neovim.package = inputs'.izvim.packages.default;
     };
   };
 }
