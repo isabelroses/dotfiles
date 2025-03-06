@@ -55,7 +55,9 @@ in
       # automatically optimise symlinks
       # Disable auto-optimise-store because of this issue:
       # https://github.com/NixOS/nix/issues/7273
-      auto-optimise-store = pkgs.stdenv.hostPlatform.isLinux;
+      # but we use lix which has a fix for this issue:
+      # https://gerrit.lix.systems/c/lix/+/2100
+      auto-optimise-store = true;
 
       # users or groups which are allowed to do anything with the Nix daemon
       allowed-users = [ sudoers ];
