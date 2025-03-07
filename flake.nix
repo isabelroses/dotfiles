@@ -170,8 +170,8 @@
 
     evergarden = {
       type = "github";
-      owner = "comfysage";
-      repo = "evergarden";
+      owner = "everviolet";
+      repo = "nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

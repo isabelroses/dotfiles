@@ -180,16 +180,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1741300591,
-        "narHash": "sha256-PlfRjNVASivlT+CWg+4LuPCLbJMqTWlf2oNzI7cqQzU=",
-        "owner": "comfysage",
-        "repo": "evergarden",
-        "rev": "3bc4351d7bdcfa50772a76b110939ca8a64f66f5",
+        "lastModified": 1741347318,
+        "narHash": "sha256-sucgp7le+CKnpDU3UJc4DbwXUXBZG57rqvVT2u6QC4Y=",
+        "owner": "everviolet",
+        "repo": "nix",
+        "rev": "ff861c4cf8185f7fd183a1fd56560a8c4e214550",
         "type": "github"
       },
       "original": {
-        "owner": "comfysage",
-        "repo": "evergarden",
+        "owner": "everviolet",
+        "repo": "nix",
         "type": "github"
       }
     },

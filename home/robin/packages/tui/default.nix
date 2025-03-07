@@ -16,7 +16,7 @@ in
     ./izrss.nix
     # ./newsboat.nix
     # ./ranger.nix
-    ./yazi
+    ./yazi.nix
     # ./zellij.nix
   ];
 
