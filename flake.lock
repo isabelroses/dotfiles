@@ -65,11 +65,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1739934729,
-        "narHash": "sha256-PcrLk10meIJICzUJqtCMOJxoITzbH52fZg2XAB7SSsM=",
+        "lastModified": 1741287139,
+        "narHash": "sha256-lpSXdmXj6fEo3DwImX6+R/cSakuIHWJ+gLGw1ZcVOXs=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "b1ff2a638afa827f1473498190a2c1cae1cf41cf",
+        "rev": "2884670e4deddc862988ba25548211ff13a5a742",
         "type": "github"
       },
       "original": {
@@ -87,11 +87,11 @@
         "nixpkgs-stable": []
       },
       "locked": {
-        "lastModified": 1741220410,
-        "narHash": "sha256-vqjSwtHtAAw6c1wjZ6x0WNhJTm+ZdFKQmeSpUGgY+f0=",
+        "lastModified": 1741306001,
+        "narHash": "sha256-m0/bgjXbUg9ficrlsX6FFezsnuJjbcCk4ye49Wh1s+M=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "26677c041e1b4b8aa9126accf3797348c1975123",
+        "rev": "8522280e59847b06610d8585fb53e73b87e5f688",
         "type": "github"
       },
       "original": {
@@ -102,11 +102,11 @@
     },
     "crane": {
       "locked": {
-        "lastModified": 1739936662,
-        "narHash": "sha256-x4syUjNUuRblR07nDPeLDP7DpphaBVbUaSoeZkFbGSk=",
+        "lastModified": 1741148495,
+        "narHash": "sha256-EV8KUaIZ2/CdBXlutXrHoZYbWPeB65p5kKZk71gvDRI=",
         "owner": "ipetkov",
         "repo": "crane",
-        "rev": "19de14aaeb869287647d9461cbd389187d8ecdb7",
+        "rev": "75390a36cd0c2cdd5f1aafd8a9f827d7107f2e53",
         "type": "github"
       },
       "original": {
@@ -180,11 +180,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1739356629,
-        "narHash": "sha256-7VRyhgFfrBKYVSWgw1GHgUkkKmbJQ5xE1r4X617HRPw=",
+        "lastModified": 1741300591,
+        "narHash": "sha256-PlfRjNVASivlT+CWg+4LuPCLbJMqTWlf2oNzI7cqQzU=",
         "owner": "comfysage",
         "repo": "evergarden",
-        "rev": "1f491009c634277a971d1c682a24cb7ceaef7eb0",
+        "rev": "3bc4351d7bdcfa50772a76b110939ca8a64f66f5",
         "type": "github"
       },
       "original": {
@@ -289,11 +289,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741143203,
-        "narHash": "sha256-aPUtdYnHbO2Bh4dU9fgOMxyYy90DE9UTF27HXgRZnqc=",
+        "lastModified": 1741300821,
+        "narHash": "sha256-mBz/QyiRdHII1ifp6ZaEkMdJRzCiRfvPJdIEMA2KCWA=",
         "owner": "comfysage",
         "repo": "ivy",
-        "rev": "6eb2e660a5d8fe664ec8b19bb5730f6df5ce7791",
+        "rev": "d3edf5649c030ba0b1b3a1fb288a819974daa332",
         "type": "github"
       },
       "original": {
@@ -312,11 +312,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741297582,
-        "narHash": "sha256-dKbXswpFybbkoFPTU/QMxju3oERIQkhvDQwE01aB9BM=",
+        "lastModified": 1741299872,
+        "narHash": "sha256-uf4YWBROE9pLNqeAiRJ4SNdE6L2AKwVqCSXOXXn37U8=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "aa0253321eebaa4947c0a119672fc56d9c8f43a6",
+        "rev": "b1f552fe2d0cd556c00d159f185dff474a8e4741",
         "type": "github"
       },
       "original": {
@@ -339,11 +339,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1741001137,
-        "narHash": "sha256-XxWib5eI3rgMPA4VzDHOx89WT76IN/ZNb+votz5gakw=",
+        "lastModified": 1741259028,
+        "narHash": "sha256-QWgGXe9Ai8+hSwNEAqLjZoAvLwV3ywDzT+XBpfMOzuU=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "cc9786aa8158437facead0d8e21ac0c03be91dc8",
+        "rev": "3a3ed972151121c8b159eb40e0be21146270e73b",
         "type": "github"
       },
       "original": {
@@ -510,11 +510,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740364262,
-        "narHash": "sha256-X5EtT29uEtXN2E4bDiDU2HGBdmFHjHf1KbP6iKP0cmg=",
+        "lastModified": 1741228283,
+        "narHash": "sha256-VzqI+k/eoijLQ5am6rDFDAtFAbw8nltXfLBC6SIEJAE=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "7c5892ad87b90d72668964975eebd4e174ff6204",
+        "rev": "38e9826bc4296c9daf18bc1e6aa299f3e932a403",
         "type": "github"
       },
       "original": {
@@ -568,11 +568,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741221724,
-        "narHash": "sha256-XKY8rHXk7YNVSlXUXjwcUVOwtGBoIXguRpM/481T1T8=",
+        "lastModified": 1741308205,
+        "narHash": "sha256-3yhlpco8xrF6PRAMV6Pl1Yoc6c6klucOQ15H5mbr4oQ=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "a081332915fd46b91c6bac84ee11b4655e5f4b17",
+        "rev": "50a30240456675948fd556076fc6f86c31eab8f1",
         "type": "github"
       },
       "original": {
