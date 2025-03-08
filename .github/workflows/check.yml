@@ -2,6 +2,11 @@ name: Validate Nix Flake
 
 on:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        required: false
+        type: string
   push:
     paths:
       - "**.nix"
@@ -25,6 +30,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || 'main' }}
+
+      - name: Install Lix
+        uses: ./.github/actions/install-lix
 
       - name: Check Flake
-        uses: ./.github/actions/check
+        run: nix flake check --option allow-import-from-derivation false
