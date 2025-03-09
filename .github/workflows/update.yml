@@ -32,28 +32,12 @@ jobs:
           branch: update-flake-inputs
 
   check-flake:
-    name: Check (${{ matrix.system }})
+    name: Check Flake
     needs: update-lockfile
-    runs-on: ${{ matrix.os }}
 
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            system: x86_64-linux
-          - os: macos-latest
-            system: aarch64-darwin
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.update-lockfile.outputs.branch }}
-
-      - name: Check Flake
-        uses: ./.github/workflows/check.yml
-        with:
-          ref: ${{ needs.update-lockfile.outputs.branch }}
+    uses: ./.github/workflows/check.yml
+    with:
+      ref: ${{ needs.update-lockfile.outputs.branch }}
 
   merge:
     name: Merge Pull Request
