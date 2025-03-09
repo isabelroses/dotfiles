@@ -62,7 +62,7 @@ in
         locations."/" = {
           proxyPass = "http://${cfg.host}:${toString cfg.port}";
           extraConfig = ''
-            client_max_body_size 1000m;
+            client_max_body_size 512m;
           '';
         };
       } // template.ssl rdomain;
