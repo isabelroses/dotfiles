@@ -18,7 +18,7 @@ let
     #   owner = "robin";
     # };
     hestia = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAk/dwdE6u2VIkQGLSi2zvxQbE4NqrsDw34sAZi6Ft9f";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFNJv2ng+BJV2YDWAmaWFu7arLrsT2jpshUPTvdHBlxN";
       owner = "isabel";
     };
     hydra = {
