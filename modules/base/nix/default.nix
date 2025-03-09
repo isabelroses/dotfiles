@@ -7,5 +7,6 @@
     ./nixpkgs.nix # nixpkgs configuration
     ./substituters.nix # nixpkgs substituters
     ./system.nix # system settings that nix needs
+    ./tools.nix # tools that nixos or darwin system needs
   ];
 }
