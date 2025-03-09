@@ -1,30 +1,22 @@
+# alias r := rebuild
+# alias rr := remote-rebuild
+# alias e := eval
+# alias ea := eval-all
+# alias u := update
+# alias ui := update-input
+
 flake_var := env_var('FLAKE')
 flake := if flake_var =~ '^\.*$' { justfile_directory() } else { flake_var }
+rebuild := if os() == "macos" { "darwin-rebuild" } else { "nixos-rebuild" }
 
 [private]
 default:
     @just --list --unsorted
 
-# setup our nixos builder
 [group('rebuild')]
-[linux]
 [private]
 builder goal *args:
-    nh os {{ goal }} -- {{ args }}
-
-# setup our darwin builder
-[group('rebuild')]
-[macos]
-[private]
-builder goal *args:
-    nh darwin {{ goal }} -- {{ args }}
-
-# we have this setup incase i ever want to go back and use the old stuff
-[group('rebuild')]
-[linux]
-[private]
-classic goal *args:
-    sudo nixos-rebuild {{ goal }} --flake {{ flake }} {{ args }} |& nom
+    sudo {{ rebuild }} {{ goal }} --flake {{ flake }} {{ args }} |& nom
 
 # rebuild the boot
 [group('rebuild')]
@@ -58,23 +50,49 @@ iso image: (build "nixosConfigurations." + image + ".config.system.build.isoImag
 tar host:
     sudo nix run {{ flake }}#nixosConfigurations.{{ host }}.config.system.build.tarballBuilder
 
+[group('dev')]
+eval system *args="":
+    nix eval \
+      --no-allow-import-from-derivation \
+      '{{ flake }}#nixosConfigurations.{{ system }}.config.system.build.toplevel' \
+      {{ args }}
+
+[group('dev')]
+eval-all *args="":
+    nix flake check --all-systems --no-build {{ flake }} {{ args }}
+
+[group('dev')]
+update:
+    nix flake update \
+      --refresh \
+      --commit-lock-file \
+      --commit-lockfile-summary "chore: update all inputs" \
+      --flake {{ flake }}
+
+[group('dev')]
+update-input *input:
+    nix flake update {{ input }} \
+      --commit-lock-file \
+      --commit-lockfile-summary "chore: update {{ input }}" \
+      --flake {{ flake }}
+
 [private]
 verify *args:
     nix-store --verify {{ args }}
+
+alias fix := repair
 
 # repairs the nix store from any breakages it may have
 [group('dev')]
 repair: (verify "--check-contents --repair")
 
-alias fix := repair
-
 # clean the nix store and optimise it
-[group('dev')]
+[group('utils')]
 clean:
     nh clean all -K 3d
     nix store optimise
 
-[group('dev')]
+[group('utils')]
 [private]
 oldclean:
     nix-collect-garbage --delete-older-than 3d
@@ -84,11 +102,6 @@ oldclean:
 [group('dev')]
 check:
     nix flake check
-
-# update the lock file, if inputs are provided, only update those, otherwise update all
-[group('dev')]
-update *input:
-    nix flake update {{ input }} --refresh
 
 # build & serve the docs locally
 [group('dev')]
