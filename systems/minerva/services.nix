@@ -3,7 +3,7 @@
     vaultwarden.enable = true;
     isabelroses-website.enable = true;
     blahaj.enable = true;
-    vikunja.enable = true;
+    vikunja.enable = false;
     kanidm.enable = true;
     mailserver.enable = true;
 
