@@ -42,7 +42,7 @@ jobs:
         uses: ryanccn/attic-action@v0.3.1
         with:
           endpoint: https://cache.tgirl.cloud
-          cache: prod
+          cache: tgirlcloud
           token: ${{ secrets.ATTIC_TOKEN }}
 
       - name: Build from the lix
