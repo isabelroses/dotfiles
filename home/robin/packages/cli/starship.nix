@@ -11,10 +11,6 @@ let
     inherit symbol;
     format = "[$symbol ](${style})";
   };
-  ssv = symbol: style: {
-    inherit symbol;
-    format = "with [$symbol](${style})";
-  };
 in
 {
   programs.starship = mkIf config.garden.programs.cli.enable {

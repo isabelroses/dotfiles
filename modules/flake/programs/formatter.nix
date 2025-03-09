@@ -18,6 +18,9 @@
 
           just.enable = true;
 
+          deadnix.enable = true;
+          # TODO: enable this when we remove akkoma-no-ifd
+          # statix.enable = true;
           nixfmt = {
             enable = true;
             package = pkgs.nixfmt-rfc-style;

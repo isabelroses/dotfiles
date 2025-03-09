@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   self,
   self',
   config,

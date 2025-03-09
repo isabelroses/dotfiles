@@ -506,7 +506,7 @@ let
       }
       ''
         ${concatStringsSep "\n" (
-          mapAttrsToList (key: val: ''
+          mapAttrsToList (_: val: ''
             mkdir -p $out/frontends/${escapeShellArg val.name}/
             ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${escapeShellArg val.ref}
           '') cfg.frontends
@@ -985,10 +985,9 @@ in
               ":frontends" = mkOption {
                 type = elixirValue;
                 default = mapAttrs (
-                  key: val:
+                  _: val:
                   mkMap {
-                    name = val.name;
-                    ref = val.ref;
+                    inherit (val) name ref;
                   }
                 ) cfg.frontends;
                 defaultText = literalExpression ''
