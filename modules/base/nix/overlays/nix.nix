@@ -16,4 +16,5 @@ useOurNix [
   "nix-direnv"
   "nix-index"
   "nixos-rebuild"
+  "nixos-rebuild-ng"
 ]
