@@ -12,15 +12,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1736955230,
-        "narHash": "sha256-uenf8fv2eG5bKM8C/UvFaiJMZ4IpUFaQxk9OH5t/1gA=",
-        "owner": "ryantm",
+        "lastModified": 1741166714,
+        "narHash": "sha256-je7CPO2QM3uMwuJLE/rf04SToGhj4cfGOzVGNfuF+Ss=",
+        "owner": "oluceps",
         "repo": "agenix",
-        "rev": "e600439ec4c273cf11e06fe4d9d906fb98fa097c",
+        "rev": "a5bea68f02d5c9d9b0034b338deacd18a53df786",
         "type": "github"
       },
       "original": {
-        "owner": "ryantm",
+        "owner": "oluceps",
+        "ref": "with-sysuser",
         "repo": "agenix",
         "type": "github"
       }

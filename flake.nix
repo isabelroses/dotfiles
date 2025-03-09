@@ -100,10 +100,12 @@
     };
 
     # Secrets, shhh
+    # TODO: https://github.com/ryantm/agenix/pull/255
     agenix = {
       type = "github";
-      owner = "ryantm";
+      owner = "oluceps";
       repo = "agenix";
+      ref = "with-sysuser";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
