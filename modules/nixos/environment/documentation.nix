@@ -1,20 +1,20 @@
 { lib, ... }:
 let
   inherit (lib.modules) mkForce;
-  inherit (lib.attrsets) mapAttrs;
 in
 {
-  documentation = mapAttrs (_: mkForce) {
-    enable = false;
-    dev.enable = false;
-    doc.enable = false;
-    info.enable = false;
-    nixos.enable = false;
+  documentation = {
+    enable = mkForce false;
+    dev.enable = mkForce false;
+    doc.enable = mkForce false;
+    info.enable = mkForce false;
+    nixos.enable = mkForce false;
+
     man = {
-      enable = false;
-      generateCaches = false;
-      man-db.enable = false;
-      mandoc.enable = false;
+      enable = mkForce false;
+      generateCaches = mkForce false;
+      man-db.enable = mkForce false;
+      mandoc.enable = mkForce false;
     };
   };
 }
