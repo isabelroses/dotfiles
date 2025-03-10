@@ -7,6 +7,7 @@
     ./browsers.nix
     ./editors.nix
     ./editors.nix
+    ./git.nix
     ./launchers.nix
     ./misc.nix
     ./notes.nix

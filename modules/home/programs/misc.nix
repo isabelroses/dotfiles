@@ -6,9 +6,8 @@
   ...
 }:
 let
-  inherit (lib.types) str;
   inherit (self.lib.programs) mkProgram;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.options) mkEnableOption;
 in
 {
   options.garden.programs = {
@@ -23,16 +22,6 @@ in
 
     kdeconnect = mkProgram pkgs "kdeconnect" {
       indicator.enable = mkEnableOption "Enable kdeconnect indicator";
-    };
-
-    git = mkProgram pkgs "git" {
-      enable.default = config.garden.programs.cli.enable;
-
-      signingKey = mkOption {
-        type = str;
-        default = "";
-        description = "The default gpg key used for signing commits";
-      };
     };
 
     cocogitto = mkProgram pkgs "cocogitto" {
