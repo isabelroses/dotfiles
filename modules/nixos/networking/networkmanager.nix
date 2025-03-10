@@ -18,7 +18,7 @@ in
 
   networking.networkmanager = {
     enable = true;
-    plugins = mkForce [ pkgs.networkmanager-openvpn ];
+    plugins = mkForce (optionals config.garden.meta.gui [ pkgs.networkmanager-openvpn ]);
     dns = "systemd-resolved";
     unmanaged = [
       "interface-name:tailscale*"
