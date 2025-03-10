@@ -13,10 +13,15 @@ rebuild := if os() == "macos" { "darwin-rebuild" } else { "nixos-rebuild" }
 default:
     @just --list --unsorted
 
+# rebuild group
+
 [group('rebuild')]
 [private]
 builder goal *args:
-    sudo {{ rebuild }} {{ goal }} --flake {{ flake }} {{ args }} |& nom
+    sudo {{ rebuild }} {{ goal }} \
+      --flake {{ flake }} \
+      {{ args }} \
+      |& nom
 
 # rebuild the boot
 [group('rebuild')]
@@ -36,10 +41,15 @@ provision host:
     nix run github:LnL7/nix-darwin -- switch --flake {{ flake }}#{{ host }}
     sudo -i nix-env --uninstall lix # we need to remove the none declarative install of lix
 
+# package group
+
 # build the package, you must specify the package you want to build
 [group('package')]
 build pkg:
-    nix build {{ flake }}#{{ pkg }} --log-format internal-json -v |& nom --json
+    nix build {{ flake }}#{{ pkg }} \
+      --log-format internal-json \
+      -v \
+      |& nom --json
 
 # build the iso image, you must specify the image you want to build
 [group('package')]
@@ -50,60 +60,42 @@ iso image: (build "nixosConfigurations." + image + ".config.system.build.isoImag
 tar host:
     sudo nix run {{ flake }}#nixosConfigurations.{{ host }}.config.system.build.tarballBuilder
 
-[group('dev')]
-eval system *args="":
-    nix eval \
-      --no-allow-import-from-derivation \
-      '{{ flake }}#nixosConfigurations.{{ system }}.config.system.build.toplevel' \
-      {{ args }}
-
-[group('dev')]
-eval-all *args="":
-    nix flake check --all-systems --no-build {{ flake }} {{ args }}
-
-[group('dev')]
-update:
-    nix flake update \
-      --refresh \
-      --commit-lock-file \
-      --commit-lockfile-summary "chore: update all inputs" \
-      --flake {{ flake }}
-
-[group('dev')]
-update-input *input:
-    nix flake update {{ input }} \
-      --commit-lock-file \
-      --commit-lockfile-summary "chore: update {{ input }}" \
-      --flake {{ flake }}
-
-[private]
-verify *args:
-    nix-store --verify {{ args }}
-
-alias fix := repair
-
-# repairs the nix store from any breakages it may have
-[group('dev')]
-repair: (verify "--check-contents --repair")
-
-# clean the nix store and optimise it
-[group('utils')]
-clean:
-    nh clean all -K 3d
-    nix store optimise
-
-[group('utils')]
-[private]
-oldclean:
-    nix-collect-garbage --delete-older-than 3d
-    nix store optimise
+# dev group
 
 # check the flake for errors
 [group('dev')]
 check:
-    nix flake check
+    nix flake check --no-allow-import-from-derivation
+
+# update a set of given inputs
+[group('dev')]
+update *input:
+    nix flake update {{ input }} \
+      --refresh \
+      --commit-lock-file \
+      --commit-lockfile-summary "chore: update {{ if input == "" { "all inputs" } else { input } }}" \
+      --flake {{ flake }}
 
 # build & serve the docs locally
 [group('dev')]
 serve:
     nix run {{ flake }}#docs.serve
+
+# utils group
+
+alias fix := repair
+
+# verify the integrity of the nix store
+[group('utils')]
+verify *args:
+    nix-store --verify {{ args }}
+
+# repairs the nix store from any breakages it may have
+[group('utils')]
+repair: (verify "--check-contents --repair")
+
+# clean the nix store and optimise it
+[group('utils')]
+clean:
+    nix-collect-garbage --delete-older-than 3d
+    nix store optimise
