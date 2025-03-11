@@ -21,6 +21,12 @@ in
     }
 
     (mkIf config.garden.system.banPerl {
+      # since we enable a hover fs we also need to allow for that filesystem in the supported filesystems
+      boot = {
+        supportedFilesystems = [ "erofs" ];
+        initrd.supportedFilesystems = [ "erofs" ];
+      };
+
       system = {
         # Mount /etc as an overlayfs instead of generating it via a perl script.
         # WARNING: do not enable this if your not confident in your ability to fix it
