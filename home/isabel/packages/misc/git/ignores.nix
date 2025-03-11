@@ -22,10 +22,6 @@
     "*.so"
     "*.dylib"
 
-    # ide residue
-    ".idea/"
-    ".vscode/"
-
     # dependencies
     ".direnv/"
     "node_modules"
