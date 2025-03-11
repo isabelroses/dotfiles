@@ -156,7 +156,7 @@ in
 
         # backup
         dump = {
-          enable = true;
+          enable = false;
           backupDir = "/srv/storage/forgejo/dump";
           interval = "06:00";
           type = "tar.zst";
