@@ -534,15 +534,16 @@
         "nixpkgs-24_11": []
       },
       "locked": {
-        "lastModified": 1740437053,
-        "narHash": "sha256-exPTta4qI1ka9sk+jPcLogGffJ1OVXnAsTRqpeAXeNw=",
-        "owner": "simple-nixos-mailserver",
+        "lastModified": 1741819867,
+        "narHash": "sha256-ZBOnyz/oq7LxmTJ3MvHs8ZhDSkzwxBFiKHYW08mpUaA=",
+        "owner": "yu-re-ka",
         "repo": "nixos-mailserver",
-        "rev": "c8ec4d5e432f5df4838eacd39c11828d23ce66ec",
+        "rev": "a53ed68f348d3629c391708b856fcb4c1ad7eb79",
         "type": "gitlab"
       },
       "original": {
-        "owner": "simple-nixos-mailserver",
+        "owner": "yu-re-ka",
+        "ref": "dovecot2-modules",
         "repo": "nixos-mailserver",
         "type": "gitlab"
       }
