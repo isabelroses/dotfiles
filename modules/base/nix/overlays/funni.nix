@@ -1,9 +1,10 @@
 _: prev: {
-  cocogitto = prev.cocogitto.overrideAttrs (original: {
-    postInstall =
-      (original.postInstall or "")
-      + ''
-        ln -s $out/bin/cog $out/bin/goc
-      '';
-  });
+  cocogitto = prev.symlinkJoin {
+    name = "goc";
+    paths = [ prev.cocogitto ];
+    inherit (prev.cocogitto) passthru;
+    postBuild = ''
+      ln -s $out/bin/cog $out/bin/goc
+    '';
+  };
 }
