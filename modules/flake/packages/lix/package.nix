@@ -1,6 +1,19 @@
-{ inputs', inputs }:
+{
+  clangStdenv,
+
+  # additional args
+  inputs,
+  inputs',
+}:
 (inputs'.lix.packages.default.override {
   versionSuffix = "${inputs.lix.shortRev}-isabelroses";
+
+  # they do this in the lix module so lets do it too
+  # https://git.lix.systems/lix-project/nixos-module/src/commit/621aae0f3cceaffa6d73a4fb0f89c08d338d729e/overlay.nix#L6
+  stdenv = clangStdenv;
+
+  # i also don't want the aws-sdk-cpp dependency
+  aws-sdk-cpp = null;
 }).overrideAttrs
   (oa: {
     patches = [
