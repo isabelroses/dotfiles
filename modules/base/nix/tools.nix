@@ -1,12 +1,32 @@
-{ pkgs, self, ... }:
+{
+  lib,
+  pkgs,
+  self,
+  config,
+  ...
+}:
 let
+  inherit (lib.options) mkEnableOption;
+
   inherit (self.lib.hardware) ldTernary;
+
+  cfg = config.garden.system.tools;
 in
 {
-  system =
+  options.garden.system.tools = {
+    enable = mkEnableOption "tools" // {
+      default = true;
+    };
+
+    minimal = mkEnableOption "limit to minimal system tooling" // {
+      default = true;
+    };
+  };
+
+  config.system =
     ldTernary pkgs
       {
-        disableInstallerTools = true;
+        disableInstallerTools = cfg.minimal;
 
         rebuild.enableNg = true;
 
@@ -17,7 +37,8 @@ in
       }
       {
         tools = {
-          enable = false;
+          enable = !cfg.minimal;
+
           darwin-version.enable = true;
           darwin-rebuild.enable = true;
         };
