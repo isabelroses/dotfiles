@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge mkAfter;
   inherit (lib.options) mkEnableOption;
 in
 {
@@ -16,16 +16,27 @@ in
   # if the system supports dry activation, this means that we can compare
   # the current system with the one we are about to switch to
   # this can be useful to see what will change, and the clousure size
-  config = mkIf config.garden.system.activation.diff.enable {
-    system.activationScripts.diff = {
-      supportsDryActivation = true;
-      text = ''
-        if [[ -e /run/current-system ]]; then
-          echo "=== diff to current-system ==="
-          ${pkgs.nvd}/bin/nvd --nix-bin-dir='${config.nix.package}/bin' diff /run/current-system "$systemConfig"
-          echo "=== end of the system diff ==="
-        fi
+  config = mkIf config.garden.system.activation.diff.enable (mkMerge [
+    {
+      system.activationScripts.diff = {
+        text = ''
+          if [[ -e /run/current-system ]]; then
+            echo "=== diff to current-system ==="
+            ${pkgs.nvd}/bin/nvd --nix-bin-dir='${config.nix.package}/bin' diff /run/current-system "$systemConfig"
+            echo "=== end of the system diff ==="
+          fi
+        '';
+      };
+    }
+
+    (mkIf pkgs.stdenv.hostPlatform.isLinux {
+      system.activationScripts.diff.supportsDryActivation = true;
+    })
+
+    (mkIf pkgs.stdenv.hostPlatform.isDarwin {
+      system.activationScripts.postActivation.text = mkAfter ''
+        ${config.system.activationScripts.diff.text}
       '';
-    };
-  };
+    })
+  ]);
 }
