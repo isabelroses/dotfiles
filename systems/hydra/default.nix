@@ -59,7 +59,5 @@
         distrobox.enable = false;
       };
     };
-
-    services.cloudflared.enable = true;
   };
 }
