@@ -39,6 +39,17 @@ in
       postgresql.enable = true;
     };
 
+    systemd.services.wakapi.serviceConfig = {
+      PrivateTmp = true;
+      PrivateUsers = true;
+      PrivateDevices = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      NoNewPrivileges = true;
+      ProtectSystem = lib.mkForce "full";
+      CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
+    };
+
     services = {
       wakapi = {
         enable = true;
