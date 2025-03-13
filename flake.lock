@@ -181,11 +181,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741803461,
-        "narHash": "sha256-rvDy1MbH89gZt+1V6NQbADh5/EeGwEyqP5VLAt2v4UM=",
+        "lastModified": 1741856724,
+        "narHash": "sha256-OxA33nYYtnZWg6KH662gcOLnRwQpygho18CBJjfsX/4=",
         "owner": "everviolet",
         "repo": "nix",
-        "rev": "fc160873b7f95c1c21fc51dbc12ad45200b384f0",
+        "rev": "723fa509ed9a78d8c8079d3c8895e569903126ba",
         "type": "github"
       },
       "original": {
