@@ -26,12 +26,6 @@ in
         ];
       };
 
-      akkoma-no-ifd = mkModule {
-        name = "akkoma-no-ifd";
-        class = "nixos";
-        modules = [ (self + /modules/extra/nixos/akkoma-no-ifd.nix) ];
-      };
-
       # i do not provide a default module, so throw an error
       default = throw "There is no default module.";
     };
