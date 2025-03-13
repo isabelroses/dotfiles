@@ -42,7 +42,7 @@ in
         DynamicUser = true;
         ExecStart = getExe package;
         Restart = "always";
-      };
+      } // template.systemd;
     };
 
     services.nginx.virtualHosts.${domain} = {
