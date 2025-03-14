@@ -1,7 +1,7 @@
 { inputs', ... }:
 {
   programs.nh = {
-    enable = false;
+    enable = true;
     package = inputs'.tgirlpkgs.packages.nh;
 
     clean = {

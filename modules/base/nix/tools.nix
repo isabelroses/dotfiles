@@ -32,7 +32,7 @@ in
 
         tools = {
           nixos-version.enable = true;
-          nixos-rebuild.enable = true;
+          nixos-rebuild.enable = false;
         };
       }
       {
@@ -40,7 +40,7 @@ in
           enable = !cfg.minimal;
 
           darwin-version.enable = true;
-          darwin-rebuild.enable = true;
+          darwin-rebuild.enable = false;
         };
       };
 }

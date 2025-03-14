@@ -17,11 +17,16 @@ default:
 
 [group('rebuild')]
 [private]
-builder goal *args:
+classic goal *args:
     sudo {{ rebuild }} {{ goal }} \
       --flake {{ flake }} \
       {{ args }} \
       |& nom
+
+[group('rebuild')]
+[private]
+builder goal *args:
+    nh {{ if os() == "macos" { "darwin" } else { "os" } }} {{ goal }} {{ args }}
 
 # rebuild the boot
 [group('rebuild')]
