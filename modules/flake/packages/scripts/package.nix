@@ -8,6 +8,8 @@
   unzip,
   gnutar,
   p7zip,
+  gh,
+  jq,
 }:
 let
   inherit (builtins) readFile;
@@ -27,6 +29,15 @@ let
     text = readFile ./icat.sh;
   };
 
+  nixpkgs-prs = writeShellApplication {
+    name = "nixpkgs-prs";
+    text = readFile ./nixpkgs-prs.sh;
+    runtimeInputs = [
+      jq
+      gh
+    ];
+  };
+
   # Extract the compressed file with the correct tool based on the extension
   extract = writeShellApplication {
     name = "extract";
@@ -40,7 +51,12 @@ let
   };
 in
 {
-  inherit preview icat extract;
+  inherit
+    preview
+    icat
+    extract
+    nixpkgs-prs
+    ;
 
   scripts = symlinkJoin {
     name = "scripts";
@@ -48,6 +64,7 @@ in
       preview
       icat
       extract
+      nixpkgs-prs
     ];
   };
 }

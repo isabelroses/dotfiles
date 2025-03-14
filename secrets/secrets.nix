@@ -136,6 +136,8 @@ in
 
   "blahaj-env.age" = defAccessIsabel types.servers;
 
+  "nixpkgs-fedibot-env.age" = defAccessIsabel types.servers;
+
   "vikunja-env.age" = defAccessIsabel types.servers;
 
   "nextcloud-passwd.age" = defAccessIsabel types.servers;

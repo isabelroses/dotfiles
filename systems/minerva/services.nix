@@ -20,6 +20,7 @@
 
     # social
     akkoma.enable = true;
+    nixpkgs-fedibot.enable = true;
     matrix.enable = true;
     nextcloud.enable = false;
     syncthing.enable = true;
