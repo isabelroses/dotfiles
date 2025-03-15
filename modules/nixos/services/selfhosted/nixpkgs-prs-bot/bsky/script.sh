@@ -7,14 +7,14 @@ fi
 
 OUTPUT=$(nixpkgs-prs --yesterday --plain --no-links)
 
-if [[ -z "$OUTPUT" ]]; then
+if [[ -z $OUTPUT ]]; then
   echo "No merged PRs found."
   exit 0
 fi
 
 # Split output into 300-character chunks
 CHUNKS=()
-while [[ -n "$OUTPUT" ]]; do
+while [[ -n $OUTPUT ]]; do
   CHUNKS+=("${OUTPUT:0:300}")
   OUTPUT="${OUTPUT:300}"
 done
