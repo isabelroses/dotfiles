@@ -23,6 +23,16 @@ else
   FORMAT="markdown"
 fi
 
+if [ -z "${3+x}" ]; then
+  set -- "$1" "$2" ""
+fi
+
+if [[ $3 == "--no-links" ]]; then
+  NO_LINKS="true"
+else
+  NO_LINKS="false"
+fi
+
 REPO="nixos/nixpkgs"
 
 PRs=$(gh pr list --repo $REPO --state merged --search "merged:$DATE" --json title,number,url)
@@ -51,7 +61,11 @@ while IFS= read -r pr; do
     category="packages"
   fi
 
-  entry="- **[#${number}](${url})** $title"
+  if [[ $NO_LINKS == "true" ]]; then
+    entry="- #${number} $title"
+  else
+    entry="- [#${number}](${url}) $title"
+  fi
 
   if [[ $title == *init* ]]; then
     categories_top[$category]+="$entry"$'\n'

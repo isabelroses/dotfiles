@@ -136,7 +136,9 @@ in
 
   "blahaj-env.age" = defAccessIsabel types.servers;
 
-  "nixpkgs-fedibot-env.age" = defAccessIsabel types.servers;
+  # nixpkgs prs bot
+  "nixpkgs-prs-bot/fedi.age" = defAccessIsabel types.servers;
+  "nixpkgs-prs-bot/bsky.age" = defAccessIsabel types.servers;
 
   "vikunja-env.age" = defAccessIsabel types.servers;
 

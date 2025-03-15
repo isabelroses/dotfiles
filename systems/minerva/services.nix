@@ -20,7 +20,11 @@
 
     # social
     akkoma.enable = true;
-    nixpkgs-fedibot.enable = true;
+    nixpkgs-prs-bot = {
+      enable = true;
+      fedi.enable = true;
+      bsky.enable = true;
+    };
     matrix.enable = true;
     nextcloud.enable = false;
     syncthing.enable = true;
