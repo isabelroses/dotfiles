@@ -22,7 +22,6 @@
           preview
           icat
           extract
-          nixpkgs-prs
           scripts
           ;
 

@@ -15,7 +15,7 @@
 
     # media
     ./akkoma
-    ./nixpkgs-prs-bot
+    ./nixpkgs-prs-bot.nix
     ./jellyfin.nix
     ./matrix.nix
     ./nextcloud.nix

@@ -463,6 +463,26 @@
         "type": "github"
       }
     },
+    "nixpkgs-prs-bot": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1742071076,
+        "narHash": "sha256-+c9+UGPmf7K18MakCeVDwMSSI6LxmpyqedwpITAe9jU=",
+        "owner": "isabelroses",
+        "repo": "nixpkgs-prs-bot",
+        "rev": "733736932a1f2dd490021ba95fa7b866750b8605",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "repo": "nixpkgs-prs-bot",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -497,6 +517,7 @@
         "lix": "lix",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-prs-bot": "nixpkgs-prs-bot",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems",
         "tgirlpkgs": "tgirlpkgs",
