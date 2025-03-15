@@ -31,7 +31,7 @@ in
           hash = "sha256-rHo9ITBAnMPMTvJDa6zbJh05H272E8JWf56PDxl9n+8=";
         };
 
-        "emoji/blobs" = pkgs.akkoma-emoji.blobs_gg;
+        "emoji/blobs" = pkgs.blobs_gg;
         "emoji/awesome" = inputs'.tgirlpkgs.packages.emojis;
       };
 
