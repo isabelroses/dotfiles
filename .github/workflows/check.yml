@@ -31,7 +31,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref || 'main' }}
+          ref: ${{ inputs.ref && inputs.ref || github.ref_name }}
 
       - name: Install Lix
         uses: ./.github/actions/install-lix
