@@ -1,9 +1,6 @@
 {
   imports = [
     ./hardware.nix
-    ./overrides.nix
-    ./services.nix
-    ./networking.nix
     ./users.nix
   ];
 
@@ -11,46 +8,55 @@
     device = {
       cpu = "amd";
       gpu = null;
-      hasTPM = false;
-      hasBluetooth = false;
-      hasSound = false;
+      hetzner = {
+        enable = true;
+        ipv4 = "91.107.198.173";
+        ipv6 = "2a01:4f8:c012:2f67::1";
+      };
     };
 
-    system = {
-      boot = {
-        loader = "grub";
-        enableKernelTweaks = true;
-        initrd.enableTweaks = true;
-        loadRecommendedModules = true;
-        tmpOnTmpfs = false;
+    services = {
+      vaultwarden.enable = true;
+      isabelroses-website.enable = true;
+      blahaj.enable = true;
+      vikunja.enable = false;
+      kanidm.enable = true;
+      mailserver.enable = true;
+
+      # web
+      nginx.enable = true;
+      cloudflared.enable = false;
+      headscale.enable = false;
+
+      # dev
+      atuin.enable = true;
+      forgejo.enable = true;
+      wakapi.enable = true;
+      plausible.enable = false;
+
+      # social
+      akkoma.enable = true;
+      nixpkgs-prs-bot = {
+        enable = true;
+        fedi.enable = true;
+        bsky.enable = true;
       };
+      matrix.enable = true;
+      nextcloud.enable = false;
+      syncthing.enable = true;
 
-      fs.support = [
-        "vfat"
-        "exfat"
-        "ext4"
-      ];
-      video.enable = false;
-      sound.enable = false;
-      bluetooth.enable = false;
+      # monitoring
+      grafana.enable = false;
+      prometheus.enable = false;
+      loki.enable = false;
+      uptime-kuma.enable = false;
 
-      networking = {
-        optimizeTcp = false;
-
-        tailscale = {
-          enable = false;
-          isServer = false;
-          isClient = false;
-        };
-      };
-
-      virtualization = {
-        enable = false;
-        docker.enable = false;
-        qemu.enable = false;
-        podman.enable = false;
-        distrobox.enable = false;
-      };
+      # databases
+      influxdb.enable = false;
+      mysql.enable = false;
+      mongodb.enable = false;
+      postgresql.enable = true;
+      redis.enable = true;
     };
   };
 }

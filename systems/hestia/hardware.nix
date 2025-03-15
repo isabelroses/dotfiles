@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   fileSystems = {
     "/" = {
@@ -14,4 +15,6 @@
   swapDevices = [
     { device = "/dev/disk/by-label/swap"; }
   ];
+
+  boot.loader.generationsDir.copyKernels = lib.modules.mkForce false;
 }

@@ -1,9 +1,6 @@
 {
   imports = [
     ./hardware.nix
-    ./overrides.nix
-    ./services.nix
-    ./networking.nix
     ./users.nix
   ];
 
@@ -11,46 +8,19 @@
     device = {
       cpu = "intel";
       gpu = null;
-      hasTPM = false;
-      hasBluetooth = false;
-      hasSound = false;
+      hetzner = {
+        enable = true;
+        ipv4 = "116.203.57.153";
+        ipv6 = "2a01:4f8:c2c:b73d::/64";
+      };
     };
 
-    system = {
-      boot = {
-        loader = "grub";
-        enableKernelTweaks = true;
-        initrd.enableTweaks = true;
-        loadRecommendedModules = true;
-        tmpOnTmpfs = false;
+    services = {
+      nginx = {
+        enable = true;
+        domain = "tgirl.cloud";
       };
-
-      fs.support = [
-        "vfat"
-        "exfat"
-        "ext4"
-      ];
-      video.enable = false;
-      sound.enable = false;
-      bluetooth.enable = false;
-
-      networking = {
-        optimizeTcp = false;
-
-        tailscale = {
-          enable = false;
-          isServer = false;
-          isClient = false;
-        };
-      };
-
-      virtualization = {
-        enable = false;
-        docker.enable = false;
-        qemu.enable = false;
-        podman.enable = false;
-        distrobox.enable = false;
-      };
+      attic.enable = true;
     };
   };
 }

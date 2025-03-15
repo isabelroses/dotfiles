@@ -3,6 +3,7 @@
     ./cpu # cpu specific options
     ./gpu # gpu specific options
     ./media # sound and video
+    ./cloud # abstractions for specific cloud providers
 
     ./bluetooth.nix # bluetooth
     ./firmwares.nix # firmwares
