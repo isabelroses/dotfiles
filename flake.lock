@@ -470,11 +470,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742118603,
-        "narHash": "sha256-cLY94iNAd2zxyzW+i7xRcFd2hYoq+v84Kyro1kQJzBQ=",
+        "lastModified": 1742134223,
+        "narHash": "sha256-FMmYsEeryT9GIpmTDhSxLvhMayDqyYnEjIGYGvcsisg=",
         "owner": "isabelroses",
         "repo": "nixpkgs-prs-bot",
-        "rev": "539ff996f6b14c51b1d26377f1ffd3eff8265e2e",
+        "rev": "cbeb281ca751c5b8b49902e870d610a79c75cb41",
         "type": "github"
       },
       "original": {
