@@ -28,7 +28,7 @@ in
 
         "favicon.png" = pkgs.fetchurl {
           url = "https://gravatar.com/avatar/c487c810e09878b4bd90df713a7c9523?size=512";
-          hash = "sha256-rHo9ITBAnMPMTvJDa6zbJh05H272E8JWf56PDxl9n+8=";
+          hash = "sha256-L47b8Y/x42ZEF2jDEaQYnsVgWW6TAeE3lsS4Mjl6jXY=";
         };
 
         "emoji/blobs" = pkgs.blobs_gg;
