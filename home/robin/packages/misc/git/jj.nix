@@ -18,17 +18,36 @@ in
         };
 
         aliases = {
+          # create named bookmark at HEAD@git
           name = [
             "bookmark"
-            "set"
+            "create"
             "-r"
             "git_head()"
           ];
+          # update bookmark <arg> to point to HEAD@git
           update = [
             "bookmark"
             "move"
             "--to"
             "git_head()"
+          ];
+          # pull up the nearest bookmarks to the last described commit
+          tug = [
+            "bookmark"
+            "move"
+            "--from"
+            "heads(::@- & bookmarks())"
+            "--to"
+            "latest(heads(::@- & bookmarks())..@ ~ subject(exact:'') ~ empty())"
+          ];
+
+          # push the nearest bookmark
+          push = [
+            "git"
+            "push"
+            "-r"
+            "heads(::@- & bookmarks())"
           ];
         };
 
