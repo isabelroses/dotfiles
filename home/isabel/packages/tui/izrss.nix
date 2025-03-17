@@ -14,7 +14,10 @@ in
       enable = true;
 
       settings = {
-        reader.size = "full";
+        reader = {
+          size = "full";
+          theme = "environment";
+        };
 
         urls = [
           "https://isabelroses.com/feed.xml"
@@ -26,10 +29,9 @@ in
           "https://blog.orhun.dev/rss.xml"
           "https://mitchellh.com/feed.xml"
           "https://dataswamp.org/~solene/rss-html.xml"
-          "https://ayats.org/index.xml"
+          # "https://ayats.org/index.xml" seems to 404
           "https://nixpkgs.news/rss.xml"
           "https://maia.crimew.gay/feed.xml"
-          "https://forum.aux.computer/tag/security-advisory.rss"
         ];
       };
     };
