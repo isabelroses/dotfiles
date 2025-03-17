@@ -6,10 +6,15 @@
 }:
 let
   inherit (lib.modules) mkIf mkAfter;
-  inherit (lib.attrsets) mapAttrs;
-  inherit (lib.strings) escapeShellArg concatMapStrings;
+  inherit (lib.strings) concatMapStrings;
 
   cfg = config.garden.programs.nushell;
+
+  completions =
+    cmds:
+    concatMapStrings (cmd: ''
+      source "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${cmd}/${cmd}-completions.nu"
+    '') cmds;
 in
 {
   config = mkIf cfg.enable {
@@ -28,62 +33,37 @@ in
 
         shellAliases = builtins.removeAttrs config.home.shellAliases [ "mkdir" ];
 
-        environmentVariables = {
-          DIRENV_LOG_FORMAT = "";
-          # PATH = "($env.PATH | split row (char esep) | append [${escapeShellArgs config.home.sessionPath}])";
-        } // mapAttrs (_: v: (escapeShellArg v)) config.home.sessionVariables;
+        settings = {
+          show_banner = false;
 
-        extraConfig =
-          let
-            completions =
-              cmds:
-              concatMapStrings (cmd: ''
-                source "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${cmd}/${cmd}-completions.nu"
-              '') cmds;
+          rm.always_trash = true;
+          ls.clickable_links = true;
 
-            theme = "catppuccin-${config.catppuccin.flavor}";
-          in
-          completions [
-            "nix"
-            "git"
-            "curl"
-            "bat"
-            "cargo"
-            "gh"
-            "glow"
-            "just"
-            "rg"
-            "npm"
-            "pnpm"
-            "tar"
-          ]
-          # nu
-          + ''
-            use ${pkgs.nu_scripts}/share/nu_scripts/themes/nu-themes/${theme}.nu
+          error_style = "fancy";
 
-            # occasionally generate this with
-            # nix-your-shell nu | save $env.XDG_CONFIG_HOME/nushell/nix-your-shell.nu
-            source nix-your-shell.nu
+          completions = {
+            case_sensitive = false;
+            quick = true;
+            partial = true;
+            algorithm = "fuzzy";
+            use_ls_colors = true;
+          };
+        };
 
-            $env.config = {
-              show_banner: false,
-              rm: {
-                always_trash: true
-              }
-              ls: {
-                clickable_links: true
-              }
-              color_config: (${theme})
-              error_style: "fancy"
-              completions: {
-                case_sensitive: false
-                quick: true
-                partial: true
-                algorithm: "fuzzy"
-                use_ls_colors: true
-              }
-            }
-          '';
+        extraConfig = completions [
+          "nix"
+          "git"
+          "curl"
+          "bat"
+          "cargo"
+          "gh"
+          "glow"
+          "just"
+          "rg"
+          "npm"
+          "pnpm"
+          "tar"
+        ];
       };
     };
   };

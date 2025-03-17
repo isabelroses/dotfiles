@@ -16,6 +16,7 @@
     ./freeze.nix
     ./fzf.nix
     ./hyfetch.nix
+    ./nix-your-shell.nix
     ./ripgrep.nix
     ./starship.nix
     # ./tealdear.nix

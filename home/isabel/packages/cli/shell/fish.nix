@@ -35,8 +35,6 @@ in
       '';
 
       shellInit = ''
-        ${getExe pkgs.nix-your-shell} fish | source
-
         # themeing
         set fish_greeting
         export "MICRO_TRUECOLOR=1"

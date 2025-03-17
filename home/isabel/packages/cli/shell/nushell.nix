@@ -15,8 +15,6 @@ let
     concatMapStrings (cmd: ''
       source "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${cmd}/${cmd}-completions.nu"
     '') cmds;
-
-  theme = "catppuccin-${config.catppuccin.flavor}";
 in
 {
   config = mkIf cfg.enable {
@@ -41,7 +39,6 @@ in
           rm.always_trash = true;
           ls.clickable_links = true;
 
-          color_config = "(${theme})";
           error_style = "fancy";
 
           completions = {
@@ -53,30 +50,20 @@ in
           };
         };
 
-        extraConfig =
-          completions [
-            "nix"
-            "git"
-            "curl"
-            "bat"
-            "cargo"
-            "gh"
-            "glow"
-            "just"
-            "rg"
-            "npm"
-            "pnpm"
-            "tar"
-          ]
-          # nu
-          + ''
-            use ${pkgs.nu_scripts}/share/nu_scripts/themes/nu-themes/${theme}.nu
-
-            # occasionally generate this with
-            # nix-your-shell nu | save $env.XDG_CONFIG_HOME/nushell/nix-your-shell.nu
-            # TODO: https://github.com/NixOS/nixpkgs/pull/383164
-            source nix-your-shell.nu
-          '';
+        extraConfig = completions [
+          "nix"
+          "git"
+          "curl"
+          "bat"
+          "cargo"
+          "gh"
+          "glow"
+          "just"
+          "rg"
+          "npm"
+          "pnpm"
+          "tar"
+        ];
       };
     };
   };
