@@ -187,13 +187,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixpkgs-prs-bot = {
-      type = "github";
-      owner = "isabelroses";
-      repo = "nixpkgs-prs-bot";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     izvim = {
       type = "github";
       owner = "isabelroses";

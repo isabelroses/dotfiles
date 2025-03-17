@@ -1,7 +1,6 @@
 {
   lib,
   self,
-  inputs,
   config,
   ...
 }:
@@ -14,48 +13,42 @@ let
   cfg = config.garden.services.nixpkgs-prs-bot;
 in
 {
-  imports = [ inputs.nixpkgs-prs-bot.nixosModules.default ];
-
   options.garden.services.nixpkgs-prs-bot = mkServiceOption "nixpkgs-prs-bot" {
-    domain = "";
-
     extraConfig = {
       fedi.enable = mkEnableOption "fedi";
       bsky.enable = mkEnableOption "bsky";
     };
   };
 
-  config = mkIf cfg.enable {
-    age.secrets = {
-      nixpkgs-prs-bot-fedi = mkSecret {
+  config = mkIf cfg.enable (mkMerge [
+    {
+      services.nixpkgs-prs-bot.enable = true;
+    }
+
+    (mkIf cfg.fedi.enable {
+      age.secrets.nixpkgs-prs-bot-fedi = mkSecret {
         file = "nixpkgs-prs-bot/fedi";
         owner = "nixpkgs-prs-bot";
         group = "nixpkgs-prs-bot";
       };
 
-      nixpkgs-prs-bot-bsky = mkSecret {
+      services.nixpkgs-prs-bot.fedi = {
+        enable = true;
+        environmentFile = config.age.secrets.nixpkgs-prs-bot-fedi.path;
+      };
+    })
+
+    (mkIf cfg.bsky.enable {
+      age.secrets.nixpkgs-prs-bot-bsky = mkSecret {
         file = "nixpkgs-prs-bot/bsky";
         owner = "nixpkgs-prs-bot";
         group = "nixpkgs-prs-bot";
       };
-    };
 
-    services.nixpkgs-prs-bot = mkMerge [
-      { enable = true; }
-
-      (mkIf cfg.fedi.enable {
-        fedi = {
-          enable = true;
-          environmentFile = config.age.secrets.nixpkgs-prs-bot-fedi.path;
-        };
-      })
-
-      (mkIf cfg.bsky.enable {
-        bsky = {
-          enable = true;
-          environmentFile = config.age.secrets.nixpkgs-prs-bot-bsky.path;
-        };
-      })
-    ];
-  };
+      services.nixpkgs-prs-bot.bsky = {
+        enable = true;
+        environmentFile = config.age.secrets.nixpkgs-prs-bot-bsky.path;
+      };
+    })
+  ]);
 }

@@ -463,26 +463,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-prs-bot": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1742173488,
-        "narHash": "sha256-aQ+bCTM3LQeaVoag0n3GncfMZlbJxM9cvPouoa1Wruw=",
-        "owner": "isabelroses",
-        "repo": "nixpkgs-prs-bot",
-        "rev": "9ed7acf2c36794721b7844ace8ea1aeecd16e85d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "repo": "nixpkgs-prs-bot",
-        "type": "github"
-      }
-    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -517,7 +497,6 @@
         "lix": "lix",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-prs-bot": "nixpkgs-prs-bot",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems",
         "tgirlpkgs": "tgirlpkgs",
@@ -591,11 +570,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742172251,
-        "narHash": "sha256-doT1XCLk8Tu2iQjLVZNXIz0EZUztXI6ZPSPH9Rqvr/8=",
+        "lastModified": 1742236982,
+        "narHash": "sha256-SnX7WT1tD0teqC+YHZQoNNfmXR3Mc+gkq5k3NCMLivs=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "dc9a85b99a6bc8c2d97f7ccbcf471ac324c0f0a9",
+        "rev": "6c630ceebb88c651deb834932be96755420aec3d",
         "type": "github"
       },
       "original": {
