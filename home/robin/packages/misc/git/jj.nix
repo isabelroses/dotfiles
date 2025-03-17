@@ -115,6 +115,12 @@ in
             "DiffEditor $left $right $output"
           ];
         };
+
+        colors = {
+          "working_copy commit_id" = "#6E8585";
+          "working_copy empty" = "#3F4D52";
+          "working_copy empty description placeholder" = "#3F4D52";
+        };
       };
     };
   };
