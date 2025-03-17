@@ -68,13 +68,8 @@ in
       # equivalent to --ff-only
       pull.ff = "only";
 
-      push = {
-        # the default functionality is to push the current branch that i am on to the remote
-        default = "current";
-
-        # if a remote does not have a branch that i have, create it
-        autoSetupRemote = true;
-      };
+      # if a remote does not have a branch that i have, create it
+      push.autoSetupRemote = true;
 
       # nicer diffing for merges
       merge = {
