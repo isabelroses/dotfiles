@@ -65,8 +65,13 @@ in
       # prune branches that are no longer on the remote
       fetch.prune = true;
 
-      # equivalent to --ff-only
-      pull.ff = "only";
+      pull = {
+        # the default functionality is to push the current branch that i am on to the remote
+        default = "current";
+
+        # equivalent to --ff-only
+        ff = "only";
+      };
 
       # if a remote does not have a branch that i have, create it
       push.autoSetupRemote = true;
