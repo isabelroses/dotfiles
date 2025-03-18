@@ -115,9 +115,6 @@ in
         # remember you must also enable use-cgroups in the nix.conf or settings
         "cgroups"
 
-        # allow passing installables to nix repl, making its interface consistent with the other experimental commands
-        "repl-flake"
-
         # allow usage of the pipe operator in nix expressions
         "pipe-operator"
 
