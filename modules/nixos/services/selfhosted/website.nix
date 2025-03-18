@@ -16,7 +16,6 @@ let
   cfg = config.garden.services.isabelroses-website;
 
   serve = "/srv/storage/isabelroses.com";
-  package = inputs'.tgirlpkgs.packages.isabelroses-website;
 in
 {
   options.garden.services.isabelroses-website = mkServiceOption "isabelroses-website" {
@@ -29,7 +28,6 @@ in
       description = "isabelroses.com";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = [ package ];
 
       environment = {
         DONOS_FILE = "${serve}/donos.json";
@@ -40,7 +38,7 @@ in
         Type = "simple";
         ReadWritePaths = [ serve ];
         DynamicUser = true;
-        ExecStart = getExe package;
+        ExecStart = getExe inputs'.tgirlpkgs.packages.isabelroses-website;
         Restart = "always";
       } // template.systemd;
     };
