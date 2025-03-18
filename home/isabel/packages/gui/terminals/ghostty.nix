@@ -30,6 +30,9 @@ in
       window-save-state = "always";
 
       font-family = osConfig.garden.style.font.name;
+      font-family-bold = osConfig.garden.style.font.bold;
+      font-family-italic = osConfig.garden.style.font.italic;
+      font-family-bold-italic = osConfig.garden.style.font.bold-italic;
       font-size = 13;
     };
   };

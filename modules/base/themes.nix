@@ -11,6 +11,24 @@ in
       default = "Maple Mono";
     };
 
+    italic = mkOption {
+      type = str;
+      description = "The name of the italic font";
+      default = "Maple Mono Italic";
+    };
+
+    bold = mkOption {
+      type = str;
+      description = "The name of the bold font";
+      default = "Maple Mono Bold";
+    };
+
+    bold-italic = mkOption {
+      type = str;
+      description = "The name of the bold italic font";
+      default = "Maple Mono Bold Italic";
+    };
+
     package = mkPackageOption pkgs "maple-mono" { };
 
     size = mkOption {

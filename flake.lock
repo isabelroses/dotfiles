@@ -313,11 +313,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742205654,
-        "narHash": "sha256-T0nmMEG7nkJyQf6wBeACpQjW1uqp7HHMlIUO1fqKPO8=",
+        "lastModified": 1742308257,
+        "narHash": "sha256-t/gbQW+sFSIguQ3THh5+plgsUJL3Fmh3CeO8U4mGmEU=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "d803d9e58912ecb8e5be9a3c5d373d9d286f6e05",
+        "rev": "ae9c33ac9bad8dadaa42b9b4e7eb803b07dd7a38",
         "type": "github"
       },
       "original": {
@@ -570,11 +570,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742304800,
-        "narHash": "sha256-06vZzirX9T1OmiEDN8NYx3VEbXMYRZXbPQux0cs0zTs=",
+        "lastModified": 1742305523,
+        "narHash": "sha256-8HgQW48iUWDWGeM8XouP+8vj9nGceERyQPNV0ljXvO8=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "dbbaad5ac9fbaa9b5c4f6b50966c95e33b4130be",
+        "rev": "98b14b0eb5b8d8fe69df2613cdfc14218140861e",
         "type": "github"
       },
       "original": {
