@@ -1,8 +1,12 @@
-{ lib, config, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
   inherit (lib.modules) mkIf mkDefault mkForce;
-
-  dev = config.garden.device;
+  inherit (self.lib.validators) hasProfile;
 in
 {
   imports = [
@@ -36,7 +40,7 @@ in
     usePredictableInterfaceNames = mkDefault true;
 
     # dns
-    nameservers = mkIf (dev.type != "wsl") [
+    nameservers = mkIf (!hasProfile config [ "wsl" ]) [
       "1.1.1.1"
       "1.0.0.1"
       "9.9.9.9"

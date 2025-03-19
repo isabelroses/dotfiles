@@ -1,1 +1,0 @@
-{ garden.device.type = "laptop"; }

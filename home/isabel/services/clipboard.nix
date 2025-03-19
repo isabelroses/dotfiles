@@ -8,7 +8,7 @@
 let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isWayland isAcceptedDevice;
+  inherit (self.lib.validators) isWayland hasProfile;
   inherit (self.lib.services) mkGraphicalService;
 
   acceptedTypes = [
@@ -19,7 +19,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes && isWayland osConfig) {
+  config = mkIf (hasProfile osConfig acceptedTypes && isWayland osConfig) {
     systemd.user.services.cliphist = mkGraphicalService {
       Unit.Description = "Clipboard history service";
       Service = {

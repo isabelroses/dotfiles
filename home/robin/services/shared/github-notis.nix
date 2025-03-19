@@ -8,7 +8,7 @@
 let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) hasProfile;
   inherit (self.lib.services) mkGraphicalService;
 
   acceptedTypes = [
@@ -18,7 +18,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
+  config = mkIf (hasProfile osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
     systemd.user = {
       timers."github-notis" = {
         Install.WantedBy = [ "timers.target" ];

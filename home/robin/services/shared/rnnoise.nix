@@ -7,7 +7,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) hasProfile;
 
   acceptedTypes = [
     "desktop"
@@ -17,7 +17,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
+  config = mkIf (hasProfile osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
     xdg.configFile."pipewire/pipewire.conf.d/99-input-denoising.conf".text = builtins.toJSON {
       "context.modules" = [
         {

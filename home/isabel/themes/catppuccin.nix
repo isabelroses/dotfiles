@@ -7,7 +7,7 @@
   ...
 }:
 let
-  inherit (self.lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) hasProfile;
   nonAccepted = [ "server" ];
 
   isGui = pkgs.stdenv.hostPlatform.isLinux && config.garden.programs.gui.enable;
@@ -17,7 +17,7 @@ in
 
   config = {
     catppuccin = {
-      enable = !(isAcceptedDevice osConfig nonAccepted);
+      enable = !(hasProfile osConfig nonAccepted);
       flavor = "mocha";
       accent = "pink";
 

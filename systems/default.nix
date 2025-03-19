@@ -5,28 +5,16 @@
   ...
 }:
 let
-
   inherit (lib.lists) optionals concatLists;
-
-  # profiles module, these are sensible defaults for given hardware sets
-  # or meta profiles that are used to configure the system based on the requirements of the given machine
-  profilesPath = ../modules/profiles; # the base directory for the types module
-
-  # hardware profiles
-  laptop = profilesPath + /laptop; # for laptop type configurations
-  desktop = profilesPath + /desktop; # for desktop type configurations
-  server = profilesPath + /server; # for server type configurations
-  wsl = profilesPath + /wsl; # for wsl systems
-  hybrid = profilesPath + /hybrid; # for systems that are a mix of laptop and server
-
-  # meta profiles
-  graphical = profilesPath + /graphical; # for systems that have a graphical interface
-  headless = profilesPath + /headless; # for headless systems
 in
 {
   imports = [ inputs.easy-hosts.flakeModule ];
 
   config.easy-hosts = {
+    additionalClasses = {
+      wsl = "nixos";
+    };
+
     perClass = class: {
       modules = concatLists [
         [
@@ -54,65 +42,39 @@ in
     #  specialArgs = { };
     hosts = {
       # isabel's hosts
-      hydra.modules = [
-        hybrid
-        graphical
-      ];
+      hydra = { };
 
       tatsumaki = {
         arch = "aarch64";
         class = "darwin";
       };
 
-      amaterasu.modules = [
-        desktop
-        graphical
-      ];
+      amaterasu = { };
 
-      valkyrie.modules = [
-        wsl
-        headless
-      ];
+      valkyrie = {
+        class = "wsl";
+      };
 
       minerva = {
         deployable = true;
-        modules = [
-          server
-          headless
-        ];
       };
 
       hestia = {
         deployable = true;
-        modules = [
-          server
-          headless
-        ];
       };
 
       lilith = {
         class = "iso";
-        modules = [ headless ];
       };
 
-      # hera = {
-      #   arch = "aarch64";
-      #   modules = [
-      #     server
-      #     headless
-      #   ];
-      # };
-
       # robin's hosts
-      cottage.modules = [
-        laptop
-        graphical
-      ];
+      cottage = { };
 
-      wisp.modules = [
-        wsl
-        headless
-      ];
+      # bmo = { };
+
+      wisp = {
+        class = "wsl";
+      };
     };
   };
 }

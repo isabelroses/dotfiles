@@ -6,6 +6,10 @@
 
   garden = {
     device = {
+      profiles = [
+        "headless"
+        "server"
+      ];
       cpu = "amd";
       gpu = null;
       hetzner = {

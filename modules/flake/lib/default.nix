@@ -32,7 +32,7 @@ let
     inherit (final.services) mkGraphicalService mkHyprlandService mkServiceOption;
     inherit (final.validators)
       ifTheyExist
-      isAcceptedDevice
+      hasProfile
       isWayland
       ifOneEnabled
       isModernShell

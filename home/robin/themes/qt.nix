@@ -7,7 +7,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) hasProfile;
 
   acceptedTypes = [
     "laptop"
@@ -17,7 +17,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
+  config = mkIf (hasProfile osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
     qt = {
       enable = true;
       platformTheme.name = "kvantum";

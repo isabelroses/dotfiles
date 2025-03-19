@@ -6,6 +6,11 @@
 
   garden = {
     device = {
+      profiles = [
+        "server"
+        "laptop"
+        "graphical"
+      ];
       cpu = "intel";
       gpu = null;
       monitors = [ "eDP-1" ];

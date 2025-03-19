@@ -313,11 +313,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742381880,
-        "narHash": "sha256-wvBL5QRkVm30qBrum1xI4U08myqeLffyB5Me1Smp/JQ=",
+        "lastModified": 1742391695,
+        "narHash": "sha256-UVDwFPOJcHgb/nlHC452MxPOd2teP4EVp2sC0Wxmxpk=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "dc417fb5d00b9981ba105edd132b20d6627e8586",
+        "rev": "d36aa322e370996d58b2f57fca67a6904560190b",
         "type": "github"
       },
       "original": {
@@ -570,17 +570,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1742384537,
-        "narHash": "sha256-eIpOSIFOSP6kNII0jWlbgFqM3cO6NYjFmd9lfnurJSA=",
-        "owner": "tgirlcloud",
-        "repo": "pkgs",
-        "rev": "e8681055fca1239578be2bb335304fc41486a135",
-        "type": "github"
+        "lastModified": 1742396230,
+        "narHash": "sha256-+oKmdgJbWHKaaJ7h+vcE4ZEe4Z0X3gQGG2rriTyYqtw=",
+        "ref": "refs/heads/main",
+        "rev": "53c11ceafa72d26ead5df345a69bd80a0c6ee924",
+        "revCount": 497,
+        "type": "git",
+        "url": "file:/home/isabel/dev/tgirlcloud/tgirlpkgs"
       },
       "original": {
-        "owner": "tgirlcloud",
-        "repo": "pkgs",
-        "type": "github"
+        "type": "git",
+        "url": "file:/home/isabel/dev/tgirlcloud/tgirlpkgs"
       }
     },
     "treefmt-nix": {

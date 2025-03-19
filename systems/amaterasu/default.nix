@@ -6,6 +6,10 @@
 
   garden = {
     device = {
+      profiles = [
+        "desktop"
+        "graphical"
+      ];
       cpu = "intel";
       gpu = "nvidia";
       hasTPM = true;

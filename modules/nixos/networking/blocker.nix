@@ -1,16 +1,24 @@
-{ config, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
-  inherit (config.garden) device;
+  inherit (lib.modules) mkIf;
+  inherit (self.lib.validators) hasProfile;
 in
 {
   # remove stupid sites that i just don't want to see
-  networking.stevenblack = {
-    enable = device.type != "server";
-    block = [
-      "fakenews"
-      "gambling"
-      "porn"
-      # "social"
-    ];
+  config = mkIf (!hasProfile config [ "server" ]) {
+    networking.stevenblack = {
+      enable = true;
+      block = [
+        "fakenews"
+        "gambling"
+        "porn"
+        # "social"
+      ];
+    };
   };
 }

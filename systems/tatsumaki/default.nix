@@ -2,6 +2,9 @@
   imports = [ ./users.nix ];
 
   garden = {
-    device.type = "laptop";
+    device.profiles = [
+      "laptop"
+      "graphical"
+    ];
   };
 }

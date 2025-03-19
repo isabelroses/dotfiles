@@ -1,5 +1,7 @@
-{ osConfig, ... }:
+{ self, osConfig, ... }:
 let
+  inherit (self.lib.validators) hasProfile;
+
   dev = osConfig.garden.device;
 in
 {
@@ -20,7 +22,7 @@ in
       };
     };
 
-    gestures.workspace_swipe = dev.type == "laptop" || dev.type == "hybrid";
+    gestures.workspace_swipe = hasProfile osConfig [ "laptop" ];
 
     cursor = {
       no_hardware_cursors = true;

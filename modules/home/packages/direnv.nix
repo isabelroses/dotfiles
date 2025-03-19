@@ -8,7 +8,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isAcceptedDevice isModernShell;
+  inherit (self.lib.validators) hasProfile isModernShell;
 
   acceptedTypes = [
     "wsl"
@@ -18,7 +18,7 @@ let
   ];
 in
 {
-  programs.direnv = mkIf (isAcceptedDevice osConfig acceptedTypes && isModernShell config) {
+  programs.direnv = mkIf (hasProfile osConfig acceptedTypes && isModernShell config) {
     enable = true;
     silent = true;
 

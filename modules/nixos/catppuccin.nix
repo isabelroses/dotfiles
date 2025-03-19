@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (self.lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) hasProfile;
   nonAccepted = [
     "server"
     "wsl"
@@ -16,7 +16,7 @@ in
 
   config = {
     catppuccin = {
-      enable = !(isAcceptedDevice config nonAccepted);
+      enable = !(hasProfile config nonAccepted);
       flavor = "mocha";
 
       # IFD, easy to vendor

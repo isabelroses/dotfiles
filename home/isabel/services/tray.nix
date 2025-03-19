@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) hasProfile;
 
   acceptedTypes = [
     "lite"
@@ -16,7 +16,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes) {
+  config = mkIf (hasProfile osConfig acceptedTypes) {
     # https://github.com/nix-community/home-manager/issues/2064
     systemd.user.targets.tray.Unit = {
       Description = "Home Manager System Tray";

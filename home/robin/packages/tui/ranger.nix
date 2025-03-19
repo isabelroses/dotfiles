@@ -8,7 +8,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) hasProfile;
   inherit (lib.strings) optionalString;
 
   acceptedTypes = [
@@ -20,7 +20,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes && config.garden.programs.tui.enable) {
+  config = mkIf (hasProfile osConfig acceptedTypes && config.garden.programs.tui.enable) {
     home.packages = [ pkgs.ranger ];
 
     xdg.configFile."ranger/rc.conf".text = ''

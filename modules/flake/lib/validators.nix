@@ -1,6 +1,7 @@
 { lib, ... }:
 let
   inherit (lib.attrsets) getAttrFromPath;
+  inherit (lib.trivial) flip;
 
   inherit (builtins)
     elem
@@ -43,17 +44,17 @@ let
     # Type
 
     ```
-    isAcceptedDevice :: AttrSet -> List -> Bool
+    hasProfile :: AttrSet -> List -> Bool
     ```
 
     # Example
 
     ```nix
-    isAcceptedDevice osConfig ["foo" "bar"]
+    hasProfile osConfig ["foo" "bar"]
     => false
     ```
   */
-  isAcceptedDevice = conf: list: elem conf.garden.device.type list;
+  hasProfile = conf: list: any (flip elem conf.garden.device.profiles) list;
 
   /**
     check if the device is wayland-ready
@@ -142,7 +143,7 @@ in
 {
   inherit
     ifTheyExist
-    isAcceptedDevice
+    hasProfile
     isWayland
     isModernShell
     anyHome

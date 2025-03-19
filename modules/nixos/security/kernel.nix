@@ -1,8 +1,14 @@
-{ lib, config, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.lists) optionals concatLists;
   inherit (lib.options) mkEnableOption;
+  inherit (self.lib.validators) hasProfile;
 
   sys = config.garden.system;
 in
@@ -41,7 +47,7 @@ in
       # https://sysctl-explorer.net/
       #
       # we disable sysctl tweaks on wsl since they don't work
-      kernel.sysctl = mkIf (config.garden.device.type != "wsl") {
+      kernel.sysctl = mkIf (hasProfile config [ "wsl" ]) {
         # The Magic SysRq key is a key combo that allows users connected to the
         # system console of a Linux kernel to perform some low-level commands.
         # Disable it, since we don't need it, and is a potential security concern.

@@ -3,6 +3,7 @@
 
   garden = {
     device = {
+      profiles = [ "wsl" ];
       cpu = null;
       gpu = null;
       hasTPM = true;

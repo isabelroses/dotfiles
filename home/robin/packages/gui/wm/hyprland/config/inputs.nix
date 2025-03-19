@@ -1,6 +1,7 @@
-{ osConfig, ... }:
+{ self, osConfig, ... }:
 let
   dev = osConfig.garden.device;
+  inherit (self.lib.validators) hasProfile;
 in
 {
   wayland.windowManager.hyprland.settings = {
@@ -20,7 +21,7 @@ in
       };
     };
 
-    gestures.workspace_swipe = dev.type == "laptop" || dev.type == "hybrid";
+    gestures.workspace_swipe = hasProfile osConfig [ "laptop" ];
 
     cursor = {
       no_hardware_cursors = true;

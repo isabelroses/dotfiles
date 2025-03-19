@@ -1,19 +1,23 @@
 { lib, ... }:
 let
-  inherit (lib.types) enum;
   inherit (lib.options) mkOption;
+  inherit (lib.types) enum listOf;
 in
 {
-  options.garden.device.type = mkOption {
-    type = enum [
+  options.garden.device.profiles = mkOption {
+    type = listOf (enum [
+      # physical
       "laptop"
       "desktop"
       "server"
-      "hybrid"
       "wsl"
-      "lite"
       "vm"
-    ];
-    default = "";
+
+      # meta
+      "lite"
+      "graphical"
+      "headless"
+    ]);
+    default = [ ];
   };
 }

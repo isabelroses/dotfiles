@@ -1,12 +1,14 @@
 {
   lib,
   pkgs,
+  self,
   config,
   ...
 }:
 let
   inherit (lib.modules) mkIf mkForce;
-  inherit (config.garden) meta device;
+  inherit (config.garden) meta;
+  inherit (self.lib.validators) hasProfile;
 in
 {
   imports = [ ./fail2ban.nix ];
@@ -43,7 +45,7 @@ in
       ];
 
       # allow servers to be pinnged, but not our clients
-      allowPing = device.type == "server" || device.type == "hybrid";
+      allowPing = hasProfile config [ "server" ];
 
       # make a much smaller and easier to read log
       logReversePathDrops = true;

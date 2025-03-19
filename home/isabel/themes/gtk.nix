@@ -8,18 +8,11 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) hasProfile;
   cfg = osConfig.garden.style;
-
-  acceptedTypes = [
-    "laptop"
-    "desktop"
-    "hybrid"
-    "lite"
-  ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
+  config = mkIf (hasProfile osConfig [ "graphical" ] && pkgs.stdenv.hostPlatform.isLinux) {
     xdg.systemDirs.data =
       let
         schema = pkgs.gsettings-desktop-schemas;

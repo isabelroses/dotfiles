@@ -181,9 +181,10 @@
 
     ### my programs
     tgirlpkgs = {
-      type = "github";
-      owner = "tgirlcloud";
-      repo = "pkgs";
+      # type = "github";
+      # owner = "tgirlcloud";
+      # repo = "pkgs";
+      url = "git+file:/home/isabel/dev/tgirlcloud/tgirlpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

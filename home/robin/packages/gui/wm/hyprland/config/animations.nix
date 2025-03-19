@@ -1,10 +1,6 @@
-{ osConfig, ... }:
-let
-  dev = osConfig.garden.device;
-in
 {
   wayland.windowManager.hyprland.settings.animations = {
-    enabled = dev.type != "laptop" && dev.type != "hybrid";
+    enabled = true;
     first_launch_animation = false;
 
     bezier = [

@@ -8,7 +8,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isAcceptedDevice;
+  inherit (self.lib.validators) hasProfile;
 
   acceptedTypes = [
     "desktop"
@@ -17,7 +17,7 @@ let
   ];
 in
 {
-  config = mkIf (isAcceptedDevice osConfig acceptedTypes) {
+  config = mkIf (hasProfile osConfig acceptedTypes) {
     services.syncthing = {
       enable = true;
 

@@ -1,5 +1,6 @@
 {
   lib,
+  self,
   pkgs,
   config,
   ...
@@ -7,8 +8,8 @@
 let
   inherit (lib.modules) mkIf mkForce;
   inherit (lib.lists) optionals;
+  inherit (self.lib.validators) hasProfile;
 
-  dev = config.garden.device;
   sys = config.garden.system;
 in
 {
@@ -44,6 +45,6 @@ in
     };
 
     # causes server to be unreachable over SSH
-    ethernet.macAddress = mkIf (dev.type != "server") "random";
+    ethernet.macAddress = mkIf (!hasProfile config [ "server" ]) "random";
   };
 }
