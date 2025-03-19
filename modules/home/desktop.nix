@@ -20,7 +20,6 @@ in
     environment.desktop = mkOption {
       type = nullOr (enum [
         "Hyprland"
-        "yabai"
         "sway"
         "cosmic"
       ]);
@@ -30,7 +29,7 @@ in
 
     meta = {
       isWayland = mkMetaOption [ "garden" "environment" "desktop" ] [ "Hyprland" "sway" "cosmic" ];
-      isWM = mkMetaOption [ "garden" "environment" "desktop" ] [ "yabai" "sway" "cosmic" ];
+      isWM = mkMetaOption [ "garden" "environment" "desktop" ] [ "sway" "cosmic" ];
     };
   };
 
