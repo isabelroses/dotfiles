@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption;
   inherit (self.lib.programs) mkProgram;
   inherit (lib.strings) makeBinPath;
@@ -18,6 +18,7 @@ in
   options.garden.programs = {
     obsidian = mkProgram pkgs "obsidian" {
       enable.default = config.garden.programs.notes.enable;
+
       package.default = pkgs.symlinkJoin {
         name = "obsidian-wrapped";
 
@@ -29,6 +30,7 @@ in
             --prefix PATH : ${makeBinPath cfg.obsidian.runtimeInputs}
         '';
       };
+
       runtimeInputs = mkOption {
         type = listOf package;
         default = [ ];
@@ -43,7 +45,21 @@ in
     };
   };
 
-  config = mkIf (cfg.zk.enable && cfg.zk.settings != { }) {
-    xdg.configFile."zk/config.toml".source = pkgs.writers.writeTOML "zk-conf.toml" cfg.zk.settings;
-  };
+  config = mkMerge [
+    (mkIf cfg.zk.enable {
+      xdg.configFile = mkIf (cfg.zk.settings != { }) {
+        "zk/config.toml".source = pkgs.writers.writeTOML "zk-conf.toml" cfg.zk.settings;
+      };
+
+      garden.packages = {
+        zk = cfg.zk.package;
+      };
+    })
+
+    (mkIf cfg.obsidian.enable {
+      garden.packages = {
+        obsidian = cfg.obsidian.package;
+      };
+    })
+  ];
 }

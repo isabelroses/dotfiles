@@ -1,24 +1,22 @@
 {
-  lib,
   pkgs,
   config,
   ...
 }:
 let
   inherit (builtins) attrValues;
-  inherit (lib.modules) mkIf;
 
   inherit (config.garden.programs) defaults;
 in
 {
-  config.garden.programs = mkIf config.garden.programs.notes.enable {
+  config.garden.programs = {
     obsidian.runtimeInputs = attrValues {
       inherit (pkgs)
         # for the pandoc plugin
         pandoc
 
         # for the obsidian-git plugin
-        git
+        gitMinimal
         git-lfs
         ;
     };
