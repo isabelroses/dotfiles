@@ -570,17 +570,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1742396230,
-        "narHash": "sha256-+oKmdgJbWHKaaJ7h+vcE4ZEe4Z0X3gQGG2rriTyYqtw=",
-        "ref": "refs/heads/main",
-        "rev": "53c11ceafa72d26ead5df345a69bd80a0c6ee924",
-        "revCount": 497,
-        "type": "git",
-        "url": "file:/home/isabel/dev/tgirlcloud/tgirlpkgs"
+        "lastModified": 1742384537,
+        "narHash": "sha256-eIpOSIFOSP6kNII0jWlbgFqM3cO6NYjFmd9lfnurJSA=",
+        "owner": "tgirlcloud",
+        "repo": "pkgs",
+        "rev": "e8681055fca1239578be2bb335304fc41486a135",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/isabel/dev/tgirlcloud/tgirlpkgs"
+        "owner": "tgirlcloud",
+        "repo": "pkgs",
+        "type": "github"
       }
     },
     "treefmt-nix": {
