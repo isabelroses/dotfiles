@@ -10,7 +10,7 @@ To set up a system configuration it must be declared in `/systems/default.nix`.
 - class:
 
   - default: "nixos"
-  - options: "nixos", "darwin"
+  - options: "nixos", "darwin", "iso", "wsl"
 
 - system:
 
@@ -25,12 +25,6 @@ To set up a system configuration it must be declared in `/systems/default.nix`.
 
   - default: "[ ]"
   - options:
-    - laptop: for laptop type configurations
-    - desktop: for desktop type configurations
-    - server: for server type configurations
-    - wsl: for wsl systems
-    - gaming: for systems that have a graphical interface
-    - headless: for systems that do not have a graphical interface
 
 - specialArgs:
   - default: "{ }"
