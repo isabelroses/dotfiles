@@ -7,12 +7,12 @@
 let
   inherit (lib.modules) mkIf;
   inherit (lib.strings) optionalString;
-  inherit (self.lib.validators) isWayland;
+  inherit (self.lib.validators) hasProfile isWayland;
 
   inherit (config.garden) meta;
 in
 {
-  config = mkIf (isWayland config) {
+  config = mkIf ((hasProfile config [ "graphical" ]) && (isWayland config)) {
     environment = {
       etc."greetd/environments".text = mkIf config.services.greetd.enable ''
         ${optionalString meta.hyprland "Hyprland"}

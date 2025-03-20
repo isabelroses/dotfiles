@@ -3,12 +3,15 @@
 
   garden = {
     device = {
-      profiles = [ "wsl" ];
+      profiles = [
+        "wsl"
+        "headless"
+      ];
       cpu = null;
       gpu = null;
       hasTPM = true;
       monitors = [ ];
-      hasBluetooth = true;
+      hasBluetooth = false;
       hasSound = false;
       keyboard = "us";
     };
@@ -39,10 +42,6 @@
 
       security = {
         auditd.enable = true;
-      };
-
-      networking = {
-        optimizeTcp = true;
       };
 
       emulation.enable = false;

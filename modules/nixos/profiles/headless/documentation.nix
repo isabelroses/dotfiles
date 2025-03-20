@@ -10,7 +10,7 @@ let
   inherit (lib.attrsets) mapAttrs;
 in
 {
-  config = mkIf (hasProfile config [ "graphical" ]) {
+  config = mkIf (hasProfile config [ "headless" ]) {
     documentation = mapAttrs (_: mkForce) {
       enable = false;
       dev.enable = false;

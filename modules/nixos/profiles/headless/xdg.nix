@@ -10,7 +10,7 @@ let
   inherit (lib.modules) mkIf mkForce;
 in
 {
-  config = mkIf (hasProfile config [ "graphical" ]) {
+  config = mkIf (hasProfile config [ "headless" ]) {
     xdg = mapAttrs (_: mkForce) {
       sounds.enable = false;
       mime.enable = false;

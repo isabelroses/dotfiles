@@ -8,10 +8,10 @@
 let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isWayland;
+  inherit (self.lib.validators) hasProfile isWayland;
 in
 {
-  config = mkIf (isWayland config) {
+  config = mkIf ((hasProfile config [ "graphical" ]) && (isWayland config)) {
     systemd.services.seatd = {
       enable = true;
       description = "Seat management daemon";

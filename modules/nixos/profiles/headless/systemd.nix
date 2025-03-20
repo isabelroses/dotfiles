@@ -9,7 +9,7 @@ let
   inherit (self.lib.validators) hasProfile;
 in
 {
-  config = mkIf (hasProfile config [ "graphical" ]) {
+  config = mkIf (hasProfile config [ "headless" ]) {
     # https://github.com/numtide/srvos/blob/main/nixos/server/default.nix
     systemd = {
       # given that our systems are headless, emergency mode is useless.

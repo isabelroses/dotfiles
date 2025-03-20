@@ -1,10 +1,17 @@
-{ lib, config, ... }:
+{
+  lib,
+  self,
+  config,
+  osConfig,
+  ...
+}:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkOptionDefault;
   inherit (lib.attrsets) getAttrFromPath;
   inherit (lib.lists) elem;
   inherit (lib.options) mkOption;
   inherit (lib.types) nullOr enum;
+  inherit (self.lib.validators) hasProfile;
 
   mkMetaOption =
     path: enum:
@@ -23,7 +30,6 @@ in
         "sway"
         "cosmic"
       ]);
-      default = "Hyprland";
       description = "The desktop environment to be used.";
     };
 
@@ -37,6 +43,10 @@ in
     programs.defaults = mkIf (config.garden.environment.desktop == "cosmic") {
       fileManager = "cosmic-files";
       launcher = "cosmic-launcher";
+    };
+
+    environment = {
+      desktop = mkOptionDefault (if (hasProfile osConfig [ "graphical" ]) then null else "Hyprland");
     };
   };
 }

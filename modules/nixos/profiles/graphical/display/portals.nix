@@ -8,13 +8,12 @@
 let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkForce;
-  inherit (self.lib.validators) isWayland;
+  inherit (self.lib.validators) hasProfile isWayland;
 
-  sys = config.garden.system;
   inherit (config.garden) meta;
 in
 {
-  config = mkIf (sys.video.enable && meta.isWM) {
+  config = mkIf ((hasProfile config [ "graphical" ]) && meta.isWM) {
     xdg.portal = {
       enable = true;
       # xdgOpenUsePortal = true;

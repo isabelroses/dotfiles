@@ -3,7 +3,10 @@
 
   garden = {
     device = {
-      profiles = [ "wsl" ];
+      profiles = [
+        "wsl"
+        "headless"
+      ];
       cpu = null;
       gpu = null;
       hasTPM = true;
@@ -39,10 +42,6 @@
 
       security = {
         auditd.enable = true;
-      };
-
-      networking = {
-        optimizeTcp = true;
       };
 
       virtualization = {

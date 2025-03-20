@@ -5,11 +5,11 @@
   ...
 }:
 let
-  inherit (lib.lists) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (self.lib.validators) hasProfile;
 in
 {
-  config = mkIf (hasProfile config [ "graphical" ]) {
+  config = mkIf (hasProfile config [ "headless" ]) {
     # print the URL instead on servers
     environment.variables.BROWSER = "echo";
   };

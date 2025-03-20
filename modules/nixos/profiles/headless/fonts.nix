@@ -10,7 +10,7 @@ let
   inherit (lib.attrsets) mapAttrs;
 in
 {
-  config = mkIf (hasProfile config [ "graphical" ]) {
+  config = mkIf (hasProfile config [ "headless" ]) {
     # we don't need fonts on a server
     # since there are no fonts to be configured outside the console
     fonts = mapAttrs (_: mkForce) {
