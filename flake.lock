@@ -315,11 +315,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742563091,
-        "narHash": "sha256-i2rgZJ1f+UevC96O+HaagOM3PqMxuWKW33y36ND/djw=",
+        "lastModified": 1742570049,
+        "narHash": "sha256-VJsWGVAY7BVFtfHrDFGjXRVWOl+JOJ5sU8LcR14N/sU=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "5e0c3ced7f9f79f3f739f4a9da18efe9fcbdcef9",
+        "rev": "ccf53e4ce553e747c05b2731344888f4c75aa035",
         "type": "github"
       },
       "original": {
@@ -436,15 +436,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1742481215,
-        "narHash": "sha256-m7I/2UaGEFOI+Cy0RoADBi10NZt1WD5N3q2jUwPprE4=",
-        "owner": "nix-community",
+        "lastModified": 1742568673,
+        "narHash": "sha256-FaHVOHJc8W/CRl4985r/XzhfEGfR/DrP3HNrW0iTyuk=",
+        "owner": "isabelroses",
         "repo": "NixOS-WSL",
-        "rev": "96d7df91cce0d7cd30d1958fe1aefcb5f9bfced7",
+        "rev": "3f599cbbc0932c1a09e694653e4b8e5f02f2eead",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "isabelroses",
+        "ref": "fix-regex",
         "repo": "NixOS-WSL",
         "type": "github"
       }
