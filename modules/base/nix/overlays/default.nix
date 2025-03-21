@@ -2,11 +2,7 @@
 let
   inherit (lib.lists) map;
 
-  overlay =
-    file: final: prev:
-    import file final prev;
-
-  overlays = map overlay [
+  overlays = map import [
     ./fixes.nix
     ./funni.nix
     ./no-desktop.nix
