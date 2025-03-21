@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkForce;
 
   cfg = config.garden.programs.ghostty;
 in
@@ -20,7 +20,7 @@ in
     settings = {
       command = "/etc/profiles/per-user/isabel/bin/fish --login";
 
-      theme = "catppuccin-mocha";
+      theme = mkForce "evergarden";
       background-opacity = 0.95;
       cursor-style = "bar";
       window-padding-x = "4,4";
