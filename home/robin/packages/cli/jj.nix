@@ -21,28 +21,28 @@ in
         };
 
         aliases = {
-          # create named bookmark at HEAD@git
+          # create named bookmark at HEAD
           name = [
             "bookmark"
             "create"
             "-r"
-            "git_head()"
+            "head"
           ];
-          # update bookmark <arg> to point to HEAD@git
+          # update bookmark <arg> to point to HEAD
           update = [
             "bookmark"
             "move"
             "--to"
-            "git_head()"
+            "head"
           ];
           # pull up the nearest bookmarks to the last described commit
           tug = [
             "bookmark"
             "move"
             "--from"
-            "heads(::@- & bookmarks())"
+            "curbranch"
             "--to"
-            "latest(heads(::@- & bookmarks())..@ ~ subject(exact:'') ~ empty())"
+            "latest"
           ];
 
           # push the nearest bookmark
@@ -50,8 +50,21 @@ in
             "git"
             "push"
             "-r"
-            "heads(::@- & bookmarks())"
+            "curbranch"
           ];
+        };
+
+        "revset-aliases" = {
+          "head" = "git_head()";
+          "latest" = "latest(curbranch..@ ~ subject(exact:'') ~ empty())";
+
+          "bases" = "dev";
+          "downstream(x,y)" = "(x::y) & y";
+          "branches" = "downstream(trunk(), bookmarks()) & mine()";
+          "heads" = "heads(trunk()::) & mine()";
+          "leafs" = "branches | heads";
+          "curbranch" = "latest(branches::@- & branches)";
+          "nextbranch" = "roots(@:: & branchesandheads)";
         };
 
         ui = {
