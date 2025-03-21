@@ -16,9 +16,6 @@
 
           DIRENV_LOG_FORMAT = "";
 
-          FLAKE = ".";
-          NH_FLAKE = ".";
-
           packages =
             [
               pkgs.gitMinimal # flakes require git
