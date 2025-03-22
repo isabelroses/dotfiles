@@ -1,12 +1,19 @@
-{ lib, config, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
   inherit (lib.modules) mkIf;
+  inherit (self.lib.validators) isModernShell;
 
-  cfg = config.garden.programs;
   inherit (config.programs) git;
+
+  cond = config.garden.programs.git.enable && (isModernShell config);
 in
 {
-  config = mkIf cfg.git.enable {
+  config = mkIf cond {
     programs.jujutsu = {
       enable = true;
 
