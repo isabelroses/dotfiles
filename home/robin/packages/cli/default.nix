@@ -10,13 +10,15 @@
 
     ./atuin.nix
     ./bat.nix
-    # ./bellado.nix
     ./eza.nix
     ./fd.nix
     ./freeze.nix
     ./fzf.nix
+    ./gh.nix
+    ./git.nix
     ./goc.nix
     ./hyfetch.nix
+    ./jj.nix
     ./nix-your-shell.nix
     ./ripgrep.nix
     ./starship.nix

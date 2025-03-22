@@ -5,16 +5,17 @@
     ./wayland.nix
 
     # configs
-    ./gaming
     ./bars
-    ./browsers
-    ./launchers
-    ./screenlock
-    ./terminals
-    ./wm
-
+    ./firefox
+    ./gaming
+    ./hyprland
+    ./wezterm
+    ./chromium.nix
     ./discord.nix
+    ./ghostty.nix
+    ./gtklock.nix
     ./notes.nix
+    ./rofi.nix
     ./swaync.nix
     ./zathura.nix
   ];

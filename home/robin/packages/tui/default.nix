@@ -12,12 +12,10 @@ let
 in
 {
   imports = [
-    ./btop.nix
     ./izrss.nix
-    # ./newsboat.nix
-    # ./ranger.nix
+    ./lazygit.nix
+    ./neovim.nix
     ./yazi.nix
-    # ./zellij.nix
   ];
 
   config = mkIf cfg.tui.enable {

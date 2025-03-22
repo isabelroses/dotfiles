@@ -10,17 +10,10 @@ let
   inherit (lib.modules) mkIf;
   inherit (self.lib.validators) hasProfile;
 
-  acceptedTypes = [
-    "desktop"
-    "laptop"
-    "lite"
-    "hybrid"
-  ];
-
   cfg = config.garden.programs;
 in
 {
-  config = mkIf (hasProfile osConfig acceptedTypes && cfg.cli.enable && cfg.gui.enable) {
+  config = mkIf (hasProfile osConfig [ "graphical" ] && cfg.cli.enable && cfg.gui.enable) {
     garden.packages = {
       inherit (pkgs)
         libnotify # needed for some notifications
