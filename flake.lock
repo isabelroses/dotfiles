@@ -366,11 +366,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1742588197,
-        "narHash": "sha256-YZtxj/Gs0VDEsfjNT4v4yVVli2mCgltsDmeF/Ty4mLk=",
-        "rev": "3e201a8da53c6658680d4f05ba2142dc99f23033",
+        "lastModified": 1742622332,
+        "narHash": "sha256-z652gNdFc/95Fheq4DzVObERYRo+j9RdCF6tzkR8r80=",
+        "rev": "6059cbb031e49e05dd5d16208e2e50d3ab2611db",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/3e201a8da53c6658680d4f05ba2142dc99f23033.tar.gz?rev=3e201a8da53c6658680d4f05ba2142dc99f23033"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/6059cbb031e49e05dd5d16208e2e50d3ab2611db.tar.gz?rev=6059cbb031e49e05dd5d16208e2e50d3ab2611db"
       },
       "original": {
         "type": "tarball",
