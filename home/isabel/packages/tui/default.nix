@@ -15,6 +15,7 @@ in
   imports = [
     ./btop.nix
     ./izrss.nix
+    ./neovim.nix
     # ./newsboat.nix
     # ./yazi.nix
     # ./zellij.nix
