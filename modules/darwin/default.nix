@@ -12,5 +12,6 @@
     ./legacy.nix # some shims to keep compatibility with some options that need refactoring upstream
     ./nix.nix # nix settings that can only be applied to nix-darwin
     ./remote-modules.nix # modules that are not in this repo, and don't have a nice place to be imported in
+    ./system-packages.nix # system packages will be needed for all users
   ];
 }
