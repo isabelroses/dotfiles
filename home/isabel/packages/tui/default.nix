@@ -16,6 +16,7 @@ in
     ./btop.nix
     ./izrss.nix
     ./neovim.nix
+    ./lazygit.nix
     # ./newsboat.nix
     # ./yazi.nix
     # ./zellij.nix
