@@ -11,11 +11,7 @@ let
   inherit (self.lib.validators) hasProfile;
   inherit (self.lib.services) mkGraphicalService;
 
-  acceptedTypes = [
-    "desktop"
-    "laptop"
-    "hybrid"
-  ];
+  acceptedTypes = [ "graphical" ];
 in
 {
   config = mkIf (hasProfile osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
