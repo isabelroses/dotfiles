@@ -6,7 +6,7 @@ let
   inherit (config.programs) git;
 in
 {
-  config = mkIf (cfg.cli.enable && cfg.git.enable) {
+  config = mkIf cfg.git.enable {
     programs.jujutsu = {
       enable = true;
 

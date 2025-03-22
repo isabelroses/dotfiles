@@ -9,9 +9,11 @@ let
   ctp = config.catppuccin;
 
   configFile = "${config.xdg.configHome}/lazygit/config.yml";
+
+  cond = config.garden.programs.tui.enable && config.garden.programs.git.enable;
 in
 {
-  config = mkIf config.garden.programs.tui.enable {
+  config = mkIf cond {
     catppuccin.lazygit.enable = false;
 
     home.sessionVariables = {
