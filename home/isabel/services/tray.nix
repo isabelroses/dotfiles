@@ -8,12 +8,7 @@ let
   inherit (lib.modules) mkIf;
   inherit (self.lib.validators) hasProfile;
 
-  acceptedTypes = [
-    "lite"
-    "hybrid"
-    "laptop"
-    "desktop"
-  ];
+  acceptedTypes = [ "graphical" ];
 in
 {
   config = mkIf (hasProfile osConfig acceptedTypes) {

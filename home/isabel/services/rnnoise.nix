@@ -9,12 +9,7 @@ let
   inherit (lib.modules) mkIf;
   inherit (self.lib.validators) hasProfile;
 
-  acceptedTypes = [
-    "desktop"
-    "laptop"
-    "lite"
-    "hybrid"
-  ];
+  acceptedTypes = [ "graphical" ];
 in
 {
   config = mkIf (hasProfile osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {

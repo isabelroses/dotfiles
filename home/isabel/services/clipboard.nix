@@ -11,12 +11,7 @@ let
   inherit (self.lib.validators) isWayland hasProfile;
   inherit (self.lib.services) mkGraphicalService;
 
-  acceptedTypes = [
-    "desktop"
-    "laptop"
-    "lite"
-    "hybrid"
-  ];
+  acceptedTypes = [ "graphical" ];
 in
 {
   config = mkIf (hasProfile osConfig acceptedTypes && isWayland osConfig) {
