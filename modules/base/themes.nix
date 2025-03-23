@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 let
-  inherit (lib.options) mkOption mkPackageOption;
-  inherit (lib.types) str int;
+  inherit (lib.options) mkOption;
+  inherit (lib.types) str int package;
 in
 {
   options.garden.style.font = {
@@ -29,7 +29,11 @@ in
       default = "Maple Mono Bold Italic";
     };
 
-    package = mkPackageOption pkgs "maple-mono" { };
+    package = mkOption {
+      type = package;
+      description = "The package that provides the font";
+      default = pkgs.maple-mono.truetype;
+    };
 
     size = mkOption {
       type = int;
