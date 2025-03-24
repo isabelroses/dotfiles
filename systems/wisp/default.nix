@@ -52,5 +52,7 @@
         distrobox.enable = false;
       };
     };
+
+    environment.flakePath = "/mnt/d/dev/dotfiles";
   };
 }
