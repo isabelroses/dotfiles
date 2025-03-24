@@ -16,8 +16,12 @@ in
     enableNushellIntegration = false;
 
     extraOptions = [
+      "-l"
+      "-a"
       "--group"
       "--group-directories-first"
+      "--no-user"
+      "--no-time"
       "--no-permissions"
       "--octal-permissions"
     ];
