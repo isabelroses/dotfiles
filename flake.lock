@@ -540,14 +540,13 @@
       "locked": {
         "lastModified": 1742413977,
         "narHash": "sha256-NkhM9GVu3HL+MiXtGD0TjuPCQ4GFVJPBZ8KyI2cFDGU=",
-        "owner": "yu-re-ka",
+        "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
         "rev": "b4fbffe79c00f19be94b86b4144ff67541613659",
         "type": "gitlab"
       },
       "original": {
-        "owner": "yu-re-ka",
-        "ref": "dovecot2-modules",
+        "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
         "type": "gitlab"
       }

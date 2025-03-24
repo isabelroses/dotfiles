@@ -118,12 +118,10 @@
 
     ### Additional packages
     # a plain simple way to host a mail server
-    # TODO: https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/merge_requests/370
     simple-nixos-mailserver = {
       type = "gitlab";
-      owner = "yu-re-ka";
+      owner = "simple-nixos-mailserver";
       repo = "nixos-mailserver";
-      ref = "dovecot2-modules";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
