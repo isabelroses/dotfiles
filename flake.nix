@@ -10,7 +10,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-unstable-small";
+      ref = "nixpkgs-unstable";
     };
 
     # lix a good fork of nix

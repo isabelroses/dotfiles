@@ -29,7 +29,10 @@ in
     package = self'.packages.lix;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
-    registry = mapAttrs (_: flake: { inherit flake; }) flakeInputs;
+    registry = (mapAttrs (_: flake: { inherit flake; }) flakeInputs) // {
+      # https://github.com/NixOS/nixpkgs/pull/388090
+      nixpkgs = lib.mkForce { flake = inputs.nixpkgs; };
+    };
 
     # We love legacy support (for now)
     nixPath = ldTernary pkgs (attrValues (mapAttrs (k: v: "${k}=flake:${v.outPath}") flakeInputs)) (
