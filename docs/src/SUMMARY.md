@@ -23,4 +23,5 @@
 
 # Misc
 
+- [lix](misc/lix.md)
 - [previews](misc/previews.md)
