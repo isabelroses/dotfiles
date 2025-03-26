@@ -182,11 +182,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1741856724,
-        "narHash": "sha256-OxA33nYYtnZWg6KH662gcOLnRwQpygho18CBJjfsX/4=",
+        "lastModified": 1742914086,
+        "narHash": "sha256-VUxu/l3cMBy+wSwuF5vKNxGEPEQZuKB7Te0ENJpbyTs=",
         "owner": "everviolet",
         "repo": "nix",
-        "rev": "723fa509ed9a78d8c8079d3c8895e569903126ba",
+        "rev": "ef8b9b6cccf5861db889c5a670883b98a0d520f1",
         "type": "github"
       },
       "original": {
@@ -244,11 +244,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742851132,
-        "narHash": "sha256-8vEcDefstheV1whup+5fSpZu4g9Jr7WpYzOBKAMSHn4=",
+        "lastModified": 1742946951,
+        "narHash": "sha256-us5DS0XGVpZBMbYs3TSQYn61bswEPmLpBOYITD4/bUE=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c4d5d72805d14ea43c140eeb70401bf84c0f11b4",
+        "rev": "0ff53f6d336edb3ad81647dc931ad1c9c7f890ca",
         "type": "github"
       },
       "original": {
@@ -367,11 +367,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1742834248,
-        "narHash": "sha256-Vy2AT/R33tX7GihmKsEWoK05HWO/rRKg+EV2WTKcobM=",
-        "rev": "4181796ed24e4c9c1c9c0d38986880d8c6407e5d",
+        "lastModified": 1742934407,
+        "narHash": "sha256-II54sYp20t9v3kKsriVsI5BBHtUa+3coz8i1BDFIV80=",
+        "rev": "fc58e7b2178852fa368a10b17f9c8b2c7ae6f84d",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/4181796ed24e4c9c1c9c0d38986880d8c6407e5d.tar.gz?rev=4181796ed24e4c9c1c9c0d38986880d8c6407e5d"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/fc58e7b2178852fa368a10b17f9c8b2c7ae6f84d.tar.gz?rev=fc58e7b2178852fa368a10b17f9c8b2c7ae6f84d"
       },
       "original": {
         "type": "tarball",
@@ -595,11 +595,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742863463,
-        "narHash": "sha256-gAN1tX20+9po9M7GnbxxBADXfopxgFilfzk7g4mgo8I=",
+        "lastModified": 1742949830,
+        "narHash": "sha256-c2iI7WTCV15QhFLDpD2CDdFaoz94TWcYRTP/dLhd0h4=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "cd831ebae842ad4c22a44de0153adddc0a5b41f2",
+        "rev": "7b7bb591b2e37e50a3b9ae46d8356fe9cc105443",
         "type": "github"
       },
       "original": {
