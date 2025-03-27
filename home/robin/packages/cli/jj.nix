@@ -60,8 +60,8 @@ in
 
           "bases" = "dev";
           "downstream(x,y)" = "(x::y) & y";
-          "branches" = "downstream(trunk(), bookmarks()) & mine()";
-          "heads" = "heads(trunk()::) & mine()";
+          "branches" = "downstream(trunk(), bookmarks())";
+          "heads" = "heads(trunk()::)";
           "leafs" = "branches | heads";
           "curbranch" = "latest(branches::@- & branches)";
           "nextbranch" = "roots(@:: & branchesandheads)";
