@@ -1,13 +1,6 @@
 {
   imports = [
-    # package list
-    ./shared.nix
-    ./desktop.nix
-    ./wayland.nix
-
-    # configs
     ./shell # shell configurations
-
     ./atuin.nix
     ./bat.nix
     # ./bellado.nix

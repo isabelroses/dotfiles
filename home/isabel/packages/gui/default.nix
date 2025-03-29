@@ -1,10 +1,5 @@
 {
   imports = [
-    # package list
-    ./shared.nix
-    ./wayland.nix
-
-    # configs
     ./bars
     ./firefox
     ./gaming
