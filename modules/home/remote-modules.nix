@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.tgirlpkgs.homeManagerModules.default
+    inputs.tgirlpkgs.homeModules.default
   ];
 }
