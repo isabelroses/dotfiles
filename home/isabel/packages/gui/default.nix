@@ -10,6 +10,7 @@
     ./gaming
     ./hyprland
     ./wezterm
+    ./aerospace.nix
     ./chromium.nix
     ./discord.nix
     ./ghostty.nix

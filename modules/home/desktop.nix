@@ -29,13 +29,14 @@ in
         "Hyprland"
         "sway"
         "cosmic"
+        "aerospace"
       ]);
       description = "The desktop environment to be used.";
     };
 
     meta = {
       isWayland = mkMetaOption [ "garden" "environment" "desktop" ] [ "Hyprland" "sway" "cosmic" ];
-      isWM = mkMetaOption [ "garden" "environment" "desktop" ] [ "sway" "cosmic" ];
+      isWM = mkMetaOption [ "garden" "environment" "desktop" ] [ "sway" "cosmic" "aerospace" ];
     };
   };
 

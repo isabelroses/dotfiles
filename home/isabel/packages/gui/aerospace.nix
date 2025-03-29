@@ -4,10 +4,10 @@ let
 in
 {
   config = mkIf (config.garden.environment.desktop == "aerospace") {
-    services.aerospace = {
+    programs.aerospace = {
       enable = true;
 
-      settings = {
+      userSettings = {
         enable-normalization-flatten-containers = true;
         enable-normalization-opposite-orientation-for-nested-containers = true;
 

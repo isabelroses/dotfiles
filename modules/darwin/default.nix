@@ -4,7 +4,6 @@
     ./hardware # hardware config - i.e. keyboard
     ./preferences # system preferences
     ./security # security settings to keep the system secure
-    ./services # services exclusive to nix-darwin
 
     ./activation.nix # run when we start the system
     ./config-path.nix # set the path to the darwin configuration
