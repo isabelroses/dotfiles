@@ -13,7 +13,7 @@ let
   isGui = pkgs.stdenv.hostPlatform.isLinux && config.garden.programs.gui.enable;
 in
 {
-  imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
+  imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
   config = {
     catppuccin = {
