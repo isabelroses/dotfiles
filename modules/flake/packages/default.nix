@@ -27,7 +27,7 @@
 
         lix = callPackage ./lix/package.nix { inherit inputs' inputs; };
         docs = callPackage ./docs.nix { inherit (inputs) self; };
-        installer = callPackage ./installer/package.nix { nix = self'.packages.lix; };
+        iztaller = callPackage ./iztaller/package.nix { nix = self'.packages.lix; };
       };
     };
 }

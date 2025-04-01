@@ -8,7 +8,7 @@
       gitMinimal # we only need a basic git install
       ;
 
-    inherit (self'.packages) installer;
+    inherit (self'.packages) iztaller;
   };
 
   # provide all hardware drivers, including proprietary ones

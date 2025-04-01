@@ -7,7 +7,7 @@
   writeShellApplication,
 }:
 writeShellApplication {
-  name = "iznix-install";
+  name = "iztaller";
 
   runtimeInputs = [
     nix
@@ -17,5 +17,5 @@ writeShellApplication {
     nixos-install-tools # for nixos-install
   ];
 
-  text = builtins.readFile ./iznix-install.sh;
+  text = builtins.readFile ./iztaller.sh;
 }

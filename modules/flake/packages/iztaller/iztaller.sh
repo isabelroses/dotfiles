@@ -15,25 +15,45 @@ parted "$drive" -- mkpart root btrfs 1024MB -8GB
 parted "$drive" -- mkpart swap linux-swap -8GB 100%
 parted "$drive" -- set 1 esp on
 
+# Determine partition prefix based on drive type
+if [[ $drive == *"nvme"* ]]; then
+  # nvme dirves like /dev/nvme0n1p1
+  boot_part="${drive}p1"
+  root_part="${drive}p2"
+  swap_part="${drive}p3"
+else
+  # handle /dev/sda1 style drives
+  boot_part="${drive}1"
+  root_part="${drive}2"
+  swap_part="${drive}3"
+fi
+
 # format the partitions
-mkfs.fat -F32 -n boot "$drive"1
-mkfs.btrfs -L root "$drive"2
+mkfs.fat -F32 -n boot "$boot_part"
+mkfs.btrfs -L root "$root_part"
+mkswap -L swap "$swap_part"
+swapon "$swap_part"
 
 # mount the partitions whilst ensuring the directories exist
 mkdir -p /mnt
-mount "$drive"2 /mnt
+mount "$root_part" /mnt
 mkdir -p /mnt/boot
-mount "$drive"1 /mnt/boot
+mount "$boot_part" /mnt/boot
 
 # copy across the iso's nixos flake to the target system
 mkdir -p /mnt/etc/nixos
 cp -rT /iso/flake /mnt/etc/nixos
 
+# do we need to setup the host or has it been done already
+new_host=$(gum confirm "Make a new host?")
+
 # setup the system specific configuration
-mkdir -p /mnt/etc/nixos/systems/"$hostname"
-cp /iso/flake/modules/flake/packages/pkgs/installer/base-config.nix /mnt/etc/nixos/systems/"$hostname"/default.nix
-# force the user to setup stuff
-vim /mnt/etc/nixos/systems/"$hostname"/default.nix
+if [ "$new_host" ]; then
+  mkdir -p /mnt/etc/nixos/systems/"$hostname"
+  cp /iso/flake/modules/flake/packages/pkgs/installer/base-config.nix /mnt/etc/nixos/systems/"$hostname"/default.nix
+  # force the user to setup stuff
+  vim /mnt/etc/nixos/systems/"$hostname"/default.nix
+fi
 
 # setup the git repository for the nixos configuration
 git -C /mnt/etc/nixos init
