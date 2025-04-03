@@ -8,14 +8,15 @@
 let
   inherit (lib.modules) mkIf mkForce;
   inherit (lib.lists) optionals;
+  inherit (lib.attrsets) optionalAttrs;
   inherit (self.lib.validators) hasProfile;
 
   sys = config.garden.system;
 in
 {
-  environment.systemPackages = optionals config.garden.meta.gui [
-    pkgs.networkmanagerapplet # provides nm-connection-editor
-  ];
+  garden.packages = optionalAttrs config.garden.meta.gui {
+    inherit (pkgs) networkmanagerapplet; # provides nm-connection-editor
+  };
 
   networking.networkmanager = {
     enable = true;

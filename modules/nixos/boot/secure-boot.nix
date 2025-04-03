@@ -20,7 +20,7 @@ in
   '';
 
   config = mkIf sys.secureBoot {
-    environment.systemPackages = [ pkgs.sbctl ];
+    garden.packages = { inherit (pkgs) sbctl; };
 
     # Lanzaboote replaces the systemd-boot module.
     boot.loader.systemd-boot.enable = mkForce false;

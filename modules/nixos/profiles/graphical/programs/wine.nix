@@ -6,9 +6,9 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
   inherit (self.lib.programs) mkProgram;
   inherit (self.lib.validators) isWayland;
-  inherit (lib.lists) optional;
 
   cfg = config.garden.programs.wine;
 in
@@ -19,5 +19,7 @@ in
   };
 
   # determine which version of wine to use
-  config.environment.systemPackages = optional cfg.enable cfg.package;
+  config = mkIf cfg.enable {
+    garden.packages = { inherit (cfg) package; };
+  };
 }

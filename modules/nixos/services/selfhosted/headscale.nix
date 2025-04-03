@@ -27,7 +27,7 @@ in
       postgresql.enable = true;
     };
 
-    environment.systemPackages = [ config.services.headscale.package ];
+    garden.packages = { inherit (config.services.headscale) package; };
     networking.firewall.allowedUDPPorts = [ cfg.port ];
 
     services = {

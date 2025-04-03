@@ -54,7 +54,7 @@ in
 
   config = mkIf cfg.enable {
     # make the tailscale command usable to users
-    environment.systemPackages = [ pkgs.tailscale ];
+    garden.packages = { inherit (pkgs) tailscale; };
 
     networking.firewall = {
       # always allow traffic from your Tailscale network

@@ -40,9 +40,9 @@ in
     security.apparmor.enable = mkForce false;
 
     # allow me to open files and links in Windows from WSL
-    environment = {
-      variables.BROWSER = mkForce "wsl-open";
-      systemPackages = [ pkgs.wsl-open ];
+    environment.variables.BROWSER = mkForce "wsl-open";
+    garden.packages = {
+      inherit (pkgs) wsl-open;
     };
   };
 }

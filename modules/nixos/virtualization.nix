@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib.meta) getExe;
-  inherit (lib.lists) optionals concatLists;
+  inherit (lib.attrsets) mergeAttrsList optionalAttrs;
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkEnableOption;
 
@@ -25,22 +25,26 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      environment.systemPackages = concatLists [
-        (optionals cfg.qemu.enable [
-          pkgs.virt-manager
-          pkgs.virt-viewer
-        ])
+      garden.packages = mergeAttrsList [
+        (optionalAttrs cfg.qemu.enable {
+          inherit (pkgs)
+            virt-manager
+            virt-viewer
+            ;
+        })
 
-        (optionals cfg.docker.enable [
-          pkgs.podman
-          pkgs.podman-compose
-        ])
+        (optionalAttrs cfg.docker.enable {
+          inherit (pkgs)
+            podman
+            podman-compose
+            ;
+        })
 
-        (optionals (cfg.docker.enable && sys.video.enable) [ pkgs.lxd-lts ])
+        (optionalAttrs (cfg.docker.enable && sys.video.enable) { inherit (pkgs) lxd-lts; })
 
-        (optionals cfg.distrobox.enable [ pkgs.distrobox ])
+        (optionalAttrs cfg.distrobox.enable { inherit (pkgs) distrobox; })
 
-        (optionals cfg.waydroid.enable [ pkgs.waydroid ])
+        (optionalAttrs cfg.waydroid.enable { inherit (pkgs) waydroid; })
       ];
     }
 

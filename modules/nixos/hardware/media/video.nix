@@ -28,10 +28,9 @@ in
 
     # benchmarking tools
     (mkIf cfg.benchmarking.enable {
-      environment.systemPackages = [
-        pkgs.mesa-demos
-        pkgs.glmark2
-      ];
+      garden.packages = {
+        inherit (pkgs) glmark2 mesa-demos;
+      };
     })
   ]);
 }

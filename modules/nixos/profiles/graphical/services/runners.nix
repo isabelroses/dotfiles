@@ -11,7 +11,7 @@ let
 in
 {
   config = mkIf (hasProfile config [ "graphical" ]) {
-    environment.systemPackages = [ pkgs.appimage-run ];
+    garden.packages = { inherit (pkgs) appimage-run; };
 
     # run appimages with appimage-run
     boot.binfmt.registrations =
