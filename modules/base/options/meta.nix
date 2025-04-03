@@ -33,12 +33,6 @@ in
       "fish"
       "enable"
     ];
-    thunar = mkMetaOption [
-      "garden"
-      "programs"
-      "thunar"
-      "enable"
-    ];
     kdeconnect = mkMetaOption [
       "garden"
       "programs"

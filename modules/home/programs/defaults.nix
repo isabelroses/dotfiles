@@ -34,7 +34,6 @@ in
     fileManager = mkOption {
       type = enum [
         "cosmic-files"
-        "thunar"
         "dolphin"
         "nemo"
       ];

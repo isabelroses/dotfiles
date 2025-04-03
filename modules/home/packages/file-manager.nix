@@ -26,8 +26,6 @@ in
     nemo = mkProgram pkgs "nemo" {
       package.default = pkgs.nemo-with-extensions;
     };
-
-    thunar = mkProgram pkgs "thunar" { };
   };
 
   config = mkIf (cfg.gui.enable && osConfig.garden.meta.isWM) {
@@ -41,15 +39,5 @@ in
 
       (optionalAttrs cfg.dolphin.enable { inherit (cfg.dolphin) package; })
     ];
-
-    xfconf.settings = mkIf cfg.thunar.enable {
-      thunar = {
-        "default-view" = "ThunarDetailsView";
-        "misc-middle-click-in-tab" = true;
-        "misc-open-new-window-as-tab" = true;
-        "misc-single-click" = false;
-        "misc-volume-management" = false;
-      };
-    };
   };
 }

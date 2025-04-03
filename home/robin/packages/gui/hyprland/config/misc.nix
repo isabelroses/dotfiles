@@ -6,7 +6,7 @@
 
     # window swallowing
     enable_swallow = true; # hide windows that spawn other windows
-    swallow_regex = "wezterm|foot|cosmic-files|thunar|nemo";
+    swallow_regex = "wezterm|foot|cosmic-files|nemo";
 
     # dpms
     mouse_move_enables_dpms = true; # enable dpms on mouse/touchpad action
