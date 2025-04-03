@@ -19,11 +19,6 @@ in
 {
   imports = [ inputs.cosmic.nixosModules.default ];
 
-  disabledModules = [
-    "services/desktop-managers/cosmic.nix"
-    "services/display-managers/cosmic-greeter.nix"
-  ];
-
   config = mkIf cond {
     services.desktopManager.cosmic.enable = true;
 
