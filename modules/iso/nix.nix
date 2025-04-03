@@ -1,13 +1,8 @@
-{
-  pkgs,
-  config,
-  inputs,
-  ...
-}:
+{ self', config, ... }:
 {
   nix = {
     # setting nix to be our preferred fork
-    package = inputs.self.packages.${pkgs.stdenv.system}.lix;
+    package = self'.packages.lix;
 
     # we can disable channels since we can just use the flake
     channel.enable = false;
