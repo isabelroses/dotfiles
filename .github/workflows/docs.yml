@@ -8,6 +8,8 @@ on:
       - ".github/workflows/docs.yml"
       - ".github/actions/**/*"
 
+permissions: {}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Install Lix
         uses: ./.github/actions/install-lix

@@ -8,17 +8,18 @@ on:
       - ".github/actions/**/*"
       - ".github/workflows/build.yml"
   workflow_dispatch:
-  workflow_run:
-    workflows:
-      - Bump Flake Inputs
-    types:
-      - completed
+  workflow_call:
+    inputs:
+      ref:
+        required: false
+        type: string
+
+permissions: {}
 
 jobs:
   build:
     name: Build (${{ matrix.system }})
     runs-on: ${{ matrix.os }}
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
 
     strategy:
       fail-fast: false
@@ -34,6 +35,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.ref && inputs.ref || github.ref_name }}
 
       - name: Install Lix
         uses: ./.github/actions/install-lix
