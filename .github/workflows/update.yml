@@ -5,9 +5,15 @@ on:
   schedule:
     - cron: "0 1 * * *"
 
+permissions: {}
+
 jobs:
   update-lockfile:
     runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: write
 
     outputs:
       pr: ${{ steps.pr.outputs.pull-request-url }}
@@ -16,6 +22,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Install Lix
         uses: ./.github/actions/install-lix
@@ -30,8 +38,9 @@ jobs:
           title: "chore: update flake inputs"
           commit-message: "chore: update flake inputs"
           branch: update-flake-inputs
+          token: ${{ github.token }}
 
-  check-flake:
+  check:
     name: Check Flake
     needs: update-lockfile
 
@@ -39,14 +48,23 @@ jobs:
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
 
+  build:
+    name: Build
+    needs: update-lockfile
+
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ needs.update-lockfile.outputs.branch }}
+
   merge:
     name: Merge Pull Request
-    needs: [update-lockfile, check-flake]
+    needs: [update-lockfile, check, build]
     runs-on: ubuntu-latest
 
     steps:
       - name: Merge Pull Request
-        run: gh pr merge --rebase --auto --delete-branch ${{ needs.update-lockfile.outputs.pr }}
+        run: gh pr merge --rebase --auto --delete-branch "$PR"
         env:
           GH_TOKEN: ${{ github.token }}
+          PR: ${{ needs.update-lockfile.outputs.pr }}
 

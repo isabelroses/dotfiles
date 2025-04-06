@@ -9,6 +9,9 @@ on:
       - "github/workflows/build-isos.yml"
       - ".github/actions/**/*"
 
+permissions:
+  id-token: write
+
 jobs:
   build-isos:
     runs-on: ubuntu-latest
@@ -26,6 +29,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Install Lix
         uses: ./.github/actions/install-lix
