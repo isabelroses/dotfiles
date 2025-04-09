@@ -5,6 +5,8 @@ on:
   push:
     paths:
       - "docs/**/*"
+      - "modules/flake/lib/**/*"
+      - "modules/flake/packages/docs/*"
       - ".github/workflows/docs.yml"
       - ".github/actions/**/*"
 

@@ -17,6 +17,10 @@
 - [adding packages](guides/adding-packages.md)
 - [uninstalling](guides/uninstalling.md)
 
+# lib
+
+libdoc
+
 # Further Reading
 
 - [further reading](further-reading.md)

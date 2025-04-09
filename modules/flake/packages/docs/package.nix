@@ -5,6 +5,7 @@
   fetchurl,
   simple-http-server,
   writeShellApplication,
+  libdoc,
   self,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -24,6 +25,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     cp ${finalAttrs.passthru.catppuccin-mdbook} theme/catppuccin.css
     cp ${finalAttrs.passthru.catppuccin-alerts} theme/catppuccin-alerts.css
 
+    cp -r ${libdoc} src/lib
+
+    substituteInPlace src/SUMMARY.md \
+      --replace-fail "libdoc" "$(cat src/lib/index.md)"
+
     mdbook build
 
     runHook postBuild
@@ -39,12 +45,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     catppuccin-mdbook = fetchurl {
-      url = "https://github.com/catppuccin/mdBook/releases/download/v3.1.0/catppuccin.css";
-      hash = "sha256-J9eEwC1tTA9RFyivVfF1fqoXgpz1l3gikDpgQF2h3hE=";
+      url = "https://github.com/catppuccin/mdBook/releases/download/v3.1.1/catppuccin.css";
+      hash = "sha256-WSl6UaRfx2jwcDg/ZlDlRbB5zwBD7YIuHHPwFj5ldKM=";
     };
 
     catppuccin-alerts = fetchurl {
-      url = "https://github.com/catppuccin/mdBook/releases/download/v3.1.0/catppuccin-alerts.css";
+      url = "https://github.com/catppuccin/mdBook/releases/download/v3.1.1/catppuccin-alerts.css";
       hash = "sha256-TnOuFi/0LeIj9pwg9dgfyDpd1oZVCN18dvjp8uB+K78=";
     };
 
