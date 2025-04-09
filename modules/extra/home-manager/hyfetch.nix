@@ -29,7 +29,7 @@ in
   options.programs.hyfetch = {
     enable = mkEnableOption "hyfetch";
 
-    package = mkPackageOption pkgs "hyfetch" { };
+    package = mkPackageOption pkgs "hyfetch" { nullable = true; };
 
     settings = mkOption {
       default = { };
@@ -78,7 +78,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = mkIf (cfg.package != null) [ cfg.package ];
 
     xdg.configFile = {
       "hyfetch.json" = mkIf (cfg.settings != { }) {

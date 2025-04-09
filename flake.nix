@@ -144,21 +144,14 @@
 
     homebrew = {
       type = "github";
-      owner = "zhaofengli";
+      owner = "isabelroses";
       repo = "nix-homebrew";
-      ref = "systemwide-activation";
+      ref = "cherry-picks";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nix-darwin.follows = "";
-        # https://github.com/zhaofengli/nix-homebrew/pull/71
-        brew-src.follows = "brew-src";
       };
-    };
-
-    brew-src = {
-      url = "github:Homebrew/brew/4.4.25";
-      flake = false;
     };
 
     # a tree-wide formatter

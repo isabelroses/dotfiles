@@ -2,7 +2,6 @@
   lib,
   pkgs,
   self,
-  inputs',
   config,
   ...
 }:
@@ -17,7 +16,7 @@ in
 
   programs.hyfetch = mkIf (isModernShell config) {
     enable = true;
-    package = inputs'.tgirlpkgs.packages.hyfetch;
+    package = null;
 
     settings = {
       preset = "lesbian";

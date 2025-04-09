@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   self,
   config,
   osConfig,
@@ -34,7 +33,7 @@ in
       direnv_layout_dir() {
         echo "''${direnv_layout_dirs[$PWD]:=$(
           echo -n "$XDG_CACHE_HOME"/direnv/layouts/
-          echo -n "$PWD" | ${pkgs.perl}/bin/shasum | cut -d ' ' -f 1
+          echo -n "$PWD" | sha1sum | cut -d ' ' -f 1
         )}"
       }
     '';

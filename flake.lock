@@ -259,25 +259,23 @@
     },
     "homebrew": {
       "inputs": {
-        "brew-src": [
-          "brew-src"
-        ],
+        "brew-src": "brew-src",
         "nix-darwin": [],
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1742854230,
-        "narHash": "sha256-adCL2+YofzSP9dxa/hk7FyT/gywoGt5HFcICaJmE9nY=",
-        "owner": "zhaofengli",
+        "lastModified": 1744238887,
+        "narHash": "sha256-j279mAuWgKNlIZGDW7VfGSzqYc+E8kzmnxOLPqUEWb0=",
+        "owner": "isabelroses",
         "repo": "nix-homebrew",
-        "rev": "5461bbad6242d7e3cccf51f2985519f73ce3ddb3",
+        "rev": "8b24b28b5101ed001c523af4d7f206a6b040ce4c",
         "type": "github"
       },
       "original": {
-        "owner": "zhaofengli",
-        "ref": "systemwide-activation",
+        "owner": "isabelroses",
+        "ref": "cherry-picks",
         "repo": "nix-homebrew",
         "type": "github"
       }
@@ -316,11 +314,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1743973073,
-        "narHash": "sha256-lzilQtnzAx/jJIDHyORij0q+3Pb4cOlkn4ZxJmnR2Bc=",
+        "lastModified": 1744241328,
+        "narHash": "sha256-8UrAQzYaQxckGj8G6xeko9XnteGE/1J88P4zC5yS5cU=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "f6447dc01951afff27f9960a3837ae30d07daf66",
+        "rev": "00a39f332da7131d6a3f7182d00ada9b1d5d9b50",
         "type": "github"
       },
       "original": {
@@ -486,7 +484,6 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "brew-src": "brew-src",
         "catppuccin": "catppuccin",
         "cosmic": "cosmic",
         "darwin": "darwin",
