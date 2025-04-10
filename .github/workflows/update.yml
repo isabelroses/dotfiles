@@ -52,6 +52,9 @@ jobs:
     name: Build
     needs: update-lockfile
 
+    permissions:
+      contents: read
+
     uses: ./.github/workflows/build.yml
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
