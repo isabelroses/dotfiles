@@ -37,9 +37,8 @@
     # improved support for wsl
     nixos-wsl = {
       type = "github";
-      owner = "isabelroses";
+      owner = "nix-community";
       repo = "NixOS-WSL";
-      ref = "fix-regex";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
