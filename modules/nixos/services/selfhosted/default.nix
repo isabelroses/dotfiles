@@ -38,6 +38,7 @@
     # ./buildbot.nix
 
     # misc
+    ./anubis.nix
     ./blahaj.nix
     ./kanidm.nix
     ./mailserver.nix

@@ -20,6 +20,7 @@
     };
 
     services = {
+      anubis.enable = true;
       vaultwarden.enable = true;
       isabelroses-website.enable = true;
       blahaj.enable = true;

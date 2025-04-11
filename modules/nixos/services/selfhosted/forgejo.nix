@@ -64,7 +64,7 @@ in
             PROTOCOL = "http+unix";
             ROOT_URL = "https://${cfg.domain}";
             HTTP_PORT = cfg.port;
-            DOMAIN = "${cfg.domain}";
+            DOMAIN = cfg.domain;
 
             BUILTIN_SSH_SERVER_USER = "git";
             DISABLE_ROUTER_LOG = true;
@@ -163,10 +163,23 @@ in
         };
       };
 
+      anubis = mkIf config.garden.services.anubis.enable {
+        instances.forgejo.settings = {
+          TARGET = "unix://${config.services.forgejo.settings.server.HTTP_ADDR}";
+        };
+      };
+
       nginx.virtualHosts.${cfg.domain} = {
         locations."/" = {
           recommendedProxySettings = true;
-          proxyPass = "http://unix:/run/forgejo/forgejo.sock";
+          proxyPass =
+            "http://unix:"
+            + (
+              if config.garden.services.anubis.enable then
+                config.services.anubis.instances.forgejo.settings.BIND
+              else
+                config.services.forgejo.settings.server.HTTP_ADDR
+            );
         };
       } // template.ssl rdomain;
     };
