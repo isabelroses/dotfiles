@@ -16,6 +16,8 @@ let
   cfg = config.garden.services.isabelroses-website;
 
   serve = "/srv/storage/isabelroses.com";
+
+  link = "http://${cfg.host}:${toString cfg.port}";
 in
 {
   options.garden.services.isabelroses-website = mkServiceOption "isabelroses-website" {
@@ -43,8 +45,21 @@ in
       } // template.systemd;
     };
 
-    services.nginx.virtualHosts.${domain} = {
-      locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
-    } // template.ssl domain;
+    services = {
+      anubis = mkIf config.garden.services.anubis.enable {
+        instances.isabelroses-website.settings = {
+          TARGET = link;
+          OG_PASSTHROUGH = true;
+        };
+      };
+
+      nginx.virtualHosts.${domain} = {
+        locations."/".proxyPass =
+          if config.garden.services.anubis.enable then
+            "http://unix:${config.services.anubis.instances.isabelroses-website.settings.BIND}"
+          else
+            link;
+      } // template.ssl domain;
+    };
   };
 }
