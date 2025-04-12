@@ -63,6 +63,11 @@ in
         deployable = true;
       };
 
+      skadi = {
+        arch = "aarch64";
+        deployable = true;
+      };
+
       lilith = {
         class = "iso";
       };
