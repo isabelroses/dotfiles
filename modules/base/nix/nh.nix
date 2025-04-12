@@ -1,15 +1,7 @@
-{
-  self,
-  config,
-  inputs',
-  ...
-}:
-let
-  inherit (self.lib.validators) hasProfile;
-in
+{ inputs', ... }:
 {
   programs.nh = {
-    enable = !hasProfile config [ "server" ];
+    enable = true;
     package = inputs'.tgirlpkgs.packages.nh;
 
     clean = {
