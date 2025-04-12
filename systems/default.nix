@@ -42,14 +42,13 @@ in
     #  specialArgs = { };
     hosts = {
       # isabel's hosts
-      hydra = { };
+      amaterasu = { };
+      athena = { };
 
       tatsumaki = {
         arch = "aarch64";
         class = "darwin";
       };
-
-      amaterasu = { };
 
       valkyrie = {
         class = "wsl";
