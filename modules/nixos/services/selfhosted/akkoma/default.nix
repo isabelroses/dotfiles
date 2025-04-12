@@ -20,9 +20,9 @@ in
 {
   options.garden.services.akkoma = mkServiceOption "akkoma" { domain = "akko.${rdomain}"; };
 
-  config = mkIf cfg.enable (mkMerge [
-    {
-      services.akkoma = {
+  config = mkIf cfg.enable {
+    services = {
+      akkoma = {
         enable = true;
         extraPackages = builtins.attrValues { inherit (pkgs) ffmpeg exiftool imagemagick; };
 
@@ -106,22 +106,8 @@ in
           quic = true;
         };
       };
-    }
 
-    (mkIf config.garden.services.anubis.enable {
-      services = {
-        anubis = mkIf config.garden.services.anubis.enable {
-          instances.akkoma.settings = {
-            TARGET = "unix://${web.http.ip}";
-            OG_PASSTHROUGH = true;
-          };
-        };
-
-        nginx.virtualHosts.${web.url.host} = {
-          locations."/".proxyPass =
-            mkForce "http://unix:${config.services.anubis.instances.akkoma.settings.BIND}";
-        } // template.ssl rdomain;
-      };
-    })
-  ]);
+      nginx.virtualHosts.${web.url.host} = template.ssl rdomain;
+    };
+  };
 }
