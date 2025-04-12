@@ -7,7 +7,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkMerge mkForce;
+  inherit (lib.modules) mkIf;
   inherit (self.lib) template;
   inherit (self.lib.services) mkServiceOption;
 
