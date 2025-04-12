@@ -113,6 +113,10 @@ in
   "attic/prod-auth-token.age" = defAccessIsabel types.servers;
   "attic/netrc.age" = defAccessIsabel types.servers;
 
+  # anubis
+  "anubis/forgejo.age" = defAccessIsabel types.servers;
+  "anubis/isabelroses-website.age" = defAccessIsabel types.servers;
+
   # mailserver
   "mailserver/isabel.age" = defAccessIsabel types.servers;
   "mailserver/robin.age" = defAccessAll types.servers;

@@ -21,10 +21,18 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.mailserver-git-nohash = mkSecret {
-      file = "mailserver/git-nohash";
-      owner = "forgejo";
-      group = "forgejo";
+    age.secrets = {
+      mailserver-git-nohash = mkSecret {
+        file = "mailserver/git-nohash";
+        owner = "forgejo";
+        group = "forgejo";
+      };
+
+      anubis-forgejo = mkSecret {
+        file = "anubis/forgejo";
+        owner = "anubis";
+        group = "anubis";
+      };
     };
 
     garden.services = {
@@ -166,6 +174,7 @@ in
       anubis = mkIf config.garden.services.anubis.enable {
         instances.forgejo.settings = {
           TARGET = "unix://${config.services.forgejo.settings.server.HTTP_ADDR}";
+          ED25519_PRIVATE_KEY_HEX_FILE = config.age.secrets.anubis-forgejo.path;
         };
       };
 

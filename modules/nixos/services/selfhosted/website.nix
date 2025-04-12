@@ -10,6 +10,7 @@ let
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
+  inherit (self.lib.secrets) mkSecret;
 
   inherit (config.networking) domain;
 
@@ -45,11 +46,18 @@ in
       } // template.systemd;
     };
 
+    age.secrets.anubis-isabelroses-website = mkSecret {
+      file = "anubis/isabelroses-website";
+      owner = "anubis";
+      group = "anubis";
+    };
+
     services = {
       anubis = mkIf config.garden.services.anubis.enable {
         instances.isabelroses-website.settings = {
           TARGET = link;
           OG_PASSTHROUGH = true;
+          ED25519_PRIVATE_KEY_HEX_FILE = config.age.secrets.anubis-isabelroses-website.path;
         };
       };
 
