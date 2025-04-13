@@ -23,7 +23,10 @@ in
       enable = true;
 
       # https://github.com/louislam/uptime-kuma/wiki/Environment-Variables
-      settings.PORT = toString cfg.port;
+      settings = {
+        HOST = cfg.host;
+        PORT = toString cfg.port;
+      };
     };
 
     services.nginx.virtualHosts.${cfg.domain} = {
