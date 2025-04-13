@@ -1,4 +1,9 @@
-{ lib, self, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
   inherit (lib.modules) mkMerge;
   inherit (self.lib.helpers) mkPubs;
@@ -13,6 +18,13 @@ in
     startWhenNeeded = true;
 
     allowSFTP = true;
+
+    banner = ''
+      Connected to ${config.system.name} @ ${config.system.configurationRevision}
+
+      All conntections to this server are logged. Please disconnect now if you
+      are not permitted access.
+    '';
 
     settings = {
       # Don't allow root login
