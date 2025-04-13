@@ -9,6 +9,10 @@ let
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILNvBuKUksco5TldoEMthQcvr6TOh9Aun93kYUAq22gE";
       owner = "isabel";
     };
+    athena = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKMJroewVs8Iyf+/Ofk6q36D1OzVW0b04yyS3IVwNmCb";
+      owner = "isabel";
+    };
     # bmo = {
     #   key = "";
     #   owner = "robin";
@@ -19,10 +23,6 @@ let
     # };
     hestia = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFNJv2ng+BJV2YDWAmaWFu7arLrsT2jpshUPTvdHBlxN";
-      owner = "isabel";
-    };
-    hydra = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKMJroewVs8Iyf+/Ofk6q36D1OzVW0b04yyS3IVwNmCb";
       owner = "isabel";
     };
     minerva = {
@@ -37,6 +37,10 @@ let
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAn1inws4uXxbv72IHphlLAVlmsaln2szDRsdlM0g7Hu";
       owner = "isabel";
     };
+    skadi = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSLQkO5ACQ6XHpp3Bpbs0ymV1TL5sWBTFVOraybEdtq";
+      owner = "isabel";
+    };
     wisp = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7cduddxQbnFeBWjt9L6Uml5mjnfEOxZqd4LoyRDTmg";
       owner = "robin";
@@ -47,6 +51,7 @@ let
     servers = [
       hestia
       minerva
+      skadi
     ];
     workstations = [
       amaterasu
@@ -56,7 +61,7 @@ let
       valkyrie
       wisp
     ];
-    hybrid = [ hydra ];
+    hybrid = [ athena ];
   };
 
   defAccess =
