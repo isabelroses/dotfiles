@@ -18,9 +18,9 @@
       tui.enable = false;
       gui.enable = false;
 
-      git.signingKey = "7F2F6BD6997FCDF7";
+      git.enable = true;
+      git.signingKey = "3E7C7A1B5DEDBB03";
 
-      neovim.enable = false;
       neovim.package = inputs'.izvim.packages.izvimMinimal;
     };
   };
