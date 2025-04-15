@@ -28,10 +28,19 @@ in
       };
 
       system = {
-        # Mount /etc as an overlayfs instead of generating it via a perl script.
-        # WARNING: do not enable this if your not confident in your ability to fix it
-        # it is a royal pain and is not worth half the effor it takes to fix it
-        etc.overlay.enable = true;
+        etc = {
+          overlay = {
+            # Mount /etc as an overlayfs instead of generating it via a perl script.
+            # WARNING: do not enable this if your not confident in your ability to fix it
+            # it is a royal pain and is not worth half the effor it takes to fix it
+            enable = true;
+
+            mutable = true;
+          };
+
+          # create our NIXOS file so we don't error if we don't have perl installed
+          environment.etc."NIXOS".text = "";
+        };
 
         # we can use this to warn us if we have perl installed
         forbiddenDependenciesRegexes = [ "perl" ];
