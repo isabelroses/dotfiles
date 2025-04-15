@@ -4,7 +4,7 @@ let
   inherit (lib.options) mkEnableOption;
 in
 {
-  options.garden.system.banPerl = mkEnableOption "Ban perl from being installed";
+  options.garden.system.perlless = mkEnableOption "Ban perl from being installed";
 
   config = mkMerge [
     {
@@ -20,7 +20,7 @@ in
       boot.initrd.systemd.enable = true;
     }
 
-    (mkIf config.garden.system.banPerl {
+    (mkIf config.garden.system.perlless {
       # since we enable a hover fs we also need to allow for that filesystem in the supported filesystems
       boot = {
         supportedFilesystems = [ "erofs" ];
