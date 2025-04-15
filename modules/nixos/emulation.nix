@@ -7,9 +7,18 @@
 let
   inherit (lib.modules) mkIf;
   inherit (lib.types) listOf str;
+  inherit (lib.strings) splitString;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.trivial) flip pipe;
+  inherit (lib.lists) elemAt;
   inherit (lib.options) mkOption mkEnableOption;
 
-  sys = config.garden.system;
+  getArch = flip pipe [
+    (splitString "-")
+    (flip elemAt 1)
+  ];
+
+  cfg = config.garden.system.emulation;
 in
 {
   options.garden.system.emulation = {
@@ -24,6 +33,7 @@ in
     systems = mkOption {
       type = listOf str;
       default = builtins.filter (system: system != pkgs.stdenv.system) [
+        "x86_64-linux"
         "aarch64-linux"
         "i686-linux"
       ];
@@ -33,20 +43,19 @@ in
     };
   };
 
-  config = mkIf sys.emulation.enable {
+  config = mkIf cfg.enable {
     nix.settings.extra-sandbox-paths = [
       "/run/binfmt"
-      "${pkgs.qemu}"
+      (toString pkgs.qemu)
     ];
 
     boot.binfmt = {
-      emulatedSystems = sys.emulation.systems;
+      emulatedSystems = cfg.systems;
 
       # our archs that we want to emulate
-      registrations = {
-        aarch64-linux.interpreter = "${pkgs.qemu}/bin/qemu-aarch64";
-        i686-linux.interpreter = "${pkgs.qemu}/bin/qemu-i686";
-      };
+      registrations = genAttrs cfg.systems (system: {
+        interpreter = "${pkgs.qemu}/bin/qemu-${getArch system}";
+      });
     };
   };
 }

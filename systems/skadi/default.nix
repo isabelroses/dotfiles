@@ -18,6 +18,7 @@
       boot = {
         loader = "systemd-boot";
       };
+      emulation.enable = true;
     };
 
     services = {

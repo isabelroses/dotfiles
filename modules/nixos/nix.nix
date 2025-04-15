@@ -1,4 +1,3 @@
-{ config, ... }:
 {
   nix = {
     # set the nix store to clean every Monday at 3am
@@ -24,8 +23,6 @@
       # set the build dir to /var/tmp to avoid issues on tmpfs
       # https://github.com/NixOS/nixpkgs/issues/293114#issuecomment-2663470083
       build-dir = "/var/tmp";
-
-      extra-platforms = config.boot.binfmt.emulatedSystems;
     };
   };
 }
