@@ -10,7 +10,7 @@ let
   inherit (lib.strings) splitString;
   inherit (lib.attrsets) genAttrs;
   inherit (lib.trivial) flip pipe;
-  inherit (lib.lists) elemAt;
+  inherit (lib.lists) elemAt filter;
   inherit (lib.options) mkOption mkEnableOption;
 
   getArch = flip pipe [
@@ -32,7 +32,7 @@ in
 
     systems = mkOption {
       type = listOf str;
-      default = builtins.filter (system: system != pkgs.stdenv.system) [
+      default = filter (system: system != pkgs.stdenv.hostPlatform.system) [
         "x86_64-linux"
         "aarch64-linux"
         "i686-linux"
