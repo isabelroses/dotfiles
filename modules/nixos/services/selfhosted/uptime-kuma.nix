@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
 
@@ -19,6 +18,15 @@ in
   };
 
   config = mkIf cfg.enable {
+    garden.services = {
+      nginx.vhosts.${cfg.domain} = {
+        locations."/" = {
+          proxyPass = "http://${cfg.host}:${toString cfg.port}";
+          proxyWebsockets = true;
+        };
+      };
+    };
+
     services.uptime-kuma = {
       enable = true;
 
@@ -28,12 +36,5 @@ in
         PORT = toString cfg.port;
       };
     };
-
-    services.nginx.virtualHosts.${cfg.domain} = {
-      locations."/" = {
-        proxyPass = "http://${cfg.host}:${toString cfg.port}";
-        proxyWebsockets = true;
-      };
-    } // template.ssl rdomain;
   };
 }

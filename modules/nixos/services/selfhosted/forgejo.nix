@@ -8,8 +8,6 @@
 let
   cfg = config.garden.services.forgejo;
   rdomain = config.networking.domain;
-
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf mkForce;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
@@ -36,9 +34,22 @@ in
     };
 
     garden.services = {
-      nginx.enable = true;
       redis.enable = true;
       postgresql.enable = true;
+
+      nginx.vhosts.${cfg.domain} = {
+        locations."/" = {
+          recommendedProxySettings = true;
+          proxyPass =
+            "http://unix:"
+            + (
+              if config.garden.services.anubis.enable then
+                config.services.anubis.instances.forgejo.settings.BIND
+              else
+                config.services.forgejo.settings.server.HTTP_ADDR
+            );
+        };
+      };
     };
 
     networking.firewall.allowedTCPPorts = [
@@ -177,20 +188,6 @@ in
           ED25519_PRIVATE_KEY_HEX_FILE = config.age.secrets.anubis-forgejo.path;
         };
       };
-
-      nginx.virtualHosts.${cfg.domain} = {
-        locations."/" = {
-          recommendedProxySettings = true;
-          proxyPass =
-            "http://unix:"
-            + (
-              if config.garden.services.anubis.enable then
-                config.services.anubis.instances.forgejo.settings.BIND
-              else
-                config.services.forgejo.settings.server.HTTP_ADDR
-            );
-        };
-      } // template.ssl rdomain;
     };
   };
 }

@@ -6,7 +6,6 @@
   ...
 }:
 let
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
@@ -45,8 +44,16 @@ in
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     garden.services = {
-      nginx.enable = true;
       postgresql.enable = true;
+      nginx.vhosts.${rdomain} = {
+        locations = {
+          "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
+          "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
+          "/_matrix".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
+          "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
+        };
+        serverAliases = [ "${cfg.domain}" ];
+      };
     };
 
     services = {
@@ -57,16 +64,6 @@ in
           LC_COLLATE = "C"
           LC_CTYPE = "C";
       '';
-
-      nginx.virtualHosts.${rdomain} = {
-        locations = {
-          "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
-          "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
-          "/_matrix".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
-          "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
-        };
-        serverAliases = [ "${cfg.domain}" ];
-      } // template.ssl rdomain;
 
       matrix-synapse = {
         enable = true;

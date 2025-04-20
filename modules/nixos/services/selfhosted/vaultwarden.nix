@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
@@ -20,6 +19,15 @@ in
   };
 
   config = mkIf cfg.enable {
+    garden.services = {
+      nginx.vhosts.${cfg.domain} = {
+        locations."/" = {
+          proxyPass = "http://${cfg.host}:${toString cfg.port}";
+          extraConfig = "proxy_pass_header Authorization;";
+        };
+      };
+    };
+
     age.secrets.vaultwarden-env = mkSecret {
       file = "vaultwarden-env";
       owner = "vaultwarden";
@@ -32,41 +40,32 @@ in
       Group = "root";
     };
 
-    services = {
-      vaultwarden = {
-        enable = true;
-        environmentFile = config.age.secrets.vaultwarden-env.path;
-        backupDir = "/srv/storage/vaultwarden/backup";
+    services.vaultwarden = {
+      enable = true;
+      environmentFile = config.age.secrets.vaultwarden-env.path;
+      backupDir = "/srv/storage/vaultwarden/backup";
 
-        config = {
-          DOMAIN = "https://${cfg.domain}";
-          ROCKET_ADDRESS = cfg.host;
-          ROCKET_PORT = cfg.port;
-          extendedLogging = true;
-          invitationsAllowed = true;
-          useSyslog = true;
-          logLevel = "warn";
-          showPasswordHint = false;
-          SIGNUPS_ALLOWED = false;
-          signupsAllowed = false;
-          signupsDomainsWhitelist = "${rdomain}";
-          signupsVerify = true;
-          smtpAuthMechanism = "Login";
-          smtpFrom = "vaultwarden@${rdomain}";
-          smtpFromName = "Isabelroses's Vaultwarden Service";
-          smtpHost = config.garden.services.mailserver.domain;
-          smtpPort = 465;
-          smtpSecurity = "force_tls";
-          dataDir = "/srv/storage/vaultwarden";
-        };
+      config = {
+        DOMAIN = "https://${cfg.domain}";
+        ROCKET_ADDRESS = cfg.host;
+        ROCKET_PORT = cfg.port;
+        extendedLogging = true;
+        invitationsAllowed = true;
+        useSyslog = true;
+        logLevel = "warn";
+        showPasswordHint = false;
+        SIGNUPS_ALLOWED = false;
+        signupsAllowed = false;
+        signupsDomainsWhitelist = "${rdomain}";
+        signupsVerify = true;
+        smtpAuthMechanism = "Login";
+        smtpFrom = "vaultwarden@${rdomain}";
+        smtpFromName = "Isabelroses's Vaultwarden Service";
+        smtpHost = config.garden.services.mailserver.domain;
+        smtpPort = 465;
+        smtpSecurity = "force_tls";
+        dataDir = "/srv/storage/vaultwarden";
       };
-
-      nginx.virtualHosts.${cfg.domain} = {
-        locations."/" = {
-          proxyPass = "http://${cfg.host}:${toString cfg.port}";
-          extraConfig = "proxy_pass_header Authorization;";
-        };
-      } // template.ssl rdomain;
     };
   };
 }

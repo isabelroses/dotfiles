@@ -7,7 +7,6 @@
   ...
 }:
 let
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
@@ -22,9 +21,12 @@ in
 
   config = mkIf cfg.enable {
     garden.services = {
-      nginx.enable = true;
       redis.enable = true;
       postgresql.enable = true;
+
+      nginx.vhosts."webmail.${rdomain}" = {
+        locations."/".extraConfig = lib.mkForce "";
+      };
     };
 
     age.secrets = {
@@ -257,10 +259,6 @@ in
         "listen.owner" = config.services.nginx.user;
         "listen.group" = config.services.nginx.group;
       };
-
-      nginx.virtualHosts."webmail.${rdomain}" = {
-        locations."/".extraConfig = lib.mkForce "";
-      } // template.ssl rdomain;
     };
   };
 }

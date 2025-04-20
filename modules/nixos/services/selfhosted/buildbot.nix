@@ -7,7 +7,6 @@
   ...
 }:
 let
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf mkMerge;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
@@ -36,45 +35,45 @@ in
         buildbot-gh-oauth = mkSecret { file = "buildbot/gh-oauth"; };
       };
 
-      services = {
-        buildbot-nix = {
-          master = {
-            enable = true;
+      garden.services = {
+        nginx.vhosts.${cfg.domain} = { };
+      };
 
-            inherit (cfg) domain;
+      services.buildbot-nix = {
+        master = {
+          enable = true;
 
-            accessMode.public = { };
-            useHTTPS = true;
+          inherit (cfg) domain;
 
-            admins = [ "isabelroses" ];
-            workersFile = secrets.buildbot-workers.path;
+          accessMode.public = { };
+          useHTTPS = true;
 
-            pullBased.repositories.infra = {
-              url = "https://github.com/isabelroses/dotfiles.git";
-              defaultBranch = "main";
-            };
+          admins = [ "isabelroses" ];
+          workersFile = secrets.buildbot-workers.path;
 
-            authBackend = "github";
-            github = {
-              enable = true;
-              webhookSecretFile = secrets.buildbot-gh-webhook-secret.path;
-              authType.app = {
-                id = 1153859;
-                secretKeyFile = secrets.buildbot-gh-private-key.path;
-              };
-              oauthId = "Iv23liSeLy6J7IS9awg1";
-              oauthSecretFile = secrets.buildbot-gh-oauth.path;
-            };
+          pullBased.repositories.infra = {
+            url = "https://github.com/isabelroses/dotfiles.git";
+            defaultBranch = "main";
           };
 
-          worker = {
+          authBackend = "github";
+          github = {
             enable = true;
-            # masterUrl = cfg.domain;
-            workerPasswordFile = secrets.buildbot-worker.path;
+            webhookSecretFile = secrets.buildbot-gh-webhook-secret.path;
+            authType.app = {
+              id = 1153859;
+              secretKeyFile = secrets.buildbot-gh-private-key.path;
+            };
+            oauthId = "Iv23liSeLy6J7IS9awg1";
+            oauthSecretFile = secrets.buildbot-gh-oauth.path;
           };
         };
 
-        nginx.virtualHosts.${cfg.domain} = template.ssl rdomain;
+        worker = {
+          enable = true;
+          # masterUrl = cfg.domain;
+          workerPasswordFile = secrets.buildbot-worker.path;
+        };
       };
     }
 

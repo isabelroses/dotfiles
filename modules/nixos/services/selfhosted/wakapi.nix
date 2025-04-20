@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
@@ -35,8 +34,11 @@ in
     };
 
     garden.services = {
-      nginx.enable = true;
       postgresql.enable = true;
+
+      nginx.vhosts.${cfg.domain} = {
+        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
+      };
     };
 
     systemd.services.wakapi.serviceConfig = {
@@ -50,58 +52,52 @@ in
       CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
     };
 
-    services = {
-      wakapi = {
-        enable = true;
+    services.wakapi = {
+      enable = true;
 
-        passwordSaltFile = config.age.secrets.wakapi.path;
-        smtpPasswordFile = config.age.secrets.wakapi-mailer.path;
+      passwordSaltFile = config.age.secrets.wakapi.path;
+      smtpPasswordFile = config.age.secrets.wakapi-mailer.path;
 
-        # setup out postgresql database
-        database.createLocally = true;
+      # setup out postgresql database
+      database.createLocally = true;
 
-        settings = {
-          app.avatar_url_template = "https://www.gravatar.com/avatar/{email_hash}.png";
+      settings = {
+        app.avatar_url_template = "https://www.gravatar.com/avatar/{email_hash}.png";
 
-          server = {
-            inherit (cfg) port;
-            public_url = "https://${cfg.domain}";
-          };
-
-          db = {
-            dialect = "postgres";
-            host = "/run/postgresql";
-            port = 5432; # this needs to be set otherwise the service will fail
-            name = "wakapi";
-            user = "wakapi";
-          };
-
-          security = {
-            allow_signup = false;
-            disable_frontpage = true;
-          };
-
-          mail =
-            let
-              mailer = "noreply@${rdomain}";
-            in
-            {
-              enabled = true;
-              sender = "<${mailer}>";
-              provider = "smtp";
-              smtp = {
-                host = "mail.${rdomain}";
-                port = 465;
-                username = mailer;
-                tls = true;
-              };
-            };
+        server = {
+          inherit (cfg) port;
+          public_url = "https://${cfg.domain}";
         };
-      };
 
-      nginx.virtualHosts.${cfg.domain} = {
-        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
-      } // template.ssl rdomain;
+        db = {
+          dialect = "postgres";
+          host = "/run/postgresql";
+          port = 5432; # this needs to be set otherwise the service will fail
+          name = "wakapi";
+          user = "wakapi";
+        };
+
+        security = {
+          allow_signup = false;
+          disable_frontpage = true;
+        };
+
+        mail =
+          let
+            mailer = "noreply@${rdomain}";
+          in
+          {
+            enabled = true;
+            sender = "<${mailer}>";
+            provider = "smtp";
+            smtp = {
+              host = "mail.${rdomain}";
+              port = 465;
+              username = mailer;
+              tls = true;
+            };
+          };
+      };
     };
   };
 }

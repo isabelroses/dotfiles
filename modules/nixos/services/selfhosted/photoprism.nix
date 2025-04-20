@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
 
@@ -21,32 +20,28 @@ in
 
   config = mkIf cfg.enable {
     garden.services = {
-      nginx.enable = true;
       mysql.enable = true;
+      nginx.vhosts.${cfg.domain} = { };
     };
 
-    services = {
-      photoprism = {
-        enable = true;
-        inherit (cfg) port;
-        address = cfg.host;
+    services.photoprism = {
+      enable = true;
+      inherit (cfg) port;
+      address = cfg.host;
 
-        originalsPath = "/var/lib/private/photoprism/originals";
+      originalsPath = "/var/lib/private/photoprism/originals";
 
-        settings = {
-          PHOTOPRISM_ADMIN_USER = "admin";
-          PHOTOPRISM_ADMIN_PASSWORD = "L38*%puzpXX!j$7!";
-          PHOTOPRISM_DEFAULT_LOCALE = "en";
-          PHOTOPRISM_DATABASE_DRIVER = "mysql";
-          PHOTOPRISM_DATABASE_NAME = "photoprism";
-          PHOTOPRISM_DATABASE_SERVER = "/run/mysqld/mysqld.sock";
-          PHOTOPRISM_DATABASE_USER = "photoprism";
-          PHOTOPRISM_SITE_URL = "https://${cfg.domain}";
-          PHOTOPRISM_SITE_TITLE = "My PhotoPrism";
-        };
+      settings = {
+        PHOTOPRISM_ADMIN_USER = "admin";
+        PHOTOPRISM_ADMIN_PASSWORD = "L38*%puzpXX!j$7!";
+        PHOTOPRISM_DEFAULT_LOCALE = "en";
+        PHOTOPRISM_DATABASE_DRIVER = "mysql";
+        PHOTOPRISM_DATABASE_NAME = "photoprism";
+        PHOTOPRISM_DATABASE_SERVER = "/run/mysqld/mysqld.sock";
+        PHOTOPRISM_DATABASE_USER = "photoprism";
+        PHOTOPRISM_SITE_URL = "https://${cfg.domain}";
+        PHOTOPRISM_SITE_TITLE = "My PhotoPrism";
       };
-
-      nginx.virtualHosts.${cfg.domain} = template.ssl rdomain;
     };
   };
 }

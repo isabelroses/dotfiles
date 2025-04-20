@@ -6,14 +6,30 @@
   ...
 }:
 let
+  inherit (lib) types;
   inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption;
+  inherit (lib.attrsets) mapAttrs;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
 
   cfg = config.garden.services.nginx;
 in
 {
-  options.garden.services.nginx = mkServiceOption "nginx" { domain = "isabelroses.com"; };
+  options.garden.services.nginx = mkServiceOption "nginx" {
+    domain = "isabelroses.com";
+
+    extraConfig = {
+      vhosts = mkOption {
+        type = types.attrsOf (
+          types.submodule {
+            freeformType = types.attrsOf types.anything;
+          }
+        );
+        default = { };
+      };
+    };
+  };
 
   config = mkIf cfg.enable {
     age.secrets.cloudflare-cert-api = mkSecret {
@@ -59,6 +75,17 @@ in
 
       sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
       sslProtocols = "TLSv1.3 TLSv1.2";
+
+      virtualHosts = mapAttrs (
+        _: settings:
+        {
+          quic = true;
+          forceSSL = true;
+          enableACME = false;
+          useACMEHost = cfg.domain;
+        }
+        // settings
+      ) cfg.vhosts;
     };
   };
 }

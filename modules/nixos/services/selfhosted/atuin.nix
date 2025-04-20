@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
 
@@ -18,18 +17,19 @@ in
     domain = "atuin.${rdomain}";
   };
 
-  config.services = mkIf cfg.enable {
-    atuin = {
+  config = mkIf cfg.enable {
+    garden.services = {
+      postgresql.enable = true;
+      nginx.vhosts.${cfg.domain} = {
+        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
+      };
+    };
+
+    services.atuin = {
       enable = true;
       inherit (cfg) port host;
       openRegistration = false;
       maxHistoryLength = 1024 * 16;
     };
-
-    nginx.virtualHosts.${cfg.domain} = {
-      locations."/" = {
-        proxyPass = "http://${cfg.host}:${toString cfg.port}";
-      };
-    } // template.ssl rdomain;
   };
 }

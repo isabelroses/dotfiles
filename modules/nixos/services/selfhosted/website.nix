@@ -6,7 +6,6 @@
   ...
 }:
 let
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
 
@@ -19,10 +18,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    services = {
-      nginx.virtualHosts.${cfg.domain} = {
-        root = inputs'.tgirlcloud.packages.isabelroses-website;
-      } // template.ssl domain;
+    garden.services = {
+      nginx.vhosts.${cfg.domain} = {
+        root = inputs'.tgirlpkgs.packages.isabelroses-website;
+      };
     };
   };
 }

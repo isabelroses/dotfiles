@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
@@ -34,36 +33,35 @@ in
       };
     };
 
-    garden.services.postgresql.enable = true;
+    garden.services = {
+      postgresql.enable = true;
+      nginx.vhosts.${cfg.domain} = {
+        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
+      };
+    };
 
-    services = {
-      plausible = {
-        enable = true;
+    services.plausible = {
+      enable = true;
 
-        server = {
-          inherit (cfg) port;
-          baseUrl = "https://${cfg.domain}";
+      server = {
+        inherit (cfg) port;
+        baseUrl = "https://${cfg.domain}";
 
-          disableRegistration = true;
-          secretKeybaseFile = config.age.secrets.plausible-key.path;
-        };
-
-        adminUser = {
-          activate = true;
-          name = "isabel";
-          email = "isabel@${cfg.domain}";
-          passwordFile = config.age.secrets.plausible-admin.path;
-        };
-
-        database.postgres = {
-          dbname = "plausible";
-          socket = "/run/postgresql";
-        };
+        disableRegistration = true;
+        secretKeybaseFile = config.age.secrets.plausible-key.path;
       };
 
-      nginx.virtualHosts.${cfg.domain} = {
-        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
-      } // template.ssl rdomain;
+      adminUser = {
+        activate = true;
+        name = "isabel";
+        email = "isabel@${cfg.domain}";
+        passwordFile = config.age.secrets.plausible-admin.path;
+      };
+
+      database.postgres = {
+        dbname = "plausible";
+        socket = "/run/postgresql";
+      };
     };
 
     users = {

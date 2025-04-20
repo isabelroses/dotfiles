@@ -8,7 +8,6 @@
 let
   rdomain = config.networking.domain;
 
-  inherit (self.lib) template;
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
   inherit (self.lib.secrets) mkSecret;
@@ -26,69 +25,66 @@ in
     };
 
     garden.services = {
-      nginx.enable = true;
       redis.enable = true;
       postgresql.enable = true;
+
+      nginx.vhosts.${cfg.domain} = { };
     };
 
-    services = {
-      nextcloud = {
-        enable = true;
-        package = pkgs.nextcloud29;
+    services.nextcloud = {
+      enable = true;
+      package = pkgs.nextcloud29;
 
-        # webs stuff
-        https = true;
-        nginx.recommendedHttpHeaders = true;
-        hostName = cfg.domain;
+      # webs stuff
+      https = true;
+      nginx.recommendedHttpHeaders = true;
+      hostName = cfg.domain;
 
-        home = "/srv/storage/nextcloud";
-        maxUploadSize = "4G";
-        enableImagemagick = true;
+      home = "/srv/storage/nextcloud";
+      maxUploadSize = "4G";
+      enableImagemagick = true;
 
-        caching = {
-          apcu = true;
-          memcached = true;
-          redis = true;
-        };
-
-        extraApps = {
-          inherit (config.services.nextcloud.package.packages.apps) contacts calendar;
-        };
-
-        autoUpdateApps = {
-          enable = true;
-          startAt = "02:00";
-        };
-
-        config = {
-          adminuser = "isabel";
-          adminpassFile = config.age.secrets.nextcloud-passwd.path;
-
-          # database
-          dbtype = "pgsql";
-          dbhost = "/run/postgresql";
-          dbname = "nextcloud";
-        };
-
-        settings = {
-          defaultPhoneRegion = "UK";
-
-          overwriteProtocol = "https";
-          extraTrustedDomains = [ "https://${toString cfg.domain}" ];
-          trustedProxies = [ "https://${toString cfg.domain}" ];
-
-          redis = {
-            host = "/run/redis-nextcloud/redis.sock";
-            dbindex = 0;
-            timeout = 1.5;
-          };
-        };
-
-        # fix the opcache "buffer is almost full" error in admin overview
-        phpOptions."opcache.interned_strings_buffer" = "16";
+      caching = {
+        apcu = true;
+        memcached = true;
+        redis = true;
       };
 
-      nginx.virtualHosts.${cfg.domain} = template.ssl rdomain;
+      extraApps = {
+        inherit (config.services.nextcloud.package.packages.apps) contacts calendar;
+      };
+
+      autoUpdateApps = {
+        enable = true;
+        startAt = "02:00";
+      };
+
+      config = {
+        adminuser = "isabel";
+        adminpassFile = config.age.secrets.nextcloud-passwd.path;
+
+        # database
+        dbtype = "pgsql";
+        dbhost = "/run/postgresql";
+        dbname = "nextcloud";
+      };
+
+      settings = {
+        defaultPhoneRegion = "UK";
+
+        overwriteProtocol = "https";
+        extraTrustedDomains = [ "https://${toString cfg.domain}" ];
+        trustedProxies = [ "https://${toString cfg.domain}" ];
+
+        redis = {
+          host = "/run/redis-nextcloud/redis.sock";
+          dbindex = 0;
+          timeout = 1.5;
+        };
+      };
+
+      # fix the opcache "buffer is almost full" error in admin overview
+      phpOptions."opcache.interned_strings_buffer" = "16";
     };
 
     systemd.services = {
