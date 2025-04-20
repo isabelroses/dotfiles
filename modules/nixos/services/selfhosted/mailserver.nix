@@ -24,9 +24,7 @@ in
       redis.enable = true;
       postgresql.enable = true;
 
-      nginx.vhosts."webmail.${rdomain}" = {
-        locations."/".extraConfig = lib.mkForce "";
-      };
+      nginx.vhosts."webmail.${rdomain}" = { };
     };
 
     age.secrets = {
@@ -258,6 +256,10 @@ in
       phpfpm.pools.roundcube.settings = {
         "listen.owner" = config.services.nginx.user;
         "listen.group" = config.services.nginx.group;
+      };
+
+      nginx.virtualHosts."webmail.${rdomain}" = {
+        locations."/".extraConfig = lib.mkForce "";
       };
     };
   };
