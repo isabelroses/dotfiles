@@ -1,13 +1,13 @@
 {
   imports = [
     ./bars
+    ./discord
     ./firefox
     ./gaming
     ./hyprland
     ./wezterm
     ./aerospace.nix
     ./chromium.nix
-    ./discord.nix
     ./ghostty.nix
     ./gtklock.nix
     ./notes.nix

@@ -2,16 +2,32 @@
   lib,
   pkgs,
   config,
+  osConfig,
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
+  mkLink = config.lib.file.mkOutOfStoreSymlink;
+
+  inherit (osConfig.garden.environment) flakePath;
+  inherit (config.home) username;
+
   cfg = config.garden.programs.discord;
 in
 {
   config = mkIf cfg.enable {
-    home.packages = mkIf pkgs.stdenv.hostPlatform.isLinux [
-      cfg.package
+    home = mkMerge [
+      (mkIf isLinux {
+        packages = [ cfg.package ];
+      })
+
+      (mkIf isDarwin {
+        file = {
+          "Library/Application Support/Vencord/settings/settings.json".source =
+            mkLink "${flakePath}/home/${username}/packages/gui/discord/settings.json";
+        };
+      })
     ];
 
     # xdg.configFile."discord/settings.json".text = ''
