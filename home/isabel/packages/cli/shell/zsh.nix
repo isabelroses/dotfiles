@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkOrder;
   inherit (lib.strings) removePrefix;
 
   cfg = config.garden.programs.zsh;
@@ -16,7 +16,7 @@ in
 
     dotDir = (removePrefix (config.home.homeDirectory + "/") config.xdg.configHome) + "/zsh";
 
-    initExtra = ''
+    initContent = mkOrder 1000 ''
       function title_precmd_hook() {
         print -Pn "\e]0;$(pwd)\a"
       }
