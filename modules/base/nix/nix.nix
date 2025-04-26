@@ -103,9 +103,6 @@ in
         # enables the nix3 commands, a requirement for flakes
         "nix-command"
 
-        # allow nix to call itself
-        "recursive-nix"
-
         # allow nix to build and use content addressable derivations, these are nice beaccase
         # they prevent rebuilds when changes to the derivation do not result in changes to the derivation's output
         "ca-derivations"
