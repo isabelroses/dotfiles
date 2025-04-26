@@ -38,6 +38,12 @@
           rev = "52a2ccce9d2acc83cea2039e2177a968022459c9";
           hash = "sha256-UeC5YlKYZ6YeENL9qCW9MYN3UTUJPx9Ry6XjgP3lxs0=";
         };
+        "th-ch/homebrew-youtube-music" = pkgs.fetchFromGitHub {
+          owner = "th-ch";
+          repo = "homebrew-youtube-music";
+          rev = "9ccc1e40dd77c2b21564b470ed9fca50b07bceb1";
+          hash = "sha256-XD4ShzgYp4/BLSQO112pXAb5SxGrQr1MRaepfjTB2CA=";
+        };
       };
     };
 
@@ -83,6 +89,10 @@
         "gimp" # image editor
         "raycast" # app launcher, and clipboard manager
         "inkscape" # vector graphics editor
+        {
+          name = "youtube-music";
+          args.require_sha = false; # youtube music client
+        }
         "intellij-idea" # IDE
         "jordanbaird-ice" # better status bar
       ];
