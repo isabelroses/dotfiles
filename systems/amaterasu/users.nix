@@ -17,7 +17,7 @@
       tui.enable = true;
       gui.enable = true;
 
-      git.signingKey = "7F2F6BD6997FCDF7";
+      git.signingKey = "3E7C7A1B5DEDBB03";
 
       discord.enable = true;
       zathura.enable = true;
