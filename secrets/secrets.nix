@@ -6,7 +6,7 @@ let
 
   hosts = {
     amaterasu = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILNvBuKUksco5TldoEMthQcvr6TOh9Aun93kYUAq22gE";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIASfhQoMiEvoVa6mat4SvozopTTpLjCwRaJvze7IFE1S";
       owner = "isabel";
     };
     athena = {
