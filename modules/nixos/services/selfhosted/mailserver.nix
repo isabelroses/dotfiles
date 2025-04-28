@@ -29,6 +29,7 @@ in
 
     age.secrets = {
       mailserver-isabel = mkSecret { file = "mailserver/isabel"; };
+      mailserver-jobs = mkSecret { file = "mailserver/jobs"; };
       mailserver-robin = mkSecret { file = "mailserver/robin"; };
       mailserver-vaultwarden = mkSecret { file = "mailserver/vaultwarden"; };
       mailserver-database = mkSecret { file = "mailserver/database"; };
@@ -102,6 +103,16 @@ in
             "root@${rdomain}"
             "postmaster"
             "postmaster@${rdomain}"
+          ];
+        };
+
+        "jobs@${rdomain}" = {
+          hashedPasswordFile = config.age.secrets.mailserver-jobs.path;
+          aliases = [
+            "jobs"
+            "jobs@${rdomain}"
+            "job"
+            "job@${rdomain}"
           ];
         };
 

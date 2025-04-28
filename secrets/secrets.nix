@@ -124,6 +124,7 @@ in
 
   # mailserver
   "mailserver/isabel.age" = defAccessIsabel types.servers;
+  "mailserver/jobs.age" = defAccessIsabel types.servers;
   "mailserver/robin.age" = defAccessAll types.servers;
   "mailserver/vaultwarden.age" = defAccessIsabel types.servers;
   "mailserver/database.age" = defAccessIsabel types.servers;
