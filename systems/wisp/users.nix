@@ -17,6 +17,7 @@
       };
       tui.enable = true;
       gui.enable = false;
+      notes.enable = true;
 
       zsh.enable = true;
       defaults.shell = "zsh";
