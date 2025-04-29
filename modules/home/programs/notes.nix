@@ -38,6 +38,8 @@ in
     };
 
     zk = mkProgram pkgs "zk" {
+      enable.default = config.garden.programs.notes.enable;
+
       settings = mkOption {
         inherit (pkgs.formats.toml { }) type;
         default = { };
