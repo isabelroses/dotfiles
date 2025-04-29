@@ -9,8 +9,8 @@ let
 in
 {
   config = mkIf config.garden.programs.notes.enable {
-    garden.packages = [
-      pkgs.typst
-    ];
+    garden.packages = {
+      inherit (pkgs) typst;
+    };
   };
 }
