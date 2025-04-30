@@ -32,9 +32,12 @@ in
           authorColors.isabel = "#f5c2e7";
         };
 
-        git.paging = {
-          colorArg = "always";
-          pager = "delta --paging=never";
+        git = {
+          overrideGpg = true;
+          paging = {
+            colorArg = "always";
+            pager = "delta --paging=never";
+          };
         };
       };
     };
