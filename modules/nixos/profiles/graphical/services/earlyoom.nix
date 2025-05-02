@@ -59,12 +59,19 @@ in
       earlyoom = {
         enable = true;
         enableNotifications = true; # annoying, but we want to know what's killed
-        freeSwapThreshold = 2;
-        freeMemThreshold = 2;
+
+        reportInterval = 0;
+        freeSwapThreshold = 5;
+        freeSwapKillThreshold = 2;
+        freeMemThreshold = 5;
+        freeMemKillThreshold = 2;
+
         extraArgs = [
           "-g"
-          "--avoid '(^|/)(${avoid})'" # things that we want to avoid killing
-          "--prefer '(^|/)(${prefer})'" # things we want to remove fast
+          "--avoid"
+          "'^(${avoid})$'" # things that we want to avoid killing
+          "--prefer"
+          "'^(${prefer})$'" # things we want to remove fast
         ];
 
         # we should ideally write the logs into a designated log file; or even better, to the journal
