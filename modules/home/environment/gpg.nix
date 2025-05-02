@@ -13,7 +13,7 @@ in
   services.gpg-agent = mkIf pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
 
-    pinentryPackage =
+    pinentry.package =
       if video.enable then
         pkgs.pinentry-gnome3 # requires services.dbus.packages = [ pkgs.gcr ]
       else
