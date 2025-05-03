@@ -5,8 +5,8 @@ Subject: [PATCH] feat(builtins): pow
 ---
  lix/libexpr/builtins/pow.md |  5 +++++
  lix/libexpr/meson.build     |  1 +
- lix/libexpr/primops.cc      | 10 ++++++++++
- 3 files changed, 16 insertions(+)
+ lix/libexpr/primops.cc      | 11 +++++++++++
+ 3 files changed, 17 insertions(+)
  create mode 100644 lix/libexpr/builtins/pow.md
 
 diff --git a/lix/libexpr/builtins/pow.md b/lix/libexpr/builtins/pow.md
@@ -21,10 +21,10 @@ index 000000000..4a21084b9
 +---
 +Return the result of *e1* to the power of *e2*.
 diff --git a/lix/libexpr/meson.build b/lix/libexpr/meson.build
-index dcbc12e7d..47442c22c 100644
+index 9b029e562..10752c93c 100644
 --- a/lix/libexpr/meson.build
 +++ b/lix/libexpr/meson.build
-@@ -118,6 +118,7 @@ builtin_definitions = files(
+@@ -122,6 +122,7 @@ builtin_definitions = files(
    'builtins/path.md',
    'builtins/pathExists.md',
    'builtins/placeholder.md',
@@ -33,26 +33,26 @@ index dcbc12e7d..47442c22c 100644
    'builtins/readFile.md',
    'builtins/readFileType.md',
 diff --git a/lix/libexpr/primops.cc b/lix/libexpr/primops.cc
-index 328ce250b..45b3589d1 100644
+index 2fae74194..12d867292 100644
 --- a/lix/libexpr/primops.cc
 +++ b/lix/libexpr/primops.cc
-@@ -2425,6 +2425,16 @@ static void prim_div(EvalState & state, const PosIdx pos, Value * * args, Value
+@@ -2443,6 +2443,17 @@ static void prim_div(EvalState & state, Value * * args, Value & v)
      }
  }
  
-+static void prim_pow(EvalState & state, const PosIdx pos, Value * * args, Value & v)
++static void prim_pow(EvalState & state, Value * * args, Value & v)
 +{
-+    state.forceValue(*args[0], pos);
-+    state.forceValue(*args[1], pos);
++    state.forceValue(*args[0], noPos);
++    state.forceValue(*args[1], noPos);
 +
-+    NixFloat f1 = state.forceFloat(*args[0], pos, "while evaluating the first operand of the exponentiation");
-+    NixFloat f2 = state.forceFloat(*args[1], pos, "while evaluating the second operand of the exponentiation");
++    NixFloat f1 = state.forceFloat(*args[0], noPos, "while evaluating the first operand of the exponentiation");
++    NixFloat f2 = state.forceFloat(*args[1], noPos, "while evaluating the second operand of the exponentiation");
 +    v.mkFloat(std::pow(f1, f2));
 +}
 +
- static void prim_bitAnd(EvalState & state, const PosIdx pos, Value * * args, Value & v)
++
+ static void prim_bitAnd(EvalState & state, Value * * args, Value & v)
  {
-     auto i1 = state.forceInt(*args[0], pos, "while evaluating the first argument passed to builtins.bitAnd");
+     auto i1 = state.forceInt(*args[0], noPos, "while evaluating the first argument passed to builtins.bitAnd");
 -- 
-2.44.1
-
+2.47.0
