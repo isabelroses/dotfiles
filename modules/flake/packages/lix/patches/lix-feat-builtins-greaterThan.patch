@@ -5,8 +5,8 @@ Subject: [PATCH] feat(builtins): greaterThan
 ---
  lix/libexpr/builtins/greaterThan.md |  7 +++++++
  lix/libexpr/meson.build             |  1 +
- lix/libexpr/primops.cc              | 21 +++++++++++++++++++--
- 3 files changed, 27 insertions(+), 2 deletions(-)
+ lix/libexpr/primops.cc              | 19 +++++++++++++++++--
+ 3 files changed, 25 insertions(+), 2 deletions(-)
  create mode 100644 lix/libexpr/builtins/greaterThan.md
 
 diff --git a/lix/libexpr/builtins/greaterThan.md b/lix/libexpr/builtins/greaterThan.md
@@ -23,10 +23,10 @@ index 000000000..3bb2787c7
 +`false` otherwise. Evaluation aborts if either *e1* or *e2* does not
 +evaluate to a number.
 diff --git a/lix/libexpr/meson.build b/lix/libexpr/meson.build
-index dcbc12e7d..98cdd6725 100644
+index 9b029e562..5e87a73c7 100644
 --- a/lix/libexpr/meson.build
 +++ b/lix/libexpr/meson.build
-@@ -87,6 +87,7 @@ builtin_definitions = files(
+@@ -91,6 +91,7 @@ builtin_definitions = files(
    'builtins/getContext.md',
    'builtins/getEnv.md',
    'builtins/getFlake.md',
@@ -35,45 +35,43 @@ index dcbc12e7d..98cdd6725 100644
    'builtins/hasAttr.md',
    'builtins/hasContext.md',
 diff --git a/lix/libexpr/primops.cc b/lix/libexpr/primops.cc
-index 7b9ea06cc..8dcbeedb6 100644
+index 2fae74194..0d87b6fd3 100644
 --- a/lix/libexpr/primops.cc
 +++ b/lix/libexpr/primops.cc
-@@ -2195,6 +2195,9 @@ static void prim_genList(EvalState & state, const PosIdx pos, Value * * args, Va
- static void prim_lessThan(EvalState & state, const PosIdx pos, Value * * args, Value & v);
+@@ -2217,6 +2217,8 @@ static void prim_genList(EvalState & state, Value * * args, Value & v)
  
+ static void prim_lessThan(EvalState & state, Value * * args, Value & v);
  
-+static void prim_greaterThan(EvalState & state, const PosIdx pos, Value * * args, Value & v);
++static void prim_greaterThan(EvalState & state, Value * * args, Value & v);
 +
-+
- static void prim_sort(EvalState & state, const PosIdx pos, Value * * args, Value & v)
+ 
+ static void prim_sort(EvalState & state, Value * * args, Value & v)
  {
-     state.forceList(*args[1], pos, "while evaluating the second argument passed to builtins.sort");
-@@ -2220,8 +2223,13 @@ static void prim_sort(EvalState & state, const PosIdx pos, Value * * args, Value
+@@ -2243,8 +2245,13 @@ static void prim_sort(EvalState & state, Value * * args, Value & v)
             should be outside the lambda creation */
          if (args[0]->isPrimOp()) {
              auto ptr = args[0]->primOp->fun.target<decltype(&prim_lessThan)>();
 -            if (ptr && *ptr == prim_lessThan)
--                return CompareValues(state, noPos, "while evaluating the ordering function passed to builtins.sort")(a, b);
+-                return CompareValues(state, "while evaluating the ordering function passed to builtins.sort")(a, b);
 +            if (ptr) {
 +                if (*ptr == prim_lessThan) {
-+                    return CompareValues(state, noPos, "while evaluating the ordering function passed to builtins.sort")(a, b);
++                    return CompareValues(state, "while evaluating the ordering function passed to builtins.sort")(a, b);
 +                } else if (*ptr == prim_greaterThan) {
-+                    return CompareValues(state, noPos, "while evaluating the ordering function passed to builtins.sort")(b, a);
++                    return CompareValues(state, "while evaluating the ordering function passed to builtins.sort")(b, a);
 +                }
 +            }
          }
  
          Value * vs[] = {a, b};
-@@ -2452,6 +2460,15 @@ static void prim_lessThan(EvalState & state, const PosIdx pos, Value * * args, V
+@@ -2474,6 +2481,14 @@ static void prim_lessThan(EvalState & state, Value * * args, Value & v)
      v.mkBool(comp(args[0], args[1]));
  }
  
-+static void prim_greaterThan(EvalState & state, const PosIdx pos, Value * * args, Value & v)
++static void prim_greaterThan(EvalState & state, Value * * args, Value & v)
 +{
-+    state.forceValue(*args[0], pos);
-+    state.forceValue(*args[1], pos);
-+    // pos is exact here, no need for a message.
-+    CompareValues comp(state, noPos, "");
++    state.forceValue(*args[0], noPos);
++    state.forceValue(*args[1], noPos);
++    CompareValues comp(state, "");
 +    v.mkBool(comp(args[1], args[0]));
 +}
 +
@@ -81,5 +79,4 @@ index 7b9ea06cc..8dcbeedb6 100644
  /*************************************************************
   * String manipulation
 -- 
-2.44.1
-
+2.47.0
