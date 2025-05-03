@@ -7,12 +7,14 @@ _: prev: {
   btop =
     if prev.stdenv.hostPlatform.isLinux then
       prev.symlinkJoin {
-        inherit (prev.btop) passthru;
         name = "btop-nodesktop";
+
         paths = [ prev.btop ];
         postBuild = ''
           rm $out/share/applications/btop.desktop
         '';
+
+        inherit (prev.btop) version meta passthru;
       }
     else
       prev.btop;
@@ -20,12 +22,14 @@ _: prev: {
   fish =
     if prev.stdenv.hostPlatform.isLinux then
       prev.symlinkJoin {
-        inherit (prev.fish) passthru meta;
         name = "fish-nodesktop";
+
         paths = [ prev.fish ];
         postBuild = ''
           rm $out/share/applications/fish.desktop
         '';
+
+        inherit (prev.fish) version passthru meta;
       }
     else
       prev.fish;
@@ -33,12 +37,14 @@ _: prev: {
   ranger =
     if prev.stdenv.hostPlatform.isLinux then
       prev.symlinkJoin {
-        inherit (prev.ranger) passthru;
         name = "ranger-nodesktop";
+
         paths = [ prev.ranger ];
         postBuild = ''
           rm $out/share/applications/ranger.desktop
         '';
+
+        inherit (prev.ranger) version passthru meta;
       }
     else
       prev.ranger;
