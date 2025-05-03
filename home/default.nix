@@ -24,7 +24,9 @@ in
       useGlobalPkgs = true;
       backupFileExtension = "bak";
 
-      users = genAttrs config.garden.system.users (name: ./${name});
+      users = genAttrs config.garden.system.users (name: {
+        imports = [ ./${name} ];
+      });
 
       extraSpecialArgs = {
         inherit
