@@ -14,7 +14,7 @@ let
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
   inherit (config.garden.system) mainUser;
-  homeDir = config.home-manager.users.${mainUser}.home.homeDirectory;
+  homeDir = config.garden.users.${mainUser}.home.homeDirectory;
   sshDir = homeDir + "/.ssh";
 
   userGroup = ldTernary pkgs "users" "admin";

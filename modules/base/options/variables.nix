@@ -22,10 +22,6 @@ in
 
   config.assertions = [
     {
-      assertion = sys.useHomeManager -> sys.mainUser != null;
-      message = "system.mainUser must be set while useHomeManager is enabled";
-    }
-    {
       assertion = env.flakePath != null -> sys.mainUser != null;
       message = "system.mainUser must be set if a flakePath is specified";
     }

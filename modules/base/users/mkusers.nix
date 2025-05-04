@@ -7,19 +7,16 @@
 }:
 let
   inherit (lib.modules) mkDefault;
-  inherit (lib.attrsets) genAttrs;
+  inherit (lib.attrsets) attrValues;
   inherit (self.lib.hardware) ldTernary;
   inherit (self.lib.validators) ifTheyExist;
 in
 {
-  users.users = genAttrs config.garden.system.users (
-    name:
-    let
-      hm = config.home-manager.users.${name};
-    in
+  users.users.isabel =
     {
-      home = "/" + (ldTernary pkgs "home" "Users") + "/" + name;
-      shell = hm.garden.programs.${hm.garden.programs.defaults.shell}.package;
+      home = "/" + (ldTernary pkgs "home" "Users") + "/isabel";
+      shell = config.garden.users.isabel.garden.packages.fish;
+      packages = attrValues config.garden.users.isabel.garden.packages;
     }
     // (ldTernary pkgs {
       uid = mkDefault 1000;
@@ -52,6 +49,5 @@ in
           "libvirtd"
           "cloudflared"
         ];
-    } { })
-  );
+    } { });
 }

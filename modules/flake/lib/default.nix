@@ -36,7 +36,6 @@ let
       isWayland
       ifOneEnabled
       isModernShell
-      anyHome
       ;
   });
 

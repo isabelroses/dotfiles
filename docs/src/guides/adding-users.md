@@ -17,6 +17,6 @@ following the template:
 
   # you can add a home-manager configuration here for the user if it needs
   # anything special
-  home-manager.users.robin.garden = {};
+  users.robin.garden = {};
 }
 ```

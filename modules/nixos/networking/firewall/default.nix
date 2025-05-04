@@ -7,7 +7,6 @@
 }:
 let
   inherit (lib.modules) mkIf mkForce;
-  inherit (config.garden) meta;
   inherit (self.lib.validators) hasProfile;
 in
 {
@@ -31,13 +30,13 @@ in
       ];
       allowedUDPPorts = [ ];
 
-      allowedTCPPortRanges = mkIf meta.kdeconnect [
+      allowedTCPPortRanges = mkIf false [
         {
           from = 1714;
           to = 1764;
         }
       ];
-      allowedUDPPortRanges = mkIf meta.kdeconnect [
+      allowedUDPPortRanges = mkIf false [
         {
           from = 1714;
           to = 1764;

@@ -10,7 +10,7 @@ let
   inherit (self.lib.validators) hasProfile;
 in
 {
-  systemd = mkIf ((hasProfile config [ "graphical" ]) && config.garden.meta.isWM) {
+  systemd = mkIf (hasProfile config [ "graphical" ]) {
     user.services.polkit-pantheon-authentication-agent-1 = {
       description = "Pantheon PolicyKit agent";
       serviceConfig = {

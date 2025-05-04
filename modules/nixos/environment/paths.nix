@@ -1,8 +1,6 @@
-{ lib, config, ... }:
+{ lib, ... }:
 let
   inherit (lib.lists) optional;
-
-  cfg = config.garden.meta;
 in
 {
   # if a given shell is enabled, add the corresponding completion paths
@@ -10,6 +8,6 @@ in
     [
       "/share/bash-completion"
     ]
-    ++ optional cfg.zsh "/share/zsh"
-    ++ optional cfg.fish "/share/fish";
+    ++ optional false "/share/zsh"
+    ++ optional true "/share/fish";
 }

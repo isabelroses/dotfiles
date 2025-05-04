@@ -14,13 +14,13 @@ let
   sys = config.garden.system;
 in
 {
-  garden.packages = optionalAttrs config.garden.meta.gui {
+  garden.packages = optionalAttrs false {
     inherit (pkgs) networkmanagerapplet; # provides nm-connection-editor
   };
 
   networking.networkmanager = {
     enable = true;
-    plugins = mkForce (optionals config.garden.meta.gui [ pkgs.networkmanager-openvpn ]);
+    plugins = mkForce (optionals false [ pkgs.networkmanager-openvpn ]);
     dns = "systemd-resolved";
     unmanaged = [
       "interface-name:tailscale*"

@@ -41,26 +41,5 @@ in
 
       default = throw "There is no default module.";
     };
-
-    homeManagerModules = {
-      garden = mkModule {
-        class = "homeManager";
-        modules = [ (self + /modules/home/default.nix) ];
-      };
-
-      gtklock = mkModule {
-        name = "gtklock";
-        class = "homeManager";
-        modules = [ (self + /modules/extra/home-manager/gtklock.nix) ];
-      };
-
-      hyfetch = mkModule {
-        name = "gtklock";
-        class = "homeManager";
-        modules = [ (self + /modules/extra/home-manager/hyfetch.nix) ];
-      };
-
-      default = throw "There is no default module.";
-    };
   };
 }

@@ -237,26 +237,6 @@
         "type": "github"
       }
     },
-    "home-manager": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1746317522,
-        "narHash": "sha256-/jZ4Wd4HHUEWPSlNj48k1E4Mh+1fUbwI/vSlPPIMG3U=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "621986fed37c5d0cb8df010ed8369694dc47c09b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "homebrew": {
       "inputs": {
         "brew-src": "brew-src",
@@ -490,7 +470,6 @@
         "easy-hosts": "easy-hosts",
         "evergarden": "evergarden",
         "flake-parts": "flake-parts",
-        "home-manager": "home-manager",
         "homebrew": "homebrew",
         "ivy": "ivy",
         "izvim": "izvim",
