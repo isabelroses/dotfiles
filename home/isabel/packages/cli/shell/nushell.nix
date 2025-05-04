@@ -5,20 +5,20 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkAfter;
+  inherit (lib.modules) mkIf mkAfter mkForce;
   inherit (lib.strings) concatMapStrings;
 
   cfg = config.garden.programs.nushell;
 
-  completions =
-    cmds:
-    concatMapStrings (cmd: ''
-      source "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${cmd}/${cmd}-completions.nu"
-    '') cmds;
+  completions = concatMapStrings (cmd: ''
+    source "${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${cmd}/${cmd}-completions.nu"
+  '');
 in
 {
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.nix-your-shell ];
+    home.sessionVariables = {
+      GPG_TTY = mkForce "is-terminal";
+    };
 
     programs = {
       bash.initExtra = mkAfter ''
@@ -31,7 +31,13 @@ in
         enable = true;
         inherit (cfg) package;
 
-        shellAliases = builtins.removeAttrs config.home.shellAliases [ "mkdir" ];
+        shellAliases = mkForce (
+          builtins.removeAttrs config.home.shellAliases [
+            "mkdir"
+            "zzzpl"
+            "zzzbk"
+          ]
+        );
 
         settings = {
           show_banner = false;
