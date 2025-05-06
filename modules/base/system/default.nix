@@ -1,5 +1,6 @@
 {
   imports = [
+    ./diff.nix
     ./fonts.nix # font configuration
     ./revision.nix
     ./tools.nix
