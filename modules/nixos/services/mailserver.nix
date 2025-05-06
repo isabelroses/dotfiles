@@ -72,8 +72,6 @@ in
       enableManageSieve = true;
 
       # DKIM Settings
-      dkimBodyCanonicalization = "relaxed";
-      dkimHeaderCanonicalization = "relaxed";
       dkimKeyBits = 4096;
       dkimSelector = "mail";
       dkimSigning = true;
