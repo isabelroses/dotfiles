@@ -1,5 +1,6 @@
 {
   inputs,
+  config,
   ...
 }:
 {
@@ -7,7 +8,7 @@
 
   config = {
     catppuccin = {
-      enable = true;
+      enable = !config.garden.profiles.headless.enable;
       flavor = "mocha";
 
       # IFD, easy to vendor
