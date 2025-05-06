@@ -1,6 +1,6 @@
-{ lib, pkgs, ... }:
+{ lib, _class, ... }:
 {
-  users.users.root = lib.modules.mkIf pkgs.stdenv.hostPlatform.isLinux {
+  users.users.root = lib.mkIf (_class == "nixos") {
     initialPassword = "changeme";
 
     openssh.authorizedKeys.keys = [

@@ -2,9 +2,10 @@
   imports = [ ./users.nix ];
 
   garden = {
-    device.profiles = [
-      "laptop"
-      "graphical"
-    ];
+    profiles = {
+      laptop.enable = true;
+      graphical.enable = true;
+      workstation.enable = true;
+    };
   };
 }

@@ -1,30 +1,13 @@
+{ config, ... }:
 {
-  lib,
-  self,
-  config,
-  osConfig,
-  ...
-}:
-let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) hasProfile isModernShell;
-
-  acceptedTypes = [
-    "wsl"
-    "desktop"
-    "laptop"
-    "hybrid"
-  ];
-in
-{
-  programs.direnv = mkIf (hasProfile osConfig acceptedTypes && isModernShell config) {
-    enable = true;
+  programs.direnv = {
+    inherit (config.garden.profiles.workstation) enable;
     silent = true;
 
     # faster, persistent implementation of use_nix and use_flake
     nix-direnv.enable = true;
 
-    # modified from from @i077
+    # modified from @i077
     # store direnv in cache and not per project
     stdlib = ''
       : ''${XDG_CACHE_HOME:=$HOME/.cache}

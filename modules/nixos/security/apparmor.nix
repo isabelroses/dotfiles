@@ -5,14 +5,14 @@
   ...
 }:
 let
-  inherit (lib.meta) getExe;
+  inherit (lib) getExe;
 in
 {
   services.dbus.apparmor = "disabled";
 
   # apparmor configuration
   security.apparmor = {
-    enable = true;
+    enable = false;
 
     # whether to enable the AppArmor cache
     # in /var/cache/apparmore

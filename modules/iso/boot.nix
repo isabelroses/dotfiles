@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib.modules) mkForce mkAfter mkImageMediaOverride;
+  inherit (lib) mkForce mkAfter mkImageMediaOverride;
 in
 {
   boot = {

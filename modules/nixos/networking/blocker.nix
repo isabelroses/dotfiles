@@ -1,16 +1,10 @@
-{
-  lib,
-  self,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) hasProfile;
+  inherit (lib) mkIf;
 in
 {
   # remove stupid sites that i just don't want to see
-  config = mkIf (!hasProfile config [ "server" ]) {
+  config = mkIf (!config.garden.profiles.server.enable) {
     networking.stevenblack = {
       enable = true;
       block = [

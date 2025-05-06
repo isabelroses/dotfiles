@@ -16,5 +16,5 @@
     { device = "/dev/disk/by-label/swap"; }
   ];
 
-  boot.loader.generationsDir.copyKernels = lib.modules.mkForce false;
+  boot.loader.generationsDir.copyKernels = lib.mkForce false;
 }

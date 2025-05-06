@@ -1,12 +1,11 @@
 { lib, config, ... }:
 let
-  inherit (lib.modules) mkIf mkForce;
-  inherit (lib.options) mkOption;
+  inherit (lib) mkIf mkForce mkOption;
 
-  cfg = config.garden.device.hetzner;
+  cfg = config.garden.profiles.server.hetzner;
 in
 {
-  options.garden.device.hetzner = {
+  options.garden.profiles.server.hetzner = {
     ipv4 = mkOption {
       type = lib.types.str;
     };

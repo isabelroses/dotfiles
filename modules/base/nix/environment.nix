@@ -5,11 +5,23 @@
   ...
 }:
 let
-  inherit (builtins) elem;
-  inherit (lib.trivial) pipe;
-  inherit (lib.lists) optionals;
-  inherit (lib.attrsets) filterAttrs mapAttrs';
-  inherit (lib.modules) mkForce;
+  inherit (lib)
+    elem
+    pipe
+    optionals
+    filterAttrs
+    mapAttrs'
+    mkForce
+    ;
+
+  commonPaths =
+    [
+      "nixpkgs"
+      "tgirlpkgs"
+    ]
+    ++ optionals pkgs.stdenv.hostPlatform.isDarwin [
+      "nix-darwin"
+    ];
 in
 {
   environment = {
@@ -17,27 +29,14 @@ in
     variables.NIXPKGS_CONFIG = mkForce "";
 
     # something something backwards compatibility something something nix channels
-    etc =
-      let
-        inherit (config.nix) registry;
-        commonPaths =
-          [
-            "nixpkgs"
-            "tgirlpkgs"
-            "home-manager"
-          ]
-          ++ optionals pkgs.stdenv.hostPlatform.isDarwin [
-            "nix-darwin"
-          ];
-      in
-      pipe registry [
-        (filterAttrs (name: _: (elem name commonPaths)))
-        (mapAttrs' (
-          name: value: {
-            name = "nix/path/${name}";
-            value.source = value.flake;
-          }
-        ))
-      ];
+    etc = pipe config.nix.registry [
+      (filterAttrs (name: _: elem name commonPaths))
+      (mapAttrs' (
+        name: value: {
+          name = "nix/path/${name}";
+          value.source = value.flake;
+        }
+      ))
+    ];
   };
 }

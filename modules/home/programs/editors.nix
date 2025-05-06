@@ -6,9 +6,8 @@
   ...
 }:
 let
-  inherit (self.lib.programs) mkProgram;
-  inherit (lib.strings) optionalString concatMapAttrsStringSep;
-  inherit (lib.meta) getExe;
+  inherit (self.lib) mkProgram;
+  inherit (lib) optionalString concatMapAttrsStringSep getExe;
 
   nv = config.garden.programs.neovim;
 in
@@ -22,7 +21,7 @@ in
       enable.default = true;
 
       gui = mkProgram pkgs "neovide" {
-        enable.default = config.garden.programs.gui.enable;
+        enable.default = config.garden.profiles.graphical.enable;
 
         package.default = pkgs.symlinkJoin {
           name = "neovide-wrapped";

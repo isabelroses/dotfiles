@@ -1,10 +1,11 @@
 {
-  self,
   pkgs,
+  self,
+  osClass,
   ...
 }:
 let
-  inherit (self.lib.programs) mkProgram;
+  inherit (self.lib) mkProgram;
 in
 {
   options.garden.programs = {
@@ -14,7 +15,7 @@ in
     };
 
     zsh = mkProgram pkgs "zsh" {
-      enable.default = pkgs.stdenv.hostPlatform.isDarwin;
+      enable.default = osClass == "darwin";
     };
 
     fish = mkProgram pkgs "fish" { };

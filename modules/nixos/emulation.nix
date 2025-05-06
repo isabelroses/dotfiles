@@ -5,13 +5,21 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (lib.types) listOf str;
-  inherit (lib.strings) splitString;
-  inherit (lib.attrsets) genAttrs;
-  inherit (lib.trivial) flip pipe;
-  inherit (lib.lists) elemAt filter;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib)
+    mkIf
+    splitString
+    genAttrs
+    flip
+    pipe
+    elemAt
+    filter
+    mkOption
+    mkEnableOption
+    ;
+  inherit (lib.types)
+    listOf
+    str
+    ;
 
   getArch = flip pipe [
     (splitString "-")

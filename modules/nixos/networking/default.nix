@@ -1,21 +1,19 @@
 {
   lib,
-  self,
   config,
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkDefault mkForce;
-  inherit (self.lib.validators) hasProfile;
+  inherit (lib) mkIf mkDefault mkForce;
 in
 {
   imports = [
-    ./firewall
-
     ./blocker.nix
+    ./fail2ban.nix
+    ./firewall.nix
     ./networkmanager.nix
+    ./openssh.nix
     ./optimise.nix
-    ./ssh.nix
     ./systemd.nix
     ./tailscale.nix
     ./tcpcrypt.nix
@@ -40,7 +38,7 @@ in
     usePredictableInterfaceNames = mkDefault true;
 
     # dns
-    nameservers = mkIf (!hasProfile config [ "wsl" ]) [
+    nameservers = mkIf (!(config ? wsl)) [
       "1.1.1.1"
       "1.0.0.1"
       "9.9.9.9"

@@ -1,21 +1,15 @@
 { lib, config, ... }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (lib.options) mkEnableOption;
+  inherit (lib) mkIf;
 
-  cfg = config.garden.device.hetzner;
+  cfg = config.garden.profiles.server.hetzner;
 in
 {
-  options.garden.device.hetzner = {
-    enable = mkEnableOption "hetzner";
-  };
-
   config = mkIf cfg.enable {
     garden = {
       device = {
         hasTPM = false;
         hasBluetooth = false;
-        hasSound = false;
       };
 
       system = {
@@ -28,14 +22,6 @@ in
           tmpOnTmpfs = false;
         };
 
-        fs.support = [
-          "vfat"
-          "exfat"
-          "ext4"
-        ];
-
-        video.enable = false;
-        sound.enable = false;
         bluetooth.enable = false;
 
         networking = {

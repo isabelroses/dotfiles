@@ -1,7 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib.modules) mkForce;
-  inherit (lib.attrsets) concatMapAttrs genAttrs;
+  inherit (lib) mkForce concatMapAttrs genAttrs;
 
   ethernetDevices = [
     "wlp1s0f0u8" # wifi dongle

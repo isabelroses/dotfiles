@@ -5,14 +5,18 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkDefault;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib)
+    mkIf
+    mkDefault
+    mkOption
+    mkEnableOption
+    optionals
+    ;
   inherit (lib.types) bool listOf str;
-  inherit (lib.lists) optionals;
+
   inherit (config.services) tailscale;
 
-  sys = config.garden.system.networking;
-  cfg = sys.tailscale;
+  cfg = config.garden.system.networking.tailscale;
 in
 {
   options.garden.system.networking.tailscale = {
@@ -70,9 +74,7 @@ in
       enable = true;
       permitCertUid = "root";
       useRoutingFeatures = mkDefault "server";
-      extraUpFlags =
-        sys.tailscale.defaultFlags
-        ++ optionals sys.tailscale.enable [ "--advertise-exit-node" ];
+      extraUpFlags = cfg.defaultFlags ++ optionals cfg.enable [ "--advertise-exit-node" ];
     };
 
     # server can't be client and client be server

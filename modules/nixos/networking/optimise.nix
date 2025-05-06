@@ -1,12 +1,13 @@
 { lib, config, ... }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (lib.options) mkEnableOption;
+  inherit (lib) mkIf mkEnableOption;
 
   cfg = config.garden.system.networking;
 in
 {
-  options.garden.system.networking.optimizeTcp = mkEnableOption "Enable tcp optimizations";
+  options.garden.system.networking.optimizeTcp = mkEnableOption "Enable tcp optimizations" // {
+    default = !config.garden.profiles.server.enable;
+  };
 
   config = mkIf cfg.optimizeTcp {
     boot = {

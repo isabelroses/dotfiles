@@ -1,14 +1,15 @@
 { lib, config, ... }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib) mkIf;
 in
 {
-  # compress half of the ram to use as swap
-  # basically, get more memory per memory
+  # compress half of the ram to use as swap basically, get more memory per memory
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 90; # defaults to 50
+
+    # defaults to 50
+    memoryPercent = 90;
   };
 
   boot.kernel.sysctl = mkIf config.zramSwap.enable {

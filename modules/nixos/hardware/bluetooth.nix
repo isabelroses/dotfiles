@@ -24,6 +24,7 @@ in
 
   config = mkIf sys.bluetooth.enable {
     garden.system.boot.extraKernelParams = [ "btusb" ];
+
     hardware.bluetooth = {
       enable = true;
       package = pkgs.bluez;

@@ -1,16 +1,14 @@
 {
   lib,
-  self,
   pkgs,
-  osConfig,
+  config,
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) hasProfile;
+  inherit (lib) mkIf;
 in
 {
-  config = mkIf (hasProfile osConfig [ "graphical" ] && pkgs.stdenv.hostPlatform.isLinux) {
+  config = mkIf (config.garden.profiles.graphical.enable && pkgs.stdenv.hostPlatform.isLinux) {
     qt = {
       enable = true;
       platformTheme.name = "kvantum";

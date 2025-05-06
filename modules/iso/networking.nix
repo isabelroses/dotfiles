@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib.modules) mkForce;
+  inherit (lib) mkForce;
 in
 {
   # use networkmanager in the live environment

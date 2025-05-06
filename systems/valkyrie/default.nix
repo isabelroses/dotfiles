@@ -2,17 +2,17 @@
   imports = [ ./users.nix ];
 
   garden = {
+    profiles = {
+      workstation.enable = true;
+      headless.enable = true;
+    };
+
     device = {
-      profiles = [
-        "wsl"
-        "headless"
-      ];
       cpu = null;
       gpu = null;
       hasTPM = true;
       monitors = [ ];
       hasBluetooth = false;
-      hasSound = false;
       keyboard = "us";
     };
 
@@ -23,7 +23,6 @@
         tmpOnTmpfs = true;
         enableKernelTweaks = true;
         loadRecommendedModules = true;
-        plymouth.enable = false;
 
         initrd = {
           enableTweaks = true;
@@ -31,27 +30,9 @@
         };
       };
 
-      fs.support = [
-        "ext4"
-        "vfat"
-      ];
-      video.enable = false;
-      sound.enable = false;
       bluetooth.enable = false;
       yubikeySupport.enable = false;
-
-      security = {
-        auditd.enable = true;
-      };
-
-      emulation.enable = false;
-      virtualization = {
-        enable = false;
-        docker.enable = false;
-        qemu.enable = false;
-        podman.enable = false;
-        distrobox.enable = false;
-      };
+      security.auditd.enable = true;
     };
   };
 }

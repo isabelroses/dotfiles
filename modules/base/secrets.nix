@@ -1,23 +1,23 @@
 {
   lib,
   self,
+  _class,
   pkgs,
   config,
   inputs,
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.meta) getExe;
-  inherit (self.lib.hardware) ldTernary;
-  inherit (self.lib.secrets) mkSecret mkSecretWithPath;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
+  inherit (lib) mkIf mkMerge getExe;
+  inherit (self.lib) mkSecret mkSecretWithPath;
+
+  isDarwin = _class == "darwin";
 
   inherit (config.garden.system) mainUser;
   homeDir = config.home-manager.users.${mainUser}.home.homeDirectory;
   sshDir = homeDir + "/.ssh";
 
-  userGroup = ldTernary pkgs "users" "admin";
+  userGroup = if isDarwin then "admin" else "users";
 in
 {
   imports = [ inputs.agenix.nixosModules.default ];

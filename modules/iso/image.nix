@@ -6,8 +6,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkImageMediaOverride;
-  inherit (lib.sources) cleanSource;
+  inherit (lib) mkImageMediaOverride cleanSource;
 
   # Get the hostname from our networking name provided in the mkNixosIso builder
   # If none is set then default to "nixos"

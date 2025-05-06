@@ -44,5 +44,7 @@ in
     garden.packages = {
       inherit (pkgs) wsl-open;
     };
+
+    catppuccin.enable = mkForce false;
   };
 }

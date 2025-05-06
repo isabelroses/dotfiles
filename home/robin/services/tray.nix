@@ -1,17 +1,13 @@
 {
   lib,
-  self,
-  osConfig,
+  config,
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) hasProfile;
-
-  acceptedTypes = [ "graphical" ];
+  inherit (lib) mkIf;
 in
 {
-  config = mkIf (hasProfile osConfig acceptedTypes) {
+  config = mkIf config.garden.profiles.graphical.enable {
     # https://github.com/nix-community/home-manager/issues/2064
     systemd.user.targets.tray.Unit = {
       Description = "Home Manager System Tray";

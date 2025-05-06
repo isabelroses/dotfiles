@@ -1,17 +1,16 @@
 { lib, ... }:
 let
-  inherit (lib.modules) mkForce;
-  inherit (lib.attrsets) mapAttrs;
+  inherit (lib) mkForce;
 in
 {
-  documentation = mapAttrs (_: mkForce) {
-    enable = false;
-    info.enable = false;
-    doc.enable = false;
+  documentation = {
+    enable = mkForce false;
+    info.enable = mkForce false;
+    doc.enable = mkForce false;
   };
 
   programs = {
-    info.enable = false;
-    man.enable = false;
+    info.enable = mkForce false;
+    man.enable = mkForce false;
   };
 }
