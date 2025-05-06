@@ -23,7 +23,7 @@ in
     notes.enable = mkEnableOption "enable notes programs";
 
     obsidian = mkProgram pkgs "obsidian" {
-      enable.default = cfg.notes.enable;
+      enable.default = cfg.notes.enable && config.garden.profiles.graphical.enable;
 
       package.default = pkgs.symlinkJoin {
         name = "obsidian-wrapped";
