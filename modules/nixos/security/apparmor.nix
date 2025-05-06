@@ -12,7 +12,7 @@ in
 
   # apparmor configuration
   security.apparmor = {
-    enable = false;
+    enable = true;
 
     # whether to enable the AppArmor cache
     # in /var/cache/apparmore
