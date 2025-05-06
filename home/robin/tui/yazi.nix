@@ -4,7 +4,7 @@
   ...
 }:
 {
-  programs.yazi = lib.mkIf config.garden.profiles.graphical.enable {
+  programs.yazi = lib.mkIf config.garden.profiles.workstation.enable {
     enable = true;
 
     settings = {
