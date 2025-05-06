@@ -2,19 +2,15 @@
   lib,
   self,
   pkgs,
-  osConfig,
+  config,
   ...
 }:
 let
-  inherit (lib.meta) getExe;
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) isWayland hasProfile;
-  inherit (self.lib.services) mkGraphicalService;
-
-  acceptedTypes = [ "graphical" ];
+  inherit (lib) getExe mkIf;
+  inherit (self.lib) mkGraphicalService;
 in
 {
-  config = mkIf (hasProfile osConfig acceptedTypes && isWayland osConfig) {
+  config = mkIf config.garden.profiles.graphical.enable {
     systemd.user.services.cliphist = mkGraphicalService {
       Unit.Description = "Clipboard history service";
       Service = {

@@ -5,19 +5,18 @@
   ];
 
   garden = {
+    profiles = {
+      headless.enable = true;
+      server.enable = true;
+    };
+
     device = {
-      profiles = [
-        "headless"
-        "server"
-      ];
       cpu = "amd";
       gpu = null;
     };
 
     system = {
-      boot = {
-        loader = "systemd-boot";
-      };
+      boot.loader = "systemd-boot";
       emulation.enable = true;
     };
 

@@ -1,45 +1,19 @@
 {
   lib,
-  self,
   pkgs,
   config,
   ...
 }:
 let
   inherit (config.garden) device;
-  inherit (lib.modules)
-    mkIf
-    mkMerge
-    mkDefault
-    ;
-  inherit (self.lib.validators) isWayland;
-
-  isHybrid = device.gpu == "hybrid-nv";
+  inherit (lib) mkIf mkDefault;
 in
 {
-  config = mkIf (device.gpu == "nvidia" || device.gpu == "hybrid-nv") {
+  config = mkIf (device.gpu == "nvidia") {
     # nvidia drivers kinda are unfree software
     nixpkgs.config.allowUnfree = true;
 
-    services.xserver = mkMerge [
-      { videoDrivers = [ "nvidia" ]; }
-
-      # xorg settings
-      (mkIf (!isWayland config) {
-        # disable DPMS
-        monitorSection = ''
-          Option "DPMS" "false"
-        '';
-
-        # disable screen blanking in general
-        serverFlagsSection = ''
-          Option "StandbyTime" "0"
-          Option "SuspendTime" "0"
-          Option "OffTime" "0"
-          Option "BlankTime" "0"
-        '';
-      })
-    ];
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     boot = {
       # blacklist nouveau module as otherwise it conflicts with nvidia drm
@@ -50,15 +24,12 @@ in
       kernelParams = [ "nvidia_drm.fbdev=1" ];
     };
 
-    environment.sessionVariables = mkMerge [
-      { LIBVA_DRIVER_NAME = "nvidia"; }
+    environment.sessionVariables = {
+      LIBVA_DRIVER_NAME = "nvidia";
 
-      (mkIf (isWayland config) {
-        # GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
-
-        WLR_DRM_DEVICES = mkDefault "/dev/dri/card1";
-      })
-    ];
+      # GBM_BACKEND = "nvidia-drm"; # breaks firefox apparently
+      WLR_DRM_DEVICES = mkDefault "/dev/dri/card1";
+    };
 
     garden.packages = {
       inherit (pkgs.nvtopPackages) nvidia;
@@ -84,8 +55,8 @@ in
         package = mkDefault config.boot.kernelPackages.nvidiaPackages.beta;
 
         prime.offload = {
-          enable = isHybrid;
-          enableOffloadCmd = isHybrid;
+          enable = false;
+          enableOffloadCmd = false;
         };
 
         powerManagement = {

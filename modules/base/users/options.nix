@@ -1,7 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib.options) mkOption;
-  inherit (lib.lists) optionals;
+  inherit (lib) mkOption optional;
   inherit (lib.types) enum listOf str;
 in
 {
@@ -22,11 +21,11 @@ in
     };
   };
 
-  config.warnings = optionals (config.garden.system.users == [ ]) [
-    ''
+  config = {
+    warnings = optional (config.garden.system.users == [ ]) ''
       You have not added any users to be supported by your system. You may end up with an unbootable system!
 
       Consider setting {option}`config.garden.system.users` in your configuration
-    ''
-  ];
+    '';
+  };
 }

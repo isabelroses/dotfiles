@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib.modules) mkIf mkForce;
-  cfg = config.garden.device.hetzner;
+  cfg = config.garden.profiles.server.hetzner;
 in
 {
   config = mkIf cfg.enable {

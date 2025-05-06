@@ -4,8 +4,7 @@
   ...
 }:
 let
-  inherit (builtins) elem;
-  inherit (lib.modules) mkIf;
+  inherit (lib) elem mkIf;
 in
 {
   config = mkIf (elem "isabel" config.garden.system.users) {

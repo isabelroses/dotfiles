@@ -1,7 +1,7 @@
 {
   imports = [
     ./isabel.nix
-    ./mkusers.nix
+    ./mkuser.nix
     ./options.nix
     ./root.nix
   ];

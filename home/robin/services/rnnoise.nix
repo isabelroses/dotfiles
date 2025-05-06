@@ -1,18 +1,14 @@
 {
   lib,
-  self,
   pkgs,
-  osConfig,
+  config,
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) hasProfile;
-
-  acceptedTypes = [ "graphical" ];
+  inherit (lib) mkIf;
 in
 {
-  config = mkIf (hasProfile osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
+  config = mkIf (config.garden.profiles.graphical.enable && pkgs.stdenv.hostPlatform.isLinux) {
     xdg.configFile."pipewire/pipewire.conf.d/99-input-denoising.conf".text = builtins.toJSON {
       "context.modules" = [
         {

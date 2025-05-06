@@ -5,17 +5,17 @@
   ];
 
   garden = {
+    profiles = {
+      laptop.enable = true;
+      graphical.enable = true;
+    };
+
     device = {
-      profiles = [
-        "laptop"
-        "graphical"
-      ];
       cpu = "amd";
       gpu = null;
       monitors = [ "eDP-1" ];
       hasTPM = true;
       hasBluetooth = true;
-      hasSound = true;
     };
 
     system = {
@@ -25,7 +25,6 @@
         tmpOnTmpfs = false;
         enableKernelTweaks = true;
         loadRecommendedModules = true;
-        plymouth.enable = false;
 
         initrd = {
           enableTweaks = true;
@@ -33,12 +32,6 @@
         };
       };
 
-      fs.support = [
-        "btrfs"
-        "vfat"
-      ];
-      video.enable = true;
-      sound.enable = true;
       bluetooth.enable = false;
       printing.enable = false;
       yubikeySupport.enable = false;
@@ -50,21 +43,7 @@
 
       networking = {
         optimizeTcp = true;
-
         wirelessBackend = "iwd";
-
-        tailscale = {
-          enable = false;
-          isClient = true;
-        };
-      };
-
-      virtualization = {
-        enable = true;
-        docker.enable = false;
-        qemu.enable = false;
-        podman.enable = false;
-        distrobox.enable = false;
       };
     };
   };

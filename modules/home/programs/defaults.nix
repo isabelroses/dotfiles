@@ -1,13 +1,11 @@
 {
   lib,
-  self,
-  pkgs,
+  osClass,
   ...
 }:
 let
-  inherit (lib.options) mkOption;
+  inherit (lib) mkOption;
   inherit (lib.types) enum nullOr str;
-  inherit (self.lib.hardware) ldTernary;
 in
 {
   options.garden.programs.defaults = {
@@ -18,7 +16,7 @@ in
         "fish"
         "nushell"
       ];
-      default = ldTernary pkgs "bash" "zsh";
+      default = if (osClass == "nixos") then "bash" else "zsh";
     };
 
     terminal = mkOption {

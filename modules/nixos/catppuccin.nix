@@ -1,22 +1,13 @@
 {
-  self,
-  config,
   inputs,
   ...
 }:
-let
-  inherit (self.lib.validators) hasProfile;
-  nonAccepted = [
-    "server"
-    "wsl"
-  ];
-in
 {
   imports = [ inputs.catppuccin.nixosModules.catppuccin ];
 
   config = {
     catppuccin = {
-      enable = !(hasProfile config nonAccepted);
+      enable = true;
       flavor = "mocha";
 
       # IFD, easy to vendor

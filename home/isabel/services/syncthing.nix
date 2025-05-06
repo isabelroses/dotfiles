@@ -1,24 +1,19 @@
 {
   lib,
-  self,
   pkgs,
   config,
-  osConfig,
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) hasProfile;
-
-  acceptedTypes = [ "graphical" ];
+  inherit (lib) mkIf;
 in
 {
-  config = mkIf (hasProfile osConfig acceptedTypes) {
+  config = mkIf config.garden.profiles.graphical.enable {
     services.syncthing = {
       enable = true;
 
       tray = {
-        enable = pkgs.stdenv.hostPlatform.isLinux && config.garden.programs.gui.enable;
+        enable = pkgs.stdenv.hostPlatform.isLinux;
         command = "syncthingtray --wait";
       };
     };

@@ -1,26 +1,29 @@
 {
   lib,
-  self,
   pkgs,
   config,
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkForce;
-  inherit (lib.lists) optionals;
-  inherit (lib.attrsets) optionalAttrs;
-  inherit (self.lib.validators) hasProfile;
+  inherit (lib)
+    mkIf
+    mkForce
+    optionals
+    optionalAttrs
+    ;
 
   sys = config.garden.system;
 in
 {
-  garden.packages = optionalAttrs config.garden.meta.gui {
+  garden.packages = optionalAttrs config.garden.profiles.graphical.enable {
     inherit (pkgs) networkmanagerapplet; # provides nm-connection-editor
   };
 
   networking.networkmanager = {
     enable = true;
-    plugins = mkForce (optionals config.garden.meta.gui [ pkgs.networkmanager-openvpn ]);
+    plugins = mkForce (
+      optionals config.garden.profiles.graphical.enable [ pkgs.networkmanager-openvpn ]
+    );
     dns = "systemd-resolved";
     unmanaged = [
       "interface-name:tailscale*"
@@ -46,6 +49,6 @@ in
     };
 
     # causes server to be unreachable over SSH
-    ethernet.macAddress = mkIf (!hasProfile config [ "server" ]) "random";
+    ethernet.macAddress = mkIf (!config.garden.profiles.server.enable) "random";
   };
 }

@@ -1,30 +1,19 @@
 {
   lib,
   pkgs,
-  self,
   config,
-  osConfig,
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.validators) hasProfile;
-  cfg = osConfig.garden.style;
+  inherit (lib) mkIf;
 
-  acceptedTypes = [
-    "laptop"
-    "desktop"
-    "hybrid"
-    "lite"
-  ];
+  schema = pkgs.gsettings-desktop-schemas;
+
+  cfg = config.garden.style;
 in
 {
-  config = mkIf (hasProfile osConfig acceptedTypes && pkgs.stdenv.hostPlatform.isLinux) {
-    xdg.systemDirs.data =
-      let
-        schema = pkgs.gsettings-desktop-schemas;
-      in
-      [ "${schema}/share/gsettings-schemas/${schema.name}" ];
+  config = mkIf (config.garden.profiles.graphical.enable && pkgs.stdenv.hostPlatform.isLinux) {
+    xdg.systemDirs.data = [ "${schema}/share/gsettings-schemas/${schema.name}" ];
 
     garden.packages = {
       inherit (pkgs) glib; # gsettings
@@ -39,7 +28,7 @@ in
       enable = true;
 
       font = {
-        inherit (cfg.font) name size;
+        inherit (cfg.fonts) name size;
       };
 
       gtk2 = {

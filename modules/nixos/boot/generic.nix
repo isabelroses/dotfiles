@@ -53,13 +53,9 @@ in
       description = "Extra modprobe config that will be passed to system modprobe config.";
     };
 
-    silentBoot =
-      mkEnableOption ''
-        almost entirely silent boot process through `quiet` kernel parameter
-      ''
-      // {
-        default = cfg.plymouth.enable;
-      };
+    silentBoot = mkEnableOption ''
+      almost entirely silent boot process through `quiet` kernel parameter
+    '';
 
     extraKernelParams = mkOption {
       type = listOf str;

@@ -16,6 +16,7 @@ let
 
   browser = [
     "text/html"
+    "application/pdf"
     "x-scheme-handler/http"
     "x-scheme-handler/https"
     "x-scheme-handler/ftp"
@@ -57,7 +58,6 @@ let
       "${if defaults.browser == "thorium" then "thorium-browser" else defaults.browser}.desktop"
     ]))
     // {
-      "application/pdf" = [ "org.pwmt.zathura.desktop" ];
       "x-scheme-handler/spotify" = [ "spotify.desktop" ];
       "x-scheme-handler/discord" = [ "Discord.desktop" ];
       "inode/directory" = [

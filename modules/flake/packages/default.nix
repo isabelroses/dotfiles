@@ -18,13 +18,6 @@
     in
     {
       packages = {
-        inherit (callPackage ./scripts/package.nix { })
-          preview
-          icat
-          extract
-          scripts
-          ;
-
         lix = callPackage ./lix/package.nix { inherit inputs' inputs; };
         docs = callPackage ./docs/package.nix {
           inherit (inputs) self;

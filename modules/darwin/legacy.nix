@@ -1,4 +1,3 @@
-{ config, ... }:
 {
-  system.primaryUser = config.garden.system.mainUser;
+  system.primaryUser = "isabel";
 }

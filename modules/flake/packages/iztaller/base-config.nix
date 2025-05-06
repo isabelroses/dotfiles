@@ -7,7 +7,6 @@
       monitors = [ "eDP-1" ];
       hasTPM = true;
       hasBluetooth = true;
-      hasSound = true;
     };
 
     system = {
@@ -20,17 +19,6 @@
         initrd.enableTweaks = true;
       };
 
-      fs = {
-        enableDefaults = true;
-        enableSwap = true;
-        support = [
-          "btrfs"
-          "vfat"
-        ];
-      };
-
-      video.enable = true;
-      sound.enable = true;
       bluetooth.enable = false;
       printing.enable = false;
       yubikeySupport.enable = true;
@@ -48,10 +36,6 @@
   };
 
   home-manager.users.isabel = {
-    environment = {
-      desktop = "Hyprland";
-    };
-
     programs = {
       cli = {
         enable = true;

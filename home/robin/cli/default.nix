@@ -1,0 +1,20 @@
+{
+  imports = [
+    ./shell
+    ./atuin.nix
+    ./bat.nix
+    ./eza.nix
+    ./fd.nix
+    ./fzf.nix
+    ./gh.nix
+    ./git.nix
+    ./goc.nix
+    ./jj.nix
+    ./nix-your-shell.nix
+    ./ripgrep.nix
+    ./starship.nix
+    ./typst.nix
+    ./zk.nix
+    ./zoxide.nix
+  ];
+}

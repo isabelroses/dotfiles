@@ -6,18 +6,24 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.options) mkOption;
-  inherit (self.lib.programs) mkProgram;
-  inherit (lib.strings) makeBinPath;
+  inherit (lib)
+    mkIf
+    mkMerge
+    mkOption
+    mkEnableOption
+    makeBinPath
+    ;
   inherit (lib.types) listOf package;
+  inherit (self.lib) mkProgram;
 
   cfg = config.garden.programs;
 in
 {
   options.garden.programs = {
+    notes.enable = mkEnableOption "enable notes programs";
+
     obsidian = mkProgram pkgs "obsidian" {
-      enable.default = config.garden.programs.notes.enable;
+      enable.default = cfg.notes.enable;
 
       package.default = pkgs.symlinkJoin {
         name = "obsidian-wrapped";
@@ -38,7 +44,7 @@ in
     };
 
     zk = mkProgram pkgs "zk" {
-      enable.default = config.garden.programs.notes.enable;
+      enable.default = cfg.notes.enable;
 
       settings = mkOption {
         inherit (pkgs.formats.toml { }) type;

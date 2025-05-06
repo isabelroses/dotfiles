@@ -1,20 +1,23 @@
 {
   lib,
   pkgs,
-  self,
   self',
+  _class,
   inputs,
   ...
 }:
 let
-  inherit (lib.attrsets) filterAttrs attrValues mapAttrs;
-  inherit (lib.modules) mkForce;
-  inherit (self.lib.hardware) ldTernary;
+  inherit (lib)
+    filterAttrs
+    attrValues
+    mapAttrs
+    mkForce
+    ;
   inherit (lib.types) isType;
 
   flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;
 
-  sudoers = ldTernary pkgs "@wheel" "@admin";
+  sudoers = if (_class == "nixos") then "@wheel" else "@admin";
 in
 {
   nix = {
@@ -35,9 +38,11 @@ in
     };
 
     # We love legacy support (for now)
-    nixPath = ldTernary pkgs (attrValues (mapAttrs (k: v: "${k}=flake:${v.outPath}") flakeInputs)) (
-      mkForce (mapAttrs (_: v: v.outPath) flakeInputs)
-    );
+    nixPath =
+      if (_class == "nixos") then
+        attrValues (mapAttrs (k: v: "${k}=flake:${v.outPath}") flakeInputs)
+      else
+        mkForce (mapAttrs (_: v: v.outPath) flakeInputs);
 
     # set up garbage collection to run <on the time frame specified per system>, and removing packages after 3 days
     gc = {

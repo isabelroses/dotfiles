@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (self.lib.programs) mkProgram;
+  inherit (self.lib) mkProgram;
 in
 {
   options.garden.programs = {

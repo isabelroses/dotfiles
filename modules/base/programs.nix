@@ -1,9 +1,19 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  self,
+  config,
+  ...
+}:
+let
+  inherit (self.lib) anyHome;
+
+  qh = anyHome config;
+in
 {
   # home-manager is so strange and needs these declared multiple times
   programs = {
-    fish.enable = config.garden.meta.fish;
-    zsh.enable = config.garden.meta.zsh;
+    fish.enable = qh (c: c.programs.fish.enable);
+    zsh.enable = qh (c: c.programs.zsh.enable);
   };
 
   garden.packages = {

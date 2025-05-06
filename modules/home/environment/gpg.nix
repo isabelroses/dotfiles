@@ -2,19 +2,18 @@
   lib,
   pkgs,
   config,
-  osConfig,
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkForce;
-  inherit (osConfig.garden.system) video;
+  inherit (lib) mkIf mkForce;
+  inherit (config.garden.profiles) graphical;
 in
 {
   services.gpg-agent = mkIf pkgs.stdenv.hostPlatform.isLinux {
     enable = true;
 
     pinentry.package =
-      if video.enable then
+      if graphical.enable then
         pkgs.pinentry-gnome3 # requires services.dbus.packages = [ pkgs.gcr ]
       else
         pkgs.pinentry-curses;

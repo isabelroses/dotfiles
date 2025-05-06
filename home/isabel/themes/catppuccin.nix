@@ -1,23 +1,19 @@
 {
-  pkgs,
-  self,
   config,
   inputs,
-  osConfig,
+  osClass,
   ...
 }:
 let
-  inherit (self.lib.validators) hasProfile;
-  nonAccepted = [ "server" ];
-
-  isGui = pkgs.stdenv.hostPlatform.isLinux && config.garden.programs.gui.enable;
+  isGui = osClass == "nixos" && config.garden.profiles.graphical.enable;
 in
 {
   imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
   config = {
     catppuccin = {
-      enable = !(hasProfile osConfig nonAccepted);
+      inherit (config.garden.profiles.workstation) enable;
+
       flavor = "mocha";
       accent = "pink";
 

@@ -1,7 +1,7 @@
 {
   imports = [
+    ./chromium.nix
     ./direnv.nix
-    ./file-manager.nix
     ./pentesting.nix
   ];
 }

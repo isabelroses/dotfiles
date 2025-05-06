@@ -5,22 +5,11 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (lib.types) nullOr enum;
-  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib) mkIf mkEnableOption;
 in
 {
   options.garden.system.yubikeySupport = {
     enable = mkEnableOption "yubikey support";
-
-    deviceType = mkOption {
-      type = nullOr (enum [
-        "NFC5"
-        "nano"
-      ]);
-      default = null;
-      description = "A list of devices to enable Yubikey support for";
-    };
   };
 
   config = mkIf config.garden.system.yubikeySupport.enable {
