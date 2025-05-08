@@ -6,12 +6,7 @@
 
   inputs = {
     # our main package supplier
-    nixpkgs = {
-      type = "github";
-      owner = "NixOS";
-      repo = "nixpkgs";
-      ref = "nixpkgs-unstable";
-    };
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
 
     # lix a good fork of nix
     lix = {
