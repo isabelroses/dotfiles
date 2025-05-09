@@ -45,16 +45,16 @@
     "brew-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1742457334,
-        "narHash": "sha256-Gn7ruyb3NDFr+SsHBfA2NsJI8YkkWdECqLRj/xcjt+E=",
+        "lastModified": 1745912035,
+        "narHash": "sha256-qwLrR5iOcQMlwS0yrkcd0NRQvrmAXPOaiL6vxxzyIVA=",
         "owner": "Homebrew",
         "repo": "brew",
-        "rev": "f3bd91d3afe086824d24708230e1f0c7f943135a",
+        "rev": "3332d3331b56e0aff675d3816d8ebfe564075299",
         "type": "github"
       },
       "original": {
         "owner": "Homebrew",
-        "ref": "4.4.25",
+        "ref": "4.5.0",
         "repo": "brew",
         "type": "github"
       }
@@ -266,11 +266,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744238887,
-        "narHash": "sha256-j279mAuWgKNlIZGDW7VfGSzqYc+E8kzmnxOLPqUEWb0=",
+        "lastModified": 1746817988,
+        "narHash": "sha256-2JYG9m+CADraR0PD2deJbUkaPqFdafCcr5/PjQtCYIs=",
         "owner": "isabelroses",
         "repo": "nix-homebrew",
-        "rev": "8b24b28b5101ed001c523af4d7f206a6b040ce4c",
+        "rev": "ea391517a72cd2ebfed28b76026a5a7c3328d958",
         "type": "github"
       },
       "original": {
@@ -588,11 +588,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746751623,
-        "narHash": "sha256-ybOaxhOHXFP+kp6sQ4qoxtnzV+n9hFOdcyqeEFD3Wf0=",
+        "lastModified": 1746784203,
+        "narHash": "sha256-GcTx9dkQ6aBeKftGWOMlReNb3d+aoQNLQz0qZbzwghA=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "b3c0db84cfe5c855e93faa5e5b8d039e4a9c2855",
+        "rev": "e7a8dc55e68e19edc158d1426b3fa79eb8af7f34",
         "type": "github"
       },
       "original": {

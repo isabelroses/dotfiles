@@ -1,4 +1,9 @@
+{ inputs, ... }:
 {
+  imports = [
+    inputs.nixpkgs.nixosModules.readOnlyPkgs
+  ];
+
   nix = {
     # set the nix store to clean every Monday at 3am
     gc.dates = "Mon *-*-* 03:00";
