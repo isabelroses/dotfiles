@@ -8,6 +8,7 @@
     ./hardware # hardware config - i.e. keyboard
     ./preferences # system preferences
     ./security # security settings to keep the system secure
+    ./shims # shims to make the system work
 
     ./config-path.nix # set the path to the darwin configuration
     ./documentation.nix # turn off docs

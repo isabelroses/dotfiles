@@ -477,6 +477,26 @@
         "type": "github"
       }
     },
+    "noshell": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1717396029,
+        "narHash": "sha256-NPIhvnTYkJZqTY+aabbZ6CAaMAgG6IISvh7GZo1MTfQ=",
+        "owner": "viperml",
+        "repo": "noshell",
+        "rev": "4d194d838a50ea106cd0e47c024e47afc154ab42",
+        "type": "github"
+      },
+      "original": {
+        "owner": "viperml",
+        "repo": "noshell",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -495,6 +515,7 @@
         "lix": "lix",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "noshell": "noshell",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems",
         "tgirlpkgs": "tgirlpkgs",
@@ -588,11 +609,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746751623,
-        "narHash": "sha256-ybOaxhOHXFP+kp6sQ4qoxtnzV+n9hFOdcyqeEFD3Wf0=",
+        "lastModified": 1746823859,
+        "narHash": "sha256-1mDu0+aR5UlIq4CnetaVweBW0iT1N8MBXBqMiv3w8ag=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "b3c0db84cfe5c855e93faa5e5b8d039e4a9c2855",
+        "rev": "9e8ab6208079922a26cf81d323805ccc0a5665c6",
         "type": "github"
       },
       "original": {

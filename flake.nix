@@ -6,6 +6,11 @@
 
   inputs = {
     # our main package supplier
+    #
+    # you may also notice that I don't use a `github:` url for nixpkgs this is
+    # beacuse we can save 15mb of data by using the channel tarball this is not
+    # a major saving but it is nice to have
+    # https://deer.social/profile/did:plc:mojgntlezho4qt7uvcfkdndg/post/3loogwsoqok2w
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
 
     # lix a good fork of nix
@@ -49,6 +54,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ### Flake management
     # bring all the mess together with flake-parts
     flake-parts = {
       type = "github";
@@ -57,6 +63,7 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    # easily manage our hosts
     easy-hosts = {
       type = "github";
       owner = "tgirlcloud";
@@ -65,7 +72,6 @@
       # url = "git+file:/Users/isabel/dev/easy-hosts";
     };
 
-    ### Flake management
     # deploy systems remotely
     deploy-rs = {
       type = "github";
@@ -122,6 +128,13 @@
         nixpkgs-24_11.follows = "";
         flake-compat.follows = "";
       };
+    };
+
+    noshell = {
+      type = "github";
+      owner = "viperml";
+      repo = "noshell";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     cosmic = {

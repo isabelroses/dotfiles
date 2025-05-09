@@ -17,14 +17,7 @@ in
 {
   users.users = genAttrs config.garden.system.users (
     name:
-    let
-      hm = config.home-manager.users.${name};
-    in
     mergeAttrsList [
-      {
-        shell = hm.garden.programs.${hm.garden.programs.defaults.shell}.package;
-      }
-
       (optionalAttrs (_class == "darwin") {
         home = "/Users/${name}";
       })
