@@ -10,9 +10,9 @@
     };
 
     # Make builds run with a low priority, keeping the system fast
-    daemonCPUSchedPolicy = "idle";
-    daemonIOSchedClass = "idle";
-    daemonIOSchedPriority = 7;
+    # daemonCPUSchedPolicy = "idle";
+    # daemonIOSchedClass = "idle";
+    # daemonIOSchedPriority = 7;
 
     settings = {
       # the defaults to false even if the experimental feature is enabled

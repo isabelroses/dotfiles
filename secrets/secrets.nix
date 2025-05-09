@@ -81,7 +81,8 @@ let
 in
 {
   # isabel's secrets
-  "wakatime.age" = defAccessIsabel (types.workstations ++ types.servers);
+  "isabel/wakatime.age" = defAccessIsabel (types.workstations ++ types.servers);
+  "isabel/nix-auth-tokens.age" = defAccessIsabel (types.workstations ++ types.servers);
 
   # git ssh keys
   "keys/gh.age" = defAccessIsabel (types.workstations ++ types.servers);

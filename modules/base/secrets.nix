@@ -38,8 +38,14 @@ in
     secrets = mkMerge [
       (mkIf (mainUser == "isabel") {
         wakatime = mkSecretWithPath {
-          file = "wakatime";
+          file = "isabel/wakatime";
           path = homeDir + "/.config/wakatime/.wakatime.cfg";
+          owner = mainUser;
+          group = userGroup;
+        };
+
+        nix-auth-tokens = mkSecret {
+          file = "isabel/nix-auth-tokens";
           owner = mainUser;
           group = userGroup;
         };
