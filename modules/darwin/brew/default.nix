@@ -92,6 +92,7 @@
         {
           name = "youtube-music";
           args.require_sha = false; # youtube music client
+          greedy = true; # ytm is not properly versioned
         }
         "intellij-idea" # IDE
         "jordanbaird-ice" # better status bar
