@@ -14,7 +14,7 @@ let
 in
 {
   options.garden.system.activation.diff.enable = mkEnableOption "Enable a system diff" // {
-    default = !config.garden.profiles.headless.enable;
+    default = config.garden.profiles.headless.enable;
   };
 
   # if the system supports dry activation, this means that we can compare
