@@ -26,7 +26,7 @@ classic goal *args:
 [group('rebuild')]
 [private]
 builder goal *args:
-    nh {{ if os() == "macos" { "darwin" } else { "os" } }} {{ goal }} {{ args }}
+    NH_NO_CHECKS=1 nh {{ if os() == "macos" { "darwin" } else { "os" } }} {{ goal }} {{ args }} --hostname $(hostname)
 
 # rebuild the boot
 [group('rebuild')]
