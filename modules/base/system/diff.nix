@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs',
   ...
 }:
 let
@@ -26,7 +27,7 @@ in
         text = ''
           if [[ -e /run/current-system ]]; then
             echo "=== diff to current-system ==="
-            ${pkgs.nvd}/bin/nvd --nix-bin-dir='${config.nix.package}/bin' diff /run/current-system "$systemConfig"
+            ${lib.getExe inputs'.tgirlpkgs.packages.lix-diff} --lix-bin ${config.nix.package}/bin /run/current-system "$systemConfig"
             echo "=== end of the system diff ==="
           fi
         '';
