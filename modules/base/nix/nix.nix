@@ -110,6 +110,9 @@ in
         # enables the nix3 commands, a requirement for flakes
         "nix-command"
 
+        # adds a new command called `lix` which allows you to run nix plugins,
+        # similar to how cargo works
+        "lix-custom-sub-commands"
 
         # Allows Nix to automatically pick UIDs for builds, rather than creating nixbld* user accounts
         # which is BEYOND annoying, which makes this a really nice feature to have
