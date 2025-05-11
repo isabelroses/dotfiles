@@ -110,9 +110,6 @@ in
         # enables the nix3 commands, a requirement for flakes
         "nix-command"
 
-        # allow nix to build and use content addressable derivations, these are nice beaccase
-        # they prevent rebuilds when changes to the derivation do not result in changes to the derivation's output
-        "ca-derivations"
 
         # Allows Nix to automatically pick UIDs for builds, rather than creating nixbld* user accounts
         # which is BEYOND annoying, which makes this a really nice feature to have
@@ -127,9 +124,6 @@ in
 
         # enable the use of the fetchClosure built-in function in the Nix language.
         "fetch-closure"
-
-        # dependencies in derivations on the outputs of derivations that are themselves derivations outputs.
-        "dynamic-derivations"
 
         # allow parsing TOML timestamps via builtins.fromTOML
         "parse-toml-timestamps"
