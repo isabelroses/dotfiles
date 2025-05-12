@@ -29,7 +29,7 @@ in
 
         tools = {
           nixos-version.enable = true;
-          nixos-rebuild.enable = false;
+          nixos-rebuild.enable = true;
         };
       };
     })

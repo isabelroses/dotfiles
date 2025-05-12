@@ -17,16 +17,16 @@ default:
 
 [group('rebuild')]
 [private]
-classic goal *args:
-    sudo {{ rebuild }} {{ goal }} \
-      --flake {{ flake }} \
-      {{ args }} \
-      |& nom
+nh goal *args:
+    NH_NO_CHECKS=1 nh {{ if os() == "macos" { "darwin" } else { "os" } }} {{ goal }} --hostname $(hostname) {{ args }}
 
 [group('rebuild')]
 [private]
 builder goal *args:
-    NH_NO_CHECKS=1 nh {{ if os() == "macos" { "darwin" } else { "os" } }} {{ goal }} --hostname $(hostname) {{ args }}
+    sudo {{ rebuild }} {{ goal }} \
+      --flake {{ flake }} \
+      {{ args }} \
+      |& nom
 
 # rebuild the boot
 [group('rebuild')]
