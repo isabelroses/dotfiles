@@ -1,0 +1,102 @@
+From 581ab53d67ed3472d9e0076685a805366973a8a5 Mon Sep 17 00:00:00 2001
+From: Lily Ballard <lily@ballards.net>
+Date: Sun, 11 May 2025 20:57:12 -0700
+Subject: [PATCH] libutil: handle OSC escapes in filterANSIEscapes()
+
+This teaches `filterANSIEscapes()` how to find the end of an OSC
+sequence. It also keeps OSC 8 (hyperlinks) when not instructed to filter
+out all escapes, just as it keeps colors.
+
+This also relaxes the parsing of CSI escapes to find the end of the
+sequence for invalid sequences, and handles better escapes that don't
+start CSI or OSC.
+
+This fixes the repl output for `:doc builtins.fetchGit`.
+
+Change-Id: Id0000000f2a6956c042c883a4545edf347fa1799
+---
+ lix/libutil/terminal.cc | 62 ++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 52 insertions(+), 10 deletions(-)
+
+diff --git a/lix/libutil/terminal.cc b/lix/libutil/terminal.cc
+index 6b24ade47..31fdec36d 100644
+--- a/lix/libutil/terminal.cc
++++ b/lix/libutil/terminal.cc
+@@ -43,22 +43,64 @@ std::string filterANSIEscapes(std::string_view s, bool filterAll, unsigned int w
+         if (*i == '\e') {
+             std::string e;
+             e += *i++;
+-            char last = 0;
+ 
+-            if (i != s.end() && *i == '[') {
++            if (i != s.end() && *i == '[') { // CSI sequence
+                 e += *i++;
+-                // eat parameter bytes
+-                while (i != s.end() && *i >= 0x30 && *i <= 0x3f) e += *i++;
+-                // eat intermediate bytes
+-                while (i != s.end() && *i >= 0x20 && *i <= 0x2f) e += *i++;
+-                // eat final byte
++                // CSI is terminated by a byte in the range 0x40–0x7e.
++                // Behavior is undefined if we get a byte outside 0x20–0x7e.
++                // We don't care about the exact format of the parameters, just that we find the
++                // end of the sequence, so we'll stop on an invalid byte.
++                char last = 0;
++
++                // eat parameter / intermediate bytes
++                while (i != s.end() && *i >= 0x20 && *i <= 0x3f) e += *i++;
++                // eat terminator byte
+                 if (i != s.end() && *i >= 0x40 && *i <= 0x7e) e += last = *i++;
++
++                // print colors if enabled
++                if (!filterAll && last == 'm')
++                    t += e;
++            } else if (i != s.end() && *i == ']') { // OSC sequence
++                e += *i++;
++                // OSC is terminated by ST (\e\\).
++                // For historical reasons it can also be ended with BEL (\a).
++                // We only care about OSC 8, hyperlinks
++                char ps = 0;
++
++                // eat first parameter
++                if (i != s.end() && *i >= 0x30 && *i <= 0x3f) e += ps = *i++;
++                if (!(i != s.end() && *i == ';')) ps = 0; // not a single-digit parameter
++                // eat until ST
++                while (i != s.end()) {
++                    char c;
++                    e += c = *i++;
++                    if (c == '\a') break;
++                    if (c == '\e' && i != s.end() && *i == '\\') {
++                        e += *i++;
++                        break;
++                    }
++                }
++
++                // print OSC 8 if enabled
++                if (!filterAll && ps == '8')
++                    t += e;
+             } else {
+-                if (i != s.end() && *i >= 0x40 && *i <= 0x5f) e += *i++;
++                // Eat up to a printable char. I'm not sure where to find a definitive answer for
++                // how to determine the end of an invalid sequence, but I checked two different
++                // terminals and they processed control characters and ate the first printable.
++                while (i != s.end() && *i != '\e' && *i != '\t') {
++                    if (*i >= 0x20) {
++                        i++;
++                        break;
++                    } else if (*i == '\n') {
++                        w++;
++                        t += *i++;
++                    } else {
++                        i++;
++                    }
++                }
+             }
+ 
+-            if (!filterAll && last == 'm')
+-                t += e;
+         }
+ 
+         else if (*i == '\t' && eatTabs) {
+-- 
+2.47.0
+

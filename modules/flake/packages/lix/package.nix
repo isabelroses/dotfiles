@@ -19,15 +19,22 @@
     patches = [
       # adds a --call-package or -C cli option to build a package from the cli
       # based on the work of https://github.com/privatevoid-net/nix-super
-      ./patches/lix-callpackage-cli.patch
+      ./callpackage-cli.patch
 
       # add more builtins to lix, this consists of the following:
       # - `builtins.abs` which will get you a absolute value of a number
-      ./patches/lix-feat-builtins-abs.patch
+      ./feat-builtins-abs.patch
       # - `builtins.greaterThan` which will return true if the first argument is greater than the second
-      ./patches/lix-feat-builtins-greaterThan.patch
+      ./feat-builtins-greaterThan.patch
       # - `builtins.pow` which will raise the first argument to the power of the second
-      ./patches/lix-feat-builtins-pow.patch
+      ./feat-builtins-pow.patch
+
+      # properly handle osc escapes
+      # https://gerrit.lix.systems/c/lix/+/3143/2
+      ./osc-escapes.patch
+      # doc rendering links
+      # https://gerrit.lix.systems/c/lix/+/3144
+      # ./doc-redering.patch
     ];
 
     # Kinda funny right

@@ -1,0 +1,91 @@
+From 22afd28caac99f47a7691c92bbd5e2567cbd35fc Mon Sep 17 00:00:00 2001
+From: Lily Ballard <lily@ballards.net>
+Date: Mon, 12 May 2025 02:59:10 -0700
+Subject: [PATCH] libcmd: replace @docroot@ when rendering markdown
+
+Also replace links to `.md` files with the equivalent `.html` files.
+
+Change-Id: Id0000000f267872d021985daf2d833a93ec06e66
+---
+ lix/libcmd/markdown.cc | 53 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+
+diff --git a/lix/libcmd/markdown.cc b/lix/libcmd/markdown.cc
+index 8fac6b166..47097aff2 100644
+--- a/lix/libcmd/markdown.cc
++++ b/lix/libcmd/markdown.cc
+@@ -3,11 +3,62 @@
+ #include "lix/libutil/finally.hh"
+ #include "lix/libutil/terminal.hh"
+ 
++#include <cstring>
+ #include <sys/queue.h>
+ #include <lowdown.h>
+ 
+ namespace nix {
+ 
++static const std::string DOCROOT = "@docroot@";
++static const std::string DOCROOT_URL = "https://docs.lix.systems/manual/lix/stable";
++
++static void processLinks(struct lowdown_node * node)
++{
++    if (node->type == LOWDOWN_LINK) {
++        struct lowdown_buf * link = &node->rndr_link.link;
++        if (link && link->size && std::string_view(link->data, link->size).starts_with(DOCROOT)) {
++            // link starts with @docroot@, replace that and check the path extension too.
++            // we'll be replacing any path.md with path.html, so that's 2 characters.
++            const auto delta = DOCROOT_URL.size() - DOCROOT.size();
++            size_t newSize = link->size + delta + 2;
++            if (link->maxsize < newSize) {
++                // the buffer doesn't have enough space for what we're doing.
++                char * newData;
++                if (!(newData = (char *)realloc(link->data, newSize))) return;
++                link->data = newData;
++                link->maxsize = newSize;
++            }
++            // move everything past @docroot@ to make room for the URL
++            std::memmove(link->data + DOCROOT_URL.size(), link->data + DOCROOT.size(), link->size - DOCROOT.size());
++            // write the URL
++            std::memcpy(link->data, DOCROOT_URL.data(), DOCROOT_URL.size());
++            // update the size
++            link->size += delta;
++            // check the path extension, this occurs right before a # or the end of the string
++            auto str = std::string_view(link->data, link->size);
++            auto pos = str.find('#');
++            if (pos == str.npos) {
++                if (str.ends_with(".md")) {
++                    // overwrite the .md with .html
++                    std::memcpy(link->data + link->size - 2, "html", 4);
++                    link->size += 2;
++                }
++            } else if (pos >= 3 && !str.compare(pos - 3, 3, ".md")) {
++                // move the fragment over to make room for the .html
++                std::memmove(link->data + pos + 2, link->data + pos, link->size - pos);
++                link->size += 2;
++                // overwrite the .md with .html
++                std::memcpy(link->data + pos - 2, "html", 4);
++            }
++        }
++    } else {
++        // recurse into children
++        struct lowdown_node *child;
++        TAILQ_FOREACH(child, &node->children, entries)
++            processLinks(child);
++    }
++}
++
+ std::string renderMarkdownToTerminal(std::string_view markdown, StandardOutputStream fileno)
+ {
+     int windowWidth = getWindowSize().second;
+@@ -36,6 +87,8 @@ std::string renderMarkdownToTerminal(std::string_view markdown, StandardOutputSt
+         throw Error("cannot parse Markdown document");
+     Finally freeNode([&]() { lowdown_node_free(node); });
+ 
++    processLinks(node);
++
+     auto renderer = lowdown_term_new(&opts);
+     if (!renderer)
+         throw Error("cannot allocate Markdown renderer");
+-- 
+2.47.0
+
