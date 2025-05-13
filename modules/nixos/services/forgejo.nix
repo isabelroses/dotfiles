@@ -99,6 +99,9 @@ in
             SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
             SSH_PORT = 2222;
             SSH_LISTEN_PORT = 2222;
+
+            # fix gravatar images
+            OFFLINE_MODE = false;
           };
 
           api.ENABLE_SWAGGER = false;
@@ -113,7 +116,7 @@ in
           };
 
           actions = {
-            ENABLED = true;
+            ENABLED = false;
             DEFAULT_ACTIONS_URL = "https://code.forgejo.org";
           };
 
