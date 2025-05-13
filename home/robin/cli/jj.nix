@@ -53,7 +53,7 @@
 
       "revset-aliases" = {
         "head" = "git_head()";
-        "latest" = "latest(curbranch..@ ~ empty())";
+        "latest" = "latest(curbranch::@ ~ empty())";
 
         "bases" = "dev";
         "downstream(x,y)" = "(x::y) & y";
