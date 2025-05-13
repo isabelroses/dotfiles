@@ -41,6 +41,14 @@
           "-r"
           "curbranch"
         ];
+
+        # pull incoming changes onto working branch
+        pull = [
+          "rebase"
+          "-d"
+          "trunk()"
+          "--skip-emptied"
+        ];
       };
 
       "revset-aliases" = {
