@@ -7,7 +7,7 @@
 
 flake_var := env_var('FLAKE')
 flake := if flake_var =~ '^\.*$' { justfile_directory() } else { flake_var }
-rebuild := if os() == "macos" { "darwin-rebuild" } else { "nixos-rebuild" }
+rebuild := if os() == "macos" { "sudo darwin-rebuild" } else { "nixos-rebuild" }
 
 [private]
 default:
@@ -23,7 +23,7 @@ nh goal *args:
 [group('rebuild')]
 [private]
 builder goal *args:
-    sudo {{ rebuild }} {{ goal }} \
+    {{ rebuild }} {{ goal }} \
       --flake {{ flake }} \
       {{ args }} \
       |& nom
