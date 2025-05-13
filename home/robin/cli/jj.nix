@@ -57,7 +57,7 @@
 
         "bases" = "dev";
         "downstream(x,y)" = "(x::y) & y";
-        "branches" = "downstream(trunk(), bookmarks())";
+        "branches" = "downstream(trunk(), bookmarks() ~ bases)";
         "heads" = "heads(trunk()::)";
         "leafs" = "branches | heads";
         "curbranch" = "latest(branches::@- & branches)";
