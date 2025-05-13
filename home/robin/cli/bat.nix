@@ -8,8 +8,7 @@ in
 
     config = {
       inherit (defaults) pager;
-      color = "always";
-      style = "changes";
+      style = "plain";
     };
   };
 }
