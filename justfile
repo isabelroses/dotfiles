@@ -23,7 +23,8 @@ nh goal *args:
 [group('rebuild')]
 [private]
 builder goal *args:
-    sudo {{ rebuild }} {{ goal }} \
+    {{ rebuild }} {{ goal }} \
+      --sudo \
       --flake {{ flake }} \
       {{ args }} \
       |& nom

@@ -1,9 +1,11 @@
-{ lib, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
-  inherit (lib) mkForce mkDefault;
-
-  currentSystem = "/run/current-system/";
-  storePath = "/nix/store/";
+  inherit (lib) mkForce mkDefault getExe';
 in
 {
   security = {
@@ -33,44 +35,23 @@ in
           groups = [ "wheel" ];
 
           commands = [
+            # try to make nixos-rebuild work without password
             {
-              # why store and not current system?
-              # this is because we use switch-to-configuration on rebuild
-              command = "${storePath}/*/bin/switch-to-configuration";
-              options = [
-                "SETENV"
-                "NOPASSWD"
-              ];
+              command = getExe' pkgs.nixos-rebuild "nixos-rebuild";
+              options = [ "NOPASSWD" ];
             }
+
+            # allow reboot and shutdown without password
             {
-              command = "${currentSystem}/sw/bin/nix-store";
-              options = [
-                "SETENV"
-                "NOPASSWD"
-              ];
-            }
-            {
-              command = "${currentSystem}/sw/bin/nix-env";
-              options = [
-                "SETENV"
-                "NOPASSWD"
-              ];
-            }
-            {
-              command = "${currentSystem}/sw/bin/nixos-rebuild";
+              command = getExe' pkgs.systemd "systemctl";
               options = [ "NOPASSWD" ];
             }
             {
-              # let wheel group collect garbage without password
-              command = "${currentSystem}/sw/bin/nix-collect-garbage";
-              options = [
-                "SETENV"
-                "NOPASSWD"
-              ];
+              command = getExe' pkgs.systemd "reboot";
+              options = [ "NOPASSWD" ];
             }
             {
-              # let wheel group interact with systemd without password
-              command = "${currentSystem}/sw/bin/systemctl";
+              command = getExe' pkgs.systemd "shutdown";
               options = [ "NOPASSWD" ];
             }
           ];
