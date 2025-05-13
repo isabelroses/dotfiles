@@ -21,6 +21,9 @@
       # based on the work of https://github.com/privatevoid-net/nix-super
       ./callpackage-cli.patch
 
+      # don't alter the names of derivations for nix store diff-closure
+      ./closure-names.patch
+
       # add more builtins to lix, this consists of the following:
       # - `builtins.abs` which will get you a absolute value of a number
       ./feat-builtins-abs.patch

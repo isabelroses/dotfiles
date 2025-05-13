@@ -1,0 +1,22 @@
+From 50a890454706fe513b7623b3940d991815bdf35f Mon Sep 17 00:00:00 2001
+From: isabel <isabel@isabelroses.com>
+Date: Tue, 13 May 2025 22:56:24 +0100
+Subject: [PATCH] fix: don't change closure name in diff-closures
+---
+ lix/nix/diff-closures.cc | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/lix/nix/diff-closures.cc b/lix/nix/diff-closures.cc
+index 288724287..cf14831e5 100644
+--- a/lix/nix/diff-closures.cc
++++ b/lix/nix/diff-closures.cc
+@@ -74,7 +74,6 @@ try {
+         std::string outputName;
+
+         if (std::regex_match(origName.begin(), origName.end(), match, regex)) {
+-            name = match[1];
+             outputName = match[2];
+         }
+
+--
+2.47.0
