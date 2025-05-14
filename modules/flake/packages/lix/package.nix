@@ -31,13 +31,6 @@
       ./feat-builtins-greaterThan.patch
       # - `builtins.pow` which will raise the first argument to the power of the second
       ./feat-builtins-pow.patch
-
-      # properly handle osc escapes
-      # https://gerrit.lix.systems/c/lix/+/3143/2
-      ./osc-escapes.patch
-      # doc rendering links
-      # https://gerrit.lix.systems/c/lix/+/3144
-      # ./doc-redering.patch
     ];
 
     # Kinda funny right
