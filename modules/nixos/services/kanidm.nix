@@ -68,11 +68,11 @@ in
 
       enableServer = true;
       serverSettings = {
+        version = "2";
         inherit (cfg) domain;
         origin = "https://${cfg.domain}";
         bindaddress = "${cfg.host}:${toString cfg.port}";
         ldapbindaddress = "${cfg.host}:3636";
-        trust_x_forward_for = true;
         tls_chain = "${certDir}/fullchain.pem";
         tls_key = "${certDir}/key.pem";
 
