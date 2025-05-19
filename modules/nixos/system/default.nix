@@ -19,6 +19,7 @@
     ./serial.nix
     ./size.nix
     ./systemd.nix
+    ./terminfo.nix
     ./xdg-portals.nix
     ./xserver.nix
   ];
