@@ -31,6 +31,7 @@ in
     services = {
       smartd.enable = mkForce false;
       xserver.enable = mkForce false;
+      openssh.enable = mkForce false;
     };
 
     networking.tcpcrypt.enable = mkForce false;
