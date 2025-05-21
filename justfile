@@ -1,6 +1,8 @@
 flake_var := env_var('FLAKE')
 flake := if flake_var =~ '^\.*$' { justfile_directory() } else { flake_var }
+
 # rebuild is also set as a var so you can add --set to change it if you need to
+
 rebuild := if os() == "macos" { "sudo darwin-rebuild" } else { "nixos-rebuild" }
 system-args := if os() != "macos" { "--sudo --no-reexec" } else { "" }
 
