@@ -89,11 +89,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1747652941,
-        "narHash": "sha256-XoA2sUeCdpcVAQ0exmLoirVAvzejHPj5Ex10rYb0QOc=",
+        "lastModified": 1747739397,
+        "narHash": "sha256-GMOdBs2gnQAV2Ig93aeBUIcsD3uV891TMPNztIpgqmk=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "db6a8028fd470863b3121621944ecdc81ee3ad2a",
+        "rev": "63e9ce27e6a8a8c88bbca6a9df3abee2e59c1d1a",
         "type": "github"
       },
       "original": {
@@ -292,11 +292,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747688838,
-        "narHash": "sha256-FZq4/3OtGV/cti9Vccsy2tGSUrxTO4hkDF9oeGRTen4=",
+        "lastModified": 1747793476,
+        "narHash": "sha256-2qAOSixSrbb9l6MI+SI4zGineOzDcc2dgOOFK9Dx+IY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "45c2985644b60ab64de2a2d93a4d132ecb87cf66",
+        "rev": "2468b2d35512d093aeb04972a1d8c20a0735793f",
         "type": "github"
       },
       "original": {
@@ -413,11 +413,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1747664434,
-        "narHash": "sha256-ph9fCCvzgZ1PNOu82SSoceX/tYZ5MfmX3PkBxBiNxwA=",
-        "rev": "eb18a90afbe0ade000d957cda344a5bcb3d565d4",
+        "lastModified": 1747773921,
+        "narHash": "sha256-pB9OG3xmNmfRdTxKWUMQKtVKJseALpNydpXePox/3vU=",
+        "rev": "4f433a6186be057ae821708a535e265776a92219",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/eb18a90afbe0ade000d957cda344a5bcb3d565d4.tar.gz?rev=eb18a90afbe0ade000d957cda344a5bcb3d565d4"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/4f433a6186be057ae821708a535e265776a92219.tar.gz?rev=4f433a6186be057ae821708a535e265776a92219"
       },
       "original": {
         "type": "tarball",
@@ -499,10 +499,10 @@
     "nixpkgs": {
       "locked": {
         "lastModified": 315532800,
-        "narHash": "sha256-1tKb2sFSlztidd/3Lq4BgGXuiEXbGSRoWArSmDMJ9Jg=",
-        "rev": "8406224e30c258025cb8b31704bdb977a8f1f009",
+        "narHash": "sha256-uLr/V29yetxR8UXr0hKn9X2Wq6F4LQqM9P1mjMag+2s=",
+        "rev": "2f9173bde1d3fbf1ad26ff6d52f952f9e9da52ea",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre802343.8406224e30c2/nixexprs.tar.xz?rev=8406224e30c258025cb8b31704bdb977a8f1f009"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre803439.2f9173bde1d3/nixexprs.tar.xz?rev=2f9173bde1d3fbf1ad26ff6d52f952f9e9da52ea"
       },
       "original": {
         "type": "tarball",
@@ -578,11 +578,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747622321,
-        "narHash": "sha256-W0dYIWgsUu6rvOJRtKLhKskkv0VhQhJYGNIq+gGUc8g=",
+        "lastModified": 1747708620,
+        "narHash": "sha256-eqQ6D9o7WUpwarjmkzW/20bfqmhhKqGgPOhDdvJddxw=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "bd030fd9983f7fddf87be1c64aa3064c8afa24c4",
+        "rev": "3e7b002daad1ff342b223af3a9de7b2a4b6fdc7d",
         "type": "github"
       },
       "original": {
@@ -623,11 +623,11 @@
         "nixpkgs-24_11": []
       },
       "locked": {
-        "lastModified": 1747694655,
-        "narHash": "sha256-j8CjLoM2sEt9iTlV3FP0dgIEc8RNdLO/MQjuemvuLcA=",
+        "lastModified": 1747781761,
+        "narHash": "sha256-wuNpRaKDgD0EWWT6FaCXHD2Jpldd4huSiq4G9NCH3Ok=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "dceb60ea7dce3eee2682e3c838405456c24fe72f",
+        "rev": "f7a221bc69ef6e67a56e370cbaf031ca2b3c7aa7",
         "type": "gitlab"
       },
       "original": {
@@ -658,11 +658,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747702138,
-        "narHash": "sha256-ubfVooUIj27Y/H5KNYu1yr4W5Hsn63Wjnlew65fhOvg=",
+        "lastModified": 1747788505,
+        "narHash": "sha256-8j61neIJjlp53qjXQ9fcYV0ri90n1kHNfjU+kkWsOgU=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "9ab1e0a949ce347092c3897307330cca43349ece",
+        "rev": "ea350f8f6a8d626e5be3e5425d4d608cc5826d46",
         "type": "github"
       },
       "original": {
