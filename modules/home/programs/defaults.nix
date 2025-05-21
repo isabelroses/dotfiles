@@ -44,7 +44,7 @@ in
         "chromium"
         "thorium"
       ];
-      default = "thorium";
+      default = "chromium";
     };
 
     editor = mkOption {
