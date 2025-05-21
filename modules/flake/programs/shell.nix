@@ -16,19 +16,15 @@
 
           DIRENV_LOG_FORMAT = "";
 
-          packages =
-            [
-              pkgs.just # quick and easy task runner
-              pkgs.cocogitto # git helpers
-              pkgs.gitMinimal # we need git
-              self'.formatter # nix formatter
-              pkgs.nix-output-monitor # get clean diff between generations
-              inputs'.agenix.packages.agenix # secrets
-              inputs'.tgirlpkgs.packages.nh # help switch systems
-            ]
-            ++ lib.lists.optionals pkgs.stdenv.hostPlatform.isLinux [
-              inputs'.deploy-rs.packages.deploy-rs # remote deployment
-            ];
+          packages = [
+            pkgs.just # quick and easy task runner
+            pkgs.cocogitto # git helpers
+            pkgs.gitMinimal # we need git
+            self'.formatter # nix formatter
+            pkgs.nix-output-monitor # get clean diff between generations
+            inputs'.agenix.packages.agenix # secrets
+            inputs'.tgirlpkgs.packages.nh # help switch systems
+          ];
 
           inputsFrom = [ config.treefmt.build.devShell ];
         };

@@ -138,28 +138,6 @@
         "type": "github"
       }
     },
-    "deploy-rs": {
-      "inputs": {
-        "flake-compat": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1738450473,
-        "narHash": "sha256-Ao4MId1Ym78F6IUXOfvd91GXzS4c0XMBity7hW6ROYE=",
-        "owner": "isabelroses",
-        "repo": "deploy-rs",
-        "rev": "9e0a375494f7261dca08c50c87f038e4a0965b1d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isabelroses",
-        "ref": "no-fu",
-        "repo": "deploy-rs",
-        "type": "github"
-      }
-    },
     "easy-hosts": {
       "locked": {
         "lastModified": 1747174689,
@@ -362,11 +340,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747192804,
-        "narHash": "sha256-5QtzOkVAZ9r9nm6QgMFwaaxeOfRLu9FPSxPO4sIrwyk=",
+        "lastModified": 1747797595,
+        "narHash": "sha256-RLgwKUscb0FRvlt603O8nL4RGG5ocLKXazt9WveMAno=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "19238b9ee0f6166fc4a93b519e40988299edc52d",
+        "rev": "80869e5ab2f09bc468710e5184c0415e5030bed7",
         "type": "github"
       },
       "original": {
@@ -551,7 +529,6 @@
         "catppuccin": "catppuccin",
         "cosmic": "cosmic",
         "darwin": "darwin",
-        "deploy-rs": "deploy-rs",
         "easy-hosts": "easy-hosts",
         "evergarden": "evergarden",
         "flake-parts": "flake-parts",

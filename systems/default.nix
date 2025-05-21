@@ -19,7 +19,6 @@
     # the defaults consists of the following:
     #  arch = "x86_64";
     #  class = "nixos";
-    #  deployable = false;
     #  modules = [ ];
     #  specialArgs = { };
     hosts = {
@@ -36,17 +35,12 @@
         class = "wsl";
       };
 
-      minerva = {
-        deployable = true;
-      };
+      minerva = { };
 
-      hestia = {
-        deployable = true;
-      };
+      hestia = { };
 
       skadi = {
         arch = "aarch64";
-        deployable = true;
       };
 
       lilith = {

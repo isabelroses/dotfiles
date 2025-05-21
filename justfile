@@ -1,14 +1,8 @@
-# alias r := rebuild
-# alias rr := remote-rebuild
-# alias e := eval
-# alias ea := eval-all
-# alias u := update
-# alias ui := update-input
-
 flake_var := env_var('FLAKE')
 flake := if flake_var =~ '^\.*$' { justfile_directory() } else { flake_var }
+# rebuild is also set as a var so you can add --set to change it if you need to
 rebuild := if os() == "macos" { "sudo darwin-rebuild" } else { "nixos-rebuild" }
-system-args := if os() != "macos" { "--sudo" } else { "" }
+system-args := if os() != "macos" { "--sudo --no-reexec" } else { "" }
 
 [private]
 default:
@@ -20,10 +14,20 @@ default:
 [private]
 builder goal *args:
     {{ rebuild }} {{ goal }} \
-      {{ system-args }} \
       --flake {{ flake }} \
+      {{ system-args }} \
       {{ args }} \
       |& nom
+
+[group('rebuild')]
+deploy host *args:
+    {{ rebuild }} switch \
+      --flake {{ flake }} \
+      --target-host {{ host }} \
+      --use-substitutes \
+      --ask-sudo-password \
+      {{ system-args }} \
+      {{ args }}
 
 # rebuild the boot
 [group('rebuild')]

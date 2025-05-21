@@ -72,19 +72,6 @@
       # url = "git+file:/Users/isabel/dev/easy-hosts";
     };
 
-    # deploy systems remotely
-    deploy-rs = {
-      type = "github";
-      owner = "isabelroses";
-      repo = "deploy-rs";
-      ref = "no-fu";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "";
-      };
-    };
-
     ### Security stuff
     # secure-boot on nixos
     lanzaboote = {
