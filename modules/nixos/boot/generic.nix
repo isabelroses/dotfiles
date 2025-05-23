@@ -28,7 +28,11 @@ in
     enableKernelTweaks = mkEnableOption "security and performance related kernel parameters";
     recommendedLoaderConfig = mkEnableOption "tweaks for common bootloader configs per my liking";
     loadRecommendedModules = mkEnableOption "kernel modules that accommodate for most use cases";
-    tmpOnTmpfs = mkEnableOption "`/tmp` living on tmpfs. false means it will be cleared manually on each reboot";
+    tmpOnTmpfs =
+      mkEnableOption "`/tmp` living on tmpfs. false means it will be cleared manually on each reboot"
+      // {
+        default = true;
+      };
 
     kernel = mkOption {
       type = raw;
@@ -116,6 +120,9 @@ in
         # this defaults to 50% of your ram
         # but i want to build code sooo
         # tmpfsSize = mkDefault "75%";
+
+        # enable huge pages on tmpfs for better performance
+        tmpfsHugeMemoryPages = "within_size";
       };
 
       # initrd and kernel tweaks

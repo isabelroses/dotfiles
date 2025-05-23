@@ -20,7 +20,6 @@
       boot = {
         loader = "none";
         secureBoot = false;
-        tmpOnTmpfs = true;
         enableKernelTweaks = true;
         loadRecommendedModules = true;
 

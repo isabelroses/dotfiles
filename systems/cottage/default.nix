@@ -23,7 +23,6 @@
       boot = {
         loader = "systemd-boot";
         secureBoot = true;
-        tmpOnTmpfs = false;
         loadRecommendedModules = true;
         enableKernelTweaks = true;
         initrd.enableTweaks = true;
