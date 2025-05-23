@@ -112,7 +112,7 @@
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-24_11.follows = "";
+        nixpkgs-25_05.follows = "";
         flake-compat.follows = "";
       };
     };
