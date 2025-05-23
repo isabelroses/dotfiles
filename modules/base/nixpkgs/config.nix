@@ -5,6 +5,10 @@
     # A funny little hack to make sure that *everything* is permitted
     allowUnfreePredicate = _: true;
 
+    # I don't really need pkgs.pkgsRocm and so on
+    # this list also does not include actually useful sets like pkgsi686Linux
+    allowVariants = false;
+
     # If a package is broken, I don't want it
     allowBroken = false;
     # But occasionally we need to install some anyway so we can predicated those
