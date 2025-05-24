@@ -17,7 +17,7 @@
     ./akkoma
     ./nixpkgs-prs-bot.nix
     ./jellyfin.nix
-    ./matrix.nix
+    ./matrix
     ./nextcloud.nix
     ./photoprism.nix
     ./syncthing.nix

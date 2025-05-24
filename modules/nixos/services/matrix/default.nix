@@ -30,6 +30,9 @@ let
   '';
 in
 {
+  # wow kaya your so cool for making this yaplist
+  imports = [ ./allow.nix ];
+
   options.garden.services.matrix = mkServiceOption "matrix" {
     port = 8008;
     domain = "matrix.${rdomain}";

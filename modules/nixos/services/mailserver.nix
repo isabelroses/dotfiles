@@ -7,9 +7,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption mkSecret;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.mailserver;
