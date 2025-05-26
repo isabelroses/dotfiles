@@ -91,9 +91,9 @@
     # TODO: https://github.com/ryantm/agenix/pull/255
     agenix = {
       type = "github";
-      owner = "oluceps";
+      owner = "isabelroses";
       repo = "agenix";
-      ref = "with-sysuser";
+      ref = "userborn";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -138,14 +138,8 @@
 
     homebrew = {
       type = "github";
-      owner = "isabelroses";
+      owner = "zhaofengli";
       repo = "nix-homebrew";
-      ref = "cherry-picks";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nix-darwin.follows = "";
-      };
     };
 
     # a tree-wide formatter

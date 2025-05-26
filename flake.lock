@@ -12,16 +12,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1741166714,
-        "narHash": "sha256-je7CPO2QM3uMwuJLE/rf04SToGhj4cfGOzVGNfuF+Ss=",
-        "owner": "oluceps",
+        "lastModified": 1748283912,
+        "narHash": "sha256-rCMlw4mO4mn6AYiw1AJ4GKRAv/GUAaXbdweQ1+K/Twk=",
+        "owner": "isabelroses",
         "repo": "agenix",
-        "rev": "a5bea68f02d5c9d9b0034b338deacd18a53df786",
+        "rev": "977dc6197d921786ad5b3daa7cdc41ae60ca268a",
         "type": "github"
       },
       "original": {
-        "owner": "oluceps",
-        "ref": "with-sysuser",
+        "owner": "isabelroses",
+        "ref": "userborn",
         "repo": "agenix",
         "type": "github"
       }
@@ -45,16 +45,16 @@
     "brew-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745912035,
-        "narHash": "sha256-qwLrR5iOcQMlwS0yrkcd0NRQvrmAXPOaiL6vxxzyIVA=",
+        "lastModified": 1746795192,
+        "narHash": "sha256-Cv+RXuzmn2iGBY2Ny/nXBTH+LFKDWIvMxf9a+btKI6M=",
         "owner": "Homebrew",
         "repo": "brew",
-        "rev": "3332d3331b56e0aff675d3816d8ebfe564075299",
+        "rev": "6f39076b3c2251994419215279d0525ef667fc31",
         "type": "github"
       },
       "original": {
         "owner": "Homebrew",
-        "ref": "4.5.0",
+        "ref": "4.5.2",
         "repo": "brew",
         "type": "github"
       }
@@ -285,23 +285,18 @@
     },
     "homebrew": {
       "inputs": {
-        "brew-src": "brew-src",
-        "nix-darwin": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "brew-src": "brew-src"
       },
       "locked": {
-        "lastModified": 1746817988,
-        "narHash": "sha256-2JYG9m+CADraR0PD2deJbUkaPqFdafCcr5/PjQtCYIs=",
-        "owner": "isabelroses",
+        "lastModified": 1748272666,
+        "narHash": "sha256-pVb8dX7m3ixNN1pK6CXwGzqnML+eKMqBQj9MUO+oloc=",
+        "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "ea391517a72cd2ebfed28b76026a5a7c3328d958",
+        "rev": "5a2272eeb25725ed8f70a6bc6d80975e1bdab961",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
-        "ref": "cherry-picks",
+        "owner": "zhaofengli",
         "repo": "nix-homebrew",
         "type": "github"
       }
