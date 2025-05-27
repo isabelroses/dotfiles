@@ -8,9 +8,9 @@
 let
   cfg = config.garden.services.forgejo;
   rdomain = config.networking.domain;
-  inherit (lib.modules) mkIf mkForce;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+
+  inherit (lib) mkIf mkForce;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 in
 {
   options.garden.services.forgejo = mkServiceOption "forgejo" {
@@ -20,13 +20,13 @@ in
 
   config = mkIf cfg.enable {
     age.secrets = {
-      mailserver-git-nohash = mkSecret {
+      mailserver-git-nohash = mkSystemSecret {
         file = "mailserver/git-nohash";
         owner = "forgejo";
         group = "forgejo";
       };
 
-      anubis-forgejo = mkSecret {
+      anubis-forgejo = mkSystemSecret {
         file = "anubis/forgejo";
         owner = "anubis";
         group = "anubis";

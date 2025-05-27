@@ -4,7 +4,6 @@
   self',
   _class,
   inputs,
-  config,
   ...
 }:
 let
@@ -13,7 +12,6 @@ let
     attrValues
     mapAttrs
     mkForce
-    mkIf
     ;
   inherit (lib.types) isType;
 
@@ -157,12 +155,5 @@ in
       # use xdg base directories for all the nix things
       use-xdg-base-directories = true;
     };
-
-    # include our auth tokens for a diffrent file so that they don't leak to
-    # the nix store or people on the internet
-    # https://docs.lix.systems/manual/lix/nightly/command-ref/conf-file.html#file-format
-    extraOptions = mkIf (config.garden.system.mainUser == "isabel") ''
-      !include ${config.age.secrets.nix-auth-tokens.path}
-    '';
   };
 }

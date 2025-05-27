@@ -5,9 +5,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   rdomain = config.networking.domain;
   srv = config.garden.services;
@@ -22,13 +21,13 @@ in
 
   config = mkIf cfg.enable {
     age.secrets = {
-      grafana-oauth2 = mkSecret {
+      grafana-oauth2 = mkSystemSecret {
         file = "grafana-oauth2";
         owner = "grafana";
         group = "grafana";
       };
 
-      mailserver-grafana-nohash = mkSecret {
+      mailserver-grafana-nohash = mkSystemSecret {
         file = "mailserver/grafana-nohash";
         owner = "grafana";
         group = "grafana";

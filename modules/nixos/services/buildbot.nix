@@ -7,9 +7,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf mkMerge;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   inherit (config.age) secrets;
 
@@ -28,11 +27,11 @@ in
   config = mkIf cfg.enable (mkMerge [
     {
       age.secrets = {
-        buildbot-worker = mkSecret { file = "buildbot/worker"; };
-        buildbot-workers = mkSecret { file = "buildbot/workers"; };
-        buildbot-gh-webhook-secret = mkSecret { file = "buildbot/gh-webhook-secret"; };
-        buildbot-gh-private-key = mkSecret { file = "buildbot/gh-private-key"; };
-        buildbot-gh-oauth = mkSecret { file = "buildbot/gh-oauth"; };
+        buildbot-worker = mkSystemSecret { file = "buildbot/worker"; };
+        buildbot-workers = mkSystemSecret { file = "buildbot/workers"; };
+        buildbot-gh-webhook-secret = mkSystemSecret { file = "buildbot/gh-webhook-secret"; };
+        buildbot-gh-private-key = mkSystemSecret { file = "buildbot/gh-private-key"; };
+        buildbot-gh-oauth = mkSystemSecret { file = "buildbot/gh-oauth"; };
       };
 
       garden.services = {
@@ -79,8 +78,8 @@ in
 
     (mkIf config.garden.services.attic.enable {
       age.secrets = {
-        attic-prod-auth-token = mkSecret { file = "attic/prod-auth-token"; };
-        attic-netrc = mkSecret { file = "attic/netrc"; };
+        attic-prod-auth-token = mkSystemSecret { file = "attic/prod-auth-token"; };
+        attic-netrc = mkSystemSecret { file = "attic/netrc"; };
       };
 
       # Add netrc file for this machine to do its normal thing with the cache, as a machine.

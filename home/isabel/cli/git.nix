@@ -3,7 +3,6 @@
   pkgs,
   self,
   config,
-  osConfig,
   ...
 }:
 let
@@ -46,11 +45,11 @@ in
         includes = [
           {
             condition = "gitdir:~/dev/uni/";
-            inherit (osConfig.age.secrets."uni-gitconf") path;
+            inherit (config.age.secrets."uni-gitconf") path;
           }
           {
             condition = "gitdir:~/Dev/uni/";
-            inherit (osConfig.age.secrets."uni-gitconf") path;
+            inherit (config.age.secrets."uni-gitconf") path;
           }
         ];
 

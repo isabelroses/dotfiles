@@ -5,15 +5,14 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 in
 {
   options.garden.services.blahaj = mkServiceOption "blahaj" { };
 
   config = mkIf config.garden.services.blahaj.enable {
-    age.secrets.blahaj-env = mkSecret { file = "blahaj-env"; };
+    age.secrets.blahaj-env = mkSystemSecret { file = "blahaj-env"; };
 
     services.blahaj = {
       enable = true;

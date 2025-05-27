@@ -5,9 +5,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   cfg = config.garden.services.cloudflared;
 in
@@ -15,7 +14,7 @@ in
   options.garden.services.cloudflared = mkServiceOption "cloudflared" { };
 
   config = mkIf cfg.enable {
-    age.secrets.cloudflared-hydra = mkSecret {
+    age.secrets.cloudflared-hydra = mkSystemSecret {
       file = "cloudflare/hydra";
       owner = "cloudflared";
       group = "cloudflared";

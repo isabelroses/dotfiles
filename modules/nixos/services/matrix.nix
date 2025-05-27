@@ -7,8 +7,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   rdomain = config.networking.domain;
 
@@ -36,7 +35,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.matrix = mkSecret {
+    age.secrets.matrix = mkSystemSecret {
       file = "matrix/env";
       owner = "matrix-synapse";
     };

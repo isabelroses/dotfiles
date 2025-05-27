@@ -1,9 +1,12 @@
 {
+  lib,
   pkgs,
   config,
   ...
 }:
 let
+  inherit (lib) mkForce;
+
   cfg = config.garden.programs.ghostty;
 in
 {
@@ -15,6 +18,8 @@ in
 
     settings = {
       command = "/etc/profiles/per-user/isabel/bin/fish --login";
+
+      theme = mkForce "cuddlefish";
 
       background-opacity = 0.95;
       cursor-style = "bar";

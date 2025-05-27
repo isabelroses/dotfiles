@@ -124,16 +124,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1747470023,
-        "narHash": "sha256-RSITC++GznaAOwZJTzTzod8WThWZd4c3XF5QC5aBYQk=",
-        "owner": "isabelroses",
+        "lastModified": 1748352827,
+        "narHash": "sha256-sNUUP6qxGkK9hXgJ+p362dtWLgnIWwOCmiq72LAWtYo=",
+        "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "10c1cebc3418e9dd9221d78e474491554d9272ca",
+        "rev": "44a7d0e687a87b73facfe94fba78d323a6686a90",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
-        "ref": "cherry-picks",
+        "owner": "nix-darwin",
         "repo": "nix-darwin",
         "type": "github"
       }

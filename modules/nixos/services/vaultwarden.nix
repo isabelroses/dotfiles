@@ -5,9 +5,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.vaultwarden;
@@ -28,7 +27,7 @@ in
       };
     };
 
-    age.secrets.vaultwarden-env = mkSecret {
+    age.secrets.vaultwarden-env = mkSystemSecret {
       file = "vaultwarden-env";
       owner = "vaultwarden";
       group = "vaultwarden";

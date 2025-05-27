@@ -5,9 +5,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   rdomain = config.networking.domain;
 
@@ -32,7 +31,7 @@ in
       };
     };
 
-    age.secrets.attic-env = mkSecret {
+    age.secrets.attic-env = mkSystemSecret {
       file = "attic/env";
       owner = "atticd";
     };

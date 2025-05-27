@@ -8,8 +8,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.mailserver;
@@ -28,15 +27,15 @@ in
     };
 
     age.secrets = {
-      mailserver-isabel = mkSecret { file = "mailserver/isabel"; };
-      mailserver-jobs = mkSecret { file = "mailserver/jobs"; };
-      mailserver-robin = mkSecret { file = "mailserver/robin"; };
-      mailserver-vaultwarden = mkSecret { file = "mailserver/vaultwarden"; };
-      mailserver-database = mkSecret { file = "mailserver/database"; };
-      mailserver-grafana = mkSecret { file = "mailserver/grafana"; };
-      mailserver-git = mkSecret { file = "mailserver/git"; };
-      mailserver-noreply = mkSecret { file = "mailserver/noreply"; };
-      mailserver-spam = mkSecret { file = "mailserver/spam"; };
+      mailserver-isabel = mkSystemSecret { file = "mailserver/isabel"; };
+      mailserver-jobs = mkSystemSecret { file = "mailserver/jobs"; };
+      mailserver-robin = mkSystemSecret { file = "mailserver/robin"; };
+      mailserver-vaultwarden = mkSystemSecret { file = "mailserver/vaultwarden"; };
+      mailserver-database = mkSystemSecret { file = "mailserver/database"; };
+      mailserver-grafana = mkSystemSecret { file = "mailserver/grafana"; };
+      mailserver-git = mkSystemSecret { file = "mailserver/git"; };
+      mailserver-noreply = mkSystemSecret { file = "mailserver/noreply"; };
+      mailserver-spam = mkSystemSecret { file = "mailserver/spam"; };
     };
 
     # required for roundcube

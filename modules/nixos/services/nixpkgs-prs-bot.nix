@@ -5,10 +5,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.options) mkEnableOption;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf mkMerge mkEnableOption;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   cfg = config.garden.services.nixpkgs-prs-bot;
 in
@@ -26,7 +24,7 @@ in
     }
 
     (mkIf cfg.fedi.enable {
-      age.secrets.nixpkgs-prs-bot-fedi = mkSecret {
+      age.secrets.nixpkgs-prs-bot-fedi = mkSystemSecret {
         file = "nixpkgs-prs-bot/fedi";
         owner = "nixpkgs-prs-bot";
         group = "nixpkgs-prs-bot";
@@ -39,7 +37,7 @@ in
     })
 
     (mkIf cfg.bsky.enable {
-      age.secrets.nixpkgs-prs-bot-bsky = mkSecret {
+      age.secrets.nixpkgs-prs-bot-bsky = mkSystemSecret {
         file = "nixpkgs-prs-bot/bsky";
         owner = "nixpkgs-prs-bot";
         group = "nixpkgs-prs-bot";

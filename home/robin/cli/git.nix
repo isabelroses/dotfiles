@@ -3,7 +3,6 @@
   pkgs,
   self,
   config,
-  osConfig,
   ...
 }:
 let
@@ -126,7 +125,7 @@ in
           merge.ff = "only";
           push.autoSetupRemote = true;
 
-          user.signingkey = osConfig.age.secrets.keys-gh.path;
+          user.signingkey = config.age.secrets.keys-gh.path;
           # personal preference
           init.defaultBranch = "main";
           # prevent data corruption

@@ -9,9 +9,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   rdomain = config.networking.domain;
   certs = config.security.acme.certs.${rdomain};
@@ -36,25 +35,25 @@ in
     };
 
     age.secrets = {
-      kanidm-admin-password = mkSecret {
+      kanidm-admin-password = mkSystemSecret {
         file = "kanidm/admin-password";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
-      kanidm-idm-admin-password = mkSecret {
+      kanidm-idm-admin-password = mkSystemSecret {
         file = "kanidm/idm-admin-password";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
-      kanidm-oauth2-grafana = mkSecret {
+      kanidm-oauth2-grafana = mkSystemSecret {
         file = "kanidm/oauth2/grafana";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
-      kanidm-oauth2-forgejo = mkSecret {
+      kanidm-oauth2-forgejo = mkSystemSecret {
         file = "kanidm/oauth2/forgejo";
         owner = "kanidm";
         group = "kanidm";

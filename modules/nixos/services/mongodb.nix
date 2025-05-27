@@ -6,9 +6,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   cfg = config.garden.services.mongodb;
 in
@@ -16,7 +15,7 @@ in
   options.garden.services.mongodb = mkServiceOption "mongodb" { host = "0.0.0.0"; };
 
   config = mkIf cfg.enable {
-    age.secrets.mongodb-passwd = mkSecret { file = "mongodb-passwd"; };
+    age.secrets.mongodb-passwd = mkSystemSecret { file = "mongodb-passwd"; };
 
     services.mongodb = {
       enable = true;

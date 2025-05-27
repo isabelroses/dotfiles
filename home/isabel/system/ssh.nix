@@ -1,6 +1,6 @@
-{ osConfig, ... }:
+{ config, ... }:
 let
-  inherit (osConfig.age) secrets;
+  inherit (config.age) secrets;
 in
 {
   programs.ssh = {

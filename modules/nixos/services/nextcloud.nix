@@ -8,9 +8,8 @@
 let
   rdomain = config.networking.domain;
 
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   cfg = config.garden.services.nextcloud;
 in
@@ -18,7 +17,7 @@ in
   options.garden.services.nextcloud = mkServiceOption "nextcloud" { domain = "cloud.${rdomain}"; };
 
   config = mkIf cfg.enable {
-    age.secrets.nextcloud-passwd = mkSecret {
+    age.secrets.nextcloud-passwd = mkSystemSecret {
       file = "nextcloud-passwd";
       owner = "nextcloud";
       group = "nextcloud";

@@ -7,7 +7,7 @@
 let
   inherit (lib.modules) mkIf;
   inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (self.lib) mkSystemSecret;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.wakapi;
@@ -20,13 +20,13 @@ in
 
   config = mkIf cfg.enable {
     age.secrets = {
-      wakapi = mkSecret {
+      wakapi = mkSystemSecret {
         file = "wakapi";
         owner = "wakapi";
         group = "wakapi";
       };
 
-      wakapi-mailer = mkSecret {
+      wakapi-mailer = mkSystemSecret {
         file = "wakapi-mailer";
         owner = "wakapi";
         group = "wakapi";

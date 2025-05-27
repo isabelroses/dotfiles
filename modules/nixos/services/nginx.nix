@@ -6,12 +6,13 @@
   ...
 }:
 let
-  inherit (lib) types;
-  inherit (lib.modules) mkIf;
-  inherit (lib.options) mkOption;
-  inherit (lib.attrsets) mapAttrs;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib)
+    types
+    mkIf
+    mkOption
+    mapAttrs
+    ;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   cfg = config.garden.services.nginx;
 in
@@ -32,7 +33,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.cloudflare-cert-api = mkSecret {
+    age.secrets.cloudflare-cert-api = mkSystemSecret {
       file = "cloudflare/cert-api";
       owner = "nginx";
       group = "nginx";

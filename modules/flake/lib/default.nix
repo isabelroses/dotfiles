@@ -28,7 +28,7 @@ let
       intListToStringList
       ;
     inherit (final.programs) mkProgram;
-    inherit (final.secrets) mkSecret mkSecretWithPath;
+    inherit (final.secrets) mkUserSecret mkSystemSecret;
     inherit (final.services) mkGraphicalService mkHyprlandService mkServiceOption;
     inherit (final.validators)
       ifTheyExist

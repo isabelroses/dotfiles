@@ -8,43 +8,44 @@ let
     # Arguments
 
     - [file] the age file to use for the secret
-    - [owner] the owner of the secret, this defaults to "root"
-    - [group] the group of the secret, this defaults to "root"
     - [mode] the permissions of the secret, this defaults to "400"
 
     # Type
 
     ```
-    mkSecret :: (String -> String -> String -> String) -> AttrSet
+    mkUserSecret :: (String -> String -> String -> String) -> AttrSet
     ```
 
     # Example
 
     ```nix
-    mkSecret { file = "./my-secret.age"; }
+    mkUserSecret { file = "./my-secret.age"; }
     => {
       file = "./my-secret.age";
-      owner = "root";
-      group = "root";
       mode = "400";
     }
     ```
   */
-  mkSecret =
+  mkUserSecret =
     {
       file,
-      owner ? "root",
-      group ? "root",
       mode ? "400",
       ...
-    }:
+    }@args:
+    let
+      args' = builtins.removeAttrs args [
+        "file"
+        "mode"
+      ];
+    in
     {
       file = "${self}/secrets/${file}.age";
-      inherit owner group mode;
-    };
+      inherit mode;
+    }
+    // args';
 
   /**
-    A light wrapper around mkSecret that allows you to specify the output path
+    Create secrets for use with `agenix`.
 
     # Arguments
 
@@ -52,48 +53,47 @@ let
     - [owner] the owner of the secret, this defaults to "root"
     - [group] the group of the secret, this defaults to "root"
     - [mode] the permissions of the secret, this defaults to "400"
-    - [path] the path to output the secret to
 
     # Type
 
     ```
-    mkSecretWithPath :: (String -> String -> String -> String -> String) -> AttrSet
+    mkSystemSecret :: (String -> String -> String -> String) -> AttrSet
     ```
 
     # Example
 
     ```nix
-    mkSecret { file = "./my-secret.age"; path = "/etc/my-secret"; }
+    mkSystemSecret { file = "./my-secret.age"; }
     => {
       file = "./my-secret.age";
-      path = "/etc/my-secret";
       owner = "root";
       group = "root";
       mode = "400";
     }
     ```
   */
-  mkSecretWithPath =
+  mkSystemSecret =
     {
       file,
-      path,
       owner ? "root",
       group ? "root",
       mode ? "400",
       ...
-    }:
-    mkSecret {
-      inherit
-        file
-        owner
-        group
-        mode
-        ;
+    }@args:
+    let
+      args' = builtins.removeAttrs args [
+        "file"
+        "owner"
+        "group"
+        "mode"
+      ];
+    in
+    {
+      file = "${self}/secrets/${file}.age";
+      inherit owner group mode;
     }
-    // {
-      inherit path;
-    };
+    // args';
 in
 {
-  inherit mkSecret mkSecretWithPath;
+  inherit mkUserSecret mkSystemSecret;
 }

@@ -5,9 +5,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption mkSystemSecret;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.plausible;
@@ -20,13 +19,13 @@ in
 
   config = mkIf cfg.enable {
     age.secrets = {
-      plausible-key = mkSecret {
+      plausible-key = mkSystemSecret {
         file = "plausible/key";
         owner = "plausible";
         group = "plausible";
       };
 
-      plausible-admin = mkSecret {
+      plausible-admin = mkSystemSecret {
         file = "plausible/admin";
         owner = "plausible";
         group = "plausible";
