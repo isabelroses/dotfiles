@@ -89,11 +89,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1748171373,
-        "narHash": "sha256-w13clACePanx7hsF62vtRpZwbM6VUVBY5xK2+jGCTzg=",
+        "lastModified": 1748257750,
+        "narHash": "sha256-5iRpCgegBUj2W8GsZrfsNLvE4mjktyIsZkBbGpJe2wU=",
         "owner": "lilyinstarlight",
         "repo": "nixos-cosmic",
-        "rev": "bf3593b6a84e201251560a20dde9b3b1ac6d49aa",
+        "rev": "c4d2bbbe3675a47c1e24b88f61f54b2eb3cece9d",
         "type": "github"
       },
       "original": {
@@ -288,11 +288,11 @@
         "brew-src": "brew-src"
       },
       "locked": {
-        "lastModified": 1748272666,
-        "narHash": "sha256-pVb8dX7m3ixNN1pK6CXwGzqnML+eKMqBQj9MUO+oloc=",
+        "lastModified": 1748305448,
+        "narHash": "sha256-G3PvFLCoq5LCcP0rn+6TP5pF1smtRlYCfOS+1Epn2Tk=",
         "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "5a2272eeb25725ed8f70a6bc6d80975e1bdab961",
+        "rev": "6f94d412d389a7ff8c0b3e295e34558ee6381890",
         "type": "github"
       },
       "original": {
@@ -386,11 +386,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1748182888,
-        "narHash": "sha256-tm3yi3KL+KjMnLZFXKR1ioI/Rk8DIa2n1NNE6I99BpU=",
-        "rev": "dbff52bfbc48ead789888bf24422d0ef6f7ba9a8",
+        "lastModified": 1748295264,
+        "narHash": "sha256-l+f6icWfH0VprAeLqpIHzw3Cmm2C8wp6az827E7K3dc=",
+        "rev": "e27c86ad12d18318f266ce142c3f2051b05b07dd",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/dbff52bfbc48ead789888bf24422d0ef6f7ba9a8.tar.gz?rev=dbff52bfbc48ead789888bf24422d0ef6f7ba9a8"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/e27c86ad12d18318f266ce142c3f2051b05b07dd.tar.gz?rev=e27c86ad12d18318f266ce142c3f2051b05b07dd"
       },
       "original": {
         "type": "tarball",
@@ -472,10 +472,10 @@
     "nixpkgs": {
       "locked": {
         "lastModified": 315532800,
-        "narHash": "sha256-A6ddIFRZ6y1IQQY0Gu868W9le0wuJfI1qYcVpq++f+I=",
-        "rev": "bdac72d387dca7f836f6ef1fe547755fb0e9df61",
+        "narHash": "sha256-3c6Axl3SGIXCixGtpSJaMXLkkSRihHDlLaGewDEgha0=",
+        "rev": "3108eaa516ae22c2360928589731a4f1581526ef",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre805949.bdac72d387dc/nixexprs.tar.xz?rev=bdac72d387dca7f836f6ef1fe547755fb0e9df61"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre806109.3108eaa516ae/nixexprs.tar.xz?rev=3108eaa516ae22c2360928589731a4f1581526ef"
       },
       "original": {
         "type": "tarball",
@@ -550,11 +550,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748140821,
-        "narHash": "sha256-GZcjWLQtDifSYMd1ueLDmuVTcQQdD5mONIBTqABooOk=",
+        "lastModified": 1748227081,
+        "narHash": "sha256-RLnN7LBxhEdCJ6+rIL9sbhjBVDaR6jG377M/CLP/fmE=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "476b2ba7dc99ddbf70b1f45357dbbdbdbdfb4422",
+        "rev": "1cbe817fd8c64a9f77ba4d7861a4839b0b15983e",
         "type": "github"
       },
       "original": {
@@ -630,11 +630,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748220644,
-        "narHash": "sha256-0yKqdwzqAnumpd9aPrxW2LpdbMDP8KDjecsCqKgUZRA=",
+        "lastModified": 1748306826,
+        "narHash": "sha256-qSFjfnmLrcXFTKE5VpUa1aflcPAA60O0cxNIVueE7sg=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "ba00928ce293adac03506bcb6204d8ad5ee9bd99",
+        "rev": "7a460b5d56b4fbb4e1b9bd611e585102ace759e9",
         "type": "github"
       },
       "original": {
@@ -650,11 +650,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747912973,
-        "narHash": "sha256-XgxghfND8TDypxsMTPU2GQdtBEsHTEc3qWE6RVEk8O0=",
+        "lastModified": 1748243702,
+        "narHash": "sha256-9YzfeN8CB6SzNPyPm2XjRRqSixDopTapaRsnTpXUEY8=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "020cb423808365fa3f10ff4cb8c0a25df35065a3",
+        "rev": "1f3f7b784643d488ba4bf315638b2b0a4c5fb007",
         "type": "github"
       },
       "original": {
