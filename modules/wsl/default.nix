@@ -34,7 +34,12 @@ in
       openssh.enable = mkForce false;
     };
 
-    networking.tcpcrypt.enable = mkForce false;
+    networking = {
+      tcpcrypt.enable = mkForce false;
+
+      # we don't really need this since windows manages this for us
+      firewall.enable = mkForce false;
+    };
 
     # resolv.conf is managed by wsl
     services.resolved.enable = mkForce false;
