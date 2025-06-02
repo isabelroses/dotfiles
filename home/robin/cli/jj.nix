@@ -53,11 +53,11 @@
 
       "revset-aliases" = {
         "head" = "git_head()";
-        "latest" = "latest(curbranch::@ ~ empty())";
+        "latest" = "latest(curbranch:: ~ bases:: ~ empty())";
 
-        "bases" = "dev";
+        "bases" = "bookmarks() & empty()";
         "downstream(x,y)" = "(x::y) & y";
-        "branches" = "downstream(trunk(), bookmarks() ~ bases)";
+        "branches" = "downstream(trunk(), bookmarks() ~ empty())";
         "heads" = "heads(trunk()::)";
         "leafs" = "branches | heads";
         "curbranch" = "latest(branches::@- & branches)";
