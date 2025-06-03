@@ -18,5 +18,11 @@ in
       enable = true;
       environmentFile = config.age.secrets.blahaj-env.path;
     };
+
+    garden = {
+      services.nginx.vhosts."blahaj.isabelroses.com" = {
+        locations."/".proxyPass = "http://127.0.0.1:3000";
+      };
+    };
   };
 }
