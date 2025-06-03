@@ -32,6 +32,10 @@ in
       smartd.enable = mkForce false;
       xserver.enable = mkForce false;
       openssh.enable = mkForce false;
+      fail2ban.enable = mkForce false;
+
+      # resolv.conf is managed by wsl
+      resolved.enable = mkForce false;
     };
 
     networking = {
@@ -41,8 +45,6 @@ in
       firewall.enable = mkForce false;
     };
 
-    # resolv.conf is managed by wsl
-    services.resolved.enable = mkForce false;
     security.apparmor.enable = mkForce false;
 
     # allow me to open files and links in Windows from WSL
