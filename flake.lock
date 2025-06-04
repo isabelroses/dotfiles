@@ -12,34 +12,18 @@
         ]
       },
       "locked": {
-        "lastModified": 1748283912,
+        "lastModified": 1747595239,
         "narHash": "sha256-rCMlw4mO4mn6AYiw1AJ4GKRAv/GUAaXbdweQ1+K/Twk=",
-        "owner": "isabelroses",
+        "owner": "ryantm",
         "repo": "agenix",
-        "rev": "977dc6197d921786ad5b3daa7cdc41ae60ca268a",
+        "rev": "4e129c761e8d60b1518f844ead1cc8efddf7aea3",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
-        "ref": "userborn",
+        "owner": "ryantm",
+        "ref": "pull/255/merge",
         "repo": "agenix",
         "type": "github"
-      }
-    },
-    "blobs": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1604995301,
-        "narHash": "sha256-wcLzgLec6SGJA8fx1OEN1yV/Py5b+U5iyYpksUY/yLw=",
-        "owner": "simple-nixos-mailserver",
-        "repo": "blobs",
-        "rev": "2cccdf1ca48316f2cfd1c9a0017e8de5a7156265",
-        "type": "gitlab"
-      },
-      "original": {
-        "owner": "simple-nixos-mailserver",
-        "repo": "blobs",
-        "type": "gitlab"
       }
     },
     "brew-src": {
@@ -269,15 +253,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1748979197,
-        "narHash": "sha256-mKYwYcO9RmA2AcAFIXGDBOw5iv/fbjw6adWvMbnfIuk=",
+        "lastModified": 1748976663,
+        "narHash": "sha256-Kfv1bG2dxO8YgHxXvpgT+Ek4qBDuy9rrUWHji31Gt4g=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "34a13086148cbb3ae65a79f753eb451ce5cac3d3",
+        "rev": "cdbd469fa62360360f050e95a3646be2b6cad832",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
+        "ref": "pull/4976/merge",
         "repo": "home-manager",
         "type": "github"
       }
@@ -334,11 +319,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748435866,
-        "narHash": "sha256-O3h5wdTqKFGbgHxInaOA9Pb7SebWFAbau1aItMZwodU=",
+        "lastModified": 1749028671,
+        "narHash": "sha256-8f/C+QlwNBdu+dly45LXgumyJnaLmgg+mAD+rtlfdQQ=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "bb35ba8f0fddd2bed2b17a1fa042350183d33856",
+        "rev": "7ca431036c1f262ce8e40ae68cb75533fd7d8322",
         "type": "github"
       },
       "original": {
@@ -585,7 +570,7 @@
     },
     "simple-nixos-mailserver": {
       "inputs": {
-        "blobs": "blobs",
+        "blobs": [],
         "flake-compat": [],
         "git-hooks": "git-hooks",
         "nixpkgs": [

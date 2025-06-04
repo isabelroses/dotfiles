@@ -50,6 +50,7 @@
       type = "github";
       owner = "nix-community";
       repo = "home-manager";
+      ref = "pull/4976/merge";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -90,9 +91,9 @@
     # TODO: https://github.com/ryantm/agenix/pull/255
     agenix = {
       type = "github";
-      owner = "isabelroses";
+      owner = "ryantm";
       repo = "agenix";
-      ref = "userborn";
+      ref = "pull/255/merge";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -113,6 +114,7 @@
         nixpkgs.follows = "nixpkgs";
         nixpkgs-25_05.follows = "";
         flake-compat.follows = "";
+        blobs.follows = "";
       };
     };
 
