@@ -4,12 +4,15 @@
   ...
 }:
 let
-  inherit (lib) mkOption;
+  inherit (lib) mkOption mapAttrs;
   inherit (lib.types) enum nullOr str;
+
+  mkDefault = name: args: mkOption ({ description = "default ${name} for the system"; } // args);
+
 in
 {
-  options.garden.programs.defaults = {
-    shell = mkOption {
+  options.garden.programs.defaults = mapAttrs mkDefault {
+    shell = {
       type = enum [
         "bash"
         "zsh"
@@ -19,7 +22,7 @@ in
       default = if (osClass == "nixos") then "bash" else "zsh";
     };
 
-    terminal = mkOption {
+    terminal = {
       type = enum [
         "alacritty"
         "kitty"
@@ -29,7 +32,7 @@ in
       default = "wezterm";
     };
 
-    fileManager = mkOption {
+    fileManager = {
       type = enum [
         "cosmic-files"
         "dolphin"
@@ -38,7 +41,7 @@ in
       default = "cosmic-files";
     };
 
-    browser = mkOption {
+    browser = {
       type = enum [
         "firefox"
         "chromium"
@@ -47,7 +50,7 @@ in
       default = "chromium";
     };
 
-    editor = mkOption {
+    editor = {
       type = enum [
         "nvim"
         "codium"
@@ -55,17 +58,17 @@ in
       default = "nvim";
     };
 
-    pager = mkOption {
+    pager = {
       type = str;
       default = "less -FR";
     };
 
-    manpager = mkOption {
+    manpager = {
       type = str;
       default = "nvim +Man!";
     };
 
-    launcher = mkOption {
+    launcher = {
       type = nullOr (enum [
         "rofi"
         "wofi"
@@ -74,7 +77,7 @@ in
       default = "rofi";
     };
 
-    bar = mkOption {
+    bar = {
       type = nullOr (enum [
         "waybar"
         "ags"
@@ -82,7 +85,7 @@ in
       default = "ags";
     };
 
-    screenLocker = mkOption {
+    screenLocker = {
       type = nullOr (enum [
         "swaylock"
         "gtklock"
@@ -94,7 +97,7 @@ in
       '';
     };
 
-    noiseSuppressor = mkOption {
+    noiseSuppressor = {
       type = nullOr (enum [
         "rnnoise"
         "noisetorch"

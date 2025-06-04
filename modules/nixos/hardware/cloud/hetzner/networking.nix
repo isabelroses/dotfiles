@@ -8,10 +8,18 @@ in
   options.garden.profiles.server.hetzner = {
     ipv4 = mkOption {
       type = lib.types.str;
+      description = ''
+        The IPv4 address to assign to the server.
+        This should be a single IP address, not a range.
+      '';
     };
 
     ipv6 = mkOption {
       type = lib.types.str;
+      description = ''
+        The IPv6 address to assign to the server.
+        This should be a single IP address, not a range.
+      '';
     };
   };
 

@@ -21,6 +21,10 @@
 
 libdoc
 
+# options
+
+optionsdoc
+
 # Further Reading
 
 - [further reading](further-reading.md)

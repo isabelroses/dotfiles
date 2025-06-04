@@ -79,7 +79,7 @@ in
 
       hierarchySeparator = "/";
       localDnsResolver = false;
-      fqdn = "${cfg.domain}";
+      fqdn = cfg.domain;
       certificateScheme = "acme-nginx";
       domains = [ "${rdomain}" ];
 

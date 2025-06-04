@@ -125,22 +125,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    cosmic = {
-      type = "github";
-      owner = "lilyinstarlight";
-      repo = "nixos-cosmic";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "";
-        flake-compat.follows = "";
-      };
-    };
-
     homebrew = {
       type = "github";
       owner = "zhaofengli";
       repo = "nix-homebrew";
+      ref = "pull/101/merge";
     };
 
     # a tree-wide formatter

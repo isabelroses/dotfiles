@@ -12,6 +12,7 @@ let
 in
 {
   options.garden.system.stateVersion = mkOption {
+    internal = true;
     type = lib.types.str;
     default = "25.05";
   };

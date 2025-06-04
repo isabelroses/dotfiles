@@ -21,6 +21,9 @@ in
         "gb"
       ];
       default = "gb";
+      description = ''
+        the keyboard layout to use for a given system
+      '';
     };
   };
 }

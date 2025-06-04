@@ -40,6 +40,9 @@ in
       runtimeInputs = mkOption {
         type = listOf package;
         default = [ ];
+        description = ''
+          Additional runtime inputs for the obsidian package.
+        '';
       };
     };
 
@@ -49,6 +52,9 @@ in
       settings = mkOption {
         inherit (pkgs.formats.toml { }) type;
         default = { };
+        description = ''
+          Settings for the zk note-taking application.
+        '';
       };
     };
   };

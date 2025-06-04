@@ -55,6 +55,7 @@ let
       domain = mkOption {
         type = str;
         default = domain;
+        defaultText = "networking.domain";
         description = "Domain name for the ${name} service";
       };
     }

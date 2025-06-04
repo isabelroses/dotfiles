@@ -28,6 +28,11 @@ in
           }
         );
         default = { };
+        description = ''
+          Virtual hosts to configure for nginx.
+          Each key is the name of the virtual host, and the value is an attribute set
+          with additional settings for that host.
+        '';
       };
     };
   };

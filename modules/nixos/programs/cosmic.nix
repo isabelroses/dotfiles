@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 let
@@ -11,8 +10,6 @@ let
   cfg = config.garden.programs.cosmic;
 in
 {
-  imports = [ inputs.cosmic.nixosModules.default ];
-
   options.garden.programs.cosmic = {
     enable = mkEnableOption "enable cosmic desktop environment";
   };

@@ -5,7 +5,9 @@
   fetchurl,
   simple-http-server,
   writeShellApplication,
+
   libdoc,
+  optionsdoc,
   self,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -26,9 +28,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     cp ${finalAttrs.passthru.catppuccin-alerts} theme/catppuccin-alerts.css
 
     cp -r ${libdoc} src/lib
+    cp -r ${optionsdoc} src/options
 
     substituteInPlace src/SUMMARY.md \
-      --replace-fail "libdoc" "$(cat src/lib/index.md)"
+      --replace-fail "libdoc" "$(cat src/lib/index.md)" \
+      --replace-fail "optionsdoc" "$(cat src/options/index.md)"
 
     mdbook build
 

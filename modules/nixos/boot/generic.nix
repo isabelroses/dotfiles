@@ -37,6 +37,7 @@ in
     kernel = mkOption {
       type = raw;
       default = pkgs.linuxPackages_latest;
+      defaultText = "pkgs.linuxPackages_latest";
       description = "The kernel to use for the system.";
     };
 
@@ -64,6 +65,11 @@ in
     extraKernelParams = mkOption {
       type = listOf str;
       default = [ ];
+      description = ''
+        Extra kernel parameters to be passed to the kernel.
+        This is useful for passing additional parameters to the kernel
+        that are not covered by the default parameters.
+      '';
     };
 
     extraModulePackages = mkOption {

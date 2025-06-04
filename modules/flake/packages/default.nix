@@ -19,12 +19,17 @@
     {
       packages = {
         lix = callPackage ./lix/package.nix { inherit inputs' inputs; };
+        iztaller = callPackage ./iztaller/package.nix { nix = self'.packages.lix; };
+
+        libdoc = callPackage ./docs/lib.nix { inherit (inputs) self; };
+        optionsdoc = callPackage ./docs/options.nix {
+          inherit inputs;
+          inherit (inputs) self;
+        };
         docs = callPackage ./docs/package.nix {
           inherit (inputs) self;
-          inherit (self'.packages) libdoc;
+          inherit (self'.packages) libdoc optionsdoc;
         };
-        libdoc = callPackage ./docs/lib.nix { inherit (inputs) self; };
-        iztaller = callPackage ./iztaller/package.nix { nix = self'.packages.lix; };
       };
     };
 }
