@@ -129,7 +129,6 @@
       type = "github";
       owner = "zhaofengli";
       repo = "nix-homebrew";
-      ref = "pull/101/merge";
     };
 
     # a tree-wide formatter
