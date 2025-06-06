@@ -7,9 +7,9 @@ in
 {
   config = mkIf cfg.enable {
     garden = {
-      device = {
-        hasTPM = false;
-        hasBluetooth = false;
+      device.capabilities = {
+        tpm = false;
+        bluetooth = false;
       };
 
       system = {

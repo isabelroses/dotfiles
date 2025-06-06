@@ -10,9 +10,11 @@
     device = {
       cpu = null;
       gpu = null;
-      hasTPM = true;
       monitors = [ ];
-      hasBluetooth = true;
+      capabilities = {
+        tpm = true;
+        bluetooth = true;
+      };
       keyboard = "us";
     };
 
@@ -30,7 +32,6 @@
       };
 
       bluetooth.enable = false;
-      yubikeySupport.enable = false;
 
       security = {
         auditd.enable = true;

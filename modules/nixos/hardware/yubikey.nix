@@ -8,11 +8,9 @@ let
   inherit (lib) mkIf mkEnableOption;
 in
 {
-  options.garden.system.yubikeySupport = {
-    enable = mkEnableOption "yubikey support";
-  };
+  options.garden.device.capabilities.yubikey = mkEnableOption "yubikey support";
 
-  config = mkIf config.garden.system.yubikeySupport.enable {
+  config = mkIf config.garden.device.capabilities.yubikey {
     hardware.gpgSmartcards.enable = true;
 
     services = {

@@ -14,8 +14,10 @@
       cpu = "amd";
       gpu = null;
       monitors = [ "eDP-1" ];
-      hasTPM = true;
-      hasBluetooth = true;
+      capabilities = {
+        tpm = true;
+        bluetooth = true;
+      };
     };
 
     system = {
@@ -33,7 +35,6 @@
 
       bluetooth.enable = false;
       printing.enable = false;
-      yubikeySupport.enable = false;
 
       security = {
         fixWebcam = false;

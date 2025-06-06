@@ -13,7 +13,7 @@ let
 in
 {
   options.garden = {
-    device.hasBluetooth = mkOption {
+    device.capabilities.bluetooth = mkOption {
       type = bool;
       default = true;
       description = "Whether or not the system has bluetooth support";

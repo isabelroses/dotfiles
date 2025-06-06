@@ -7,13 +7,13 @@ let
   inherit (config.garden) device;
 in
 {
-  options.garden.device.hasTPM = mkOption {
+  options.garden.device.capabilities.tpm = mkOption {
     type = bool;
     default = false;
     description = "Whether the system has tpm support";
   };
 
-  config = mkIf device.hasTPM {
+  config = mkIf device.capabilities.tpm {
     security.tpm2 = {
       # enable Trusted Platform Module 2 support
       enable = mkDefault true;

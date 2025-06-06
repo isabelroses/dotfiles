@@ -13,9 +13,12 @@
     device = {
       cpu = "intel";
       gpu = "nvidia";
-      hasTPM = true;
       monitors = [ "DP-1" ];
-      hasBluetooth = true;
+      capabilities = {
+        tpm = true;
+        bluetooth = true;
+        yubikey = true;
+      };
       keyboard = "us";
     };
 
@@ -36,7 +39,6 @@
 
       bluetooth.enable = false;
       printing.enable = false;
-      yubikeySupport.enable = true;
       emulation.enable = true;
 
       security.auditd.enable = true;
