@@ -10,19 +10,21 @@ let
   inherit (config.garden.programs) defaults;
 in
 {
-  config.garden.programs = {
-    obsidian.runtimeInputs = attrValues {
-      inherit (pkgs)
-        # for the pandoc plugin
-        pandoc
+  config = {
+    garden.programs = {
+      obsidian.runtimeInputs = attrValues {
+        inherit (pkgs)
+          # for the pandoc plugin
+          pandoc
 
-        # for the obsidian-git plugin
-        gitMinimal
-        git-lfs
-        ;
+          # for the obsidian-git plugin
+          gitMinimal
+          git-lfs
+          ;
+      };
     };
 
-    zk.settings = {
+    programs.zk.settings = {
       note = {
         # The default title used for new note, if no `--title` flag is provided.
         default-title = "untitled";

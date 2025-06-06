@@ -48,27 +48,15 @@ in
 
     zk = mkProgram pkgs "zk" {
       enable.default = cfg.notes.enable;
-
-      settings = mkOption {
-        inherit (pkgs.formats.toml { }) type;
-        default = { };
-        description = ''
-          Settings for the zk note-taking application.
-        '';
-      };
     };
   };
 
   config = mkMerge [
-    (mkIf cfg.zk.enable {
-      xdg.configFile = mkIf (cfg.zk.settings != { }) {
-        "zk/config.toml".source = pkgs.writers.writeTOML "zk-conf.toml" cfg.zk.settings;
+    {
+      programs.zk = {
+        inherit (cfg.zk) enable package;
       };
-
-      garden.packages = {
-        zk = cfg.zk.package;
-      };
-    })
+    }
 
     (mkIf cfg.obsidian.enable {
       garden.packages = {
