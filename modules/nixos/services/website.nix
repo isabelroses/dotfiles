@@ -18,8 +18,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    garden.services = {
-      nginx.vhosts.${cfg.domain} = {
+    services.nginx.virtualHosts = {
+      ${cfg.domain} = {
         root = inputs'.tgirlpkgs.packages.isabelroses-website;
       };
     };

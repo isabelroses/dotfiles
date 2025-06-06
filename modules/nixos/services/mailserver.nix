@@ -22,8 +22,6 @@ in
     garden.services = {
       redis.enable = true;
       postgresql.enable = true;
-
-      nginx.vhosts."webmail.${rdomain}" = { };
     };
 
     age.secrets = {
@@ -270,6 +268,7 @@ in
 
       nginx.virtualHosts."webmail.${rdomain}" = {
         locations."/".extraConfig = lib.mkForce "";
+        enableACME = false;
       };
     };
   };

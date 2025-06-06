@@ -14,13 +14,13 @@ in
   config = mkIf config.garden.services.blahaj.enable {
     age.secrets.blahaj-env = mkSystemSecret { file = "blahaj-env"; };
 
-    services.blahaj = {
-      enable = true;
-      environmentFile = config.age.secrets.blahaj-env.path;
-    };
+    services = {
+      blahaj = {
+        enable = true;
+        environmentFile = config.age.secrets.blahaj-env.path;
+      };
 
-    garden = {
-      services.nginx.vhosts."blahaj.isabelroses.com" = {
+      nginx.virtualHosts."blahaj.isabelroses.com" = {
         locations."/".proxyPass = "http://127.0.0.1:3000";
       };
     };

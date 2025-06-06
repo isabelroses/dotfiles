@@ -10,30 +10,36 @@ let
     types
     mkIf
     mkOption
-    mapAttrs
+    mkDefault
     ;
   inherit (self.lib) mkServiceOption mkSystemSecret;
 
   cfg = config.garden.services.nginx;
 in
 {
-  options.garden.services.nginx = mkServiceOption "nginx" {
-    domain = "isabelroses.com";
-
-    extraConfig = {
-      vhosts = mkOption {
-        type = types.attrsOf (
-          types.submodule {
+  options = {
+    # getchoo you are so cool for teaching me this!
+    # https://github.com/getchoo/borealis/blob/6e5ad4fb14a0de172c64e0d6a9d6f63ed7df88e6/modules/nixos/mixins/nginx.nix#L5
+    services.nginx.virtualHosts = mkOption {
+      type = types.attrsOf (
+        types.submodule (
+          { config, ... }:
+          {
             freeformType = types.attrsOf types.anything;
+
+            config = {
+              quic = mkDefault true;
+              forceSSL = mkDefault true;
+              enableACME = mkDefault false;
+              useACMEHost = mkDefault (if config.enableACME then null else cfg.domain);
+            };
           }
-        );
-        default = { };
-        description = ''
-          Virtual hosts to configure for nginx.
-          Each key is the name of the virtual host, and the value is an attribute set
-          with additional settings for that host.
-        '';
-      };
+        )
+      );
+    };
+
+    garden.services.nginx = mkServiceOption "nginx" {
+      domain = "isabelroses.com";
     };
   };
 
@@ -81,17 +87,6 @@ in
 
       sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
       sslProtocols = "TLSv1.3 TLSv1.2";
-
-      virtualHosts = mapAttrs (
-        _: settings:
-        {
-          quic = true;
-          forceSSL = true;
-          enableACME = false;
-          useACMEHost = cfg.domain;
-        }
-        // settings
-      ) cfg.vhosts;
     };
   };
 }

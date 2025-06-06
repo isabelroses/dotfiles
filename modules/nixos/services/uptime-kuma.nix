@@ -18,22 +18,22 @@ in
   };
 
   config = mkIf cfg.enable {
-    garden.services = {
-      nginx.vhosts.${cfg.domain} = {
+    services = {
+      uptime-kuma = {
+        enable = true;
+
+        # https://github.com/louislam/uptime-kuma/wiki/Environment-Variables
+        settings = {
+          HOST = cfg.host;
+          PORT = toString cfg.port;
+        };
+      };
+
+      nginx.virtualHosts.${cfg.domain} = {
         locations."/" = {
           proxyPass = "http://${cfg.host}:${toString cfg.port}";
           proxyWebsockets = true;
         };
-      };
-    };
-
-    services.uptime-kuma = {
-      enable = true;
-
-      # https://github.com/louislam/uptime-kuma/wiki/Environment-Variables
-      settings = {
-        HOST = cfg.host;
-        PORT = toString cfg.port;
       };
     };
   };

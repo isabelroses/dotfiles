@@ -17,14 +17,6 @@ in
     services.redis = {
       vmOverCommit = true;
       servers = mkMerge [
-        (mkIf cfg.nextcloud.enable {
-          nextcloud = {
-            enable = true;
-            user = "nextcloud";
-            port = 0;
-          };
-        })
-
         (mkIf cfg.forgejo.enable {
           forgejo = {
             enable = true;

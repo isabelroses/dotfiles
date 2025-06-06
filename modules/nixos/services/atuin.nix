@@ -20,16 +20,19 @@ in
   config = mkIf cfg.enable {
     garden.services = {
       postgresql.enable = true;
-      nginx.vhosts.${cfg.domain} = {
-        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
-      };
     };
 
-    services.atuin = {
-      enable = true;
-      inherit (cfg) port host;
-      openRegistration = false;
-      maxHistoryLength = 1024 * 16;
+    services = {
+      atuin = {
+        enable = true;
+        inherit (cfg) port host;
+        openRegistration = false;
+        maxHistoryLength = 1024 * 16;
+      };
+
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
+      };
     };
   };
 }

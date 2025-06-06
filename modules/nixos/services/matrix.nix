@@ -44,15 +44,6 @@ in
 
     garden.services = {
       postgresql.enable = true;
-      nginx.vhosts.${rdomain} = {
-        locations = {
-          "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
-          "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
-          "/_matrix".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
-          "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
-        };
-        serverAliases = [ "${cfg.domain}" ];
-      };
     };
 
     services = {
@@ -168,6 +159,16 @@ in
             disable_existing_loggers: False
           '';
         };
+      };
+
+      nginx.virtualHosts.${rdomain} = {
+        locations = {
+          "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
+          "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
+          "/_matrix".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
+          "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
+        };
+        serverAliases = [ "${cfg.domain}" ];
       };
     };
   };

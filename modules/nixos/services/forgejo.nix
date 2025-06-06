@@ -36,20 +36,6 @@ in
     garden.services = {
       redis.enable = true;
       postgresql.enable = true;
-
-      nginx.vhosts.${cfg.domain} = {
-        locations."/" = {
-          recommendedProxySettings = true;
-          proxyPass =
-            "http://unix:"
-            + (
-              if config.garden.services.anubis.enable then
-                config.services.anubis.instances.forgejo.settings.BIND
-              else
-                config.services.forgejo.settings.server.HTTP_ADDR
-            );
-        };
-      };
     };
 
     networking.firewall.allowedTCPPorts = [
@@ -191,6 +177,20 @@ in
         instances.forgejo.settings = {
           TARGET = "unix://${config.services.forgejo.settings.server.HTTP_ADDR}";
           ED25519_PRIVATE_KEY_HEX_FILE = config.age.secrets.anubis-forgejo.path;
+        };
+      };
+
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/" = {
+          recommendedProxySettings = true;
+          proxyPass =
+            "http://unix:"
+            + (
+              if config.garden.services.anubis.enable then
+                config.services.anubis.instances.forgejo.settings.BIND
+              else
+                config.services.forgejo.settings.server.HTTP_ADDR
+            );
         };
       };
     };

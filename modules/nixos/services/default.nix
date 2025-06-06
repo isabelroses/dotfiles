@@ -1,25 +1,18 @@
 {
   imports = [
     # databases
-    ./influxdb.nix
-    ./mongodb.nix
     ./postgresql.nix
-    ./mysql.nix
     ./redis.nix
 
     # dev
     ./atuin.nix
     ./forgejo.nix
-    ./plausible.nix
     ./wakapi.nix
 
     # media
     ./akkoma
     ./nixpkgs-prs-bot.nix
-    ./jellyfin.nix
     ./matrix.nix
-    ./nextcloud.nix
-    ./photoprism.nix
     ./syncthing.nix
 
     # monitoring
@@ -29,7 +22,6 @@
     ./uptime-kuma.nix
 
     # networking
-    ./cloudflared.nix
     ./headscale.nix
     ./nginx.nix
 

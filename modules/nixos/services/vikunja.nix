@@ -27,72 +27,73 @@ in
     garden.services = {
       redis.enable = true;
       postgresql.enable = true;
-
-      nginx.vhosts.${cfg.domain} = {
-        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
-      };
     };
 
-    services.vikunja = {
-      enable = true;
+    services = {
+      vikunja = {
+        enable = true;
 
-      inherit (cfg) port;
-      frontendHostname = cfg.domain;
-      frontendScheme = "https";
+        inherit (cfg) port;
+        frontendHostname = cfg.domain;
+        frontendScheme = "https";
 
-      environmentFiles = [ config.age.secrets.vikunja-env.path ];
+        environmentFiles = [ config.age.secrets.vikunja-env.path ];
 
-      database = {
-        type = "postgres";
-        host = "/run/postgresql";
-        user = "vikunja";
-        database = "vikunja";
+        database = {
+          type = "postgres";
+          host = "/run/postgresql";
+          user = "vikunja";
+          database = "vikunja";
+        };
+
+        settings = {
+          service.enableregistration = false;
+
+          defaultsettings = {
+            avatar_provider = "gravatar";
+            week_start = 1; # monday
+          };
+
+          mailer = {
+            enabled = true;
+            host = config.garden.services.mailserver.domain;
+            port = 465;
+            forcessl = true;
+
+            authtype = "login";
+            fromemail = "noreply@${rdomain}";
+            username = "noreply@${rdomain}";
+          };
+
+          openid = {
+            enabled = true;
+            redirecturl = "https://${cfg.domain}/auth/openid/";
+            providers =
+              let
+                sso = config.garden.services.kanidm.domain;
+              in
+              [
+                {
+                  name = "Isabel's SSO";
+                  authurl = "https://${sso}/oauth2/openid/vikunja/";
+                  logouturl = "https://${sso}/logout";
+                  clientid = "vikunja";
+                }
+              ];
+          };
+
+          # redis
+          # redis = {
+          #   enabled = true;
+          #   host = "/run/redis-vikunja/redis.sock";
+          #   db = 0;
+          # };
+        };
       };
 
-      settings = {
-        service.enableregistration = false;
-
-        defaultsettings = {
-          avatar_provider = "gravatar";
-          week_start = 1; # monday
-        };
-
-        mailer = {
-          enabled = true;
-          host = config.garden.services.mailserver.domain;
-          port = 465;
-          forcessl = true;
-
-          authtype = "login";
-          fromemail = "noreply@${rdomain}";
-          username = "noreply@${rdomain}";
-        };
-
-        openid = {
-          enabled = true;
-          redirecturl = "https://${cfg.domain}/auth/openid/";
-          providers =
-            let
-              sso = config.garden.services.kanidm.domain;
-            in
-            [
-              {
-                name = "Isabel's SSO";
-                authurl = "https://${sso}/oauth2/openid/vikunja/";
-                logouturl = "https://${sso}/logout";
-                clientid = "vikunja";
-              }
-            ];
-        };
-
-        # redis
-        # redis = {
-        #   enabled = true;
-        #   host = "/run/redis-vikunja/redis.sock";
-        #   db = 0;
-        # };
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
       };
-
     };
 
     users = {
