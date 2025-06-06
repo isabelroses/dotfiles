@@ -54,7 +54,7 @@ in
         identityFile = secrets.keys-amity.path;
       };
 
-      "skadi".hostname = "132.145.69.209";
+      "skadi".hostname = "141.147.73.185";
 
       # hetzner cloud vps
       "minerva".hostname = "91.107.198.173";

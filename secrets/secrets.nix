@@ -38,7 +38,7 @@ let
       owner = "isabel";
     };
     skadi = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSLQkO5ACQ6XHpp3Bpbs0ymV1TL5sWBTFVOraybEdtq";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIweAtbmV58yEMT1oioHt6PBezpUa42Ma2PZoZvWvc4Z";
       owner = "isabel";
     };
     wisp = {
