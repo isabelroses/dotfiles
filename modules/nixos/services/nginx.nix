@@ -31,7 +31,7 @@ in
               quic = mkDefault true;
               forceSSL = mkDefault true;
               enableACME = mkDefault false;
-              useACMEHost = mkDefault (if config.enableACME then null else cfg.domain);
+              useACMEHost = mkDefault cfg.domain;
             };
           }
         )

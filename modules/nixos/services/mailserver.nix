@@ -7,7 +7,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
+  inherit (lib) mkIf mkForce;
   inherit (self.lib) mkServiceOption mkSystemSecret;
 
   rdomain = config.networking.domain;
@@ -266,9 +266,15 @@ in
         "listen.group" = config.services.nginx.group;
       };
 
-      nginx.virtualHosts."webmail.${rdomain}" = {
-        locations."/".extraConfig = lib.mkForce "";
-        enableACME = false;
+      nginx.virtualHosts = {
+        ${cfg.domain} = {
+          useACMEHost = mkForce null;
+        };
+
+        "webmail.${rdomain}" = {
+          locations."/".extraConfig = mkForce "";
+          enableACME = false;
+        };
       };
     };
   };
