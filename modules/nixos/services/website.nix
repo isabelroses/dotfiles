@@ -6,8 +6,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkServiceOption;
 
   inherit (config.networking) domain;
   cfg = config.garden.services.isabelroses-website;
