@@ -23,6 +23,7 @@
     services = {
       nginx.enable = true;
       uptime-kuma.enable = true;
+      ntfy.enable = true;
     };
   };
 }

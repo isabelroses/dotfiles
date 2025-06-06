@@ -38,5 +38,6 @@
     ./vaultwarden.nix
     ./vikunja.nix
     ./website.nix
+    ./ntfy.nix
   ];
 }
