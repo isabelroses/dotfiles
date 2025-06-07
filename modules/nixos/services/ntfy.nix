@@ -23,7 +23,7 @@ in
         enable = true;
         settings = {
           base-url = "https://${cfg.domain}";
-          listen-http = ":${cfg.port}";
+          listen-http = ":${toString cfg.port}";
           behind-proxy = true;
         };
       };
