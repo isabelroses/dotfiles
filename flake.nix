@@ -169,8 +169,8 @@
       repo = "nvim";
 
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
+        nixpkgs.follows = "";
+        systems.follows = "";
       };
     };
 

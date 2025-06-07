@@ -1,13 +1,14 @@
+{ inputs, config, ... }:
 {
-  lib,
-  config,
-  ...
-}:
-let
-  inherit (lib) optional;
+  imports = [
+    inputs.izvim.homeModules.default
+  ];
 
-  cfg = config.garden.programs.neovim;
-in
-{
-  home.packages = optional cfg.enable cfg.package ++ optional cfg.gui.enable cfg.gui.package;
+  garden.programs.neovim.enable = false;
+
+  programs.izvim = {
+    enable = true;
+    includePerLanguageTooling = config.garden.profiles.workstation.enable;
+    gui.enable = config.garden.profiles.graphical.enable;
+  };
 }

@@ -288,12 +288,8 @@
     },
     "izvim": {
       "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
+        "nixpkgs": [],
+        "systems": []
       },
       "locked": {
         "lastModified": 1749204211,

@@ -1,4 +1,3 @@
-{ inputs', ... }:
 {
   home-manager.users.isabel.garden = {
     programs = {
@@ -9,8 +8,6 @@
       ghostty.enable = true;
       chromium.enable = true;
       fish.enable = true;
-
-      neovim.package = inputs'.izvim.packages.default;
     };
   };
 }
