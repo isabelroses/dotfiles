@@ -77,10 +77,7 @@
       taps = builtins.attrNames config.nix-homebrew.taps;
 
       # `brew install`
-      brews = [
-        "openjdk@21"
-        "openjdk@23"
-      ];
+      brews = [ "openjdk" ];
 
       # `brew install --cask`
       casks = [
@@ -88,7 +85,7 @@
         # "loungy" # app launcher, too beta to use mainstream
         "gimp" # image editor
         "raycast" # app launcher, and clipboard manager
-        "inkscape" # vector graphics editor
+        # "inkscape" # vector graphics editor
         {
           name = "youtube-music";
           args.require_sha = false; # youtube music client
