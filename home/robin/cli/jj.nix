@@ -1,4 +1,8 @@
-{ config, ... }:
+{
+  inputs,
+  config,
+  ...
+}:
 {
   programs.jujutsu = {
     inherit (config.garden.profiles.workstation) enable;
@@ -129,11 +133,16 @@
         ];
       };
 
-      colors = {
-        "working_copy commit_id" = "#6E8585";
-        "working_copy empty" = "#3F4D52";
-        "working_copy empty description placeholder" = "#3F4D52";
-      };
+      colors =
+        let
+          inherit (config.evergarden) variant;
+          palette = inputs.evergarden.lib.palette.${variant};
+        in
+        {
+          "working_copy commit_id" = "#${palette.overlay1}";
+          "working_copy empty" = "#${palette.overlay2}";
+          "working_copy empty description placeholder" = "#${palette.overlay2}";
+        };
     };
   };
 }
