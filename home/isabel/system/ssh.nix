@@ -61,7 +61,7 @@ in
       "hestia".hostname = "116.203.57.153";
 
       # my local servers / clients
-      "hydra".hostname = "192.168.86.3";
+      "athena".hostname = "192.168.86.3";
       "tatsumaki".hostname = "192.168.1.217";
     };
   };

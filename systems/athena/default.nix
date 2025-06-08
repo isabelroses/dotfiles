@@ -8,11 +8,8 @@
     profiles = {
       server.enable = true;
       laptop.enable = true;
-      graphical.enable = true;
-      workstation.enable = true;
+      headless.enable = true;
     };
-
-    programs.cosmic.enable = true;
 
     device = {
       cpu = "intel";
@@ -21,7 +18,6 @@
       capabilities = {
         tpm = true;
         bluetooth = true;
-        yubikey = true;
       };
     };
 
@@ -34,13 +30,7 @@
         initrd.enableTweaks = true;
       };
 
-      bluetooth.enable = false;
-      printing.enable = false;
-
-      security = {
-        fixWebcam = false;
-        auditd.enable = true;
-      };
+      security.auditd.enable = true;
 
       networking = {
         optimizeTcp = true;

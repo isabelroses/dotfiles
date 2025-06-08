@@ -21,9 +21,6 @@ in
 
     banner = ''
       Connected to ${config.system.name} @ ${config.system.configurationRevision}
-
-      All conntections to this server are logged. Please disconnect now if you
-      are not permitted access.
     '';
 
     settings = {
