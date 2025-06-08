@@ -343,11 +343,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1749248097,
-        "narHash": "sha256-lgh7ftH3f9+0/2acf79IAGKy2KLBTuDpEaZwflbESKk=",
-        "rev": "004a505dc66edcbb296b0654484380f2c8077637",
+        "lastModified": 1749302831,
+        "narHash": "sha256-s+dF/43F7a2VwGidUxNVyAjpd7paBpEAJ7cfpwH93k4=",
+        "rev": "b70bbbe680ff5f5ab6e35a21a091d0f845278cda",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/004a505dc66edcbb296b0654484380f2c8077637.tar.gz?rev=004a505dc66edcbb296b0654484380f2c8077637"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/b70bbbe680ff5f5ab6e35a21a091d0f845278cda.tar.gz?rev=b70bbbe680ff5f5ab6e35a21a091d0f845278cda"
       },
       "original": {
         "type": "tarball",
@@ -565,11 +565,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749257205,
-        "narHash": "sha256-tSonEsEoZTDgFcP/GbJR2CjIJm47oKTBbhMQkgbOWDI=",
+        "lastModified": 1749344021,
+        "narHash": "sha256-2oNBuTlXeDVsThj+wyajV6UdDqbEgeOJPKVkta3k2bs=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "9c1e01c3873d8cd40273b230e282bf1ad1de65e0",
+        "rev": "ec9d9cc117ee3acf955b273717fe3b0c4d6b1c90",
         "type": "github"
       },
       "original": {
