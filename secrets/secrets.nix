@@ -52,6 +52,7 @@ let
       hestia
       minerva
       skadi
+      athena
     ];
     workstations = [
       amaterasu
@@ -61,14 +62,12 @@ let
       valkyrie
       wisp
     ];
-    hybrid = [ athena ];
   };
 
   defAccess =
     list: urs:
     let
-      listcombined = list ++ types.hybrid;
-      filtered = builtins.filter (host: builtins.any (x: host.owner == x) urs) listcombined;
+      filtered = builtins.filter (host: builtins.any (x: host.owner == x) urs) list;
       keys = builtins.map (host: host.key) filtered;
     in
     {
@@ -104,7 +103,7 @@ in
   "keys/amity.age" = defAccessIsabel types.workstations;
 
   # server
-  "cloudflare/hydra.age" = defAccessIsabel types.servers;
+  "cloudflare/athena.age" = defAccessIsabel types.servers;
   "cloudflare/cert-api.age" = defAccessIsabel types.servers;
 
   # buildbot
@@ -146,6 +145,8 @@ in
   "grafana-oauth2.age" = defAccessIsabel types.servers;
 
   "blahaj-env.age" = defAccessIsabel types.servers;
+
+  "photoprism-password.age" = defAccessIsabel types.servers;
 
   # nixpkgs prs bot
   "nixpkgs-prs-bot/fedi.age" = defAccessIsabel types.servers;

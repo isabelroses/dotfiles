@@ -24,6 +24,7 @@
     # networking
     ./headscale.nix
     ./nginx.nix
+    ./cloudflared.nix
 
     # nix builds
     ./attic.nix
@@ -39,5 +40,6 @@
     ./vikunja.nix
     ./website.nix
     ./ntfy.nix
+    ./photoprism.nix
   ];
 }

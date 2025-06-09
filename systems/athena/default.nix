@@ -37,5 +37,10 @@
         wirelessBackend = "iwd";
       };
     };
+
+    services = {
+      cloudflared.enable = true;
+      photoprism.enable = true;
+    };
   };
 }
