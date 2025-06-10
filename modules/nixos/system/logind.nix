@@ -3,7 +3,7 @@ let
   inherit (lib) mkIf;
 in
 {
-  config = mkIf config.garden.profiles.headless.enable {
+  config = mkIf config.garden.profiles.laptop.enable {
     services.logind = {
       lidSwitch = "ignore";
       lidSwitchDocked = "ignore";
