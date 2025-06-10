@@ -2,7 +2,6 @@
   imports = [
     ./shell # shell configurations
     ./atuin.nix
-    ./bat.nix
     ./eza.nix
     ./fd.nix
     ./fzf.nix
