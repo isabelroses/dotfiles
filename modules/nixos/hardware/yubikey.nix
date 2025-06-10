@@ -31,7 +31,6 @@ in
     garden.packages = {
       inherit (pkgs)
         yubikey-manager # cli
-        # yubikey-manager-qt # gui
         ;
     };
   };
