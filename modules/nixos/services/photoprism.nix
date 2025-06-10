@@ -49,7 +49,7 @@ in
       };
 
       cloudflared.tunnels.${config.networking.hostName} = {
-        ingress.${cfg.domain} = "http://${cfg.host}:${cfg.port}";
+        ingress.${cfg.domain} = "http://${cfg.host}:${toString cfg.port}";
       };
     };
   };
