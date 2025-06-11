@@ -292,11 +292,11 @@
         "systems": []
       },
       "locked": {
-        "lastModified": 1749676716,
-        "narHash": "sha256-JSZymIRVoIVC8rnGpACtu24YSTvPkSZA5Sakd4n3r3c=",
+        "lastModified": 1749676889,
+        "narHash": "sha256-3QQzMNQ1ho35i9PqX5gR7hcEgGjSzG8+da6HTuXtRmI=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "fc6fa9eb66dbf502e23fd3fc65c0c4663b097cf2",
+        "rev": "a5a9919f7eed8bc5c3182c30d8ccfeb76f43025b",
         "type": "github"
       },
       "original": {
