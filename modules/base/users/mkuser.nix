@@ -17,7 +17,14 @@ in
 {
   users.users = genAttrs config.garden.system.users (
     name:
+    let
+      inherit (config.home-manager.users.${name}.garden.programs.defaults) shell;
+    in
     mergeAttrsList [
+      {
+        shell = "/run/current-system/sw/bin/${shell}";
+      }
+
       (optionalAttrs (_class == "darwin") {
         home = "/Users/${name}";
       })

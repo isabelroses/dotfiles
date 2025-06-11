@@ -118,13 +118,6 @@
       };
     };
 
-    noshell = {
-      type = "github";
-      owner = "viperml";
-      repo = "noshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     homebrew = {
       type = "github";
       owner = "zhaofengli";
