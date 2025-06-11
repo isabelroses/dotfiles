@@ -18,7 +18,8 @@
       # the defaults to false even if the experimental feature is enabled
       # so we need to enable it here, this is also only available on linux
       # and the option is explicitly removed on darwin so we have to have this here
-      use-cgroups = true;
+      # FIXME: renable this broke at some point
+      use-cgroups = false;
 
       # set the build dir to /var/tmp to avoid issues on tmpfs
       # https://github.com/NixOS/nixpkgs/issues/293114#issuecomment-2663470083

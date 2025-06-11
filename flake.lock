@@ -292,11 +292,11 @@
         "systems": []
       },
       "locked": {
-        "lastModified": 1749577770,
-        "narHash": "sha256-cBGQAotwnumYIdZQCvKhPNKKJ3pUhs4Mgt5lIi09rXk=",
+        "lastModified": 1749676716,
+        "narHash": "sha256-JSZymIRVoIVC8rnGpACtu24YSTvPkSZA5Sakd4n3r3c=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "8f99f2ba026b9214393eb94f5b3e51082ae5c612",
+        "rev": "fc6fa9eb66dbf502e23fd3fc65c0c4663b097cf2",
         "type": "github"
       },
       "original": {
@@ -343,11 +343,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1749590950,
-        "narHash": "sha256-el3fMNDx5hyjLC/oE0x439J3SCFXJ2wlnH2lsXWOCNE=",
-        "rev": "797c6d4cd4d87f1c5107ec59197cc669e5947578",
+        "lastModified": 1749649984,
+        "narHash": "sha256-uSDELXH1IuIv0HiGBK4cnelCp4AaW7CWy3QvXsxXYps=",
+        "rev": "bea24c8d27809cafc29ed60851072150bfbfc194",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/797c6d4cd4d87f1c5107ec59197cc669e5947578.tar.gz?rev=797c6d4cd4d87f1c5107ec59197cc669e5947578"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/bea24c8d27809cafc29ed60851072150bfbfc194.tar.gz?rev=bea24c8d27809cafc29ed60851072150bfbfc194"
       },
       "original": {
         "type": "tarball",
