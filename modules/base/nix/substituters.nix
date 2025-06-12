@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
   inherit (lib) optionals;
+  hasCtp = config ? catppuccin && config.catppuccin.enable;
 in
 {
   tgirlpkgs.cache.enable = true;
@@ -13,7 +14,7 @@ in
         "https://nix-community.cachix.org" # nix-community cache
         "https://everviolet.cachix.org" # a cache for all everviolet ports
       ]
-      ++ optionals config.catppuccin.enable [
+      ++ optionals hasCtp [
         "https://catppuccin.cachix.org" # a cache for all catppuccin ports
       ];
 
@@ -22,7 +23,7 @@ in
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "everviolet.cachix.org-1:3nHvJgzKRRRCQZURheH1INddNlyU4OWqfn068t8AuvU="
       ]
-      ++ optionals config.catppuccin.enable [
+      ++ optionals hasCtp [
         "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
       ];
   };
