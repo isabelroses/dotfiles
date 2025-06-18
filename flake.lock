@@ -12,11 +12,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749779155,
-        "narHash": "sha256-rCMlw4mO4mn6AYiw1AJ4GKRAv/GUAaXbdweQ1+K/Twk=",
+        "lastModified": 1750180379,
+        "narHash": "sha256-UvXmMOCZrZqbs+BM2GV5ftclakM5uYENHd6kWPUJSQg=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "08ea42e043300601a1a9e6adde1de56e415edc44",
+        "rev": "456fddf7a4fbecc5fadcc5ba90d9e0ba4bb47e85",
         "type": "github"
       },
       "original": {
@@ -50,11 +50,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750013871,
-        "narHash": "sha256-UQx3rC3QDjD/sIen51+5Juk1rqN3y/sTeMY1WinmhqQ=",
+        "lastModified": 1750153510,
+        "narHash": "sha256-NYHXXJZ9m4fJpKk9tKn/EExX87SqcBcRINOGF7hKRLI=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "fe78fa558d6603481c03eb03a946eadb970d1801",
+        "rev": "4e95eaf8a351956d75cc400318579967ca2b6d0f",
         "type": "github"
       },
       "original": {
@@ -319,11 +319,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1749471908,
-        "narHash": "sha256-uGfPqd43KTomeIVWUzHu3hGLWFsqYibhWLt2OaRic28=",
+        "lastModified": 1750168384,
+        "narHash": "sha256-PBfJ7dGsR02im/RYN8wXII8yNPFhKxiPdq+JDfbvD2k=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "00292388ad3b497763b81568d6ee5e1c4a2bcf85",
+        "rev": "38c2addd2e0cedcb03708de6e6c21fb1be86d410",
         "type": "github"
       },
       "original": {
@@ -344,11 +344,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1750039440,
-        "narHash": "sha256-S5HRXSq9CKtOBLzMdq/AsB6S9HnVNybOUMXztSDX8e0=",
-        "rev": "97f1c5cfa126b42ab59cf5bb33102e59097f9215",
+        "lastModified": 1750191637,
+        "narHash": "sha256-p+VryHLOoU2q1VnAnY4wOXk0PomYJ+1Zb3O0J5twRhU=",
+        "rev": "87d99da6ca50d63caec28513e23eeeb915781472",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/97f1c5cfa126b42ab59cf5bb33102e59097f9215.tar.gz?rev=97f1c5cfa126b42ab59cf5bb33102e59097f9215"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/87d99da6ca50d63caec28513e23eeeb915781472.tar.gz?rev=87d99da6ca50d63caec28513e23eeeb915781472"
       },
       "original": {
         "type": "tarball",
@@ -506,10 +506,10 @@
     "nixpkgs_2": {
       "locked": {
         "lastModified": 315532800,
-        "narHash": "sha256-VgDAFPxHNhCfC7rI5I5wFqdiVJBH43zUefVo8hwo7cI=",
-        "rev": "41da1e3ea8e23e094e5e3eeb1e6b830468a7399e",
+        "narHash": "sha256-B7CtN8mUYsyDrxfqxoiRq6Rvq4sgX0V0bQ/oEpLaFjE=",
+        "rev": "c539ae8d21e49776966d714f82fba33b1fca78bc",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre814815.41da1e3ea8e2/nixexprs.tar.xz?rev=41da1e3ea8e23e094e5e3eeb1e6b830468a7399e"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-25.11pre816148.c539ae8d21e4/nixexprs.tar.xz?rev=c539ae8d21e49776966d714f82fba33b1fca78bc"
       },
       "original": {
         "type": "tarball",
@@ -546,11 +546,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749436897,
-        "narHash": "sha256-OkDtaCGQQVwVFz5HWfbmrMJR99sFIMXHCHEYXzUJEJY=",
+        "lastModified": 1749955444,
+        "narHash": "sha256-CllTHvHX8KAdAZ+Lxzd23AmZTxO1Pfy+zC43/5tYkAE=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "e7876c387e35dc834838aff254d8e74cf5bd4f19",
+        "rev": "539ba15741f0e6691a2448743dbc601d8910edce",
         "type": "github"
       },
       "original": {
@@ -570,11 +570,11 @@
         "nixpkgs-25_05": []
       },
       "locked": {
-        "lastModified": 1750052062,
-        "narHash": "sha256-sRiACsZZgKfm5zqz/2Kzd/R7MsldTI2FlxYGhBUD4pY=",
+        "lastModified": 1750204913,
+        "narHash": "sha256-5hkWSnV55TwP0dqvDmi+oOf8sPf6/w8pdHfrzcOiEwo=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "7405122ddeefa690b9fa6f25a23195ba57f5f599",
+        "rev": "217ec6008a839bcd1385d89b1f2ec0beb7d1b2cf",
         "type": "gitlab"
       },
       "original": {
@@ -605,11 +605,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750121280,
-        "narHash": "sha256-2+EeJTuWXu86bk4roZD0VjTiMHPr/UgKOk1Pmu9hVaU=",
+        "lastModified": 1750207768,
+        "narHash": "sha256-FambFkf5iO9AxIklpfPJoFJfYpbB5nTGgLBb3HUrIq4=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "85fd68ba3d760946a87af8a802556a7f5aeb82e5",
+        "rev": "d83b5c39cf50835e1ed7bd608419df578653e785",
         "type": "github"
       },
       "original": {
