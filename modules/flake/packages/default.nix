@@ -18,7 +18,7 @@
     in
     {
       packages = {
-        iztaller = callPackage ./iztaller/package.nix { nix = inputs'.izlix.packages.nix; };
+        iztaller = callPackage ./iztaller/package.nix { inherit (inputs'.izlix.packages) nix; };
 
         libdoc = callPackage ./docs/lib.nix { inherit (inputs) self; };
         optionsdoc = callPackage ./docs/options.nix {
