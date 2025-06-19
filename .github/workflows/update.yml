@@ -48,21 +48,9 @@ jobs:
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
 
-  build:
-    name: Build
-    needs: update-lockfile
-
-    permissions:
-      contents: read
-
-    uses: ./.github/workflows/build.yml
-    secrets: inherit
-    with:
-      ref: ${{ needs.update-lockfile.outputs.branch }}
-
   merge:
     name: Merge Pull Request
-    needs: [update-lockfile, check, build]
+    needs: [update-lockfile, check]
     runs-on: ubuntu-latest
 
     permissions:
