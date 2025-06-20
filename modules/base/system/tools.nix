@@ -25,8 +25,6 @@ in
       system = {
         disableInstallerTools = cfg.minimal;
 
-        rebuild.enableNg = true;
-
         tools = {
           nixos-version.enable = true;
           nixos-rebuild.enable = true;
