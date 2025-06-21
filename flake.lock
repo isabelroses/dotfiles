@@ -298,11 +298,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1750382804,
-        "narHash": "sha256-DtaBIXcKMQvVx9r7T1jPBJszUBShCfi3ml4xqihphhU=",
+        "lastModified": 1750469164,
+        "narHash": "sha256-N/TsDWv7/UReZ+TuIJIrvtvuN2zwtl2iR+br1Pfirog=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "bc071e1229047872cf5a6a1e214835903c8cb29a",
+        "rev": "be30e081a645ea857bd7dc8dabde3e3b9a1a0705",
         "type": "github"
       },
       "original": {
@@ -547,11 +547,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750380481,
-        "narHash": "sha256-SrdSCmNeY9szqYapu7VHTZp7bnskyCTF1XrW8YsZn1E=",
+        "lastModified": 1750466813,
+        "narHash": "sha256-27r/XKWmuuj2bFXMi9DQvxVPDqcj18/sw9XdhBGCvBY=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "bfd3bab4411547156ea150f3be2ca012704b8949",
+        "rev": "bd494bafc677612193656d78c7e4261e24475b18",
         "type": "github"
       },
       "original": {
