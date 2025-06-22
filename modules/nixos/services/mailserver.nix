@@ -46,7 +46,7 @@ in
       enable = true;
       openFirewall = true;
 
-      stateVersion = 2;
+      stateVersion = 3;
 
       useFsLayout = true;
       vmailUserName = "vmail";
