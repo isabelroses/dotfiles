@@ -4,5 +4,6 @@
     ./wireplum.nix
     ./pulseaudio.nix
     ./rtkit.nix
+    ./noisetorch.nix
   ];
 }
