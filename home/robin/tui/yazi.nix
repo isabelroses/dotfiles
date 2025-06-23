@@ -8,7 +8,7 @@
     enable = true;
 
     settings = {
-      manager = {
+      mgr = {
         sorty_by = "extension";
         show_hidden = true;
         show_symlink = true;
