@@ -1,9 +1,10 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkOrder removePrefix;
+  inherit (lib) mkDefault mkOrder removePrefix;
 in
 {
   programs.zsh = {
+    enable = mkDefault (config.garden.programs.defaults.shell == "zsh");
     autosuggestion.enable = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;
