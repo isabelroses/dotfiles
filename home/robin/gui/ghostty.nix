@@ -1,13 +1,16 @@
 { pkgs, config, ... }:
+let
+  inherit (config.evergarden) accent variant;
+in
 {
   programs.ghostty = {
     # FIXME: ghostty is broken on darwin
     package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else null;
 
     settings = {
-      command = "/etc/profiles/per-user/robin/bin/fish --login";
+      command = "/etc/profiles/per-user/robin/bin/zsh --login";
 
-      theme = "catppuccin-mocha";
+      theme = "evergarden-${variant}-${accent}.yml";
       background-opacity = 0.95;
       cursor-style = "bar";
       window-padding-x = "4,4";
@@ -18,6 +21,8 @@
 
       font-family = config.garden.style.fonts.name;
       font-size = 13;
+
+      adjust-cell-height = "20%";
     };
   };
 }
