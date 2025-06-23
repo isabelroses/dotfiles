@@ -1,7 +1,7 @@
 # this file exists to work around issues with nixpkgs that may arise
 # hopefully that means its empty a lot
 _: prev: {
-  matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (oa: {
+  matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overrideAttrs (_oa: {
     version = "1.132.0";
 
     src = prev.fetchFromGitHub {
@@ -22,7 +22,7 @@ _: prev: {
   });
 
   python313 = prev.python313.override {
-    packageOverrides = pyfinal: pyprev: {
+    packageOverrides = _pyfinal: pyprev: {
       tpm2-pytss = pyprev.tpm2-pytss.overrideAttrs (oa: {
         patches = oa.patches or [ ] ++ [
           # support cryptography >= 45.0.0
