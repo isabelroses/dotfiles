@@ -83,6 +83,7 @@ in
       type = nullOr (enum [
         "waybar"
         "ags"
+        "quickshell"
       ]);
       default = "ags";
     };
