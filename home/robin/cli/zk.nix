@@ -11,7 +11,7 @@ in
 {
   config = mkIf config.garden.profiles.workstation.enable {
     programs = {
-      bat.enable = true;
+      bat.enable = lib.mkDefault true;
 
       zk.settings = {
         enable = true;
