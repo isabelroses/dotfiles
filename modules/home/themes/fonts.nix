@@ -82,5 +82,9 @@ in
           ];
         };
     };
+
+    garden.packages = {
+      ${cfg.name} = cfg.package;
+    };
   };
 }
