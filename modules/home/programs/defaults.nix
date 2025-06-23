@@ -26,6 +26,7 @@ in
       type = enum [
         "ghostty"
         "alacritty"
+        "ghostty"
         "kitty"
         "wezterm"
         "foot"
