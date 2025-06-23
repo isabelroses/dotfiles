@@ -11,7 +11,7 @@ let
     mkEnableOption
     attrValues
     ;
-  inherit (lib.types) listOf str;
+  inherit (lib.types) attrsOf path;
 
   cfg = config.garden.system.printing;
 in
@@ -20,8 +20,8 @@ in
     enable = mkEnableOption "printing";
 
     extraDrivers = mkOption {
-      type = listOf str;
-      default = [ ];
+      type = attrsOf path;
+      default = { };
       description = "A list of additional drivers to install for printing";
     };
   };
@@ -32,11 +32,12 @@ in
       printing = {
         enable = true;
 
-        drivers = attrValues {
-          inherit (pkgs) gutenprint hplip;
-
-          inherit (cfg) extraDrivers;
-        };
+        drivers = attrValues (
+          {
+            inherit (pkgs) gutenprint hplip;
+          }
+          // cfg.extraDrivers
+        );
       };
 
       # required for network discovery of printers
