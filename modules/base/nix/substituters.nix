@@ -1,7 +1,14 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  _class,
+  ...
+}:
 let
   inherit (lib) optionals;
-  hasCtp = config ? catppuccin && config.catppuccin.enable;
+
+  # well well well
+  hasCtp = if _class == "darwin" then true else (config ? catppuccin && config.catppuccin.enable);
 in
 {
   tgirlpkgs.cache.enable = true;
