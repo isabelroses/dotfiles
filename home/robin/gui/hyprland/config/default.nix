@@ -10,6 +10,7 @@
     ./inputs.nix
     ./layout.nix
     ./misc.nix
+    ./variables.nix
     ./windowrules.nix
   ];
 }

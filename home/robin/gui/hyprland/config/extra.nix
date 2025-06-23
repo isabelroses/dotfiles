@@ -37,6 +37,13 @@ in
       ${mapMonitors}
       ${optionalString (length monitors != 1) "${mapMonitorsToWs}"}
 
+      # █▀▀ █▀█ █▀▀ █░█ █▀
+      # █▀░ █▄█ █▄▄ █▄█ ▄█
+      bind = SUPER, left, movefocus, l
+      bind = SUPER, right, movefocus, r
+      bind = SUPER, up, movefocus, u
+      bind = SUPER, down, movefocus, d
+
       # █▀▄▀█ █▀█ █░█ █▀▀
       # █░▀░█ █▄█ ▀▄▀ ██▄
       bind=SUPER, M, submap, move
@@ -50,6 +57,23 @@ in
         binde = , l, movewindow, r
         binde = , i, movewindow, u
         binde = , k, movewindow, d
+
+        bind=,escape,submap,reset
+      submap=reset
+
+      # █▀▄▀█ █▀█ █░█ █▀▀
+      # █░▀░█ █▄█ ▀▄▀ ██▄
+      bind=SUPER SHIFT, M, submap, move-monitor
+      submap=move-monitor
+
+        binde = , left, movecurrentworkspacetomonitor, l
+        binde = , right, movecurrentworkspacetomonitor, r
+        binde = , up, movecurrentworkspacetomonitor, u
+        binde = , down, movecurrentworkspacetomonitor, d
+        binde = , j, movecurrentworkspacetomonitor, l
+        binde = , l, movecurrentworkspacetomonitor, r
+        binde = , i, movecurrentworkspacetomonitor, u
+        binde = , k, movecurrentworkspacetomonitor, d
 
         bind=,escape,submap,reset
       submap=reset

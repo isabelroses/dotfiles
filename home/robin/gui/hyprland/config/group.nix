@@ -4,7 +4,7 @@
     # focus on the window that has just been moved out of the group
     focus_removed_window = true;
 
-    "col.border_active" = "$rosewater";
+    "col.border_active" = "$cherry";
     "col.border_inactive" = "$surface1";
 
     groupbar = {
