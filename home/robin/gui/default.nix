@@ -4,6 +4,7 @@
     ./hyprland
     ./chromium.nix
     ./cosmic-files.nix
+    ./discord
     ./dunst.nix
     ./firefox.nix
     ./ghostty.nix
