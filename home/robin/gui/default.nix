@@ -1,5 +1,6 @@
 {
   imports = [
+    ./aseprite.nix
     ./hyprland
     ./chromium.nix
     ./ghostty.nix
