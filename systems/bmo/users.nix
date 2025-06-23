@@ -7,19 +7,18 @@
     programs = {
       hyprland.enable = true;
 
-      zsh.enable = true;
-      defaults.shell = "zsh";
-
       # programs
-      rofi.enable = true;
-      waybar.enable = true;
+      firefox.enable = true;
       chromium.enable = true;
 
       discord.enable = true;
     };
 
-    garden = {
-      defaults.screenLocker = null;
+    garden.programs.defaults = {
+      shell = "zsh";
+      bar = "quickshell";
+      browser = "chromium";
+      screenLocker = null;
     };
   };
 }

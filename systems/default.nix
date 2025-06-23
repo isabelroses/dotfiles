@@ -50,7 +50,7 @@
       # robin's hosts
       cottage = { };
 
-      # bmo = { };
+      bmo = { };
 
       wisp = {
         class = "wsl";
