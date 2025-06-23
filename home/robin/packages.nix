@@ -57,5 +57,9 @@ in
         pwvucontrol
         ;
     })
+
+    (optionalAttrs cfg.workstation.enable {
+      inherit (pkgs) zig;
+    })
   ];
 }
