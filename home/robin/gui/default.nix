@@ -4,5 +4,6 @@
     ./chromium.nix
     ./ghostty.nix
     ./obsidian.nix
+    ./quickshell.nix
   ];
 }
