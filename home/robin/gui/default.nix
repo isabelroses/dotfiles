@@ -9,6 +9,7 @@
     ./ghostty.nix
     ./obsidian.nix
     ./quickshell.nix
+    ./spotify.nix
     ./wezterm
     ./zen-browser.nix
   ];

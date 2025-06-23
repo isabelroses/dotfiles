@@ -513,6 +513,7 @@
         "nuscht-search": "nuscht-search",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops": "sops",
+        "spicetify-nix": "spicetify-nix",
         "systems": "systems",
         "tgirlpkgs": "tgirlpkgs",
         "zen-browser": "zen-browser"
@@ -581,6 +582,29 @@
         "owner": "Mic92",
         "ref": "pull/779/merge",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "spicetify-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1750567035,
+        "narHash": "sha256-GVNXxMZynKZt+83QQQEVXscqtkJbScvaBrwianovUW4=",
+        "owner": "Gerg-L",
+        "repo": "spicetify-nix",
+        "rev": "e32285f5d1dfc184b039a813644e226c3914e7d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Gerg-L",
+        "repo": "spicetify-nix",
         "type": "github"
       }
     },

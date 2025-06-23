@@ -206,6 +206,17 @@
       };
     };
 
+    spicetify-nix = {
+      type = "github";
+      owner = "Gerg-L";
+      repo = "spicetify-nix";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
+    };
+
     zen-browser = {
       type = "github";
       owner = "0xc000022070";
