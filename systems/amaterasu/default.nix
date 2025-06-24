@@ -22,8 +22,6 @@
       keyboard = "us";
     };
 
-    programs.cosmic.enable = true;
-
     system = {
       boot = {
         loader = "systemd-boot";

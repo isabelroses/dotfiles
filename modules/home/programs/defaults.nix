@@ -24,12 +24,13 @@ in
 
     terminal = {
       type = enum [
+        "ghostty"
         "alacritty"
         "kitty"
         "wezterm"
         "foot"
       ];
-      default = "wezterm";
+      default = "ghostty";
     };
 
     fileManager = {

@@ -123,6 +123,18 @@
       };
     };
 
+    fht-compositor = {
+      type = "github";
+      owner = "nferhat";
+      repo = "fht-compositor";
+      ref = "feat-ipc";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "";
+      };
+    };
+
     homebrew = {
       type = "github";
       owner = "zhaofengli";

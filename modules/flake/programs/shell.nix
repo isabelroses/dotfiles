@@ -22,7 +22,6 @@
             self'.formatter # nix formatter
             pkgs.nix-output-monitor # get clean diff between generations
             inputs'.agenix.packages.agenix # secrets
-            inputs'.tgirlpkgs.packages.nh # help switch systems
           ];
 
           inputsFrom = [ config.treefmt.build.devShell ];

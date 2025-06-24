@@ -1,4 +1,5 @@
 {
+  lib,
   self,
   pkgs,
   config,
@@ -12,5 +13,7 @@ in
     hyprland = mkProgram pkgs "hyprland" {
       enable.default = config.garden.profiles.graphical.enable;
     };
+
+    fht-compositor.enable = lib.mkEnableOption "fht-compositor";
   };
 }

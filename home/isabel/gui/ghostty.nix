@@ -19,7 +19,7 @@ in
     settings = {
       command = "/etc/profiles/per-user/isabel/bin/fish --login";
 
-      theme = mkForce "cuddlefish";
+      # theme = mkForce "cuddlefish";
 
       background-opacity = 0.95;
       cursor-style = "bar";
