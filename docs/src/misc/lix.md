@@ -1,6 +1,13 @@
+I use [lix](https://git.lix.systems/lix-project/lix).
+
+> [!NOTE] Furthermore this is with a custom
+patch set through [izlix](https://github.com/isabelroses/izlix). Though I don't
+recommend using izlix. If you want the patches you may copy them for personal
+use.
+
 This flake makes a point of using lix where possible.
 
-To do so we add the following snippet taken from [modules/base/nix/overlays/default.nix](https://github.com/isabelroses/dotfiles/blob/63a58bee7e7273c82a4c502cac64bcfb68b8e54f/modules/base/nix/overlays/default.nix#L13-L23).
+To do so we add the following snippet taken from [modules/base/nix/overlays/default.nix](https://github.com/isabelroses/dotfiles/blob/463e509725f610d802c483fdc00ce0b77cd778c2/modules/base/nixpkgs/overlays/default.nix#L13-L25).
 What this does is use lix where possible rather than nix.
 
 ```nix
@@ -18,12 +25,3 @@ _: prev: {
   nixForLinking = prev.nixVersions.stable;
 }
 ```
-
-Futhermore, I add the following patches:
-
-- [callpackage cli](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/packages/lix/patches/lix-callpackage-cli.patch) - a patch to add `-C` to `nix build` to allow you to build a package from a file.
-- [abs builtin](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/packages/lix/patches/lix-feat-builtins-abs.patch) - adds the `abs` builtin
-- [greaterThan builtin](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/packages/lix/patches/lix-feat-builtins-greaterThan.patch) - adds the `greaterThan` builtin
-- [pow builtin](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/packages/lix/patches/lix-feat-builtins-pow.patch) - adds the `pow` builtin
-
-None of the patches should be used in production code but are nice to have.
