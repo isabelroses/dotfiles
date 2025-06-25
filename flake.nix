@@ -132,6 +132,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         rust-overlay.follows = "";
+        fht-share-picker.follows = "";
       };
     };
 
