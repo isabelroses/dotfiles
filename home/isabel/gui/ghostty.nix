@@ -1,12 +1,5 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, config, ... }:
 let
-  inherit (lib) mkForce;
-
   cfg = config.garden.programs.ghostty;
 in
 {
