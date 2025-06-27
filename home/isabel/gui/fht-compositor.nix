@@ -13,9 +13,13 @@ in
   imports = [ inputs.fht-compositor.homeModules.default ];
 
   config = lib.mkIf config.garden.programs.fht-compositor.enable {
-    garden.packages = {
-      inherit (pkgs) swww cosmic-files eww;
+    garden = {
+      packages = {
+        inherit (pkgs) cosmic-files quickshell;
+      };
     };
+
+    services.mako.enable = true;
 
     programs.fht-compositor = {
       enable = true;
@@ -25,7 +29,7 @@ in
         autostart = [
           "wl-paste --type text --watch cliphist store" # Stores only text data
           "wl-paste --type image --watch cliphist store" # Stores only image data
-          "swww-daemon"
+          "quickshell"
         ];
 
         input.keyboard = {
@@ -68,6 +72,11 @@ in
           Super-Space = "float-focused-window";
 
           Super-Ctrl-r = "reload-config";
+
+          Super-d = {
+            action = "run-command";
+            arg = "qs ipc call launcher toggle";
+          };
 
           Super-Return = {
             action = "run-command";
@@ -204,6 +213,26 @@ in
             centered = true;
           }
         ];
+      };
+    };
+
+    systemd.user.services.xwayland-sattelite = {
+      Unit = {
+        Description = "Xwayland sattelite service";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+        BindsTo = [ "graphical-session.target" ];
+        Requisite = [ "graphical-session.target" ];
+      };
+      Install.WantedBy = [
+        "graphical-session.target"
+        "fht-compositor.service"
+      ];
+      Service = {
+        Type = "notify";
+        NotifyAccess = "all";
+        ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
+        StandardOutput = "jounral";
       };
     };
   };
