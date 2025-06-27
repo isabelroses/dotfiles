@@ -136,7 +136,9 @@
     "fht-compositor": {
       "inputs": {
         "fht-share-picker": [],
-        "flake-parts": "flake-parts",
+        "flake-parts": [
+          "flake-parts"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -157,28 +159,32 @@
         "type": "github"
       }
     },
-    "flake-parts": {
+    "fht-share-picker": {
       "inputs": {
-        "nixpkgs-lib": [
-          "fht-compositor",
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "rust-overlay": []
       },
       "locked": {
-        "lastModified": 1733312601,
-        "narHash": "sha256-4pDvzqnegAfRkPwO3wmwBhVi/Sye1mzps0zHWYnP88c=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "205b12d8b7cd4802fbcb8e8ef6a0f1408781a4f9",
+        "lastModified": 1735832883,
+        "narHash": "sha256-JX6btqPN6FA/nGYh0W9VnWePwWI3fZTlPLRXF2mALMA=",
+        "owner": "nferhat",
+        "repo": "fht-share-picker",
+        "rev": "999ca73503c4e86cd22876a9a7e2eb2e04c65c67",
         "type": "github"
       },
       "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
+        "owner": "nferhat",
+        "ref": "gtk-rewrite",
+        "repo": "fht-share-picker",
         "type": "github"
       }
     },
-    "flake-parts_2": {
+    "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
           "nixpkgs"
@@ -198,7 +204,7 @@
         "type": "github"
       }
     },
-    "flake-parts_3": {
+    "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
           "ivy",
@@ -314,11 +320,11 @@
         "systems": []
       },
       "locked": {
-        "lastModified": 1750867565,
-        "narHash": "sha256-gEDpy7PYwVQkq1Ly/gyMDiL+Q7Pz5Xqcmxm2rvyOEoU=",
+        "lastModified": 1751061541,
+        "narHash": "sha256-DhJhSCfbr0/qQ4FKAHjFGMmT8/tRnenfSCIF8yfeppA=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "e216d5919faa64dcb13626b61b79a00a831ceab4",
+        "rev": "582544063ad73dc2b92798903cb1e74daf473f1c",
         "type": "github"
       },
       "original": {
@@ -359,7 +365,7 @@
         "flake-compat": [
           "ivy"
         ],
-        "flake-parts": "flake-parts_3",
+        "flake-parts": "flake-parts_2",
         "git-hooks": [
           "ivy"
         ],
@@ -463,7 +469,8 @@
         "easy-hosts": "easy-hosts",
         "evergarden": "evergarden",
         "fht-compositor": "fht-compositor",
-        "flake-parts": "flake-parts_2",
+        "fht-share-picker": "fht-share-picker",
+        "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "homebrew": "homebrew",
         "ivy": "ivy",

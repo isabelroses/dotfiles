@@ -131,8 +131,22 @@
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
         rust-overlay.follows = "";
         fht-share-picker.follows = "";
+      };
+    };
+
+    fht-share-picker = {
+      type = "github";
+      owner = "nferhat";
+      repo = "fht-share-picker";
+      ref = "gtk-rewrite";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        rust-overlay.follows = "";
       };
     };
 

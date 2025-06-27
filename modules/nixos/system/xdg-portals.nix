@@ -11,7 +11,7 @@ in
   xdg.portal = {
     enable = mkDefault config.garden.profiles.graphical.enable;
 
-    # xdgOpenUsePortal = true;
+    xdgOpenUsePortal = true;
 
     config.common = {
       default = [ "gtk" ];

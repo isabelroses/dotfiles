@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   self,
   config,
   inputs',
@@ -14,5 +15,15 @@ in
 {
   config = mkIf cond {
     services.displayManager.sessionPackages = [ inputs'.fht-compositor.packages.default ];
+
+    xdg.portal = {
+      configPackages = [ inputs'.fht-compositor.packages.default ];
+      wlr.enable = false;
+    };
+
+    garden.packages = {
+      fht-share-picker = inputs'.fht-share-picker.packages.default;
+      inherit (pkgs) xdg-utils;
+    };
   };
 }

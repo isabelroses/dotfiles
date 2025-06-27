@@ -14,5 +14,6 @@ in
 {
   config = mkIf cond {
     services.displayManager.sessionPackages = [ pkgs.hyprland ];
+    xdg.portal.wlr.enable = false;
   };
 }

@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -14,6 +15,10 @@ in
 
       # gnome's keyring manager
       seahorse.enable = true;
+    };
+
+    garden.packages = {
+      inherit (pkgs) cosmic-icons;
     };
   };
 }
