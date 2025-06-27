@@ -55,6 +55,8 @@ in
         wl-clipboard
         cliphist
         pwvucontrol
+        youtube-music
+        playerctl
         ;
     })
   ];

@@ -35,9 +35,6 @@ in
 
       # IFD and easy enough to vendor
       fzf.enable = false;
-
-      # https://github.com/nix-community/home-manager/pull/6948
-      mako.enable = false;
     };
   };
 }
