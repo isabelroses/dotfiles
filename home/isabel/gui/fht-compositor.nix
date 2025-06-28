@@ -19,8 +19,6 @@ in
       };
     };
 
-    services.mako.enable = true;
-
     programs.fht-compositor = {
       enable = true;
       settings = {
