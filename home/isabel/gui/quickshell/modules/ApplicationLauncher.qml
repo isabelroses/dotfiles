@@ -1,11 +1,12 @@
-import "root:/components"
-import "root:/data"
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
 import Quickshell.Wayland
+import "root:/components"
+import "root:/data"
 
 Scope {
   id: root
@@ -36,6 +37,8 @@ Scope {
     PanelWindow {
       id: launcher
 
+      property list<DesktopEntry> applications: DesktopEntries.applications.values
+
       anchors.top: true
       margins.top: screen.height / 5
 
@@ -50,66 +53,101 @@ Scope {
       Keys.onEscapePressed: loader.active = false
 
       Rectangle {
+        id: background
         anchors.fill: parent
-        radius: 25
+        radius: 10
         color: Settings.colors.background
 
-        ListView {
-          model: DesktopEntries.applications.values
-
-          ScrollBar.vertical: ScrollBar {}
+        ColumnLayout {
+          spacing: 10
 
           anchors {
-            top: parent.top
-            topMargin: 20
-            bottom: parent.bottom
-            bottomMargin: 20
+            fill: parent
+            topMargin: 10
+            leftMargin: 10
+            rightMargin: 10
+            bottomMargin: 10
           }
 
           width: parent.width
           height: parent.height
-          spacing: 10
 
-          delegate: Rectangle {
-            required property DesktopEntry modelData
+          TextField {
+            id: searchField
+            placeholderText: "Search applications..."
+            font.pointSize: 14
+            color: Settings.colors.foreground
+            placeholderTextColor: Settings.colors.foreground
 
-            width: parent.width - 30
-            height: 60
-            radius: 8
+            Layout.alignment: Qt.AlignCenter
+            Layout.preferredWidth: parent.width
+            Layout.preferredHeight: 40
 
-            anchors.horizontalCenter: parent.horizontalCenter
-
-            color: Settings.colors.border
-
-            IconImage {
-              anchors {
-                left: parent.left
-                leftMargin: 10
-                verticalCenter: parent.verticalCenter
+            onTextChanged: {
+              if (text.length > 0) {
+                applications = DesktopEntries.applications.values.filter(entry => entry.name.toLowerCase().includes(text.toLowerCase()));
+              } else {
+                applications = DesktopEntries.applications.values;
               }
-              width: 48
-              height: 48
-              source: Quickshell.iconPath(modelData.icon, "application-x-executable")
             }
 
-            Text {
-              anchors.centerIn: parent
-              verticalAlignment: Text.AlignVCenter
-              text: modelData.name
-              color: Settings.colors.foreground
-              font.pointSize: 14
+            background: Rectangle {
+              radius: 5
+              color: Settings.colors.backgroundLighter
             }
+          }
 
-            MouseArea {
-              id: mouseArea
-              anchors.fill: parent
-              hoverEnabled: true
-              onClicked: {
-                modelData.execute();
-                loader.active = false;
+          ListView {
+            model: applications
+            spacing: 5
+
+            ScrollBar.vertical: ScrollBar {}
+
+            Layout.alignment: Qt.AlignCenter
+            Layout.preferredWidth: parent.width
+            // account for searchField height and margins
+            Layout.preferredHeight: parent.height - searchField.height - 20
+
+            delegate: Rectangle {
+              required property DesktopEntry modelData
+
+              width: parent.width
+              height: 60
+              radius: 5
+
+              color: Settings.colors.backgroundLighter
+
+              IconImage {
+                anchors {
+                  left: parent.left
+                  leftMargin: 10
+                  verticalCenter: parent.verticalCenter
+                }
+                width: 48
+                height: 48
+                source: Quickshell.iconPath(modelData.icon, "application-x-executable")
+              }
+
+              Text {
+                anchors.centerIn: parent
+                verticalAlignment: Text.AlignVCenter
+                text: modelData.name
+                color: Settings.colors.foreground
+                font.pointSize: 14
+              }
+
+              MouseArea {
+                id: mouseArea
+                anchors.fill: parent
+                hoverEnabled: true
+                onClicked: {
+                  modelData.execute();
+                  loader.active = false;
+                }
               }
             }
           }
+          
         }
       }
     }

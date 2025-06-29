@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Widgets
@@ -7,11 +8,7 @@ IconImage {
   id: launcher
   source: Quickshell.iconPath("nix-snowflake")
 
-  anchors {
-    horizontalCenter: parent.horizontalCenter
-    top: parent.top
-    topMargin: 15
-  }
+  Layout.alignment: Qt.AlignCenter
 
   width: 16
   height: 16

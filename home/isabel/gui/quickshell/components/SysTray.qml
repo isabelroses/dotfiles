@@ -9,11 +9,7 @@ import "root:/data"
 ColumnLayout {
   id: systray
 
-  anchors {
-    bottom: parent.bottom
-    bottomMargin: 10
-    horizontalCenter: parent.horizontalCenter
-  }
+  Layout.alignment: Qt.AlignCenter
 
   Repeater {
     model: SystemTray.items
@@ -57,8 +53,8 @@ ColumnLayout {
 
           color: "transparent"
 
-          width: 200
-          height: 200
+          implicitWidth: 200
+          implicitHeight: 200
 
           Rectangle {
             anchors.fill: parent
@@ -95,7 +91,7 @@ ColumnLayout {
                   rightMargin: 5
                 }
 
-                color: Settings.colors.border
+                color: Settings.colors.backgroundLighter
                 radius: 5
 
                 Text {

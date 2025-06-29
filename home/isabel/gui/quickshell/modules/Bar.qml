@@ -42,7 +42,10 @@ Scope {
             left: parent.left
             top: parent.top
             right: parent.right
+            topMargin: 15
           }
+
+          spacing: 15
 
           Launcher {}
           Workspaces {}
@@ -55,7 +58,10 @@ Scope {
             top: parent.verticalCenter
           }
 
+          spacing: 20
+
           Clock {}
+          Noti {}
         }
 
         ColumnLayout {
@@ -63,11 +69,14 @@ Scope {
             left: parent.left
             bottom: parent.bottom
             right: parent.right
+            bottomMargin: 15
           }
 
+          spacing: 15
+
           SysTray {}
-          // Volume {}
-          // Network {}
+          Volume {}
+          Network {}
         }
       }
     }

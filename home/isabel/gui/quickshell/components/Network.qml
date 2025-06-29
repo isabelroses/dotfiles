@@ -1,20 +1,15 @@
 //@ pragma IconTheme Cosmic
 
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import "root:/services"
 
 IconImage {
   id: networkIcon
-  source: Quickshell.iconPath(Networking.active?.icon)
+  source: Quickshell.iconPath(Networking.active.icon)
 
-  anchors.centerIn: parent
   width: 16
   height: 16
-
-  onStatusChanged: {
-    if (status === Image.Error) {
-      console.error("Failed to load background image:", source);
-    }
-  }
+  Layout.alignment: Qt.AlignCenter
 }

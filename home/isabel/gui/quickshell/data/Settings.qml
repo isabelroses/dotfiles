@@ -9,7 +9,10 @@ Singleton {
   property Colors colors: Colors {}
 
   component Colors: QtObject {
+    property color backgroundLightest: "#313244"
+    property color backgroundLighter: "#1e1e2e"
     property color background: "#181825"
+    property color backgroundDarker: "#11111b"
     property color foreground: "#cdd6f4"
     property color accent: "#89b4fa"
     property color error: "#f38ba8"

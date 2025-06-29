@@ -1,7 +1,12 @@
 import Quickshell
 import Quickshell.Widgets
+import QtQuick.Layouts
 
 IconImage {
-  implicitSize: 30
+  id: volumeIcon
   source: Quickshell.iconPath("audio-volume-high-symbolic")
+  width: 16
+  height: 16
+
+  Layout.alignment: Qt.AlignCenter
 }

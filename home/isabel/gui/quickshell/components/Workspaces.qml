@@ -3,11 +3,17 @@ import Quickshell
 import Quickshell.Io
 import QtQuick.Layouts
 import "root:/data"
+import "root:/services"
 
 Item {
   id: workspaces
 
   property int selectedWorkspace: 0
+
+  Layout.alignment: Qt.AlignCenter
+
+  width: 20
+  height: 20
 
   Process {
     id: getSelectedWorkspace
@@ -28,25 +34,23 @@ Item {
     onTriggered: getSelectedWorkspace.running = true
   }
 
+  ColumnLayout {
+    spacing: 5
 
-  Repeater {
-    model: 9
+    anchors.horizontalCenter: parent.horizontalCenter
 
-    Text {
-      id: workspace
-      required property int index
+    Repeater {
+      model: 9
 
-      anchors {
-        left: parent.left
-        top: parent.top
-        topMargin: 20 + (index * 22)
-        leftMargin: 15
+      Text {
+        id: workspace
+        required property int index
+
+        font.pointSize: 13
+
+        color: workspaces.selectedWorkspace === index ? Settings.colors.accent : Settings.colors.foreground
+        text: index + 1
       }
-
-      font.pointSize: 13
-
-      color: workspaces.selectedWorkspace === index ? Settings.colors.accent : Settings.colors.foreground
-      text: index + 1
     }
   }
 }
