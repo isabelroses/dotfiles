@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkOption mkEnableOption;
+  inherit (lib) mkIf mkOption mkEnableOption;
   inherit (lib.types) str int package;
 
   cfg = config.garden.style.fonts;
@@ -53,9 +53,13 @@ in
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
+    garden.packages = {
+      inherit (cfg) package;
+    };
+
     fonts.fontconfig = {
-      inherit (cfg) enable;
+      enable = true;
 
       # create all the fonts and set the fallback to the symbols nerd font
       defaultFonts =
