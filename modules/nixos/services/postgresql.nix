@@ -22,7 +22,6 @@ in
 
       ensureDatabases = [
         "akkoma"
-        "nextcloud"
         "forgejo"
         "grafana"
         "vaultwarden"
@@ -55,10 +54,6 @@ in
         }
         {
           name = "grafana";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "nextcloud";
           ensureDBOwnership = true;
         }
         {
