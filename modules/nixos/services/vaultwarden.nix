@@ -36,33 +36,39 @@ in
         environmentFile = config.age.secrets.vaultwarden-env.path;
         backupDir = "/srv/storage/vaultwarden/backup";
 
+        # https://github.com/dani-garcia/vaultwarden/blob/1.34.1/.env.template
         config = {
           DOMAIN = "https://${cfg.domain}";
           ROCKET_ADDRESS = cfg.host;
           ROCKET_PORT = cfg.port;
-          extendedLogging = true;
-          invitationsAllowed = true;
-          useSyslog = true;
-          logLevel = "warn";
-          showPasswordHint = false;
+
           SIGNUPS_ALLOWED = false;
-          signupsAllowed = false;
-          signupsDomainsWhitelist = "${rdomain}";
-          signupsVerify = true;
-          smtpAuthMechanism = "Login";
-          smtpFrom = "vaultwarden@${rdomain}";
-          smtpFromName = "Isabelroses's Vaultwarden Service";
-          smtpHost = config.garden.services.mailserver.domain;
-          smtpPort = 465;
-          smtpSecurity = "force_tls";
-          dataDir = "/srv/storage/vaultwarden";
+          SIGNUPS_DOMAINS_WHITELIST = "${rdomain}";
+          SIGNUPS_VERIFY = true;
+          INVITATIONS_ALLOWED = true;
+
+          SMTP_AUTH_MECHANISM = "Login";
+          SMTP_FROM = "vaultwarden@${rdomain}";
+          SMTP_FROM_NAME = "Isabelroses's Vaultwarden Service";
+          SMTP_HOST = config.garden.services.mailserver.domain;
+          SMTP_PORT = 465;
+          SMTP_SECURITY = "force_tls";
+
+          DATA_DIR = "/srv/storage/vaultwarden";
+          SHOW_PASSWORD_HINT = false;
+
+          LOG_LEVEL = "warn";
+          EXTENDED_LOGGING = true;
+          USE_SYS_LOG = true;
         };
       };
 
+      # https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples
       nginx.virtualHosts.${cfg.domain} = {
         locations."/" = {
           proxyPass = "http://${cfg.host}:${toString cfg.port}";
           extraConfig = "proxy_pass_header Authorization;";
+          proxyWebsockets = true;
         };
       };
 
