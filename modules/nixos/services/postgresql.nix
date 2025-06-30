@@ -17,7 +17,7 @@ in
   config = mkIf cfg.postgresql.enable {
     services.postgresql = {
       enable = true;
-      package = pkgs.postgresql_16;
+      package = pkgs.postgresql_17;
       dataDir = "/srv/storage/postgresql/${config.services.postgresql.package.psqlSchema}";
 
       ensureDatabases = [
