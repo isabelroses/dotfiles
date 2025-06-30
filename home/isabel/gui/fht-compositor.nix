@@ -13,10 +13,8 @@ in
   imports = [ inputs.fht-compositor.homeModules.default ];
 
   config = lib.mkIf config.garden.programs.fht-compositor.enable {
-    garden = {
-      packages = {
-        inherit (pkgs) cosmic-files quickshell;
-      };
+    garden.packages = {
+      inherit (pkgs) cosmic-files;
     };
 
     programs.fht-compositor = {
