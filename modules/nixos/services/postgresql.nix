@@ -20,19 +20,6 @@ in
       package = pkgs.postgresql_17;
       dataDir = "/srv/storage/postgresql/${config.services.postgresql.package.psqlSchema}";
 
-      ensureDatabases = [
-        "akkoma"
-        "forgejo"
-        "grafana"
-        "vaultwarden"
-        "roundcube"
-        "headscale"
-        "wakapi"
-        "vikunja"
-        "plausible"
-        "matrix-sliding-sync"
-      ];
-
       ensureUsers = [
         {
           name = "postgres";
@@ -43,46 +30,6 @@ in
             createdb = true;
             replication = true;
           };
-        }
-        {
-          name = "forgejo";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "akkoma";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "grafana";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "vaultwarden";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "roundcube";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "headscale";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "wakapi";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "vikunja";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "plausible";
-          ensureDBOwnership = true;
-        }
-        {
-          name = "matrix-sliding-sync";
-          ensureDBOwnership = true;
         }
       ];
 

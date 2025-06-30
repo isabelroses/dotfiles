@@ -152,6 +152,14 @@ in
         };
       };
 
+      postgresql = {
+        ensureDatabases = [ "grafana" ];
+        ensureUsers = lib.singleton {
+          name = "grafana";
+          ensureDBOwnership = true;
+        };
+      };
+
       nginx.virtualHosts.${cfg.domain} = {
         locations."/" = {
           proxyPass = "http://${cfg.host}:${toString cfg.port}/";

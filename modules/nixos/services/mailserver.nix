@@ -276,6 +276,14 @@ in
           enableACME = false;
         };
       };
+
+      postgresql = {
+        ensureDatabases = [ "roundcube" ];
+        ensureUsers = lib.singleton {
+          name = "roundcube";
+          ensureDBOwnership = true;
+        };
+      };
     };
   };
 }

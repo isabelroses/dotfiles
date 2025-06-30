@@ -173,6 +173,14 @@ in
         };
       };
 
+      postgresql = {
+        ensureDatabases = [ "forgejo" ];
+        ensureUsers = lib.singleton {
+          name = "forgejo";
+          ensureDBOwnership = true;
+        };
+      };
+
       anubis = mkIf config.garden.services.anubis.enable {
         instances.forgejo.settings = {
           TARGET = "unix://${config.services.forgejo.settings.server.HTTP_ADDR}";

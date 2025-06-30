@@ -64,6 +64,14 @@ in
         };
       };
 
+      postgresql = {
+        ensureDatabases = [ "headscale" ];
+        ensureUsers = lib.singleton {
+          name = "headscale";
+          ensureDBOwnership = true;
+        };
+      };
+
       nginx.virtualHosts.${cfg.domain} = {
         locations."/" = {
           recommendedProxySettings = true;

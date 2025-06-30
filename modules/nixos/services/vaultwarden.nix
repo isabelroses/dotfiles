@@ -65,6 +65,14 @@ in
           extraConfig = "proxy_pass_header Authorization;";
         };
       };
+
+      postgresql = {
+        ensureDatabases = [ "vaultwarden" ];
+        ensureUsers = lib.singleton {
+          name = "vaultwarden";
+          ensureDBOwnership = true;
+        };
+      };
     };
   };
 }

@@ -47,14 +47,6 @@ in
     };
 
     services = {
-      postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
-        CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
-        CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
-          TEMPLATE template0
-          LC_COLLATE = "C"
-          LC_CTYPE = "C";
-      '';
-
       matrix-synapse = {
         enable = true;
 
@@ -158,6 +150,22 @@ in
 
             disable_existing_loggers: False
           '';
+        };
+      };
+
+      postgresql = {
+        initialScript = pkgs.writeText "synapse-init.sql" ''
+          CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
+          CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+            TEMPLATE template0
+            LC_COLLATE = "C"
+            LC_CTYPE = "C";
+        '';
+
+        ensureDatabases = [ "matrix-sliding-sync" ];
+        ensureUsers = lib.singleton {
+          name = "matrix-sliding-sync";
+          ensureDBOwnership = true;
         };
       };
 

@@ -94,6 +94,14 @@ in
       nginx.virtualHosts.${cfg.domain} = {
         locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
       };
+
+      postgresql = {
+        ensureDatabases = [ "vikunja" ];
+        ensureUsers = lib.singleton {
+          name = "vikunja";
+          ensureDBOwnership = true;
+        };
+      };
     };
 
     users = {
