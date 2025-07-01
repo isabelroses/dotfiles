@@ -7,6 +7,7 @@
       ghostty.enable = true;
       wezterm.enable = true;
       chromium.enable = true;
+      quickshell.enable = true;
       fish.enable = true;
 
       fht-compositor.enable = true;
