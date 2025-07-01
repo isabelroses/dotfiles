@@ -16,7 +16,7 @@ in
     });
 
     garden.packages = {
-      inherit (cfg) package;
+      quickshell = cfg.package;
     };
   };
 }

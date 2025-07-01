@@ -55,7 +55,7 @@ in
 
   config = mkIf cfg.enable {
     garden.packages = {
-      inherit (cfg) package;
+      ${cfg.package.name} = cfg.package;
     };
 
     fonts.fontconfig = {
