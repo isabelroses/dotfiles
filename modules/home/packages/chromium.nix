@@ -25,7 +25,7 @@ in
         "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
         "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
         "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
-        "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
+        "hlepfoohegkhhmjieoechaddaejaokhf" # refined github
       ]
       ++ optionals osConfig.garden.profiles.gaming.enable [
         "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
