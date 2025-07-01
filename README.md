@@ -43,11 +43,6 @@ Therefore most things will not work out of the box without some changes, so be w
 
 ### What does this repo provided
 
-- Several applications and tools for my needs, but you can choose the one that best suits your needs
-  - `neovim`, `micro` and `vscode` for text editing
-  - `firefox` and `chromium` for web browsing
-  - `alacritty`, `kitty` and `wezterm` for terminal emulators
-  - `bash`, `zsh`, `fish` and `nushell` for shells
 - Modular configuration, so you can add or remove parts of the configuration
 - Sensible defaults, so you can get started quickly
 - Docs kind of
