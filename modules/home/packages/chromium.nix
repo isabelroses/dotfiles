@@ -33,10 +33,6 @@ in
       ];
 
     package = cfg.package.override {
-      enableWideVine = true;
-
-      # https://github.com/secureblue/hardened-chromium
-      # https://github.com/secureblue/secureblue/blob/e500f078efc5748d5033a881bbbcdcd2de95a813/files/system/usr/etc/chromium/chromium.conf.md
       commandLineArgs = concatLists [
         # Aesthetics
         [
@@ -75,6 +71,8 @@ in
         ]
 
         # Security
+        # https://github.com/secureblue/hardened-chromium
+        # https://github.com/secureblue/secureblue/blob/e500f078efc5748d5033a881bbbcdcd2de95a813/files/system/usr/etc/chromium/chromium.conf.md
         [
           # Use strict extension verification
           "--extension-content-verification=enforce_strict"
@@ -110,6 +108,8 @@ in
               "ReduceAcceptLanguage"
               # Enable content settings partitioning
               "ContentSettingsPartitioning"
+              # allow --force-dark-mode to work
+              "WebContentsForceDark"
             ]
           )
 
