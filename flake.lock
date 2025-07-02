@@ -301,11 +301,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1751398185,
-        "narHash": "sha256-iMQywVyaaIaHXp3bh/XqxPmp3yBknCdI0uCXsqRkXZI=",
+        "lastModified": 1751450375,
+        "narHash": "sha256-VDqJNDA3MNyTK4BkseP/MGhR4ra3rt1VnASKpLcYTy0=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "c0fbf496ce463565b6e752b4c3ee9a6f31deae60",
+        "rev": "82364081ef1726d828eeafe42e759616a1cae40d",
         "type": "github"
       },
       "original": {
