@@ -21,7 +21,7 @@ in
         # Use the faster dbus-broker instead of the classic dbus-daemon
         implementation = "broker";
 
-        packages = builtins.attrValues { inherit (pkgs) dconf gcr udisks2; };
+        packages = builtins.attrValues { inherit (pkgs) dconf gcr_4 udisks2; };
       };
 
       # disable chrony in favor if systemd-timesyncd
