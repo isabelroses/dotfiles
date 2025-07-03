@@ -207,6 +207,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         systems.follows = "systems";
+        neovim-nightly-overlay.inputs.flake-parts.follows = "flake-parts";
       };
     };
 
