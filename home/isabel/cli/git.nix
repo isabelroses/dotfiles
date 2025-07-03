@@ -9,11 +9,9 @@ let
   inherit (lib) mkIf mkMerge map;
   inherit (lib.hm.dag) entryBefore;
   inherit (self.lib) giturl;
-
-  cfg = config.garden.programs.git;
 in
 {
-  config = mkIf cfg.enable (mkMerge [
+  config = mkIf config.programs.git.enable (mkMerge [
     (mkIf config.garden.profiles.workstation.enable {
       garden.packages = {
         inherit (pkgs)
@@ -37,8 +35,7 @@ in
 
     {
       programs.git = {
-        enable = true;
-        inherit (cfg) package;
+        package = pkgs.gitMinimal;
         userName = "isabel";
         userEmail = "isabel" + "@" + "isabelroses" + "." + "com"; # obsfuscate email to prevent webscrapper spam
 
@@ -60,7 +57,6 @@ in
 
         # git commit signing
         signing = {
-          key = cfg.signingKey;
           format = "openpgp";
           signByDefault = true;
         };

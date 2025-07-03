@@ -9,11 +9,12 @@ let
   inherit (config.garden.programs) defaults;
 in
 {
-  config = mkIf config.garden.programs.notes.enable {
+  config = mkIf config.garden.profiles.workstation.enable {
     programs = {
       bat.enable = true;
 
       zk.settings = {
+        enable = true;
         note = {
           # The default title used for new note, if no `--title` flag is provided.
           default-title = "untitled";

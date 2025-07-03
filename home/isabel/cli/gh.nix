@@ -6,7 +6,7 @@
 }:
 {
   programs.gh = {
-    enable = config.garden.programs.git.enable && config.garden.profiles.workstation.enable;
+    enable = config.programs.git.enable && config.garden.profiles.workstation.enable;
 
     extensions = lib.attrValues {
       inherit (pkgs)

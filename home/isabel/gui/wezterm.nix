@@ -1,18 +1,8 @@
 {
-  lib,
-  config,
-  ...
-}:
-let
-  cfg = config.garden.programs.wezterm;
-in
-{
-  config = lib.mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+  catppuccin.wezterm.enable = false;
 
-    xdg.configFile."wezterm" = {
-      source = ./wezterm;
-      recursive = true;
-    };
+  xdg.configFile."wezterm" = {
+    source = ./wezterm;
+    recursive = true;
   };
 }

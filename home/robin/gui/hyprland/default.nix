@@ -5,10 +5,16 @@
   ...
 }:
 let
-  cfg = config.garden.programs.hyprland;
+  cfg = config.programs.hyprland;
 in
 {
   imports = [ ./config ];
+
+  options = {
+    programs.hyprland = {
+      enable = lib.mkEnableOption "Hyprland window manager";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     garden.packages = { inherit (pkgs) swww hyprpicker; };
@@ -16,8 +22,6 @@ in
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
-
-      inherit (cfg) package;
 
       systemd = {
         enable = true;

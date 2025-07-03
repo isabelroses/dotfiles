@@ -2,7 +2,7 @@
 {
   config = {
     programs.gh = {
-      enable = config.garden.programs.git.enable && config.garden.profiles.workstation.enable;
+      enable = config.programs.git.enable && config.garden.profiles.workstation.enable;
 
       settings = {
         git_protocol = "ssh";

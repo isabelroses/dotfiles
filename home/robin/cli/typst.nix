@@ -8,7 +8,7 @@ let
   inherit (lib) mkIf;
 in
 {
-  config = mkIf config.garden.programs.notes.enable {
+  config = mkIf config.garden.profiles.workstation.enable {
     garden.packages = {
       inherit (pkgs) typst;
     };

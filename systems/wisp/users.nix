@@ -1,18 +1,14 @@
-{ inputs', ... }:
 {
   garden.system = {
     mainUser = "robin";
     users = [ "robin" ];
   };
 
-  home-manager.users.robin.garden = {
+  home-manager.users.robin = {
+    garden.programs.defaults.shell = "zsh";
+
     programs = {
-      notes.enable = true;
-
       zsh.enable = true;
-      defaults.shell = "zsh";
-
-      neovim.package = inputs'.ivy.packages.default;
     };
   };
 }

@@ -10,7 +10,7 @@ let
 
   configFile = "${config.xdg.configHome}/lazygit/config.yml";
 
-  cond = config.garden.profiles.workstation.enable && config.garden.programs.git.enable;
+  cond = config.garden.profiles.workstation.enable && config.programs.git.enable;
 in
 {
   config = mkIf cond {

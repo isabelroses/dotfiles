@@ -1,13 +1,9 @@
 { lib, config, ... }:
 let
   inherit (lib) mkOrder removePrefix;
-
-  cfg = config.garden.programs.zsh;
 in
 {
   programs.zsh = {
-    inherit (cfg) enable package;
-
     autosuggestion.enable = true;
     # enableCompletion = true;
     syntaxHighlighting.enable = true;

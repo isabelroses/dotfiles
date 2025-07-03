@@ -10,7 +10,7 @@ let
   inherit (self.lib) giturl;
   inherit (lib.hm.dag) entryBefore;
 
-  cfg = config.garden.programs.git;
+  cfg = config.programs.git;
 in
 {
   config = mkIf cfg.enable (mkMerge [
@@ -36,8 +36,7 @@ in
 
     {
       programs.git = {
-        enable = true;
-        inherit (cfg) package;
+        package = pkgs.gitMinimal;
         userName = "robin";
         userEmail = "comfysage" + "@" + "isabelroses" + "." + "com";
 

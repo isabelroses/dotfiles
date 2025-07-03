@@ -1,24 +1,15 @@
+{ pkgs, ... }:
 {
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  cfg = config.garden.programs.quickshell;
-in
-{
-  config = lib.mkIf config.garden.programs.quickshell.enable {
-    garden.programs.quickshell.package = pkgs.symlinkJoin {
+  programs.quickshell = {
+    package = pkgs.symlinkJoin {
       name = "quickshell-wrapped";
       paths = [
         pkgs.quickshell
         pkgs.kdePackages.qtimageformats
       ];
+      meta.mainProgram = pkgs.quickshell.meta.mainProgram;
     };
 
-    garden.packages = {
-      quickshell = cfg.package;
-    };
+    systemd.enable = true;
   };
 }

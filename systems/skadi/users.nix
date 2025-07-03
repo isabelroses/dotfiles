@@ -1,8 +1,8 @@
 {
-  home-manager.users.isabel.garden = {
+  home-manager.users.isabel = {
     programs = {
       git.enable = true;
-      git.signingKey = "3E7C7A1B5DEDBB03";
+      git.signing.key = "3E7C7A1B5DEDBB03";
     };
   };
 }

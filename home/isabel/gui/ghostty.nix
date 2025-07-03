@@ -1,13 +1,8 @@
 { pkgs, config, ... }:
-let
-  cfg = config.garden.programs.ghostty;
-in
 {
   programs.ghostty = {
-    inherit (cfg) enable;
-
     # FIXME: ghostty is broken on darwin
-    package = if pkgs.stdenv.hostPlatform.isLinux then cfg.package else null;
+    package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else null;
 
     settings = {
       command = "/etc/profiles/per-user/isabel/bin/fish --login";

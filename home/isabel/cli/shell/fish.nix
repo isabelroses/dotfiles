@@ -1,18 +1,9 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, ... }:
 let
   inherit (lib) optionalString;
-
-  cfg = config.garden.programs.fish;
 in
 {
   programs.fish = {
-    inherit (cfg) enable package;
-
     plugins = [ ];
 
     functions = {

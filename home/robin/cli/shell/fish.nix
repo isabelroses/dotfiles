@@ -19,7 +19,6 @@ let
 in
 {
   programs.fish = {
-    inherit (config.garden.programs.fish) enable;
     plugins = [ ];
 
     functions = {

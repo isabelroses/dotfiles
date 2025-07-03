@@ -5,19 +5,23 @@
   ...
 }:
 let
-  inherit (lib) attrValues;
+  inherit (lib) attrValues mkIf;
 in
 {
-  config.garden.programs = {
-    obsidian.runtimeInputs = attrValues {
-      inherit (pkgs)
-        # for the pandoc plugin
-        pandoc
+  garden.packages = mkIf config.garden.profiles.workstation.enable {
+    obsidian = pkgs.symlinkJoin {
+      name = "obsidian-wrapped";
+      paths = attrValues {
+        inherit (pkgs)
+          # for the pandoc plugin
+          pandoc
 
-        # for the obsidian-git plugin
-        git
-        git-lfs
-        ;
+          # for the obsidian-git plugin
+          git
+          git-lfs
+          ;
+      };
+      meta.mainProgram = pkgs.obsidian.meta.mainProgram;
     };
   };
 }

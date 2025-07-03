@@ -1,10 +1,8 @@
 {
-  home-manager.users.isabel.garden = {
+  home-manager.users.isabel = {
     programs = {
-      notes.enable = true;
-
       discord.enable = true;
-      git.signingKey = "3E7C7A1B5DEDBB03";
+      git.signing.key = "3E7C7A1B5DEDBB03";
       fish.enable = true;
     };
   };
