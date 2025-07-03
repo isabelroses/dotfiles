@@ -9,11 +9,13 @@ let
 in
 {
   config = lib.mkIf config.garden.programs.quickshell.enable {
-    garden.programs.quickshell.package = pkgs.quickshell.overrideAttrs (oa: {
-      buildInputs = oa.buildInputs or [ ] ++ [
+    garden.programs.quickshell.package = pkgs.symlinkJoin {
+      name = "quickshell-wrapped";
+      paths = [
+        pkgs.quickshell
         pkgs.kdePackages.qtimageformats
       ];
-    });
+    };
 
     garden.packages = {
       quickshell = cfg.package;
