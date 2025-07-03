@@ -12,20 +12,18 @@ in
 {
   imports = [ inputs.fht-compositor.homeModules.default ];
 
-  config = lib.mkIf config.garden.programs.fht-compositor.enable {
+  config = lib.mkIf config.programs.fht-compositor.enable {
     garden.packages = {
       inherit (pkgs) cosmic-files;
     };
 
     programs.fht-compositor = {
-      enable = true;
       settings = {
         cursor = { inherit (config.home.pointerCursor) name size; };
 
         autostart = [
           "wl-paste --type text --watch cliphist store" # Stores only text data
           "wl-paste --type image --watch cliphist store" # Stores only image data
-          "quickshell"
         ];
 
         input.keyboard = {

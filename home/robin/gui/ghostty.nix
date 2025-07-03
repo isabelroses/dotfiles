@@ -1,20 +1,8 @@
+{ pkgs, config, ... }:
 {
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  inherit (lib) mkIf;
-
-  cfg = config.garden.programs.ghostty;
-in
-{
-  programs.ghostty = mkIf cfg.enable {
-    enable = true;
-
+  programs.ghostty = {
     # FIXME: ghostty is broken on darwin
-    package = if pkgs.stdenv.hostPlatform.isLinux then cfg.package else null;
+    package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else null;
 
     settings = {
       command = "/etc/profiles/per-user/robin/bin/fish --login";

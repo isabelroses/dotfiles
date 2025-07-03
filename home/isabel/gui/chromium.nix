@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   osConfig,
   ...
@@ -11,12 +12,10 @@ let
     concatMapStrings
     enableFeature
     ;
-
-  cfg = config.garden.programs.chromium;
 in
 {
   programs.chromium = {
-    inherit (cfg) enable;
+    inherit (config.garden.profiles.graphical) enable;
 
     extensions =
       [
@@ -32,7 +31,7 @@ in
         "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
       ];
 
-    package = cfg.package.override {
+    package = pkgs.chromium.override {
       commandLineArgs = concatLists [
         # Aesthetics
         [

@@ -14,10 +14,6 @@
       description = "helpers";
     }
     {
-      name = "programs";
-      description = "programs";
-    }
-    {
       name = "secrets";
       description = "secrets";
     }

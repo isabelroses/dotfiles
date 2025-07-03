@@ -5,7 +5,7 @@
 }:
 {
   programs.jujutsu = {
-    inherit (config.garden.profiles.workstation) enable;
+    enable = config.programs.git.enable && config.garden.profiles.workstation.enable;
 
     settings = {
       user = {

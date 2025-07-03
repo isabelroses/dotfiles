@@ -7,7 +7,6 @@ let
     template = import ./template; # templates, selections of code that are repeated
     hardware = import ./hardware.nix;
     helpers = import ./helpers.nix { inherit lib; };
-    programs = import ./programs.nix { inherit lib; };
     secrets = import ./secrets.nix { inherit inputs; };
     services = import ./services.nix { inherit lib; };
     validators = import ./validators.nix { inherit lib; };
@@ -27,7 +26,6 @@ let
       indexOf
       intListToStringList
       ;
-    inherit (final.programs) mkProgram;
     inherit (final.secrets) mkUserSecret mkSystemSecret;
     inherit (final.services) mkGraphicalService mkHyprlandService mkServiceOption;
     inherit (final.validators)

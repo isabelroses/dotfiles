@@ -1,6 +1,5 @@
 { config, ... }:
 let
-  # TODO: come back and change this a bit
   ss = symbol: style: {
     inherit symbol;
     format = "[$symbol ](${style})";

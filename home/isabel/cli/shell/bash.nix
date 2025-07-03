@@ -1,7 +1,6 @@
 { config, ... }:
 {
   programs.bash = {
-    inherit (config.garden.programs.bash) enable package;
     enableCompletion = true;
 
     historyFile = "${config.xdg.stateHome}/bash/history";

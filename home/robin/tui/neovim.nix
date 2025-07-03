@@ -1,13 +1,12 @@
+{ inputs, config, ... }:
 {
-  lib,
-  config,
-  ...
-}:
-let
-  inherit (lib) optional;
+  imports = [
+    inputs.ivy.homeModules.default
+  ];
 
-  cfg = config.garden.programs.neovim;
-in
-{
-  home.packages = optional cfg.enable cfg.package ++ optional cfg.gui.enable cfg.gui.package;
+  programs.ivy = {
+    enable = true;
+    includePerLanguageTooling = config.garden.profiles.workstation.enable;
+    gui.enable = config.garden.profiles.graphical.enable;
+  };
 }

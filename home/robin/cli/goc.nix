@@ -1,10 +1,16 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (lib) mkIf;
-  cfg = config.garden.programs.cocogitto;
 in
 {
-  config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+  config = mkIf config.programs.git.enable {
+    garden.packages = {
+      inherit (pkgs) cocogitto;
+    };
   };
 }

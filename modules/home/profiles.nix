@@ -1,4 +1,4 @@
-{ osConfig, ... }:
+{ lib, osConfig, ... }:
 let
   cfg = osConfig.garden.profiles;
 in
@@ -19,4 +19,6 @@ in
       hetzner.enable = cfg.server.hetzner.enable;
     };
   };
+
+  programs.git.enable = lib.mkDefault cfg.workstation.enable;
 }
