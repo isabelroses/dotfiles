@@ -8,9 +8,13 @@ let
   inherit (lib) attrValues;
 
   inherit (config.garden.programs) defaults;
+
+  cond =
+    config.garden.profiles.workstation.enable
+    && (config.garden.profiles.workstation.enable || pkgs.stdenv.hostPlatform.isDarwin);
 in
 {
-  config = lib.mkIf config.garden.profiles.workstation.enable {
+  config = lib.mkIf cond {
     garden.packages = {
       obsidian = pkgs.symlinkJoin {
         name = "obsidian-wrapped";

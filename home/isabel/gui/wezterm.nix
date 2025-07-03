@@ -1,8 +1,11 @@
+{ lib, config, ... }:
 {
-  catppuccin.wezterm.enable = false;
+  config = lib.mkIf config.programs.wezterm.enable {
+    catppuccin.wezterm.enable = false;
 
-  xdg.configFile."wezterm" = {
-    source = ./wezterm;
-    recursive = true;
+    xdg.configFile."wezterm" = {
+      source = ./wezterm;
+      recursive = true;
+    };
   };
 }
