@@ -1,9 +1,8 @@
 {
   programs.chromium = {
-    extensions =
-      [
-        "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
-        "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
-      ];
+    extensions = [
+      "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
+      "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
+    ];
   };
 }

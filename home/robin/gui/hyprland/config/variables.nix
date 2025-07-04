@@ -9,7 +9,8 @@ let
 in
 {
   wayland.windowManager.hyprland.settings = {
-    "$notifycmd" = "notify-send -e -a hyprland -h string:x-canonical-private-synchronous:hypr-cfg -u low";
+    "$notifycmd" =
+      "notify-send -e -a hyprland -h string:x-canonical-private-synchronous:hypr-cfg -u low";
 
     "$red" = "0xff${palette.red}";
     "$orange" = "0xff${palette.orange}";

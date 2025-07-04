@@ -4,7 +4,7 @@ let
 
   fnts = [
     "Symbols Nerd Font"
-# fallbacks
+    # fallbacks
     "Noto Sans Symbols"
     "Noto Sans Symbols2"
   ];
@@ -14,8 +14,12 @@ in
     garden.packages = {
       ibm-plex = ibm-plex.override {
         families = [
-          "serif" "sans" "sans-kr" "sans-jp"
-          "mono" "math"
+          "serif"
+          "sans"
+          "sans-kr"
+          "sans-jp"
+          "mono"
+          "math"
         ];
       };
 
@@ -30,7 +34,9 @@ in
       ] ++ fnts;
 
       sansSerif = [
-        "IBM Plex Sans" "IBM Plex Sans KR" "IBM Plex Sans JP"
+        "IBM Plex Sans"
+        "IBM Plex Sans KR"
+        "IBM Plex Sans JP"
       ] ++ fnts;
     };
   };

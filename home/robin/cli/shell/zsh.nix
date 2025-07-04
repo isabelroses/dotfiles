@@ -15,13 +15,16 @@ in
       path = config.xdg.stateHome + "/zsh/history";
     };
 
-    initContent = mkOrder 1000 (''
-      function title_precmd_hook() {
-        print -Pn "\e]0;$(pwd)\a"
-      }
-      precmd_functions+=title_precmd_hook
-    '' + ''
-      setopt autopushd
-    '');
+    initContent = mkOrder 1000 (
+      ''
+        function title_precmd_hook() {
+          print -Pn "\e]0;$(pwd)\a"
+        }
+        precmd_functions+=title_precmd_hook
+      ''
+      + ''
+        setopt autopushd
+      ''
+    );
   };
 }

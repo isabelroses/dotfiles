@@ -1,8 +1,7 @@
 {
   programs.chromium = {
-    extensions =
-      [
-        "pihphjfnfjmdbhakhjifipfdgbpenobg" # DocsAfterDark
-      ];
+    extensions = [
+      "pihphjfnfjmdbhakhjifipfdgbpenobg" # DocsAfterDark
+    ];
   };
 }
