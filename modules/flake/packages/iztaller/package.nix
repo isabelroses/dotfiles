@@ -3,7 +3,7 @@
   gum,
   vim,
   parted,
-  nixos-install,
+  nixos-install-tools,
   writeShellApplication,
 }:
 writeShellApplication {
@@ -14,7 +14,7 @@ writeShellApplication {
     gum
     vim
     parted
-    nixos-install
+    nixos-install-tools
   ];
 
   text = builtins.readFile ./iztaller.sh;

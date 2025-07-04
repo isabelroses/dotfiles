@@ -44,16 +44,8 @@ mount "$boot_part" /mnt/boot
 mkdir -p /mnt/etc/nixos
 cp -rT /iso/flake /mnt/etc/nixos
 
-# do we need to setup the host or has it been done already
-new_host=$(gum confirm "Make a new host?")
-
-# setup the system specific configuration
-if [ "$new_host" ]; then
-  mkdir -p /mnt/etc/nixos/systems/"$hostname"
-  cp /iso/flake/modules/flake/packages/pkgs/installer/base-config.nix /mnt/etc/nixos/systems/"$hostname"/default.nix
-  # force the user to setup stuff
-  vim /mnt/etc/nixos/systems/"$hostname"/default.nix
-fi
+# even if we don't need a new host we are going to have to generate a new hardware config
+nixos-generate-config --root /mnt --show-hardware-config >/mnt/etc/nixos/systems/"$hostname"/hardware.nix
 
 # setup the git repository for the nixos configuration
 git -C /mnt/etc/nixos init
@@ -76,4 +68,5 @@ if [ "$(nix eval "/mnt/etc/nixos#nixosConfigurations.$hostname.config.users.muta
   installArgs+=(--no-root-password)
 fi
 
-nixos-install --flake "/mnt/etc/nixos#$hostname" "''${installArgs[*]}"
+echo "When you are ready to install, run the following command:"
+echo nixos-install --flake "/mnt/etc/nixos#$hostname" "''${installArgs[*]}"
