@@ -9,5 +9,6 @@
     ./ghostty.nix
     ./obsidian.nix
     ./quickshell.nix
+    ./wezterm
   ];
 }

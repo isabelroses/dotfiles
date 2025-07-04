@@ -1,9 +1,11 @@
-{ pkgs, config, ... }:
+{ lib, pkgs, config, ... }:
 let
   inherit (config.evergarden) accent variant;
 in
 {
   programs.ghostty = {
+    enable = lib.mkDefault (config.garden.profiles.graphical.enable && config.garden.programs.defaults.terminal == "ghostty");
+
     # FIXME: ghostty is broken on darwin
     package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else null;
 

@@ -16,6 +16,7 @@
 
     garden.programs.defaults = {
       shell = "zsh";
+      terminal = "wezterm";
       bar = "quickshell";
       browser = "chromium";
       screenLocker = null;
