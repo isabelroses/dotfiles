@@ -4,6 +4,13 @@
     ./users.nix
   ];
 
+  # we use the etc overlay to reduce our system size
+  # since this removes a instance of perl from the system
+  system.etc.overlay = {
+    enable = true;
+    mutable = true;
+  };
+
   garden = {
     profiles = {
       graphical.enable = true;
