@@ -37,7 +37,7 @@ in
         # jellyfin-media-player
         # insomnia # rest client
         # inkscape # vector graphics editor
-        # gimp # image editor
+        gimp # image editor
         manga-tui # tui manga finder + reader
         # bitwarden-cli # bitwarden, my chosen password manager
         # vhs # programmatically make gifs
