@@ -217,19 +217,5 @@
       owner = "nix-systems";
       repo = "default";
     };
-    hyprflare = {
-      type = "github";
-      owner = "comfysage";
-      repo = "hyprflare";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    moonblast = {
-      type = "github";
-      owner = "comfysage";
-      repo = "moonblast";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 }

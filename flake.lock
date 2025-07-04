@@ -243,26 +243,6 @@
         "type": "github"
       }
     },
-    "hyprflare": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1719575413,
-        "narHash": "sha256-eMXeTpY/wToxUM14LDcGP14AMumR/OOx7+VyljibWsY=",
-        "owner": "comfysage",
-        "repo": "hyprflare",
-        "rev": "fa6d4bdaec5621447183ffab7d045a77d7637d7e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "comfysage",
-        "repo": "hyprflare",
-        "type": "github"
-      }
-    },
     "ivy": {
       "inputs": {
         "neovim-nightly-overlay": "neovim-nightly-overlay",
@@ -355,26 +335,6 @@
       "original": {
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "type": "github"
-      }
-    },
-    "moonblast": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1719172650,
-        "narHash": "sha256-YNv0FFcTryPvWLagV3I/mx2VszfSRguzhhOSbv1M19I=",
-        "owner": "comfysage",
-        "repo": "moonblast",
-        "rev": "da195eda29f6a35eb03eb783e5cfeed3b922a02f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "comfysage",
-        "repo": "moonblast",
         "type": "github"
       }
     },
@@ -493,12 +453,10 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "homebrew": "homebrew",
-        "hyprflare": "hyprflare",
         "ivy": "ivy",
         "izlix": "izlix",
         "izvim": "izvim",
         "lanzaboote": "lanzaboote",
-        "moonblast": "moonblast",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
@@ -574,11 +532,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1751578647,
-        "narHash": "sha256-A4tOpUsx6Oe0GX1a/FZntFxhdrJheUQc/H2eimGUfLM=",
+        "lastModified": 1751665136,
+        "narHash": "sha256-U3tRvt9Pi1dIxJ0Q1mDf34rQWSNchrak3oslmam/mYg=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "4937e23a528ae251106afa665a5542904e0f25df",
+        "rev": "bc38dd34cfb5300aeef6c4b1fa720a258fb72daf",
         "type": "github"
       },
       "original": {

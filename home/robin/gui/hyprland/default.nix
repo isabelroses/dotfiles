@@ -20,9 +20,12 @@ in
   config = lib.mkIf cfg.enable {
     garden.packages = {
       inherit (pkgs) swww hyprpicker;
-      inherit (inputs'.hyprflare.packages) playercontrol wallselect;
-      inherit (inputs'.moonblast.packages) moonblast;
-      inherit (inputs'.tgirlpkgs.packages) haikei;
+      inherit (inputs'.tgirlpkgs.packages)
+        haikei
+        moonblast
+        hyprflare-playercontrol
+        hyprflare-wallselect
+        ;
     };
 
     wayland.windowManager.hyprland = {
