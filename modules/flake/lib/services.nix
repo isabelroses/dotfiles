@@ -10,12 +10,6 @@ let
     Install.WantedBy = [ "graphical-session.target" ];
   };
 
-  mkHyprlandService = recursiveUpdate {
-    Unit.PartOf = [ "graphical-session.target" ];
-    Unit.After = [ "graphical-session.target" ];
-    Install.WantedBy = [ "hyprland-session.target" ];
-  };
-
   /**
     A quick way to use my services abstraction
 
@@ -62,5 +56,5 @@ let
     // extraConfig;
 in
 {
-  inherit mkGraphicalService mkHyprlandService mkServiceOption;
+  inherit mkGraphicalService mkServiceOption;
 }
