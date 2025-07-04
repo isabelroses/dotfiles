@@ -210,24 +210,21 @@ in
       };
     };
 
-    systemd.user.services.xwayland-sattelite = {
+    systemd.user.services.xwayland-satellite = {
       Unit = {
-        Description = "Xwayland sattelite service";
+        Description = "Xwayland satellite service";
         After = [ "graphical-session.target" ];
         PartOf = [ "graphical-session.target" ];
         BindsTo = [ "graphical-session.target" ];
         Requisite = [ "graphical-session.target" ];
       };
-      Install.WantedBy = [
-        "graphical-session.target"
-        "fht-compositor.service"
-      ];
       Service = {
         Type = "notify";
         NotifyAccess = "all";
         ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
-        StandardOutput = "jounral";
+        StandardOutput = "journal";
       };
+      Install.WantedBy = [ "graphical-session.target" ];
     };
   };
 }
