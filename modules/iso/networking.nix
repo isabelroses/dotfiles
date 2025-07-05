@@ -8,7 +8,7 @@ in
     enable = true;
     # we don't want any plugins, they only takeup space
     # you might consider adding some if you need a VPN for example
-    plugins = mkForce [ ];
+    plugins = [ ];
   };
 
   networking.wireless.enable = mkForce false;

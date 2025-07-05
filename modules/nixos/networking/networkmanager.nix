@@ -7,7 +7,6 @@
 let
   inherit (lib)
     mkIf
-    mkForce
     optionals
     optionalAttrs
     ;
@@ -21,9 +20,7 @@ in
 
   networking.networkmanager = {
     enable = true;
-    plugins = mkForce (
-      optionals config.garden.profiles.graphical.enable [ pkgs.networkmanager-openvpn ]
-    );
+    plugins = optionals config.garden.profiles.graphical.enable [ pkgs.networkmanager-openvpn ];
     dns = "systemd-resolved";
     unmanaged = [
       "interface-name:tailscale*"
@@ -41,7 +38,9 @@ in
       backend = sys.networking.wirelessBackend;
 
       # The below is disabled as my uni hated me for it
-      # macAddress = "random"; # use a random mac address on every boot, this can scew with static ip
+      # use a random mac address on every boot, this can scew with static ip
+      # macAddress = "random";
+
       powersave = true;
 
       # MAC address randomization of a Wi-Fi device during scanning
