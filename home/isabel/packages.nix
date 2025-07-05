@@ -33,11 +33,6 @@ in
 
     (optionalAttrs cfg.graphical.enable {
       inherit (pkgs)
-        # bitwarden-desktop # password manager
-        # jellyfin-media-player
-        # insomnia # rest client
-        # inkscape # vector graphics editor
-        gimp # image editor
         manga-tui # tui manga finder + reader
         # bitwarden-cli # bitwarden, my chosen password manager
         # vhs # programmatically make gifs
@@ -46,6 +41,11 @@ in
 
     (optionalAttrs (cfg.graphical.enable && isLinux) {
       inherit (pkgs)
+        # bitwarden-desktop # password manager
+        # jellyfin-media-player
+        # insomnia # rest client
+        # inkscape # vector graphics editor
+        # gimp # image editor
         swappy # used for screenshot area selection
         wl-gammactl
         brightnessctl # brightness managed via cli
