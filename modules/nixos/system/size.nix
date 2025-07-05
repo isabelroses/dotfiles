@@ -1,15 +1,17 @@
 { lib, ... }:
 {
-  # this can break things, particularly if you use containers
-  # personally I don't so it should be fine to disable this
-  boot.enableContainers = false;
+  boot = {
+    # this can break things, particularly if you use containers
+    # personally I don't so it should be fine to disable this
+    enableContainers = false;
+
+    # We enable Systemd in the initrd so we can use it to mount the root
+    # filesystem this will remove Perl form the activation
+    initrd.systemd.enable = true;
+  };
 
   # Declarative user management
   services.userborn.enable = true;
-
-  # We enable Systemd in the initrd so we can use it to mount the root
-  # filesystem this will remove Perl form the activation
-  boot.initrd.systemd.enable = true;
 
   environment = {
     # disable stub-ld, this exists to kill dynamically linked executables, since they cannot work
