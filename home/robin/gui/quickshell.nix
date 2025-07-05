@@ -1,6 +1,8 @@
 { lib, config, ... }:
 let
   inherit (lib) mkIf mkDefault;
+  cfg = config.programs.quickshell;
+
 in
 {
   config = {
@@ -10,21 +12,13 @@ in
       );
     };
 
-    systemd.user.services.quickshell-lock =
-      let
-        cfg = config.programs.quickshell;
-      in
-      mkIf cfg.enable {
-        Unit = {
-          Description = "launch quickshell lock";
-          Before = "lock.target";
-        };
-        Install = {
-          WantedBy = [ "lock.target" ];
-        };
-        Service = {
-          ExecStart = "${lib.getExe cfg.package} ipc call lock lock";
-        };
+    systemd.user.services.quickshell-lock = mkIf cfg.enable {
+      Unit = {
+        Description = "launch quickshell lock";
+        Before = "lock.target";
       };
+      Install.WantedBy = [ "lock.target" ];
+      Service.ExecStart = "${lib.getExe cfg.package} ipc call lock lock";
+    };
   };
 }
