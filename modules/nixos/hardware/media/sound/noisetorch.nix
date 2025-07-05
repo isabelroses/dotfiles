@@ -1,3 +1,4 @@
+{ config, ... }:
 {
-  programs.noisetorch.enable = true;
+  programs.noisetorch.enable = config.garden.profiles.graphical.enable;
 }
