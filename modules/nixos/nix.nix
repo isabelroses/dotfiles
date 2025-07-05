@@ -25,9 +25,4 @@
       build-dir = "/var/tmp";
     };
   };
-
-  # https://github.com/NixOS/nixpkgs/pull/415701/
-  environment.sessionVariables = {
-    NIX_REMOTE = "daemon";
-  };
 }
