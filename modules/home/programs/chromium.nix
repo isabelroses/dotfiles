@@ -19,7 +19,6 @@ in
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
         "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
         "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-        "emffkefkbkpkgpdeeooapgaicgmcbolj" # Wikiwand
         "fkagelmloambgokoeokbpihmgpkbgbfm" # Indie Wiki Buddy
       ]
       ++ optionals osConfig.garden.profiles.gaming.enable [
