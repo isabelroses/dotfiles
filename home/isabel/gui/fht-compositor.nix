@@ -13,20 +13,17 @@ in
   imports = [ inputs.fht-compositor.homeModules.default ];
 
   config = lib.mkIf config.programs.fht-compositor.enable {
-    garden.packages = {
-      inherit (pkgs) cosmic-files;
-    };
+    garden.packages = { inherit (pkgs) cosmic-files; };
 
     programs.fht-compositor = {
+      systemd.variables = [ "--all" ];
+
       settings = {
         cursor = { inherit (config.home.pointerCursor) name size; };
 
         autostart = [
           "wl-paste --type text --watch cliphist store" # Stores only text data
           "wl-paste --type image --watch cliphist store" # Stores only image data
-
-          # seems about right
-          "${pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all && systemctl --user stop fht-compositor.target && systemctl --user start fht-compositor.target"
         ];
 
         input.keyboard = {
@@ -213,31 +210,21 @@ in
       };
     };
 
-    systemd.user = {
-      targets.fht-compositor.Unit = {
-        Description = "fht-compositor compositor session";
-        Documentation = [ "man:systemd.special(7)" ];
-        BindsTo = [ "graphical-session.target" ];
-        Wants = [ "graphical-session-pre.target" ];
-        After = [ "graphical-session-pre.target" ];
+    systemd.user.services.xwayland-satellite = {
+      Unit = {
+        Description = "Xwayland satellite service";
+        After = [ config.wayland.systemd.target ];
+        PartOf = [ config.wayland.systemd.target ];
+        BindsTo = [ config.wayland.systemd.target ];
+        Requisite = [ config.wayland.systemd.target ];
       };
-
-      services.xwayland-satellite = {
-        Unit = {
-          Description = "Xwayland satellite service";
-          After = [ config.wayland.systemd.target ];
-          PartOf = [ config.wayland.systemd.target ];
-          BindsTo = [ config.wayland.systemd.target ];
-          Requisite = [ config.wayland.systemd.target ];
-        };
-        Service = {
-          Type = "notify";
-          NotifyAccess = "all";
-          ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
-          StandardOutput = "journal";
-        };
-        Install.WantedBy = [ config.wayland.systemd.target ];
+      Service = {
+        Type = "notify";
+        NotifyAccess = "all";
+        ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
+        StandardOutput = "journal";
       };
+      Install.WantedBy = [ config.wayland.systemd.target ];
     };
   };
 }
