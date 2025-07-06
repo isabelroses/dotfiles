@@ -2,16 +2,12 @@
   lib,
   pkgs,
   config,
-  inputs,
-  osConfig,
   ...
 }:
 let
   inherit (config.garden.programs) defaults;
 in
 {
-  imports = [ inputs.fht-compositor.homeModules.default ];
-
   config = lib.mkIf config.programs.fht-compositor.enable {
     garden.packages = { inherit (pkgs) cosmic-files; };
 
@@ -19,19 +15,6 @@ in
       systemd.variables = [ "--all" ];
 
       settings = {
-        cursor = { inherit (config.home.pointerCursor) name size; };
-
-        autostart = [
-          "wl-paste --type text --watch cliphist store" # Stores only text data
-          "wl-paste --type image --watch cliphist store" # Stores only image data
-        ];
-
-        input.keyboard = {
-          layout = osConfig.garden.device.keyboard;
-          repeat-rate = 50;
-          repeat-delay = 250;
-        };
-
         general = {
           inner-gaps = 15;
           outer-gaps = 15;
@@ -208,23 +191,6 @@ in
           }
         ];
       };
-    };
-
-    systemd.user.services.xwayland-satellite = {
-      Unit = {
-        Description = "Xwayland satellite service";
-        After = [ config.wayland.systemd.target ];
-        PartOf = [ config.wayland.systemd.target ];
-        BindsTo = [ config.wayland.systemd.target ];
-        Requisite = [ config.wayland.systemd.target ];
-      };
-      Service = {
-        Type = "notify";
-        NotifyAccess = "all";
-        ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
-        StandardOutput = "journal";
-      };
-      Install.WantedBy = [ config.wayland.systemd.target ];
     };
   };
 }
