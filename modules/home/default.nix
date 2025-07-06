@@ -1,4 +1,6 @@
 {
+  _class = "homeManager";
+
   imports = [
     # keep-sorted start
     ../generic
