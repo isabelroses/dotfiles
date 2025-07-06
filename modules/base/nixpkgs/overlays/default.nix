@@ -3,9 +3,11 @@ let
   inherit (lib) map;
 
   overlays = map import [
+    # keep-sorted start
     ./fixes.nix
     ./funni.nix
     ./no-desktop.nix
+    # keep-sorted end
   ];
 in
 {

@@ -1,7 +1,9 @@
 {
   imports = [
+    # keep-sorted start
     ./izrss.nix
-    ./neovim.nix
     ./lazygit.nix
+    ./neovim.nix
+    # keep-sorted end
   ];
 }

@@ -3,6 +3,7 @@
 # https://github.com/NixOS/nixpkgs/blob/90a153e81e7deb0b2ea1466c8a2f515df1974717/nixos/modules/profiles/installation-device.nix#L32
 {
   imports = [
+    # keep-sorted start
     ./boot.nix # boot settings
     ./console.nix # tty configurations
     ./fixes.nix # fixes issues
@@ -12,5 +13,6 @@
     ./nixpkgs.nix # nixpkgs configurations like unfree packages
     ./programs.nix # programs that we will need to make our NixOS install
     ./space.nix # ways that we save valuable space on the iso
+    # keep-sorted end
   ];
 }

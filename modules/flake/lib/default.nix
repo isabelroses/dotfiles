@@ -4,12 +4,14 @@
 { lib, inputs, ... }:
 let
   gardenLib = lib.fixedPoints.makeExtensible (final: {
-    template = import ./template; # templates, selections of code that are repeated
+    # keep-sorted start block=yes
     hardware = import ./hardware.nix;
     helpers = import ./helpers.nix { inherit lib; };
     secrets = import ./secrets.nix { inherit inputs; };
     services = import ./services.nix { inherit lib; };
+    template = import ./template; # templates, selections of code that are repeated
     validators = import ./validators.nix { inherit lib; };
+    # keep-sorted end
 
     # we have to rexport the functions we want to use, but don't want to refer to the whole lib
     # "path". e.g. gardenLib.hardware.isx86Linux can be shortened to gardenLib.isx86Linux

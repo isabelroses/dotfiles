@@ -1,9 +1,11 @@
 {
   imports = [
+    # keep-sorted start
+    ./noisetorch.nix
     ./pipewire.nix
-    ./wireplum.nix
     ./pulseaudio.nix
     ./rtkit.nix
-    ./noisetorch.nix
+    ./wireplum.nix
+    # keep-sorted end
   ];
 }

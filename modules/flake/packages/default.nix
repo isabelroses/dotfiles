@@ -18,6 +18,7 @@
     in
     {
       packages = {
+        # keep-sorted start block=yes newline_separated=yes
         iztaller = callPackage ./iztaller/package.nix { inherit (inputs'.izlix.packages) nix; };
 
         libdoc = callPackage ./docs/lib.nix { inherit (inputs) self; };
@@ -29,6 +30,7 @@
           inherit (inputs) self;
           inherit (self'.packages) libdoc optionsdoc;
         };
+        # keep-sorted end
       };
     };
 }

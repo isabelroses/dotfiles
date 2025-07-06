@@ -1,7 +1,9 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.tgirlpkgs.darwinModules.default
+    # keep-sorted start
     inputs.home-manager.darwinModules.home-manager
+    inputs.tgirlpkgs.darwinModules.default
+    # keep-sorted end
   ];
 }

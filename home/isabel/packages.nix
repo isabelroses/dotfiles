@@ -15,17 +15,19 @@ in
   garden.packages = mergeAttrsList [
     (optionalAttrs cfg.workstation.enable {
       inherit (pkgs)
-        unzip
-        rsync
-        just # cool build tool
-        wakatime-cli
-        nix-output-monitor # much nicer nix build output
+        # keep-sorted start
         # wishlist # fancy ssh
         glow # fancy markdown
         # fx # fancy jq
         # gum # a nicer scripting
         jq # json parser
+        just # cool build tool
+        nix-output-monitor # much nicer nix build output
+        rsync
+        unzip
+        wakatime-cli
         yq # yaml parser
+        # keep-sorted end
         ;
 
       inherit (inputs'.tgirlpkgs.packages) zzz; # code snippets in the cli
@@ -33,30 +35,34 @@ in
 
     (optionalAttrs cfg.graphical.enable {
       inherit (pkgs)
+        # keep-sorted start
         manga-tui # tui manga finder + reader
         # bitwarden-cli # bitwarden, my chosen password manager
         # vhs # programmatically make gifs
+        # keep-sorted end
         ;
     })
 
     (optionalAttrs (cfg.graphical.enable && isLinux) {
       inherit (pkgs)
+        # keep-sorted start
+        brightnessctl # brightness managed via cli
+        cliphist
+        grim
+        libnotify # needed for some notifications
+        playerctl
+        pwvucontrol
+        slurp
         # bitwarden-desktop # password manager
         # jellyfin-media-player
         # insomnia # rest client
         # inkscape # vector graphics editor
         # gimp # image editor
         swappy # used for screenshot area selection
-        wl-gammactl
-        brightnessctl # brightness managed via cli
-        libnotify # needed for some notifications
-        grim
-        slurp
         wl-clipboard
-        cliphist
-        pwvucontrol
+        wl-gammactl
         youtube-music
-        playerctl
+        # keep-sorted end
         ;
     })
   ];

@@ -1,6 +1,6 @@
 {
   imports = [
-    ./shell # shell configurations
+    # keep-sorted start
     ./atuin.nix
     ./eza.nix
     ./fd.nix
@@ -10,7 +10,9 @@
     ./jj.nix
     ./nix-your-shell.nix
     ./ripgrep.nix
+    ./shell # shell configurations
     ./starship.nix
     ./zoxide.nix
+    # keep-sorted end
   ];
 }

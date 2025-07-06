@@ -10,6 +10,7 @@
 # or `defaults read xxx` to read a specific domain.
 {
   imports = [
+    # keep-sorted start
     ./clock.nix # Settings for the clock in the menu bar
     ./dock.nix # Settings for the dock
     ./finder.nix # Settings for Finder (file manager)
@@ -20,5 +21,6 @@
     ./sound.nix # Sound settings
     ./theme.nix # Theme settings
     ./wm.nix # Window manager settings
+    # keep-sorted end
   ];
 }

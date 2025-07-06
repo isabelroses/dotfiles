@@ -23,8 +23,22 @@
     #  specialArgs = { };
     hosts = {
       # isabel's hosts
+      # keep-sorted start block=yes newline_separated=yes
       amaterasu = { };
+
       athena = { };
+
+      hestia = { };
+
+      lilith = {
+        class = "iso";
+      };
+
+      minerva = { };
+
+      skadi = {
+        arch = "aarch64";
+      };
 
       tatsumaki = {
         arch = "aarch64";
@@ -34,27 +48,18 @@
       valkyrie = {
         class = "wsl";
       };
-
-      minerva = { };
-
-      hestia = { };
-
-      skadi = {
-        arch = "aarch64";
-      };
-
-      lilith = {
-        class = "iso";
-      };
+      # keep-sorted end
 
       # robin's hosts
-      cottage = { };
-
+      # keep-sorted start block=yes newline_separated=yes
       bmo = { };
+
+      cottage = { };
 
       wisp = {
         class = "wsl";
       };
+      # keep-sorted end
     };
   };
 }

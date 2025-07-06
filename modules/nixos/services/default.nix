@@ -1,45 +1,34 @@
 {
   imports = [
-    # databases
-    ./postgresql.nix
-    ./redis.nix
-
-    # dev
-    ./atuin.nix
-    ./forgejo.nix
-    ./wakapi.nix
-
-    # media
+    # keep-sorted start
     ./akkoma
-    ./nixpkgs-prs-bot.nix
-    ./matrix.nix
-    ./syncthing.nix
-
-    # monitoring
-    ./grafana
-    ./loki.nix
-    ./prometheus.nix
-    ./uptime-kuma.nix
-
-    # networking
-    ./headscale.nix
-    ./nginx.nix
-    ./cloudflared.nix
-
-    # nix builds
-    ./attic.nix
     # ./buildbot.nix
-
-    # misc
     ./anubis.nix
+    ./attic.nix
+    ./atuin.nix
     ./blahaj.nix
+    ./cloudflared.nix
+    ./forgejo.nix
+    ./grafana
+    ./headscale.nix
     ./kanidm.nix
+    ./loki.nix
     ./mailserver.nix
+    ./matrix.nix
     ./mediawiki.nix
-    ./vaultwarden.nix
-    ./vikunja.nix
-    ./website.nix
+    ./nginx.nix
+    ./nixpkgs-prs-bot.nix
     ./ntfy.nix
     ./photoprism.nix
+    ./postgresql.nix
+    ./prometheus.nix
+    ./redis.nix
+    ./syncthing.nix
+    ./uptime-kuma.nix
+    ./vaultwarden.nix
+    ./vikunja.nix
+    ./wakapi.nix
+    ./website.nix
+    # keep-sorted end
   ];
 }

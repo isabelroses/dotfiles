@@ -5,14 +5,17 @@ let
   };
 
   hosts = {
+    # keep-sorted start block=yes newline_separated=yes
     amaterasu = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIASfhQoMiEvoVa6mat4SvozopTTpLjCwRaJvze7IFE1S";
       owner = "isabel";
     };
+
     athena = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKMJroewVs8Iyf+/Ofk6q36D1OzVW0b04yyS3IVwNmCb";
       owner = "isabel";
     };
+
     # bmo = {
     #   key = "";
     #   owner = "robin";
@@ -25,26 +28,32 @@ let
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFNJv2ng+BJV2YDWAmaWFu7arLrsT2jpshUPTvdHBlxN";
       owner = "isabel";
     };
+
     minerva = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFluIN96lPhNvf2JsA2E+HjuQbDseD2sQJOgQbspJWW0";
       owner = "isabel";
     };
-    tatsumaki = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFK5AFIUzlIoFmyz5/Ni1F3Xj1tppj/pMXD9GfMP4DV";
-      owner = "isabel";
-    };
-    valkyrie = {
-      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAn1inws4uXxbv72IHphlLAVlmsaln2szDRsdlM0g7Hu";
-      owner = "isabel";
-    };
+
     skadi = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIweAtbmV58yEMT1oioHt6PBezpUa42Ma2PZoZvWvc4Z";
       owner = "isabel";
     };
+
+    tatsumaki = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFK5AFIUzlIoFmyz5/Ni1F3Xj1tppj/pMXD9GfMP4DV";
+      owner = "isabel";
+    };
+
+    valkyrie = {
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAn1inws4uXxbv72IHphlLAVlmsaln2szDRsdlM0g7Hu";
+      owner = "isabel";
+    };
+
     wisp = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC7cduddxQbnFeBWjt9L6Uml5mjnfEOxZqd4LoyRDTmg";
       owner = "robin";
     };
+    # keep-sorted end
   };
 
   types = with hosts; {

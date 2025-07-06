@@ -8,6 +8,7 @@ let
 in
 {
   imports = [
+    # keep-sorted start
     ./blocker.nix
     ./fail2ban.nix
     ./firewall.nix
@@ -18,6 +19,7 @@ in
     ./tailscale.nix
     ./tcpcrypt.nix
     ./wireless.nix
+    # keep-sorted end
   ];
 
   networking = {

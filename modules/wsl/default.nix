@@ -10,9 +10,10 @@ let
 in
 {
   imports = [
-    ../nixos
-
+    # keep-sorted start prefix_order=inputs,./
     inputs.nixos-wsl.nixosModules.wsl
+    ../nixos
+    # keep-sorted end
   ];
 
   config = {

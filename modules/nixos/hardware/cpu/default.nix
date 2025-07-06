@@ -4,8 +4,10 @@ let
 in
 {
   imports = [
+    # keep-sorted start
     ./amd.nix
     ./intel.nix
+    # keep-sorted end
   ];
 
   options.garden.device.cpu = mkOption {

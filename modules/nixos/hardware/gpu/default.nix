@@ -4,9 +4,11 @@ let
 in
 {
   imports = [
+    # keep-sorted start
     ./amd.nix
     ./intel.nix
     ./nvidia.nix
+    # keep-sorted end
   ];
 
   options.garden.device.gpu = mkOption {

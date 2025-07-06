@@ -1,12 +1,14 @@
 {
   imports = [
+    # keep-sorted start prefix_order=../,../../,./
     ../generic
     ../../home
     ./nix
     ./nixpkgs
-    ./system
-    ./users
     ./programs.nix
     ./secrets.nix
+    ./system
+    ./users
+    # keep-sorted end
   ];
 }
