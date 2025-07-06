@@ -24,7 +24,7 @@
             inputs'.agenix.packages.agenix # secrets
           ];
 
-          inputsFrom = [ config.treefmt.build.devShell ];
+          inputsFrom = [ self'.formatter ];
         };
 
         nixpkgs = pkgs.mkShellNoCC {

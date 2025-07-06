@@ -156,14 +156,6 @@
       repo = "nix-homebrew";
     };
 
-    # a tree-wide formatter
-    treefmt-nix = {
-      type = "github";
-      owner = "numtide";
-      repo = "treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     ### misc
     # declarative theme management
     catppuccin = {

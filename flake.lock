@@ -461,8 +461,7 @@
         "nixpkgs": "nixpkgs",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "systems": "systems",
-        "tgirlpkgs": "tgirlpkgs",
-        "treefmt-nix": "treefmt-nix"
+        "tgirlpkgs": "tgirlpkgs"
       }
     },
     "rust-overlay": {
@@ -542,26 +541,6 @@
       "original": {
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "type": "github"
-      }
-    },
-    "treefmt-nix": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1750931469,
-        "narHash": "sha256-0IEdQB1nS+uViQw4k3VGUXntjkDp7aAlqcxdewb/hAc=",
-        "owner": "numtide",
-        "repo": "treefmt-nix",
-        "rev": "ac8e6f32e11e9c7f153823abc3ab007f2a65d3e1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "treefmt-nix",
         "type": "github"
       }
     }

@@ -1,44 +1,102 @@
-{ inputs, ... }:
+{ lib, ... }:
 {
-  imports = [ inputs.treefmt-nix.flakeModule ];
-
   perSystem =
     { pkgs, config, ... }:
     {
-      formatter = config.treefmt.build.wrapper;
+      formatter = pkgs.treefmt.withConfig {
+        runtimeInputs = with pkgs; [
+          # keep-sorted start
+          actionlint
+          deadnix
+          keep-sorted
+          nixfmt-rfc-style
+          shellcheck
+          shfmt
+          statix
+          stylua
+          taplo
+          # keep-sorted end
 
-      treefmt = {
-        projectRootFile = "flake.nix";
+          (writeShellScriptBin "statix-fix" ''
+            for file in "$@"; do
+              ${lib.getExe statix} fix "$file"
+            done
+          '')
+        ];
 
-        programs = {
-          shellcheck.enable = true;
-          taplo.enable = true;
-          # TODO: configure this to not be ugly
-          # yamlfmt.enable = true;
+        settings = {
+          on-unmatched = "info";
+          tree-root-file = "flake.nix";
 
-          just.enable = true;
-
-          deadnix.enable = true;
-          statix.enable = true;
-          nixfmt = {
-            enable = true;
-            package = pkgs.nixfmt-rfc-style;
-          };
-
-          prettier = {
-            enable = true;
-            package = pkgs.prettierd;
-            excludes = [ "*.age" ];
-            settings = {
-              editorconfig = true;
+          formatter = {
+            # keep-sorted start block=yes newline_separated=yes
+            actionlint = {
+              command = "actionlint";
+              includes = [
+                ".github/workflows/*.yml"
+                ".github/workflows/*.yaml"
+              ];
             };
-          };
 
-          stylua.enable = true;
+            deadnix = {
+              command = "deadnix";
+              includes = [ "*.nix" ];
+            };
 
-          shfmt = {
-            enable = true;
-            indent_size = 2;
+            keep-sorted = {
+              command = "keep-sorted";
+              includes = [ "*" ];
+            };
+
+            nixfmt = {
+              command = "nixfmt";
+              includes = [ "*.nix" ];
+            };
+
+            shellcheck = {
+              command = "shellcheck";
+              includes = [
+                "*.sh"
+                "*.bash"
+                # direnv
+                "*.envrc"
+                "*.envrc.*"
+              ];
+            };
+
+            shfmt = {
+              command = "shfmt";
+              options = [
+                "-s"
+                "-w"
+                "-i"
+                "2"
+              ];
+              includes = [
+                "*.sh"
+                "*.bash"
+                # direnv
+                "*.envrc"
+                "*.envrc.*"
+              ];
+            };
+
+            statix = {
+              command = "statix-fix";
+              includes = [ "*.nix" ];
+            };
+
+            stylua = {
+              command = "stylua";
+              includes = [ "*.lua" ];
+            };
+
+            taplo = {
+              command = "taplo";
+              options = "format";
+              includes = [ "*.toml" ];
+            };
+            # keep-sorted end
           };
         };
       };
