@@ -53,6 +53,15 @@ in
         # scroll wheel binds
         "${mod}, mouse_down, workspace, r+1"
         "${mod}, mouse_up, workspace, r-1"
+
+        # global mute
+        ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
+        # playerctl
+        ",XF86AudioPlay, exec, playercontrol toggle"
+        ",XF86AudioNext, exec, playercontrol next"
+        ",XF86AudioPrev, exec, playercontrol prev"
       ]
       ++ optionals (defaults.bar == "waybar") [
         "ALT, space, exec, pkill rofi || rofi -show drun"
@@ -99,15 +108,6 @@ in
       ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       ", XF86MonBrightnessUp, exec, brightnessctl set 5%+ -q"
       ", XF86MonBrightnessDown, exec, brightnessctl set 5%- -q"
-
-      # global mute
-      ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-
-      # playerctl
-      ",XF86AudioPlay, exec, playercontrol toggle"
-      ",XF86AudioNext, exec, playercontrol next"
-      ",XF86AudioPrev, exec, playercontrol prev"
     ];
   };
 }
