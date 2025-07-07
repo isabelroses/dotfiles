@@ -17,6 +17,11 @@
 - [adding packages](guides/adding-packages.md)
 - [uninstalling](guides/uninstalling.md)
 
+# Configuration
+
+- [lix](configuration/lix.md)
+- [window manager](configuration/window-manager.md)
+
 # lib
 
 libdoc
@@ -31,5 +36,4 @@ optionsdoc
 
 # Misc
 
-- [lix](misc/lix.md)
 - [previews](misc/previews.md)

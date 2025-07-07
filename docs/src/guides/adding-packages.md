@@ -1,7 +1,7 @@
 Adding packages to your user or system profile is different then most other
 flakes. In this flake we use the `garden.packages` attribute to add our
-packages, which take a attrset. This prevents us from having duplicate listsings
-of packages, and also lets us think a little less when writing home-manger or
+packages, which take an attrset. This prevents us from having duplicate listings
+of packages, and lets us think a little less when writing home-manger or
 nixos/darwin module code.
 
 An example of this may look like the following:

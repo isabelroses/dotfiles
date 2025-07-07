@@ -1,6 +1,7 @@
 I use [lix](https://git.lix.systems/lix-project/lix).
 
-> [!NOTE] Furthermore this is with a custom
+> [!NOTE]
+> Furthermore this is with a custom
 patch set through [izlix](https://github.com/isabelroses/izlix). Though I don't
 recommend using izlix. If you want the patches you may copy them for personal
 use.

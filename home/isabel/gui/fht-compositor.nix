@@ -47,6 +47,7 @@ in
           Super-q = "close-focused-window";
           Super-Shift-q = "quit";
           Super-Space = "float-focused-window";
+          Super-f = "fullscreen-focused-window";
 
           Super-Ctrl-r = "reload-config";
 
