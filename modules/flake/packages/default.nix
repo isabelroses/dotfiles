@@ -4,7 +4,7 @@
 { inputs, ... }:
 {
   # get a list of packages for the host system, and if none exist use an empty set
-  flake.overlays.default = _: prev: import ./pkgs { pkgs = prev; };
+  flake.overlays.default = _: prev: inputs.self.packages.${prev.stdenv.hostPlatform.system} or { };
 
   perSystem =
     {
