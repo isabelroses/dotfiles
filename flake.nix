@@ -205,7 +205,18 @@
       };
     };
 
-    # transitive deps
+    zen-browser = {
+      type = "github";
+      owner = "0xc000022070";
+      repo = "zen-browser-flake";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+
+    # transative deps
     systems = {
       type = "github";
       owner = "nix-systems";

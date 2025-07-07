@@ -10,5 +10,6 @@
     ./obsidian.nix
     ./quickshell.nix
     ./wezterm
+    ./zen-browser.nix
   ];
 }

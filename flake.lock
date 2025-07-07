@@ -491,7 +491,8 @@
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops": "sops",
         "systems": "systems",
-        "tgirlpkgs": "tgirlpkgs"
+        "tgirlpkgs": "tgirlpkgs",
+        "zen-browser": "zen-browser"
       }
     },
     "rust-overlay": {
@@ -591,6 +592,29 @@
       "original": {
         "owner": "tgirlcloud",
         "repo": "pkgs",
+        "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1751858709,
+        "narHash": "sha256-xghd1GDPRSa6aD6tEk2JCuQDZWdHITlCA/stwSVoZJQ=",
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
+        "rev": "216dd333fa41aa013bf8aab9322d7c1a2aee5b4a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
         "type": "github"
       }
     }
