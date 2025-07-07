@@ -8,7 +8,9 @@
 
   libdoc,
   optionsdoc,
-  self,
+
+  inputs,
+  self ? inputs.self,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   name = "docs";

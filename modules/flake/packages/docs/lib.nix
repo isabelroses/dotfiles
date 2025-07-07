@@ -2,7 +2,9 @@
   stdenvNoCC,
   lib,
   nixdoc,
-  self,
+
+  inputs,
+  self ? inputs.self,
 
   libset ? [
     {

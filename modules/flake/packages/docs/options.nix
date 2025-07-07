@@ -1,8 +1,9 @@
 {
   lib,
   pkgs,
-  self,
+
   inputs,
+  self ? inputs.self,
 
   nixosOptionsDoc,
   runCommandNoCC,
