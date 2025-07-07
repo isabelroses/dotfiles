@@ -11,7 +11,7 @@ let
 
   cond =
     config.garden.profiles.workstation.enable
-    && (config.garden.profiles.workstation.enable || pkgs.stdenv.hostPlatform.isDarwin);
+    && (config.garden.profiles.graphical.enable || pkgs.stdenv.hostPlatform.isDarwin);
 in
 {
   config = lib.mkIf cond {
