@@ -36,4 +36,5 @@ optionsdoc
 
 # Misc
 
+- [mirrors](misc/mirrors.md)
 - [previews](misc/previews.md)
