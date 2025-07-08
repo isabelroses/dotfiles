@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, pkgs, config, ... }:
 let
   inherit (lib.lists) optionals;
   inherit (builtins) toString genList concatLists;
@@ -6,6 +6,18 @@ let
   inherit (config.garden.programs) defaults;
 
   mod = "SUPER";
+
+  evswitch = pkgs.writeShellApplication {
+    name = "ev-switch";
+    runtimeInputs = [
+      pkgs.just
+      pkgs.lutgen
+      pkgs.rhash
+    ];
+    text = ''
+      exec ~/wallpapers/ev-switch.sh
+    '';
+  };
 in
 {
   wayland.windowManager.hyprland.settings = {
@@ -19,6 +31,7 @@ in
       "${mod}, O, exec, obsidian"
 
       "${mod} SHIFT, W, exec, haikei r $(dirname $(haikei current))"
+      "${mod} CTRL, W, exec, ${lib.getExe evswitch}"
 
       # window management
       "${mod}, Q, killactive,"
