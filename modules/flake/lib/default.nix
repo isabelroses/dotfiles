@@ -28,7 +28,7 @@ let
       indexOf
       intListToStringList
       ;
-    inherit (final.secrets) mkUserSecret mkSystemSecret;
+    inherit (final.secrets) mkSystemSecret;
     inherit (final.services) mkGraphicalService mkServiceOption;
     inherit (final.validators)
       ifTheyExist

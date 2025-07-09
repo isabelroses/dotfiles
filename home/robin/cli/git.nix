@@ -124,7 +124,7 @@ in
           merge.ff = "only";
           push.autoSetupRemote = true;
 
-          user.signingkey = config.age.secrets.keys-gh.path;
+          user.signingkey = config.sops.secrets.keys-gh.path;
           # personal preference
           init.defaultBranch = "main";
           # prevent data corruption

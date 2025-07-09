@@ -7,37 +7,6 @@ let
 
     # Arguments
 
-    - [user] the user for which to create the secret
-    - [args] additional attributes to set on the secret
-
-    # Type
-
-    ```
-    mkUserSecret :: (String -> String -> String -> String) -> AttrSet
-    ```
-
-    # Example
-
-    ```nix
-    mkUserSecret "isabel" { mode = "0400"; }
-    => {
-      file = "./my-secret.age";
-      mode = "400";
-    }
-    ```
-  */
-  mkUserSecret =
-    user: args:
-    {
-      sopsFile = "${self}/secrets/${user}.yaml";
-    }
-    // args;
-
-  /**
-    Create secrets for use with `agenix`.
-
-    # Arguments
-
     - [file] the age file to use for the secret
     - [owner] the owner of the secret, this defaults to "root"
     - [group] the group of the secret, this defaults to "root"
@@ -84,5 +53,5 @@ let
     // args';
 in
 {
-  inherit mkUserSecret mkSystemSecret;
+  inherit mkSystemSecret;
 }

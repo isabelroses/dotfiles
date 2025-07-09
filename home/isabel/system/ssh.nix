@@ -1,7 +1,5 @@
-{ self, config, ... }:
+{ config, ... }:
 let
-  myUserSecret = self.lib.mkUserSecret "isabel";
-
   inherit (config.sops) secrets;
   inherit (config.home) homeDirectory;
   sshDir = "${homeDirectory}/.ssh";
@@ -82,18 +80,18 @@ in
 
   sops.secrets = {
     # keep-sorted start block=yes
-    keys-amity = myUserSecret { };
-    keys-aur = myUserSecret { };
-    keys-aur-pub = myUserSecret { };
-    keys-codeberg = myUserSecret { };
-    keys-codeberg-pub = myUserSecret { };
-    keys-gh = myUserSecret { };
-    keys-gh-pub = myUserSecret { };
-    keys-openvpn = myUserSecret { };
-    keys-tangled = myUserSecret { };
-    keys-tangled-pub = myUserSecret { };
-    uni-central = myUserSecret { path = sshDir + "/uni-central"; };
-    uni-sshconf = myUserSecret { };
+    keys-amity = { };
+    keys-aur = { };
+    keys-aur-pub = { };
+    keys-codeberg = { };
+    keys-codeberg-pub = { };
+    keys-gh = { };
+    keys-gh-pub = { };
+    keys-openvpn = { };
+    keys-tangled = { };
+    keys-tangled-pub = { };
+    uni-central.path = sshDir + "/uni-central";
+    uni-sshconf = { };
     # keep-sorted end
   };
 }
