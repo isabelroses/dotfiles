@@ -2,3 +2,4 @@
 - [gitlab](https://gitlab.com/isabelroses/dotfiles)
 - [codeberg](https://codeberg.org/isabelroses/dotfiles)
 - [iztea](https://git.isabelroses.com/isabel/dotfiles)
+- [tangled](https://tangled.sh/@isabelroses.com/dotfiles)
