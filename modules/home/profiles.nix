@@ -8,11 +8,12 @@ in
       graphical
       headless
       workstation
-      gaming
       laptop
       ;
 
     # we don't inherit these as there is extra options here
+    gaming = { inherit (cfg.gaming) enable; };
+
     server = {
       inherit (cfg.server) enable;
       oracle.enable = cfg.server.oracle.enable;

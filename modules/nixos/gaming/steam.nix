@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkEnableOption mkOption;
+  inherit (lib) mkIf mkOption mkEnableOption;
 
   cfg = config.garden.profiles.gaming.steam;
 in
@@ -30,7 +30,6 @@ in
   config = mkIf cfg.enable {
     programs.steam = {
       enable = true;
-
       # Open ports in the firewall for Steam Remote Play
       # remotePlay.openFirewall = true;
       # Open ports in the firewall for Source Dedicated Server
@@ -38,7 +37,6 @@ in
       # Compatibility tools to install
       # this option used to be provided by modules/shared/nixos/steam
       extraCompatPackages = [ pkgs.proton-ge-bin.steamcompattool ];
-
       gamescopeSession.enable = true;
     };
 

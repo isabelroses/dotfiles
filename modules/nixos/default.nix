@@ -9,6 +9,7 @@
     ./emulation.nix
     ./environment
     ./extras.nix
+    ./gaming
     ./hardware
     ./headless.nix
     ./networking
