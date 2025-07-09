@@ -115,6 +115,8 @@
         patterns = {
           "://x.com/" = "://fixupx.com/";
           "://reddit.com/" = "://rxddit.com/";
+          "://vm.tiktok.com/" = "://vm.vxtiktok.com/";
+          "://bsky.app/" = "://fxbsky.app/";
         };
       };
     };
