@@ -17,7 +17,7 @@
     device = {
       cpu = "amd";
       gpu = null;
-      monitors = [ "eDP-1" ];
+      monitors = [ "eDP-1" "HDMI-A-1" ];
       keyboard = "us";
       capabilities = {
         tpm = true;
