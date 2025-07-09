@@ -98,6 +98,8 @@ in
   "keys/aur.age" = defAccessIsabel (types.workstations ++ types.servers);
   "keys/aur-pub.age" = defAccessIsabel (types.workstations ++ types.servers);
   "keys/gpg.age" = defAccessIsabel types.workstations;
+  "keys/tangled.age" = defAccessIsabel types.workstations;
+  "keys/tangled-pub.age" = defAccessIsabel types.workstations;
 
   "uni/gitconf.age" = defAccessIsabel types.workstations;
   "uni/ssh.age" = defAccessIsabel types.workstations;

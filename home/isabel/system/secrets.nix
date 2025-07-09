@@ -31,6 +31,12 @@ in
     keys-aur-pub = mkUserSecret {
       file = "keys/aur-pub";
     };
+    keys-tangled = mkUserSecret {
+      file = "keys/tangled";
+    };
+    keys-tangled-pub = mkUserSecret {
+      file = "keys/tangled-pub";
+    };
 
     # extra uni stuff
     uni-gitconf = mkUserSecret {

@@ -37,6 +37,12 @@ in
         port = 2222;
       };
 
+      "tangled.sh" = {
+        user = "git";
+        hostname = "tangled.sh";
+        identityFile = secrets.keys-tangled.path;
+      };
+
       "git.auxolotl.org" = {
         user = "forgejo";
         hostname = "git.auxolotl.org";
