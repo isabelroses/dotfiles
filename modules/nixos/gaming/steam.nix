@@ -23,6 +23,7 @@ in
       tty = mkOption {
         default = 4;
         type = lib.types.int;
+        description = "tty to connect gamescope session on";
       };
     };
   };
