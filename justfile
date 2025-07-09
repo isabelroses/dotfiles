@@ -89,6 +89,13 @@ update *input:
 serve:
     nix run {{ flake }}#docs.serve
 
+# push to the mirrors
+[group('dev')]
+push-mirrors:
+    git push gitlab
+    git push --mirror codeberg
+    git push --mirror tanged
+
 # utils group
 
 alias fix := repair
