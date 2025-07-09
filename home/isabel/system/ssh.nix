@@ -1,7 +1,8 @@
 { self, config, ... }:
 let
-  inherit (self.lib) mkUserSecret;
-  inherit (config.age) secrets;
+  myUserSecret = self.lib.mkUserSecret "isabel";
+
+  inherit (config.sops) secrets;
   inherit (config.home) homeDirectory;
   sshDir = "${homeDirectory}/.ssh";
 in
@@ -11,7 +12,7 @@ in
     hashKnownHosts = true;
     compression = true;
 
-    includes = [ secrets.uni-ssh.path ];
+    includes = [ secrets.uni-sshconf.path ];
 
     matchBlocks = {
       # keep-sorted start block=yes newline_separated=yes
@@ -79,36 +80,20 @@ in
     };
   };
 
-  age.secrets = {
-    # keep-sorted start block=yes newline_separated=yes
-    keys-amity = mkUserSecret { file = "keys/amity"; };
-
-    keys-aur = mkUserSecret { file = "keys/aur"; };
-
-    keys-aur-pub = mkUserSecret { file = "keys/aur-pub"; };
-
-    keys-codeberg = mkUserSecret { file = "keys/codeberg"; };
-
-    keys-codeberg-pub = mkUserSecret { file = "keys/codeberg-pub"; };
-
-    keys-gh = mkUserSecret { file = "keys/gh"; };
-
-    keys-gh-pub = mkUserSecret { file = "keys/gh-pub"; };
-
-    keys-openvpn = mkUserSecret { file = "keys/openvpn"; };
-
-    keys-tangled = mkUserSecret { file = "keys/tangled"; };
-
-    keys-tangled-pub = mkUserSecret { file = "keys/tangled-pub"; };
-
-    uni-central = mkUserSecret {
-      file = "uni/central";
-      path = sshDir + "/uni-central";
-    };
-
-    uni-gitconf = mkUserSecret { file = "uni/gitconf"; };
-
-    uni-ssh = mkUserSecret { file = "uni/ssh"; };
+  sops.secrets = {
+    # keep-sorted start block=yes
+    keys-amity = myUserSecret { };
+    keys-aur = myUserSecret { };
+    keys-aur-pub = myUserSecret { };
+    keys-codeberg = myUserSecret { };
+    keys-codeberg-pub = myUserSecret { };
+    keys-gh = myUserSecret { };
+    keys-gh-pub = myUserSecret { };
+    keys-openvpn = myUserSecret { };
+    keys-tangled = myUserSecret { };
+    keys-tangled-pub = myUserSecret { };
+    uni-central = myUserSecret { path = sshDir + "/uni-central"; };
+    uni-sshconf = myUserSecret { };
     # keep-sorted end
   };
 }

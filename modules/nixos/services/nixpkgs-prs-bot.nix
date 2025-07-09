@@ -24,28 +24,30 @@ in
     }
 
     (mkIf cfg.fedi.enable {
-      age.secrets.nixpkgs-prs-bot-fedi = mkSystemSecret {
-        file = "nixpkgs-prs-bot/fedi";
+      sops.secrets.nixpkgs-prs-bot-fedi = mkSystemSecret {
+        file = "nixpkgs-prs-bot";
+        key = "fedi";
         owner = "nixpkgs-prs-bot";
         group = "nixpkgs-prs-bot";
       };
 
       services.nixpkgs-prs-bot.fedi = {
         enable = true;
-        environmentFile = config.age.secrets.nixpkgs-prs-bot-fedi.path;
+        environmentFile = config.sops.secrets.nixpkgs-prs-bot-fedi.path;
       };
     })
 
     (mkIf cfg.bsky.enable {
-      age.secrets.nixpkgs-prs-bot-bsky = mkSystemSecret {
-        file = "nixpkgs-prs-bot/bsky";
+      sops.secrets.nixpkgs-prs-bot-bsky = mkSystemSecret {
+        file = "nixpkgs-prs-bot";
+        key = "bsky";
         owner = "nixpkgs-prs-bot";
         group = "nixpkgs-prs-bot";
       };
 
       services.nixpkgs-prs-bot.bsky = {
         enable = true;
-        environmentFile = config.age.secrets.nixpkgs-prs-bot-bsky.path;
+        environmentFile = config.sops.secrets.nixpkgs-prs-bot-bsky.path;
       };
     })
   ]);

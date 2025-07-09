@@ -2,7 +2,6 @@
   perSystem =
     {
       pkgs,
-      self',
       config,
       inputs',
       ...
@@ -19,12 +18,12 @@
             pkgs.just # quick and easy task runner
             pkgs.cocogitto # git helpers
             pkgs.gitMinimal # we need git
-            self'.formatter # nix formatter
+            pkgs.sops # secrets management
+            config.formatter # nix formatter
             pkgs.nix-output-monitor # get clean diff between generations
-            inputs'.agenix.packages.agenix # secrets
           ];
 
-          inputsFrom = [ self'.formatter ];
+          inputsFrom = [ config.formatter ];
         };
 
         nixpkgs = pkgs.mkShellNoCC {

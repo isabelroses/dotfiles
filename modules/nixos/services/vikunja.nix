@@ -18,8 +18,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.vikunja-env = mkSystemSecret {
-      file = "vikunja-env";
+    sops.secrets.vikunja-env = mkSystemSecret {
+      file = "vikunja";
+      key = "env";
       owner = "vikunja";
       group = "vikunja";
     };
@@ -37,7 +38,7 @@ in
         frontendHostname = cfg.domain;
         frontendScheme = "https";
 
-        environmentFiles = [ config.age.secrets.vikunja-env.path ];
+        environmentFiles = [ config.sops.secrets.vikunja-env.path ];
 
         database = {
           type = "postgres";

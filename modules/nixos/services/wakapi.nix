@@ -19,17 +19,19 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets = {
+    sops.secrets = {
       wakapi = mkSystemSecret {
         file = "wakapi";
         owner = "wakapi";
         group = "wakapi";
+        key = "password";
       };
 
       wakapi-mailer = mkSystemSecret {
-        file = "wakapi-mailer";
+        file = "wakapi";
         owner = "wakapi";
         group = "wakapi";
+        key = "mailer";
       };
     };
 
@@ -52,8 +54,8 @@ in
       wakapi = {
         enable = true;
 
-        passwordSaltFile = config.age.secrets.wakapi.path;
-        smtpPasswordFile = config.age.secrets.wakapi-mailer.path;
+        passwordSaltFile = config.sops.secrets.wakapi.path;
+        smtpPasswordFile = config.sops.secrets.wakapi-mailer.path;
 
         # setup out postgresql database
         database.createLocally = true;

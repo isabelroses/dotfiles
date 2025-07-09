@@ -1,0 +1,29 @@
+keys:
+  - &isabel age1w98qzycsw5jk9hpy4yg5ld05qqdvs2vxctdypx0tqppvxrk579yshzctus
+  - &robin age15sejxcynw44vgsee5znxvq7vtuust686wn4f3u0upp42zay6ugqqp5lvv8
+
+  - &minerva age17xul0hxwkngkfp9p6yqpftahc9dz705hzagywlyd9j6dunagj9vq0hh45a
+  - &skadi age1ffpe5mkhx2kkz7l0vjn3ujl4lrh69qppt7qs5emzmqgs4t8aryqs8ku9xd
+  - &hestia age13t64mh30x7nvykn23kh86p0rpd07xy9zmq6sc5f4wvdnlnma4sgq3m3vv0
+  - &athena age1dfcv3m85krzqya9tsft5hwrapl3zq35ry6zrt8gy92afcyrrau6q879rfc
+
+creation_rules:
+  # user secrets
+  - path_regex: secrets/isabel\.yaml
+    key_groups:
+      - age:
+        - *isabel
+
+  - path_regex: secrets/robin\.yaml
+    key_groups:
+      - age:
+        - *robin
+
+  - path_regex: secrets/services/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *isabel
+        - *minerva
+        - *skadi
+        - *hestia
+        - *athena

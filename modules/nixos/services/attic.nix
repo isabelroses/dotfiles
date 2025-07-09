@@ -20,15 +20,15 @@ in
   };
 
   config = mkIf config.garden.services.attic.enable {
-    age.secrets.attic-env = mkSystemSecret {
-      file = "attic/env";
-      owner = "atticd";
+    sops.secrets.attic-env = mkSystemSecret {
+      file = "attic";
+      key = "env";
     };
 
     services = {
       atticd = {
         enable = true;
-        environmentFile = config.age.secrets.attic-env.path;
+        environmentFile = config.sops.secrets.attic-env.path;
 
         settings = {
           listen = "${cfg.host}:${toString cfg.port}";

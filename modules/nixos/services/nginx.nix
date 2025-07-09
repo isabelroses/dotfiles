@@ -44,8 +44,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.cloudflare-cert-api = mkSystemSecret {
-      file = "cloudflare/cert-api";
+    sops.secrets.cloudflare-cert-api = mkSystemSecret {
+      file = "cloudflare";
+      key = "cert-api";
       owner = "nginx";
       group = "nginx";
     };
@@ -59,7 +60,7 @@ in
       certs.${cfg.domain} = {
         extraDomainNames = [ "*.${cfg.domain}" ];
         dnsProvider = "cloudflare";
-        credentialsFile = config.age.secrets."cloudflare-cert-api".path;
+        credentialsFile = config.sops.secrets.cloudflare-cert-api.path;
       };
     };
 

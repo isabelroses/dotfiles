@@ -1,31 +1,5 @@
 {
   "nodes": {
-    "agenix": {
-      "inputs": {
-        "darwin": [],
-        "home-manager": [],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "systems": [
-          "systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1750180379,
-        "narHash": "sha256-UvXmMOCZrZqbs+BM2GV5ftclakM5uYENHd6kWPUJSQg=",
-        "owner": "ryantm",
-        "repo": "agenix",
-        "rev": "456fddf7a4fbecc5fadcc5ba90d9e0ba4bb47e85",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ryantm",
-        "ref": "pull/255/merge",
-        "repo": "agenix",
-        "type": "github"
-      }
-    },
     "brew-src": {
       "flake": false,
       "locked": {
@@ -443,7 +417,6 @@
     },
     "root": {
       "inputs": {
-        "agenix": "agenix",
         "catppuccin": "catppuccin",
         "darwin": "darwin",
         "easy-hosts": "easy-hosts",
@@ -460,6 +433,7 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
+        "sops": "sops",
         "systems": "systems",
         "tgirlpkgs": "tgirlpkgs"
       }
@@ -507,6 +481,26 @@
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
         "type": "gitlab"
+      }
+    },
+    "sops": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1751606940,
+        "narHash": "sha256-KrDPXobG7DFKTOteqdSVeL1bMVitDcy7otpVZWDE6MA=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "3633fc4acf03f43b260244d94c71e9e14a2f6e0d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
       }
     },
     "systems": {

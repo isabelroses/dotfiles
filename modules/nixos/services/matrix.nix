@@ -35,8 +35,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.matrix = mkSystemSecret {
-      file = "matrix/env";
+    sops.secrets.matrix = mkSystemSecret {
+      file = "matrix";
       owner = "matrix-synapse";
     };
 
@@ -50,7 +50,7 @@ in
       matrix-synapse = {
         enable = true;
 
-        extraConfigFiles = [ config.age.secrets.matrix.path ];
+        extraConfigFiles = [ config.sops.secrets.matrix.path ];
         settings = {
           withJemalloc = true;
           enable_registration = true;

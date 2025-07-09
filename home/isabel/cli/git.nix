@@ -8,7 +8,7 @@
 let
   inherit (lib) mkIf mkMerge map;
   inherit (lib.hm.dag) entryBefore;
-  inherit (self.lib) giturl;
+  inherit (self.lib) giturl mkUserSecret;
 in
 {
   config = mkIf config.programs.git.enable (mkMerge [
@@ -34,6 +34,8 @@ in
     })
 
     {
+      sops.secrets.uni-gitconf = mkUserSecret "isabel" { };
+
       programs.git = {
         package = pkgs.gitMinimal;
         userName = "isabel";
@@ -42,11 +44,11 @@ in
         includes = [
           {
             condition = "gitdir:~/dev/uni/";
-            inherit (config.age.secrets."uni-gitconf") path;
+            inherit (config.sops.secrets."uni-gitconf") path;
           }
           {
             condition = "gitdir:~/Dev/uni/";
-            inherit (config.age.secrets."uni-gitconf") path;
+            inherit (config.sops.secrets."uni-gitconf") path;
           }
         ];
 

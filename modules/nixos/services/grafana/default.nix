@@ -20,15 +20,17 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets = {
+    sops.secrets = {
       grafana-oauth2 = mkSystemSecret {
-        file = "grafana-oauth2";
+        file = "grafana";
+        key = "oauth2";
         owner = "grafana";
         group = "grafana";
       };
 
       mailserver-grafana-nohash = mkSystemSecret {
-        file = "mailserver/grafana-nohash";
+        file = "mailserver";
+        key = "grafana-nohash";
         owner = "grafana";
         group = "grafana";
       };
@@ -68,7 +70,7 @@ in
               enabled = true;
 
               user = mailer;
-              password = "$__file{" + config.age.secrets.mailserver-grafana-nohash.path + "}";
+              password = "$__file{" + config.sops.secrets.mailserver-grafana-nohash.path + "}";
 
               host = "${config.garden.services.mailserver.domain}:465";
               from_address = mailer;
@@ -99,7 +101,7 @@ in
               icon = "signin";
               name = "Kanidm";
               client_id = "grafana";
-              client_secret = "$__file{${config.age.secrets.grafana-oauth2.path}}";
+              client_secret = "$__file{${config.sops.secrets.grafana-oauth2.path}}";
               use_pkce = true;
               scopes = "openid email profile";
               login_attribute_path = "preferred_username";

@@ -1,20 +1,10 @@
+{ inputs, ... }:
 {
-  lib,
-  _class,
-  pkgs,
-  inputs,
-  ...
-}:
-let
-  inherit (lib) mkIf getExe;
-  isDarwin = _class == "darwin";
-in
-{
-  imports = [ inputs.agenix.nixosModules.default ];
+  imports = [ inputs.sops.nixosModules.sops ];
 
-  age = {
-    ageBin = getExe pkgs.rage;
-    secretsDir = mkIf isDarwin "/private/tmp/agenix";
-    secretsMountPoint = mkIf isDarwin "/private/tmp/agenix.d";
+  sops.age = {
+    generateKey = true;
+    keyFile = "/var/lib/sops-nix/key.txt";
+    sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   };
 }

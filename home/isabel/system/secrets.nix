@@ -5,14 +5,11 @@ let
   inherit (config.xdg) configHome;
 in
 {
-  age.secrets = {
-    wakatime = mkUserSecret {
-      file = "isabel/wakatime";
+  sops.secrets = {
+    wakatime = mkUserSecret "isabel" {
       path = configHome + "/wakatime/.wakatime.cfg";
     };
 
-    nix-auth-tokens = mkUserSecret {
-      file = "isabel/nix-auth-tokens";
-    };
+    nix-auth-tokens = mkUserSecret "isabel" { };
   };
 }

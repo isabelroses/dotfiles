@@ -30,27 +30,31 @@ in
       postgresql.enable = true;
     };
 
-    age.secrets = {
+    sops.secrets = {
       kanidm-admin-password = mkSystemSecret {
-        file = "kanidm/admin-password";
+        file = "kanidm";
+        key = "admin-password";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
       kanidm-idm-admin-password = mkSystemSecret {
-        file = "kanidm/idm-admin-password";
+        file = "kanidm";
+        key = "idm-admin-password";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
       kanidm-oauth2-grafana = mkSystemSecret {
-        file = "kanidm/oauth2/grafana";
+        file = "kanidm";
+        key = "oauth2-grafana";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
       kanidm-oauth2-forgejo = mkSystemSecret {
-        file = "kanidm/oauth2/forgejo";
+        file = "kanidm";
+        key = "oauth2-forgejo";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
@@ -81,8 +85,8 @@ in
         provision = {
           enable = true;
 
-          adminPasswordFile = config.age.secrets.kanidm-admin-password.path;
-          idmAdminPasswordFile = config.age.secrets.kanidm-idm-admin-password.path;
+          adminPasswordFile = config.sops.secrets.kanidm-admin-password.path;
+          idmAdminPasswordFile = config.sops.secrets.kanidm-idm-admin-password.path;
 
           persons = {
             isabel = {
@@ -121,7 +125,7 @@ in
               displayName = "Grafana";
               originUrl = "https://${cfg'.grafana.domain}/login/generic_oauth";
               originLanding = "https://${cfg'.grafana.domain}/";
-              basicSecretFile = config.age.secrets.kanidm-oauth2-grafana.path;
+              basicSecretFile = config.sops.secrets.kanidm-oauth2-grafana.path;
               preferShortUsername = true;
               scopeMaps."grafana.access" = [
                 "openid"
@@ -142,7 +146,7 @@ in
               displayName = "Forgejo";
               originUrl = "https://${cfg'.forgejo.domain}/user/oauth2/Isabel%27s%20SSO/callback";
               originLanding = "https://${cfg'.forgejo.domain}/";
-              basicSecretFile = config.age.secrets.kanidm-oauth2-forgejo.path;
+              basicSecretFile = config.sops.secrets.kanidm-oauth2-forgejo.path;
               scopeMaps."forgejo.access" = [
                 "openid"
                 "email"

@@ -18,8 +18,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.photoprism-password = mkSystemSecret {
-      file = "photoprism-password";
+    sops.secrets.photoprism-password = mkSystemSecret {
+      file = "photoprism";
+      key = "password";
     };
 
     services = {
@@ -29,7 +30,7 @@ in
         inherit (cfg) port;
         address = cfg.host;
 
-        passwordFile = config.age.secrets.photoprism-password.path;
+        passwordFile = config.sops.secrets.photoprism-password.path;
 
         originalsPath = "/srv/storage/photoprism/photos";
 

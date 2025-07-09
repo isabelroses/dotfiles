@@ -10,7 +10,7 @@ let
   inherit (lib) mkIf mkMerge;
   inherit (self.lib) mkServiceOption mkSystemSecret;
 
-  inherit (config.age) secrets;
+  inherit (config.sops) secrets;
 
   rdomain = config.networking.domain;
 
@@ -26,12 +26,27 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     {
-      age.secrets = {
-        buildbot-worker = mkSystemSecret { file = "buildbot/worker"; };
-        buildbot-workers = mkSystemSecret { file = "buildbot/workers"; };
-        buildbot-gh-webhook-secret = mkSystemSecret { file = "buildbot/gh-webhook-secret"; };
-        buildbot-gh-private-key = mkSystemSecret { file = "buildbot/gh-private-key"; };
-        buildbot-gh-oauth = mkSystemSecret { file = "buildbot/gh-oauth"; };
+      sops.secrets = {
+        buildbot-worker = mkSystemSecret {
+          file = "buildbot";
+          key = "worker";
+        };
+        buildbot-workers = mkSystemSecret {
+          file = "buildbot";
+          key = "workers";
+        };
+        buildbot-gh-webhook-secret = mkSystemSecret {
+          file = "buildbot";
+          key = "gh-webhook-secret";
+        };
+        buildbot-gh-private-key = mkSystemSecret {
+          file = "buildbot";
+          key = "gh-private-key";
+        };
+        buildbot-gh-oauth = mkSystemSecret {
+          file = "buildbot";
+          key = "gh-oauth";
+        };
       };
 
       services = {

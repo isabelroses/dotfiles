@@ -92,19 +92,9 @@
     };
 
     # Secrets, shhh
-    # TODO: https://github.com/ryantm/agenix/pull/255
-    agenix = {
-      type = "github";
-      owner = "ryantm";
-      repo = "agenix";
-      ref = "pull/255/merge";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-        darwin.follows = "";
-        home-manager.follows = "";
-      };
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ### Additional packages

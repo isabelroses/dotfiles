@@ -1,6 +1,6 @@
 { config, ... }:
 let
-  inherit (config.age) secrets;
+  inherit (config.sops) secrets;
 in
 {
   programs.ssh = {

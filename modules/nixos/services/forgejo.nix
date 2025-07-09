@@ -19,15 +19,17 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets = {
+    sops.secrets = {
       mailserver-git-nohash = mkSystemSecret {
-        file = "mailserver/git-nohash";
+        file = "mailserver";
+        key = "git-nohash";
         owner = "forgejo";
         group = "forgejo";
       };
 
       anubis-forgejo = mkSystemSecret {
-        file = "anubis/forgejo";
+        file = "anubis";
+        key = "forgejo";
         owner = "anubis";
         group = "anubis";
       };
@@ -66,7 +68,7 @@ in
         stateDir = "/srv/storage/forgejo/data";
         lfs.enable = true;
 
-        secrets.mailer.PASSWD = config.age.secrets.mailserver-git-nohash.path;
+        secrets.mailer.PASSWD = config.sops.secrets.mailserver-git-nohash.path;
 
         settings = {
           federation.ENABLED = true;
@@ -184,7 +186,7 @@ in
       anubis = mkIf config.garden.services.anubis.enable {
         instances.forgejo.settings = {
           TARGET = "unix://${config.services.forgejo.settings.server.HTTP_ADDR}";
-          ED25519_PRIVATE_KEY_HEX_FILE = config.age.secrets.anubis-forgejo.path;
+          ED25519_PRIVATE_KEY_HEX_FILE = config.sops.secrets.anubis-forgejo.path;
         };
       };
 

@@ -1,14 +1,10 @@
+{ config, inputs, ... }:
 {
-  pkgs,
-  inputs,
-  config,
-  ...
-}:
-{
-  imports = [ inputs.agenix.homeManagerModules.default ];
+  imports = [ inputs.sops.homeManagerModules.sops ];
 
-  config.age = {
-    package = pkgs.rage;
-    secretsDir = config.xdg.configHome + "/agenix";
+  config = {
+    sops.age = {
+      sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
+    };
   };
 }

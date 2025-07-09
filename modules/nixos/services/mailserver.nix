@@ -24,16 +24,43 @@ in
       postgresql.enable = true;
     };
 
-    age.secrets = {
-      mailserver-isabel = mkSystemSecret { file = "mailserver/isabel"; };
-      mailserver-jobs = mkSystemSecret { file = "mailserver/jobs"; };
-      mailserver-robin = mkSystemSecret { file = "mailserver/robin"; };
-      mailserver-vaultwarden = mkSystemSecret { file = "mailserver/vaultwarden"; };
-      mailserver-database = mkSystemSecret { file = "mailserver/database"; };
-      mailserver-grafana = mkSystemSecret { file = "mailserver/grafana"; };
-      mailserver-git = mkSystemSecret { file = "mailserver/git"; };
-      mailserver-noreply = mkSystemSecret { file = "mailserver/noreply"; };
-      mailserver-spam = mkSystemSecret { file = "mailserver/spam"; };
+    sops.secrets = {
+      mailserver-isabel = mkSystemSecret {
+        file = "mailserver";
+        key = "isabel";
+      };
+      mailserver-jobs = mkSystemSecret {
+        file = "mailserver";
+        key = "jobs";
+      };
+      mailserver-robin = mkSystemSecret {
+        file = "mailserver";
+        key = "robin";
+      };
+      mailserver-vaultwarden = mkSystemSecret {
+        file = "mailserver";
+        key = "vaultwarden";
+      };
+      mailserver-database = mkSystemSecret {
+        file = "mailserver";
+        key = "database";
+      };
+      mailserver-grafana = mkSystemSecret {
+        file = "mailserver";
+        key = "grafana";
+      };
+      mailserver-git = mkSystemSecret {
+        file = "mailserver";
+        key = "git";
+      };
+      mailserver-noreply = mkSystemSecret {
+        file = "mailserver";
+        key = "noreply";
+      };
+      mailserver-spam = mkSystemSecret {
+        file = "mailserver";
+        key = "spam";
+      };
     };
 
     # required for roundcube
@@ -86,7 +113,7 @@ in
 
       loginAccounts = {
         "isabel@${rdomain}" = {
-          hashedPasswordFile = config.age.secrets.mailserver-isabel.path;
+          hashedPasswordFile = config.sops.secrets.mailserver-isabel.path;
           aliases = [
             "isabel"
             "isabelroses"
@@ -104,7 +131,7 @@ in
         };
 
         "jobs@${rdomain}" = {
-          hashedPasswordFile = config.age.secrets.mailserver-jobs.path;
+          hashedPasswordFile = config.sops.secrets.mailserver-jobs.path;
           aliases = [
             "jobs"
             "jobs@${rdomain}"
@@ -114,7 +141,7 @@ in
         };
 
         "robin@${rdomain}" = {
-          hashedPasswordFile = config.age.secrets.mailserver-robin.path;
+          hashedPasswordFile = config.sops.secrets.mailserver-robin.path;
           aliases = [
             "robin"
             "robinwobin"
@@ -131,7 +158,7 @@ in
             "git"
             "git@${rdomain}"
           ];
-          hashedPasswordFile = config.age.secrets.mailserver-git.path;
+          hashedPasswordFile = config.sops.secrets.mailserver-git.path;
         };
 
         "vaultwarden@${rdomain}" = {
@@ -140,7 +167,7 @@ in
             "bitwarden"
             "bitwarden@${rdomain}"
           ];
-          hashedPasswordFile = config.age.secrets.mailserver-vaultwarden.path;
+          hashedPasswordFile = config.sops.secrets.mailserver-vaultwarden.path;
         };
 
         "grafana@${rdomain}" = {
@@ -149,12 +176,12 @@ in
             "monitor"
             "monitor@${rdomain}"
           ];
-          hashedPasswordFile = config.age.secrets.mailserver-grafana.path;
+          hashedPasswordFile = config.sops.secrets.mailserver-grafana.path;
         };
 
         "noreply@${rdomain}" = {
           aliases = [ "noreply" ];
-          hashedPasswordFile = config.age.secrets.mailserver-noreply.path;
+          hashedPasswordFile = config.sops.secrets.mailserver-noreply.path;
         };
 
         "spam@${rdomain}" = {
@@ -165,7 +192,7 @@ in
             "stfu"
             "stfu@${rdomain}"
           ];
-          hashedPasswordFile = config.age.secrets.mailserver-spam.path;
+          hashedPasswordFile = config.sops.secrets.mailserver-spam.path;
         };
       };
 

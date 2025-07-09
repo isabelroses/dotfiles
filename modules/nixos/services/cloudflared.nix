@@ -16,8 +16,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.cloudflared-athena = mkSystemSecret {
-      file = "cloudflare/athena";
+    sops.secrets.cloudflared-athena = mkSystemSecret {
+      file = "cloudflare";
+      key = "athena";
     };
 
     networking = { inherit (cfg) domain; };
@@ -26,7 +27,7 @@ in
       enable = true;
 
       tunnels.${config.networking.hostName} = {
-        credentialsFile = config.age.secrets.cloudflared-athena.path;
+        credentialsFile = config.sops.secrets.cloudflared-athena.path;
         default = "http_status:404";
       };
     };

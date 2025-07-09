@@ -18,8 +18,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    age.secrets.vaultwarden-env = mkSystemSecret {
-      file = "vaultwarden-env";
+    sops.secrets.vaultwarden-env = mkSystemSecret {
+      file = "vaultwarden";
+      key = "env";
       owner = "vaultwarden";
       group = "vaultwarden";
     };
@@ -33,7 +34,7 @@ in
     services = {
       vaultwarden = {
         enable = true;
-        environmentFile = config.age.secrets.vaultwarden-env.path;
+        environmentFile = config.sops.secrets.vaultwarden-env.path;
         backupDir = "/srv/storage/vaultwarden/backup";
 
         # https://github.com/dani-garcia/vaultwarden/blob/1.34.1/.env.template

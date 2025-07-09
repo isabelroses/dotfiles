@@ -12,12 +12,15 @@ in
   options.garden.services.blahaj = mkServiceOption "blahaj" { };
 
   config = mkIf config.garden.services.blahaj.enable {
-    age.secrets.blahaj-env = mkSystemSecret { file = "blahaj-env"; };
+    sops.secrets.blahaj-env = mkSystemSecret {
+      file = "blahaj";
+      key = "env";
+    };
 
     services = {
       blahaj = {
         enable = true;
-        environmentFile = config.age.secrets.blahaj-env.path;
+        environmentFile = config.sops.secrets.blahaj-env.path;
       };
 
       nginx.virtualHosts."blahaj.isabelroses.com" = {

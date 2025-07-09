@@ -7,8 +7,8 @@ let
 
     # Arguments
 
-    - [file] the age file to use for the secret
-    - [mode] the permissions of the secret, this defaults to "400"
+    - [user] the user for which to create the secret
+    - [args] additional attributes to set on the secret
 
     # Type
 
@@ -19,7 +19,7 @@ let
     # Example
 
     ```nix
-    mkUserSecret { file = "./my-secret.age"; }
+    mkUserSecret "isabel" { mode = "0400"; }
     => {
       file = "./my-secret.age";
       mode = "400";
@@ -27,22 +27,11 @@ let
     ```
   */
   mkUserSecret =
+    user: args:
     {
-      file,
-      mode ? "400",
-      ...
-    }@args:
-    let
-      args' = builtins.removeAttrs args [
-        "file"
-        "mode"
-      ];
-    in
-    {
-      file = "${self}/secrets/${file}.age";
-      inherit mode;
+      sopsFile = "${self}/secrets/${user}.yaml";
     }
-    // args';
+    // args;
 
   /**
     Create secrets for use with `agenix`.
@@ -77,7 +66,7 @@ let
       file,
       owner ? "root",
       group ? "root",
-      mode ? "400",
+      mode ? "0400",
       ...
     }@args:
     let
@@ -89,7 +78,7 @@ let
       ];
     in
     {
-      file = "${self}/secrets/${file}.age";
+      sopsFile = "${self}/secrets/services/${file}.yaml";
       inherit owner group mode;
     }
     // args';
