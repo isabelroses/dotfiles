@@ -1,3 +1,4 @@
+# TODO: clean this up + make user level secrets less cursed
 let
   users = {
     isabel = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2";
@@ -100,6 +101,8 @@ in
   "keys/gpg.age" = defAccessIsabel types.workstations;
   "keys/tangled.age" = defAccessIsabel types.workstations;
   "keys/tangled-pub.age" = defAccessIsabel types.workstations;
+  "keys/codeberg.age" = defAccessIsabel types.workstations;
+  "keys/codeberg-pub.age" = defAccessIsabel types.workstations;
 
   "uni/gitconf.age" = defAccessIsabel types.workstations;
   "uni/ssh.age" = defAccessIsabel types.workstations;
