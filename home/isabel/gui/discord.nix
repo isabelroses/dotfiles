@@ -20,42 +20,46 @@
       enable = true;
       settings = {
         extensions = {
-          moonbase = true;
-          disableSentry = true;
-          noTrack = true;
-          noHideToken = true;
           betterCodeblocks = true;
           betterEmbedsYT = true;
           clearUrls = true;
           cloneExpressions = true;
+          copyWebp = true;
+          disableSentry = true;
           domOptimizer = true;
+          experiments = true;
+          freeMoji = false;
           freeScreenShare = true;
-          greentext = true;
+          greentext = false;
+          httpCats = true;
+          inviteToNowhere = true;
           lastFmRpc = false;
           memberCount = true;
+          moonbase = true;
+          noHideToken = true;
+          noReplyChainNag = true;
+          noTrack = true;
           onePingPerDM = true;
           pronouns = true;
           textReplacer = {
-            enabled = true;
             config = {
               patterns = {
-                "://x.com/" = "://fxtwitter.com/";
-                "://twitter.com/" = "://fxtwitter.com/";
-                "://www.reddit.com/" = "://rxddit.com/";
-                "://reddit.com/" = "://rxddit.com/";
-                "://www.instagram.com/" = "://ddinstagram.com/";
-                "://instagram.com/" = "://ddinstagram.com/";
-                "://www.tiktok.com/" = "://tfxktok.com/";
-                "://vm.tiktok.com/" = "://vm.vxtiktok.com/";
-                "://tiktok.com/" = "://tfxktok.com/";
                 "://bsky.app/" = "://fxbsky.app/";
+                "://instagram.com/" = "://ddinstagram.com/";
+                "://reddit.com/" = "://rxddit.com/";
+                "://tiktok.com/" = "://tfxktok.com/";
+                "://twitter.com/" = "://fxtwitter.com/";
+                "://vm.tiktok.com/" = "://vm.vxtiktok.com/";
+                "://www.instagram.com/" = "://ddinstagram.com/";
+                "://www.reddit.com/" = "://rxddit.com/";
+                "://www.tiktok.com/" = "://tfxktok.com/";
+                "://x.com/" = "://fxtwitter.com/";
               };
             };
+            enabled = true;
           };
         };
-        repositories = [
-          "https://moonlight-mod.github.io/extensions-dist/repo.json"
-        ];
+        repositories = [ "https://moonlight-mod.github.io/extensions-dist/repo.json" ];
       };
     };
   };
