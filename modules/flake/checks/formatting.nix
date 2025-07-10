@@ -1,10 +1,10 @@
 { self, ... }:
 {
   perSystem =
-    { pkgs, self', ... }:
+    { pkgs, config, ... }:
     {
       checks.formatting =
-        pkgs.runCommandNoCCLocal "formatting-checks" { nativeBuildInputs = [ self'.formatter ]; }
+        pkgs.runCommandNoCCLocal "formatting-checks" { nativeBuildInputs = [ config.formatter ]; }
           ''
             cd ${self}
             treefmt --no-cache --fail-on-change
