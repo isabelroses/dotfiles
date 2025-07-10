@@ -94,7 +94,7 @@ serve:
 push-mirrors:
     git push gitlab
     git push --mirror codeberg
-    git push --mirror tanged
+    git push --mirror tangled
 
 # utils group
 
