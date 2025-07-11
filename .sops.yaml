@@ -8,7 +8,6 @@ keys:
   - &athena age1dfcv3m85krzqya9tsft5hwrapl3zq35ry6zrt8gy92afcyrrau6q879rfc
 
 creation_rules:
-  # user secrets
   - path_regex: secrets/isabel\.yaml
     key_groups:
       - age:

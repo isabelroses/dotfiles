@@ -15,6 +15,7 @@
 - [adding systems](guides/adding-systems.md)
 - [adding users](guides/adding-users.md)
 - [adding packages](guides/adding-packages.md)
+- [secrets](guides/secrets.md)
 - [uninstalling](guides/uninstalling.md)
 
 # Configuration
