@@ -20,6 +20,8 @@ in
           # gitflow # Extend git with the Gitflow branching model
           cocogitto # git helpers
           ;
+
+        git-crypt = pkgs.git-crypt.override { git = config.programs.git.package; };
       };
     })
 

@@ -18,7 +18,7 @@
             pkgs.just # quick and easy task runner
             pkgs.cocogitto # git helpers
             pkgs.gitMinimal # we need git
-            pkgs.git-crypt # git-crypt for encrypted git repositories
+            (pkgs.git-crypt.override { git = pkgs.gitMinimal; }) # git-crypt for encrypted git repositories
             pkgs.sops # secrets management
             config.formatter # nix formatter
             pkgs.nix-output-monitor # get clean diff between generations
