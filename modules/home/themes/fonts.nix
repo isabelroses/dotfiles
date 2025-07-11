@@ -6,7 +6,12 @@
 }:
 let
   inherit (lib) mkIf mkOption mkEnableOption;
-  inherit (lib.types) str int package;
+  inherit (lib.types)
+    str
+    int
+    package
+    nullOr
+    ;
 
   cfg = config.garden.style.fonts;
 in
@@ -41,7 +46,7 @@ in
     };
 
     package = mkOption {
-      type = package;
+      type = nullOr package;
       description = "The package that provides the font";
       default = pkgs.maple-mono.truetype;
     };
@@ -54,10 +59,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    garden.packages = {
-      ${cfg.package.name} = cfg.package;
-    };
-
     fonts.fontconfig = {
       enable = true;
 
@@ -83,8 +84,8 @@ in
         };
     };
 
-    garden.packages = {
-      ${cfg.name} = cfg.package;
+    garden.packages = mkIf (cfg.package != null) {
+      ${cfg.package.name} = cfg.package;
     };
   };
 }

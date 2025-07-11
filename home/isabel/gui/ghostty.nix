@@ -18,9 +18,6 @@
       window-save-state = "always";
 
       font-family = config.garden.style.fonts.name;
-      font-family-bold = config.garden.style.fonts.bold;
-      font-family-italic = config.garden.style.fonts.italic;
-      font-family-bold-italic = config.garden.style.fonts.bold-italic;
       font-size = 13;
     };
   };

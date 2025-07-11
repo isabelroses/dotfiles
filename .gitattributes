@@ -4,5 +4,7 @@ flake.lock -diff
 # treat age files as binarys
 *.age -text -diff
 
+secrets/fonts/** filter=git-crypt diff=git-crypt
+
 # templates should not register on linguist
 parts/templates/* linguist-vendored
