@@ -28,6 +28,11 @@
           on-unmatched = "info";
           tree-root-file = "flake.nix";
 
+          excludes = [
+            ".git-crypt/*"
+            "secrets/*"
+          ];
+
           formatter = {
             # keep-sorted start block=yes newline_separated=yes
             actionlint = {
