@@ -3,6 +3,7 @@
     # keep-sorted start
     ./akkoma
     # ./buildbot.nix
+    ./pds.nix
     ./anubis.nix
     ./attic.nix
     ./atuin.nix
