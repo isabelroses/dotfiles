@@ -2,8 +2,6 @@
   imports = [
     # keep-sorted start
     ./akkoma
-    # ./buildbot.nix
-    ./pds.nix
     ./anubis.nix
     ./attic.nix
     ./atuin.nix
@@ -20,6 +18,8 @@
     ./nginx.nix
     ./nixpkgs-prs-bot.nix
     ./ntfy.nix
+    # ./buildbot.nix
+    ./pds.nix
     ./photoprism.nix
     ./postgresql.nix
     ./prometheus.nix
