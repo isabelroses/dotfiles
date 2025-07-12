@@ -15,10 +15,10 @@
     ./networking
     ./nix.nix
     ./programs
+    ./secrets.nix
     ./security
     ./services
     ./system
-    ./secrets.nix
     # keep-sorted end
   ];
 }
