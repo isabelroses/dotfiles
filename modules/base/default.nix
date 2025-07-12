@@ -6,7 +6,6 @@
     ./nix
     ./nixpkgs
     ./programs.nix
-    ./secrets.nix
     ./system
     ./users
     # keep-sorted end

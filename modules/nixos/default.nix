@@ -18,6 +18,7 @@
     ./security
     ./services
     ./system
+    ./secrets.nix
     # keep-sorted end
   ];
 }
