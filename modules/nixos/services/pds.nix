@@ -6,7 +6,6 @@
 }:
 let
   cfg = config.garden.services.pds;
-  rdomain = config.networking.domain;
 
   inherit (lib) mkIf;
   inherit (self.lib) mkServiceOption mkSystemSecret;
@@ -14,7 +13,7 @@ in
 {
   options.garden.services.pds = mkServiceOption "pds" {
     port = 3601;
-    domain = "pds.${rdomain}";
+    domain = "pds.tgirl.cloud";
   };
 
   config = mkIf cfg.enable {
