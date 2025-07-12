@@ -18,7 +18,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets.pds-env = mkSystemSecret { file = "pds"; };
+    sops.secrets.pds-env = mkSystemSecret {
+      file = "pds";
+      owner = "pds";
+      group = "pds";
+    };
 
     services = {
       pds = {
@@ -39,6 +43,7 @@ in
       nginx.virtualHosts.${cfg.domain} = {
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyWebsockets = true;
         };
       };
     };
