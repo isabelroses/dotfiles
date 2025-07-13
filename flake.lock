@@ -178,6 +178,26 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "inputs": {
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -241,6 +261,32 @@
         "type": "github"
       }
     },
+    "ixx": {
+      "inputs": {
+        "flake-utils": [
+          "nuscht-search",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nuscht-search",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748294338,
+        "narHash": "sha256-FVO01jdmUNArzBS7NmaktLdGA5qA3lUMJ4B7a05Iynw=",
+        "owner": "NuschtOS",
+        "repo": "ixx",
+        "rev": "cc5f390f7caf265461d4aab37e98d2292ebbdb85",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NuschtOS",
+        "ref": "v0.0.8",
+        "repo": "ixx",
+        "type": "github"
+      }
+    },
     "izlix": {
       "inputs": {
         "flake-compat": [],
@@ -272,11 +318,11 @@
         "systems": []
       },
       "locked": {
-        "lastModified": 1752336821,
-        "narHash": "sha256-A70MZV3C3yDTgTmdL8ZDSAe1WB8ML9vRVkDmaHWAU4c=",
+        "lastModified": 1752401628,
+        "narHash": "sha256-F1S5dbP7VK9LJRuphXkUL+RkTGD+AEpmSju3CGA/ec4=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "96ec8f1146d6f804124195207b00420c0af8ccd5",
+        "rev": "d90030721cb262ac67c2a1cf9a2b4f200a2c8cf5",
         "type": "github"
       },
       "original": {
@@ -415,6 +461,30 @@
         "type": "github"
       }
     },
+    "nuscht-search": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "ixx": "ixx",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1749730855,
+        "narHash": "sha256-L3x2nSlFkXkM6tQPLJP3oCBMIsRifhIDPMQQdHO5xWo=",
+        "owner": "nuschtos",
+        "repo": "search",
+        "rev": "8dfe5879dd009ff4742b668d9c699bc4b9761742",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nuschtos",
+        "repo": "search",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
@@ -424,6 +494,7 @@
         "fht-compositor": "fht-compositor",
         "fht-share-picker": "fht-share-picker",
         "flake-parts": "flake-parts",
+        "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "homebrew": "homebrew",
         "ivy": "ivy",
@@ -432,6 +503,7 @@
         "lanzaboote": "lanzaboote",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "nuscht-search": "nuscht-search",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops": "sops",
         "systems": "systems",

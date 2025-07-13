@@ -193,11 +193,30 @@
       };
     };
 
-    # transative deps
+    nuscht-search = {
+      type = "github";
+      owner = "nuschtos";
+      repo = "search";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
+
+    # transitive deps
     systems = {
       type = "github";
       owner = "nix-systems";
       repo = "default";
+    };
+
+    # PLEASE PLEASE PLEASE DIE OFF ALREDAY
+    flake-utils = {
+      type = "github";
+      owner = "numtide";
+      repo = "flake-utils";
+      inputs.systems.follows = "systems";
     };
   };
 }

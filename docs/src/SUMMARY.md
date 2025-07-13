@@ -29,7 +29,7 @@ libdoc
 
 # options
 
-optionsdoc
+- [options](options/index.md)
 
 # Further Reading
 
