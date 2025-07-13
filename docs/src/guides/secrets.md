@@ -71,3 +71,19 @@ sops secrets/services/<service>.yaml
 ```
 
 You should replace `<service>` with the name of the service you are adding the secrets for.
+
+## Rotating secrets
+
+To rotate a secret file all you have to run is:
+
+```bash
+sops rotate -i secrets/<file>.yaml
+```
+
+Where `<file>` is the name of the file you want to rotate.
+
+To rotate all the secrets, you can run:
+
+```bash
+find secrets/ -name "*.yaml" | xargs -I {} sops rotate -i {}
+```
