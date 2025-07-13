@@ -13,6 +13,12 @@
         email = config.programs.git.userEmail;
       };
 
+      signing = {
+        behavior = "own";
+        backend = "ssh";
+        key = "~/.ssh/keys.github.id_ed25519";
+      };
+
       aliases = {
         # create named bookmark at HEAD
         name = [
