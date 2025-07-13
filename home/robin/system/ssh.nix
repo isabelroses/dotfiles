@@ -1,7 +1,3 @@
-{ config, ... }:
-let
-  inherit (config.sops) secrets;
-in
 {
   programs.ssh = {
     enable = true;
@@ -13,7 +9,6 @@ in
       "github.com" = {
         user = "git";
         hostname = "github.com";
-        identityFile = secrets.keys-gh.path;
       };
 
       "gitlab.com" = {

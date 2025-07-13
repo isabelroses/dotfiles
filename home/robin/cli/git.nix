@@ -124,7 +124,8 @@ in
           merge.ff = "only";
           push.autoSetupRemote = true;
 
-          user.signingkey = config.sops.secrets.keys-gh.path;
+          gpg.format = "ssh";
+          user.signingkey = "~/.ssh/keys.github.id_ed25519";
           # personal preference
           init.defaultBranch = "main";
           # prevent data corruption
