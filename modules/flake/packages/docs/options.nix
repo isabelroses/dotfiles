@@ -13,7 +13,7 @@ let
     filterAttrs
     ;
 
-  system = pkgs.stdenv.hostPlatform.system;
+  inherit (pkgs.stdenv.hostPlatform) system;
 
   mkEval =
     module:
