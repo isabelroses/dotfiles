@@ -16,6 +16,7 @@
     ./pager.nix
     ./printing.nix
     ./runners.nix
+    ./scheduler.nix
     ./seatd.nix
     ./serial.nix
     ./size.nix
