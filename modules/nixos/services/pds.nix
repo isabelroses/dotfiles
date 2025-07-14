@@ -40,9 +40,25 @@ in
       };
 
       nginx.virtualHosts.${cfg.domain} = {
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString cfg.port}";
-          proxyWebsockets = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://127.0.0.1:${toString cfg.port}";
+            proxyWebsockets = true;
+          };
+
+          "/xrpc/app.bsky.unspecced.getAgeAssuranceState" =
+            let
+              state = builtins.toJSON {
+                lastInitiatedAt = "2025-07-14T15:11:05.487Z";
+                status = "assured";
+              };
+            in
+            {
+              return = "200 '${state}'";
+              extraConfig = ''
+                default_type application/json;
+              '';
+            };
         };
       };
     };
