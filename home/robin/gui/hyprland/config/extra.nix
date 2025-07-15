@@ -46,34 +46,29 @@ in
 
       # █▀▄▀█ █▀█ █░█ █▀▀
       # █░▀░█ █▄█ ▀▄▀ ██▄
-      bind=SUPER, M, submap, move
-      submap=move
 
-        binde = , left, movewindow, l
-        binde = , right, movewindow, r
-        binde = , up, movewindow, u
-        binde = , down, movewindow, d
-        binde = , j, movewindow, l
-        binde = , l, movewindow, r
-        binde = , i, movewindow, u
-        binde = , k, movewindow, d
-
-        bind=,escape,submap,reset
-      submap=reset
+      bind = SUPER SHIFT, left, movewindow, l
+      bind = SUPER SHIFT, right, movewindow, r
+      bind = SUPER SHIFT, up, movewindow, u
+      bind = SUPER SHIFT, down, movewindow, d
+      bind = SUPER SHIFT, h, movewindow, l
+      bind = SUPER SHIFT, j, movewindow, d
+      bind = SUPER SHIFT, k, movewindow, u
+      bind = SUPER SHIFT, l, movewindow, r
 
       # █▀▄▀█ █▀█ █░█ █▀▀
       # █░▀░█ █▄█ ▀▄▀ ██▄
       bind=SUPER SHIFT, M, submap, move-monitor
       submap=move-monitor
 
-        binde = , left, movecurrentworkspacetomonitor, l
-        binde = , right, movecurrentworkspacetomonitor, r
-        binde = , up, movecurrentworkspacetomonitor, u
-        binde = , down, movecurrentworkspacetomonitor, d
-        binde = , j, movecurrentworkspacetomonitor, l
-        binde = , l, movecurrentworkspacetomonitor, r
-        binde = , i, movecurrentworkspacetomonitor, u
-        binde = , k, movecurrentworkspacetomonitor, d
+        bind = , left, movecurrentworkspacetomonitor, l
+        bind = , right, movecurrentworkspacetomonitor, r
+        bind = , up, movecurrentworkspacetomonitor, u
+        bind = , down, movecurrentworkspacetomonitor, d
+        bind = , h, movecurrentworkspacetomonitor, l
+        bind = , j, movecurrentworkspacetomonitor, d
+        bind = , k, movecurrentworkspacetomonitor, u
+        bind = , l, movecurrentworkspacetomonitor, r
 
         bind=,escape,submap,reset
       submap=reset
