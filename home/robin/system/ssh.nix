@@ -23,6 +23,11 @@
         port = 2222;
         identityFile = "~/.ssh/keys.gitisabel.id_ed25519";
       };
+
+      "amity" = {
+        hostname = "143.47.240.116";
+        identityFile = "~/.ssh/keys.amity.id_rsa";
+      };
     };
   };
 }
