@@ -62,7 +62,7 @@
       enabled = true;
     };
     markdown = {
-      enabled = false;
+      enabled = true;
     };
     memberCount = {
       enabled = true;
