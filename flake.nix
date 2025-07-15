@@ -22,6 +22,7 @@
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        nixpkgs-regression.follows = "";
         nix_2_18.follows = "";
         pre-commit-hooks.follows = "";
         nix2container.follows = "";
