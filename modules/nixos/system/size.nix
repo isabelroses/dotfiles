@@ -23,6 +23,9 @@
     defaultPackages = lib.mkForce [ ];
   };
 
+  # this is on by default. but i don't use nano
+  programs.nano.enable = false;
+
   # this can allow us to save some storage space
   fonts.fontDir.decompressFonts = true;
 }
