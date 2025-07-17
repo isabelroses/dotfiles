@@ -22,5 +22,5 @@ Singleton {
     property color border: "#1e1e2e"
   }
 
-  property string wallpaper: "/home/isabel/media/pictures/wallpapers/00387.jpg";
+  property string wallpaper: "/home/isabel/media/pictures/wallpapers/00387.webp";
 }

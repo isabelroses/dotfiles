@@ -37,7 +37,8 @@ Scope {
     PanelWindow {
       id: launcher
 
-      property list<DesktopEntry> applications: DesktopEntries.applications.values
+      readonly property list<DesktopEntry> rawApplications: DesktopEntries.applications.values.filter(entry => !entry.noDisplay && !entry.runInTerminal)
+      property list<DesktopEntry> applications: rawApplications
 
       anchors.top: true
       margins.top: screen.height / 5
@@ -85,9 +86,31 @@ Scope {
 
             onTextChanged: {
               if (text.length > 0) {
-                applications = DesktopEntries.applications.values.filter(entry => entry.name.toLowerCase().includes(text.toLowerCase()));
+                // fuzzy search algo
+                applications = rawApplications.filter(entry => {
+                  var needle = text.toLowerCase();
+                  var haystack = entry.name.toLowerCase();
+
+                  var hlen = haystack.length;
+                  var nlen = needle.length;
+
+                  if (nlen > hlen) return false;
+
+                  if (nlen === hlen) return haystack === needle;
+
+                  outer: for (var i = 0, j = 0; i < nlen; i++) {
+                    var nch = needle.charCodeAt(i);
+                    while (j < hlen) {
+                      if (haystack.charCodeAt(j++) === nch) {
+                        continue outer;
+                      }
+                    }
+                    return false;
+                  }
+                  return true;
+                });
               } else {
-                applications = DesktopEntries.applications.values;
+                applications = rawApplications;
               }
             }
 
@@ -147,7 +170,6 @@ Scope {
               }
             }
           }
-          
         }
       }
     }
