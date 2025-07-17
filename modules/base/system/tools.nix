@@ -37,7 +37,6 @@ in
         enable = !cfg.minimal;
 
         darwin-version.enable = true;
-        # needed for nh, and if you want to darwin-rebuild
         darwin-rebuild.enable = true;
       };
     })
