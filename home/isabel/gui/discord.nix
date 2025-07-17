@@ -29,6 +29,7 @@
           domOptimizer = true;
           experiments = true;
           freeMoji = false;
+          favouriteGifSearch = true;
           freeScreenShare = true;
           greentext = false;
           httpCats = true;
