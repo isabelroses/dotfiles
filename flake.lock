@@ -119,16 +119,15 @@
         "rust-overlay": []
       },
       "locked": {
-        "lastModified": 1752409167,
-        "narHash": "sha256-djLrzzi4F6tX6suA57tPBipooVPpw0FqNBz0lMEUcr4=",
-        "owner": "isabelroses",
+        "lastModified": 1752755582,
+        "narHash": "sha256-WOEOstYVgdqN81v+ZIypldaTQj4id4mfQfDNYD5htLw=",
+        "owner": "nferhat",
         "repo": "fht-compositor",
-        "rev": "e89d3b9ef68667b5f2907e1900522340008c2295",
+        "rev": "ad925953d33c291525a711211b8f84eff2de29cf",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
-        "ref": "cherry-picks",
+        "owner": "nferhat",
         "repo": "fht-compositor",
         "type": "github"
       }

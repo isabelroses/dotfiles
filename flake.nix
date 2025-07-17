@@ -116,9 +116,8 @@
 
     fht-compositor = {
       type = "github";
-      owner = "isabelroses"; # "nferhat";
+      owner = "nferhat";
       repo = "fht-compositor";
-      ref = "cherry-picks"; # "feat-ipc";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
