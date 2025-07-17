@@ -5,7 +5,6 @@
 
       discord.enable = true;
       ghostty.enable = true;
-      wezterm.enable = true;
       chromium.enable = true;
       fish.enable = true;
       fht-compositor.enable = true;
