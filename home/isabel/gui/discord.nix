@@ -1,4 +1,5 @@
 # this is a custom module provided by this flake. it is not in home-manager
+{ _class, ... }:
 {
   programs.discord = {
     settings = {
@@ -43,6 +44,7 @@
           onePingPerDM = true;
           pronouns = true;
           textReplacer = {
+            enabled = true;
             config = {
               patterns = {
                 "://bsky.app/" = "://fxbsky.app/";
@@ -57,7 +59,10 @@
                 "://x.com/" = "://fxtwitter.com/";
               };
             };
-            enabled = true;
+          };
+          nativeFixes = {
+            enabled = _class == "darwin";
+            config.vaapiIgnoreDriverChecks = true;
           };
         };
         repositories = [ "https://moonlight-mod.github.io/extensions-dist/repo.json" ];
