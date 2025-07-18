@@ -19,9 +19,8 @@
         "https://blog.orhun.dev/rss.xml"
         "https://mitchellh.com/feed.xml"
         "https://dataswamp.org/~solene/rss-html.xml"
-        # "https://ayats.org/index.xml" seems to 404
-        "https://nixpkgs.news/rss.xml"
         "https://maia.crimew.gay/feed.xml"
+        "https://github.com/moonlight-mod/extensions/commits.atom" # moonlight extensions
       ];
     };
   };
