@@ -23,6 +23,8 @@
     defaultPackages = lib.mkForce [ ];
   };
 
+  system.etc.overlay.enable = true;
+
   # this is on by default. but i don't use nano
   programs.nano.enable = false;
 

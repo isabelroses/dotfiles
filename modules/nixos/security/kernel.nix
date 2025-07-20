@@ -194,7 +194,7 @@ in
           "cramfs" # compressed ROM/RAM file system
           "cifs" # smb (Common Internet File System)
           "efs" # Extent File System
-          "erofs" # Enhanced Read-Only File System
+          # "erofs" # Enhanced Read-Only File System - required for etc overlay
           "exofs" # EXtended Object File System
           "freevxfs" # Veritas filesystem driver
           "f2fs" # Flash-Friendly File System
