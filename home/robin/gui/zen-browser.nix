@@ -15,7 +15,9 @@ in
 
   config =
     mkIf
-      (config.garden.profiles.graphical.enable && config.garden.programs.defaults.browser == "zen-browser")
+      (
+        config.garden.profiles.graphical.enable && config.garden.programs.defaults.browser == "zen-browser"
+      )
       {
         programs.zen-browser = {
           enable = lib.mkDefault true;

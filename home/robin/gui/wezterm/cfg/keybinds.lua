@@ -16,12 +16,12 @@ local openUrl = act.QuickSelectArgs({
 
 local palettes = {}
 for id, name in require("palette").get_palettes() do
-  palettes[#palettes+1] = { label = name, id = id }
+  palettes[#palettes + 1] = { label = name, id = id }
 end
 
 local changePalette = act.InputSelector({
   title = "Change palette",
-  choices = {{ label = "Evergarden Winter" }},
+  choices = { { label = "Evergarden Winter" } },
   fuzzy = true,
   action = wezterm.action_callback(function(window, _, id, label)
     if not label then
