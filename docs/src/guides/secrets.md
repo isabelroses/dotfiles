@@ -87,3 +87,13 @@ To rotate all the secrets, you can run:
 ```bash
 find secrets/ -name "*.yaml" | xargs -I {} sops rotate -i {}
 ```
+
+## Adding new owners to secrets
+
+To add a new owner to a secret file, you must first add the new recipent to the `.sops.yaml` file. Then you can run the command:
+
+```bash
+sops updatekeys secrets/<file>.yaml
+```
+
+Where `<file>` is the name of the file you want to update.
