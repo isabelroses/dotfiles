@@ -84,7 +84,8 @@ in
       recommendedOptimisation = true;
       recommendedGzipSettings = true;
       recommendedProxySettings = true;
-      recommendedZstdSettings = true;
+
+      experimentalZstdSettings = true;
 
       sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
       sslProtocols = "TLSv1.3 TLSv1.2";
