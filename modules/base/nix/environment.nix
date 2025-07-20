@@ -14,14 +14,13 @@ let
     mkForce
     ;
 
-  commonPaths =
-    [
-      "nixpkgs"
-      "tgirlpkgs"
-    ]
-    ++ optionals pkgs.stdenv.hostPlatform.isDarwin [
-      "nix-darwin"
-    ];
+  commonPaths = [
+    "nixpkgs"
+    "tgirlpkgs"
+  ]
+  ++ optionals pkgs.stdenv.hostPlatform.isDarwin [
+    "nix-darwin"
+  ];
 in
 {
   environment = {

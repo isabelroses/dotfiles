@@ -89,7 +89,8 @@ inputs.nuscht-search.packages.${system}.mkMultiSearch {
     {
       name = "nixos modules";
       optionsJSON =
-        (import "${inputs.nixpkgs}/nixos/release.nix" { }).options + /share/doc/nixos/options.json;
+        (import "${inputs.nixpkgs}/nixos/release.nix" { }).options
+        + /share/doc/nixos/options.json;
       urlPrefix = "https://github.com/NixOS/nixpkgs/tree/master/";
     }
     {
@@ -100,7 +101,8 @@ inputs.nuscht-search.packages.${system}.mkMultiSearch {
     {
       name = "home manager";
       optionsJSON =
-        inputs.home-manager.packages.${system}.docs-json + /share/doc/home-manager/options.json;
+        inputs.home-manager.packages.${system}.docs-json
+        + /share/doc/home-manager/options.json;
       urlPrefix = "https://github.com/nix-community/home-manager/tree/master/";
     }
     {

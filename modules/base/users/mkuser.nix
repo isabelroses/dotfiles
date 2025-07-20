@@ -37,31 +37,30 @@ in
         initialPassword = mkDefault "changeme";
 
         # only add groups that exist
-        extraGroups =
-          [
-            "wheel"
-            "nix"
-          ]
-          ++ ifTheyExist config [
-            "network"
-            "networkmanager"
-            "systemd-journal"
-            "audio"
-            "pipewire" # this give us access to the rt limits
-            "video"
-            "input"
-            "plugdev"
-            "lp"
-            "tss"
-            "power"
-            "wireshark"
-            "mysql"
-            "docker"
-            "podman"
-            "git"
-            "libvirtd"
-            "cloudflared"
-          ];
+        extraGroups = [
+          "wheel"
+          "nix"
+        ]
+        ++ ifTheyExist config [
+          "network"
+          "networkmanager"
+          "systemd-journal"
+          "audio"
+          "pipewire" # this give us access to the rt limits
+          "video"
+          "input"
+          "plugdev"
+          "lp"
+          "tss"
+          "power"
+          "wireshark"
+          "mysql"
+          "docker"
+          "podman"
+          "git"
+          "libvirtd"
+          "cloudflared"
+        ];
       })
     ]
   );

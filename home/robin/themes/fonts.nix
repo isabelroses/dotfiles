@@ -31,13 +31,15 @@ in
       serif = [
         "TeX Gyre Schola"
         "IBM Plex Serif"
-      ] ++ fnts;
+      ]
+      ++ fnts;
 
       sansSerif = [
         "IBM Plex Sans"
         "IBM Plex Sans KR"
         "IBM Plex Sans JP"
-      ] ++ fnts;
+      ]
+      ++ fnts;
     };
   };
 }

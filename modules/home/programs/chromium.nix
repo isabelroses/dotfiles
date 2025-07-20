@@ -14,17 +14,16 @@ let
 in
 {
   programs.chromium = {
-    extensions =
-      [
-        "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-        "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
-        "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-        "fkagelmloambgokoeokbpihmgpkbgbfm" # Indie Wiki Buddy
-      ]
-      ++ optionals osConfig.garden.profiles.gaming.enable [
-        "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
-        "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
-      ];
+    extensions = [
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+      "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
+      "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+      "fkagelmloambgokoeokbpihmgpkbgbfm" # Indie Wiki Buddy
+    ]
+    ++ optionals osConfig.garden.profiles.gaming.enable [
+      "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
+      "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
+    ];
 
     package = pkgs.chromium.override {
       enableWideVine = true;
