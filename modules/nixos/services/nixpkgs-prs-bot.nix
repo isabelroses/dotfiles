@@ -27,8 +27,6 @@ in
       sops.secrets.nixpkgs-prs-bot-fedi = mkSystemSecret {
         file = "nixpkgs-prs-bot";
         key = "fedi";
-        owner = "nixpkgs-prs-bot";
-        group = "nixpkgs-prs-bot";
       };
 
       services.nixpkgs-prs-bot.fedi = {
@@ -41,8 +39,6 @@ in
       sops.secrets.nixpkgs-prs-bot-bsky = mkSystemSecret {
         file = "nixpkgs-prs-bot";
         key = "bsky";
-        owner = "nixpkgs-prs-bot";
-        group = "nixpkgs-prs-bot";
       };
 
       services.nixpkgs-prs-bot.bsky = {
