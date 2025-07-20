@@ -175,10 +175,7 @@ in
       serviceConfig = {
         RestartSec = "60";
         SupplementaryGroups = [ certs.group ];
-        BindReadOnlyPaths = [
-          certDir
-          "/run/agenix/" # provide access to secrets
-        ];
+        BindReadOnlyPaths = [ certDir ];
       };
     };
   };
