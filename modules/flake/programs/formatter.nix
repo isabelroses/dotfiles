@@ -9,7 +9,7 @@
           actionlint
           deadnix
           keep-sorted
-          nixfmt-rfc-style
+          nixfmt
           shellcheck
           shfmt
           statix
