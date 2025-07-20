@@ -168,7 +168,7 @@ in
 
         # backup
         dump = {
-          enable = false;
+          enable = true;
           backupDir = "/srv/storage/forgejo/dump";
           interval = "06:00";
           type = "tar.zst";
@@ -202,6 +202,16 @@ in
                 config.services.forgejo.settings.server.HTTP_ADDR
             );
         };
+      };
+    };
+
+    # remove the forgejo backup directory after 7 days
+    systemd.tmpfiles.settings = {
+      "10-forgejo-backup-dir"."/srv/storage/forgejo/dump".e = {
+        mode = "600";
+        user = "forgejo";
+        group = "forgejo";
+        age = "7d";
       };
     };
   };
