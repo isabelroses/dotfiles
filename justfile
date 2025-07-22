@@ -27,7 +27,6 @@ deploy host *args:
       --flake {{ flake }} \
       --target-host {{ host }} \
       --use-substitutes \
-      --ask-sudo-password \
       {{ system-args }} \
       {{ args }}
 
