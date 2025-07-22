@@ -22,13 +22,7 @@ builder goal *args:
       |& nom
 
 [group('rebuild')]
-deploy host *args:
-    {{ rebuild }} switch \
-      --flake {{ flake }} \
-      --target-host {{ host }} \
-      --use-substitutes \
-      {{ system-args }} \
-      {{ args }}
+deploy host *args: (builder "switch" "--target-host " + host "--use-substitutes" + args)
 
 # rebuild the boot
 [group('rebuild')]
@@ -74,13 +68,17 @@ tar host:
 check:
     nix flake check --no-allow-import-from-derivation
 
+[group('dev')]
+repl-host host=`hostname`:
+    nix repl .#nixosConfigurations.{{ host }}
+
 # update a set of given inputs
 [group('dev')]
 update *input:
     nix flake update {{ input }} \
       --refresh \
       --commit-lock-file \
-      --commit-lockfile-summary "chore: update {{ if input == "" { "all inputs" } else { input } }}" \
+      --commit-lockfile-summary "flake.lock: update {{ if input == "" { "all inputs" } else { input } }}" \
       --flake {{ flake }}
 
 # build & serve the docs locally
