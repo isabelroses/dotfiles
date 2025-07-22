@@ -176,8 +176,8 @@
       repo = "nvim";
 
       inputs = {
-        nixpkgs.follows = "";
-        systems.follows = "";
+        nixpkgs.follows = "nixpkgs";
+        gift-wrap.follows = "gift-wrap";
       };
     };
 
@@ -188,7 +188,7 @@
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
+        gift-wrap.follows = "gift-wrap";
         neovim-nightly-overlay.inputs.flake-parts.follows = "flake-parts";
       };
     };
@@ -221,6 +221,13 @@
       type = "github";
       owner = "nix-systems";
       repo = "default";
+    };
+
+    gift-wrap = {
+      type = "github";
+      owner = "tgirlcloud";
+      repo = "gift-wrap";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # PLEASE PLEASE PLEASE DIE OFF ALREDAY
