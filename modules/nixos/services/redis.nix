@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   self,
   config,
   ...
@@ -15,7 +16,8 @@ in
 
   config = mkIf cfg.redis.enable {
     services.redis = {
-      vmOverCommit = true;
+      package = pkgs.valkey;
+
       servers = mkMerge [
         (mkIf cfg.forgejo.enable {
           forgejo = {
@@ -27,14 +29,6 @@ in
             requirePass = "forgejo";
           };
         })
-
-        # (mkIf cfg.vikunja.enable {
-        #   vikunja = {
-        #     enable = true;
-        #     user = "vikunja";
-        #     port = 6372;
-        #   };
-        # })
       ];
     };
   };
