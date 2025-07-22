@@ -10,7 +10,6 @@
 # Guides
 
 - [installation](guides/installation.md)
-- [shortcuts](guides/shortcuts.md)
 - [templates](guides/templates.md)
 - [adding systems](guides/adding-systems.md)
 - [adding users](guides/adding-users.md)
@@ -29,7 +28,7 @@ libdoc
 
 # options
 
-- [options](options/index.md)
+- [options search](search/index.html)
 
 # Further Reading
 
