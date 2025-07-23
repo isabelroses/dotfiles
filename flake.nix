@@ -55,7 +55,6 @@
       type = "github";
       owner = "nix-community";
       repo = "home-manager";
-      ref = "pull/4976/merge";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
