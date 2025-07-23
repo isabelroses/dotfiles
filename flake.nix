@@ -93,7 +93,10 @@
 
     # Secrets, shhh
     sops = {
-      url = "github:Mic92/sops-nix";
+      type = "github";
+      owner = "Mic92";
+      repo = "sops-nix";
+      ref = "pull/779/merge";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
