@@ -22,7 +22,7 @@ builder goal *args:
       |& nom
 
 [group('rebuild')]
-deploy host *args: (builder "switch" "--target-host " + host "--use-substitutes" + args)
+deploy host *args: (builder "switch" "--target-host " + host "--use-substitutes " + args)
 
 # rebuild the boot
 [group('rebuild')]
