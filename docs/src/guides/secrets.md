@@ -97,3 +97,9 @@ sops updatekeys secrets/<file>.yaml
 ```
 
 Where `<file>` is the name of the file you want to update.
+
+Futhermore, to batch update all secrets, you can run:
+
+```bash
+find secrets/ -name "*.yaml" | xargs -I {} sops updatekeys -y {}
+```
