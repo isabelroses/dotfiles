@@ -54,8 +54,6 @@
       # keep-sorted start block=yes newline_separated=yes
       bmo = { };
 
-      cottage = { };
-
       wisp = {
         class = "wsl";
       };
