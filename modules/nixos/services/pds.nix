@@ -46,6 +46,7 @@ in
             proxyWebsockets = true;
           };
 
+          # https://gist.github.com/mary-ext/6e27b24a83838202908808ad528b3318
           "/xrpc/app.bsky.unspecced.getAgeAssuranceState" =
             let
               state = builtins.toJSON {
@@ -56,6 +57,10 @@ in
             {
               return = "200 '${state}'";
               extraConfig = ''
+                add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
+                add_header access-control-allow-origin "*" always;
+                add_header X-Frame-Options SAMEORIGIN always;
+                add_header X-Content-Type-Options nosniff;
                 default_type application/json;
               '';
             };
