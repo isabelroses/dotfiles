@@ -1,24 +1,26 @@
-- 📚 [docs](https://github.com/isabelroses/dotfiles/tree/main/docs/) The documentation for the dotfiles
-- 🏠 [home](https://github.com/isabelroses/dotfiles/tree/main/home/) Where all home-manager configurations lie
-- 🖥️ [systems](https://github.com/isabelroses/dotfiles/tree/main/systems/)
-  - ☀️ [Amaterasu](https://github.com/isabelroses/dotfiles/tree/main/systems/amaterasu/) My high-end gaming machine
-  - 🏡 [Cottage](https://github.com/isabelroses/dotfiles/tree/main/systems/cottage/) A Lowend laptop, its not great but it gets the job done
-  - 🐉 [Hydra](https://github.com/isabelroses/dotfiles/tree/main/systems/hydra/) A super mid spec laptop
-  - ⚸ [Lilith](https://github.com/isabelroses/dotfiles/tree/main/systems/lilith/) A NixOS ISO image that can be quickly deployed and accessed via ssh
-  - ⚖️ [minerva](https://github.com/isabelroses/dotfiles/tree/main/systems/minerva/) A server configuration for some of my infrastructure
-  - 𖤍 [Valkyrie](https://github.com/isabelroses/dotfiles/tree/main/systems/valkyrie/) A WSL2 system, designed to be a development environment on Windows
-  - 💮 [Tatsumaki](https://github.com/isabelroses/dotfiles/tree/main/systems/tatsumaki/) A MacBook Air, configured to last a whole day of university
-  - ✨ [wisp](https://github.com/isabelroses/dotfiles/tree/main/systems/wisp/) A WSL2 system, on cottage
-- 🔌 [modules](https://github.com/isabelroses/dotfiles/tree/main/modules/)
-  - [base](https://github.com/isabelroses/dotfiles/tree/main/modules/base/) The base configuration settings, which are common between all systems
-  - [darwin](https://github.com/isabelroses/dotfiles/tree/main/modules/darwin/) Pre-made modules for exclusively darwin systems
-  - [nixos](https://github.com/isabelroses/dotfiles/tree/main/modules/nixos/) Pre cooked modules for exclusively nixos systems
-  - [iso](https://github.com/isabelroses/dotfiles/tree/main/modules/iso/) Pre-configured modules prepared for making NixOS iso images
-  - [extra](https://github.com/isabelroses/dotfiles/tree/main/modules/extra/) Extra configuration modules, for home-manager and Nix Darwin and NixOS
-  - [home](https://github/isabelroses/dotfiles/tree/main/modules/home/) Modules for home-manager
-  - [flake](https://github.com/isabelroses/dotfiles/tree/main/modules/falake/) NixOS parts breaking down the complex configuration into smaller more manageable chunks
-    - ✅ [checks](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/checks/) Checks for the flake
-    - 📚 [lib](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/lib/) Useful repeated functions
-    - 📦 [packages](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/packages.nix) Packages that are not available in the official Nixpkgs
-    - 👾 [modules](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/modules.nix) Exported modules for NixOS, home-manager and Nix Darwin
-    - 💾 [programs](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/programs) Additional flake-modules to configure
+### 🖥️ Systems
+
+| Name      | Main User | Type    | OS    | Extra Details |
+| --------- | --------- | ------- | ----- | ------------- |
+| amaterasu | isabel    | Desktop | NixOS | A powerful desktop dual booting windows 11 |
+| athena    | isabel    | Hybrid  | NixOS | My oldest laptop, altogh this flake still supports it, its barely in use |
+| bmo       | robin     | Laptop  | NixOS | Robin's laptop |
+| hestia    | isabel    | Sever   | NixOS | The host of most tgirl.cloud services |
+| lilith    | n/a       | Iso     | NixOS | An iso image of my NixOS configuration, used to install NixOS on new systems |
+| minerva   | isabel    | Server  | NixOS | This is the orginal server, hosting most of my personal services |
+| skadi     | isabel    | Server  | NixOS | Oracle free server, mostly used for the pds and aarch64 builds |
+| tatsumaki | isabel    | Laptop  | macOS | A macbook air, given to me by uni, almost exclusively used at uni |
+| valkyrie  | isabel    | WSL2    | NixOS | This is my WSL2 instance, installed on amaterasu |
+| wisp      | robin     | WSL2    | NixOS | Robin's WSL2 instance, installed on her desktop |
+
+
+### 🧩 Modules
+
+* [flake](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/) - modules which are used to build the flake outputs
+* [generic](https://github.com/isabelroses/dotfiles/tree/main/modules/generic/) - modules which are intended to work with any module system (e.g. home-manager, nix-darwin, etc.)
+* [nixos](https://github.com/isabelroses/dotfiles/tree/main/modules/nixos/) - modules which work on NixOS
+* [base](https://github.com/isabelroses/dotfiles/tree/main/modules/base/) - modules which work on either NixOS or macOS
+* [darwin](https://github.com/isabelroses/dotfiles/tree/main/modules/darwin/) - modules which work on macOS
+* [home](https://github.com/isabelroses/dotfiles/tree/main/modules/home/) - modules which are used to configure home-manager
+* [iso](https://github.com/isabelroses/dotfiles/tree/main/modules/iso/) - modules which are used to build isos
+* [wsl](https://github.com/isabelroses/dotfiles/tree/main/modules/wsl/) - modules which work on WSL2
