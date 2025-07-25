@@ -45,7 +45,7 @@
       printing.enable = true;
 
       security = {
-        fixWebcam = false;
+        fixWebcam = true;
         auditd.enable = true;
       };
 
