@@ -9,10 +9,6 @@ let
   inherit (self.lib) mkPubs;
 in
 {
-  boot.initrd.network.ssh.authorizedKeys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2"
-  ];
-
   services.openssh = {
     enable = true;
     startWhenNeeded = true;

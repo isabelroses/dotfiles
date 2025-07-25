@@ -1,10 +1,11 @@
-{ lib, _class, ... }:
+{
+  lib,
+  _class,
+  config,
+  ...
+}:
 {
   users.users.root = lib.mkIf (_class == "nixos") {
-    initialPassword = "changeme";
-
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2"
-    ];
+    hashedPassword = config.users.users.${config.garden.system.mainUser}.hashedPassword;
   };
 }
