@@ -199,7 +199,6 @@
       type = "github";
       owner = "nuschtos";
       repo = "search";
-      ref = "pull/234/merge";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
