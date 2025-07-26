@@ -18,7 +18,7 @@
       shell = "zsh";
       terminal = "wezterm";
       bar = "quickshell";
-      browser = "zen-browser";
+      browser = "zen-twilight";
       screenLocker = null;
     };
   };

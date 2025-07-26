@@ -48,7 +48,7 @@ in
         "firefox"
         "chromium"
         "thorium"
-        "zen-browser"
+        "zen-twilight"
       ];
       default = "chromium";
     };
