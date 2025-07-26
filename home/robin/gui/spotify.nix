@@ -16,7 +16,5 @@ in
 
   config.programs.spicetify = mkIf enable {
     enable = true;
-
-    colorScheme = "fall";
   };
 }

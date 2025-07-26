@@ -19,7 +19,6 @@ in
     settings = {
       command = "/etc/profiles/per-user/robin/bin/zsh --login";
 
-      theme = "evergarden-${variant}-${accent}.yml";
       background-opacity = 0.95;
       cursor-style = "bar";
       window-padding-x = "4,4";
