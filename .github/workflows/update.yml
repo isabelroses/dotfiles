@@ -29,16 +29,13 @@ jobs:
         uses: ./.github/actions/install-lix
 
       - name: Update Lockfile
-        run: nix flake update
-
-      - name: Create Pull request
         id: pr
-        uses: peter-evans/create-pull-request@v7
+        uses: DeterminateSystems/update-flake-lock@v27
         with:
-          title: "chore: update flake inputs"
-          commit-message: "chore: update flake inputs"
+          commit-msg: "flake.lock: update all inputs"
+          pr-title: "flake.lock: update all inputs"
+          pr-body: env.GIT_COMMIT_MESSAGE
           branch: update-flake-inputs
-          token: ${{ github.token }}
 
   check:
     name: Check Flake
