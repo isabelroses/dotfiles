@@ -120,12 +120,12 @@
       type = "github";
       owner = "nferhat";
       repo = "fht-compositor";
+      ref = "pull/71/merge";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         rust-overlay.follows = "";
-        fht-share-picker.follows = "";
       };
     };
 
