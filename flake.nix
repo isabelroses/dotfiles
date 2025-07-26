@@ -120,7 +120,6 @@
       type = "github";
       owner = "nferhat";
       repo = "fht-compositor";
-      ref = "pull/71/merge";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
