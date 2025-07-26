@@ -109,7 +109,9 @@
     },
     "fht-compositor": {
       "inputs": {
-        "fht-share-picker": "fht-share-picker",
+        "fht-share-picker": [
+          "fht-share-picker"
+        ],
         "flake-parts": [
           "flake-parts"
         ],
@@ -133,35 +135,6 @@
       }
     },
     "fht-share-picker": {
-      "inputs": {
-        "flake-parts": [
-          "fht-compositor",
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "fht-compositor",
-          "nixpkgs"
-        ],
-        "rust-overlay": [
-          "fht-compositor"
-        ]
-      },
-      "locked": {
-        "lastModified": 1753530766,
-        "narHash": "sha256-XSFm1LPA3DK16XGVeC2bnguOjquI4OYjU9vsOma4G/M=",
-        "owner": "nferhat",
-        "repo": "fht-share-picker",
-        "rev": "2435a817ab6aa78a64c9e85db7f52b3e7d99a366",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nferhat",
-        "ref": "gtk-rewrite",
-        "repo": "fht-share-picker",
-        "type": "github"
-      }
-    },
-    "fht-share-picker_2": {
       "inputs": {
         "flake-parts": [
           "flake-parts"
@@ -527,7 +500,7 @@
         "easy-hosts": "easy-hosts",
         "evergarden": "evergarden",
         "fht-compositor": "fht-compositor",
-        "fht-share-picker": "fht-share-picker_2",
+        "fht-share-picker": "fht-share-picker",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "gift-wrap": "gift-wrap",

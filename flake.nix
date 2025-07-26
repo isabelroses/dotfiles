@@ -124,6 +124,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
+        fht-share-picker.follows = "fht-share-picker";
         rust-overlay.follows = "";
       };
     };
