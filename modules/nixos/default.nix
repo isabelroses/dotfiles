@@ -19,6 +19,7 @@
     ./security
     ./services
     ./system
+    ./tags.nix
     # keep-sorted end
   ];
 }
