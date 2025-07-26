@@ -34,7 +34,6 @@ in
 
         uid = mkDefault 1000;
         isNormalUser = true;
-        initialPassword = mkDefault "changeme";
 
         # only add groups that exist
         extraGroups = [
