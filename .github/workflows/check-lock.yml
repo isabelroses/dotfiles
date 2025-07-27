@@ -28,5 +28,5 @@ jobs:
       - name: Install Lix
         uses: ./.github/actions/install-lix
 
-      - name: Check Flake
+      - name: Check flake.lock
         run: nix run github:tgirlcloud/pkgs#locker
