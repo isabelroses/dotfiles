@@ -20,6 +20,7 @@
     ./services
     ./system
     ./tags.nix
+    ./users
     # keep-sorted end
   ];
 }
