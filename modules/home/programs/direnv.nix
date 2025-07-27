@@ -7,8 +7,8 @@
     # faster, persistent implementation of use_nix and use_flake
     nix-direnv.enable = true;
 
-    # modified from @i077
     # store direnv in cache and not per project
+    # <https://github.com/direnv/direnv/wiki/Customizing-cache-location#hashed-directories>
     stdlib = ''
       : ''${XDG_CACHE_HOME:=$HOME/.cache}
       declare -A direnv_layout_dirs
