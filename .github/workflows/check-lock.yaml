@@ -1,0 +1,32 @@
+name: Validate Flake Lock
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        required: false
+        type: string
+  push:
+    paths:
+      - "**.lock"
+
+permissions: {}
+
+jobs:
+  check-flake:
+    name: Check Lock
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref && inputs.ref || github.ref_name }}
+          persist-credentials: false
+
+      - name: Install Lix
+        uses: ./.github/actions/install-lix
+
+      - name: Check Flake
+        run: nix run github:tgirlcloud/pkgs#locker

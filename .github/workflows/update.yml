@@ -45,9 +45,17 @@ jobs:
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
 
+  check-lock:
+    name: Check Lock
+    needs: update-lockfile
+
+    uses: ./.github/workflows/check-lock.yml
+    with:
+      ref: ${{ needs.update-lockfile.outputs.branch }}
+
   merge:
     name: Merge Pull Request
-    needs: [update-lockfile, check]
+    needs: [update-lockfile, check, check-lock]
     runs-on: ubuntu-latest
 
     permissions:
