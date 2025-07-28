@@ -5,7 +5,7 @@
     package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else null;
 
     settings = {
-      command = "/etc/profiles/per-user/isabel/bin/fish --login";
+      command = "/run/current-system/sw/bin/fish";
 
       # theme = mkForce "cuddlefish";
 
@@ -19,6 +19,10 @@
 
       font-family = config.garden.style.fonts.name;
       font-size = 13;
+
+      keybind = [
+        "super+u=copy_url_to_clipboard"
+      ];
     };
   };
 }
