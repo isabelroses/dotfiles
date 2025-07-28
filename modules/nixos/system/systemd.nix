@@ -4,21 +4,24 @@
   ...
 }:
 let
-
   inherit (lib) mkIf genAttrs;
-
-  extraConfig = ''
-    DefaultTimeoutStartSec=15s
-    DefaultTimeoutStopSec=15s
-    DefaultTimeoutAbortSec=15s
-    DefaultDeviceTimeoutSec=15s
-  '';
 in
 {
   config = mkIf config.garden.profiles.graphical.enable {
     systemd = {
-      inherit extraConfig;
-      user = { inherit extraConfig; };
+      settings.Manager = {
+        DefaultTimeoutStartSec = "15s";
+        DefaultTimeoutStopSec = "15s";
+        DefaultTimeoutAbortSec = "15s";
+        DefaultDeviceTimeoutSec = "15s";
+      };
+
+      user.extraConfig = ''
+        DefaultTimeoutStartSec=15s
+        DefaultTimeoutStopSec=15s
+        DefaultTimeoutAbortSec=15s
+        DefaultDeviceTimeoutSec=15s
+      '';
 
       services =
         genAttrs
