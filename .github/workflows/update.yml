@@ -34,8 +34,11 @@ jobs:
         with:
           commit-msg: "flake.lock: update all inputs"
           pr-title: "flake.lock: update all inputs"
-          pr-body: ${{ env.GIT_COMMIT_MESSAGE }}
           branch: update-flake-inputs
+          pr-body: |
+            ```
+            {{ env.GIT_COMMIT_MESSAGE }}
+            ```
 
   check:
     name: Check Flake
