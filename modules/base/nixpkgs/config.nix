@@ -15,7 +15,10 @@
     # But occasionally we need to install some anyway so we can predicated those
     # these are usually packages like electron because discord and others love
     # to take their sweet time updating it
-    permittedInsecurePackages = [ ];
+    permittedInsecurePackages = [
+      # https://github.com/isabelroses/dotfiles/actions/runs/16618863999/job/47018093890
+      "libsoup-2.74.3"
+    ];
 
     # I allow packages that are not supported by my system
     # since I sometimes need to try and build those packages that are not directly supported
