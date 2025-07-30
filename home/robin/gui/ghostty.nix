@@ -16,7 +16,7 @@
     settings = {
       command = "/etc/profiles/per-user/robin/bin/zsh --login";
 
-      background-opacity = 0.95;
+      background-opacity = 0.92;
       cursor-style = "bar";
       window-padding-x = "4,4";
       window-decoration = toString pkgs.stdenv.hostPlatform.isDarwin;
