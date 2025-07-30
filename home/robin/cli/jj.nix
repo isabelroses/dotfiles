@@ -20,6 +20,13 @@
       };
 
       aliases = {
+        # initialize an empty git repo
+        init = [
+          "git"
+          "init"
+          "--colocate"
+        ];
+
         # create named bookmark at HEAD
         name = [
           "bookmark"
