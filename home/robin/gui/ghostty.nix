@@ -4,9 +4,6 @@
   config,
   ...
 }:
-let
-  inherit (config.evergarden) accent variant;
-in
 {
   programs.ghostty = {
     enable = lib.mkDefault (
