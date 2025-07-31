@@ -42,7 +42,6 @@ in
     (mkIf (cfg == "greetd") {
       services.greetd = {
         enable = true;
-        vt = 2;
         restart = true;
 
         settings = {
