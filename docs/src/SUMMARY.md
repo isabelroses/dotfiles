@@ -9,6 +9,7 @@
 
 # Guides
 
+- [making it your own](guides/making-it-your-own.md)
 - [installation](guides/installation.md)
 - [templates](guides/templates.md)
 - [adding systems](guides/adding-systems.md)
