@@ -30,13 +30,13 @@ in
           src = prev.fetchFromGitHub {
             owner = "oxalica";
             repo = "nil";
-            rev = "b043bfe1f3f4c4be4b688e24c5ae96e81f525805";
-            hash = "sha256-zXag1+8iZC3H5yVFP7KhIi4ps9z8xKrFIkyaeXlZ7Uo=";
+            rev = "cd7a6f6d5dc58484e62a8e85677e06e47cf2bd4d";
+            hash = "sha256-fK4INnIJQNAA8cyjcDRZSPleA+N/STI6I0oBDMZ2r+E=";
           };
 
           cargoDeps = prev.rustPlatform.fetchCargoVendor {
             inherit (finalAttrs) src;
-            hash = "sha256-Sljr3ff8hl/qm/0wqc1GXsEr1wWn7NAXmdrd5wHzUX8=";
+            hash = "sha256-wvtCLCvpxbUo7VZPExUI7J+U06jnWBMnVuXqJeL/kOI=";
           };
         }
       );
