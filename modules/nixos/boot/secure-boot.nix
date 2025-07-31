@@ -15,9 +15,7 @@ in
   # Secure Boot, my love keeping my valorant working on windows
   imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
-  options.garden.system.boot.secureBoot = mkEnableOption ''
-    secure-boot and load necessary packages, say good bye to systemd-boot
-  '';
+  options.garden.system.boot.secureBoot = mkEnableOption "secure-boot and load necessary packages";
 
   config = mkIf sys.secureBoot {
     garden.packages = { inherit (pkgs) sbctl; };
