@@ -13,7 +13,6 @@
     ./misc.nix
     ./monitoring.nix
     ./oomd.nix
-    ./pager.nix
     ./printing.nix
     ./runners.nix
     ./scheduler.nix

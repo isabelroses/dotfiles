@@ -1,4 +1,7 @@
 { lib, ... }:
+let
+  inherit (lib) mkForce;
+in
 {
   boot = {
     # this can break things, particularly if you use containers
@@ -20,13 +23,22 @@
 
     # disable all packages installed by default, i prefer my own packages
     # this list normally includes things like perl
-    defaultPackages = lib.mkForce [ ];
+    defaultPackages = mkForce [ ];
   };
 
   system.etc.overlay.enable = true;
 
-  # this is on by default. but i don't use nano
-  programs.nano.enable = false;
+  programs = {
+    # this is on by default. but i don't use nano
+    nano.enable = false;
+
+    # i don't need less, so lets just remove it, lol
+    less = {
+      # enabled by default to be the pageer, but i don't use it
+      enable = mkForce false;
+      lessopen = null; # don't install perl thanks
+    };
+  };
 
   # this can allow us to save some storage space
   fonts.fontDir.decompressFonts = true;
