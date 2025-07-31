@@ -24,6 +24,12 @@ builder goal *args:
 [group('rebuild')]
 deploy host *args: (builder "switch" "--target-host " + host "--use-substitutes " + args)
 
+[group('rebuild')]
+deploy-all:
+  just deploy minerva
+  just deploy hestia
+  just deploy skadi --build-host skadi
+
 # rebuild the boot
 [group('rebuild')]
 boot *args: (builder "boot" args)
