@@ -43,7 +43,7 @@ in
           freetype
           libglvnd
           libnotify
-          SDL2
+          sdl3
           vulkan-loader
           gdk-pixbuf
           ;
