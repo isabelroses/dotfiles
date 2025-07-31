@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkDefault;
+  inherit (lib) mkIf;
 in
 {
   config = mkIf config.garden.profiles.graphical.enable {
@@ -23,10 +23,6 @@ in
 
         packages = builtins.attrValues { inherit (pkgs) dconf gcr_4 udisks2; };
       };
-
-      # disable chrony in favor if systemd-timesyncd
-      timesyncd.enable = mkDefault true;
-      chrony.enable = mkDefault false;
     };
   };
 }
