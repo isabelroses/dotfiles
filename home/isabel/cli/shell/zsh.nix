@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkOrder removePrefix;
+  inherit (lib) mkOrder;
 in
 {
   programs.zsh = {
@@ -8,7 +8,7 @@ in
     # enableCompletion = true;
     syntaxHighlighting.enable = true;
 
-    dotDir = (removePrefix (config.home.homeDirectory + "/") config.xdg.configHome) + "/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
 
     initContent = mkOrder 1000 ''
       function title_precmd_hook() {

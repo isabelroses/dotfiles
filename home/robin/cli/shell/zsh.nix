@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkDefault mkOrder removePrefix;
+  inherit (lib) mkDefault mkOrder;
 in
 {
   programs.zsh = {
@@ -9,7 +9,7 @@ in
     enableCompletion = true;
     syntaxHighlighting.enable = true;
 
-    dotDir = (removePrefix (config.home.homeDirectory + "/") config.xdg.configHome) + "/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
 
     history = {
       path = config.xdg.stateHome + "/zsh/history";
