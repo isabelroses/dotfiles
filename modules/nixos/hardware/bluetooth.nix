@@ -19,9 +19,6 @@ in
     hardware.bluetooth = {
       enable = true;
 
-      # this is experimental but it seems to work and is cool
-      hsphfpd.enable = true;
-
       disabledPlugins = [ "sap" ];
 
       # https://github.com/bluez/bluez/blob/master/src/main.conf
