@@ -9,9 +9,6 @@ let
 in
 {
   config = mkIf config.garden.profiles.laptop.enable {
-    # pretty much handled by brightnessctl
-    hardware.acpilight.enable = false;
-
     # handle ACPI events
     services.acpid.enable = true;
 
