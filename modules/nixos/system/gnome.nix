@@ -15,8 +15,6 @@ in
       gnome = {
         glib-networking.enable = true;
 
-        # TODO: remove this in favour of the new gcr implementation
-        # https://github.com/NixOS/nixpkgs/pull/379731
         gnome-keyring.enable = true; # this makes it so i don't have to enter my password every time i log in
 
         # since https://github.com/NixOS/nixpkgs/pull/379731
