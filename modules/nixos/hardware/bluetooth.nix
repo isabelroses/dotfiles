@@ -1,45 +1,38 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib.types) bool;
+  inherit (lib.options) mkEnableOption;
 
-  sys = config.garden.system;
+  cfg = config.garden.system.bluetooth;
 in
 {
   options.garden = {
-    device.capabilities.bluetooth = mkOption {
-      type = bool;
+    device.capabilities.bluetooth = mkEnableOption "bluetooth support" // {
       default = true;
-      description = "Whether or not the system has bluetooth support";
     };
 
-    system.bluetooth.enable = mkEnableOption "Should the device load bluetooth drivers and enable blueman";
+    system.bluetooth.enable = mkEnableOption "loading bluetooth drivers and enable blueman";
   };
 
-  config = mkIf sys.bluetooth.enable {
-    garden.system.boot.extraKernelParams = [ "btusb" ];
-
+  # https://wiki.nixos.org/wiki/Bluetooth
+  config = mkIf cfg.enable {
     hardware.bluetooth = {
       enable = true;
-      package = pkgs.bluez;
-      #hsphfpd.enable = true;
-      powerOnBoot = true;
+
+      # this is experimental but it seems to work and is cool
+      hsphfpd.enable = true;
+
       disabledPlugins = [ "sap" ];
-      settings = {
-        General = {
-          JustWorksRepairing = "always";
-          MultiProfile = "multiple";
-        };
+
+      # https://github.com/bluez/bluez/blob/master/src/main.conf
+      settings.General = {
+        JustWorksRepairing = "always";
+        MultiProfile = "multiple";
       };
     };
 
-    # https://wiki.nixos.org/wiki/Bluetooth
+    boot.kernelModules = [ "btusb" ];
+
     services.blueman.enable = true;
   };
 }
