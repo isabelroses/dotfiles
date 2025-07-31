@@ -13,12 +13,10 @@ let
     mkOverride
     ;
   inherit (lib.lists) optionals;
-  inherit (lib.options) mkOption mkEnableOption literalExpression;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types)
     str
     raw
-    listOf
-    package
     ;
 
   cfg = config.garden.system.boot;
@@ -61,23 +59,6 @@ in
     silentBoot = mkEnableOption ''
       almost entirely silent boot process through `quiet` kernel parameter
     '';
-
-    extraKernelParams = mkOption {
-      type = listOf str;
-      default = [ ];
-      description = ''
-        Extra kernel parameters to be passed to the kernel.
-        This is useful for passing additional parameters to the kernel
-        that are not covered by the default parameters.
-      '';
-    };
-
-    extraModulePackages = mkOption {
-      type = listOf package;
-      default = [ ];
-      example = literalExpression ''with config.boot.kernelPackages; [acpi_call]'';
-      description = "Extra kernel modules to be loaded.";
-    };
   };
 
   config = {
@@ -89,7 +70,6 @@ in
       # always use the latest kernel, love the unstablity
       kernelPackages = mkOverride 500 cfg.kernel;
 
-      extraModulePackages = mkDefault cfg.extraModulePackages;
       extraModprobeConfig = mkDefault cfg.extraModprobeConfig;
 
       # whether to enable support for Linux MD RAID arrays
