@@ -10,19 +10,11 @@ let
 in
 {
   config = mkIf (device.gpu == "nvidia") {
-    # nvidia drivers kinda are unfree software
-    nixpkgs.config.allowUnfree = true;
-
     services.xserver.videoDrivers = [ "nvidia" ];
 
-    boot = {
-      # blacklist nouveau module as otherwise it conflicts with nvidia drm
-      blacklistedKernelModules = [ "nouveau" ];
-
-      # Enables the Nvidia's experimental framebuffer device
-      # fix for the imaginary monitor that does not exist
-      kernelParams = [ "nvidia_drm.fbdev=1" ];
-    };
+    # Enables the Nvidia's experimental framebuffer device
+    # fix for the imaginary monitor that does not exist
+    boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
 
     environment.sessionVariables = {
       LIBVA_DRIVER_NAME = "nvidia";
@@ -35,9 +27,6 @@ in
       inherit (pkgs.nvtopPackages) nvidia;
 
       inherit (pkgs)
-        # mesa
-        mesa
-
         # vulkan
         vulkan-tools
         vulkan-loader
@@ -52,22 +41,21 @@ in
 
     hardware = {
       nvidia = {
-        package = mkDefault config.boot.kernelPackages.nvidiaPackages.beta;
-
-        prime.offload = {
-          enable = false;
-          enableOffloadCmd = false;
-        };
+        # use the latest and greatest nvidia drivers
+        package = config.boot.kernelPackages.nvidiaPackages.beta;
 
         powerManagement = {
-          enable = mkDefault true;
-          finegrained = mkDefault false;
+          enable = true;
+          finegrained = false;
         };
 
-        open = false; # dont use the open drivers by default
-        nvidiaSettings = false; # adds nvidia-settings to pkgs, so useless on nixos
+        # dont use the open drivers by default
+        open = false;
+
+        # adds nvidia-settings to pkgs, so useless on nixos
+        nvidiaSettings = false;
+
         nvidiaPersistenced = true;
-        # forceFullCompositionPipeline = true;
       };
 
       graphics = {

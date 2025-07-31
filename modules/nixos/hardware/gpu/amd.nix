@@ -14,10 +14,7 @@ in
     services.xserver.videoDrivers = [ "amdgpu" ];
 
     # enable amdgpu kernel module
-    boot = {
-      kernelModules = [ "amdgpu" ];
-      initrd.kernelModules = [ "amdgpu" ];
-    };
+    boot.kernelModules = [ "amdgpu" ];
 
     # enables AMDVLK & OpenCL support
     hardware.graphics.extraPackages = [
