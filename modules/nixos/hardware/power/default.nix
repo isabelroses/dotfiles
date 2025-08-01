@@ -2,8 +2,7 @@
   imports = [
     # keep-sorted start
     ./acpid.nix
-    ./auto-cpufreq.nix
-    ./undervolt.nix
+    ./tuned.nix
     ./upower.nix
     # keep-sorted end
   ];
