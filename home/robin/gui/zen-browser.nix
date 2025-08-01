@@ -23,7 +23,8 @@ in
         programs.zen-browser = {
           enable = true;
           package = lib.mkForce (
-            (pkgs.wrapFirefox ((inputs'.zen-browser.packages.twilight-unwrapped.override {
+            pkgs.wrapFirefox (
+              (inputs'.zen-browser.packages.twilight-unwrapped.override {
                 policies = lib.removeAttrs config.programs.zen-browser.policies [ "Preferences" ];
               }).overrideAttrs
               (oa: {
@@ -49,7 +50,8 @@ in
                   } catch(ex) {};
                   EOF
                 '';
-              })) { })
+              })
+            ) { }
           );
 
           policies = {
