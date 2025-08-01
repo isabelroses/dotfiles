@@ -21,6 +21,8 @@
       enable = true;
       settings = {
         extensions = {
+          # keep-sorted start block=yes
+          allowNsfw = true;
           betterCodeblocks = true;
           betterEmbedsYT = true;
           clearUrls = true;
@@ -29,8 +31,8 @@
           disableSentry = true;
           domOptimizer = true;
           experiments = true;
-          freeMoji = false;
           favouriteGifSearch = true;
+          freeMoji = false;
           freeScreenShare = true;
           greentext = false;
           httpCats = true;
@@ -38,6 +40,10 @@
           lastFmRpc = false;
           memberCount = true;
           moonbase = true;
+          nativeFixes = {
+            enabled = _class == "nixos";
+            config.vaapiIgnoreDriverChecks = true;
+          };
           noHideToken = true;
           noReplyChainNag = true;
           noTrack = true;
@@ -60,11 +66,10 @@
               };
             };
           };
-          nativeFixes = {
-            enabled = _class == "darwin";
-            config.vaapiIgnoreDriverChecks = true;
-          };
+          volumeManipulator = true;
+          # keep-sorted end
         };
+
         repositories = [ "https://moonlight-mod.github.io/extensions-dist/repo.json" ];
       };
     };
