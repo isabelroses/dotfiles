@@ -55,7 +55,7 @@ in
 
   programs.tmux = lib.mkIf config.garden.profiles.workstation.enable {
     enable = true;
-    # prefix = "M-p";
+    prefix = "M-p";
     keyMode = "vi";
     reverseSplit = true;
     mouse = true;
@@ -70,12 +70,6 @@ in
     ];
     extraConfig = # tmux
       ''
-        # rebind main key: M-p
-        unbind C-b
-        set -g prefix M-p
-        bind -n -N "Send the prefix key through to the application" \
-          M-p send-prefix
-
         # better session switching
 
         bind -n M-. switch-client -p
