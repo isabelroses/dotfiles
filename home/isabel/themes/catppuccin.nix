@@ -22,10 +22,7 @@ in
         accent = "dark";
       };
 
-      gtk = {
-        enable = isGui;
-        icon.enable = isGui;
-      };
+      gtk.icon.enable = isGui;
 
       # I don't even use the colors from the port
       waybar.enable = false;
