@@ -28,7 +28,7 @@ deploy host *args: (builder "switch" "--target-host " + host "--use-substitutes 
 deploy-all:
   just deploy minerva
   just deploy hestia
-  just deploy skadi --build-host skadi
+  just deploy skadi
 
 # rebuild the boot
 [group('rebuild')]
