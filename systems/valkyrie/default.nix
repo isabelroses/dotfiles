@@ -31,6 +31,8 @@
         };
       };
 
+      emulation.enable = true;
+
       bluetooth.enable = false;
       security.auditd.enable = true;
     };

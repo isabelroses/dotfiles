@@ -23,7 +23,7 @@ let
 
   getArch = flip pipe [
     (splitString "-")
-    (flip elemAt 1)
+    (flip elemAt 0)
   ];
 
   cfg = config.garden.system.emulation;
