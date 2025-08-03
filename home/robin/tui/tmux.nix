@@ -76,6 +76,10 @@ in
 
       extraConfig = # tmux
         ''
+          # vim esc key delay fix
+
+          set -sg escape-time 1
+
           # better session switching
 
           bind -n M-. switch-client -p
