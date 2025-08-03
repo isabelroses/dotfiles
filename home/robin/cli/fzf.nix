@@ -15,9 +15,9 @@ in
 
     defaultCommand = find;
     defaultOptions = mapAttrsToList (n: v: "--${n}='${v}'") {
-      margin = "0,2";
-      padding = "1";
-      height = "16";
+      margin = "0";
+      padding = "0";
+      height = "14";
       layout = "reverse-list";
       info = "right";
       preview-window = "border-rounded";
