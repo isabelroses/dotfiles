@@ -13,8 +13,9 @@ in
       repeat_rate = 50;
       repeat_delay = 250;
 
-      # swap caps lock and escape
-      # kb_options = "caps:swapescape";
+      # caps lock as an additional esc
+      # but shift + capslock is the regular capslock
+      kb_options = "caps:escape_shifted_capslock";
 
       touchpad = {
         tap-to-click = true;
