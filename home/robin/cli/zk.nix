@@ -33,8 +33,7 @@ in
           };
 
           tool = {
-            inherit (defaults) editor;
-            pager = "bat";
+            inherit (defaults) editor pager;
 
             # Command used to preview a note during interactive fzf mode.
             # Set it to an empty string "" to disable preview.
