@@ -206,6 +206,19 @@
       };
     };
 
+    nix-topology = {
+      type = "github";
+      owner = "oddlama";
+      repo = "nix-topology";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        devshell.follows = "";
+        pre-commit-hooks.follows = "";
+      };
+    };
+
     spicetify-nix = {
       type = "github";
       owner = "Gerg-L";

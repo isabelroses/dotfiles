@@ -20,6 +20,7 @@
     ./services
     ./system
     ./tags.nix
+    ./topology.nix
     ./users
     # keep-sorted end
   ];
