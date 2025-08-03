@@ -33,6 +33,8 @@
         fileSelector = ".*\\.theme\\.css";
         paths = [
           "/home/robin/.config/moonlight-mod/themes/"
+          "@dark https://everviolet.github.io/discord/themes/evergarden-winter-pink.theme.css"
+          "@light https://everviolet.github.io/discord/themes/evergarden-summer-aqua.theme.css"
         ];
         themeAttributes = true;
       };
