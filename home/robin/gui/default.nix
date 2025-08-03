@@ -12,6 +12,7 @@
     ./quickshell.nix
     ./spotify.nix
     ./wezterm
+    ./zed.nix
     ./zen-browser.nix
   ];
 }
