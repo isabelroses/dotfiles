@@ -2,6 +2,7 @@
   imports = [
     ./aseprite.nix
     ./hyprland
+    ./cava.nix
     ./chromium.nix
     ./cosmic-files.nix
     ./discord
