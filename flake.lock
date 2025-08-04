@@ -480,16 +480,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1754299388,
+        "lastModified": 1754301638,
         "narHash": "sha256-aRgzcPDd2axHFOuMlPLuzmDptUM2JU8mUL3jfgbBeyc=",
         "owner": "nuschtos",
         "repo": "search",
-        "rev": "6f4161111881178c23b7a4b0ea84e5994f231f10",
+        "rev": "a60091045273484c040a91f5c229ba298f8ecc27",
         "type": "github"
       },
       "original": {
         "owner": "nuschtos",
-        "ref": "pull/242/merge",
         "repo": "search",
         "type": "github"
       }
