@@ -1,4 +1,5 @@
 {
+  lib,
   inputs,
   config,
   ...
@@ -8,14 +9,14 @@
 
   config = {
     catppuccin = {
-      enable = !config.garden.profiles.headless.enable;
+      enable = lib.mkDefault (!config.garden.profiles.headless.enable);
       flavor = "mocha";
 
       # IFD, easy to vendor
       tty.enable = false;
     };
 
-    console.colors = [
+    console.colors = lib.mkIf config.catppuccin.enable [
       "1e1e2e"
       "f38ba8"
       "a6e3a1"
