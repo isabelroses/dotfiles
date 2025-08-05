@@ -2,9 +2,9 @@
   imports = [
     # keep-sorted start
     ./atuin.nix
+    ./bat.nix
     ./eza.nix
     ./fd.nix
-    ./bat.nix
     ./fzf.nix
     ./gh.nix
     ./git.nix
