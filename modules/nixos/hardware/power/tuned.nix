@@ -4,19 +4,17 @@
   ...
 }:
 let
-  inherit (lib) mkIf getExe';
-
-  tuned-adm = getExe' config.services.tuned.package "tuned-adm";
+  inherit (lib) mkIf;
 in
 {
   config = mkIf config.garden.profiles.laptop.enable {
     services = {
-      tuned.enable = true;
+      tuned = {
+        enable = true;
 
-      udev.extraRules = ''
-        SUBSYSTEM=="power_supply", ATTR{status}=="Charging", RUN+="${tuned-adm} profile battery"
-        SUBSYSTEM=="power_supply", ATTR{status}=="Discharging", RUN+="${tuned-adm} profile balanced"
-      '';
+        # auto magically change the profile based on the battery charging state
+        ppdSettings.main.battery_detection = true;
+      };
     };
   };
 }
