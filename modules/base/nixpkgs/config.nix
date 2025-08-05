@@ -16,7 +16,8 @@
     # these are usually packages like electron because discord and others love
     # to take their sweet time updating it
     permittedInsecurePackages = [
-      # https://github.com/isabelroses/dotfiles/actions/runs/16618863999/job/47018093890
+      # dependency graph of our issue, starting from the highest level package we depend on
+      # photoprism 250321-57590c48b -> darktable 5.2.0 -> osm-gps-map 1.2.0 -> libsoup 2.74.3
       "libsoup-2.74.3"
     ];
 
