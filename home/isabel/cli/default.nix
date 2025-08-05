@@ -4,6 +4,7 @@
     ./atuin.nix
     ./eza.nix
     ./fd.nix
+    ./bat.nix
     ./fzf.nix
     ./gh.nix
     ./git.nix
