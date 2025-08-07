@@ -17,6 +17,7 @@
 - [adding packages](guides/adding-packages.md)
 - [secrets](guides/secrets.md)
 - [uninstalling](guides/uninstalling.md)
+- [issues](guides/issues.md)
 
 # Configuration
 
