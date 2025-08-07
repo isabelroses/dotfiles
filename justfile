@@ -1,10 +1,10 @@
-flake_var := env_var('FLAKE')
-flake := if flake_var =~ '^\.*$' { justfile_directory() } else { flake_var }
+flake := env('FLAKE', justfile_directory())
 
 # rebuild is also set as a var so you can add --set to change it if you need to
 
 rebuild := if os() == "macos" { "sudo darwin-rebuild" } else { "nixos-rebuild" }
-system-args := if os() != "macos" { "--sudo --no-reexec" } else { "" }
+system-args := if os() != "macos" { "--sudo --no-reexec --log-format internal-json" } else { "" }
+nom-cmd := if os() == "macos" { "nom" } else { "nom --json" }
 
 [private]
 default:
@@ -19,7 +19,7 @@ builder goal *args:
       --flake {{ flake }} \
       {{ system-args }} \
       {{ args }} \
-      |& nom
+      |& {{ nom-cmd }}
 
 [group('rebuild')]
 deploy host *args: (builder "switch" "--target-host " + host "--use-substitutes " + args)
