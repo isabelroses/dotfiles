@@ -35,12 +35,6 @@ in
     # maximum compression, in exchange for build speed
     squashfsCompression = "zstd -Xcompression-level 19";
 
-    # ISO image should be an EFI-bootable volume
-    makeEfiBootable = true;
-
-    # ISO image should be bootable from USB
-    makeUsbBootable = true;
-
     # remove "-installer" boot menu label
     appendToMenuLabel = "";
 

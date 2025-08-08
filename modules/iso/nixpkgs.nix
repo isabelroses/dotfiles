@@ -9,7 +9,10 @@
 
     overlays = [
       (_: prev: {
-        nixVersions.stable = config.nix.package;
+        nixVersions = prev.nixVersions // {
+          stable = config.nix.package;
+        };
+
         nixForLinking = prev.nixVersions.stable;
       })
     ];

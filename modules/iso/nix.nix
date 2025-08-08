@@ -7,9 +7,6 @@
     # we can disable channels since we can just use the flake
     channel.enable = false;
 
-    # we need to have nixpkgs in our path
-    nixPath = [ "nixpkgs=${config.nix.registry.nixpkgs.to.path}" ];
-
     settings = {
       # these are the bare minimum settings required to get my nixos config working
       experimental-features = [
