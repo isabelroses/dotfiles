@@ -319,11 +319,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1754617488,
-        "narHash": "sha256-aOi/NT5mRPJ8N+xUTcpmtLYU/5CXoT0LZW+79G5JN3M=",
+        "lastModified": 1754644482,
+        "narHash": "sha256-H8Y3ftaFxtY1l8w2sov0gtVxY5S9fsTeRUEofe7VYOI=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "848f8eea1c23d4d88fac1245ad4a388cfccbdb90",
+        "rev": "ab74fe5f83141faff5dc1c6dde62d3ba696adc81",
         "type": "github"
       },
       "original": {
