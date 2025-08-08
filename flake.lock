@@ -226,11 +226,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754527677,
-        "narHash": "sha256-qAzCtmKkMz40xFgP9KN+TCKjVieK4u04EWwl2KvVk0E=",
+        "lastModified": 1754613544,
+        "narHash": "sha256-ueR1mGX4I4DWfDRRxxMphbKDNisDeMPMusN72VV1+cc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "475d35797d9537354d825260cf583114537affc2",
+        "rev": "cc2fa2331aebf9661d22bb507d362b39852ac73f",
         "type": "github"
       },
       "original": {
@@ -268,11 +268,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754505079,
-        "narHash": "sha256-rdvkZn36prvgGo4ivkK0eInOBZHvyqHWtAHWc9qO0DY=",
+        "lastModified": 1754583682,
+        "narHash": "sha256-gAWK8RjAAc/7YY0eW2Hbwu+zLr1bx4aQciqNtOkuNFs=",
         "owner": "comfysage",
         "repo": "ivy",
-        "rev": "1bd8a4694654c1ae5a9cfbd386a05e31e2d7fc50",
+        "rev": "bf5919491d4dbe4834350e62a972577e98a45e19",
         "type": "github"
       },
       "original": {
@@ -319,11 +319,11 @@
         "pre-commit-hooks": []
       },
       "locked": {
-        "lastModified": 1754531106,
-        "narHash": "sha256-kvdS6O91GtzCAU8k9O1bgZR0/rv29vogm7kQC0ivwSw=",
+        "lastModified": 1754617488,
+        "narHash": "sha256-aOi/NT5mRPJ8N+xUTcpmtLYU/5CXoT0LZW+79G5JN3M=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "cd146164dc5fdf0a1b2d9b178a5f82082b8eac8c",
+        "rev": "848f8eea1c23d4d88fac1245ad4a388cfccbdb90",
         "type": "github"
       },
       "original": {
@@ -342,11 +342,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754479482,
-        "narHash": "sha256-SUhSFl5qUjgm4NRd/KW6vcI9lHKyYem/vKExVrhXcuY=",
+        "lastModified": 1754559582,
+        "narHash": "sha256-9hntUExnSEoOzVFumzPCNquLzrIlndIYda32u+4JXFw=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "4f39eda016bfcfaa0151d54b197f0758607429ce",
+        "rev": "5752a7d755d9d9841a4ec5e808d9b0d707caeddb",
         "type": "github"
       },
       "original": {
@@ -553,11 +553,11 @@
         "nixpkgs-25_05": []
       },
       "locked": {
-        "lastModified": 1754094422,
-        "narHash": "sha256-OZKijk5dw5Ih54qXMMAlaGFk5j6RAvS1sB8PLS0QCdQ=",
+        "lastModified": 1754605910,
+        "narHash": "sha256-kVWxzm44ywJTb4REfwWCYXnROISykG0yE+X5A3Gov24=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "eb656cd36128dd2173b1798b66a7645657e45609",
+        "rev": "57d9624c71ca65bee69b30d72b11f6c5257e9500",
         "type": "gitlab"
       },
       "original": {
@@ -632,11 +632,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754584229,
-        "narHash": "sha256-DD4f45roLaWnPArnveZBUFxsOD2PILvc2BcqY3MmSjE=",
+        "lastModified": 1754601462,
+        "narHash": "sha256-01d6Lmv6TICzn6yPuQGCmg3nZD/Y5/aN5dap04+Ak5M=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "c463a527f8e8e147d45f50d16246bc0b7173aa55",
+        "rev": "ca688388c5fa9f71497ca348ce2bb41b1512106b",
         "type": "github"
       },
       "original": {
