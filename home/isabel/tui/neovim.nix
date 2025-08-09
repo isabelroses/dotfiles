@@ -5,8 +5,8 @@
   ];
 
   programs.izvim = {
-    enable = true;
-    includePerLanguageTooling = config.garden.profiles.workstation.enable;
+    enable = config.garden.profiles.workstation.enable;
+    includePerLanguageTooling = true;
     # gui.enable = config.garden.profiles.graphical.enable;
   };
 }
