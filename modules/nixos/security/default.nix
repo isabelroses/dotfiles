@@ -5,7 +5,7 @@
     # keep-sorted start
     ./apparmor.nix # apparmor
     ./auditd.nix # auditd
-    ./kernel.nix # kernel hardening
+    ./kernel # kernel hardening
     ./login-defs.nix # login.defs configuration
     ./pam.nix # pam configuration
     ./polkit.nix # polkit configuration
