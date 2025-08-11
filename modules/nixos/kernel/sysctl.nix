@@ -1,16 +1,16 @@
+# you can find out whats recommended for you, by following these steps
+# > sudo sysctl -a > sysctl.txt
+# > kernel-hardening-checker -l /proc/cmdline -c /proc/config.gz -s ./sysctl.txt
+#
+# better read up
+# https://docs.kernel.org/admin-guide/sysctl/vm.html
+#
+# a good place to quickly find what each setting does
+# https://sysctl-explorer.net/
+#
+# we disable sysctl tweaks on wsl since they don't work
 { lib, options, ... }:
 {
-  # you can find out whats recommended for you, by following these steps
-  # > sudo sysctl -a > sysctl.txt
-  # > kernel-hardening-checker -l /proc/cmdline -c /proc/config.gz -s ./sysctl.txt
-  #
-  # better read up
-  # https://docs.kernel.org/admin-guide/sysctl/vm.html
-  #
-  # a good place to quickly find what each setting does
-  # https://sysctl-explorer.net/
-  #
-  # we disable sysctl tweaks on wsl since they don't work
   boot.kernel.sysctl = lib.mkIf (!(options ? "wsl")) {
     # The Magic SysRq key is a key combo that allows users connected to the
     # system console of a Linux kernel to perform some low-level commands.
