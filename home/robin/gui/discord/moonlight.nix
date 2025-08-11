@@ -1,3 +1,7 @@
+{ config }:
+let
+  evcfg = config.evergarden;
+in
 {
   extensions = {
     moonbase = true;
@@ -33,7 +37,7 @@
         fileSelector = ".*\\.theme\\.css";
         paths = [
           "/home/robin/.config/moonlight-mod/themes/"
-          "@dark https://everviolet.github.io/discord/themes/evergarden-winter-pink.theme.css"
+          "@dark https://everviolet.github.io/discord/themes/evergarden-${evcfg.variant}-${evcfg.accent}.theme.css"
           "@light https://everviolet.github.io/discord/themes/evergarden-summer-aqua.theme.css"
         ];
         themeAttributes = true;

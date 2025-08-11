@@ -18,7 +18,7 @@ in
       programs.discord = {
         moonlight = {
           enable = true;
-          settings = import ./moonlight.nix;
+          settings = import ./moonlight.nix { inherit config; };
         };
         vencord = {
           settings = vencordSettings;
