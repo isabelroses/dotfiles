@@ -206,11 +206,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1753903035,
-        "narHash": "sha256-dWn9oY2kSh6ZtQWH6Bs6UZR+wsLj0Pctj9AB0U4hlRA=",
+        "lastModified": 1754944253,
+        "narHash": "sha256-qZI/Q6qkVsypLWGTiDd7S/KNtUw1s5GIYDTWjht03h8=",
         "owner": "tgirlcloud",
         "repo": "gift-wrap",
-        "rev": "48a6f04e6fa2d2dd150118a9dff73b30eb42df87",
+        "rev": "355a1147070d80daa66f7a66904d08d048f80676",
         "type": "github"
       },
       "original": {
@@ -342,11 +342,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1754559582,
-        "narHash": "sha256-9hntUExnSEoOzVFumzPCNquLzrIlndIYda32u+4JXFw=",
+        "lastModified": 1754948763,
+        "narHash": "sha256-mqTdVU8sixihQWobbq/EkS+qx0+SZt0QILCgO3aFzhE=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "5752a7d755d9d9841a4ec5e808d9b0d707caeddb",
+        "rev": "fad7ce078efeaae1f74c5b5258f3159b4f74d950",
         "type": "github"
       },
       "original": {
