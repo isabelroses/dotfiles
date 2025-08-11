@@ -5,7 +5,7 @@
   config = {
     evergarden = {
       enable = true;
-      variant = "fall";
+      variant = "winter";
       accent = "pink";
     };
   };
