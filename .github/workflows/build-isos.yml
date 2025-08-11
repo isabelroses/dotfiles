@@ -5,6 +5,8 @@ on:
   schedule:
     - cron: "0 3 1,15 * *" # Run on the 1st and 15th of every month at 3:00 AM
   push:
+    branches:
+      - main
     paths:
       - "github/workflows/build-isos.yml"
       - ".github/actions/**/*"
@@ -29,7 +31,7 @@ jobs:
           remove-docker-images: true
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
 
