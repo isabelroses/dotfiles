@@ -14,19 +14,19 @@ in
     inherit (config.garden.profiles.workstation) enable;
 
     defaultCommand = find;
-    defaultOptions = mapAttrsToList (n: v: "--${n}='${v}'") {
+    defaultOptions = (mapAttrsToList (n: v: "--${n}='${v}'") {
       margin = "0";
       padding = "0";
       height = "14";
       layout = "reverse-list";
-      info = "right";
+      info = "inline-right";
       preview-window = "border-rounded";
       prompt = " ";
       pointer = "";
       marker = "│";
       separator = "─";
       scrollbar = "│";
-    };
+    }) ++ [ "--no-separator" ];
 
     fileWidgetCommand = find;
     fileWidgetOptions = [ "--preview 'head {}'" ];
