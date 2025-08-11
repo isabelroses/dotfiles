@@ -13,6 +13,7 @@
     ./gaming
     ./hardware
     ./headless.nix
+    ./kernel
     ./networking
     ./nix.nix
     ./programs
