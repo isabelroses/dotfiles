@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib) mkForce mkAfter mkImageMediaOverride;
+  inherit (lib) mkForce mkAfter;
 in
 {
   boot = {
@@ -8,13 +8,6 @@ in
       "noquiet"
       "toram"
     ];
-
-    # nixos doesn't currently support this NixOS/nixpkgs#291750
-    # so we disable it, TODO: change this when it gets fixed
-    initrd.systemd = {
-      enable = mkImageMediaOverride false;
-      emergencyAccess = mkImageMediaOverride true;
-    };
 
     # have no need for systemd-boot
     loader.systemd-boot.enable = mkForce false;
