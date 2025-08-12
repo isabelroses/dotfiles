@@ -5,11 +5,7 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    optionals
-    optionalAttrs
-    ;
+  inherit (lib) mkIf optionalAttrs;
 
   sys = config.garden.system;
 in
@@ -20,7 +16,6 @@ in
 
   networking.networkmanager = {
     enable = true;
-    plugins = optionals config.garden.profiles.graphical.enable [ pkgs.networkmanager-openvpn ];
     dns = "systemd-resolved";
     unmanaged = [
       "interface-name:tailscale*"
