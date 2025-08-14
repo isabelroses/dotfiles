@@ -18,7 +18,9 @@
 
       background-opacity = 0.92;
       cursor-style = "bar";
-      window-padding-x = "4,4";
+      window-padding-x = "4";
+      window-padding-y = "0";
+      window-padding-balance = true;
       window-decoration = toString pkgs.stdenv.hostPlatform.isDarwin;
       gtk-titlebar = false;
 
