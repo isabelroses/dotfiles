@@ -126,9 +126,6 @@ in
         # enable the use of the fetchClosure built-in function in the Nix language.
         "fetch-closure"
 
-        # allow parsing TOML timestamps via builtins.fromTOML
-        "parse-toml-timestamps"
-
         # allow nix to automatically coerce integers to strings
         "coerce-integers"
       ];
