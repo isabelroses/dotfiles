@@ -3,13 +3,7 @@ name: Build and Release ISO Images
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 3 1,15 * *" # Run on the 1st and 15th of every month at 3:00 AM
-  push:
-    branches:
-      - main
-    paths:
-      - "github/workflows/build-isos.yml"
-      - ".github/actions/**/*"
+    - cron: "0 4 1,15 * *" # Run on the 1st and 15th of every month at 3:00 AM
 
 permissions:
   attestations: write
@@ -37,6 +31,14 @@ jobs:
 
       - name: Install Lix
         uses: ./.github/actions/install-lix
+
+      # we shouldn't really be needing to do this, but sometimes lix isn't
+      # build before we get here
+      # https://git.lix.systems/lix-project/lix/issues/545
+      - name: Loosen apparmor restrictions
+        run: |
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_unconfined=0
+          sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
 
       - name: Build Lilith Iso
         continue-on-error: false
