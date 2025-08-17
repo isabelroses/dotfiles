@@ -26,26 +26,28 @@ in
 
       extraConfig.pipewire = {
         "10-loopback" = {
-          "context.modules" = {
-            "node.description" = "playback loop";
-            "audio.position" = [
-              "FL"
-              "FR"
-            ];
+          "context.modules" = [
+            {
+              "node.description" = "playback loop";
+              "audio.position" = [
+                "FL"
+                "FR"
+              ];
 
-            "capture.props" = {
-              "node.name" = "playback_sink";
-              "node.description" = "playback-sink";
-              "media.class" = "Audio/Sink";
-            };
+              "capture.props" = {
+                "node.name" = "playback_sink";
+                "node.description" = "playback-sink";
+                "media.class" = "Audio/Sink";
+              };
 
-            "playback.props" = {
-              "node.name" = "playback_sink.output";
-              "node.description" = "playback-sink-output";
-              "media.class" = "Audio/Source";
-              "node.passive" = true;
-            };
-          };
+              "playback.props" = {
+                "node.name" = "playback_sink.output";
+                "node.description" = "playback-sink-output";
+                "media.class" = "Audio/Source";
+                "node.passive" = true;
+              };
+            }
+          ];
         };
       };
     };
