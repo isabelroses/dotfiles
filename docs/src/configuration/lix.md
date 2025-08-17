@@ -17,9 +17,5 @@ _: prev: {
   nixVersions = prev.nixVersions // {
     stable = config.nix.package;
   };
-
-  # make sure to restore nix for linking back to nix from nixpkgs as its
-  # used for other things then the cli implementaion
-  nixForLinking = prev.nixVersions.stable;
 }
 ```

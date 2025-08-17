@@ -12,8 +12,6 @@
         nixVersions = prev.nixVersions // {
           stable = config.nix.package;
         };
-
-        nixForLinking = prev.nixVersions.stable;
       })
     ];
   };
