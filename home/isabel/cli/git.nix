@@ -18,7 +18,7 @@ in
           # gist # manage github gists
           # act # local github actions - littrally does not work
           # gitflow # Extend git with the Gitflow branching model
-          cocogitto # git helpers
+          # cocogitto # git helpers
           ;
 
         git-crypt = pkgs.git-crypt.override { git = config.programs.git.package; };

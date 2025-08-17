@@ -16,7 +16,6 @@
 
           packages = [
             pkgs.just # quick and easy task runner
-            pkgs.cocogitto # git helpers
             pkgs.gitMinimal # we need git
             (pkgs.git-crypt.override { git = pkgs.gitMinimal; }) # git-crypt for encrypted git repositories
             pkgs.sops # secrets management
