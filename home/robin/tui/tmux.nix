@@ -38,7 +38,7 @@ in
             }
             function _fn_tmux_fzf_dev() {
               dir="$(realpath ''${1:-''${XDG_DEV_DIR}})"
-              spath=$(find "$dir" -mindepth 1 -maxdepth 1 -type d | fzf)
+              spath=$(fd --absolute-path --base-directory=$dir --no-ignore '^.git$' | awk -F '.git/' '{print $1}' | fzf)
               [[ -z "$spath" ]] || _fn_tmux_start "$spath"
             }
           '';
