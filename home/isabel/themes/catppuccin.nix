@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  options,
   osClass,
   ...
 }:
@@ -13,6 +14,7 @@ in
   config = {
     catppuccin = {
       inherit (config.garden.profiles.workstation) enable;
+      sources = options.catppuccin.sources.default;
 
       flavor = "mocha";
       accent = "pink";

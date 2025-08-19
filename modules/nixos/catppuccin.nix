@@ -1,7 +1,8 @@
 {
   lib,
-  inputs,
   config,
+  inputs,
+  options,
   ...
 }:
 {
@@ -10,6 +11,7 @@
   config = {
     catppuccin = {
       enable = lib.mkDefault (!config.garden.profiles.headless.enable);
+      sources = options.catppuccin.sources.default;
       flavor = "mocha";
 
       # IFD, easy to vendor
