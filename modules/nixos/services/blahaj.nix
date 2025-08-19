@@ -1,10 +1,7 @@
 {
   lib,
-  pkgs,
   self,
   config,
-  inputs,
-  inputs',
   ...
 }:
 let
@@ -18,17 +15,6 @@ in
     sops.secrets.blahaj-env = mkSystemSecret {
       file = "blahaj";
       key = "env";
-    };
-
-    # this is suchhhh a bad idea
-    nix.settings.trusted-users = [ "blahaj" ];
-
-    systemd.services.blahaj = {
-      path = [ config.nix.package ];
-
-      environment = {
-        "NIX_PATH" = "nixpkgs=flake:${inputs.nixpkgs.outPath}";
-      };
     };
 
     services = {
