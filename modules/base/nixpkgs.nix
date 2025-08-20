@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   nixpkgs.config = {
     # I want to install packages that are not FOSS sometimes
@@ -33,4 +34,11 @@
     # Also a good idea to know which packages might be very out of date or broken
     # showDerivationWarnings = [ "maintainerless" ];
   };
+
+  assertions = [
+    {
+      assertion = pkgs.overlays == [ ];
+      message = "nixpkgs overlays are not allowed in my configurations.";
+    }
+  ];
 }

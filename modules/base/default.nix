@@ -4,7 +4,7 @@
     ../generic
     ../../home
     ./nix
-    ./nixpkgs
+    ./nixpkgs.nix
     ./programs.nix
     ./system
     ./users
