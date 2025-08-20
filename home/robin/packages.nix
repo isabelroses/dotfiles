@@ -41,6 +41,7 @@ in
         manga-tui # tui manga finder + reader
         # bitwarden-cli # bitwarden, my chosen password manager
         # vhs # programmatically make gifs
+        youtube-music
         ;
     })
 
