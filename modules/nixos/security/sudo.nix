@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (lib) mkForce mkDefault getExe';
 in
@@ -32,7 +37,7 @@ in
           commands = [
             # try to make nixos-rebuild work without password
             {
-              command = getExe' pkgs.nixos-rebuild "nixos-rebuild";
+              command = getExe' config.system.build.nixos-rebuild "nixos-rebuild";
               options = [ "NOPASSWD" ];
             }
 
