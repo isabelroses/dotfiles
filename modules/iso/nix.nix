@@ -2,7 +2,7 @@
 {
   nix = {
     # setting nix to be our preferred fork
-    package = inputs'.izlix.packages.nix;
+    package = inputs'.izlix.packages.lix;
 
     # we can disable channels since we can just use the flake
     channel.enable = false;

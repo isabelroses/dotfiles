@@ -309,21 +309,16 @@
     },
     "izlix": {
       "inputs": {
-        "flake-compat": [],
-        "nix2container": [],
-        "nix_2_18": [],
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "nixpkgs-regression": [],
-        "pre-commit-hooks": []
+        ]
       },
       "locked": {
-        "lastModified": 1755772516,
-        "narHash": "sha256-NigIjcqOpPwp9GSrlWS/eLkoEeIXunTTxXS6WIRzucY=",
+        "lastModified": 1755793424,
+        "narHash": "sha256-PJ1XOyF1Jv9yNAocdJwot5T/TFUJe8gDEyjRDOmasRM=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "08db4a9f8e9a4d021e7660edab4d5e8353c28994",
+        "rev": "3dee3660ed8b327f8ed59bc5fd84b4b647059afb",
         "type": "github"
       },
       "original": {

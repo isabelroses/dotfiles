@@ -19,15 +19,7 @@
       type = "github";
       owner = "isabelroses";
       repo = "izlix";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-regression.follows = "";
-        nix_2_18.follows = "";
-        pre-commit-hooks.follows = "";
-        nix2container.follows = "";
-        flake-compat.follows = "";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # improved support for darwin

@@ -18,7 +18,7 @@
         inherit inputs;
 
         # keep-sorted start block=yes newline_separated=yes
-        iztaller = self.callPackage ./iztaller/package.nix { inherit (inputs'.izlix.packages) nix; };
+        iztaller = self.callPackage ./iztaller/package.nix { nix = inputs'.izlix.packages.lix; };
 
         libdoc = self.callPackage ./docs/lib.nix { };
         optionsdoc = self.callPackage ./docs/options.nix { };
