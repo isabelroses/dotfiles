@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   self,
   config,
   ...
@@ -28,9 +29,31 @@ in
         enable = true;
         pdsadmin.enable = true;
 
-        environmentFiles = [
-          config.sops.secrets.pds-env.path
-        ];
+        package = pkgs.pds.overrideAttrs (
+          finalAttrs: oa: {
+            version = "0.4.169";
+
+            src = pkgs.fetchFromGitHub {
+              owner = "bluesky-social";
+              repo = "pds";
+              tag = "v${finalAttrs.version}";
+              hash = "sha256-CInfhE9PeAbScVtMvvEyA5f6q0WIChTHf49/vh+Kqwc=";
+            };
+
+            pnpmDeps = pkgs.pnpm_9.fetchDeps {
+              inherit (finalAttrs)
+                pname
+                version
+                src
+                sourceRoot
+                ;
+              fetcherVersion = 1;
+              hash = "sha256-bBGumJBpTWaSPpo4WUNvdF2PCOS6w60Xn6kgS12y6PU=";
+            };
+          }
+        );
+
+        environmentFiles = [ config.sops.secrets.pds-env.path ];
 
         settings = {
           PDS_PORT = cfg.port;
