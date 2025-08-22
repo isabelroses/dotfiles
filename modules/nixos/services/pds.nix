@@ -25,11 +25,11 @@ in
     };
 
     services = {
-      pds = {
+      bluesky-pds = {
         enable = true;
         pdsadmin.enable = true;
 
-        package = pkgs.pds.overrideAttrs (
+        package = pkgs.bluesky-pds.overrideAttrs (
           finalAttrs: oa: {
             version = "0.4.169";
 
