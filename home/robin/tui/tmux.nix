@@ -56,6 +56,11 @@ in
       };
     };
 
+    evergarden.tmux.extraConfig = ''
+      set -gq @window_left_separator ""
+      set -gq @window_right_separator ""
+    '';
+
     programs.tmux = {
       enable = true;
 
@@ -76,6 +81,9 @@ in
 
       extraConfig = # tmux
         ''
+          bind-key r source-file ~/.config/tmux/tmux.conf \; \
+              display-message "source-file done"
+
           # vim esc key delay fix
 
           set -sg escape-time 1
@@ -107,31 +115,24 @@ in
 
           set-option -g status-style fg=default,bg=default
 
-          # # Left side of status bar
-          # set-option -g status-left-length 100
+          # Left side of status bar
+          set-option -g status-left-length 100
           # set-option -g status-left ""
-          #
-          # # Window status
-          # set-option -g window-status-format "#[fg=colour15,bg=default] #I · #W "
-          # set-option -g window-status-current-format "#[fg=white,bg=colour8] #I · #W "
+
+          # Window status
+          # set-option -g window-status-format "#[fg=#{@thm_overlay1},bg=#{@thm_surface0}] #I · #W "
+          # set-option -g window-status-current-format "#[fg=#{@thm_subtext1},bg=#{@thm_surface0}] #I · #W "
           # set-option -g window-status-separator ""
-          #
-          # # Right side of status bar
-          # set-option -g status-right-length 100
+
+          # Right side of status bar
+          set-option -g status-right-length 100
           # # set-option -g status-right "#[bg=default] %a, %d %b #[bg=default] %R "
           # set-option -g status-right '#[fg=black,bg=cyan] #S #[fg=default,bg=default]#[fg=colour15]#{?#{!=:#{b:session_path},#{session_name}}, #{b:session_path} ,}#[fg=default]#[fg=magenta] #{s/\$//:#{session_id}} / #{server_sessions} #[fg=black,bg=magenta] %I:%M %P '
+          # set-option -g status-right '#[fg=#{@thm_subtext1},bg=#{@thm_surface0}] #S#{?#{!=:#{b:session_path},#{session_name}}, · #{b:session_path},} #[fg=#{@thm_crust},bg=#{@thm_pink}] %I:%M %P '
 
           # pane border
-          set-option -g pane-border-style bg=default
-          set-option -g pane-border-style fg=colour8
-          set-option -g pane-active-border-style bg=default
-          set-option -g pane-active-border-style fg=colour8
-
-          # # Pane number indicator
-          # set-option -g display-panes-colour white
-          # set-option -g display-panes-active-colour white
-
-          set-option -g message-style 'fg=black bg=yellow'
+          set-option -g pane-border-style bg=default,fg=colour8
+          set-option -g pane-active-border-style bg=default,fg=colour8
         '';
     };
   };
