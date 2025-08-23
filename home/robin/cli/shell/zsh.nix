@@ -23,6 +23,23 @@ in
         precmd_functions+=title_precmd_hook
       ''
       + ''
+        cd-rotate(){
+          () {
+            builtin emulate -L zsh
+            while (( $#dirstack )) && ! builtin pushd -q $1 &>/dev/null; do
+              builtin popd -q $1
+            done
+            (( $#dirstack ))
+          } "$@" && builtin zle reset-prompt;
+        }
+        cd-back(){ cd-rotate -0; }
+        cd-forward(){ cd-rotate +1; }
+        builtin zle -N cd-back
+        builtin zle -N cd-forward
+        bindkey "^[[1;3D" cd-forward
+        bindkey "^[[1;3C" cd-back
+      ''
+      + ''
         setopt autopushd
       ''
     );
