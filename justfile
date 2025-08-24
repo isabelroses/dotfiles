@@ -96,7 +96,7 @@ serve:
 [group('dev')]
 push-mirrors:
     git push git@gitlab.com:isabelrosess/dotfiles.git
-    git push --mirror git@codeberg.org/isabel/dotfiles.git
+    git push --mirror ssh://git@codeberg.org/isabel/dotfiles.git
     git push --mirror git@tangled.sh:isabelroses.com/dotfiles
 
 # utils group
