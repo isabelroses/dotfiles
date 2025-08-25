@@ -1,6 +1,7 @@
 {
   wayland.windowManager.hyprland.settings.decoration = {
-    rounding = 0;
+    rounding = 8;
+    rounding_power = 4;
 
     # 0.8 is nice if we opacity
     active_opacity = 1.0;
@@ -24,6 +25,7 @@
       ignore_opacity = true;
 
       xray = true;
+      special = true;
     };
   };
 }

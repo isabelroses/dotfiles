@@ -2,6 +2,7 @@
   wayland.windowManager.hyprland.settings = {
     windowrule = [
       "tag bitwarden, title:( - Bitwarden)"
+      "tag terminal, class:^(com.mitchellh.ghostty)$"
 
       "float, tag:bitwarden"
       "float, title:^(rofi)$"
@@ -15,6 +16,8 @@
       "float, title:^(xdg-desktop-portal-gnome)$"
       "float, title:^(transmission-gtk)$"
       "size 800 600,tag:bitwarden"
+
+      "norounding, tag:terminal"
     ];
 
     windowrulev2 = [
