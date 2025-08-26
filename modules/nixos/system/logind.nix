@@ -5,11 +5,11 @@ let
 in
 {
   config = mkIf prof.laptop.enable {
-    services.logind = {
-      lidSwitch = "ignore";
-      lidSwitchDocked = "ignore";
-      lidSwitchExternalPower = "ignore";
-      powerKey = "suspend-then-hibernate";
+    services.logind.settings.Login = {
+      HandleLidSwitch = "ignore";
+      HandleLidSwitchDocked = "ignore";
+      HandleLidSwitchExternalPower = "ignore";
+      HandlePowerKey = "suspend-then-hibernate";
     };
 
     # https://wiki.debian.org/Suspend#Disable_suspend_and_hibernation
