@@ -56,6 +56,7 @@ in
         wl-clipboard
         cliphist
         pwvucontrol
+        feh
         ;
     })
 

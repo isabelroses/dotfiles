@@ -22,7 +22,7 @@
 
     windowrulev2 = [
       "float, title:^(Picture-in-Picture)$"
-      "float, class:^(Viewnior)$"
+      "float, class:^(feh)$"
       "float, class:^(download)$"
 
       "workspace 6, title:^(.*(Disc|WebC)ord.*)$"

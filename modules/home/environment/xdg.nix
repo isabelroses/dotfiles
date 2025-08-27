@@ -53,7 +53,7 @@ let
   associations =
     (lib.genAttrs code (_: [ "nvim.desktop" ]))
     // (lib.genAttrs media (_: [ "mpv.desktop" ]))
-    // (lib.genAttrs images (_: [ "viewnior.desktop" ]))
+    // (lib.genAttrs images (_: [ "feh.desktop" ]))
     // (lib.genAttrs browser (_: [
       "${if defaults.browser == "thorium" then "thorium-browser" else defaults.browser}.desktop"
     ]))
