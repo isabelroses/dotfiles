@@ -7,12 +7,24 @@ in
 {
   programs.ssh = {
     enable = true;
-    hashKnownHosts = true;
-    compression = true;
+    enableDefaultConfig = false;
 
     includes = [ secrets.uni-sshconf.path ];
 
     matchBlocks = {
+      "*" = {
+        forwardAgent = false;
+        addKeysToAgent = "no";
+        compression = true;
+        serverAliveInterval = 0;
+        serverAliveCountMax = 3;
+        hashKnownHosts = true;
+        userKnownHostsFile = "~/.ssh/known_hosts";
+        controlMaster = "no";
+        controlPath = "~/.ssh/master-%r@%n:%p";
+        controlPersist = "no";
+      };
+
       # keep-sorted start block=yes newline_separated=yes
       "amity" = {
         hostname = "143.47.240.116";
