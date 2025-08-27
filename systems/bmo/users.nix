@@ -18,7 +18,7 @@
       shell = "zsh";
       terminal = "ghostty";
       bar = "quickshell";
-      browser = "zen-twilight";
+      browser = "zen";
       screenLocker = null;
     };
   };

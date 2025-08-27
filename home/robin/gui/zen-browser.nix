@@ -11,20 +11,17 @@ let
 in
 {
   imports = [
-    inputs.zen-browser.homeModules.twilight
+    inputs.zen-browser.homeModules.beta
   ];
 
   config =
-    mkIf
-      (
-        config.garden.profiles.graphical.enable && config.garden.programs.defaults.browser == "zen-twilight"
-      )
+    mkIf (config.garden.profiles.graphical.enable && config.garden.programs.defaults.browser == "zen")
       {
         programs.zen-browser = {
           enable = true;
           package = lib.mkForce (
             pkgs.wrapFirefox (
-              (inputs'.zen-browser.packages.twilight-unwrapped.override {
+              (inputs'.zen-browser.packages.beta-unwrapped.override {
                 policies = lib.removeAttrs config.programs.zen-browser.policies [ "Preferences" ];
               }).overrideAttrs
               (oa: {
