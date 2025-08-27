@@ -9,7 +9,7 @@ in
     noTrack = true;
     noHideToken = true;
     alwaysFocus = {
-      enabled = true;
+      enabled = false;
     };
     betterCodeblocks = {
       enabled = true;
