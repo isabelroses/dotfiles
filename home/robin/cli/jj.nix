@@ -141,8 +141,10 @@
       merge-tools.nvim-hunk = {
         program = "nvim";
         edit-args = [
-          "-c"
-          "DiffEditor $left $right $output"
+          "-d"
+          "$left"
+          "$right"
+          "$output"
         ];
       };
 
