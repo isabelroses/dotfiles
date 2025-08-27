@@ -61,9 +61,9 @@ in
       "${mod} SHIFT, grave, movetoworkspace, special"
 
       # screen shot
-      ", Print, exec, moonblast copysave full"
+      ", Print, exec, moonblast copysave output"
       "${mod} SHIFT, S, exec, moonblast copysave area"
-      "ALT, Print, exec, moonblast copysave window"
+      "ALT, Print, exec, moonblast copysave active"
 
       "${mod} CTRL, right, workspace, r+1"
       "${mod} CTRL, left, workspace, r-1"
