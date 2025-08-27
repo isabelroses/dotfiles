@@ -37,6 +37,7 @@
         "https://overreacted.io/rss.xml"
         "https://sapphic.moe/rss.xml"
         "https://xeiaso.net/blog.rss"
+        "https://blog.ihatereality.space/atom.xml"
       ];
     };
   };
