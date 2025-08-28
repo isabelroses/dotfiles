@@ -67,7 +67,7 @@ in
 
             limit = 69420;
             remote_limit = 100000;
-            max_pinned_statuses = 5;
+            max_pinned_statuses = 15;
             max_account_fields = 100;
 
             upload_limit = 41943040; # 40Mb
