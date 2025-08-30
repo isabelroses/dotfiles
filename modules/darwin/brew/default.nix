@@ -29,14 +29,14 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "1e9faeb817345e0b8edaeab1c55f8798162d160e";
-          hash = "sha256-F+o/iM24NES7KkIYt8iOkDbZ0IhwQEtZi7LcPICbvOA=";
+          rev = "1916ed6a8becc7616cbb4022092fac61149af1cb";
+          hash = "sha256-4C8Ps9Qa9ho3oDG4+a7wwhbIgJLcGSIo+5EcXz2OfOQ=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "2ed76d8b1d4dec426785e44a458684ff568eef9d";
-          hash = "sha256-Jk2IoHE84fSM8sjlwL3/VoFuzUmGvykR7OudcyZuZYg=";
+          rev = "cfd62f414d06a934799d1034946d99b6819ff0b8";
+          hash = "sha256-jee8WPbMwBzddSC7oLdiHwLf11srU1rjayv2mC1kED8=";
         };
         "th-ch/homebrew-youtube-music" = pkgs.fetchFromGitHub {
           owner = "th-ch";
