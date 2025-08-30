@@ -2,6 +2,7 @@
   lib,
   self,
   config,
+  inputs',
   ...
 }:
 let
@@ -39,6 +40,15 @@ in
 
       nginx.virtualHosts.${cfg.domain} = {
         locations = {
+          # setup and serve our pds dashboard
+          "= /" = {
+            root = inputs'.tgirlpkgs.packages.pds-dash;
+            index = "index.html";
+          };
+          "= /index.html".root = inputs'.tgirlpkgs.packages.pds-dash;
+          "/assets".root = inputs'.tgirlpkgs.packages.pds-dash;
+
+          # pass everything else to the pds
           "/" = {
             proxyPass = "http://127.0.0.1:${toString cfg.port}";
             proxyWebsockets = true;
