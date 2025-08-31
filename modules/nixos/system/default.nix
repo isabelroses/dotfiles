@@ -1,7 +1,6 @@
 {
   imports = [
     # keep-sorted start
-    ./command-not-found.nix
     ./earlyoom.nix
     ./firmware.nix
     ./flatpak.nix
