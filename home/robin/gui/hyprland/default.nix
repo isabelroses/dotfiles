@@ -19,7 +19,7 @@ in
 
   config = lib.mkIf cfg.enable {
     garden.packages = {
-      inherit (pkgs) swww hyprpicker;
+      inherit (pkgs) swww hyprpicker hyprprop;
       inherit (inputs'.tgirlpkgs.packages)
         haikei
         moonblast
