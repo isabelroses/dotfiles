@@ -26,6 +26,8 @@ in
         # gum # a nicer scripting
         jq # json parser
         yq # yaml parser
+        hyfetch
+        fastfetch
         ;
 
       inherit (inputs'.tgirlpkgs.packages) zzz; # code snippets in the cli
