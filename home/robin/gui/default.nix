@@ -11,6 +11,7 @@
     ./ghostty.nix
     ./obsidian.nix
     ./quickshell.nix
+    ./satty.nix
     ./spotify.nix
     ./wezterm
     ./zed.nix

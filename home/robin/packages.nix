@@ -49,7 +49,6 @@ in
 
     (optionalAttrs (cfg.graphical.enable && isLinux) {
       inherit (pkgs)
-        swappy # used for screenshot area selection
         wl-gammactl
         brightnessctl # brightness managed via cli
         libnotify # needed for some notifications

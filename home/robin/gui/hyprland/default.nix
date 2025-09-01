@@ -28,6 +28,10 @@ in
         ;
     };
 
+    home.sessionVariables = {
+      MOONBLAST_EDITOR = "satty --filename";
+    };
+
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland.enable = true;
