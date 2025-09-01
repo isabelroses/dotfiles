@@ -41,6 +41,10 @@ in
               spath=$(fd --absolute-path --base-directory=$dir --no-ignore '^.git$' | awk -F '.git/' '{print $1}' | fzf)
               [[ -z "$spath" ]] || _fn_tmux_start "$spath"
             }
+            function _fn_tmux_zoxide() {
+              [[ -z "$1" ]] && return
+              _fn_tmux_start "$(zoxide query "$1")"
+            }
           '';
 
       shellAliases = {
@@ -53,6 +57,7 @@ in
 
         tmla = "_fn_tmux_fzf_sessions";
         tmds = "_fn_tmux_fzf_dev";
+        tmza = "_fn_tmux_zoxide";
       };
     };
 
