@@ -9,7 +9,7 @@
     # I don't really need pkgs.pkgsRocm and so on
     # this list also does not include actually useful sets like pkgsi686Linux
     # however this can also break some packages from building
-    allowVariants = true;
+    allowVariants = false;
 
     # If a package is broken, I don't want it
     allowBroken = false;
