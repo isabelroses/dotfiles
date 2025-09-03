@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   self,
   config,
   inputs',
@@ -7,6 +8,9 @@
 }:
 let
   cfg = config.garden.services.pds;
+
+  gk = config.services.pds-gatekeeper.settings;
+  gkurl = "http://${gk.GATEKEEPER_HOST}:${toString gk.GATEKEEPER_PORT}";
 
   inherit (lib) mkIf concatStringsSep;
   inherit (self.lib) mkServiceOption mkSystemSecret;
@@ -53,6 +57,23 @@ in
         };
       };
 
+      pds-gatekeeper = {
+        enable = true;
+
+        # we need to share a lot of secrets between pds and gatekeeper
+        environmentFile = config.sops.secrets.pds-env.path;
+
+        settings = {
+          GATEKEEPER_PORT = 3602;
+          PDS_BASE_URL = "http://127.0.0.1:${toString cfg.port}";
+          GATEKEEPER_TRUST_PROXY = "true";
+
+          # make an empty file to prevent early errors due to no pds env
+          # it really wants to load this file but with nix we don't really do it that way
+          PDS_ENV_LOCATION = toString (pkgs.writeText "gatekeeper-pds-env" "");
+        };
+      };
+
       nginx.virtualHosts.${cfg.domain} = {
         locations = {
           # setup and serve our pds dashboard
@@ -63,12 +84,13 @@ in
           "= /index.html".root = inputs'.tgirlpkgs.packages.pds-dash;
           "/assets".root = inputs'.tgirlpkgs.packages.pds-dash;
 
-          # pass everything else to the pds
-          "/" = {
-            proxyPass = "http://127.0.0.1:${toString cfg.port}";
-            proxyWebsockets = true;
-          };
+          # hijack the links for pds-gatekeeper
+          "= /xrpc/com.atproto.server.getSession".proxyPass = gkurl;
+          "= /xrpc/com.atproto.server.updateEmail".proxyPass = gkurl;
+          "= /xrpc/com.atproto.server.createSession".proxyPass = gkurl;
+          "= /@atproto/oauth-provider/~api/sign-in".proxyPass = gkurl;
 
+          # i am of age but i don't want to prove it lol
           # https://gist.github.com/mary-ext/6e27b24a83838202908808ad528b3318
           "/xrpc/app.bsky.unspecced.getAgeAssuranceState" =
             let
@@ -87,6 +109,12 @@ in
                 default_type application/json;
               '';
             };
+
+          # pass everything else to the pds
+          "/" = {
+            proxyPass = "http://127.0.0.1:${toString cfg.port}";
+            proxyWebsockets = true;
+          };
         };
       };
     };
