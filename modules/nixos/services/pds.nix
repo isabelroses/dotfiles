@@ -8,7 +8,7 @@
 let
   cfg = config.garden.services.pds;
 
-  inherit (lib) mkIf;
+  inherit (lib) mkIf concatStringsSep;
   inherit (self.lib) mkServiceOption mkSystemSecret;
 in
 {
@@ -34,7 +34,22 @@ in
         settings = {
           PDS_PORT = cfg.port;
           PDS_HOSTNAME = cfg.domain;
-          PDS_CRAWLERS = "https://bsky.network,https://relay.cerulea.blue";
+
+          # crawlers taken from the following post
+          # <https://bsky.app/profile/billy.wales/post/3lxpd67hnks2e>
+          PDS_CRAWLERS = concatStringsSep "," [
+            "https://bsky.network"
+            "https://relay.cerulea.blue"
+            "https://relay.fire.hose.cam"
+            "https://relay2.fire.hose.cam"
+            "https://relay3.fr.hose.cam"
+            "https://relay.hayescmd.net"
+          ];
+
+          PDS_OAUTH_PROVIDER_NAME = "tgirl.cloud";
+          PDS_OAUTH_PROVIDER_LOGO = "https://cdn.bsky.app/img/avatar/plain/did:plc:msjw2c6vob56zkr3zx7nt6wc/bafkreih52fl3otjhihb5gb5uvsbtctck62qut3e5ex43twrgg7uqgfos5m@jpeg";
+          PDS_OAUTH_PROVIDER_PRIMARY_COLOR = "#86DCE9";
+          PDS_OAUTH_PROVIDER_ERROR_COLOR = "#F6598E";
         };
       };
 
