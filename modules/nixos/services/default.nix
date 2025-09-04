@@ -14,7 +14,6 @@
     ./loki.nix
     ./mailserver.nix
     ./matrix.nix
-    ./mediawiki.nix
     ./nginx.nix
     ./nixpkgs-prs-bot.nix
     ./ntfy.nix
