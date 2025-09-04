@@ -45,13 +45,6 @@ in
         group = "kanidm";
         mode = "440";
       };
-      kanidm-oauth2-grafana = mkSystemSecret {
-        file = "kanidm";
-        key = "oauth2-grafana";
-        owner = "kanidm";
-        group = "kanidm";
-        mode = "440";
-      };
       kanidm-oauth2-forgejo = mkSystemSecret {
         file = "kanidm";
         key = "oauth2-forgejo";
@@ -94,8 +87,6 @@ in
               legalName = "isabel";
               mailAddresses = [ "isabel@${rdomain}" ];
               groups = [
-                "grafana.access"
-                "grafana.admins"
                 "forgejo.access"
                 "forgejo.admins"
               ];
@@ -106,42 +97,17 @@ in
               legalName = "robin";
               mailAddresses = [ "robin@${rdomain}" ];
               groups = [
-                "grafana.access"
                 "forgejo.access"
               ];
             };
           };
 
           groups = {
-            "grafana.access" = { };
-            "grafana.admins" = { };
-
             "forgejo.access" = { };
             "forgejo.admins" = { };
           };
 
           systems.oauth2 = {
-            grafana = {
-              displayName = "Grafana";
-              originUrl = "https://${cfg'.grafana.domain}/login/generic_oauth";
-              originLanding = "https://${cfg'.grafana.domain}/";
-              basicSecretFile = config.sops.secrets.kanidm-oauth2-grafana.path;
-              preferShortUsername = true;
-              scopeMaps."grafana.access" = [
-                "openid"
-                "email"
-                "profile"
-              ];
-              claimMaps.groups = {
-                joinType = "array";
-                valuesByGroup."grafana.admins" = [
-                  "editor"
-                  "admin"
-                  "server_admin"
-                ];
-              };
-            };
-
             forgejo = {
               displayName = "Forgejo";
               originUrl = "https://${cfg'.forgejo.domain}/user/oauth2/Isabel%27s%20SSO/callback";
