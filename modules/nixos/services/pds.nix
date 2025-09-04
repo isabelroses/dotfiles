@@ -61,7 +61,7 @@ in
         enable = true;
 
         # we need to share a lot of secrets between pds and gatekeeper
-        environmentFile = config.sops.secrets.pds-env.path;
+        environmentFiles = [ config.sops.secrets.pds-env.path ];
 
         settings = {
           GATEKEEPER_PORT = 3602;
