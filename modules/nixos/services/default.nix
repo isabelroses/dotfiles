@@ -21,6 +21,7 @@
     # ./buildbot.nix
     ./pds.nix
     ./photoprism.nix
+    ./port-collector.nix
     ./postgresql.nix
     ./prometheus.nix
     ./redis.nix
