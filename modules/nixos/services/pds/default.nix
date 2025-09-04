@@ -77,6 +77,13 @@ in
           PDS_BASE_URL = "http://${cfg.host}:${toString cfg.port}";
           GATEKEEPER_TRUST_PROXY = "true";
 
+          GATEKEEPER_EMAIL_TEMPLATES_DIRECTORY = toString (
+            pkgs.runCommandLocal "pds-email-templates" { } ''
+              mkdir -p $out
+              cp ${./two_factor_code.hbs} $out/two_factor_code.hbs
+            ''
+          );
+
           # make an empty file to prevent early errors due to no pds env
           # it really wants to load this file but with nix we don't really do it that way
           PDS_ENV_LOCATION = toString (pkgs.writeText "gatekeeper-pds-env" "");

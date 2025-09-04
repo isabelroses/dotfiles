@@ -15,7 +15,7 @@
     ./nixpkgs-prs-bot.nix
     ./ntfy.nix
     # ./buildbot.nix
-    ./pds.nix
+    ./pds
     ./photoprism.nix
     ./port-collector.nix
     ./postgresql.nix
