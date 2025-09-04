@@ -21,7 +21,7 @@ let
 in
 {
   options.garden.services.kanidm = mkServiceOption "kanidm" {
-    port = 8443;
+    port = 3010;
     domain = "sso.${rdomain}";
   };
 

@@ -16,7 +16,7 @@ in
   options.garden.services.attic = mkServiceOption "attic" {
     domain = "cache.${rdomain}";
     host = "[::]";
-    port = 8080;
+    port = 3003;
   };
 
   config = mkIf config.garden.services.attic.enable {

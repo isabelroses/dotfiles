@@ -13,7 +13,7 @@ let
 in
 {
   options.garden.services.photoprism = mkServiceOption "photoprism" {
-    port = 2342;
+    port = 3007;
     domain = "photos.${rdomain}";
   };
 

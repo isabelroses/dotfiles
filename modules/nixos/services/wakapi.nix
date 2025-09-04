@@ -14,7 +14,7 @@ let
 in
 {
   options.garden.services.wakapi = mkServiceOption "wakapi" {
-    port = 15912;
+    port = 3006;
     domain = "wakapi.${rdomain}";
   };
 

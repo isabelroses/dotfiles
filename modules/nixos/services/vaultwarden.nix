@@ -13,7 +13,7 @@ let
 in
 {
   options.garden.services.vaultwarden = mkServiceOption "vaultwarden" {
-    port = 8222;
+    port = 3013;
     domain = "vault.${rdomain}";
   };
 

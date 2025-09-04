@@ -14,7 +14,7 @@ let
 in
 {
   options.garden.services.forgejo = mkServiceOption "forgejo" {
-    port = 7000;
+    port = 3011;
     domain = "git.${rdomain}";
   };
 

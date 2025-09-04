@@ -13,7 +13,7 @@ let
 in
 {
   options.garden.services.uptime-kuma = mkServiceOption "uptime-kuma" {
-    port = 3500;
+    port = 3008;
     domain = "status.${rdomain}";
   };
 

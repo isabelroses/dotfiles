@@ -21,12 +21,12 @@ in
 {
   options.garden.services = {
     pds = mkServiceOption "pds" {
-      port = 3601;
+      port = 3001;
       domain = "pds.tgirl.cloud";
     };
 
     pds-gatekeeper = mkServiceOption "pds-gatekeeper" {
-      port = 3602;
+      port = 3002;
     };
   };
 

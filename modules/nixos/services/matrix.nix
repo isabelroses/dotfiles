@@ -30,7 +30,7 @@ let
 in
 {
   options.garden.services.matrix = mkServiceOption "matrix" {
-    port = 8008;
+    port = 3012;
     domain = "matrix.${rdomain}";
   };
 

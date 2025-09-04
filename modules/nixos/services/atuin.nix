@@ -13,7 +13,7 @@ let
 in
 {
   options.garden.services.atuin = mkServiceOption "atuin" {
-    port = 43473;
+    port = 3004;
     domain = "atuin.${rdomain}";
   };
 

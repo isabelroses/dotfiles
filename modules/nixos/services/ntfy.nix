@@ -14,7 +14,7 @@ in
 {
   options.garden.services.ntfy = mkServiceOption "nixpkgs-prs-bot" {
     domain = "ntfy.${rdomain}";
-    port = 2586;
+    port = 3009;
   };
 
   config = mkIf cfg.enable {
