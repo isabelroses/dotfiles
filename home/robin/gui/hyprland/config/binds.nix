@@ -62,7 +62,7 @@ in
 
       # screen shot
       ", Print, exec, moonblast copysave output"
-      "${mod} SHIFT, S, exec, moonblast copysave area"
+      "${mod} SHIFT, S, exec, moonblast -f copysave area"
       "ALT, Print, exec, moonblast copysave active"
 
       "${mod} CTRL, right, workspace, r+1"
