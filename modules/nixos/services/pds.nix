@@ -8,17 +8,26 @@
 }:
 let
   cfg = config.garden.services.pds;
+  gkCfg = config.garden.services.pds-gatekeeper;
 
-  gk = config.services.pds-gatekeeper.settings;
-  gkurl = "http://${gk.GATEKEEPER_HOST}:${toString gk.GATEKEEPER_PORT}";
-
-  inherit (lib) mkIf concatStringsSep;
+  inherit (lib)
+    mkIf
+    mkMerge
+    concatStringsSep
+    genAttrs
+    ;
   inherit (self.lib) mkServiceOption mkSystemSecret;
 in
 {
-  options.garden.services.pds = mkServiceOption "pds" {
-    port = 3601;
-    domain = "pds.tgirl.cloud";
+  options.garden.services = {
+    pds = mkServiceOption "pds" {
+      port = 3601;
+      domain = "pds.tgirl.cloud";
+    };
+
+    pds-gatekeeper = mkServiceOption "pds-gatekeeper" {
+      port = 3602;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -64,8 +73,8 @@ in
         environmentFiles = [ config.sops.secrets.pds-env.path ];
 
         settings = {
-          GATEKEEPER_PORT = 3602;
-          PDS_BASE_URL = "http://127.0.0.1:${toString cfg.port}";
+          GATEKEEPER_PORT = gkCfg.port;
+          PDS_BASE_URL = "http://${cfg.host}:${toString cfg.port}";
           GATEKEEPER_TRUST_PROXY = "true";
 
           # make an empty file to prevent early errors due to no pds env
@@ -74,24 +83,33 @@ in
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} = {
-        locations = {
-          # setup and serve our pds dashboard
+      nginx.virtualHosts.${cfg.domain}.locations = mkMerge [
+        # setup and serve our pds dashboard
+        {
           "= /" = {
             root = inputs'.tgirlpkgs.packages.pds-dash;
             index = "index.html";
           };
           "= /index.html".root = inputs'.tgirlpkgs.packages.pds-dash;
           "/assets".root = inputs'.tgirlpkgs.packages.pds-dash;
+        }
 
-          # hijack the links for pds-gatekeeper
-          "= /xrpc/com.atproto.server.getSession".proxyPass = gkurl;
-          "= /xrpc/com.atproto.server.updateEmail".proxyPass = gkurl;
-          "= /xrpc/com.atproto.server.createSession".proxyPass = gkurl;
-          "= /@atproto/oauth-provider/~api/sign-in".proxyPass = gkurl;
+        # hijack the links for pds-gatekeeper
+        (genAttrs
+          [
+            "= /xrpc/com.atproto.server.getSession"
+            "= /xrpc/com.atproto.server.updateEmail"
+            "= /xrpc/com.atproto.server.createSession"
+            "= /@atproto/oauth-provider/~api/sign-in"
+          ]
+          (_: {
+            proxyPass = "http://${gkCfg.host}:${toString gkCfg.port}";
+          })
+        )
 
-          # i am of age but i don't want to prove it lol
-          # https://gist.github.com/mary-ext/6e27b24a83838202908808ad528b3318
+        # i am of age but i don't want to prove it lol
+        # https://gist.github.com/mary-ext/6e27b24a83838202908808ad528b3318
+        {
           "/xrpc/app.bsky.unspecced.getAgeAssuranceState" =
             let
               state = builtins.toJSON {
@@ -109,14 +127,16 @@ in
                 default_type application/json;
               '';
             };
+        }
 
-          # pass everything else to the pds
+        # pass everything else to the pds
+        {
           "/" = {
-            proxyPass = "http://127.0.0.1:${toString cfg.port}";
+            proxyPass = "http://${cfg.host}:${toString cfg.port}";
             proxyWebsockets = true;
           };
-        };
-      };
+        }
+      ];
     };
   };
 }
