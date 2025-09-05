@@ -1,16 +1,10 @@
 { lib, config, ... }:
 let
-  inherit (lib)
-    mkIf
-    mkMerge
-    mkForce
-    concatStringsSep
-    ;
+  inherit (lib) mkIf mkMerge;
 
   cfg = config.garden.services;
 in
 {
-  # fail2ban firewall jail
   services.fail2ban = {
     enable = true;
     banaction = "iptables-multiport[blocktype=DROP]";
@@ -21,42 +15,6 @@ in
       "192.168.0.0/16"
     ];
 
-    jails = mkMerge [
-      {
-        # sshd jail
-        sshd = mkForce ''
-          enabled = true
-          port = ${concatStringsSep "," (map toString config.services.openssh.ports)}
-          mode = aggressive
-        '';
-      }
-
-      (mkIf cfg.vaultwarden.enable {
-        # vaultwarden and vaultwarden admin interface jails
-        vaultwarden = ''
-          enabled = true
-          port = 80,443,${toString cfg.vaultwarden.port}
-          filter = vaultwarden
-          banaction = %(banaction_allports)s
-          logpath = /var/log/vaultwarden.log
-          maxretry = 3
-          bantime = 14400
-          findtime = 14400
-        '';
-
-        vaultwarden-admin = ''
-          enabled = true
-          port = 80,443,${toString cfg.vaultwarden.port}
-          filter = vaultwarden-admin
-          banaction = %(banaction_allports)s
-          logpath = /var/log/vaultwarden.log
-          maxretry = 3
-          bantime = 14400
-          findtime = 14400
-        '';
-      })
-    ];
-
     bantime-increment = {
       enable = true;
       rndtime = "12m";
@@ -64,5 +22,38 @@ in
       multipliers = "4 8 16 32 64 128 256 512 1024 2048";
       maxtime = "192h";
     };
+
+    jails = mkMerge [
+      {
+        sshd.settings.mode = "aggressive";
+      }
+
+      # vaultwarden and vaultwarden admin interface jails
+      (mkIf cfg.vaultwarden.enable {
+        vaultwarden = {
+          filter = "vaultwarden";
+          settings = {
+            port = "80,443,${toString cfg.vaultwarden.port}";
+            banaction = "%(banaction_allports)s";
+            logpath = "/var/log/vaultwarden.log";
+            maxretry = 3;
+            bantime = 14400;
+            findtime = 14400;
+          };
+        };
+
+        vaultwarden-admin = {
+          filter = "vaultwarden-admin";
+          settings = {
+            port = "80,443,${toString cfg.vaultwarden.port}";
+            banaction = "%(banaction_allports)s";
+            logpath = "/var/log/vaultwarden.log";
+            maxretry = 3;
+            bantime = 14400;
+            findtime = 14400;
+          };
+        };
+      })
+    ];
   };
 }
