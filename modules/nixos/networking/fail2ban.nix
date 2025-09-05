@@ -35,7 +35,7 @@ in
         # vaultwarden and vaultwarden admin interface jails
         vaultwarden = ''
           enabled = true
-          port = 80,443,8822
+          port = 80,443,${toString cfg.vaultwarden.port}
           filter = vaultwarden
           banaction = %(banaction_allports)s
           logpath = /var/log/vaultwarden.log
@@ -46,7 +46,7 @@ in
 
         vaultwarden-admin = ''
           enabled = true
-          port = 80,443
+          port = 80,443,${toString cfg.vaultwarden.port}
           filter = vaultwarden-admin
           banaction = %(banaction_allports)s
           logpath = /var/log/vaultwarden.log
