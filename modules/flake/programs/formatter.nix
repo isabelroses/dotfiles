@@ -45,6 +45,7 @@
 
             deadnix = {
               command = "deadnix";
+              options = [ "--edit" ];
               includes = [ "*.nix" ];
             };
 
