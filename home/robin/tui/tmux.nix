@@ -93,6 +93,8 @@ in
 
           set -sg escape-time 1
 
+          bind-key a choose-window
+
           # better session switching
 
           bind -n M-. switch-client -p
