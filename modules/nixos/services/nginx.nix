@@ -22,19 +22,16 @@ in
     # https://github.com/getchoo/borealis/blob/6e5ad4fb14a0de172c64e0d6a9d6f63ed7df88e6/modules/nixos/mixins/nginx.nix#L5
     services.nginx.virtualHosts = mkOption {
       type = types.attrsOf (
-        types.submodule (
-          _:
-          {
-            freeformType = types.attrsOf types.anything;
+        types.submodule (_: {
+          freeformType = types.attrsOf types.anything;
 
-            config = {
-              quic = mkDefault true;
-              forceSSL = mkDefault true;
-              enableACME = mkDefault false;
-              useACMEHost = mkDefault cfg.domain;
-            };
-          }
-        )
+          config = {
+            quic = mkDefault true;
+            forceSSL = mkDefault true;
+            enableACME = mkDefault false;
+            useACMEHost = mkDefault cfg.domain;
+          };
+        })
       );
     };
 
