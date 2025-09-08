@@ -132,6 +132,7 @@ in
             "= /xrpc/com.atproto.server.getSession"
             "= /xrpc/com.atproto.server.updateEmail"
             "= /xrpc/com.atproto.server.createSession"
+            "= /xrpc/com.atproto.server.createAccount"
             "= /@atproto/oauth-provider/~api/sign-in"
           ]
           (_: {
