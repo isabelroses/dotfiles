@@ -1,5 +1,6 @@
 {
   imports = [
+    ./hyfetch
     ./izrss.nix
     ./lazygit.nix
     ./neovim.nix
