@@ -12,7 +12,7 @@
 
     packageOverrides = {
       nil = (pkgs.nil.override { nix = config.nix.package; }).overrideAttrs (
-        finalAttrs: oa: {
+        finalAttrs: _: {
           src = pkgs.fetchFromGitHub {
             owner = "oxalica";
             repo = "nil";

@@ -9,7 +9,6 @@
   perSystem =
     {
       pkgs,
-      self',
       inputs',
       ...
     }:

@@ -1,4 +1,4 @@
-{ inputs', config, ... }:
+{ inputs', ... }:
 {
   nix = {
     # setting nix to be our preferred fork

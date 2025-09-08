@@ -1,7 +1,7 @@
 { lib, ... }:
 {
   perSystem =
-    { pkgs, config, ... }:
+    { pkgs, ... }:
     {
       formatter = pkgs.treefmt.withConfig {
         runtimeInputs = with pkgs; [

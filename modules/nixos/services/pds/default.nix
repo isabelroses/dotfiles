@@ -43,7 +43,7 @@ in
         pdsadmin.enable = true;
 
         package = pkgs.bluesky-pds.overrideAttrs (
-          finalAttrs: oldAttrs: {
+          finalAttrs: _: {
             version = "0.4.176";
             src = pkgs.fetchFromGitea {
               domain = "git.isabelroses.com";
