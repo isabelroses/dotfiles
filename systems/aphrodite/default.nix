@@ -1,27 +1,20 @@
 {
-  imports = [
-    ./hardware.nix
-    ./users.nix
-  ];
+  imports = [ ./hardware.nix ];
 
   garden = {
     profiles = {
       headless.enable = true;
-
-      server = {
-        enable = true;
-
-        hetzner = {
-          enable = true;
-          ipv4 = "116.203.57.153";
-          ipv6 = "2a01:4f8:c2c:b73d::/64";
-        };
-      };
+      server.enable = true;
     };
 
     device = {
       cpu = "intel";
       gpu = null;
+    };
+
+    system.boot = {
+      loader = "grub";
+      grub.device = "/dev/vda";
     };
 
     services = {

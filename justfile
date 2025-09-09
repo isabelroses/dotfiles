@@ -27,7 +27,7 @@ deploy host *args: (builder "switch" "--target-host " + host "--use-substitutes 
 [group('rebuild')]
 deploy-all:
   just deploy minerva
-  just deploy hestia
+  just deploy aphrodite
   just deploy skadi
 
 # rebuild the boot

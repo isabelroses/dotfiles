@@ -12,5 +12,5 @@ runs:
         diagnostic-endpoint: ""
         extra-conf: |
           experimental-features = flakes nix-command pipe-operator
-          substituters = https://nix-community.cachix.org  https://catppuccin.cachix.org https://cache.nixos.org/ https://cache.tgirl.cloud/tgirlcloud/
-          trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= tgirlcloud:vcV9oxS9pLXyeu1dVnBabLalLlw0yJzu6PakQM372t0=
+          substituters = https://nix-community.cachix.org https://catppuccin.cachix.org https://cache.nixos.org/ https://cache.tgirl.cloud/tgirlcloud/
+          trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= tgirlcloud:EaOlHrpuOI6Zwmir3/MzqS9uA0Xn3gYr15/k/v0HIPo=

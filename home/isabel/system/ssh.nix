@@ -31,6 +31,8 @@ in
         identityFile = secrets.keys-amity.path;
       };
 
+      "aphrodite".hostname = "95.111.208.153";
+
       "athena".hostname = "192.168.86.3";
 
       "aur.archlinux.org" = {
@@ -66,8 +68,6 @@ in
         user = "git";
         hostname = "gitlab.com";
       };
-
-      "hestia".hostname = "116.203.57.153";
 
       "minerva".hostname = "91.107.198.173";
 

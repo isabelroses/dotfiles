@@ -5,7 +5,7 @@
 | amaterasu | isabel    | Desktop | NixOS | A powerful desktop dual booting windows 11 |
 | athena    | isabel    | Hybrid  | NixOS | My oldest laptop, altogh this flake still supports it, its barely in use |
 | bmo       | robin     | Laptop  | NixOS | Robin's laptop |
-| hestia    | isabel    | Sever   | NixOS | The host of most tgirl.cloud services |
+| aphrodite | isabel    | Sever   | NixOS | The host of most tgirl.cloud services |
 | lilith    | n/a       | Iso     | NixOS | An iso image of my NixOS configuration, used to install NixOS on new systems |
 | minerva   | isabel    | Server  | NixOS | This is the orginal server, hosting most of my personal services |
 | skadi     | isabel    | Server  | NixOS | Oracle free server, mostly used for the pds and aarch64 builds |

@@ -26,9 +26,9 @@
       # keep-sorted start block=yes newline_separated=yes
       amaterasu = { };
 
-      athena = { };
+      aphrodite = { };
 
-      hestia = { };
+      athena = { };
 
       lilith = {
         class = "iso";

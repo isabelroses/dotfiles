@@ -34,10 +34,10 @@ in
           listen = "${cfg.host}:${toString cfg.port}";
 
           storage = {
-            bucket = "meower";
+            bucket = "tgc-nix-cache";
             type = "s3";
             region = "auto";
-            endpoint = "https://604a41ff5d2574939efbb1c55bac090e.r2.cloudflarestorage.com";
+            endpoint = "https://190n4.upcloudobjects.com";
           };
 
           chunking = {
