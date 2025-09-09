@@ -45,6 +45,9 @@ in
               [[ -z "$1" ]] && return
               _fn_tmux_start "$(zoxide query "$1")"
             }
+            function _fn_tmux_zoxide_fzf() {
+              _fn_tmux_start "$(zoxide query -i)"
+            }
           '';
 
       shellAliases = {
@@ -58,6 +61,7 @@ in
         tmla = "_fn_tmux_fzf_sessions";
         tmds = "_fn_tmux_fzf_dev";
         tmza = "_fn_tmux_zoxide";
+        tmzs = "_fn_tmux_zoxide_fzf";
       };
     };
 
