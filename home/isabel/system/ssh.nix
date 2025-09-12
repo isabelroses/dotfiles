@@ -90,6 +90,10 @@ in
     };
   };
 
+  home.file.".ssh/id_ed25519.pub".text = ''
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2
+  '';
+
   sops.secrets = {
     # keep-sorted start block=yes
     keys-amity = { };

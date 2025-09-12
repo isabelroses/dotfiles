@@ -1,8 +1,6 @@
 {
   home-manager.users.isabel = {
     programs = {
-      git.signing.key = "3E7C7A1B5DEDBB03";
-
       discord.enable = true;
       ghostty.enable = true;
       chromium.enable = true;

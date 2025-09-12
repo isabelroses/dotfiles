@@ -1,8 +1,5 @@
 {
-  imports = [
-    ./hardware.nix
-    ./users.nix
-  ];
+  imports = [ ./hardware.nix ];
 
   garden = {
     profiles = {

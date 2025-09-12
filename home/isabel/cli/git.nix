@@ -55,13 +55,14 @@ in
         ];
 
         lfs = {
-          enable = true;
+          enable = false;
           skipSmudge = true; # we don't want another ctp/userstyles situation
         };
 
         # git commit signing
         signing = {
-          format = "openpgp";
+          format = "ssh";
+          key = "${config.home.homeDirectory}/.ssh/id_ed25519.pub";
           signByDefault = true;
         };
 
