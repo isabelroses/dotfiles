@@ -12,18 +12,16 @@ let
 in
 {
   config = mkIf config.programs.git.enable (mkMerge [
-    (mkIf config.garden.profiles.workstation.enable {
-      garden.packages = {
-        # inherit (pkgs)
-        #   gist # manage github gists
-        #   act # local github actions - littrally does not work
-        #   gitflow # Extend git with the Gitflow branching model
-        #   cocogitto # git helpers
-        # ;
-
-        git-crypt = pkgs.git-crypt.override { git = config.programs.git.package; };
-      };
-    })
+    # (mkIf config.garden.profiles.workstation.enable {
+    #   garden.packages = {
+    #     inherit (pkgs)
+    #       gist # manage github gists
+    #       act # local github actions - littrally does not work
+    #       gitflow # Extend git with the Gitflow branching model
+    #       cocogitto # git helpers
+    #       ;
+    #   };
+    # })
 
     # `programs.git` will generate the config file: ~/.config/git/config
     # to make git use this config file, `~/.gitconfig` should not exist!

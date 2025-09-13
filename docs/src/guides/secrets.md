@@ -1,27 +1,3 @@
-# Git Crypt
-
-In this repository, we utilize [`git-crypt`](https://github.com/AGWA/git-crypt)
-to encrypt files that are meant only for some users. This allows us to keep this
-repo public while still protecting sensitive information.
-
-To add a new user to the repository, you need to:
-
-```bash
-git-crypt add-gpg-user USER_ID
-```
-
-Where `USER_ID` is the key ID, a full fingerprint, an email address, or
-anything else that uniquely identifies a public key.
-
-When cloning the repository, make sure that you run:
-
-```bash
-git-crypt unlock
-```
-
-
-This will decrypt the secrets that were encrypted with `git-crypt`.
-
 # Sops Nix
 
 We also use [`sops-nix`](https://github.com/Mic92/sops-nix) to manage secrets
