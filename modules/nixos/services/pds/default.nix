@@ -49,8 +49,8 @@ in
               domain = "git.isabelroses.com";
               owner = "isabel";
               repo = "pds";
-              rev = "652d1fe84ac31c375f6852a8c1c56e4610bfdeb2";
-              hash = "sha256-WKMsfJYKQsWhkO5PyQdcgIIW1iwH4q7HUl8twL82tak=";
+              rev = "5c1eeb428d4d459c9fdaa266d334fbedfd60efe6";
+              hash = "sha256-QmD/S5PSmCcJJGiN+Ie8aEs2VWLaYCBIQFeRFOkRveQ=";
               forceFetchGit = true;
             };
 
@@ -62,7 +62,7 @@ in
                 sourceRoot
                 ;
               fetcherVersion = 2;
-              hash = "sha256-S32zdh/2WO940lK3taj6u1jrx89MMIq5XpDgLQwR92I=";
+              hash = "sha256-zVCCtn/AKAMReVlzhPojuMb8EXFh8GpvBNVO+TD8/sU=";
             };
           }
         );
