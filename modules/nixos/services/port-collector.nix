@@ -17,14 +17,20 @@ let
     // {
       ${port} = if (acc ? ${port}) then acc.${port} ++ [ srv ] else [ srv ];
     }
-  ) { } (lib.attrNames srvs);
+  ) { };
 
-  # i use "0" as a catch all for services that don't use a port
-  portsToServicesClean = portsToServices // {
-    "0" = [ ];
-  };
+  collissions = lib.pipe srvs [
+    # provide attrs names only to the next function
+    lib.attrNames
+    portsToServices
 
-  collissions = lib.filter (srvList: lib.length srvList > 1) (lib.attrValues portsToServicesClean);
+    # i use "0" as a catch all for services that don't use a port
+    (lib.flip removeAttrs [ "0" ])
+
+    # now we only want the services ports
+    lib.attrValues
+    (lib.filter (srvList: lib.length srvList > 1))
+  ];
 in
 {
   assertions = [
