@@ -3,14 +3,13 @@
   pkgs,
   self,
   config,
-  inputs',
   ...
 }:
 let
   cfg = config.garden.services.pds;
   gkCfg = config.garden.services.pds-gatekeeper;
 
-  inherit (lib) mkIf mkMerge concatStringsSep;
+  inherit (lib) mkIf concatStringsSep;
   inherit (self.lib) mkServiceOption mkSystemSecret;
 in
 {
@@ -23,13 +22,21 @@ in
     pds-gatekeeper = mkServiceOption "pds-gatekeeper" {
       port = 3002;
     };
+
+    pds-dash = mkServiceOption "pds-dash" {
+      port = 3014;
+    };
   };
 
   config = mkIf cfg.enable {
-    sops.secrets.pds-env = mkSystemSecret {
-      file = "pds";
-      owner = "pds";
-      group = "pds";
+    sops.secrets = {
+      pds-env = mkSystemSecret {
+        file = "pds";
+        owner = "pds";
+        group = "pds";
+      };
+
+      pds-dash = mkSystemSecret { file = "pds"; };
     };
 
     services = {
@@ -86,6 +93,18 @@ in
         };
       };
 
+      pds-dash = {
+        enable = true;
+        setupNginx = true;
+
+        environmentFiles = [ config.sops.secrets.pds-dash.path ];
+
+        settings = {
+          PORT = config.garden.services.pds-dash.port;
+          LOCATION = config.sops.secrets.pds-env.path;
+        };
+      };
+
       pds-gatekeeper = {
         enable = true;
         setupNginx = true;
@@ -107,47 +126,33 @@ in
         };
       };
 
-      nginx.virtualHosts.${cfg.domain}.locations = mkMerge [
-        # setup and serve our pds dashboard
-        {
-          "= /" = {
-            root = inputs'.tgirlpkgs.packages.pds-dash;
-            index = "index.html";
-          };
-          "= /index.html".root = inputs'.tgirlpkgs.packages.pds-dash;
-          "/assets".root = inputs'.tgirlpkgs.packages.pds-dash;
-        }
-
+      nginx.virtualHosts.${cfg.domain}.locations = {
         # i am of age but i don't want to prove it lol
         # https://gist.github.com/mary-ext/6e27b24a83838202908808ad528b3318
-        {
-          "/xrpc/app.bsky.unspecced.getAgeAssuranceState" =
-            let
-              state = builtins.toJSON {
-                lastInitiatedAt = "2025-07-14T15:11:05.487Z";
-                status = "assured";
-              };
-            in
-            {
-              return = "200 '${state}'";
-              extraConfig = ''
-                add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
-                add_header access-control-allow-origin "*" always;
-                add_header X-Frame-Options SAMEORIGIN always;
-                add_header X-Content-Type-Options nosniff;
-                default_type application/json;
-              '';
+        "/xrpc/app.bsky.unspecced.getAgeAssuranceState" =
+          let
+            state = builtins.toJSON {
+              lastInitiatedAt = "2025-07-14T15:11:05.487Z";
+              status = "assured";
             };
-        }
+          in
+          {
+            return = "200 '${state}'";
+            extraConfig = ''
+              add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
+              add_header access-control-allow-origin "*" always;
+              add_header X-Frame-Options SAMEORIGIN always;
+              add_header X-Content-Type-Options nosniff;
+              default_type application/json;
+            '';
+          };
 
         # pass everything else to the pds
-        {
-          "/" = {
-            proxyPass = "http://${cfg.host}:${toString cfg.port}";
-            proxyWebsockets = true;
-          };
-        }
-      ];
+        "/" = {
+          proxyPass = "http://${cfg.host}:${toString cfg.port}";
+          proxyWebsockets = true;
+        };
+      };
     };
   };
 }
