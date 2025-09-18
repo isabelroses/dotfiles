@@ -44,7 +44,7 @@ in
 
         package = pkgs.bluesky-pds.overrideAttrs (
           finalAttrs: _: {
-            version = "0.4.176";
+            version = "0.4.179";
             src = pkgs.fetchFromGitea {
               domain = "git.isabelroses.com";
               owner = "isabel";
@@ -93,9 +93,7 @@ in
 
       pds-gatekeeper = {
         enable = true;
-
-        # we need to share a lot of secrets between pds and gatekeeper
-        environmentFiles = [ config.sops.secrets.pds-env.path ];
+        setupNginx = true;
 
         settings = {
           GATEKEEPER_PORT = gkCfg.port;
@@ -109,9 +107,8 @@ in
             ''
           );
 
-          # make an empty file to prevent early errors due to no pds env
-          # it really wants to load this file but with nix we don't really do it that way
-          PDS_ENV_LOCATION = toString (pkgs.writeText "gatekeeper-pds-env" "");
+          # we need to share a lot of secrets between pds and gatekeeper
+          PDS_ENV_LOCATION = config.sops.secrets.pds-env.path;
         };
       };
 
@@ -125,20 +122,6 @@ in
           "= /index.html".root = inputs'.tgirlpkgs.packages.pds-dash;
           "/assets".root = inputs'.tgirlpkgs.packages.pds-dash;
         }
-
-        # hijack the links for pds-gatekeeper
-        (genAttrs
-          [
-            "= /xrpc/com.atproto.server.getSession"
-            "= /xrpc/com.atproto.server.updateEmail"
-            "= /xrpc/com.atproto.server.createSession"
-            "= /xrpc/com.atproto.server.createAccount"
-            "= /@atproto/oauth-provider/~api/sign-in"
-          ]
-          (_: {
-            proxyPass = "http://${gkCfg.host}:${toString gkCfg.port}";
-          })
-        )
 
         # i am of age but i don't want to prove it lol
         # https://gist.github.com/mary-ext/6e27b24a83838202908808ad528b3318
