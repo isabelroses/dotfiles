@@ -53,7 +53,6 @@
             enabled = true;
             config = {
               patterns = {
-                "://bsky.app/" = "://fxbsky.app/";
                 "://instagram.com/" = "://ddinstagram.com/";
                 "://reddit.com/" = "://rxddit.com/";
                 "://tiktok.com/" = "://tfxktok.com/";
