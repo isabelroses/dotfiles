@@ -79,9 +79,9 @@ in
 
       "skadi".hostname = "141.147.73.185";
 
-      "tangled.sh" = {
+      "tangled.org" = {
         user = "git";
-        hostname = "tangled.sh";
+        hostname = "tangled.org";
         identityFile = secrets.keys-tangled.path;
       };
 
