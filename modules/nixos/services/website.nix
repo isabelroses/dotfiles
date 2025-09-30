@@ -22,6 +22,9 @@ in
       ${cfg.domain} = {
         root = inputs'.tgirlpkgs.packages.isabelroses-website;
       };
+      "www.${cfg.domain}" = {
+        root = inputs'.tgirlpkgs.packages.isabelroses-website;
+      };
     };
   };
 }
