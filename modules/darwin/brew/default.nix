@@ -29,20 +29,20 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "8acacf3843e0a9a29df6956151ba6aedf960cb58";
-          hash = "sha256-e2qmYYF0WIEFL5l31Ir57hQZZ9DhhlGnpQKUbbD8hR8=";
+          rev = "582ac85075ef12aaddfedf2f6bd57c7af326e2d5";
+          hash = "sha256-RQUOJQVmgrpey17+EqsoHzS+0qG4v08r6ZdOzDPhp0w=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "7065fe41304cd58e703aef95a4d0d1cc298adfec";
-          hash = "sha256-Nf/Z30yuSfj7HS4kf+mTF1JgT+FwSg5DGt9MXuY7uAw=";
+          rev = "4d9330061d57eb9f90acb2788f652c6e69b2fd4b";
+          hash = "sha256-tc6Rx8KABnJmd6/+2/fv30at/jijkOoUTiuNBVI23Ec=";
         };
         "th-ch/homebrew-youtube-music" = pkgs.fetchFromGitHub {
           owner = "th-ch";
           repo = "homebrew-youtube-music";
-          rev = "9ccc1e40dd77c2b21564b470ed9fca50b07bceb1";
-          hash = "sha256-XD4ShzgYp4/BLSQO112pXAb5SxGrQr1MRaepfjTB2CA=";
+          rev = "b87d9c3dfa2ec58c182b6bfda182ccbdc58beb5c";
+          hash = "sha256-7rcUremYRB9JsqaY6SyRfXk1GnrTfyJjYUi0fDiI5Sk=";
         };
       };
     };
