@@ -44,31 +44,6 @@ in
         enable = true;
         pdsadmin.enable = true;
 
-        package = pkgs.bluesky-pds.overrideAttrs (
-          finalAttrs: _: {
-            version = "0.4.179";
-            src = pkgs.fetchFromGitea {
-              domain = "git.isabelroses.com";
-              owner = "isabel";
-              repo = "pds";
-              rev = "5c1eeb428d4d459c9fdaa266d334fbedfd60efe6";
-              hash = "sha256-QmD/S5PSmCcJJGiN+Ie8aEs2VWLaYCBIQFeRFOkRveQ=";
-              forceFetchGit = true;
-            };
-
-            pnpmDeps = pkgs.pnpm_9.fetchDeps {
-              inherit (finalAttrs)
-                pname
-                version
-                src
-                sourceRoot
-                ;
-              fetcherVersion = 2;
-              hash = "sha256-zVCCtn/AKAMReVlzhPojuMb8EXFh8GpvBNVO+TD8/sU=";
-            };
-          }
-        );
-
         environmentFiles = [ config.sops.secrets.pds-env.path ];
 
         settings = {
