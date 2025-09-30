@@ -59,6 +59,7 @@ in
             "https://relay2.fire.hose.cam"
             "https://relay3.fr.hose.cam"
             "https://relay.hayescmd.net"
+            "https://relay.upcloud.world"
           ];
 
           PDS_OAUTH_PROVIDER_NAME = "tgirl.cloud";
