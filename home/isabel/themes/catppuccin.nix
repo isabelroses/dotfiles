@@ -34,6 +34,9 @@ in
 
       # IFD and easy enough to vendor
       fzf.enable = false;
+
+      # IFD and can use term colors
+      eza.enable = false;
     };
   };
 }
