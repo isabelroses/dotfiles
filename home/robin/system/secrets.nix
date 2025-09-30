@@ -1,3 +1,0 @@
-{
-  sops.secrets = { };
-}

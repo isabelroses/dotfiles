@@ -1,6 +1,5 @@
 keys:
   - &isabel ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMQDiHbMSinj8twL9cTgPOfI6OMexrTZyHX27T8gnMj2
-  - &robin age15sejxcynw44vgsee5znxvq7vtuust686wn4f3u0upp42zay6ugqqp5lvv8
 
   - &minerva ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAomF8O3ZqZBpLRlAkS1+FwRllSMrREHtndw07trrfcA
   - &skadi ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKV3N2r1cX3kZMHxuJYaFsjWJRtik/2b/KZ5ru38IqAT
@@ -12,11 +11,6 @@ creation_rules:
     key_groups:
       - age:
         - *isabel
-
-  - path_regex: secrets/robin\.yaml
-    key_groups:
-      - age:
-        - *robin
 
   - path_regex: secrets/services/[^/]+\.(yaml|json|env|ini)$
     key_groups:

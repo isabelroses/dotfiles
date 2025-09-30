@@ -22,7 +22,6 @@
     #  modules = [ ];
     #  specialArgs = { };
     hosts = {
-      # isabel's hosts
       # keep-sorted start block=yes newline_separated=yes
       amaterasu = { };
 
@@ -46,15 +45,6 @@
       };
 
       valkyrie = {
-        class = "wsl";
-      };
-      # keep-sorted end
-
-      # robin's hosts
-      # keep-sorted start block=yes newline_separated=yes
-      bmo = { };
-
-      wisp = {
         class = "wsl";
       };
       # keep-sorted end

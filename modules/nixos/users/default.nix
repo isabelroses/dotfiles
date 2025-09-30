@@ -2,7 +2,6 @@
   imports = [
     # keep-sorted start
     ./isabel.nix
-    ./robin.nix
     ./root.nix
     # keep-sorted end
   ];
