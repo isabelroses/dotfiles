@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   programs.ghostty = {
     # FIXME: ghostty is broken on darwin
@@ -7,12 +12,11 @@
     settings = {
       command = "/run/current-system/sw/bin/fish";
 
-      # theme = mkForce "cuddlefish";
+      theme = lib.mkForce "cuddlefish";
 
       background-opacity = 0.95;
       cursor-style = "bar";
       window-padding-x = "4,4";
-      window-decoration = toString pkgs.stdenv.hostPlatform.isDarwin;
       gtk-titlebar = false;
 
       window-save-state = "always";

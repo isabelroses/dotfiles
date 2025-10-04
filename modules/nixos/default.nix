@@ -8,7 +8,6 @@
     ./catppuccin.nix
     ./emulation.nix
     ./environment
-    ./evergarden.nix
     ./extras.nix
     ./gaming
     ./hardware

@@ -46,7 +46,7 @@ Therefore most things will not work out of the box without some changes, so be w
 - Modular configuration, so you can add or remove parts of the configuration
 - Sensible defaults, so you can get started quickly
 - Docs kind of
-- [Catppuccin](https://github.com/catppuccin/catppuccin) everywhere, with a hint of [evergarden](https://github.com/comfysage/evergarden)
+- [Catppuccin](https://github.com/catppuccin/catppuccin) everywhere.
 
 > [!NOTE]
 > Please read [the documentation](https://dotfiles.isabelroses.com/)

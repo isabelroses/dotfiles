@@ -149,13 +149,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    evergarden = {
-      type = "github";
-      owner = "everviolet";
-      repo = "nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     ### my programs
     tgirlpkgs = {
       type = "github";
@@ -168,23 +161,7 @@
       type = "github";
       owner = "isabelroses";
       repo = "nvim";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        gift-wrap.follows = "gift-wrap";
-      };
-    };
-
-    ivy = {
-      type = "github";
-      owner = "comfysage";
-      repo = "ivy";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        gift-wrap.follows = "gift-wrap";
-        neovim-nightly-overlay.inputs.flake-parts.follows = "flake-parts";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nuscht-search = {
@@ -198,40 +175,11 @@
       };
     };
 
-    spicetify-nix = {
-      type = "github";
-      owner = "Gerg-L";
-      repo = "spicetify-nix";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        systems.follows = "systems";
-      };
-    };
-
-    zen-browser = {
-      type = "github";
-      owner = "0xc000022070";
-      repo = "zen-browser-flake";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
-
     # transative deps
     systems = {
       type = "github";
       owner = "nix-systems";
       repo = "default";
-    };
-
-    gift-wrap = {
-      type = "github";
-      owner = "tgirlcloud";
-      repo = "gift-wrap";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # PLEASE PLEASE PLEASE DIE OFF ALREDAY

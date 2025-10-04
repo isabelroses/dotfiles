@@ -36,19 +36,8 @@ let
       anyHome
       ;
   });
-
-  # I want to absorb the evergarden lib into the garden lib. We don't do this
-  # with nixpkgs lib to keep it pure as it is used else where and leads to many
-  # breakages
-  ext = lib.fixedPoints.composeManyExtensions [
-    (_: _: inputs.evergarden.lib)
-  ];
-
-  # we need to extend gardenLib with the nixpkgs lib to get the full set of functions
-  # if we do it the otherway around we will get errors saying mkMerge and so on don't exist
-  finalLib = gardenLib.extend ext;
 in
 {
   # expose our custom lib to the flake
-  flake.lib = finalLib;
+  flake.lib = gardenLib;
 }

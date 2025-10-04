@@ -142,14 +142,6 @@ inputs.nuscht-search.packages.${system}.mkMultiSearch {
       ];
       urlPrefix = "https://github.com/catppuccin/nix/blob/main/";
     }
-    # {
-    #   name = "evergarden home-manager";
-    #   modules = [
-    #     inputs.evergarden.homeManagerModules.evergarden
-    #     { _module.args = { inherit pkgs; }; }
-    #   ];
-    #   urlPrefix = "https://github.com/everviolet/nix/blob/main/";
-    # }
     {
       name = "nix-homebrew";
       modules = [
