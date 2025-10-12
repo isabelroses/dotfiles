@@ -13,7 +13,7 @@ in
       enableRootSlice = true;
       enableUserSlices = true;
       enableSystemSlice = true;
-      extraConfig.DefaultMemoryPressureDurationSec = "20s";
+      settings.OOM.DefaultMemoryPressureDurationSec = "20s";
     };
 
     services.nix-daemon.serviceConfig.OOMScoreAdjust = mkDefault 350;
