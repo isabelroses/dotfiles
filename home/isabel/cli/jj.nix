@@ -1,15 +1,15 @@
 { config, ... }:
 let
-  inherit (config.programs) git;
+  gitcfg = config.programs.git;
 in
 {
   programs.jujutsu = {
-    inherit (git) enable;
+    inherit (gitcfg) enable;
 
     settings = {
       user = {
-        name = git.userName;
-        email = git.userEmail;
+        name = gitcfg.settings.user.name;
+        email = gitcfg.settings.user.email;
       };
 
       ui = {
