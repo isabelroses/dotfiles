@@ -3,7 +3,7 @@ flake := env('FLAKE', justfile_directory())
 # rebuild is also set as a var so you can add --set to change it if you need to
 
 rebuild := if os() == "macos" { "sudo darwin-rebuild" } else { "nixos-rebuild" }
-system-args := if os() != "macos" { "--sudo --no-reexec --log-format internal-json" } else { "" }
+system-args := if os() == "macos" { "" } else { "--sudo --no-reexec --log-format internal-json" }
 nom-cmd := if os() == "macos" { "nom" } else { "nom --json" }
 
 [private]
