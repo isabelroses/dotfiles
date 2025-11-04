@@ -50,6 +50,9 @@ in
           PDS_PORT = cfg.port;
           PDS_HOSTNAME = cfg.domain;
 
+          # damn scrapers vro
+          PDS_ADMIN_EMAIL = "isabel" + "@" + "isabelroses" + "." + "com";
+
           # crawlers taken from the following post
           # <https://bsky.app/profile/billy.wales/post/3lxpd67hnks2e>
           PDS_CRAWLERS = concatStringsSep "," [
