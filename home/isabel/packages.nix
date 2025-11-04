@@ -61,9 +61,10 @@ in
         swappy # used for screenshot area selection
         wl-clipboard
         wl-gammactl
-        youtube-music
         # keep-sorted end
         ;
+
+      inherit (inputs'.tgirlpkgs.packages) tidaluna;
     })
   ];
 }
