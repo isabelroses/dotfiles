@@ -53,8 +53,8 @@ in
           # damn scrapers vro
           PDS_ADMIN_EMAIL = "isabel" + "@" + "isabelroses" + "." + "com";
 
-          # crawlers taken from the following post
-          # <https://bsky.app/profile/billy.wales/post/3lxpd67hnks2e>
+          # crawlers shamlessly stolen from
+          # <https://compare.hose.cam>
           PDS_CRAWLERS = concatStringsSep "," [
             "https://bsky.network"
             "https://relay.cerulea.blue"
@@ -62,7 +62,11 @@ in
             "https://relay2.fire.hose.cam"
             "https://relay3.fr.hose.cam"
             "https://relay.hayescmd.net"
+            "https://relay.xero.systems"
             "https://relay.upcloud.world"
+            "https://relay.feeds.blue"
+            "https://atproto.africa"
+
           ];
 
           PDS_OAUTH_PROVIDER_NAME = "tgirl.cloud";
