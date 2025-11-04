@@ -56,12 +56,11 @@
                 "://instagram.com/" = "://ddinstagram.com/";
                 "://reddit.com/" = "://rxddit.com/";
                 "://tiktok.com/" = "://tfxktok.com/";
-                "://twitter.com/" = "://fxtwitter.com/";
+                "://twitter.com/" = "://vxtwitter.com/";
                 "://vm.tiktok.com/" = "://vm.vxtiktok.com/";
                 "://www.instagram.com/" = "://ddinstagram.com/";
                 "://www.reddit.com/" = "://rxddit.com/";
-                "://www.tiktok.com/" = "://tfxktok.com/";
-                "://x.com/" = "://fxtwitter.com/";
+                "://x.com/" = "://vxtwitter.com/";
               };
             };
           };
