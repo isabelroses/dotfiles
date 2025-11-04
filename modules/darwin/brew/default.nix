@@ -38,12 +38,6 @@
           rev = "648ed5aa56f4a4bb552e1d4cfdd9d82e6d27025b";
           hash = "sha256-UjJZVqGpvQJ6AJ41ExFi02qps5A9sAmuDaJU0e+x1hU=";
         };
-        "th-ch/homebrew-youtube-music" = pkgs.fetchFromGitHub {
-          owner = "th-ch";
-          repo = "homebrew-youtube-music";
-          rev = "b87d9c3dfa2ec58c182b6bfda182ccbdc58beb5c";
-          hash = "sha256-7rcUremYRB9JsqaY6SyRfXk1GnrTfyJjYUi0fDiI5Sk=";
-        };
       };
     };
 
@@ -84,13 +78,9 @@
         "arc" # browser
         # "loungy" # app launcher, too beta to use mainstream
         "gimp" # image editor
+        "tidal" # music player
         "raycast" # app launcher, and clipboard manager
         # "inkscape" # vector graphics editor
-        {
-          name = "youtube-music";
-          args.require_sha = false; # youtube music client
-          greedy = true; # ytm is not properly versioned
-        }
         "intellij-idea" # IDE
         "jordanbaird-ice" # better status bar
       ];
