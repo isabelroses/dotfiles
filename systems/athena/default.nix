@@ -36,8 +36,8 @@
     };
 
     services = {
-      cloudflared.enable = true;
-      photoprism.enable = true;
+      cloudflared.enable = false;
+      photoprism.enable = false;
     };
   };
 }
