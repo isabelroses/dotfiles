@@ -185,6 +185,8 @@ in
 
       anubis = mkIf config.garden.services.anubis.enable {
         instances.forgejo.settings = {
+          BIND = "/run/anubis/anubis-forgejo/anubis.sock";
+          METRICS_BIND = "/run/anubis/anubis-forgejo/anubis-metrics.sock";
           TARGET = "unix://${config.services.forgejo.settings.server.HTTP_ADDR}";
           ED25519_PRIVATE_KEY_HEX_FILE = config.sops.secrets.anubis-forgejo.path;
         };
