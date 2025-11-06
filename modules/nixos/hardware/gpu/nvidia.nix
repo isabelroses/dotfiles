@@ -24,8 +24,6 @@ in
     };
 
     garden.packages = {
-      inherit (pkgs.nvtopPackages) nvidia;
-
       inherit (pkgs)
         # vulkan
         vulkan-tools
