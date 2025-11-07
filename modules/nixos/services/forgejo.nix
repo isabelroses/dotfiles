@@ -83,10 +83,8 @@ in
             DISABLE_ROUTER_LOG = true;
             # LANDING_PAGE = "/explore/repos";
 
-            START_SSH_SERVER = true;
             SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
-            SSH_PORT = 2222;
-            SSH_LISTEN_PORT = 2222;
+            SSH_PORT = lib.head config.services.openssh.ports;
 
             # fix gravatar images
             OFFLINE_MODE = false;
@@ -182,6 +180,8 @@ in
           ensureDBOwnership = true;
         };
       };
+
+      openssh.settings.AcceptEnv = "GIT_PROTOCOL";
 
       anubis = mkIf config.garden.services.anubis.enable {
         instances.forgejo.settings = {
