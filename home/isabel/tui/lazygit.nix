@@ -13,10 +13,9 @@
 
       git = {
         overrideGpg = true;
-        paging = {
-          colorArg = "always";
-          pager = "delta --paging=never";
-        };
+        pagers = [
+          { pager = "delta --paging=never"; }
+        ];
       };
     };
   };
