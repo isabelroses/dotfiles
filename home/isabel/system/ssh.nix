@@ -55,7 +55,6 @@ in
       "git.isabelroses.com" = {
         user = "git";
         hostname = "git.isabelroses.com";
-        port = 2222;
       };
 
       "github.com" = {
