@@ -101,7 +101,6 @@
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        nixpkgs-25_05.follows = "";
         git-hooks.follows = "";
         flake-compat.follows = "";
         blobs.follows = "";
