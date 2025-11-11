@@ -12,12 +12,12 @@ following the template:
 ```nix
 {
   garden.system = {
-    mainUser = "robin";
-    users = [ "robin" ];
+    mainUser = "kitty";
+    users = [ "kitty" ];
   };
 
   # you can add a home-manager configuration here for the user if it needs
   # anything special
-  home-manager.users.robin.garden = {};
+  home-manager.users.kitty.garden = {};
 }
 ```

@@ -11,8 +11,7 @@ donation platforms in order of preference:
 # Making it your own
 
 1. There are a number of files you will want to edit but the best place to
-   start would be renaming the `isabel` user to your own user and deleting the
-   robin user.
+   start would be renaming the `isabel` user to your own user.
 2.
   1. Following this you will want to edit `/modules/base/users/options.nix` and
    change any mentions of `isabel` to your username.
