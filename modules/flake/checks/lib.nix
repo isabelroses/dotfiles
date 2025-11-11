@@ -87,7 +87,7 @@
           result,
         }:
         builtins.readFile (
-          pkgs.runCommandNoCCLocal "nix-flake-tests-error"
+          pkgs.runCommandLocal "nix-flake-tests-error"
             {
               expected = formatValue expected;
               result = formatValue result;
@@ -109,6 +109,6 @@
         if res != [ ] then
           builtins.throw (lib.strings.concatStringsSep "\n" (map resultToString (lib.debug.traceValSeq res)))
         else
-          pkgs.runCommandNoCCLocal "nix-flake-tests-success" { } "echo > $out";
+          pkgs.runCommandLocal "nix-flake-tests-success" { } "echo > $out";
     };
 }
