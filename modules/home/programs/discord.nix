@@ -9,7 +9,6 @@ let
     mkIf
     mkMerge
     mkEnableOption
-    mkPackageOption
     mkOption
     ;
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
@@ -20,15 +19,6 @@ let
 in
 {
   options.programs.discord = {
-    enable = mkEnableOption "discord support";
-    package = mkPackageOption pkgs "discord" { };
-
-    settings = mkOption {
-      inherit (settingsFormat) type;
-      default = { };
-      description = "Settings for Discord";
-    };
-
     moonlight = {
       enable = mkEnableOption "Moonlight support for Discord";
 
@@ -52,15 +42,9 @@ in
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf isLinux {
-      garden.packages = {
-        discord = cfg.package.override {
-          withMoonlight = cfg.moonlight.enable;
-          withVencord = cfg.vencord.enable;
-        };
-      };
-
-      xdg.configFile = {
-        "discord/settings.json".source = settingsFormat.generate "discord-settings.json" cfg.settings;
+      programs.discord.package = pkgs.discord.override {
+        withMoonlight = cfg.moonlight.enable;
+        withVencord = cfg.vencord.enable;
       };
     })
 
