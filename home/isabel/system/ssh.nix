@@ -55,6 +55,7 @@ in
       "git.isabelroses.com" = {
         user = "git";
         hostname = "git.isabelroses.com";
+        identityFile = secrets.keys-git-isabel.path;
       };
 
       "github.com" = {
@@ -105,6 +106,7 @@ in
     keys-openvpn = { };
     keys-tangled = { };
     keys-tangled-pub = { };
+    keys-git-isabel = { };
     uni-central.path = sshDir + "/uni-central";
     uni-sshconf = { };
     # keep-sorted end
