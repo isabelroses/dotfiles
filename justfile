@@ -99,6 +99,16 @@ push-mirrors:
     git push --mirror ssh://git@codeberg.org/isabel/dotfiles.git
     git push --mirror git@tangled.org:isabelroses.com/dotfiles
 
+# rotate all secrets
+[group('dev')]
+roate-secrets:
+  find secrets/ -name "*.yaml" | xargs -I {} sops rotate -i {}
+
+# update the secret keys
+[group('dev')]
+update-secrets:
+  find secrets/ -name "*.yaml" | xargs -I {} sops updatekeys -y {}
+
 # utils group
 
 alias fix := repair
