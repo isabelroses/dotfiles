@@ -124,22 +124,11 @@ in
       "git.isabelroses.com" = [
         {
           type = "rsa";
-          key = "AAAAB3NzaC1yc2EAAAADAQABAAABgQCcQrSjsd9ZUdT5co+JfeErQbRGBIjxPlouGuS9vq1xwi2twJ8iQkZ8uEwaTVFbru3IQSxIbeTtvorXlHdPDewWvTaXQdL0TvtrB/okc77cyHcuJxyN/OCW2FEfOPXwmC/cAJYGXbc1mul866k79h/GjQECRfO3wuENk1p6TynxRAS38nKCw5zY/XYY9CcSxb0yvv8luhCAD45cc5VImTsiphHWGDDwcD3/4xdml64fWKFo5Cc5AqaL3DQbrPMgB6B5JqtZTq5yN4JfjwpzzDFha6gAmtB5f7Fd2nIoBWa44FSnlIMACmOqlr0nqrtuvLMBaWxV6oJrW85jiQ/qaFSj8UextBjyg062qaZ1EHlqGrlOMyIqk6sgQ0mgEFcyH2vPcqVJRp8Wh6DVX5cQkNRNeDDcq5WmcxY7eWZyZCnYRkRPEcdk6X/xxWUY5aDy3fCEJV7HjcvPW7/9ERduAe1e2/3YHbIkGTv8OUIEWL8Z/Ai8lnQ+GZdrTr/Jjssilmk=";
+          key = "AAAAB3NzaC1yc2EAAAADAQABAAACAQDJrW9J4FvvqyC7oY/nlBUuA04EvlpHI9VWHpO1+nqz/cWvDyxABF3qhLC2u7k4toCmPemYSNIp9rzmHxE5AdzQBXyR288koYNynayHrCkhwqgcRhCTZX0otGu4uBPOtzS9FJi3+R/Ht+VqWwENiBofF0DiG4U7YXPUnREVUk15L7S4oUJjKQXPxsO0DaM92wDJDgqghaDw3S4yJYSbIyyB1KaxP0Ef/E6eqOo9Bi9dv970uQpAgMdEL3aMfp/ynhHMdWYR0Q0Wq1n6Dmjx6pYT90rR6502kJQQSWLE08VnTo4jbxkOXsXobCp8Edqa9Q1NoVi6YCInolHET1+blYrHy5FGw27Ab+eXoqTPw/V+ewZHY+N52zfGCGe8xqiy0ky6PROhUXFa6BHJQ0Vl3NwTFidBeX7hp0CNyHwutwwzVjxgKFO8lWrov08PkKTLJ/KG/6W54gv43Cq3yFIQmzpUwcoQdL0UpuKoHFuaTDF682mE6pI+n+jG0/2ScW9W5hiutmGnMtucX4S1gewQUhsXd6gNJpYmAjQIK6/joBfwB+LoR9SOvSjAflyDJIER+F7P2aac3Er1AygU1Ufz2gDxVEw3P31sKul92K/g852gvxr4cDzIBHGTYDS0mxXAiBDYYraYaskj/swztJN9ZyK59I5jAh4kSo++uYVXNV4qMw==";
         }
         {
           type = "ed25519";
-          key = "AAAAC3NzaC1lZDI1NTE5AAAAIFluIN96lPhNvf2JsA2E+HjuQbDseD2sQJOgQbspJWW0";
-        }
-      ];
-
-      "git.auxolotl.com" = [
-        {
-          type = "rsa";
-          key = "AAAAB3NzaC1yc2EAAAADAQABAAACAQCd21dQk5Hx5hqMV7KEVm/qCk++jXGp1fOyoPHM0k5Ostdxp3P0DYvzLppud2lYZ3r69qkYVLFjHREHac0UVWKQ2A08T761y53aNlSfRlp/cbN1lAH29HjgLWt4KBFu/gYUrEnXU7rs9JU17N0rS7oW5R+G4RX3dOSPcx7V9RToJ7wHeOeuKhyoFI6bjJfflNPZWKIHk5QFtblyUUnCnuFZvZtq1y7CzB6YPm4wN209yEwVYORovz2maX2hoEEFn1k1DoGaxXtsaIbYFq0DBgrl4302SV9JwLlItpJX8e47owd1Y7mS7riFDTtmiE2IMiCV4tY0n0VMgo3soHKoTbgkG8bCIGWgTQLBBMICnqbz9m8SMvG8dIrN5GBhIMImz4BU+Gq2uqqIfx2DjzpMlMl05qnM4+LcMWeoPloLlxMFB5TSimLxyYOQ6hwj+hSpwBJ1Nt1zUNAM8ZBKKATKkx+FtW58mRN+ByT5iWbofHwJT+xaYcVDQQodgnEIdnNLdB25b60qeo/iHyz6DAAHmHXFCHluIKMlamXCa5myEluhxc8Hy+ddPLqKpQFj/z6vM28Uejy5xKLsndJhcaAS5L30xp7CukSzjYkNb1q/kuNyfVQSmBkahkKIOtjrqad80BWVHdiIbC0sEHX/RC5G6/mePqFQI5aR8eTbIWOITLdh8Q==";
-        }
-        {
-          type = "ed25519";
-          key = "AAAAC3NzaC1lZDI1NTE5AAAAIM4rfWCoqby2qIcq/KVEWCKZVvIxr6h4GxJcsCQYffj+";
+          key = "AAAAC3NzaC1lZDI1NTE5AAAAIAomF8O3ZqZBpLRlAkS1+FwRllSMrREHtndw07trrfcA";
         }
       ];
     };
