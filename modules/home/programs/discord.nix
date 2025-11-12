@@ -48,13 +48,6 @@ in
       };
     })
 
-    (mkIf isDarwin {
-      home.file = {
-        "Library/Application Support/discord/settings.json".source =
-          settingsFormat.generate "discord-settings.json" cfg.settings;
-      };
-    })
-
     (mkIf (isLinux && cfg.moonlight.enable) {
       xdg.configFile = {
         "moonlight-mod/stable.json".source =
