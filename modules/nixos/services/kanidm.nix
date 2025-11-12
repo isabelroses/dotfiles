@@ -52,6 +52,13 @@ in
         group = "kanidm";
         mode = "440";
       };
+      kanidm-oauth2-linkwarden = mkSystemSecret {
+        file = "kanidm";
+        key = "oauth2-linkwarden";
+        owner = "kanidm";
+        group = "kanidm";
+        mode = "440";
+      };
     };
 
     services = {
@@ -89,6 +96,7 @@ in
               groups = [
                 "forgejo.access"
                 "forgejo.admins"
+                "linkwarden.access"
               ];
             };
 
@@ -105,6 +113,8 @@ in
           groups = {
             "forgejo.access" = { };
             "forgejo.admins" = { };
+
+            "linkwarden.access" = { };
           };
 
           systems.oauth2 = {
@@ -126,6 +136,20 @@ in
                 joinType = "array";
                 valuesByGroup."forgejo.admins" = [ "admin" ];
               };
+            };
+
+            linkwarden = {
+              displayName = "linkwarden";
+              originUrl = "https://bookmark.isabelroses.com/api/v1/auth/callback/authentik";
+              originLanding = "https://bookmark.isabelroses.com/";
+              basicSecretFile = config.sops.secrets.kanidm-oauth2-linkwarden.path;
+              preferShortUsername = true;
+              enableLegacyCrypto = true;
+              scopeMaps."linkwarden.access" = [
+                "openid"
+                "email"
+                "profile"
+              ];
             };
           };
         };
