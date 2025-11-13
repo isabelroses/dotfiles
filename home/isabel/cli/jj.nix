@@ -8,8 +8,7 @@ in
 
     settings = {
       user = {
-        name = gitcfg.settings.user.name;
-        email = gitcfg.settings.user.email;
+        inherit (gitcfg.settings.user) name email;
       };
 
       ui = {
