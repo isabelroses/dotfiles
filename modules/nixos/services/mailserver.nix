@@ -285,7 +285,7 @@ in
           192.168.0.0/16 OK
         '';
 
-        config.smtp_hello_name = config.mailserver.fqdn;
+        settings.main.smtp_hello_name = config.mailserver.fqdn;
       };
 
       phpfpm.pools.roundcube.settings = {
