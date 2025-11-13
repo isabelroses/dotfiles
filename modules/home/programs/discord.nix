@@ -41,6 +41,10 @@ in
   };
 
   config = mkIf cfg.enable (mkMerge [
+    (mkIf isDarwin {
+      programs.discord.package = null;
+    })
+
     (mkIf isLinux {
       programs.discord.package = pkgs.discord.override {
         withMoonlight = cfg.moonlight.enable;

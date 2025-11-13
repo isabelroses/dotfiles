@@ -1,9 +1,7 @@
 # this is a custom module provided by this flake. it is not in home-manager
-{ pkgs, _class, ... }:
+{ _class, ... }:
 {
   programs.discord = {
-    package = if _class == "nixos" then pkgs.discord else null;
-
     settings = {
       SKIP_HOST_UPDATE = true;
       DANGEROUS_ENABLE_DEVTOOLS_ONLY_ENABLE_IF_YOU_KNOW_WHAT_YOUR_DOING = true;
