@@ -103,10 +103,10 @@ in
     keys-codeberg-pub = { };
     keys-gh = { };
     keys-gh-pub = { };
+    keys-git-isabel = { };
     keys-openvpn = { };
     keys-tangled = { };
     keys-tangled-pub = { };
-    keys-git-isabel = { };
     uni-central.path = sshDir + "/uni-central";
     uni-sshconf = { };
     # keep-sorted end
