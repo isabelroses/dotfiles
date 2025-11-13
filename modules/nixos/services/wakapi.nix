@@ -33,11 +33,22 @@ in
         group = "wakapi";
         key = "mailer";
       };
+
+      wakapi-env = mkSystemSecret {
+        file = "wakapi";
+        owner = "wakapi";
+        group = "wakapi";
+        key = "env";
+      };
     };
 
     garden.services = {
       postgresql.enable = true;
     };
+
+    systemd.services.wakapi.serviceConfig.EnvironmentFile = [
+      config.sops.secrets.wakapi-env.path
+    ];
 
     services = {
       wakapi = {

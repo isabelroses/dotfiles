@@ -59,6 +59,13 @@ in
         group = "kanidm";
         mode = "440";
       };
+      kanidm-oauth2-wakapi = mkSystemSecret {
+        file = "kanidm";
+        key = "oauth2-linkwarden";
+        owner = "kanidm";
+        group = "kanidm";
+        mode = "440";
+      };
     };
 
     services = {
@@ -97,6 +104,7 @@ in
                 "forgejo.access"
                 "forgejo.admins"
                 "linkwarden.access"
+                "wakapi.access"
               ];
             };
 
@@ -115,6 +123,8 @@ in
             "forgejo.admins" = { };
 
             "linkwarden.access" = { };
+
+            "wakapi.access" = { };
           };
 
           systems.oauth2 = {
@@ -146,6 +156,20 @@ in
               preferShortUsername = true;
               enableLegacyCrypto = true;
               scopeMaps."linkwarden.access" = [
+                "openid"
+                "email"
+                "profile"
+              ];
+            };
+
+            wakapi = {
+              displayName = "wakapi";
+              originUrl = "https://${cfg'.wakapi.domain}/oidc/wakapi/callback";
+              originLanding = "https://${cfg'.wakapi.domain}/";
+              basicSecretFile = config.sops.secrets.kanidm-oauth2-wakapi.path;
+              allowInsecureClientDisablePkce = true;
+              preferShortUsername = true;
+              scopeMaps."wakapi.access" = [
                 "openid"
                 "email"
                 "profile"
