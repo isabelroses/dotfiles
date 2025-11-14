@@ -29,6 +29,8 @@
 
       athena = { };
 
+      hephaestus = { };
+
       isis = { };
 
       lilith = {

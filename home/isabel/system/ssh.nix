@@ -69,6 +69,8 @@ in
         hostname = "gitlab.com";
       };
 
+      "hephaestus".hostname = "81.27.99.221";
+
       "isis".hostname = "83.136.254.93";
 
       "minerva".hostname = "91.107.198.173";
