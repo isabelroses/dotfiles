@@ -5,6 +5,7 @@ keys:
   - &skadi ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKV3N2r1cX3kZMHxuJYaFsjWJRtik/2b/KZ5ru38IqAT
   - &athena age1dfcv3m85krzqya9tsft5hwrapl3zq35ry6zrt8gy92afcyrrau6q879rfc
   - &aphrodite ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICOXg0Qq1bdnrYp+KL6tfLZsMf3KHFfpaP2GMjwmpug2
+  - &isis ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFecrTXoINyGQkeOLQetR5BC6s9VlJHlCbY02WY5FAnJ
 
 creation_rules:
   - path_regex: secrets/isabel\.yaml
@@ -20,3 +21,4 @@ creation_rules:
         - *skadi
         - *athena
         - *aphrodite
+        - *isis

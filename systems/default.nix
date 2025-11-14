@@ -29,6 +29,8 @@
 
       athena = { };
 
+      isis = { };
+
       lilith = {
         class = "iso";
       };
