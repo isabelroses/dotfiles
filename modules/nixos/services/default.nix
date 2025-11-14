@@ -17,6 +17,7 @@
     # ./buildbot.nix
     ./pds
     ./photoprism.nix
+    ./piper.nix
     ./port-collector.nix
     ./postgresql.nix
     ./redis.nix
