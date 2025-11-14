@@ -41,7 +41,7 @@ in
       };
 
       nginx.virtualHosts.${cfg.domain} = {
-        locations."/".proxyPass = "http://localhost:${cfg.port}";
+        locations."/".proxyPass = "http://localhost:${toString cfg.port}";
       };
     };
   };
