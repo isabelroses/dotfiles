@@ -24,6 +24,10 @@
       font-family = config.garden.style.fonts.name;
       font-size = 13;
 
+      # home-manager does this for us
+      shell-integration = "none";
+      shell-integration-features = "ssh-env";
+
       keybind = [
         "super+u=copy_url_to_clipboard"
       ];
