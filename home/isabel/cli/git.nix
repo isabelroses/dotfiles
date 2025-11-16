@@ -210,12 +210,6 @@ in
               {
                 domain = "git.isabelroses.com";
                 alias = "me";
-                port = 2222;
-              }
-              {
-                domain = "git.auxolotl.org";
-                alias = "aux";
-                user = "forgejo";
               }
             ]
           );
