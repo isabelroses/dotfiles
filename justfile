@@ -29,6 +29,8 @@ deploy-all:
   just deploy minerva
   just deploy aphrodite
   just deploy skadi
+  just deploy hephaestus
+  just deploy isis
 
 # rebuild the boot
 [group('rebuild')]
