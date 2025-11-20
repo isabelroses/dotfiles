@@ -9,12 +9,13 @@
     ./cloudflared.nix
     ./forgejo.nix
     ./kanidm.nix
+    # ./buildbot.nix
+    ./lego.nix
     ./mailserver.nix
     ./matrix.nix
     ./nginx.nix
     ./nixpkgs-prs-bot.nix
     ./ntfy.nix
-    # ./buildbot.nix
     ./pds
     ./photoprism.nix
     ./piper.nix

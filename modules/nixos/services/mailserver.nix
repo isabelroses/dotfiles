@@ -294,13 +294,8 @@ in
       };
 
       nginx.virtualHosts = {
-        ${cfg.domain} = {
-          useACMEHost = mkForce null;
-        };
-
         "webmail.${rdomain}" = {
           locations."/".extraConfig = mkForce "";
-          enableACME = false;
         };
       };
 
