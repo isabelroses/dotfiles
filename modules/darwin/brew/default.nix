@@ -75,7 +75,6 @@
 
       # `brew install --cask`
       casks = [
-        "arc" # browser
         # "loungy" # app launcher, too beta to use mainstream
         "gimp" # image editor
         "tidal" # music player
