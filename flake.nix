@@ -74,13 +74,7 @@
       type = "github";
       owner = "nix-community";
       repo = "lanzaboote";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        pre-commit-hooks-nix.follows = "";
-        flake-compat.follows = "";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Secrets, shhh
