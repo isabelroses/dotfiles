@@ -111,7 +111,9 @@ in
       };
 
       nginx.virtualHosts.${cfg.domain} = {
-        serverName = "${cfg.domain} .${cfg.domain} .tgirl.beauty";
+        serverName = "${cfg.domain} .tgirl.beauty";
+        enableACME = false;
+        useACMEHost = cfg.domain;
 
         locations = {
           # i am of age but i don't want to prove it lol
@@ -141,6 +143,10 @@ in
           };
         };
       };
+    };
+
+    security.acme.certs.${cfg.domain} = {
+      extraDomainNames = [ "*.tgirl.beauty" ];
     };
   };
 }

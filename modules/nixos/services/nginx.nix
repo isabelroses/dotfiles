@@ -12,7 +12,7 @@ let
     mkOption
     mkDefault
     ;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.nginx;
 in
@@ -28,8 +28,7 @@ in
           config = {
             quic = mkDefault true;
             forceSSL = mkDefault true;
-            enableACME = mkDefault false;
-            useACMEHost = mkDefault cfg.domain;
+            enableACME = mkDefault true;
           };
         })
       );
@@ -41,25 +40,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets.cloudflare-cert-api = mkSystemSecret {
-      file = "cloudflare";
-      key = "cert-api";
-      owner = "nginx";
-      group = "nginx";
-    };
-
     networking = { inherit (cfg) domain; };
-
-    security.acme = {
-      acceptTerms = true;
-      defaults.email = "isabel@isabelroses.com";
-
-      certs.${cfg.domain} = {
-        extraDomainNames = [ "*.${cfg.domain}" ];
-        dnsProvider = "cloudflare";
-        credentialsFile = config.sops.secrets.cloudflare-cert-api.path;
-      };
-    };
 
     users.users.nginx.extraGroups = [ "acme" ];
 
@@ -86,6 +67,12 @@ in
 
       sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
       sslProtocols = "TLSv1.3 TLSv1.2";
+
+      # undo the the changes we made to `services.nginx.virtualHosts`
+      virtualHosts.localhost = {
+        forceSSL = false;
+        enableACME = false;
+      };
     };
   };
 }

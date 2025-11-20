@@ -99,7 +99,7 @@ in
         };
 
         nginx = {
-          useACMEHost = rdomain;
+          enableACME = true;
           forceSSL = true;
           quic = true;
         };
