@@ -123,9 +123,6 @@ in
         # allow usage of the pipe operator in nix expressions
         "pipe-operator"
 
-        # enable the use of the fetchClosure built-in function in the Nix language.
-        "fetch-closure"
-
         # allow nix to automatically coerce integers to strings
         "coerce-integers"
       ];
