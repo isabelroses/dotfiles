@@ -20,11 +20,15 @@ in
   config = mkIf cfg.enable {
     services.nginx.virtualHosts = {
       ${cfg.domain} = {
+        serverName = "${cfg.domain} www.${cfg.domain}";
+        enableACME = false;
+        useACMEHost = cfg.domain;
         root = inputs'.tgirlpkgs.packages.isabelroses-website;
       };
-      "www.${cfg.domain}" = {
-        root = inputs'.tgirlpkgs.packages.isabelroses-website;
-      };
+    };
+
+    security.acme.certs.${cfg.domain} = {
+      extraDomainNames = [ "www.${cfg.domain}" ];
     };
   };
 }
