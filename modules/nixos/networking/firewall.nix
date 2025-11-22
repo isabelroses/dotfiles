@@ -20,10 +20,7 @@ in
       enable = true;
       package = pkgs.iptables;
 
-      allowedTCPPorts = [
-        443
-        8080
-      ];
+      allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
 
       allowedTCPPortRanges = [ ];

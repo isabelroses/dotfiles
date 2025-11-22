@@ -44,6 +44,11 @@ in
 
     users.users.nginx.extraGroups = [ "acme" ];
 
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
+
     services.nginx = {
       enable = true;
       statusPage = true; # For monitoring scraping.
