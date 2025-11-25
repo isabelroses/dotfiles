@@ -55,9 +55,9 @@
               patterns = {
                 "://instagram.com/" = "://ddinstagram.com/";
                 "://reddit.com/" = "://rxddit.com/";
-                "://tiktok.com/" = "://tfxktok.com/";
+                "://tiktok.com/" = "://tnktok.com/";
                 "://twitter.com/" = "://vxtwitter.com/";
-                "://vm.tiktok.com/" = "://vm.vxtiktok.com/";
+                "://vm.tiktok.com/" = "://vm.tnktok.com/";
                 "://www.instagram.com/" = "://ddinstagram.com/";
                 "://www.reddit.com/" = "://rxddit.com/";
                 "://x.com/" = "://vxtwitter.com/";
