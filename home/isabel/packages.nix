@@ -47,7 +47,6 @@ in
       inherit (pkgs)
         # keep-sorted start
         brightnessctl # brightness managed via cli
-        cliphist
         grim
         libnotify # needed for some notifications
         playerctl

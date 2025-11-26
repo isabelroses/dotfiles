@@ -13,7 +13,10 @@
     device = {
       cpu = "intel";
       gpu = "nvidia";
-      monitors = [ "DP-1" ];
+      monitors = [
+        "DP-1"
+        "DP-2"
+      ];
       capabilities = {
         tpm = true;
         bluetooth = true;
@@ -35,7 +38,7 @@
         };
       };
 
-      bluetooth.enable = false;
+      bluetooth.enable = true;
       printing.enable = false;
       emulation.enable = true;
 

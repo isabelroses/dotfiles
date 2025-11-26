@@ -12,7 +12,7 @@
     settings = {
       command = "/run/current-system/sw/bin/fish";
 
-      theme = lib.mkForce "cuddlefish";
+      # theme = lib.mkForce "cuddlefish";
 
       background-opacity = 0.95;
       cursor-style = "bar";
