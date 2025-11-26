@@ -140,9 +140,9 @@ in
           rounding = 15;
 
           # 0.8 is nice if we opacity
-          active_opacity = 0.90;
-          inactive_opacity = 0.90;
-          fullscreen_opacity = 0.90;
+          active_opacity = 1.00;
+          inactive_opacity = 1.00;
+          fullscreen_opacity = 1.00;
 
           shadow = {
             enabled = true;

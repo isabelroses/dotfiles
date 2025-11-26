@@ -6,9 +6,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkForce;
-  inherit (lib.modules) mkIf;
-  inherit (pkgs.stdenv) isLinux;
+  inherit (lib) mkIf mkForce;
+  inherit (pkgs.stdenv.hostPlatorm) isLinux;
 
   template = self.lib.template.xdg;
   vars = template.user config.xdg;

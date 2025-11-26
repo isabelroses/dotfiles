@@ -16,7 +16,7 @@ in
 
       # theme = lib.mkForce "cuddlefish";
 
-      background-opacity = if isLinux then 1.00 else 0.95;
+      background-opacity = 0.95;
       cursor-style = "bar";
       window-padding-x = "4,4";
       gtk-titlebar = false;

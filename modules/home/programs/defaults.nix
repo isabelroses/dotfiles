@@ -8,7 +8,6 @@ let
   inherit (lib.types) enum nullOr str;
 
   mkDefault = name: args: mkOption ({ description = "default ${name} for the system"; } // args);
-
 in
 {
   options.garden.programs.defaults = mapAttrs mkDefault {

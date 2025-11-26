@@ -2,7 +2,7 @@
 { config, ... }:
 {
   home.shell = {
-    # disable the gloabl enable
+    # disable the global enable
     enableShellIntegration = false;
 
     enableBashIntegration = config.programs.bash.enable;
