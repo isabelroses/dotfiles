@@ -15,7 +15,7 @@ IconImage {
 
   Process {
     id: launcherProcess
-    command: ["vicinae", "open"]
+    command: ["vicinae", "toggle"]
   }
 
   MouseArea {
