@@ -104,7 +104,6 @@ in
     noiseSuppressor = {
       type = nullOr (enum [
         "rnnoise"
-        "noisetorch"
       ]);
       default = "rnnoise";
       description = ''
