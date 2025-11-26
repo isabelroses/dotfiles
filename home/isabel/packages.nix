@@ -51,6 +51,7 @@ in
         libnotify # needed for some notifications
         playerctl
         pwvucontrol
+        signal-desktop
         slurp
         # bitwarden-desktop # password manager
         # jellyfin-media-player
