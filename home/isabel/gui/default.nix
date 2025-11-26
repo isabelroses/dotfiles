@@ -4,11 +4,11 @@
     ./chromium.nix
     ./discord.nix
     ./ghostty.nix
-    ./notes.nix
-    ./wezterm.nix
-    ./streaming.nix
     ./hyprland.nix
+    ./notes.nix
+    ./streaming.nix
     ./vicinae.nix
+    ./wezterm.nix
     # keep-sorted end
   ];
 }
