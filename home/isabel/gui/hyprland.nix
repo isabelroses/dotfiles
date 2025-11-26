@@ -25,7 +25,7 @@ in
   options.programs.hyprland.enable = lib.mkEnableOption "Enable Hyprland as the Wayland window manager";
 
   config = lib.mkIf config.programs.hyprland.enable {
-    garden.packages = { inherit (pkgs) swww hyprpicker cosmic-files; };
+    garden.packages = { inherit (pkgs) hyprpicker cosmic-files; };
 
     wayland.windowManager.hyprland = {
       enable = true;
@@ -139,9 +139,9 @@ in
           rounding = 15;
 
           # 0.8 is nice if we opacity
-          active_opacity = 0.95;
-          inactive_opacity = 0.95;
-          fullscreen_opacity = 0.95;
+          active_opacity = 0.90;
+          inactive_opacity = 0.90;
+          fullscreen_opacity = 0.90;
 
           shadow = {
             enabled = true;
@@ -166,7 +166,6 @@ in
 
         exec-once = [
           "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
-          "swww-daemon"
         ];
 
         general = {

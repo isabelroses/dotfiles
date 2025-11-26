@@ -6,6 +6,7 @@
     ./ghostty.nix
     ./hyprland.nix
     ./notes.nix
+    ./quickshell.nix
     ./streaming.nix
     ./vicinae.nix
     ./wezterm.nix

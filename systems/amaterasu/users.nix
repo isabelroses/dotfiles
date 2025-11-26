@@ -7,6 +7,7 @@
       fish.enable = true;
       hyprland.enable = true;
       obs-studio.enable = true;
+      quickshell.enable = true;
     };
   };
 }
