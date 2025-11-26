@@ -3,17 +3,20 @@
   config,
   ...
 }:
+let
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
+in
 {
   programs.ghostty = {
     # FIXME: ghostty is broken on darwin
-    package = if pkgs.stdenv.hostPlatform.isLinux then pkgs.ghostty else null;
+    package = if isLinux then pkgs.ghostty else null;
 
     settings = {
       command = "/run/current-system/sw/bin/fish";
 
       # theme = lib.mkForce "cuddlefish";
 
-      background-opacity = 0.95;
+      background-opacity = if isLinux then 1.00 else 0.95;
       cursor-style = "bar";
       window-padding-x = "4,4";
       gtk-titlebar = false;
