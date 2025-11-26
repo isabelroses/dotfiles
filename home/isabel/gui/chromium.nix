@@ -19,6 +19,7 @@ in
       "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
       "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
       "fkagelmloambgokoeokbpihmgpkbgbfm" # Indie Wiki Buddy
+      "aihndpeeoneojofmliffjknbegmipbim" # at://wormhole
       "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
       "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
       "ndcooeababalnlpkfedmmbbbgkljhpjf" # ScriptCat
@@ -107,7 +108,7 @@ in
               # Enable content settings partitioning
               "ContentSettingsPartitioning"
               # allow --force-dark-mode to work
-              "WebContentsForceDark"
+              # "WebContentsForceDark"
             ]
           )
 
