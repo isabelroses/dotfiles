@@ -64,7 +64,7 @@ in
 
         bind = [
           # launchers
-          "${mod}, D, exec, vicinae open"
+          "${mod}, D, exec, vicinae toggle"
           "${mod}, B, exec, ${defaults.browser}"
           "${mod}, E, exec, ${defaults.fileManager}"
           "${mod}, C, exec, ${defaults.editor}"
@@ -170,8 +170,6 @@ in
         ];
 
         general = {
-          layout = "master";
-
           gaps_in = 8;
           gaps_out = 8;
           gaps_workspaces = 0;
