@@ -58,7 +58,7 @@ in
         # Etc
         [
           "--disk-cache=$XDG_RUNTIME_DIR/chromium-cache"
-          (enableFeature false "reading-from-canvas")
+          # (enableFeature false "reading-from-canvas")
           "--no-first-run"
           "--disable-wake-on-wifi"
           "--disable-breakpad"
