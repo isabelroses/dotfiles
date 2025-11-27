@@ -503,11 +503,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764204444,
-        "narHash": "sha256-U9w+naTonhZq0nvv9nNoILJBRgzKCXThg2XFpWTFY2o=",
+        "lastModified": 1764262989,
+        "narHash": "sha256-a3UlPNgaDK4cyGqn/AQz9WgEGSrgX0nIvChYZKFKn1M=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "eadd5a929ea0434941c72f42f4d272cceb794f5a",
+        "rev": "8814a7c6704176d5a8a62a2175b9dfc5dae3291a",
         "type": "github"
       },
       "original": {

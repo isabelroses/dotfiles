@@ -64,7 +64,7 @@ in
         # keep-sorted end
         ;
 
-      inherit (inputs'.tgirlpkgs.packages) tidaluna;
+      inherit (inputs'.tgirlpkgs.packages) tidaluna cake-wallet;
     })
   ];
 }
