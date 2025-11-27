@@ -53,8 +53,6 @@ in
       enable = true;
       statusPage = true; # For monitoring scraping.
 
-      package = pkgs.nginxQuic.override { withKTLS = true; };
-
       commonHttpConfig = ''
         # real_ip_header CF-Connecting-IP;
         add_header 'Referrer-Policy' 'origin-when-cross-origin';
