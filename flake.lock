@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763974424,
-        "narHash": "sha256-jPpxBhrBOAKrXPxdrdXnq4w7x3UIkUZjarNLNYkb7Zo=",
+        "lastModified": 1764250936,
+        "narHash": "sha256-fwwd6/j9QsL++TiNHZy2258NDkJiTi9B5cUyOntlR2g=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "931c6465c3eac4709684dbc320bca243252927df",
+        "rev": "c11bfcf5671358a12fa2d906e7c859d0644d9b2d",
         "type": "github"
       },
       "original": {
@@ -257,11 +257,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764205656,
-        "narHash": "sha256-M/97fZAb+YwXxxXByFz3tIgRqZ5JZnxOrZX9F3qqCNk=",
+        "lastModified": 1764292016,
+        "narHash": "sha256-7Gv0J6GluKPPMgQ1gI6604mSqbZ56kPU9AhN8J6Wlzk=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "6a1a0586f7c225ebc2f6434abbef28a4ca7a481f",
+        "rev": "6f5b062874b99273c3189940e997fda717565623",
         "type": "github"
       },
       "original": {
@@ -337,11 +337,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1764138170,
-        "narHash": "sha256-mOxaY/LT5a0IpdG6uJP4GRTVTexKkYx+PHHjzMlaBFc=",
-        "rev": "bb813de6d2241bcb1b5af2d3059f560c66329967",
+        "lastModified": 1764230294,
+        "narHash": "sha256-LGU93g01gClmIpYL0xR0fJ5rs5it7ttjjcB+xKaMcH4=",
+        "rev": "0d59e0290eefe0f12512043842d7096c4070f30e",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre902642.bb813de6d224/nixexprs.tar.xz?lastModified=1764138170&rev=bb813de6d2241bcb1b5af2d3059f560c66329967"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre903204.0d59e0290eef/nixexprs.tar.xz?lastModified=1764230294&rev=0d59e0290eefe0f12512043842d7096c4070f30e"
       },
       "original": {
         "type": "tarball",
@@ -503,11 +503,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764262989,
-        "narHash": "sha256-a3UlPNgaDK4cyGqn/AQz9WgEGSrgX0nIvChYZKFKn1M=",
+        "lastModified": 1764290836,
+        "narHash": "sha256-4XahIKBYbI0DkRWBw1EN5pYFczB/fAOl2vKcVpaztIw=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "8814a7c6704176d5a8a62a2175b9dfc5dae3291a",
+        "rev": "52fb3e68b8d55203528eb5fa11681af0d2b351cf",
         "type": "github"
       },
       "original": {
