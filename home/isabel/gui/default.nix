@@ -8,7 +8,7 @@
     ./notes.nix
     ./quickshell.nix
     ./streaming.nix
-    ./vicinae.nix
+    ./vicinae
     ./wezterm.nix
     # keep-sorted end
   ];
