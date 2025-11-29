@@ -66,6 +66,7 @@ in
             "https://relay.upcloud.world"
             "https://relay.feeds.blue"
             "https://atproto.africa"
+            "https://relay.whey.party"
           ];
 
           PDS_OAUTH_PROVIDER_NAME = "tgirl.cloud";
