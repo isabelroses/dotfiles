@@ -14,7 +14,7 @@ in
   options.garden.system.stateVersion = mkOption {
     internal = true;
     type = lib.types.str;
-    default = "25.05";
+    default = "25.11";
   };
 
   config.system = {
