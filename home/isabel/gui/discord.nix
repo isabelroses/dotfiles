@@ -1,5 +1,5 @@
 # this is a custom module provided by this flake. it is not in home-manager
-{ _class, ... }:
+{ pkgs, ... }:
 {
   programs.discord = {
     settings = {
@@ -22,7 +22,6 @@
       settings = {
         extensions = {
           # keep-sorted start block=yes
-          allowNsfw = true;
           betterCodeblocks = true;
           betterEmbedsYT = true;
           clearUrls = true;
@@ -41,7 +40,7 @@
           memberCount = true;
           moonbase = true;
           nativeFixes = {
-            enabled = _class == "nixos";
+            enabled = pkgs.stdenv.hostPlatform.isLinux;
             config.vaapiIgnoreDriverChecks = true;
           };
           noHideToken = true;
