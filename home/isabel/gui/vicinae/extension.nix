@@ -7,7 +7,7 @@ lib.extendMkDerivation {
   constructDrv = buildNpmPackage;
 
   extendDrvArgs =
-    finalAttrs:
+    _:
     {
       extName,
       version ? "0",
