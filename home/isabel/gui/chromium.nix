@@ -58,7 +58,10 @@ in
         # Etc
         [
           "--disk-cache=$XDG_RUNTIME_DIR/chromium-cache"
+
+          # disable canvas reading for privacy
           # (enableFeature false "reading-from-canvas")
+
           "--no-first-run"
           "--disable-wake-on-wifi"
           "--disable-breakpad"
@@ -76,14 +79,19 @@ in
           # Use strict extension verification
           "--extension-content-verification=enforce_strict"
           "--extensions-install-verification=enforce_strict"
+
           # Disable pings
           "--no-pings"
+
           # Require HTTPS for component updater
           "--component-updater=require_encryption"
+
           # Disable crash upload
           "--no-crash-upload"
+
           # don't run things without asking
           "--no-service-autorun"
+
           # Disable sync
           "--disable-sync"
 
@@ -92,21 +100,28 @@ in
             + concatMapStrings (x: x + ",") [
               # Enable visited link database partitioning
               "PartitionVisitedLinkDatabase"
+
               # Enable prefetch privacy changes
               "PrefetchPrivacyChanges"
+
               # Enable split cache
               "SplitCacheByNetworkIsolationKey"
               "SplitCodeCacheByNetworkIsolationKey"
+
               # Enable partitioning connections
               "EnableCrossSiteFlagNetworkIsolationKey"
               "HttpCacheKeyingExperimentControlGroup"
               "PartitionConnectionsByNetworkIsolationKey"
+
               # Enable strict origin isolation
               "StrictOriginIsolation"
+
               # Enable reduce accept language header
               "ReduceAcceptLanguage"
+
               # Enable content settings partitioning
               "ContentSettingsPartitioning"
+
               # allow --force-dark-mode to work
               # "WebContentsForceDark"
             ]
@@ -119,41 +134,57 @@ in
               "AutofillPaymentCardBenefits"
               "AutofillPaymentCvcStorage"
               "AutofillPaymentCardBenefits"
+
               # Disable third-party cookie deprecation bypasses
               "TpcdHeuristicsGrants"
               "TpcdMetadataGrants"
+
               # Disable hyperlink auditing
               "EnableHyperlinkAuditing"
+
               # Disable showing popular sites
               "NTPPopularSitesBakedInContent"
               "UsePopularSitesSuggestions"
+
               # Disable article suggestions
               "EnableSnippets"
               "ArticlesListVisible"
               "EnableSnippetsByDse"
+
               # Disable content feed suggestions
               "InterestFeedV2"
+
               # Disable media DRM preprovisioning
               "MediaDrmPreprovisioning"
+
               # Disable autofill server communication
               "AutofillServerCommunication"
+
               # Disable new privacy sandbox features
               "PrivacySandboxSettings4"
               "BrowsingTopics"
               "BrowsingTopicsDocumentAPI"
               "BrowsingTopicsParameters"
+
               # Disable translate button
               "AdaptiveButtonInTopToolbarTranslate"
+
               # Disable detailed language settings
               "DetailedLanguageSettings"
+
               # Disable fetching optimization guides
               "OptimizationHintsFetching"
+
               # Partition third-party storage
               "DisableThirdPartyStoragePartitioningDeprecationTrial2"
 
               # Disable media engagement
               "PreloadMediaEngagementData"
               "MediaEngagementBypassAutoplayPolicies"
+
+              # allow manifest v2
+              "ExtensionManifestV2Unsupported"
+              "ExtensionManifestV2Disabled"
             ]
           )
         ]
