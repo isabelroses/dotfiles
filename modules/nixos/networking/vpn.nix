@@ -9,7 +9,7 @@
     services.mullvad-vpn.enable = true;
 
     garden.packages = {
-      inherit (pkgs) mullvad-vpn;
+      inherit (pkgs) mullvad mullvad-vpn;
     };
   };
 }
