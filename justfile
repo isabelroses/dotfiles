@@ -73,8 +73,8 @@ tar host:
 
 # check the flake for errors
 [group('dev')]
-check:
-    nix flake check --no-allow-import-from-derivation
+check *args:
+    nix flake check --option allow-import-from-derivation false {{ args }}
 
 [group('dev')]
 repl-host host=`hostname`:
