@@ -13,13 +13,13 @@ in
 
     xdgOpenUsePortal = true;
 
-    config.common = {
-      default = [ "gtk" ];
+    config = {
+      common = {
+        default = [ "gtk" ];
 
-      "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+      };
     };
-
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
     wlr = {
       enable = mkDefault config.garden.profiles.graphical.enable;

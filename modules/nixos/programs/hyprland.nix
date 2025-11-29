@@ -2,7 +2,6 @@
   lib,
   self,
   config,
-  pkgs,
   ...
 }:
 let
@@ -13,7 +12,6 @@ let
 in
 {
   config = mkIf cond {
-    services.displayManager.sessionPackages = [ pkgs.hyprland ];
     programs.hyprland.enable = true;
     xdg.portal.wlr.enable = false;
   };

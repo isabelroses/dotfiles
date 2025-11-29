@@ -16,6 +16,7 @@ let
   browser = [
     "text/html"
     "application/pdf"
+    "x-www-browser"
     "x-scheme-handler/http"
     "x-scheme-handler/https"
     "x-scheme-handler/ftp"
@@ -53,12 +54,10 @@ let
     (lib.genAttrs code (_: [ "nvim.desktop" ]))
     // (lib.genAttrs media (_: [ "mpv.desktop" ]))
     // (lib.genAttrs images (_: [ "feh.desktop" ]))
-    // (lib.genAttrs browser (_: [
-      "${if defaults.browser == "thorium" then "thorium-browser" else defaults.browser}.desktop"
-    ]))
+    // (lib.genAttrs browser (_: [ "${defaults.browser}-browser.desktop" ]))
     // {
       "x-scheme-handler/spotify" = [ "spotify.desktop" ];
-      "x-scheme-handler/discord" = [ "Discord.desktop" ];
+      "x-scheme-handler/discord" = [ "discord.desktop" ];
       "inode/directory" = [
         "${
           if defaults.fileManager == "cosmic-files" then "com.system76.CosmicFiles" else defaults.fileManager
@@ -99,6 +98,8 @@ in
       associations.added = associations;
       defaultApplications = associations;
     };
+
+    portal.enable = lib.mkForce false;
   };
 
   home.sessionVariables = vars // {
