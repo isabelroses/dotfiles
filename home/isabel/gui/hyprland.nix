@@ -16,8 +16,6 @@ let
     concatLines
     ;
 
-  mod = "SUPER";
-  pointer = config.home.pointerCursor;
   inherit (config.garden.programs) defaults;
   inherit (osConfig.garden.device) monitors keyboard;
 in
@@ -41,6 +39,8 @@ in
       };
 
       settings = {
+        "$mod" = "SUPER";
+
         animations = {
           enabled = true;
 
@@ -64,38 +64,38 @@ in
 
         bind = [
           # launchers
-          "${mod}, D, exec, vicinae toggle"
-          "${mod}, B, exec, ${defaults.browser}"
-          "${mod}, E, exec, ${defaults.fileManager}"
-          "${mod}, C, exec, ${defaults.editor}"
-          "${mod}, Return, exec, ${defaults.terminal}"
-          "${mod}, L, exec, ${defaults.screenLocker}"
-          "${mod}, O, exec, obsidian"
-          "${mod} SHIFT, V, exec, vicinae deeplink vicinae://extensions/vicinae/clipboard/history"
+          "$mod, D, exec, vicinae toggle"
+          "$mod, B, exec, ${defaults.browser}"
+          "$mod, E, exec, ${defaults.fileManager}"
+          "$mod, C, exec, ${defaults.editor}"
+          "$mod, Return, exec, ${defaults.terminal}"
+          "$mod, L, exec, ${defaults.screenLocker}"
+          "$mod, O, exec, obsidian"
+          "$mod SHIFT, V, exec, vicinae deeplink vicinae://extensions/vicinae/clipboard/history"
 
           # window management
-          "${mod}, Q, killactive,"
-          # "${mod} SHIFT, Q, exit,"
-          "${mod}, F, fullscreen,"
-          "${mod}, Space, togglefloating,"
-          "${mod}, P, pseudo," # dwindle
-          "${mod}, S, togglesplit," # dwindle
+          "$mod, Q, killactive,"
+          # "$mod SHIFT, Q, exit,"
+          "$mod, F, fullscreen,"
+          "$mod, Space, togglefloating,"
+          "$mod, P, pseudo," # dwindle
+          "$mod, S, togglesplit," # dwindle
 
           # grouping
-          "${mod}, g, togglegroup"
-          "${mod}, tab, changegroupactive"
+          "$mod, g, togglegroup"
+          "$mod, tab, changegroupactive"
 
           # special workspace stuff
-          "${mod}, grave, togglespecialworkspace"
-          "${mod} SHIFT, grave, movetoworkspace, special"
+          "$mod, grave, togglespecialworkspace"
+          "$mod SHIFT, grave, movetoworkspace, special"
 
           # screen shot
           ", Print, exec, grim -g \"$(slurp)\" - | wl-copy"
-          "${mod} SHIFT, s, exec, grim -g \"$(slurp)\" - | wl-copy"
+          "$mod SHIFT, s, exec, grim -g \"$(slurp)\" - | wl-copy"
 
           # scroll wheel binds
-          "${mod}, mouse_down, workspace, e+1"
-          "${mod}, mouse_up, workspace, e-1"
+          "$mod, mouse_down, workspace, e+1"
+          "$mod, mouse_up, workspace, e-1"
 
           ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
           ", XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
@@ -116,16 +116,16 @@ in
                 toString (x + 1 - (c * 10));
             in
             [
-              "${mod}, ${ws}, workspace, ${toString (x + 1)}"
-              "${mod} SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+              "$mod, ${ws}, workspace, ${toString (x + 1)}"
+              "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
             ]
           ) 10
         ));
 
         # mouse binds
         bindm = [
-          "${mod}, mouse:272, movewindow"
-          "${mod}, mouse:273, resizewindow"
+          "$mod, mouse:272, movewindow"
+          "$mod, mouse:273, resizewindow"
         ];
 
         # hold to repeat action buttons
@@ -165,8 +165,10 @@ in
           };
         };
 
-        exec-once = [
-          "hyprctl setcursor ${pointer.name} ${toString pointer.size}"
+        layerrule = [
+          "blur,vicinae"
+          "ignorealpha 0, vicinae"
+          "noanim, vicinae"
         ];
 
         general = {
@@ -222,20 +224,56 @@ in
           preserve_split = true;
         };
 
+        gesture = [
+          "3,horizontal,workspace"
+          "4,horizontal,workspace"
+        ];
+
         misc = {
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
           force_default_wallpaper = 0;
+          enable_anr_dialog = false;
 
           # window swallowing
           enable_swallow = true; # hide windows that spawn other windows
-          swallow_regex = "wezterm|foot|cosmic-files|nemo";
+          swallow_regex = "wezterm|foot|cosmic-files|nemo|com\.mitchellh\.ghostty";
 
           # dpms
           mouse_move_enables_dpms = true; # enable dpms on mouse/touchpad action
           key_press_enables_dpms = true; # enable dpms on keyboard action
           disable_autoreload = true; # autoreload is unnecessary on nixos, because the config is readonly anyway
         };
+
+        windowrulev2 = [
+          "float, title:^(nm-connection-editor)$"
+          "float, title:^(Network)$"
+          "float, title:^(xdg-desktop-portal-gtk)$"
+          "float, class:gay.vaskel.soteria"
+          "float, title:^(Picture-in-Picture)$"
+          "float, class:^(download)$"
+
+          "center(1), class:.blueman-manager-wrapped"
+          "float, class:.blueman-manager-wrapped"
+          "size 40% 60%, class:.blueman-manager-wrapped"
+
+          "center(1), class:com.saivert.pwvucontrol"
+          "float, class:com.saivert.pwvucontrol"
+          "size 40% 60%, class:com.saivert.pwvucontrol"
+
+          # we can't just use the tag because we want to capture the popup window
+          "tag bitwarden, title:Bitwarden"
+          "float, tag:bitwarden"
+          "size 800 600, tag:bitwarden"
+          # "no_screenshare on, tag:bitwarden"
+
+          "workspace 6, class:discord" # move discord to workspace 6
+          "workspace 7, class:luna" # move tidal to workspace 7
+
+          # throw sharing indicators away
+          "workspace special silent, title:^(Firefox — Sharing Indicator)$"
+          "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
+        ];
       };
 
       extraConfig =
