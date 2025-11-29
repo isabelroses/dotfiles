@@ -255,6 +255,10 @@ in
           "float, title:^(Picture-in-Picture)$"
           "float, class:^(download)$"
 
+          "center(1), initialTitle:(Open Files)"
+          "float, initialTitle:(Open Files)"
+          "size 40% 60%, initialTitle:(Open Files)"
+
           "center(1), class:.blueman-manager-wrapped"
           "float, class:.blueman-manager-wrapped"
           "size 40% 60%, class:.blueman-manager-wrapped"
@@ -264,9 +268,8 @@ in
           "size 40% 60%, class:com.saivert.pwvucontrol"
 
           # we can't just use the tag because we want to capture the popup window
-          "tag bitwarden, title:Bitwarden"
-          "float, tag:bitwarden"
-          "size 800 600, tag:bitwarden"
+          "float, title:Bitwarden"
+          "size 800 600, title:Bitwarden"
           # "no_screenshare on, tag:bitwarden"
 
           "workspace 6, class:discord" # move discord to workspace 6
