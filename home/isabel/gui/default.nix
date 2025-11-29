@@ -5,6 +5,7 @@
     ./discord.nix
     ./ghostty.nix
     ./hyprland.nix
+    ./mpv.nix
     ./notes.nix
     ./quickshell.nix
     ./streaming.nix
