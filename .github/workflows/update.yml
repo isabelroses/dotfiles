@@ -30,7 +30,7 @@ jobs:
 
       - name: Update Lockfile
         id: pr
-        uses: DeterminateSystems/update-flake-lock@v27
+        uses: DeterminateSystems/update-flake-lock@v28
         with:
           commit-msg: "flake.lock: update all inputs"
           pr-title: "flake.lock: update all inputs"
