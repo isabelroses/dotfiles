@@ -18,11 +18,9 @@ in
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
       "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
       "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-      "fkagelmloambgokoeokbpihmgpkbgbfm" # Indie Wiki Buddy
       "aihndpeeoneojofmliffjknbegmipbim" # at://wormhole
       "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
       "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
-      "ndcooeababalnlpkfedmmbbbgkljhpjf" # ScriptCat
     ]
     ++ optionals osConfig.garden.profiles.gaming.enable [
       "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
