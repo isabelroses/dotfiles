@@ -81,7 +81,7 @@
         "raycast" # app launcher, and clipboard manager
         # "inkscape" # vector graphics editor
         "intellij-idea" # IDE
-        "jordanbaird-ice" # better status bar
+        # "jordanbaird-ice@beta" # better status bar
       ];
     };
   };

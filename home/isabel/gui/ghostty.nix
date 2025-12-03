@@ -14,8 +14,6 @@ in
     settings = {
       command = "/run/current-system/sw/bin/fish";
 
-      # theme = lib.mkForce "cuddlefish";
-
       background-opacity = 0.95;
       cursor-style = "bar";
       window-padding-x = "4,4";
