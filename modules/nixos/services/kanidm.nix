@@ -83,10 +83,11 @@ in
           tls_chain = "${certDir}/fullchain.pem";
           tls_key = "${certDir}/key.pem";
 
-          online_backup = {
-            path = "/srv/storage/kanidm/backups";
-            schedule = "0 0 * * *";
-          };
+          # TODO: reenable this + do systemd tempfiles + cleanup
+          # online_backup = {
+          #   path = "/srv/storage/kanidm/backups";
+          #   schedule = "0 0 * * *";
+          # };
         };
 
         provision = {
