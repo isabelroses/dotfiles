@@ -238,7 +238,7 @@ in
           enable_anr_dialog = false;
 
           # window swallowing
-          enable_swallow = true; # hide windows that spawn other windows
+          enable_swallow = false; # hide windows that spawn other windows
           swallow_regex = "wezterm|foot|cosmic-files|nemo|com\.mitchellh\.ghostty";
 
           # dpms
