@@ -53,7 +53,7 @@ let
   associations =
     (lib.genAttrs code (_: [ "nvim.desktop" ]))
     // (lib.genAttrs media (_: [ "mpv.desktop" ]))
-    // (lib.genAttrs images (_: [ "feh.desktop" ]))
+    // (lib.genAttrs images (_: [ "mpv.desktop" ]))
     // (lib.genAttrs browser (_: [ "${defaults.browser}-browser.desktop" ]))
     // {
       "x-scheme-handler/spotify" = [ "spotify.desktop" ];

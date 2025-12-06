@@ -5,7 +5,7 @@
     ./discord.nix
     ./ghostty.nix
     ./hyprland.nix
-    ./media.nix
+    ./media
     ./notes.nix
     ./quickshell.nix
     ./vicinae
