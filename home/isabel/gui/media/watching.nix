@@ -150,6 +150,11 @@ in
           seekbarfg_color = "#74c7ec";
           seekbarbg_color = "#181825";
         };
+
+        videoclip = {
+          video_folder_path = "~/media/videos";
+          audio_folder_path = "~/media/music";
+        };
       };
     };
   };
