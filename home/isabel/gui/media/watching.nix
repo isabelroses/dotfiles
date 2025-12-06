@@ -18,11 +18,12 @@ in
 
       scripts = with pkgs.mpvScripts; [
         videoclip
-        mpv-discord
         sponsorblock
         mpris
-        thumbfast
+
+        # modern ui
         modernz
+        thumbfast
 
         # mpv as our image viewer
         mpv-image-viewer.image-positioning
