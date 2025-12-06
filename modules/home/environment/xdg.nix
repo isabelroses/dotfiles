@@ -13,57 +13,76 @@ let
   vars = template.user config.xdg;
   inherit (config.garden.programs) defaults;
 
-  browser = [
-    "text/html"
-    "application/pdf"
-    "x-www-browser"
-    "x-scheme-handler/http"
-    "x-scheme-handler/https"
-    "x-scheme-handler/ftp"
-    "x-scheme-handler/about"
-    "x-scheme-handler/unknown"
-  ];
-
-  code = [
-    "application/json"
-    "text/english"
-    "text/plain"
-    "text/x-makefile"
-    "text/x-c++hdr"
-    "text/x-c++src"
-    "text/x-chdr"
-    "text/x-csrc"
-    "text/x-java"
-    "text/x-moc"
-    "text/x-pascal"
-    "text/x-tcl"
-    "text/x-tex"
-    "application/x-shellscript"
-    "text/x-c"
-    "text/x-c++"
-  ];
-
-  media = [
-    "video/*"
-    "audio/*"
-  ];
-
-  images = [ "image/*" ];
-
-  associations =
-    (lib.genAttrs code (_: [ "nvim.desktop" ]))
-    // (lib.genAttrs media (_: [ "mpv.desktop" ]))
-    // (lib.genAttrs images (_: [ "mpv.desktop" ]))
-    // (lib.genAttrs browser (_: [ "${defaults.browser}-browser.desktop" ]))
-    // {
-      "x-scheme-handler/spotify" = [ "spotify.desktop" ];
-      "x-scheme-handler/discord" = [ "discord.desktop" ];
-      "inode/directory" = [
-        "${
-          if defaults.fileManager == "cosmic-files" then "com.system76.CosmicFiles" else defaults.fileManager
-        }.desktop"
+  appsToAssoc = {
+    browser = {
+      app = "${defaults.browser}-browser";
+      mimeTypes = [
+        "text/html"
+        "application/pdf"
+        "x-www-browser"
+        "x-scheme-handler/http"
+        "x-scheme-handler/https"
+        "x-scheme-handler/ftp"
+        "x-scheme-handler/about"
+        "x-scheme-handler/unknown"
       ];
     };
+
+    code = {
+      app = "nvim";
+      mimeTypes = [
+        "application/json"
+        "text/english"
+        "text/plain"
+        "text/x-makefile"
+        "text/x-c++hdr"
+        "text/x-c++src"
+        "text/x-chdr"
+        "text/x-csrc"
+        "text/x-java"
+        "text/x-moc"
+        "text/x-pascal"
+        "text/x-tcl"
+        "text/x-tex"
+        "application/x-shellscript"
+        "text/x-c"
+        "text/x-c++"
+      ];
+    };
+
+    media = {
+      app = "mpv";
+      mimeTypes = [
+        "video/*"
+        "audio/*"
+      ];
+    };
+
+    images = {
+      app = "mpv";
+      mimeTypes = [ "image/*" ];
+    };
+
+    fileManager = {
+      app =
+        if defaults.fileManager == "cosmic-files" then
+          "com.system76.CosmicFiles"
+        else
+          "${defaults.fileManager}";
+      mimeTypes = [ "inode/directory" ];
+    };
+  };
+
+  associations' = lib.concatMapAttrs (
+    _: val: lib.listToAttrs (lib.map (mt: lib.nameValuePair mt "${val.app}.desktop") val.mimeTypes)
+  ) appsToAssoc;
+
+  specifics = {
+    "x-scheme-handler/spotify" = [ "spotify.desktop" ];
+    "x-scheme-handler/discord" = [ "discord.desktop" ];
+  };
+
+  associations = associations' // specifics;
 in
 {
   xdg = {
