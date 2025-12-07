@@ -47,7 +47,7 @@ switch *args: (builder "switch" args)
 [group('rebuild')]
 [macos]
 provision host:
-    nix run github:LnL7/nix-darwin -- switch --flake {{ flake }}#{{ host }}
+    sudo nix run github:LnL7/nix-darwin -- switch --flake {{ flake }}#{{ host }}
     sudo -i nix-env --uninstall lix # we need to remove the none declarative install of lix
 
 # package group
