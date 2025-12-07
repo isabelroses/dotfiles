@@ -4,16 +4,14 @@
   config,
   ...
 }:
-let
-  inherit (config.programs.obs-studio) enable;
-in
 {
-  config = lib.mkIf enable {
+  config = lib.mkIf config.garden.profiles.media.streaming.enable {
     garden.packages = {
       inherit (pkgs) chatterino7;
     };
 
     programs.obs-studio = {
+      enable = true;
       package = pkgs.obs-studio.override {
         cudaSupport = true;
       };

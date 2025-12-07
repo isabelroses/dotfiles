@@ -16,9 +16,7 @@ in
     (optionalAttrs cfg.workstation.enable {
       inherit (pkgs)
         # keep-sorted start
-        # wishlist # fancy ssh
         glow # fancy markdown
-        # fx # fancy jq
         # gum # a nicer scripting
         jq # json parser
         just # cool build tool
@@ -33,15 +31,15 @@ in
       inherit (inputs'.tgirlpkgs.packages) zzz; # code snippets in the cli
     })
 
-    (optionalAttrs cfg.graphical.enable {
-      inherit (pkgs)
-        # keep-sorted start
-        manga-tui # tui manga finder + reader
-        # bitwarden-cli # bitwarden, my chosen password manager
-        # vhs # programmatically make gifs
-        # keep-sorted end
-        ;
-    })
+    # (optionalAttrs cfg.graphical.enable {
+    #   inherit (pkgs)
+    #     # keep-sorted start
+    #     # manga-tui # tui manga finder + reader
+    #     # bitwarden-cli # bitwarden, my chosen password manager
+    #     # vhs # programmatically make gifs
+    #     # keep-sorted end
+    #     ;
+    # })
 
     (optionalAttrs (cfg.graphical.enable && isLinux) {
       inherit (pkgs)
@@ -49,22 +47,19 @@ in
         brightnessctl # brightness managed via cli
         grim
         libnotify # needed for some notifications
-        playerctl
         pwvucontrol
         signal-desktop
         slurp
         # bitwarden-desktop # password manager
         # jellyfin-media-player
         # insomnia # rest client
-        # inkscape # vector graphics editor
-        # gimp # image editor
         swappy # used for screenshot area selection
         wl-clipboard
         wl-gammactl
         # keep-sorted end
         ;
 
-      inherit (inputs'.tgirlpkgs.packages) tidaluna cake-wallet;
+      inherit (inputs'.tgirlpkgs.packages) cake-wallet;
     })
   ];
 }

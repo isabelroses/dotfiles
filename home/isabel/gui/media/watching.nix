@@ -2,15 +2,20 @@
   lib,
   pkgs,
   config,
+  inputs',
   ...
 }:
-let
-  enable = config.garden.profiles.graphical.enable && pkgs.stdenv.hostPlatform.isLinux;
-in
 {
-  config = lib.mkIf enable {
+  config = lib.mkIf config.garden.profiles.media.watching.enable {
     garden.packages = {
-      inherit (pkgs) syncplay yt-dlp ffmpeg;
+      inherit (pkgs)
+        syncplay
+        yt-dlp
+        ffmpeg
+        playerctl
+        ;
+
+      inherit (inputs'.tgirlpkgs.packages) tidaluna;
     };
 
     programs.mpv = {

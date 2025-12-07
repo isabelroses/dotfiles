@@ -1,17 +1,32 @@
-{ lib, osConfig, ... }:
+{
+  lib,
+  config,
+  osClass,
+  osConfig,
+  ...
+}:
 let
-  cfg = osConfig.garden.profiles;
+  inherit (lib) mkEnableOption;
 in
 {
-  garden.profiles = {
-    inherit (cfg)
-      graphical
-      headless
-      workstation
-      laptop
-      server
-      ;
+  options.garden.profiles.media = {
+    creation.enable = mkEnableOption "media creation profile";
+    streaming.enable = mkEnableOption "media streaming profile";
+
+    watching.enable = mkEnableOption "media watching profile" // {
+      default = config.garden.profiles.graphical.enable && osClass == "nixos";
+    };
   };
 
-  programs.git.enable = lib.mkDefault cfg.workstation.enable;
+  config = {
+    garden.profiles = {
+      inherit (osConfig.garden.profiles)
+        graphical
+        headless
+        workstation
+        laptop
+        server
+        ;
+    };
+  };
 }

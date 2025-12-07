@@ -9,5 +9,10 @@
       hyprland.enable = true;
       quickshell.enable = true;
     };
+
+    garden.profiles.media = {
+      creation.enable = true;
+      streaming.enable = true;
+    };
   };
 }
