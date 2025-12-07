@@ -1,12 +1,10 @@
 {
   lib,
   pkgs,
-  osConfig,
   ...
 }:
 let
   inherit (lib)
-    optionals
     concatLists
     concatMapStrings
     enableFeature
@@ -21,10 +19,6 @@ in
       "aihndpeeoneojofmliffjknbegmipbim" # at://wormhole
       "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
       "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
-    ]
-    ++ optionals osConfig.garden.profiles.gaming.enable [
-      "ngonfifpkpeefnhelnfdkficaiihklid" # ProtonDB
-      "dnhpnfgdlenaccegplpojghhmaamnnfp" # Augmented Steam
     ];
 
     package = pkgs.chromium.override {
