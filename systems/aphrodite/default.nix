@@ -5,16 +5,7 @@
     profiles = {
       headless.enable = true;
       server.enable = true;
-    };
-
-    device = {
-      cpu = "intel";
-      gpu = null;
-    };
-
-    system.boot = {
-      loader = "grub";
-      grub.device = "/dev/vda";
+      upcloud.enable = true;
     };
 
     services = {

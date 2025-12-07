@@ -5,13 +5,17 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkForce;
-  cfg = config.garden.profiles.server.hetzner;
+  inherit (lib) mkIf mkForce;
+  enable =
+    config.garden.profiles.hetzner.enable
+    || config.garden.profiles.upcloud.enable
+    || config.garden.profiles.oracle.enable;
 in
 {
-  config = mkIf cfg.enable {
+  config = mkIf enable {
     services = {
-      smartd.enable = mkForce false; # Unavailable - device lacks SMART capability.
+      # Unavailable - device lacks SMART capability.
+      smartd.enable = mkForce false;
 
       # Needed by the Hetzner Cloud password reset feature
       qemuGuest.enable = true;

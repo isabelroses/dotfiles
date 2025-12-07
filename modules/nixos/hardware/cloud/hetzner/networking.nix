@@ -2,10 +2,10 @@
 let
   inherit (lib) mkIf mkForce mkOption;
 
-  cfg = config.garden.profiles.server.hetzner;
+  cfg = config.garden.profiles.hetzner;
 in
 {
-  options.garden.profiles.server.hetzner = {
+  options.garden.profiles.hetzner = {
     ipv4 = mkOption {
       type = lib.types.str;
       description = ''

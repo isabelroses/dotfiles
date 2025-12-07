@@ -1,10 +1,14 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkEnableOption;
 
-  cfg = config.garden.profiles.server.hetzner;
+  cfg = config.garden.profiles.hetzner;
 in
 {
+  options.garden.profiles.hetzner = {
+    enable = mkEnableOption "Hetzner Cloud profile";
+  };
+
   config = mkIf cfg.enable {
     garden = {
       device.capabilities = {

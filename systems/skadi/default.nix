@@ -5,6 +5,7 @@
     profiles = {
       headless.enable = true;
       server.enable = true;
+      oracle.enable = true;
     };
 
     device = {

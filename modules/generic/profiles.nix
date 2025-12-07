@@ -8,13 +8,6 @@ in
     headless.enable = mkEnableOption "Headless";
     workstation.enable = mkEnableOption "Workstation";
     laptop.enable = mkEnableOption "Laptop";
-
-    server = {
-      enable = mkEnableOption "Server";
-
-      # types of servers
-      oracle.enable = mkEnableOption "Oracle";
-      hetzner.enable = mkEnableOption "Hetzner";
-    };
+    server.enable = mkEnableOption "Server";
   };
 }

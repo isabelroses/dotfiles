@@ -7,13 +7,12 @@
   garden = {
     profiles = {
       headless.enable = true;
-      server = {
+      server.enable = true;
+
+      hetzner = {
         enable = true;
-        hetzner = {
-          enable = true;
-          ipv4 = "91.107.198.173";
-          ipv6 = "2a01:4f8:c012:2f67::1";
-        };
+        ipv4 = "91.107.198.173";
+        ipv6 = "2a01:4f8:c012:2f67::1";
       };
     };
 

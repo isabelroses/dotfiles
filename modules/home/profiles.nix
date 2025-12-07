@@ -9,13 +9,8 @@ in
       headless
       workstation
       laptop
+      server
       ;
-
-    server = {
-      inherit (cfg.server) enable;
-      oracle.enable = cfg.server.oracle.enable;
-      hetzner.enable = cfg.server.hetzner.enable;
-    };
   };
 
   programs.git.enable = lib.mkDefault cfg.workstation.enable;
