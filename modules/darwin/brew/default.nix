@@ -80,8 +80,11 @@
         "tidal" # music player
         "raycast" # app launcher, and clipboard manager
         # "inkscape" # vector graphics editor
-        "intellij-idea" # IDE
+        # "intellij-idea" # IDE
         # "jordanbaird-ice@beta" # better status bar
+        "helium-browser"
+        "discord"
+        "ghostty"
       ];
     };
   };
