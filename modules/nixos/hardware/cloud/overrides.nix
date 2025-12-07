@@ -36,7 +36,6 @@ in
           "ata_piix"
           "uhci_hcd"
           "xen_blkfront"
-          "vmw_pvscsi"
 
           "virtio_net"
           "virtio_pci"
@@ -45,7 +44,11 @@ in
           "virtio_scsi"
           "9p"
           "9pnet_virtio"
+        ]
+        ++ lib.optionals (!config.garden.profiles.oracle.enable) [
+          "vmw_pvscsi"
         ];
+
         kernelModules = [
           "nvme"
           "virtio_balloon"
