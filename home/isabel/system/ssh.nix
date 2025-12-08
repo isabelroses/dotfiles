@@ -9,7 +9,10 @@ in
     enable = true;
     enableDefaultConfig = false;
 
-    includes = [ secrets.uni-sshconf.path ];
+    includes = [
+      secrets.uni-sshconf.path
+      secrets.rsync-sshconf.path
+    ];
 
     matchBlocks = {
       "*" = {
@@ -113,6 +116,8 @@ in
     keys-tangled-pub = { };
     uni-central.path = sshDir + "/uni-central";
     uni-sshconf = { };
+    rsync-sshconf = { };
+    keys-rsync.path = sshDir + "/rsync";
     # keep-sorted end
   };
 }
