@@ -78,12 +78,6 @@ in
 
       "minerva".hostname = "91.107.198.173";
 
-      "openvpn" = {
-        hostname = "132.145.55.42";
-        user = "openvpnas";
-        identityFile = secrets.keys-openvpn.path;
-      };
-
       "skadi".hostname = "141.147.73.185";
 
       "tangled.org" = {
@@ -105,15 +99,10 @@ in
     # keep-sorted start block=yes
     keys-amity = { };
     keys-aur = { };
-    keys-aur-pub = { };
     keys-codeberg = { };
-    keys-codeberg-pub = { };
     keys-gh = { };
-    keys-gh-pub = { };
     keys-git-isabel = { };
-    keys-openvpn = { };
     keys-tangled = { };
-    keys-tangled-pub = { };
     uni-central.path = sshDir + "/uni-central";
     uni-sshconf = { };
     rsync-sshconf = { };
