@@ -11,7 +11,6 @@
 
       urls = [
         "https://isabelroses.com/feed.xml"
-        "https://robinroses.xyz/feed.xml"
         "https://uncenter.dev/feed.xml"
         "https://charm.sh/blog/rss.xml"
         "https://antfu.me/feed.xml"
