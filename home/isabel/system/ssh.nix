@@ -102,11 +102,11 @@ in
     keys-codeberg = { };
     keys-gh = { };
     keys-git-isabel = { };
+    keys-rsync.path = sshDir + "/rsync";
     keys-tangled = { };
+    rsync-sshconf = { };
     uni-central.path = sshDir + "/uni-central";
     uni-sshconf = { };
-    rsync-sshconf = { };
-    keys-rsync.path = sshDir + "/rsync";
     # keep-sorted end
   };
 }
