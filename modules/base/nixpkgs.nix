@@ -6,10 +6,11 @@
     # A funny little hack to make sure that *everything* is permitted
     allowUnfreePredicate = _: true;
 
-    # I don't really need pkgs.pkgsRocm and so on
+    # I don't really need pkgs.pkgsRocm and so on. as it turns out i do want to
+    # use pkgs.pkgsCuda
     # this list also does not include actually useful sets like pkgsi686Linux
     # however this can also break some packages from building
-    allowVariants = false;
+    allowVariants = true;
 
     # If a package is broken, I don't want it
     allowBroken = false;
@@ -18,9 +19,10 @@
     # to take their sweet time updating it
     permittedInsecurePackages = [ ];
 
-    # I allow packages that are not supported by my system
-    # since I sometimes need to try and build those packages that are not directly supported
-    allowUnsupportedSystem = true;
+    # do not allow building packages for unsuppoted systems. they are
+    # unsupported for a reason. it can also cause side effects with cuda
+    # packages
+    allowUnsupportedSystem = false;
 
     # I don't want to use aliases for packages, usually because its slow
     # and also because it can get confusing
