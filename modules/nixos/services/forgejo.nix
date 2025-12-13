@@ -45,16 +45,6 @@ in
       config.services.forgejo.settings.server.SSH_PORT
     ];
 
-    users = {
-      groups.git = { };
-
-      users.git = {
-        isSystemUser = true;
-        createHome = false;
-        group = "git";
-      };
-    };
-
     catppuccin.forgejo = {
       enable = true;
       flavor = "mocha";
@@ -79,7 +69,7 @@ in
             HTTP_PORT = cfg.port;
             DOMAIN = cfg.domain;
 
-            BUILTIN_SSH_SERVER_USER = "git";
+            # BUILTIN_SSH_SERVER_USER = "git";
             DISABLE_ROUTER_LOG = true;
             # LANDING_PAGE = "/explore/repos";
 

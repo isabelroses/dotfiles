@@ -29,7 +29,9 @@ in
       AuthenticationMethods = "publickey";
       PubkeyAuthentication = "yes";
       ChallengeResponseAuthentication = "no";
-      UsePAM = false;
+
+      # forgejo!
+      UsePAM = true;
 
       UseDns = false;
       X11Forwarding = false;

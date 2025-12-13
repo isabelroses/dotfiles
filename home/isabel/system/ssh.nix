@@ -56,7 +56,7 @@ in
       };
 
       "git.isabelroses.com" = {
-        user = "git";
+        user = "forgejo";
         hostname = "git.isabelroses.com";
         identityFile = secrets.keys-git-isabel.path;
       };
