@@ -9,7 +9,7 @@
     };
 
     device = {
-      cpu = "amd";
+      cpu = null;
       gpu = null;
     };
 
