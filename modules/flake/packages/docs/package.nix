@@ -7,7 +7,6 @@
   writeShellApplication,
 
   libdoc,
-  optionsdoc,
 
   inputs,
   self ? inputs.self,
@@ -29,7 +28,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     cp ${finalAttrs.passthru.catppuccin-mdbook} theme/catppuccin.css
     cp ${finalAttrs.passthru.catppuccin-alerts} theme/catppuccin-alerts.css
 
-    cp -r ${optionsdoc} src/search
     cp -r ${libdoc} src/lib
 
     substituteInPlace src/SUMMARY.md \

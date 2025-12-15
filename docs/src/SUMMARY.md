@@ -28,10 +28,6 @@
 
 libdoc
 
-# options
-
-- [options search](search/index.html)
-
 # Further Reading
 
 - [further reading](further-reading.md)

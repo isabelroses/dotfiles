@@ -20,7 +20,6 @@
         iztaller = self.callPackage ./iztaller/package.nix { nix = inputs'.izlix.packages.lix; };
 
         libdoc = self.callPackage ./docs/lib.nix { };
-        optionsdoc = self.callPackage ./docs/options.nix { };
         docs = self.callPackage ./docs/package.nix { };
         # keep-sorted end
       });
