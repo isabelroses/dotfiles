@@ -11,7 +11,7 @@ in
     garden = {
       device = {
         cpu = "intel";
-        gpu = null;
+        gpu = "intel";
       };
 
       system.boot = {

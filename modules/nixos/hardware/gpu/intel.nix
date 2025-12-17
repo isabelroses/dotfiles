@@ -10,29 +10,24 @@ let
 in
 {
   config = mkIf (device.gpu == "intel" || device.gpu == "hybrid-nv") {
-    # i915 kernel module
-    boot.initrd.kernelModules = [ "i915" ];
     # we enable modesetting since this is recomeneded for intel gpus
     services.xserver.videoDrivers = [ "modesetting" ];
 
-    # OpenCL support and VAAPI
+    # i have a "Broadwell" or later gpu so i only bother installing the media driver
     hardware.graphics = {
       extraPackages = attrValues {
-        inherit (pkgs) libva-vdpau-driver intel-media-driver;
-
-        intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+        inherit (pkgs) intel-media-driver intel-compute-runtime vpl-gpu-rt;
       };
 
       extraPackages32 = attrValues {
-        inherit (pkgs.pkgsi686Linux) libva-vdpau-driver intel-media-driver;
-
-        intel-vaapi-driver = pkgs.pkgsi686Linux.intel-vaapi-driver.override { enableHybridCodec = true; };
+        inherit (pkgs.pkgsi686Linux) intel-media-driver;
       };
     };
 
-    garden.packages = [ pkgs.intel-gpu-tools ];
+    # garden.packages = [ pkgs.intel-gpu-tools ];
 
     environment.variables = mkIf (config.hardware.graphics.enable && device.gpu != "hybrid-nv") {
+      LIBVA_DRIVER_NAME = "iHD"; # prefer the modern backend
       VDPAU_DRIVER = "va_gl";
     };
   };

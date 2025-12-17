@@ -10,7 +10,7 @@
 
     device = {
       cpu = "intel";
-      gpu = null;
+      gpu = "intel";
       monitors = [ "eDP-1" ];
       capabilities = {
         tpm = true;
