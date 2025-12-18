@@ -8,6 +8,7 @@
     ./blahaj.nix
     ./cloudflared.nix
     ./forgejo.nix
+    ./immich.nix
     ./kanidm.nix
     # ./buildbot.nix
     ./lego.nix
@@ -17,7 +18,6 @@
     ./nixpkgs-prs-bot.nix
     ./ntfy.nix
     ./pds
-    ./photoprism.nix
     ./piper.nix
     ./port-collector.nix
     ./postgresql.nix

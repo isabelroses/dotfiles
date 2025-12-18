@@ -66,6 +66,13 @@ in
         group = "kanidm";
         mode = "440";
       };
+      kanidm-oauth2-immich = mkSystemSecret {
+        file = "kanidm";
+        key = "oauth2-immich";
+        owner = "kanidm";
+        group = "kanidm";
+        mode = "440";
+      };
     };
 
     services = {
@@ -106,6 +113,7 @@ in
                 "forgejo.admins"
                 "linkwarden.access"
                 "wakapi.access"
+                "immich.access"
               ];
             };
 
@@ -126,6 +134,8 @@ in
             "linkwarden.access" = { };
 
             "wakapi.access" = { };
+
+            "immich.access" = { };
           };
 
           systems.oauth2 = {
@@ -171,6 +181,22 @@ in
               allowInsecureClientDisablePkce = true;
               preferShortUsername = true;
               scopeMaps."wakapi.access" = [
+                "openid"
+                "email"
+                "profile"
+              ];
+            };
+
+            immich = {
+              displayName = "immich";
+              originUrl = [
+                "https://${cfg'.immich.domain}/auth/login"
+                "https://${cfg'.immich.domain}/api/oauth/mobile-redirect"
+              ];
+              originLanding = "https://${cfg'.immich.domain}/";
+              basicSecretFile = config.sops.secrets.kanidm-oauth2-immich.path;
+              preferShortUsername = true;
+              scopeMaps."immich.access" = [
                 "openid"
                 "email"
                 "profile"
