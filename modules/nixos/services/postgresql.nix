@@ -15,6 +15,12 @@ in
   options.garden.services.postgresql = mkServiceOption "postgresql" { };
 
   config = mkIf cfg.postgresql.enable {
+    systemd.tmpfiles.settings."postgresql"."/srv/storage/postgresql".d = {
+      mode = "0755";
+      user = "postgres";
+      group = "postgres";
+    };
+
     services.postgresql = {
       enable = true;
       package = pkgs.postgresql_17;
