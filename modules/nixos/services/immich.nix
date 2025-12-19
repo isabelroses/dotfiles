@@ -261,7 +261,8 @@ in
 
       borgbackup.jobs.immich = mkIf config.garden.services.borgbackup.enable {
         paths = [ config.services.immich.mediaLocation ];
-        repo = "borg:immich";
+        repo = "zh6120@zh6120.rsync.net:immich";
+        environment.BORG_RSH = "ssh -i ${config.sops.secrets.borg-sshkey.path}";
         encryption = {
           mode = "repokey-blake2";
           passCommand = "cat ${config.sops.secrets.borg-immich-pass.path}";
