@@ -14,10 +14,56 @@ let
     concatLists
     imap0
     concatLines
+    mod
+    attrNames
+    foldl'
+    min
+    id
     ;
 
   inherit (config.garden.programs) defaults;
   inherit (osConfig.garden.device) monitors keyboard;
+
+  mapMonitors = concatLines (
+    imap0 (
+      i: m:
+      "monitor=${m.name},${toString m.width}x${toString m.height}@${toString m.refresh-rate},${toString (i * 1920)}x0,${toString m.scale}"
+    ) monitors
+  );
+
+  mapMonitorsToWs =
+    let
+      names = attrNames monitors;
+      count = length names;
+      splitBy = builtins.div 10 count;
+      remainder = mod 10 count;
+      firstSplitBy = splitBy + remainder;
+    in
+    concatLines
+      (foldl'
+        (
+          acc: i:
+          let
+            currentSplitBy = if acc.elem == 0 then firstSplitBy else splitBy;
+            shouldIncrement = acc.usedFor >= currentSplitBy;
+            newElem = min (if shouldIncrement then acc.elem + 1 else acc.elem) (count - 1);
+            asStr = "workspace=${toString (i + 1)}, monitor:${elemAt names newElem}${
+              if i == 0 then ", default:true" else ""
+            }";
+          in
+          {
+            usedFor = if shouldIncrement then 1 else acc.usedFor + 1;
+            elem = newElem;
+            out = acc.out ++ [ asStr ];
+          }
+        )
+        {
+          usedFor = 0;
+          elem = 0;
+          out = [ ];
+        }
+        (genList id 10)
+      ).out;
 in
 {
   options.programs.hyprland.enable = lib.mkEnableOption "Enable Hyprland as the Wayland window manager";
@@ -281,67 +327,44 @@ in
         ];
       };
 
-      extraConfig =
-        let
-          mapMonitors = concatLines (
-            imap0 (
-              i: monitor:
-              ''monitor=${monitor},${
-                if monitor == "eDP-1" then "1920x1080@60" else "preferred"
-              },${toString (i * 1920)}x0,1''
-            ) monitors
-          );
+      extraConfig = ''
+        ${mapMonitors}
+        ${optionalString (length (attrNames monitors) != 1) "${mapMonitorsToWs}"}
 
-          mapMonitorsToWs = concatLines (
-            genList (x: ''
-              workspace = ${toString (x + 1)}, monitor:${
-                if (x + 1) <= 5 then
-                  "${elemAt monitors 0} ${if (x + 1) == 1 then ", default:true" else ""}"
-                else
-                  "${elemAt monitors 1}"
-              }
-            '') 10
-          );
+        # █▀▄▀█ █▀█ █░█ █▀▀
+        # █░▀░█ █▄█ ▀▄▀ ██▄
+        bind=SUPER, M, submap, move
+        submap=move
 
-        in
-        ''
-          ${mapMonitors}
-          ${optionalString (length monitors != 1) "${mapMonitorsToWs}"}
+          binde = , left, movewindow, l
+          binde = , right, movewindow, r
+          binde = , up, movewindow, u
+          binde = , down, movewindow, d
+          binde = , j, movewindow, l
+          binde = , l, movewindow, r
+          binde = , i, movewindow, u
+          binde = , k, movewindow, d
 
-          # █▀▄▀█ █▀█ █░█ █▀▀
-          # █░▀░█ █▄█ ▀▄▀ ██▄
-          bind=SUPER, M, submap, move
-          submap=move
+          bind=,escape,submap,reset
+        submap=reset
 
-            binde = , left, movewindow, l
-            binde = , right, movewindow, r
-            binde = , up, movewindow, u
-            binde = , down, movewindow, d
-            binde = , j, movewindow, l
-            binde = , l, movewindow, r
-            binde = , i, movewindow, u
-            binde = , k, movewindow, d
+        # █▀█ █▀▀ █▀ █ ▀█ █▀▀
+        # █▀▄ ██▄ ▄█ █ █▄ ██▄
+        bind=SUPER, R, submap, resize
+        submap=resize
 
-            bind=,escape,submap,reset
-          submap=reset
+          binde = , left, resizeactive, -20 0
+          binde = , right, resizeactive, 20 0
+          binde = , up, resizeactive, 0 -20
+          binde = , down, resizeactive, 0 20
+          binde = , h, resizeactive, -20 0
+          binde = , j, resizeactive, 20 0
+          binde = , i, resizeactive, 0 -20
+          binde = , k, resizeactive, 0 20
 
-          # █▀█ █▀▀ █▀ █ ▀█ █▀▀
-          # █▀▄ ██▄ ▄█ █ █▄ ██▄
-          bind=SUPER, R, submap, resize
-          submap=resize
-
-            binde = , left, resizeactive, -20 0
-            binde = , right, resizeactive, 20 0
-            binde = , up, resizeactive, 0 -20
-            binde = , down, resizeactive, 0 20
-            binde = , h, resizeactive, -20 0
-            binde = , j, resizeactive, 20 0
-            binde = , i, resizeactive, 0 -20
-            binde = , k, resizeactive, 0 20
-
-            bind=,escape,submap,reset
-          submap=reset
-        '';
+          bind=,escape,submap,reset
+        submap=reset
+      '';
     };
   };
 }

@@ -10,7 +10,6 @@
     device = {
       cpu = null;
       gpu = null;
-      monitors = [ ];
       capabilities = {
         tpm = true;
         bluetooth = false;
