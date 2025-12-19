@@ -275,7 +275,7 @@ in
         ];
         compression = "auto,zstd";
         startAt = "Sat 02:30";
-        prune.keep.last = 2;
+        prune.keep.last = 5;
         inhibitsSleep = true;
         persistentTimer = true;
         doInit = false;
