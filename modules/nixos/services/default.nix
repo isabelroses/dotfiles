@@ -12,6 +12,7 @@
     ./kanidm.nix
     # ./buildbot.nix
     ./lego.nix
+    ./borgbackup.nix
     ./mailserver.nix
     ./matrix.nix
     ./nginx.nix

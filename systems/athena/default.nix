@@ -39,6 +39,7 @@
     services = {
       cloudflared.enable = true;
       immich.enable = true;
+      borgbackup.enable = true;
     };
   };
 }

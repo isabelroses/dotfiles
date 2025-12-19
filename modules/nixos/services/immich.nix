@@ -20,9 +20,15 @@ in
   config = mkIf cfg.enable {
     garden.services.postgresql.enable = true;
 
-    sops.secrets.immich-clientid = mkSystemSecret {
-      file = "immich";
-      key = "clientid";
+    sops.secrets = {
+      immich-clientid = mkSystemSecret {
+        file = "immich";
+        key = "clientid";
+      };
+      borg-immich-pass = mkSystemSecret {
+        file = "borg";
+        key = "immich-passphrase";
+      };
     };
 
     users.users.immich.extraGroups = [
@@ -251,6 +257,27 @@ in
 
           user.deleteDelay = 7;
         };
+      };
+
+      borgbackup.jobs.immich = mkIf config.garden.services.borgbackup.enable {
+        paths = [ config.services.immich.mediaLocation ];
+        repo = "borg:immich";
+        encryption = {
+          mode = "repokey-blake2";
+          passCommand = "cat ${config.sops.secrets.borg-immich-pass.path}";
+        };
+        exclude = [ "**/thumbs/**" ];
+        extraArgs = [ "--remote-path=borg14" ];
+        extraCreateArgs = [
+          "--progress"
+          "--stats"
+        ];
+        compression = "auto,zstd";
+        startAt = "Sat 02:30";
+        prune.keep.last = 2;
+        inhibitsSleep = true;
+        persistentTimer = true;
+        doInit = false;
       };
 
       cloudflared.tunnels.${config.networking.hostName} = {
