@@ -45,7 +45,6 @@
         bsky.enable = true;
       };
       matrix.enable = true;
-      syncthing.enable = true;
 
       # databases
       postgresql.enable = true;
