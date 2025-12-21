@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib) mkIf;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 
   cfg = config.garden.services.cloudflared;
 in
@@ -16,7 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets.cloudflared-athena = mkSystemSecret {
+    sops.secrets.cloudflared-athena = mkSecret {
       file = "cloudflare";
       key = "athena";
     };

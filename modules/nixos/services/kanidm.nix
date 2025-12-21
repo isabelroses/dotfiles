@@ -10,7 +10,7 @@
 }:
 let
   inherit (lib) mkIf;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 
   rdomain = config.networking.domain;
   certs = config.security.acme.certs.${rdomain};
@@ -31,42 +31,42 @@ in
     };
 
     sops.secrets = {
-      kanidm-admin-password = mkSystemSecret {
+      kanidm-admin-password = mkSecret {
         file = "kanidm";
         key = "admin-password";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
-      kanidm-idm-admin-password = mkSystemSecret {
+      kanidm-idm-admin-password = mkSecret {
         file = "kanidm";
         key = "idm-admin-password";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
-      kanidm-oauth2-forgejo = mkSystemSecret {
+      kanidm-oauth2-forgejo = mkSecret {
         file = "kanidm";
         key = "oauth2-forgejo";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
-      kanidm-oauth2-linkwarden = mkSystemSecret {
+      kanidm-oauth2-linkwarden = mkSecret {
         file = "kanidm";
         key = "oauth2-linkwarden";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
-      kanidm-oauth2-wakapi = mkSystemSecret {
+      kanidm-oauth2-wakapi = mkSecret {
         file = "kanidm";
         key = "oauth2-linkwarden";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
       };
-      kanidm-oauth2-immich = mkSystemSecret {
+      kanidm-oauth2-immich = mkSecret {
         file = "kanidm";
         key = "oauth2-immich";
         owner = "kanidm";

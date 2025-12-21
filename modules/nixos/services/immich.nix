@@ -9,7 +9,7 @@ let
   rdomain = config.networking.domain;
 
   inherit (lib) mkIf;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 in
 {
   options.garden.services.immich = mkServiceOption "immich" {
@@ -22,11 +22,11 @@ in
     garden.services.postgresql.enable = true;
 
     sops.secrets = {
-      immich-clientid = mkSystemSecret {
+      immich-clientid = mkSecret {
         file = "immich";
         key = "clientid";
       };
-      borg-immich-pass = mkSystemSecret {
+      borg-immich-pass = mkSecret {
         file = "borg";
         key = "immich-passphrase";
       };

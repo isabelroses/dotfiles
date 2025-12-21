@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib) mkIf mkMerge mkEnableOption;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 
   cfg = config.garden.services.nixpkgs-prs-bot;
 in
@@ -24,7 +24,7 @@ in
     }
 
     (mkIf cfg.fedi.enable {
-      sops.secrets.nixpkgs-prs-bot-fedi = mkSystemSecret {
+      sops.secrets.nixpkgs-prs-bot-fedi = mkSecret {
         file = "nixpkgs-prs-bot";
         key = "fedi";
       };
@@ -36,7 +36,7 @@ in
     })
 
     (mkIf cfg.bsky.enable {
-      sops.secrets.nixpkgs-prs-bot-bsky = mkSystemSecret {
+      sops.secrets.nixpkgs-prs-bot-bsky = mkSecret {
         file = "nixpkgs-prs-bot";
         key = "bsky";
       };

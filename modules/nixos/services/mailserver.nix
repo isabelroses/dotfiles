@@ -8,7 +8,7 @@
 }:
 let
   inherit (lib) mkIf mkForce;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.mailserver;
@@ -25,39 +25,39 @@ in
     };
 
     sops.secrets = {
-      mailserver-isabel = mkSystemSecret {
+      mailserver-isabel = mkSecret {
         file = "mailserver";
         key = "isabel";
       };
-      mailserver-jobs = mkSystemSecret {
+      mailserver-jobs = mkSecret {
         file = "mailserver";
         key = "jobs";
       };
-      mailserver-robin = mkSystemSecret {
+      mailserver-robin = mkSecret {
         file = "mailserver";
         key = "robin";
       };
-      mailserver-vaultwarden = mkSystemSecret {
+      mailserver-vaultwarden = mkSecret {
         file = "mailserver";
         key = "vaultwarden";
       };
-      mailserver-database = mkSystemSecret {
+      mailserver-database = mkSecret {
         file = "mailserver";
         key = "database";
       };
-      mailserver-grafana = mkSystemSecret {
+      mailserver-grafana = mkSecret {
         file = "mailserver";
         key = "grafana";
       };
-      mailserver-git = mkSystemSecret {
+      mailserver-git = mkSecret {
         file = "mailserver";
         key = "git";
       };
-      mailserver-noreply = mkSystemSecret {
+      mailserver-noreply = mkSecret {
         file = "mailserver";
         key = "noreply";
       };
-      mailserver-spam = mkSystemSecret {
+      mailserver-spam = mkSecret {
         file = "mailserver";
         key = "spam";
       };

@@ -10,7 +10,7 @@ let
   rdomain = config.networking.domain;
 
   inherit (lib) mkIf mkForce;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 in
 {
   options.garden.services.forgejo = mkServiceOption "forgejo" {
@@ -20,14 +20,14 @@ in
 
   config = mkIf cfg.enable {
     sops.secrets = {
-      mailserver-git-nohash = mkSystemSecret {
+      mailserver-git-nohash = mkSecret {
         file = "mailserver";
         key = "git-nohash";
         owner = "forgejo";
         group = "forgejo";
       };
 
-      anubis-forgejo = mkSystemSecret {
+      anubis-forgejo = mkSecret {
         file = "anubis";
         key = "forgejo";
         owner = "anubis";

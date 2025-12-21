@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib) mkIf;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 
   rdomain = config.networking.domain;
 
@@ -20,7 +20,7 @@ in
   };
 
   config = mkIf config.garden.services.attic.enable {
-    sops.secrets.attic-env = mkSystemSecret {
+    sops.secrets.attic-env = mkSecret {
       file = "attic";
       key = "env";
     };

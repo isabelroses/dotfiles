@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 
   cfg = config.garden.services.borgbackup;
 in
@@ -13,7 +13,7 @@ in
   options.garden.services.borgbackup = mkServiceOption "borgbackup" { };
 
   config = lib.mkIf cfg.enable {
-    sops.secrets.borg-sshkey = mkSystemSecret {
+    sops.secrets.borg-sshkey = mkSecret {
       file = "borg";
       key = "sshkey";
     };
