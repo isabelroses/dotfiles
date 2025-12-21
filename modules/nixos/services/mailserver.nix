@@ -105,8 +105,8 @@ in
       hierarchySeparator = "/";
       localDnsResolver = false;
       fqdn = cfg.domain;
-      certificateScheme = "acme-nginx";
-      domains = [ "${rdomain}" ];
+      x509.useACMEHost = cfg.domain;
+      domains = [ rdomain ];
 
       # Set all no-reply addresses
       rejectRecipients = [ "noreply@${rdomain}" ];
@@ -294,6 +294,11 @@ in
       };
 
       nginx.virtualHosts = {
+        "${cfg.domain}" = {
+          forceSSL = true;
+          enableACME = true;
+        };
+
         "webmail.${rdomain}" = {
           locations."/".extraConfig = mkForce "";
         };
@@ -306,6 +311,13 @@ in
           ensureDBOwnership = true;
         };
       };
+    };
+
+    security.acme.certs.${cfg.domain} = {
+      reloadServices = [
+        "postfix.service"
+        "dovecot.service"
+      ];
     };
   };
 }
