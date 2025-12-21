@@ -140,19 +140,6 @@ in
           ];
         };
 
-        "robin@${rdomain}" = {
-          hashedPasswordFile = config.sops.secrets.mailserver-robin.path;
-          aliases = [
-            "robin"
-            "robinwobin"
-            "robinwobin@${rdomain}"
-            "comfy"
-            "comfy@${rdomain}"
-            "comfysage"
-            "comfysage@${rdomain}"
-          ];
-        };
-
         "git@${rdomain}" = {
           aliases = [
             "git"
