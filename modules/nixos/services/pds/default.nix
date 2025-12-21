@@ -10,7 +10,7 @@ let
   gkCfg = config.garden.services.pds-gatekeeper;
 
   inherit (lib) mkIf concatStringsSep;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 in
 {
   options.garden.services = {
@@ -30,13 +30,13 @@ in
 
   config = mkIf cfg.enable {
     sops.secrets = {
-      pds-env = mkSystemSecret {
+      pds-env = mkSecret {
         file = "pds";
         owner = "pds";
         group = "pds";
       };
 
-      pds-dash = mkSystemSecret { file = "pds"; };
+      pds-dash = mkSecret { file = "pds"; };
     };
 
     services = {

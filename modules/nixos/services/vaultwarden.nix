@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib) mkIf;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.vaultwarden;
@@ -18,7 +18,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets.vaultwarden-env = mkSystemSecret {
+    sops.secrets.vaultwarden-env = mkSecret {
       file = "vaultwarden";
       key = "env";
       owner = "vaultwarden";

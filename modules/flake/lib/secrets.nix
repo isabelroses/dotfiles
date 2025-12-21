@@ -15,13 +15,13 @@ let
     # Type
 
     ```
-    mkSystemSecret :: (String -> String -> String -> String) -> AttrSet
+    mkSecret :: (String -> String -> String -> String) -> AttrSet
     ```
 
     # Example
 
     ```nix
-    mkSystemSecret { file = "./my-secret.age"; }
+    mkSecret { file = "./my-secret.age"; }
     => {
       file = "./my-secret.age";
       owner = "root";
@@ -30,7 +30,7 @@ let
     }
     ```
   */
-  mkSystemSecret =
+  mkSecret =
     {
       file,
       owner ? "root",
@@ -53,5 +53,5 @@ let
     // args';
 in
 {
-  inherit mkSystemSecret;
+  inherit mkSecret;
 }

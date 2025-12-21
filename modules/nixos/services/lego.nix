@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib) mkIf;
-  inherit (self.lib) mkSystemSecret;
+  inherit (self.lib) mkSecret;
 in
 {
   # FIXME: this seems to fail to fail on certain systems
@@ -29,14 +29,14 @@ in
 
   config = mkIf config.garden.services.nginx.enable {
     sops.secrets = {
-      lego-cloudflare = mkSystemSecret {
+      lego-cloudflare = mkSecret {
         file = "lego";
         key = "cloudflare";
         owner = "nginx";
         group = "nginx";
       };
 
-      lego-bunny = mkSystemSecret {
+      lego-bunny = mkSecret {
         file = "lego";
         key = "bunny";
         owner = "nginx";

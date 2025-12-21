@@ -6,13 +6,13 @@
 }:
 let
   inherit (lib) mkIf;
-  inherit (self.lib) mkServiceOption mkSystemSecret;
+  inherit (self.lib) mkServiceOption mkSecret;
 in
 {
   options.garden.services.blahaj = mkServiceOption "blahaj" { };
 
   config = mkIf config.garden.services.blahaj.enable {
-    sops.secrets.blahaj-env = mkSystemSecret {
+    sops.secrets.blahaj-env = mkSecret {
       file = "blahaj";
       key = "env";
     };
