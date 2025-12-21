@@ -5,9 +5,13 @@
   inputs',
   ...
 }:
+let
+  inherit (lib) mkIf;
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
+in
 {
-  config = lib.mkIf config.garden.profiles.media.watching.enable {
-    garden.packages = {
+  config = mkIf config.garden.profiles.media.watching.enable {
+    garden.packages = mkIf pkgs.stdenv.hostPlatform.isLinux {
       inherit (pkgs)
         syncplay
         yt-dlp
@@ -21,18 +25,21 @@
     programs.mpv = {
       enable = true;
 
-      scripts = with pkgs.mpvScripts; [
-        videoclip
-        sponsorblock
-        mpris
+      scripts =
+        (with pkgs.mpvScripts; [
+          videoclip
+          sponsorblock
 
-        # modern ui
-        modernz
-        thumbfast
+          # modern ui
+          modernz
+          thumbfast
 
-        # mpv as our image viewer
-        mpv-image-viewer.image-positioning
-      ];
+          # mpv as our image viewer
+          mpv-image-viewer.image-positioning
+        ])
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+          pkgs.mpvScripts.mpris
+        ];
 
       bindings = {
         # sane defaults
@@ -78,8 +85,8 @@
 
         # video settings
         # use hardware decoding when available, prefer vulkan
-        hwdec = "auto-copy";
-        gpu-api = "vulkan";
+        hwdec = if isLinux then "auto-copy" else "auto";
+        gpu-api = if isLinux then "vulkan" else "auto";
         profile = "gpu-hq";
         vo = "gpu-next"; # GPU-Next: https://github.com/mpv-player/mpv/wiki/GPU-Next-vs-GPV
 
