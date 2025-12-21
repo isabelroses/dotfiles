@@ -44,7 +44,7 @@ in
           ROCKET_PORT = cfg.port;
 
           SIGNUPS_ALLOWED = false;
-          SIGNUPS_DOMAINS_WHITELIST = "${rdomain}";
+          # SIGNUPS_DOMAINS_WHITELIST = "${rdomain}";
           SIGNUPS_VERIFY = true;
           INVITATIONS_ALLOWED = true;
 
