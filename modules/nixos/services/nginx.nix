@@ -10,6 +10,7 @@ let
     mkIf
     mkOption
     mkDefault
+    mkMerge
     ;
   inherit (self.lib) mkServiceOption;
 
@@ -38,43 +39,45 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    networking = { inherit (cfg) domain; };
+  config = mkMerge [
+    { networking = { inherit (cfg) domain; }; }
 
-    users.users.nginx.extraGroups = [ "acme" ];
+    (mkIf cfg.enable {
+      users.users.nginx.extraGroups = [ "acme" ];
 
-    networking.firewall.allowedTCPPorts = [
-      80
-      443
-    ];
+      networking.firewall.allowedTCPPorts = [
+        80
+        443
+      ];
 
-    services.nginx = {
-      enable = true;
-      statusPage = true; # For monitoring scraping.
+      services.nginx = {
+        enable = true;
+        statusPage = true; # For monitoring scraping.
 
-      commonHttpConfig = ''
-        # real_ip_header CF-Connecting-IP;
-        add_header 'Referrer-Policy' 'origin-when-cross-origin';
-        add_header X-Frame-Options "SAMEORIGIN" always;
-        add_header X-Content-Type-Options nosniff;
-      '';
+        commonHttpConfig = ''
+          # real_ip_header CF-Connecting-IP;
+          add_header 'Referrer-Policy' 'origin-when-cross-origin';
+          add_header X-Frame-Options "SAMEORIGIN" always;
+          add_header X-Content-Type-Options nosniff;
+        '';
 
-      recommendedTlsSettings = true;
-      recommendedBrotliSettings = true;
-      recommendedOptimisation = true;
-      recommendedGzipSettings = true;
-      recommendedProxySettings = true;
+        recommendedTlsSettings = true;
+        recommendedBrotliSettings = true;
+        recommendedOptimisation = true;
+        recommendedGzipSettings = true;
+        recommendedProxySettings = true;
 
-      experimentalZstdSettings = true;
+        experimentalZstdSettings = true;
 
-      sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
-      sslProtocols = "TLSv1.3 TLSv1.2";
+        sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
+        sslProtocols = "TLSv1.3 TLSv1.2";
 
-      # undo the the changes we made to `services.nginx.virtualHosts`
-      virtualHosts.localhost = {
-        forceSSL = false;
-        enableACME = false;
+        # undo the the changes we made to `services.nginx.virtualHosts`
+        virtualHosts.localhost = {
+          forceSSL = false;
+          enableACME = false;
+        };
       };
-    };
-  };
+    })
+  ];
 }
