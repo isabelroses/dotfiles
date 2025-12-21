@@ -6,13 +6,13 @@
     ./attic.nix
     ./atuin.nix
     ./blahaj.nix
+    ./borgbackup.nix
     ./cloudflared.nix
     ./forgejo.nix
     ./immich.nix
     ./kanidm.nix
     # ./buildbot.nix
     ./lego.nix
-    ./borgbackup.nix
     ./mailserver.nix
     ./matrix.nix
     ./nginx.nix
