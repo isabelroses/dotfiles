@@ -14,6 +14,7 @@ in
 {
   options.garden.services.immich = mkServiceOption "immich" {
     port = 3007;
+    host = "0.0.0.0";
     domain = "photos.${rdomain}";
   };
 
@@ -40,6 +41,7 @@ in
       immich = {
         enable = true;
         inherit (cfg) port host;
+        openFirewall = true;
 
         # give it acess to all hardware devices
         accelerationDevices = null;
