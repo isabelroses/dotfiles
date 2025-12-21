@@ -16,6 +16,7 @@ let
     concatLines
     mod
     attrNames
+    attrValues
     foldl'
     min
     id
@@ -28,7 +29,7 @@ let
     imap0 (
       i: m:
       "monitor=${m.name},${toString m.width}x${toString m.height}@${toString m.refresh-rate},${toString (i * 1920)}x0,${toString m.scale}"
-    ) monitors
+    ) (attrValues monitors)
   );
 
   mapMonitorsToWs =
