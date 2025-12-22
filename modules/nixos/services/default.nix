@@ -10,6 +10,7 @@
     ./cloudflared.nix
     ./forgejo.nix
     ./immich.nix
+    ./jellyfin.nix
     ./kanidm.nix
     # ./buildbot.nix
     ./lego.nix

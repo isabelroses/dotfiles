@@ -39,6 +39,7 @@
     services = {
       cloudflared.enable = true;
       immich.enable = true;
+      jellyfin.enable = true;
       borgbackup.enable = true;
     };
   };
