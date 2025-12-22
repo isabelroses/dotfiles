@@ -84,6 +84,7 @@
         # "jordanbaird-ice@beta" # better status bar
         "helium-browser"
         "discord"
+        "jellyfin-media-player"
         "ghostty"
       ];
     };
