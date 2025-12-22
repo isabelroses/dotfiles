@@ -26,9 +26,9 @@ in
 
     # garden.packages = [ pkgs.intel-gpu-tools ];
 
-    environment.variables = mkIf (config.hardware.graphics.enable && device.gpu != "hybrid-nv") {
-      LIBVA_DRIVER_NAME = "iHD"; # prefer the modern backend
-      VDPAU_DRIVER = "va_gl";
-    };
+    # environment.variables = mkIf (config.hardware.graphics.enable && device.gpu != "hybrid-nv") {
+    #   LIBVA_DRIVER_NAME = "iHD"; # prefer the modern backend
+    #   VDPAU_DRIVER = "va_gl";
+    # };
   };
 }
