@@ -11,11 +11,9 @@ let
   cfg = config.garden.services.nixpkgs-prs-bot;
 in
 {
-  options.garden.services.nixpkgs-prs-bot = mkServiceOption "nixpkgs-prs-bot" {
-    extraConfig = {
-      fedi.enable = mkEnableOption "fedi";
-      bsky.enable = mkEnableOption "bsky";
-    };
+  options.garden.services.nixpkgs-prs-bot = mkServiceOption "nixpkgs-prs-bot" { } // {
+    fedi.enable = mkEnableOption "fedi";
+    bsky.enable = mkEnableOption "bsky";
   };
 
   config = mkIf cfg.enable (mkMerge [

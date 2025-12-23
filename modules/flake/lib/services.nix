@@ -29,7 +29,6 @@ let
       port ? 0,
       host ? "127.0.0.1",
       domain ? "",
-      extraConfig ? { },
     }:
     {
       enable = mkEnableOption "Enable the ${name} service";
@@ -52,8 +51,7 @@ let
         defaultText = "networking.domain";
         description = "Domain name for the ${name} service";
       };
-    }
-    // extraConfig;
+    };
 in
 {
   inherit mkGraphicalService mkServiceOption;
