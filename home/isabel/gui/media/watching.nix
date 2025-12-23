@@ -22,6 +22,9 @@ in
       inherit (inputs'.tgirlpkgs.packages) tidaluna;
     };
 
+    # i don't really like it LOL
+    catppuccin.mpv.enable = false;
+
     programs.mpv = {
       enable = true;
 
