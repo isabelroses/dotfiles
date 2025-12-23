@@ -103,28 +103,17 @@ in
           adminPasswordFile = config.sops.secrets.kanidm-admin-password.path;
           idmAdminPasswordFile = config.sops.secrets.kanidm-idm-admin-password.path;
 
-          persons = {
-            isabel = {
-              displayName = "isabel";
-              legalName = "isabel";
-              mailAddresses = [ "isabel@${rdomain}" ];
-              groups = [
-                "forgejo.access"
-                "forgejo.admins"
-                "linkwarden.access"
-                "wakapi.access"
-                "immich.access"
-              ];
-            };
-
-            robin = {
-              displayName = "robin";
-              legalName = "robin";
-              mailAddresses = [ "robin@${rdomain}" ];
-              groups = [
-                "forgejo.access"
-              ];
-            };
+          persons.isabel = {
+            displayName = "isabel";
+            legalName = "isabel";
+            mailAddresses = [ "isabel@${rdomain}" ];
+            groups = [
+              "forgejo.access"
+              "forgejo.admins"
+              "linkwarden.access"
+              "wakapi.access"
+              "immich.access"
+            ];
           };
 
           groups = {

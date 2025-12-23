@@ -33,10 +33,6 @@ in
         file = "mailserver";
         key = "jobs";
       };
-      mailserver-robin = mkSecret {
-        file = "mailserver";
-        key = "robin";
-      };
       mailserver-vaultwarden = mkSecret {
         file = "mailserver";
         key = "vaultwarden";
