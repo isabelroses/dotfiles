@@ -19,7 +19,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    garden.services.postgresql.enable = true;
+    garden.services = {
+      postgresql.enable = true;
+
+      borgbackup.jobs.immich = {
+        paths = [ config.services.immich.mediaLocation ];
+        exclude = [ "**/thumbs/**" ];
+        repo = "immich";
+        passkeyFile = config.sops.secrets.borg-immich-pass.path;
+      };
+    };
 
     sops.secrets = {
       immich-clientid = mkSecret {
@@ -259,28 +268,6 @@ in
 
           user.deleteDelay = 7;
         };
-      };
-
-      borgbackup.jobs.immich = mkIf config.garden.services.borgbackup.enable {
-        paths = [ config.services.immich.mediaLocation ];
-        repo = "zh6120@zh6120.rsync.net:immich";
-        environment.BORG_RSH = "ssh -i ${config.sops.secrets.borg-sshkey.path}";
-        encryption = {
-          mode = "repokey-blake2";
-          passCommand = "cat ${config.sops.secrets.borg-immich-pass.path}";
-        };
-        exclude = [ "**/thumbs/**" ];
-        extraArgs = [ "--remote-path=borg14" ];
-        extraCreateArgs = [
-          "--progress"
-          "--stats"
-        ];
-        compression = "auto,zstd";
-        startAt = "Sat 02:30";
-        prune.keep.last = 5;
-        inhibitsSleep = true;
-        persistentTimer = true;
-        doInit = false;
       };
 
       cloudflared.tunnels.${config.networking.hostName} = {
