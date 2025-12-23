@@ -116,10 +116,6 @@ in
         # which is BEYOND annoying, which makes this a really nice feature to have
         "auto-allocate-uids"
 
-        # allows Nix to execute builds inside cgroups
-        # remember you must also enable use-cgroups in the nix.conf or settings
-        "cgroups"
-
         # allow usage of the pipe operator in nix expressions
         "pipe-operator"
 
