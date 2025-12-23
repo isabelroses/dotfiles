@@ -69,6 +69,7 @@ in
             HTTP_PORT = cfg.port;
             DOMAIN = cfg.domain;
 
+            START_SSH_SERVER = false;
             # BUILTIN_SSH_SERVER_USER = "git";
             DISABLE_ROUTER_LOG = true;
             # LANDING_PAGE = "/explore/repos";
@@ -170,8 +171,6 @@ in
           ensureDBOwnership = true;
         };
       };
-
-      openssh.settings.AcceptEnv = "GIT_PROTOCOL";
 
       anubis = mkIf config.garden.services.anubis.enable {
         instances.forgejo.settings = {
