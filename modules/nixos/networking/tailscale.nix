@@ -35,22 +35,24 @@ in
 
     isClient = mkOption {
       type = bool;
-      default = cfg.enable;
+      default = config.garden.profiles.workstation.enable;
+      defaultText = lib.literalExpression "config.garden.profiles.workstation.enable";
       example = true;
       description = ''
         Whether the target host should utilize Tailscale client features";
-        This option is mutually exclusive with {option}`tailscale.isServer` as they both
+        This option is mutually exclusive with {option}`config.services.tailscale.isServer` as they both
         configure Taiscale, but with different flags
       '';
     };
 
     isServer = mkOption {
       type = bool;
-      default = !cfg.isClient;
+      default = config.garden.profiles.server.enable;
+      defaultText = lib.literalExpression "config.garden.profiles.server.enable";
       example = true;
       description = ''
         Whether the target host should utilize Tailscale server features.
-        This option is mutually exclusive with {option}`tailscale.isClient` as they both
+        This option is mutually exclusive with {option}`config.services.tailscale.isClient` as they both
         configure Taiscale, but with different flags
       '';
     };
