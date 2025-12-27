@@ -16,21 +16,13 @@ in
         bluetooth = false;
       };
 
-      system = {
-        boot = {
-          loader = "grub";
-          grub.device = "/dev/sda";
-          enableKernelTweaks = true;
-          initrd.enableTweaks = true;
-          loadRecommendedModules = true;
-          tmpOnTmpfs = false;
-        };
-
-        bluetooth.enable = false;
-
-        networking = {
-          optimizeTcp = false;
-        };
+      system.boot = {
+        loader = "grub";
+        grub.device = "/dev/sda";
+        enableKernelTweaks = true;
+        initrd.enableTweaks = true;
+        loadRecommendedModules = true;
+        tmpOnTmpfs = false;
       };
     };
   };

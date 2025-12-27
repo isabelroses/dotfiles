@@ -29,11 +29,6 @@
       };
 
       security.auditd.enable = true;
-
-      networking = {
-        optimizeTcp = true;
-        wirelessBackend = "iwd";
-      };
     };
 
     services = {

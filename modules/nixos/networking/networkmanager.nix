@@ -6,8 +6,6 @@
 }:
 let
   inherit (lib) mkIf optionalAttrs;
-
-  sys = config.garden.system;
 in
 {
   garden.packages = optionalAttrs config.garden.profiles.graphical.enable {
@@ -29,14 +27,13 @@ in
     ];
 
     wifi = {
-      # this can be iwd or wpa_supplicant, use wpa_s until iwd support is stable
-      backend = sys.networking.wirelessBackend;
+      # this can be iwd or wpa_supplicant
+      backend = "iwd";
+      powersave = true;
 
       # The below is disabled as my uni hated me for it
       # use a random mac address on every boot, this can scew with static ip
       # macAddress = "random";
-
-      powersave = true;
 
       # MAC address randomization of a Wi-Fi device during scanning
       scanRandMacAddress = true;

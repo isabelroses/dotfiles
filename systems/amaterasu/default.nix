@@ -45,11 +45,6 @@
       emulation.enable = true;
 
       security.auditd.enable = true;
-
-      networking = {
-        optimizeTcp = true;
-        wirelessBackend = "iwd";
-      };
     };
   };
 }
