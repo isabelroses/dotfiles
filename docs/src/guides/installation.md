@@ -65,3 +65,12 @@ nix develop
 ```sh
 just provision <host>
 ```
+
+# Imperative steps
+
+- login to atuin
+- login to gh cli
+-  install users scripts
+  - [bleh](https://github.com/katelyynn/bleh/raw/uwu/fm/bleh.user.js)
+  - [Info for merged pull requests](https://github.com/isabelroses/userscripts/raw/refs/heads/main/src/prs/script.user.js)
+  - [bluesky hide followers & likes](https://github.com/isabelroses/userscripts/raw/refs/heads/main/src/bsky-hide-follows/script.user.js)
