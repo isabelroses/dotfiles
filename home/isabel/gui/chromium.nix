@@ -5,6 +5,7 @@
 }:
 let
   inherit (lib)
+    mkIf
     concatLists
     concatMapStrings
     enableFeature
@@ -19,6 +20,8 @@ in
       "aihndpeeoneojofmliffjknbegmipbim" # at://wormhole
       "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
       "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
+      "ndcooeababalnlpkfedmmbbbgkljhpjf" # scriptcat
+      "ephjcajbkgplkjmelpglennepbpmdpjg" # ff2mpv
     ];
 
     package = pkgs.chromium.override {
@@ -182,5 +185,10 @@ in
         ]
       ];
     };
+  };
+
+  home.file = mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    "Library/Application Support/Chromium/NativeMessagingHosts/ff2mpv.json".source =
+      "${pkgs.ff2mpv}/etc/chromium/native-messaging-hosts/ff2mpv.json";
   };
 }

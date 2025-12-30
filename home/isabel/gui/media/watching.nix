@@ -6,21 +6,26 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkMerge;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 in
 {
   config = mkIf config.garden.profiles.media.watching.enable {
-    garden.packages = mkIf pkgs.stdenv.hostPlatform.isLinux {
-      inherit (pkgs)
-        syncplay
-        yt-dlp
-        ffmpeg
-        playerctl
-        ;
+    garden.packages = mkMerge [
+      {
+        inherit (pkgs) yt-dlp ff2mpv-rust;
+      }
 
-      inherit (inputs'.tgirlpkgs.packages) tidaluna;
-    };
+      (mkIf pkgs.stdenv.hostPlatform.isLinux {
+        inherit (pkgs)
+          syncplay
+          ffmpeg
+          playerctl
+          ;
+
+        inherit (inputs'.tgirlpkgs.packages) tidaluna;
+      })
+    ];
 
     # i don't really like it LOL
     catppuccin.mpv.enable = false;
