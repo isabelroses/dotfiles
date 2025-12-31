@@ -107,6 +107,13 @@
       repo = "nix-homebrew";
     };
 
+    spicetify = {
+      type = "github";
+      owner = "Gerg-L";
+      repo = "spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ### misc
     # declarative theme management
     catppuccin = {
