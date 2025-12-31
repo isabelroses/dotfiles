@@ -3,19 +3,6 @@ let
   inherit (lib) mkForce;
 in
 {
-  boot = {
-    # this can break things, particularly if you use containers
-    # personally I don't so it should be fine to disable this
-    enableContainers = false;
-
-    # We enable Systemd in the initrd so we can use it to mount the root
-    # filesystem this will remove Perl form the activation
-    initrd.systemd.enable = true;
-  };
-
-  # Declarative user management
-  services.userborn.enable = true;
-
   environment = {
     # disable stub-ld, this exists to kill dynamically linked executables, since they cannot work
     # on NixOS, however we know that so we don't need to see the warning
@@ -25,8 +12,6 @@ in
     # this list normally includes things like perl
     defaultPackages = mkForce [ ];
   };
-
-  system.etc.overlay.enable = true;
 
   programs = {
     # this is on by default. but i don't use nano
