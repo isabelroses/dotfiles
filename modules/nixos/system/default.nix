@@ -10,6 +10,7 @@
     ./logind.nix
     ./logs.nix
     ./misc.nix
+    ./modern.nix
     ./monitoring.nix
     ./oomd.nix
     ./printing.nix
