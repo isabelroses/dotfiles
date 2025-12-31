@@ -22,7 +22,12 @@ builder goal *args:
       |& {{ nom-cmd }}
 
 [group('rebuild')]
-deploy host *args: (builder "switch" "--target-host " + host "--use-substitutes " + args)
+deploy host *args:
+  #!/usr/bin/env bash
+  before=$(ssh host 'readlink -f /run/current-system')
+  before=$(echo "$before" | tail -n 1)
+  just builder "switch" "--target-host " + host "--use-substitutes " + args)
+  ssh {{ host }} 'lix-diff "$before" /run/current-system'
 
 [group('rebuild')]
 deploy-all:
@@ -42,7 +47,11 @@ test *args: (builder "test" args)
 
 # switch the new system configuration
 [group('rebuild')]
-switch *args: (builder "switch" args)
+switch *args:
+  #!/usr/bin/env bash
+  before="$(readlink -f /run/current-system)"
+  just builder "switch" args
+  lix-diff "$before" /run/current-system
 
 [group('rebuild')]
 [macos]
