@@ -19,6 +19,10 @@
     # see <https://github.com/NixOS/nixpkgs/blob/9bf13c9c35c9e80fab6fa3161ec0a09c1ec9a3be/pkgs/by-name/ni/nixos-init/README.md>
     nixos-init.enable = true;
 
+    # WARNING: this is the default, but this is here just to warn you not to change it
+    # at least for now as it will mean that /etc will not be re mounted on rebuilds
+    activatable = true;
+
     # mount /etc as a read-only overlay filesystem
     etc.overlay.enable = true;
   };
