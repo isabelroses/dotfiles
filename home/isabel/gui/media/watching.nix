@@ -2,7 +2,6 @@
   lib,
   pkgs,
   config,
-  inputs',
   ...
 }:
 let
@@ -22,8 +21,6 @@ in
           ffmpeg
           playerctl
           ;
-
-        inherit (inputs'.tgirlpkgs.packages) tidaluna;
       })
     ];
 

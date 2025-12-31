@@ -320,7 +320,7 @@ in
           # "no_screenshare on, tag:bitwarden"
 
           "workspace 6, class:discord" # move discord to workspace 6
-          "workspace 7, class:luna" # move tidal to workspace 7
+          "workspace 7, class:spotify" # move spotify to workspace 7
 
           # throw sharing indicators away
           "workspace special silent, title:^(Firefox — Sharing Indicator)$"

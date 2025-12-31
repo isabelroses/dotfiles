@@ -77,7 +77,6 @@
       casks = [
         # "loungy" # app launcher, too beta to use mainstream
         "gimp" # image editor
-        "tidal" # music player
         "raycast" # app launcher, and clipboard manager
         # "inkscape" # vector graphics editor
         # "intellij-idea" # IDE
