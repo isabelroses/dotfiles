@@ -36,6 +36,7 @@
       immich.enable = true;
       jellyfin.enable = true;
       borgbackup.enable = true;
+      slskd.enable = true;
     };
   };
 }

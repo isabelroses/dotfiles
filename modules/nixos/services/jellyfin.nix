@@ -17,14 +17,18 @@ in
   };
 
   config = mkIf config.garden.services.jellyfin.enable {
-    users.users.jellyfin.extraGroups = [
-      "video"
-      "render"
-    ];
+    users = {
+      groups.media = { };
+      users.jellyfin.extraGroups = [
+        "video"
+        "render"
+      ];
+    };
 
     services = {
       jellyfin = {
         enable = true;
+        group = "media";
         dataDir = "/srv/storage/jellyfin";
       };
 

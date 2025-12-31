@@ -24,6 +24,7 @@
     ./port-collector.nix
     ./postgresql.nix
     ./redis.nix
+    ./slskd.nix
     ./uptime-kuma.nix
     ./vaultwarden.nix
     ./wakapi.nix
