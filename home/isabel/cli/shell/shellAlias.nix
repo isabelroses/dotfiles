@@ -10,9 +10,5 @@
 
     zzzpl = "cd ~/.local/share/zzz ; git pull ; git push ; cd -";
     zzzbk = "cd ~/.local/share/zzz ; git add . ; git commit -m 'chore: sync changes' ; git push ; cd -";
-
-    # Remap docker to podman
-    docker = "podman";
-    docker-compose = "podman-compose";
   };
 }
