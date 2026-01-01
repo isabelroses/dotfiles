@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   inputs,
   inputs',
@@ -16,6 +17,16 @@ in
   config = mkIf config.garden.profiles.media.watching.enable {
     programs.spicetify = {
       enable = true;
+
+      spotifyPackage =
+        if pkgs.stdenv.hostPlatform.isLinux then
+          pkgs.spotify.override { ffmpeg_4 = pkgs.ffmpeg; }
+        else
+          pkgs.spotify;
+
+      colorScheme = "mocha";
+      theme = spicePkgs.themes.catppuccin;
+
       enabledExtensions = with spicePkgs.extensions; [
         shuffle
         copyToClipboard
@@ -25,8 +36,6 @@ in
         volumePercentage
         aiBandBlocker
       ];
-      theme = spicePkgs.themes.catppuccin;
-      colorScheme = "mocha";
     };
   };
 }
