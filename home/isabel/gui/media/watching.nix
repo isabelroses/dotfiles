@@ -32,8 +32,10 @@ in
 
       scripts =
         (with pkgs.mpvScripts; [
-          videoclip
           sponsorblock
+
+          # unify my clipboard
+          (videoclip.override { wl-clipboard = pkgs.wl-clipboard-rs; })
 
           # modern ui
           modernz

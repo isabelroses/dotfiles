@@ -54,7 +54,7 @@ in
         # jellyfin-media-player
         # insomnia # rest client
         swappy # used for screenshot area selection
-        wl-clipboard
+        wl-clipboard-rs
         wl-gammactl
         # keep-sorted end
         ;
