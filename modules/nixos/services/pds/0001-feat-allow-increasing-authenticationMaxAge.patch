@@ -1,0 +1,119 @@
+From 43eaf3e7fdc27150d96b24f1a88dad5ed8382b7c Mon Sep 17 00:00:00 2001
+From: isabel <isabel@isabelroses.com>
+Date: Fri, 2 Jan 2026 14:22:47 +0000
+Subject: [PATCH] feat: allow increasing authenticationMaxAge
+
+---
+ service/package.json                        |  5 +++
+ service/patches/@atproto__pds@0.4.193.patch | 45 +++++++++++++++++++++
+ service/pnpm-lock.yaml                      | 10 ++++-
+ 3 files changed, 58 insertions(+), 2 deletions(-)
+ create mode 100644 service/patches/@atproto__pds@0.4.193.patch
+
+diff --git a/service/package.json b/service/package.json
+index 1518182..db8967b 100644
+--- a/service/package.json
++++ b/service/package.json
+@@ -8,5 +8,10 @@
+   "license": "MIT",
+   "dependencies": {
+     "@atproto/pds": "0.4.193"
++  },
++  "pnpm": {
++    "patchedDependencies": {
++      "@atproto/pds@0.4.193": "patches/@atproto__pds@0.4.193.patch"
++    }
+   }
+ }
+diff --git a/service/patches/@atproto__pds@0.4.193.patch b/service/patches/@atproto__pds@0.4.193.patch
+new file mode 100644
+index 0000000..763b905
+--- /dev/null
++++ b/service/patches/@atproto__pds@0.4.193.patch
+@@ -0,0 +1,45 @@
++diff --git a/src/config/config.ts b/src/config/config.ts
++index cb73058485104d1687a41e627713a589a3d86f41..af6046d841cd46c9dbf4dbd655b36c53ce779f68 100644
++--- a/src/config/config.ts
+++++ b/src/config/config.ts
++@@ -317,6 +317,7 @@ export const envToCfg = (env: ServerEnvironment): ServerConfig => {
++             ),
++           },
++           trustedClients: env.trustedOAuthClients,
+++          authenticationMaxAge: env.oauthAuthenticationMaxAge,
++         },
++       }
++ 
++@@ -465,6 +466,8 @@ export type OAuthConfig = {
++     hcaptcha?: HcaptchaConfig
++     branding: BrandingInput
++     trustedClients?: string[]
+++    /** Maximum age of authentication before requiring re-authentication, in milliseconds. Defaults to 7 days. */
+++    authenticationMaxAge?: number
++   }
++ }
++ 
++diff --git a/src/config/env.ts b/src/config/env.ts
++index 630d198cd9596b962c794665e6ea29334798b645..2b650f0a5d2105b4388c8106d5822f97945618d7 100644
++--- a/src/config/env.ts
+++++ b/src/config/env.ts
++@@ -26,6 +26,7 @@ export const readEnv = (): ServerEnvironment => {
++ 
++     // OAuth
++     trustedOAuthClients: envList('PDS_OAUTH_TRUSTED_CLIENTS'),
+++    oauthAuthenticationMaxAge: envInt('PDS_OAUTH_AUTHENTICATION_MAX_AGE'),
++ 
++     // branding
++     lightColor: envStr('PDS_LIGHT_COLOR'),
++diff --git a/src/context.ts b/src/context.ts
++index 888dda2dcd5e6c13b481c42178adf9b05bf3c194..493505f595423a9997089c3f6c625af90edc46b5 100644
++--- a/src/context.ts
+++++ b/src/context.ts
++@@ -397,6 +397,7 @@ export class AppContext {
++           metadata: {
++             protected_resources: [new URL(cfg.oauth.issuer).origin],
++           },
+++          authenticationMaxAge: cfg.oauth.provider.authenticationMaxAge,
++           // If the PDS is both an authorization server & resource server (no
++           // entryway), we can afford to check the token validity on every
++           // request. This allows revoked tokens to be rejected immediately.
+diff --git a/service/pnpm-lock.yaml b/service/pnpm-lock.yaml
+index 94e2968..74ac393 100644
+--- a/service/pnpm-lock.yaml
++++ b/service/pnpm-lock.yaml
+@@ -4,10 +4,15 @@ settings:
+   autoInstallPeers: true
+   excludeLinksFromLockfile: false
+ 
++patchedDependencies:
++  '@atproto/pds@0.4.193':
++    hash: gk3bkdoinsdwryelnlnvcvh5bu
++    path: patches/@atproto__pds@0.4.193.patch
++
+ dependencies:
+   '@atproto/pds':
+     specifier: 0.4.193
+-    version: 0.4.193
++    version: 0.4.193(patch_hash=gk3bkdoinsdwryelnlnvcvh5bu)
+ 
+ packages:
+ 
+@@ -267,7 +272,7 @@ packages:
+       zod: 3.25.76
+     dev: false
+ 
+-  /@atproto/pds@0.4.193:
++  /@atproto/pds@0.4.193(patch_hash=gk3bkdoinsdwryelnlnvcvh5bu):
+     resolution: {integrity: sha512-Ltyf+ipMht0PDdKY7jcbYgPBTz+8Mpmt6mJGZTUYzyUFaDxdqqTeNlGb6cfsMevIh/tzL+JT11Gmtnq1PMtXLQ==}
+     engines: {node: '>=18.7.0'}
+     dependencies:
+@@ -324,6 +329,7 @@ packages:
+       - supports-color
+       - utf-8-validate
+     dev: false
++    patched: true
+ 
+   /@atproto/repo@0.8.10:
+     resolution: {integrity: sha512-REs6TZGyxNaYsjqLf447u+gSdyzhvMkVbxMBiKt1ouEVRkiho1CY32+omn62UkpCuGK2y6SCf6x3sVMctgmX4g==}
+-- 
+2.52.0
+

@@ -44,6 +44,10 @@ in
         enable = true;
         pdsadmin.enable = true;
 
+        package = pkgs.bluesky-pds.overrideAttrs (oa: {
+          patches = oa.patches or [ ] ++ [ ./0001-feat-allow-increasing-authenticationMaxAge.patch ];
+        });
+
         environmentFiles = [ config.sops.secrets.pds-env.path ];
 
         settings = {
@@ -75,6 +79,9 @@ in
           PDS_OAUTH_PROVIDER_ERROR_COLOR = "#F6598E";
 
           PDS_SERVICE_HANDLE_DOMAINS = ".tgirl.beauty";
+
+          # custom session duration: 30 days
+          PDS_OAUTH_AUTHENTICATION_MAX_AGE = 2592000000;
         };
       };
 
