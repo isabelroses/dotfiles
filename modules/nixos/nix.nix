@@ -1,10 +1,16 @@
-{ lib, ... }:
+{
+  lib,
+  config,
+  options,
+  modulesPath,
+  ...
+}:
 let
   lixModuleMerged = lib.pathExists "${modulesPath}/programs/lix.nix";
   nixDaemonCfg = config.systemd.services.nix-daemon;
 in
 {
-  config = mkMerge [
+  config = lib.mkMerge [
     {
       nix = {
         # set the nix store to clean every Monday at 3am
@@ -30,10 +36,9 @@ in
     # https://github.com/NixOS/nixpkgs/pull/469067
     (lib.mkIf (!lixModuleMerged) {
       systemd.services."nix-daemon@" = {
-        path = lib.subtractLists ((options.systemd.services.type.getSubOptions "").path.value) nixDaemonCfg.path;
-        environment = lib.filterAttrs (n: v: n != "PATH") nixDaemonCfg.environment;
-        serviceConfig = nixDaemonCfg.serviceConfig;
-        unitConfig = nixDaemonCfg.unitConfig;
+        path = lib.subtractLists (options.systemd.services.type.getSubOptions "").path.value nixDaemonCfg.path;
+        environment = lib.filterAttrs (n: _v: n != "PATH") nixDaemonCfg.environment;
+        inherit (nixDaemonCfg) serviceConfig unitConfig;
         stopIfChanged = false;
         restartIfChanged = false;
       };
@@ -41,7 +46,7 @@ in
       # stc can't restart socket units. it can only reload them, but reloading sockets is in invalid operation!
       systemd.services.lix-daemon-socket-permissions = {
         overrideStrategy = "asDropin";
-        restartTriggers = nixDaemonCfg.restartTriggers;
+        inherit (nixDaemonCfg) restartTriggers;
         stopIfChanged = false;
       };
     })
