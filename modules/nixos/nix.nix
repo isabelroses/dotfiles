@@ -1,10 +1,16 @@
-{ lib, ... }:
+{
+  lib,
+  config,
+  options,
+  modulesPath,
+  ...
+}:
 let
   lixModuleMerged = lib.pathExists "${modulesPath}/programs/lix.nix";
   nixDaemonCfg = config.systemd.services.nix-daemon;
 in
 {
-  config = mkMerge [
+  config = lib.mkMerge [
     {
       nix = {
         # set the nix store to clean every Monday at 3am
