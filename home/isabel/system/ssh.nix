@@ -36,7 +36,7 @@ in
 
       "aphrodite".hostname = "95.111.208.153";
 
-      "athena".hostname = "192.168.86.3";
+      "athena".hostname = "192.168.1.135";
 
       "aur.archlinux.org" = {
         user = "aur";
