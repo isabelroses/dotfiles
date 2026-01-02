@@ -22,8 +22,8 @@ lib.extendMkDerivation {
           fetchFromGitHub {
             owner = "vicinaehq";
             repo = "extensions";
-            rev = "ec7334e9bb636f4771580238bd3569b58dbce879";
-            hash = "sha256-C2b6upygLE6xUP/cTSKZfVjMXOXOOqpP5Xmgb9r2dhA=";
+            rev = "62f81e63d0420d6a310092746a96d7c105f7a53e";
+            hash = "sha256-Tqd5BOxfCtVWY19Gl32Fq5xsV3sTepItub20OQYgPmU=";
           }
           + "/extensions/${extName}"
         );
