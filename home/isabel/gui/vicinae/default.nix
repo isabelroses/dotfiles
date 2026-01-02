@@ -14,7 +14,7 @@ in
     extensions = map mkMyVicinaeExt [
       {
         extName = "nix";
-        npmDepsHash = "sha256-Zx+QPVWWppz6mvQKyu4c6ND8E4TeeK12assE2khE/sA=";
+        npmDepsHash = "sha256-HPWNUznCWVPz39PlPEBR7GpgbC0DuIAvVBdB2GAs47A=";
       }
       {
         extName = "wifi-commander";
@@ -24,10 +24,11 @@ in
         extName = "bluetooth";
         npmDepsHash = "sha256-cpyuJTc3a7oLibKUY2EhD33w8/35frfwIaGFKFezvts=";
       }
-      {
-        extName = "mullvad";
-        npmDepsHash = "sha256-WbnZtsTUMDHh2BojAjHUrca8aBw+OGXMMgX79Ek8wQ0=";
-      }
+      # broken
+      # {
+      #   extName = "mullvad";
+      #   npmDepsHash = "sha256-WbnZtsTUMDHh2BojAjHUrca8aBw+OGXMMgX79Ek8wQ0=";
+      # }
     ];
   };
 }
