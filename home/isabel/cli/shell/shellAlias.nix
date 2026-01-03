@@ -4,7 +4,6 @@
     mkdir = "mkdir -pv"; # always create pearent directory
     df = "df -h"; # human readblity
     rs = "systemctl reboot";
-    sysctl = "sudo systemctl";
     jctl = "journalctl -p 3 -xb"; # get error messages from journalctl
     lg = "lazygit";
 
