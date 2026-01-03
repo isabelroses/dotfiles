@@ -31,17 +31,36 @@ deploy host *args:
     set -euo pipefail
     before=$(ssh {{ host }} 'readlink /run/current-system')
     just builder switch --target-host {{ host }} --use-substitutes {{ args }}
-    ssh {{ host }} lix diff "$before"
+
+    if [[ -n "${DEPLOY_SUMMARY:-}" ]]; then
+        {
+            echo "===== {{ host }} ====="
+            ssh {{ host }} lix diff "$before"
+            echo
+        } >> "$DEPLOY_SUMMARY"
+    else
+        ssh {{ host }} lix diff "$before"
+    fi
 
 [group('rebuild')]
 [no-exit-message]
 deploy-all:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    export DEPLOY_SUMMARY=".deploy-summary"
+    : > "$DEPLOY_SUMMARY"
+
     just deploy minerva
     just deploy athena
     just deploy aphrodite
     just deploy skadi
     just deploy hephaestus
     just deploy isis
+
+    echo
+    echo "===== DEPLOYMENT SUMMARY ====="
+    cat "$DEPLOY_SUMMARY"
+    @rm "$DEPLOY_SUMMARY"
 
 # rebuild the boot
 [group('rebuild')]
