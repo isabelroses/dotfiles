@@ -44,9 +44,28 @@ in
         enable = true;
         pdsadmin.enable = true;
 
-        package = pkgs.bluesky-pds.overrideAttrs (oa: {
-          patches = oa.patches or [ ] ++ [ ./0001-feat-allow-increasing-authenticationMaxAge.patch ];
-        });
+        package = (pkgs.bluesky-pds.override { nodejs = pkgs.nodejs_22; }).overrideAttrs (
+          finalAttrs: oa: {
+            src = pkgs.fetchFromGitHub {
+              owner = "isabelroses";
+              repo = "pds-fork";
+              rev = "66c026acfcfd290ea962dd4d03379f0990d80071";
+              hash = "sha256-x+oh3YKcz2eWkAqg+jZKrh35UoGI6dLQXcEiGItTHKc=";
+            };
+
+            pnpmDeps = pkgs.fetchPnpmDeps {
+              inherit (finalAttrs)
+                pname
+                version
+                src
+                sourceRoot
+                ;
+              pnpm = pkgs.pnpm_9;
+              fetcherVersion = 2;
+              hash = "sha256-4qKWkINpUHzatiMa7ZNYp1NauU2641W0jHDjmRL9ipI=";
+            };
+          }
+        );
 
         environmentFiles = [ config.sops.secrets.pds-env.path ];
 
