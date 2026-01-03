@@ -29,10 +29,9 @@ builder goal *args:
 deploy host *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    before=$(ssh {{ host }} 'readlink -f /run/current-system')
-    before=$(echo "$before" | tail -n 1)
+    before=$(ssh {{ host }} 'readlink /run/current-system')
     just builder switch --target-host {{ host }} --use-substitutes {{ args }}
-    ssh {{ host }} 'lix-diff "$before" /run/current-system'
+    ssh {{ host }} lix diff "$before"
 
 [group('rebuild')]
 [no-exit-message]
@@ -59,9 +58,9 @@ test *args: (builder "test" args)
 switch *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    before=$(readlink -f /run/current-system)
+    before=$(readlink /run/current-system)
     just builder switch {{ args }}
-    lix-diff "$before" /run/current-system
+    lix diff "$before"
 
 [group('rebuild')]
 [macos]
