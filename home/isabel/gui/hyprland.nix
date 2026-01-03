@@ -215,9 +215,8 @@ in
         };
 
         layerrule = [
-          "blur,vicinae"
-          "ignorealpha 0, vicinae"
-          "noanim, vicinae"
+          "blur on, ignore_alpha 0, match:namespace vicinae"
+          "no_anim on, match:namespace vicinae"
         ];
 
         general = {
@@ -225,7 +224,6 @@ in
           gaps_out = 8;
           gaps_workspaces = 0;
           border_size = 2;
-          no_border_on_floating = true;
 
           "col.active_border" = "$pink";
           "col.inactive_border" = "$surface1";
@@ -294,37 +292,25 @@ in
           disable_autoreload = true; # autoreload is unnecessary on nixos, because the config is readonly anyway
         };
 
-        windowrulev2 = [
-          "float, title:^(nm-connection-editor)$"
-          "float, title:^(Network)$"
-          "float, title:^(xdg-desktop-portal-gtk)$"
-          "float, class:gay.vaskel.soteria"
-          "float, title:^(Picture-in-Picture)$"
-          "float, class:^(download)$"
+        windowrule = [
+          "float on, match:title ^(nm-connection-editor)$"
+          "float on, match:title ^(Network)$"
+          "float on, match:title ^(xdg-desktop-portal-gtk)$"
+          "float on, match:class gay.vaskel.soteria"
+          "float on, match:title ^(Picture-in-Picture)$"
+          "float on, match:class ^(download)$"
 
-          "center(1), initialTitle:(Open Files)"
-          "float, initialTitle:(Open Files)"
-          "size 40% 60%, initialTitle:(Open Files)"
+          "center on, float on, size (monitor_w*0.4) (monitor_h*0.6), match:initial_title (Open Files)"
+          "center on, float on, size (monitor_w*0.4) (monitor_h*0.6), match:class .blueman-manager-wrapped"
+          "center on, float on, size (monitor_w*0.4) (monitor_h*0.6), match:class com.saivert.pwvucontrol"
+          "float on, size 800 600, match:title Bitwarden"
 
-          "center(1), class:.blueman-manager-wrapped"
-          "float, class:.blueman-manager-wrapped"
-          "size 40% 60%, class:.blueman-manager-wrapped"
-
-          "center(1), class:com.saivert.pwvucontrol"
-          "float, class:com.saivert.pwvucontrol"
-          "size 40% 60%, class:com.saivert.pwvucontrol"
-
-          # we can't just use the tag because we want to capture the popup window
-          "float, title:Bitwarden"
-          "size 800 600, title:Bitwarden"
-          # "no_screenshare on, tag:bitwarden"
-
-          "workspace 6, class:discord" # move discord to workspace 6
-          "workspace 7, class:spotify" # move spotify to workspace 7
+          "workspace 6, match:class discord" # move discord to workspace 6
+          "workspace 7, match:class spotify" # move spotify to workspace 7
 
           # throw sharing indicators away
-          "workspace special silent, title:^(Firefox — Sharing Indicator)$"
-          "workspace special silent, title:^(.*is sharing (your screen|a window)\.)$"
+          "workspace special silent, match:title ^(Firefox — Sharing Indicator)$"
+          "workspace special silent, match:title ^(.*is sharing (your screen|a window).)$"
         ];
       };
 
