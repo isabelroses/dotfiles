@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf optionalAttrs;
+  inherit (lib) optionalAttrs;
 in
 {
   garden.packages = optionalAttrs config.garden.profiles.graphical.enable {
@@ -40,6 +40,6 @@ in
     };
 
     # causes server to be unreachable over SSH
-    ethernet.macAddress = mkIf (!config.garden.profiles.server.enable) "random";
+    # ethernet.macAddress = mkIf (!config.garden.profiles.server.enable) "random";
   };
 }
