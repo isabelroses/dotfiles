@@ -81,7 +81,7 @@ in
           PDS_SERVICE_HANDLE_DOMAINS = ".tgirl.beauty";
 
           # custom session duration: 30 days
-          PDS_OAUTH_AUTHENTICATION_MAX_AGE = 2592000000;
+          PDS_OAUTH_AUTHENTICATION_MAX_AGE = "2592000000";
         };
       };
 
