@@ -3,8 +3,7 @@ flake := env('FLAKE', justfile_directory())
 # rebuild is also set as a var so you can add --set to change it if you need to
 
 rebuild := if os() == "macos" { "sudo darwin-rebuild" } else { "nixos-rebuild" }
-system-args := if os() == "macos" { "" } else { "--sudo --no-reexec --log-format internal-json" }
-nom-cmd := if os() == "macos" { "nom" } else { "nom --json" }
+system-args := if os() == "macos" { "" } else { "--sudo --no-reexec" }
 
 [private]
 default:
@@ -20,9 +19,10 @@ builder goal *args:
     set -euo pipefail
     {{ rebuild }} {{ goal }} \
       --flake {{ flake }} \
+      --log-format internal-json \
       {{ system-args }} \
       {{ args }} \
-      |& {{ nom-cmd }}
+      |& nom --json
 
 [group('rebuild')]
 [no-exit-message]
