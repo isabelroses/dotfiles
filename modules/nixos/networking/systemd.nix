@@ -3,8 +3,7 @@ let
   inherit (lib) mkForce concatMapAttrs genAttrs;
 
   ethernetDevices = [
-    "wlp1s0f0u8" # wifi dongle
-    "enp7s0" # ethernet interface on the motherboard
+    "enp0s31f6" # ethernet interface on the motherboard
   ];
 in
 {
