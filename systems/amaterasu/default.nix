@@ -25,7 +25,7 @@
       keyboard = "us";
     };
 
-    services.xmrig.enable = true;
+    # services.xmrig.enable = true;
 
     system = {
       boot = {
