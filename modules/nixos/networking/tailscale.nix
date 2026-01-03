@@ -20,7 +20,10 @@ let
 in
 {
   options.garden.system.networking.tailscale = {
-    enable = mkEnableOption "Tailscale VPN";
+    enable = mkEnableOption "Tailscale VPN" // {
+      default = true;
+      defaultText = "true";
+    };
 
     defaultFlags = mkOption {
       type = listOf str;
