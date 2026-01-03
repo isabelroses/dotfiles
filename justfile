@@ -37,6 +37,7 @@ deploy host *args:
 [no-exit-message]
 deploy-all:
     just deploy minerva
+    just deploy athena
     just deploy aphrodite
     just deploy skadi
     just deploy hephaestus
