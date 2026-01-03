@@ -16,25 +16,28 @@ in
     # inactive until opensnitch UI is opened
     # services.opensnitch.enable = device.type != "server";
 
-    networking.firewall = {
-      enable = true;
-      package = pkgs.iptables;
+    networking = {
+      nftables.enable = true;
 
-      allowedTCPPorts = [ ];
-      allowedUDPPorts = [ ];
+      firewall = {
+        enable = true;
 
-      allowedTCPPortRanges = [ ];
-      allowedUDPPortRanges = [ ];
+        allowedTCPPorts = [ ];
+        allowedUDPPorts = [ ];
 
-      # allow servers to be pinnged, but not our clients
-      allowPing = config.garden.profiles.server.enable;
+        allowedTCPPortRanges = [ ];
+        allowedUDPPortRanges = [ ];
 
-      # make a much smaller and easier to read log
-      logReversePathDrops = true;
-      logRefusedConnections = false;
+        # allow servers to be pinnged, but not our clients
+        allowPing = config.garden.profiles.server.enable;
 
-      # Don't filter DHCP packets, according to nixops-libvirtd
-      checkReversePath = mkForce false;
+        # make a much smaller and easier to read log
+        logReversePathDrops = true;
+        logRefusedConnections = false;
+
+        # Don't filter DHCP packets, according to nixops-libvirtd
+        checkReversePath = mkForce false;
+      };
     };
   };
 }
