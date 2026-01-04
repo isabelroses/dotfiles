@@ -26,6 +26,7 @@ in
       jellyfin = {
         enable = true;
         dataDir = "/srv/storage/jellyfin";
+        group = "media";
       };
 
       cloudflared.tunnels.${config.networking.hostName} = {
