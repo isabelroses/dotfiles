@@ -44,7 +44,7 @@ in
         enable = true;
         pdsadmin.enable = true;
 
-        package = (pkgs.bluesky-pds.override { nodejs = pkgs.nodejs_22; }).overrideAttrs (
+        package = pkgs.bluesky-pds.overrideAttrs (
           finalAttrs: _: {
             src = pkgs.fetchFromGitHub {
               owner = "isabelroses";
