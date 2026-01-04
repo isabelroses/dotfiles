@@ -3,6 +3,7 @@
     # keep-sorted start
     ./akkoma
     ./anubis.nix
+    ./arr.nix
     ./attic.nix
     ./atuin.nix
     ./blahaj.nix
