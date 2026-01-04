@@ -27,6 +27,7 @@
     ./radarr.nix
     ./redis.nix
     ./sonarr.nix
+    ./transmission.nix
     ./uptime-kuma.nix
     ./vaultwarden.nix
     ./wakapi.nix
