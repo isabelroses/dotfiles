@@ -50,11 +50,16 @@ in
         watch-dir-enabled = true;
         watch-dir = "${arr.mediaDir}/downloads/watch";
 
-        umask = "002";
-
         rpc-port = cfg.port;
         rpc-bind-address = cfg.host;
         rpc-authentication-required = false;
+
+        rpc-whitelist-enabled = true;
+        rpc-whitelist = lib.concatStringsSep "," [
+          "127.0.0.1"
+          "::1"
+          "192.168.1.*"
+        ];
 
         blocklist-enabled = true;
         blocklist-url = "https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz";
@@ -65,12 +70,15 @@ in
         encryption = 1;
         port-forwarding-enabled = false;
 
+        utp-enabled = false;
+        umask = "002";
         peer-limit-global = 500;
         cache-size-mb = 256;
         download-queue-enabled = true;
         download-queue-size = 20;
         speed-limit-up = 500;
         speed-limit-up-enabled = true;
+        message-level = 4;
       };
     };
   };
