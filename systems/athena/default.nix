@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   imports = [ ./hardware.nix ];
 
@@ -38,4 +39,6 @@
       borgbackup.enable = true;
     };
   };
+
+  services.smartd.enable = lib.mkForce false;
 }
