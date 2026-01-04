@@ -5,7 +5,7 @@
   ...
 }:
 let
-  srvs = lib.mapAttrs (_: srv: srv.port) config.garden.services;
+  srvs = lib.mapAttrs (_: srv: srv.port or 0) config.garden.services;
 
   # from port = 3000; to servicesOnPort.3000 = [ "pds" "kittr" ];
   portsToServices = lib.foldl' (
