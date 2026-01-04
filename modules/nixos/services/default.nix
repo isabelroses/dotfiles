@@ -24,6 +24,7 @@
     ./piper.nix
     ./port-collector.nix
     ./postgresql.nix
+    ./prowlarr.nix
     ./radarr.nix
     ./redis.nix
     ./sonarr.nix
