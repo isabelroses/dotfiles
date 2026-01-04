@@ -26,6 +26,7 @@
     ./postgresql.nix
     ./radarr.nix
     ./redis.nix
+    ./sonarr.nix
     ./uptime-kuma.nix
     ./vaultwarden.nix
     ./wakapi.nix
