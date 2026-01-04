@@ -24,6 +24,7 @@
     ./piper.nix
     ./port-collector.nix
     ./postgresql.nix
+    ./radarr.nix
     ./redis.nix
     ./uptime-kuma.nix
     ./vaultwarden.nix
