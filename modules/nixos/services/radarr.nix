@@ -20,8 +20,7 @@ in
       inherit (cfg) enable;
       group = "media";
       dataDir = "/srv/storage/ranarr";
-      openFirewall = true;
-
+      inherit (config.garden.services.arr) openFirewall;
       settings.server.port = cfg.port;
     };
   };

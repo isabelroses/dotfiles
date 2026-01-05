@@ -18,7 +18,7 @@ in
   config = mkIf config.garden.services.prowlarr.enable {
     services.prowlarr = {
       enable = true;
-      openFirewall = true;
+      inherit (config.garden.services.arr) openFirewall;
       settings.server.port = cfg.port;
     };
 
