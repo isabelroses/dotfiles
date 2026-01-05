@@ -37,6 +37,11 @@ in
       default = "media";
       description = "Group that owns the media and content directories";
     };
+
+    openFirewall = mkEnableOption "open the firewall for the arr services" // {
+      default = true;
+      defaultText = "true";
+    };
   };
 
   config = lib.mkIf cfg.enable {

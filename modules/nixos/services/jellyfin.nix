@@ -27,6 +27,7 @@ in
         enable = true;
         dataDir = "/srv/storage/jellyfin";
         group = "media";
+        inherit (config.garden.services.arr) openFirewall;
       };
 
       cloudflared.tunnels.${config.networking.hostName} = {

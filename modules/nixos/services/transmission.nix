@@ -40,7 +40,7 @@ in
       enable = true;
       group = "media";
 
-      openFirewall = true;
+      inherit (config.garden.services.arr) openFirewall;
       home = "/srv/storage/transmission";
 
       settings = {
