@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   services.scx = {
     # inherit (config.garden.profiles.workstation) enable;
