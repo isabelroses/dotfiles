@@ -20,16 +20,12 @@
       };
     };
 
-    system = {
-      boot = {
-        loader = "systemd-boot";
-        secureBoot = false;
-        loadRecommendedModules = true;
-        enableKernelTweaks = true;
-        initrd.enableTweaks = true;
-      };
-
-      security.auditd.enable = true;
+    system.boot = {
+      loader = "systemd-boot";
+      secureBoot = false;
+      loadRecommendedModules = true;
+      enableKernelTweaks = true;
+      initrd.enableTweaks = true;
     };
 
     services = {
