@@ -1,3 +1,5 @@
+# A worthy read before attempting to change anything here:
+# <https://discourse.nixos.org/t/can-we-solve-the-nvidia-situation/73198>
 {
   lib,
   pkgs,
