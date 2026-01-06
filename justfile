@@ -29,13 +29,13 @@ builder goal *args:
 deploy host *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    before=$(ssh {{ host }} 'readlink /run/current-system')
+    before=$(ssh -q {{ host }} 'readlink /run/current-system')
     just builder switch --target-host {{ host }} --use-substitutes {{ args }}
 
     if [[ -n "${DEPLOY_SUMMARY:-}" ]]; then
         {
             echo "===== {{ host }} ====="
-            ssh {{ host }} lix diff "$before"
+            ssh -q {{ host }} lix diff "$before"
             echo
         } >> "$DEPLOY_SUMMARY"
     else
