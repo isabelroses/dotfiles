@@ -60,7 +60,7 @@ deploy-all:
     echo
     echo "===== DEPLOYMENT SUMMARY ====="
     cat "$DEPLOY_SUMMARY"
-    @rm "$DEPLOY_SUMMARY"
+    rm "$DEPLOY_SUMMARY"
 
 # rebuild the boot
 [group('rebuild')]
