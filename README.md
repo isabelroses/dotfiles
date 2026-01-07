@@ -10,26 +10,7 @@
 
 <br />
 
-![Preview image](./docs/src/images/main.png)
-
-<details>
-   <summary>more previews</summary>
-
-   <p align="center">
-      light mode
-      <img src="./docs/src/images/lightmode.png" width="800px" />
-   </p>
-
-   <p align="center">
-      wezterm + chromium
-      <img src="./docs/src/images/blur.png" width="800px" />
-   </p>
-
-   <p align="center">
-      neovim
-      <img src="./docs/src/images/nvim.png" width="800px" />
-   </p>
-</details>
+![Preview image](./docs/src/images/main.webp)
 
 ![image of my flakes topology](./docs/src/images/topology.png)
 

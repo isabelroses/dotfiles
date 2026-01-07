@@ -8,6 +8,12 @@
   <img alt="nixos-unstable" src="https://img.shields.io/badge/NixOS-unstable-blue.svg?style=for-the-badge&labelColor=303446&logo=NixOS&logoColor=white&color=91D7E3" />
 </div>
 
+<br />
+
+![Preview image](./docs/src/images/main.webp)
+
+![image of my flakes topology](./docs/src/images/topology.png)
+
 ### Foreword
 
 This repository contains my **personal** configuration for my systems, so its really important that you know it's **personal** and not everything will fit your needs.
@@ -22,3 +28,5 @@ Therefore most things will not work out of the box without some changes, so be w
 - Sensible defaults, so you can get started quickly
 - Docs kind of
 - [Catppuccin](https://github.com/catppuccin/catppuccin) everywhere.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=isabelroses/dotfiles&type=Date)](https://star-history.com/#isabelroses/dotfiles&Date)

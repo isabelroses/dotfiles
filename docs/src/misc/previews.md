@@ -1,5 +1,0 @@
-![Preview image](/images/main.png)
-![images/lightmode.png](/images/lightmode.png)
-![images/blur](/images/blur.png)
-![images/nvim](/images/nvim.png)
-![image of my flakes topology](/images/topology.png)
