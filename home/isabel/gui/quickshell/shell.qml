@@ -1,9 +1,10 @@
-//@ pragma IconTheme Cosmic
+//@ pragma IconTheme Adwaita
 
 import Quickshell
 import "root:/modules"
 
 Scope {
-  Bar {}
-  Desktop {}
+    Bar {}
+    Desktop {}
+    Osd {}
 }

@@ -6,6 +6,8 @@
       paths = [
         pkgs.quickshell
         pkgs.kdePackages.qtimageformats
+        pkgs.adwaita-icon-theme
+        pkgs.kdePackages.kirigami.unwrapped
       ];
       meta.mainProgram = pkgs.quickshell.meta.mainProgram;
     };

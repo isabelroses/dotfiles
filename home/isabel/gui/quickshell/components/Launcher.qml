@@ -2,25 +2,24 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
-import Quickshell.Widgets
+import "root:/data"
 
-IconImage {
-  id: launcher
-  source: Quickshell.iconPath("nix-snowflake")
+Item {
+    id: root
 
-  Layout.alignment: Qt.AlignCenter
+    Layout.alignment: Qt.AlignCenter
+    implicitWidth: 24
+    implicitHeight: 24
 
-  width: 16
-  height: 16
+    IconButton {
+        anchors.centerIn: parent
+        icon: "nix-snowflake"
+        size: 20
+        onClicked: launcherProcess.running = true
+    }
 
-  Process {
-    id: launcherProcess
-    command: ["vicinae", "toggle"]
-  }
-
-  MouseArea {
-    anchors.fill: parent
-    hoverEnabled: true
-    onClicked: launcherProcess.running = true;
-  }
+    Process {
+        id: launcherProcess
+        command: ["vicinae", "toggle"]
+    }
 }

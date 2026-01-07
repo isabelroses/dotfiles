@@ -4,46 +4,71 @@ import Quickshell.Io
 import QtQuick.Layouts
 import Quickshell.Hyprland
 import "root:/data"
-import "root:/services"
 
 Item {
-  id: workspaces
+    id: root
 
-  Layout.alignment: Qt.AlignCenter
+    Layout.alignment: Qt.AlignCenter
+    implicitWidth: 24
+    implicitHeight: workspaceColumn.implicitHeight
 
-  width: 20
-  height: 20
+    ColumnLayout {
+        id: workspaceColumn
+        anchors.horizontalCenter: parent.horizontalCenter
+        spacing: 4
 
-  ColumnLayout {
-    spacing: 20
+        Repeater {
+            model: Hyprland.workspaces
 
-    anchors.horizontalCenter: parent.horizontalCenter
+            delegate: Item {
+                id: workspaceItem
+                required property HyprlandWorkspace modelData
 
-    Repeater {
-      model: Hyprland.workspaces
+                Layout.alignment: Qt.AlignHCenter
+                implicitWidth: 24
+                implicitHeight: 24
 
-      delegate: Item {
-        id: workspace
-        required property HyprlandWorkspace modelData
+                Rectangle {
+                    anchors.centerIn: parent
+                    width: 22
+                    height: 22
+                    radius: 6
+                    color: workspaceItem.modelData.focused
+                        ? Settings.colors.accent
+                        : "transparent"
 
-        implicitWidth: 10
-        implicitHeight: 10
+                    Behavior on color {
+                        ColorAnimation { duration: 150 }
+                    }
 
-        MouseArea {
-          anchors.fill: parent
-          hoverEnabled: true
+                    Text {
+                        anchors.centerIn: parent
+                        text: workspaceItem.modelData.id
+                        color: workspaceItem.modelData.focused
+                            ? Settings.colors.background
+                            : Settings.colors.foreground
+                        font {
+                            pixelSize: 12
+                            weight: Font.Medium
+                        }
+                        opacity: workspaceItem.modelData.focused ? 1.0 : 0.6
 
-          onClicked: modelData.activate()
+                        Behavior on color {
+                            ColorAnimation { duration: 150 }
+                        }
+                        Behavior on opacity {
+                            NumberAnimation { duration: 150 }
+                        }
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    cursorShape: Qt.PointingHandCursor
+                    onClicked: workspaceItem.modelData.activate()
+                }
+            }
         }
-
-        Text {
-          font.pointSize: 13
-          Layout.alignment: Qt.AlignCenter
-
-          color: modelData.focused === modelData.id ? Settings.colors.accent : Settings.colors.foreground
-          text: modelData.id
-        }
-      }
     }
-  }
 }

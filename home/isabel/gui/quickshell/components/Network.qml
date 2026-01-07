@@ -1,15 +1,33 @@
-//@ pragma IconTheme Cosmic
-
+import QtQuick
 import QtQuick.Layouts
-import Quickshell
-import Quickshell.Widgets
+import QtQuick.Controls.Basic
+import "root:/data"
+import "root:/components"
 import "root:/services"
 
-IconImage {
-  id: networkIcon
-  source: Quickshell.iconPath(Networking.active.icon)
+Item {
+    id: root
 
-  width: 16
-  height: 16
-  Layout.alignment: Qt.AlignCenter
+    Layout.alignment: Qt.AlignCenter
+    implicitWidth: 20
+    implicitHeight: 20
+
+    MyIcon {
+        anchors.centerIn: parent
+        icon: Networking.icon
+        size: 18
+    }
+
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
+    }
+
+    ToolTip {
+        visible: mouseArea.containsMouse
+        text: Networking.statusText
+        delay: 500
+    }
 }
