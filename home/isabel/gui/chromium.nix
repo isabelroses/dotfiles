@@ -187,8 +187,13 @@ in
     };
   };
 
+  xdg.configFile = mkIf pkgs.stdenv.hostPlatform.isLinux {
+    "chromium/NativeMessagingHosts/ff2mpv.json".source =
+      "${pkgs.ff2mpv-rust}/etc/chromium/native-messaging-hosts/ff2mpv.json";
+  };
+
   home.file = mkIf pkgs.stdenv.hostPlatform.isDarwin {
     "Library/Application Support/Chromium/NativeMessagingHosts/ff2mpv.json".source =
-      "${pkgs.ff2mpv}/etc/chromium/native-messaging-hosts/ff2mpv.json";
+      "${pkgs.ff2mpv-rust}/etc/chromium/native-messaging-hosts/ff2mpv.json";
   };
 }
