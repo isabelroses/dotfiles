@@ -45,6 +45,11 @@ Singleton {
         checkStatus.running = true;
     }
 
+    function connectToNetwork(ssid) {
+        connectProc.command = ["nmcli", "d", "wifi", "connect", ssid];
+        connectProc.running = true;
+    }
+
     QtObject {
         id: internal
         property bool wifiEnabled: true
@@ -102,6 +107,11 @@ Singleton {
     Process {
         id: toggleWifiProc
         command: ["nmcli", "radio", "wifi", internal.wifiEnabled ? "off" : "on"]
+        onExited: checkStatus.running = true
+    }
+
+    Process {
+        id: connectProc
         onExited: checkStatus.running = true
     }
 

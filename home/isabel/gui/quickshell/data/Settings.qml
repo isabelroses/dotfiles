@@ -23,4 +23,9 @@ Singleton {
   }
 
   property string wallpaper: "/home/isabel/media/pictures/wallpapers/flowers.jpg";
+
+  // Notification settings
+  property list<string> notificationBlacklist: [
+    "Spotify"
+  ]
 }

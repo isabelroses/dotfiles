@@ -4,9 +4,10 @@ import Quickshell
 import Quickshell.Widgets
 import Quickshell.Wayland
 import Quickshell.Services.Pipewire
-import Quickshell.Services.Notifications
+import Quickshell.Services.Notifications as QsNotifications
 import "root:/data"
 import "root:/components"
+import "root:/services"
 
 Scope {
     id: root
@@ -53,7 +54,7 @@ Scope {
         osdHideTimer.restart();
     }
 
-    function showNotification(notification: Notification): void {
+    function showNotification(notification: QsNotifications.Notification): void {
         root.currentNotification = notification;
         root.notificationVisible = true;
         notificationHideTimer.restart();
@@ -71,14 +72,12 @@ Scope {
         onTriggered: root.notificationVisible = false
     }
 
-    // Notification Server
-    NotificationServer {
-        id: notificationServer
-        onNotification: (notification) => {
-            notification.tracked = true;
+    // Connect to the shared notification service
+    Connections {
+        target: Notifications
+        function onNewNotification(notification) {
             root.showNotification(notification);
         }
-        actionsSupported: true
     }
 
     Variants {
@@ -274,3 +273,4 @@ Scope {
         }
     }
 }
+
