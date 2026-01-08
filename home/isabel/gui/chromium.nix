@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }:
 let
@@ -187,7 +188,7 @@ in
     };
   };
 
-  xdg.configFile = mkIf pkgs.stdenv.hostPlatform.isLinux {
+  xdg.configFile = mkIf (pkgs.stdenv.hostPlatform.isLinux && config.programs.chromium.enable) {
     "chromium/NativeMessagingHosts/ff2mpv.json".source =
       "${pkgs.ff2mpv-rust}/etc/chromium/native-messaging-hosts/ff2mpv.json";
   };
