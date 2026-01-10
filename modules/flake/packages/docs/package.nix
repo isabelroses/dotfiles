@@ -16,17 +16,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   src = self + /docs;
 
-  nativeBuildInputs = [
-    mdbook
-    mdbook-alerts
-  ];
+  nativeBuildInputs = [ mdbook ];
 
   buildPhase = ''
     runHook preBuild
 
     mkdir -p theme
     cp ${finalAttrs.passthru.catppuccin-mdbook} theme/catppuccin.css
-    cp ${finalAttrs.passthru.catppuccin-alerts} theme/catppuccin-alerts.css
 
     cp -r ${libdoc} src/lib
 
@@ -45,14 +41,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
+    # TODO: update me when a new version is released
     catppuccin-mdbook = fetchurl {
       url = "https://github.com/catppuccin/mdBook/releases/download/v3.1.1/catppuccin.css";
       hash = "sha256-WSl6UaRfx2jwcDg/ZlDlRbB5zwBD7YIuHHPwFj5ldKM=";
-    };
-
-    catppuccin-alerts = fetchurl {
-      url = "https://github.com/catppuccin/mdBook/releases/download/v3.1.1/catppuccin-alerts.css";
-      hash = "sha256-TnOuFi/0LeIj9pwg9dgfyDpd1oZVCN18dvjp8uB+K78=";
     };
 
     serve = writeShellApplication {

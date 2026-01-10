@@ -1,7 +1,6 @@
 [book]
 authors = ["isabel roses"]
 language = "en"
-multilingual = false
 src = "src"
 title = "dotfiles"
 
@@ -13,8 +12,6 @@ create-missing = false
 default-theme = "latte"
 preferred-dark-theme = "mocha"
 git-repository-url = "https://github.com/isabelroses/dotfiles"
-git-repository-icon = "fa-code-fork"
+# git-repository-icon = "fa-code-fork"
 cname = "dotfiles.isabelroses.com"
-additional-css = ["./theme/catppuccin.css", "./theme/catppuccin-alerts.css"]
-
-[preprocessor.alerts]
+additional-css = ["./theme/catppuccin.css"]
