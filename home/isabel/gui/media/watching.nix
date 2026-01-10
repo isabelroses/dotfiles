@@ -113,6 +113,7 @@ in
         stop-screensaver = "yes";
         cursor-autohide = 100; # auto hide cursor after 100ms
         reset-on-next-file = "video-zoom,panscan,video-unscaled,video-rotate,video-align-x,video-align-y";
+        ytdl-raw-options = "cookies=~/documents/yt-dlp-cookies.txt";
       };
 
       profiles = {
