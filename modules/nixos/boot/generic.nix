@@ -52,7 +52,7 @@ in
 
     extraModprobeConfig = mkOption {
       type = str;
-      default = ''options hid_apple fnmode=1'';
+      default = "options hid_apple fnmode=1";
       description = "Extra modprobe config that will be passed to system modprobe config.";
     };
 
