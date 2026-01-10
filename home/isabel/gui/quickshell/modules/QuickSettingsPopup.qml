@@ -109,7 +109,8 @@ Scope {
                 spacing: 10
 
                 IconImage {
-                  source: Quickshell.iconPath(modelData.appIcon)
+                  source: Quickshell.iconPath(modelData?.appIcon ?? "application-x-executable")
+
                   implicitSize: 40
                   Layout.alignment: Qt.AlignVCenter
                 }
