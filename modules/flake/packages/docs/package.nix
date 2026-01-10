@@ -1,7 +1,6 @@
 {
   stdenvNoCC,
   mdbook,
-  mdbook-alerts,
   fetchurl,
   simple-http-server,
   writeShellApplication,
