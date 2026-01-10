@@ -27,12 +27,12 @@ These are some configuration or projects that I have taken inspiration from or f
 - [nixos-hardware](https://github.com/NixOS/nixos-hardware)
 - [getchoo/flake](https://github.com/getchoo/flake)
 - [uncenter/flake](https://github.com/uncenter/flake)
+- [lilyinstarlight/foosteros](https://github.com/lilyinstarlight/foosteros)
 
 # People
 
 Thanks to all these people otherwise this config and I would be lost.
 
-- [comfysage](https://github.com/comfysage), for making my day that bit brighter and occasionally putting me on your back
 - [getchoo](https://github.com/getchoo), for making catppucin/nix and helping a ton
 - [nullishamy](https://github.com/nullishamy), for tricking me into using NixOS
 - [nekowinston](https://github.com/nekowinston), for fixing half my problems
@@ -40,4 +40,5 @@ Thanks to all these people otherwise this config and I would be lost.
 - [nyxkrage](https://github.com/nyxkrage), for being there to answer my questions
 - [NotAShelf](https://github.com/notashelf), lots of valuable information
 - [Minion3665](https://github.com/Minion3665), for making me write better docs
+- [comfysage](https://github.com/comfysage), for the help with neovim
 - [Thorn](https://git.avery.garden/thorn), picrewnix????
