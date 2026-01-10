@@ -27,14 +27,9 @@ Item {
         return "audio-volume-muted-symbolic";
     }
 
-    IconButton {
+    MyIcon {
         anchors.centerIn: parent
         icon: root.iconName
         size: 18
-        onClicked: {
-            if (root.sink?.audio) {
-                root.sink.audio.muted = !root.sink.audio.muted;
-            }
-        }
     }
 }

@@ -17,17 +17,4 @@ Item {
         icon: Networking.icon
         size: 18
     }
-
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
-    }
-
-    ToolTip {
-        visible: mouseArea.containsMouse
-        text: Networking.statusText
-        delay: 500
-    }
 }

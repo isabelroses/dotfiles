@@ -5,8 +5,6 @@ import "root:/data"
 Item {
     id: root
 
-    signal clicked()
-
     Layout.alignment: Qt.AlignCenter
     implicitWidth: 30
     implicitHeight: 50
@@ -21,12 +19,5 @@ Item {
             weight: Font.Medium
         }
         horizontalAlignment: Text.AlignHCenter
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
-        onClicked: root.clicked()
     }
 }

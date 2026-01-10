@@ -207,7 +207,7 @@ Scope {
                     spacing: 12
 
                     IconImage {
-                        source: Quickshell.iconPath(root.currentNotification.appIcon)
+                        source: Quickshell.iconPath(root.currentNotification.appIcon ? root.currentNotification.appIcon : "application-x-executable")
                         implicitSize: 40
                         Layout.alignment: Qt.AlignTop
                     }

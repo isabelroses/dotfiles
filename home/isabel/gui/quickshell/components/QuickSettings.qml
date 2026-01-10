@@ -19,34 +19,7 @@ ColumnLayout {
             pixelSize: 14
             weight: Font.Bold
         }
-    }
-
-    // Connection Status Row (Ethernet indicator)
-    RowLayout {
-        Layout.fillWidth: true
-        spacing: 8
-        visible: Networking.ethernetConnected
-
-        MyIcon {
-            icon: "network-wired-symbolic"
-            size: 16
-        }
-
-        Text {
-            text: "Ethernet: " + Networking.ethernetDevice
-            color: Settings.colors.foreground
-            font.pixelSize: 12
-        }
-
-        Item { Layout.fillWidth: true }
-
-        Rectangle {
-            width: 8
-            height: 8
-            radius: 4
-            color: Settings.colors.success
-        }
-    }
+      }
 
     // Network Panel (expandable)
     Rectangle {
@@ -239,15 +212,23 @@ ColumnLayout {
         Layout.fillWidth: true
         spacing: 8
 
-        // WiFi Toggle
+        // Netoworking Toggle
         QuickSettingButton {
-            icon: Networking.wifiEnabled 
-                ? (Networking.activeWifi?.icon ?? "network-wireless-acquiring-symbolic")
-                : "network-wireless-disabled-symbolic"
-            label: "WiFi"
-            active: Networking.wifiEnabled
-            onClicked: Networking.toggleWifi()
-            onPressAndHold: networkPanel.visible = !networkPanel.visible
+            icon: Networking.icon
+            label: "Networking"
+            active: Networking.connected
+            onClicked: {
+                // Do nothing if ethernet is connected
+                if (Networking.ethernetConnected) return;
+
+                // otherwise lets actually do wifi stuff
+                Networking.toggleWifi()
+            }
+            onPressAndHold: {
+                if (Networking.ethernetConnected) return;
+
+                networkPanel.visible = !networkPanel.visible
+            }
         }
 
         // Bluetooth Toggle

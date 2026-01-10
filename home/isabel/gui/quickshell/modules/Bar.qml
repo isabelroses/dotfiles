@@ -9,6 +9,11 @@ import "root:/components"
 Scope {
     id: root
 
+    Process {
+      id: quickSettingsToggle
+      command: ["qs", "ipc", "call", "quicksettings", "toggle"]
+    }
+
     Variants {
         model: Quickshell.screens
 
@@ -47,18 +52,12 @@ Scope {
 
                     Launcher {}
 
-                    Rectangle {
-                        Layout.alignment: Qt.AlignHCenter
-                        width: 20
-                        height: 1
-                        color: Settings.colors.foreground
-                        opacity: 0.2
-                    }
+                    BarDivider {}
 
                     Workspaces {}
                 }
 
-                // Center section - Clock & Notifications
+                // Center section - Clock
                 ColumnLayout {
                     anchors {
                         horizontalCenter: parent.horizontalCenter
@@ -66,15 +65,10 @@ Scope {
                     }
                     spacing: 16
 
-                    Clock {
-                        onClicked: notiPanel.togglePopup()
-                    }
-                    Noti {
-                        id: notiPanel
-                    }
+                    Clock {}
                 }
 
-                // Bottom section - System tray, Volume, Network
+                // Bottom section - System tray, Notis, Volume, Network
                 ColumnLayout {
                     anchors {
                         horizontalCenter: parent.horizontalCenter
@@ -82,17 +76,18 @@ Scope {
                         bottomMargin: 12
                     }
                     spacing: 12
+                    MouseArea {
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        cursorShape: Qt.PointingHandCursor
+                        onClicked: quickSettingsToggle.running = true;
+                    }
 
                     SysTray {}
 
-                    Rectangle {
-                        Layout.alignment: Qt.AlignHCenter
-                        width: 20
-                        height: 1
-                        color: Settings.colors.foreground
-                        opacity: 0.2
-                    }
+                    BarDivider {}
 
+                    Noti { }
                     Volume {}
                     Network {}
                 }
