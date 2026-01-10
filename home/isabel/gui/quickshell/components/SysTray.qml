@@ -69,8 +69,8 @@ ColumnLayout {
         PopupWindow {
           id: popup
           anchor.window: trayItem.QsWindow.window
-          anchor.rect.x: parentWindow.width * 1.15
-          anchor.rect.y: parentWindow.height / 1.25
+          anchor.rect.x: (trayItem.QsWindow.window?.width ?? 0) * 1.15
+          anchor.rect.y: (trayItem.QsWindow.window?.height ?? 0) / 1.25
           visible: false
           color: "transparent"
 

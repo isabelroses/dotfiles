@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import Quickshell.Io
-import Quickshell.Services.Pipewire
 import "root:/data"
 import "root:/services"
 
@@ -250,44 +249,22 @@ ColumnLayout {
     }
 
     // Volume Slider
-    PwObjectTracker {
-        objects: [Pipewire.defaultAudioSink]
-    }
-
     StyledSlider {
-        icon: {
-            const muted = Pipewire.defaultAudioSink?.audio?.muted ?? false;
-            const vol = Pipewire.defaultAudioSink?.audio?.volume ?? 0;
-            if (muted) return "audio-volume-muted-symbolic";
-            if (vol > 0.66) return "audio-volume-high-symbolic";
-            if (vol > 0.33) return "audio-volume-medium-symbolic";
-            if (vol > 0) return "audio-volume-low-symbolic";
-            return "audio-volume-muted-symbolic";
-        }
-        value: Pipewire.defaultAudioSink?.audio?.volume ?? 0
+        icon: Pipewire.sinkIcon
+        value: Pipewire.sinkVolume
         iconClickable: true
-        onIconClicked: {
-            if (Pipewire.defaultAudioSink?.audio) {
-                Pipewire.defaultAudioSink.audio.muted = !Pipewire.defaultAudioSink.audio.muted;
-            }
-        }
-        onMoved: (val) => {
-            if (Pipewire.defaultAudioSink?.audio) {
-                Pipewire.defaultAudioSink.audio.volume = val;
-            }
-        }
+        onIconClicked: Pipewire.toggleSinkMute()
+        onMoved: (val) => Pipewire.setSinkVolume(val)
     }
 
     // Brightness Slider
-    BrightnessHelper { id: brightnessHelper }
-
     StyledSlider {
-        visible: brightnessHelper.available
+        visible: Brightness.available
         icon: "display-brightness-symbolic"
-        value: brightnessHelper.brightness
+        value: Brightness.brightness
         from: 0.05
         accentColor: Settings.colors.warning
-        onMoved: (val) => brightnessHelper.setBrightness(val)
+        onMoved: (val) => Brightness.setBrightness(val)
     }
 
     // Quick Setting Button Component
@@ -331,38 +308,4 @@ ColumnLayout {
             onPressAndHold: qsButton.pressAndHold()
         }
     }
-
-    // Brightness Helper Component
-    component BrightnessHelper: QtObject {
-        id: brightnessObj
-        property real brightness: 1.0
-        property bool available: false
-
-        function setBrightness(value) {
-            brightness = value;
-            setBrightnessProc.command = ["brightnessctl", "set", Math.round(value * 100) + "%"];
-            setBrightnessProc.running = true;
-        }
-
-        Component.onCompleted: getBrightness.running = true
-
-        property Process getBrightness: Process {
-            id: getBrightness
-            command: ["bash", "-c", "brightnessctl -m 2>/dev/null | cut -d, -f4 | tr -d '%'"]
-            stdout: SplitParser {
-                onRead: {
-                    const val = parseInt(data.trim());
-                    if (!isNaN(val)) {
-                        brightnessObj.brightness = val / 100;
-                        brightnessObj.available = true;
-                    }
-                }
-            }
-        }
-
-        property Process setBrightnessProc: Process {
-            id: setBrightnessProc
-        }
-      }
 }
-

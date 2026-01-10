@@ -86,7 +86,7 @@ Singleton {
         `]
         environment: ({ LANG: "C", LC_ALL: "C" })
         stdout: SplitParser {
-            onRead: {
+            onRead: data => {
                 const line = data.trim();
                 if (line.startsWith("WIFI:")) {
                     internal.wifiEnabled = line.includes("enabled");

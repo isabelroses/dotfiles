@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Wayland
-import Quickshell.Services.Pipewire
 import Quickshell.Services.Notifications as QsNotifications
 import "root:/data"
 import "root:/components"
@@ -23,33 +22,18 @@ Scope {
     property var currentNotification: null
     property bool notificationVisible: false
 
-    // Pipewire
-    PwObjectTracker {
-        objects: [Pipewire.defaultAudioSink]
+    // Connect to Pipewire service for volume changes
+    Connections {
+        target: Pipewire
+        function onSinkVolumeChanged() { showVolumeOsd(); }
+        function onSinkMutedChanged() { showVolumeOsd(); }
     }
-
-    property PwNode sink: Pipewire.defaultAudioSink
-    property real volume: sink?.audio?.volume ?? 0
-    property bool muted: sink?.audio?.muted ?? false
-
-    onVolumeChanged: showVolumeOsd()
-    onMutedChanged: showVolumeOsd()
 
     function showVolumeOsd(): void {
         root.osdType = "volume";
-        root.progress = root.volume;
-        if (root.muted) {
-            root.iconSource = "audio-volume-muted-symbolic";
-        } else if (root.volume > 0.66) {
-            root.iconSource = "audio-volume-high-symbolic";
-        } else if (root.volume > 0.33) {
-            root.iconSource = "audio-volume-medium-symbolic";
-        } else if (root.volume > 0) {
-            root.iconSource = "audio-volume-low-symbolic";
-        } else {
-            root.iconSource = "audio-volume-muted-symbolic";
-        }
-        root.osdText = Math.round(root.volume * 100) + "%";
+        root.progress = Pipewire.sinkVolume;
+        root.iconSource = Pipewire.sinkIcon;
+        root.osdText = Pipewire.sinkVolumeText;
         root.osdVisible = true;
         osdHideTimer.restart();
     }
@@ -207,9 +191,9 @@ Scope {
                     spacing: 12
 
                     IconImage {
-                        source: Quickshell.iconPath(root.currentNotification.appIcon ? root.currentNotification.appIcon : "application-x-executable")
-                        implicitSize: 40
-                        Layout.alignment: Qt.AlignTop
+                      source: root.currentNotification?.appIcon ?? Quickshell.iconPath("application-x-executable")
+                      implicitSize: 40
+                      Layout.alignment: Qt.AlignTop
                     }
 
                     ColumnLayout {
@@ -273,4 +257,3 @@ Scope {
         }
     }
 }
-

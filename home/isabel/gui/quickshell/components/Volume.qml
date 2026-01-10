@@ -1,8 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
-import Quickshell
-import Quickshell.Services.Pipewire
 import "root:/data"
+import "root:/services"
 
 Item {
     id: root
@@ -11,25 +10,9 @@ Item {
     implicitWidth: 20
     implicitHeight: 20
 
-    PwObjectTracker {
-        objects: [Pipewire.defaultAudioSink]
-    }
-
-    property PwNode sink: Pipewire.defaultAudioSink
-    property real volume: sink?.audio?.volume ?? 0
-    property bool muted: sink?.audio?.muted ?? false
-
-    property string iconName: {
-        if (muted) return "audio-volume-muted-symbolic";
-        if (volume > 0.66) return "audio-volume-high-symbolic";
-        if (volume > 0.33) return "audio-volume-medium-symbolic";
-        if (volume > 0) return "audio-volume-low-symbolic";
-        return "audio-volume-muted-symbolic";
-    }
-
     MyIcon {
         anchors.centerIn: parent
-        icon: root.iconName
+        icon: Pipewire.sinkIcon
         size: 18
     }
 }
