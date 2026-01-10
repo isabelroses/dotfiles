@@ -23,6 +23,7 @@ in
       "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
       "ndcooeababalnlpkfedmmbbbgkljhpjf" # scriptcat
       "ephjcajbkgplkjmelpglennepbpmdpjg" # ff2mpv
+      "kpmjjdhbcfebfjgdnpjagcndoelnidfj" # Control Panel for Twitter
     ];
 
     package = pkgs.chromium.override {
