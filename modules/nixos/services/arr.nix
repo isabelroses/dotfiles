@@ -50,7 +50,7 @@ in
       sonarr.enable = true;
       radarr.enable = true;
       prowlarr.enable = true;
-      transmission.enable = true;
+      qbittorrent.enable = true;
     };
 
     users.groups.media = { };
@@ -76,15 +76,11 @@ in
         genAttrs
           [
             "${cfg.mediaDir}/downloads"
-            "${cfg.mediaDir}/downloads/incomplete"
-            "${cfg.mediaDir}/downloads/watch"
-            "${cfg.mediaDir}/downloads/sonarr"
-            "${cfg.mediaDir}/downloads/radarr"
           ]
           (_: {
             d = {
               mode = "0755";
-              user = "transmission";
+              user = "qbittorrent";
               group = "media";
             };
           });
