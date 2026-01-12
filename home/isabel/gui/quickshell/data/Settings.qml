@@ -22,6 +22,8 @@ Singleton {
     property color border: "#1e1e2e"
   }
 
+  property string username: "isabel"
+  property string profilePicture: "/home/isabel/media/pictures/pfps/_current"
   property string wallpaper: "/home/isabel/media/pictures/wallpapers/flowers.jpg";
 
   // Notification settings

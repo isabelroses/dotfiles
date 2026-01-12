@@ -9,11 +9,6 @@ import "root:/components"
 Scope {
   id: root
 
-  Process {
-    id: quickSettingsToggle
-    command: ["qs", "ipc", "call", "quicksettings", "toggle"]
-  }
-
   Variants {
     model: Quickshell.screens
 
@@ -82,7 +77,7 @@ Scope {
             anchors.fill: parent
             hoverEnabled: true
             cursorShape: Qt.PointingHandCursor
-            onClicked: quickSettingsToggle.running = true;
+            onClicked: Runtime.toggleQuickSettings()
           }
 
           ColumnLayout {
