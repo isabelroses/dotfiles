@@ -28,7 +28,7 @@ LazyLoader {
 
     Rectangle {
       anchors.fill: parent
-      radius: 12
+      radius: Settings.rounding
       color: Settings.colors.background
 
       ColumnLayout {

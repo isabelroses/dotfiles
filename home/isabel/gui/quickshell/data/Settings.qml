@@ -25,6 +25,7 @@ Singleton {
   property string username: "isabel"
   property string profilePicture: "/home/isabel/media/pictures/pfps/_current"
   property string wallpaper: "/home/isabel/media/pictures/wallpapers/flowers.jpg";
+  property int rounding: 14
 
   // Notification settings
   property list<string> notificationBlacklist: [

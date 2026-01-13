@@ -33,7 +33,7 @@ Scope {
       Rectangle {
         id: bar
         anchors.fill: parent
-        radius: 12
+        radius: Settings.rounding
         color: Settings.colors.background
 
         // Top section - Launcher & Workspaces
