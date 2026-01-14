@@ -1,8 +1,32 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   inherit (lib) optionalString;
 in
 {
+  sops = {
+    secrets.env = { };
+
+    templates.fish-env = {
+      content = ''
+        function setup_secrets_vars;
+          if [ -n "$__SECRETS_SOURCED" ]
+            return
+          end
+          set -gx __SECRETS_SOURCED '1'
+          ${config.sops.placeholder.env}
+        end
+        setup_secrets_vars
+      '';
+
+      path = "${config.home.homeDirectory}/.config/fish/conf.d/sops-env.fish";
+    };
+  };
+
   programs.fish = {
     plugins = [ ];
 
@@ -28,7 +52,6 @@ in
     shellInit = ''
       # themeing
       set fish_greeting
-      export "MICRO_TRUECOLOR=1"
       set -g theme_display_date no
       set -g theme_nerd_fonts yes
       set -g theme_newline_cursor yes
