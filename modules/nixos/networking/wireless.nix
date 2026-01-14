@@ -15,9 +15,13 @@
       Settings.AutoConnect = true;
 
       General = {
+        # NOTE: networkmnager cannot control iwd address randomisation, so we
+        # have to set it manually here
+        #
         # more things that my uni hates me for
         # AddressRandomization = "network";
         # AddressRandomizationRange = "full";
+
         EnableNetworkConfiguration = true;
         RoamRetryInterval = 15;
       };
