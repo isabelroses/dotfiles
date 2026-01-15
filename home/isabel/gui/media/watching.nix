@@ -106,8 +106,7 @@ in
         screenshot-high-bit-depth = "yes"; # Same output bitdepth as the video
 
         # use English audio and subtitles if available
-        alang = "jpn,jp,en";
-        slang = "eng,en";
+        alang = "en,jpn,jp";
 
         # misc
         stop-screensaver = "yes";
