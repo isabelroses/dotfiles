@@ -29,14 +29,14 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "4c727440964c784ccc88c0e65e114997c8345b8f";
-          hash = "sha256-1ESUPQV1RmPnUYMD1OcihYwQrnn8JpErHLH0Dku21Gs=";
+          rev = "4f56316185939aaa0708bbe1ddfd1d05513cdefc";
+          hash = "sha256-yAgaJq8jY8mWtO5LrokeECBMrUfJcx78qKlt+smhp0k=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "b4193601b7f79d943e12009ec0a3e6ca45fd4007";
-          hash = "sha256-0QYDKwhM/LVXqKAORLtlJjzwjO5HOb4cqlurkGSESKQ=";
+          rev = "072a3dcd25bbb89262fa7a0e9d9cab3a071bce6b";
+          hash = "sha256-+2qy66bA9O8+IXd2v7xKBTJ9lhoLcKtQj+rF17I8T1U=";
         };
       };
     };
@@ -81,10 +81,10 @@
         # "inkscape" # vector graphics editor
         # "intellij-idea" # IDE
         # "jordanbaird-ice@beta" # better status bar
-        "helium-browser"
         "discord"
-        "jellyfin-media-player"
         "ghostty"
+        "helium-browser"
+        "jellyfin-media-player"
       ];
     };
   };
