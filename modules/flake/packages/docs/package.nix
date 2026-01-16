@@ -40,10 +40,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    # TODO: update me when a new version is released
     catppuccin-mdbook = fetchurl {
-      url = "https://github.com/catppuccin/mdBook/releases/download/v3.1.1/catppuccin.css";
-      hash = "sha256-WSl6UaRfx2jwcDg/ZlDlRbB5zwBD7YIuHHPwFj5ldKM=";
+      url = "https://github.com/catppuccin/mdBook/releases/download/v4.0.0/catppuccin.css";
+      hash = "sha256-4IvmqQrfOSKcx6PAhGD5G7I44UN2596HECCFzzr/p/8=";
     };
 
     serve = writeShellApplication {
