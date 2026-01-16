@@ -44,13 +44,13 @@ in
         enable = true;
         pdsadmin.enable = true;
 
-        package = pkgs.bluesky-pds.overrideAttrs (
+        package = (pkgs.bluesky-pds.override { pnpm_9 = pkgs.pnpm_10; }).overrideAttrs (
           finalAttrs: _: {
             src = pkgs.fetchFromGitHub {
               owner = "isabelroses";
               repo = "pds-fork";
-              rev = "66c026acfcfd290ea962dd4d03379f0990d80071";
-              hash = "sha256-x+oh3YKcz2eWkAqg+jZKrh35UoGI6dLQXcEiGItTHKc=";
+              rev = "d7ce67938146276ad27bfbd769b2bb4683b30775";
+              hash = "sha256-vK61hBae9p2qf9LOvBtkWFgNzm84Vfoux9osu/b8VdM=";
             };
 
             pnpmDeps = pkgs.fetchPnpmDeps {
@@ -60,9 +60,8 @@ in
                 src
                 sourceRoot
                 ;
-              pnpm = pkgs.pnpm_9;
-              fetcherVersion = 2;
-              hash = "sha256-4qKWkINpUHzatiMa7ZNYp1NauU2641W0jHDjmRL9ipI=";
+              fetcherVersion = 3;
+              hash = "sha256-muVT4STfdj+OA/k7Fteo8UwqT/XtYbmePpvgfQ5Q3Yo=";
             };
           }
         );
