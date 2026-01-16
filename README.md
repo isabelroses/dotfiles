@@ -12,7 +12,7 @@
 
 ![Preview image](./docs/src/images/main.webp)
 
-![image of my flakes topology](./docs/src/images/topology.png)
+![image of my flakes topology](./docs/src/images/topology.webp)
 
 ### Foreword
 
