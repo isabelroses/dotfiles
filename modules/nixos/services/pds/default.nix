@@ -42,7 +42,7 @@ in
     services = {
       bluesky-pds = {
         enable = true;
-        pdsadmin.enable = true;
+        pdsadmin.enable = false;
 
         package = (pkgs.bluesky-pds.override { pnpm_9 = pkgs.pnpm_10; }).overrideAttrs (
           finalAttrs: _: {
