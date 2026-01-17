@@ -43,6 +43,7 @@ in
       services.greetd = {
         enable = true;
         restart = true;
+        useTextGreeter = true;
 
         settings = {
           default_session = {
