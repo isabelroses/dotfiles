@@ -17,15 +17,17 @@ in
   config = lib.mkIf cond {
     garden.packages = {
       obsidian = pkgs.symlinkJoin {
-        name = "obsidian-wrapped";
+        name = "obsidian-wrapped-${pkgs.obsidian.version}";
         paths = attrValues {
           inherit (pkgs)
+            # include obsidian itself
+            obsidian
+
             # for the pandoc plugin
             pandoc
 
             # for the obsidian-git plugin
             gitMinimal
-            git-lfs
             ;
         };
         meta.mainProgram = pkgs.obsidian.meta.mainProgram;
