@@ -53,9 +53,9 @@ in
 
           BitTorrent = {
             "Session\\BTProtocol" = "TCP";
-            "Session\\DHTEnabled" = false;
+            "Session\\DHTEnabled" = true;
             "Session\\LSDEnabled" = false;
-            "Session\\PeXEnabled" = false;
+            "Session\\PeXEnabled" = true;
             "Session\\QueueingSystemEnabled" = false;
             "Session\\DefaultSavePath" = "/media/downloads";
           };
