@@ -14,9 +14,14 @@ in
   config = mkIf (device.gpu == "nvidia") {
     services.xserver.videoDrivers = [ "nvidia" ];
 
-    # Enables the Nvidia's experimental framebuffer device
-    # fix for the imaginary monitor that does not exist
-    boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
+    boot = {
+      # Enables the Nvidia's experimental framebuffer device
+      # fix for the imaginary monitor that does not exist
+      kernelParams = [ "nvidia_drm.fbdev=1" ];
+
+      # i don't care for the HDMI nvidia stuff
+      blacklistedKernelModules = [ "snd_hda_codec_hdmi" ];
+    };
 
     environment.sessionVariables = {
       LIBVA_DRIVER_NAME = "nvidia";
