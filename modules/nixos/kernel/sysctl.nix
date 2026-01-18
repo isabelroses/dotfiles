@@ -9,7 +9,12 @@
 # https://sysctl-explorer.net/
 #
 # we disable sysctl tweaks on wsl since they don't work
-{ lib, options, ... }:
+{
+  lib,
+  config,
+  options,
+  ...
+}:
 {
   boot.kernel.sysctl = lib.mkIf (!(options ? "wsl")) {
     # The Magic SysRq key is a key combo that allows users connected to the
@@ -25,7 +30,9 @@
     "kernel.kptr_restrict" = 2;
 
     # Disable bpf() JIT (to eliminate spray attacks)
-    "net.core.bpf_jit_enable" = false;
+    # if we decide to use the scx scheduler, we cannot disable bpf_jit
+    # <https://github.com/isabelroses/dotfiles/issues/591>
+    "net.core.bpf_jit_enable" = config.services.scx.enable;
 
     # Disable ftrace debugging
     "kernel.ftrace_enabled" = false;
