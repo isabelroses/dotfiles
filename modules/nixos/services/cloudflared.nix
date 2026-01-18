@@ -1,3 +1,5 @@
+# stop forgetting how to do this smh
+# <https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/local-management/create-local-tunnel/>
 {
   lib,
   self,
