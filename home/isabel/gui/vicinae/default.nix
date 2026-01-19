@@ -22,7 +22,7 @@ in
       }
       {
         extName = "bluetooth";
-        npmDepsHash = "sha256-cpyuJTc3a7oLibKUY2EhD33w8/35frfwIaGFKFezvts=";
+        npmDepsHash = "sha256-2F7D7DwNG/GAiE+o7srZhcOZzUiRjEVS9uWZAoD7sjo=";
       }
       # broken
       # {
