@@ -52,12 +52,12 @@
             enabled = true;
             config = {
               patterns = {
-                "://instagram.com/" = "://ddinstagram.com/";
+                "://instagram.com/" = "://vxinstagram.com/";
                 "://reddit.com/" = "://rxddit.com/";
                 "://tiktok.com/" = "://tnktok.com/";
                 "://twitter.com/" = "://vxtwitter.com/";
                 "://vm.tiktok.com/" = "://vm.tnktok.com/";
-                "://www.instagram.com/" = "://ddinstagram.com/";
+                "://www.instagram.com/" = "://vxinstagram.com/";
                 "://www.reddit.com/" = "://rxddit.com/";
                 "://x.com/" = "://vxtwitter.com/";
               };
