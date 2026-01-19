@@ -12,9 +12,6 @@ let
   inherit (config.garden.services) arr;
 in
 {
-  # <https://github.com/NixOS/nixpkgs/pull/472934>
-  imports = [ ./qui.nix ];
-
   options.garden.services.qbittorrent = mkServiceOption "qbittorrent" {
     port = 3019;
     host = "0.0.0.0";
