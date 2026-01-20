@@ -48,21 +48,32 @@ in
         serverConfig = {
           LegalNotice.Accepted = true;
 
-          BitTorrent = {
-            "Session\\BTProtocol" = "TCP";
-            "Session\\DHTEnabled" = true;
-            "Session\\LSDEnabled" = false;
-            "Session\\PeXEnabled" = true;
-            "Session\\QueueingSystemEnabled" = false;
-            "Session\\DefaultSavePath" = "/media/downloads";
+          BitTorrent.Session = {
+            BTProtocol = "TCP";
+            DHTEnabled = true;
+            LSDEnabled = false;
+            PeXEnabled = true;
+            QueueingSystemEnabled = false;
+
+            # sorting
+            DefaultSavePath = "/media/downloads";
+            DisableAutoTMMByDefault = false;
+            DisableAutoTMMTriggers = {
+              CategorySavePathChanged = false;
+              DefaultSavePathChanged = false;
+            };
           };
 
-          Preferences = {
-            "WebUI\\LocalHostAuth" = false;
+          Core.AutoDeleteAddedTorrentFile = "IfAdded";
+
+          # i will handle this myself lol
+          Network.PortForwardingEnabled = false;
+
+          Preferences.WebUI = {
+            LocalHostAuth = false;
 
             # generate with <https://codeberg.org/feathecutie/qbittorrent_password>
-            "WebUI\\Password_PBKDF2" =
-              "@ByteArray(2PRai2N/GL+Lt+VDdda0kw==:X4+iM6WwTPXExbBwJGcrHqxVsEN0cBxrhACiTMbEeQ6RjTdbfnJSB+CyTn3r1iJzEMMa0/XZzq2U1cG4O6AZZg==)";
+            WebUIPassword_PBKDF2 = "@ByteArray(2PRai2N/GL+Lt+VDdda0kw==:X4+iM6WwTPXExbBwJGcrHqxVsEN0cBxrhACiTMbEeQ6RjTdbfnJSB+CyTn3r1iJzEMMa0/XZzq2U1cG4O6AZZg==)";
           };
         };
       };

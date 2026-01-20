@@ -76,6 +76,8 @@ in
         genAttrs
           [
             "${cfg.mediaDir}/downloads"
+            "${cfg.mediaDir}/downloads/tv"
+            "${cfg.mediaDir}/downloads/movies"
           ]
           (_: {
             d = {
