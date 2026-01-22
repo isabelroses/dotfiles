@@ -11,6 +11,7 @@
     ./cloudflared.nix
     ./forgejo.nix
     ./glance.nix
+    ./hostling.nix
     ./immich.nix
     ./jellyfin.nix
     ./kanidm.nix

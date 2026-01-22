@@ -115,6 +115,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hostling = {
+      type = "github";
+      owner = "BatteredBunny";
+      repo = "hostling";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ### misc
     # declarative theme management
     catppuccin = {

@@ -28,6 +28,7 @@
       blahaj.enable = true;
       kanidm.enable = true;
       mailserver.enable = true;
+      hostling.enable = true;
 
       # web
       nginx.enable = true;
