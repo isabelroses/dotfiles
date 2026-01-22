@@ -205,6 +205,26 @@
         "type": "github"
       }
     },
+    "hostling": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769186374,
+        "narHash": "sha256-oNRJ2nYYsE+AI9lLUOK4HOwDOwOLtwDmHkWuQKFs+3Y=",
+        "owner": "BatteredBunny",
+        "repo": "hostling",
+        "rev": "72496221490e0e2af8d9c4796fc33db524c7bdae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "BatteredBunny",
+        "repo": "hostling",
+        "type": "github"
+      }
+    },
     "izlix": {
       "inputs": {
         "nixpkgs": [
@@ -334,6 +354,7 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "homebrew": "homebrew",
+        "hostling": "hostling",
         "izlix": "izlix",
         "izvim": "izvim",
         "lanzaboote": "lanzaboote",
