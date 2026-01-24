@@ -27,6 +27,7 @@ jobs:
           set -euo pipefail
           {
             echo "attributes<<EOF"
+            # shellcheck disable=SC2016
             nix eval --impure --json --expr '
               let
                 flake = (builtins.getFlake (toString ./.)).outputs;
