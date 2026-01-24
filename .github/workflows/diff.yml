@@ -1,0 +1,49 @@
+name: Lix Diff
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  lix-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install Lix
+        uses: samueldr/lix-gha-installer-action@v2025-10-27
+        with:
+          extra_nix_config: |
+            substituters = https://nix-community.cachix.org https://catppuccin.cachix.org https://cache.nixos.org/ https://cache.tgirl.cloud/tgirlcloud/
+            trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= tgirlcloud:EaOlHrpuOI6Zwmir3/MzqS9uA0Xn3gYr15/k/v0HIPo=
+
+      - name: Get Hosts
+        id: hosts
+        run: |
+          set -euo pipefail
+          {
+            echo "attributes<<EOF"
+            nix eval --impure --json --expr '
+              let
+                flake = (builtins.getFlake (toString ./.)).outputs;
+                mk = attr: toplevel:
+                  map (name: {
+                    displayName = name;
+                    attribute = "${attr}.${name}.${toplevel}";
+                  }) (builtins.attrNames (flake.${attr} or {}));
+              in
+                mk "nixosConfigurations" "config.system.build.toplevel"
+                ++ mk "darwinConfigurations" "system"
+              '
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Run lix-diff
+        uses: isabelroses/lix-diff-action@main
+        with:
+          attributes: ${{ steps.hosts.outputs.attributes }}
+          comment-strategy: update
