@@ -74,11 +74,7 @@
       # modified from
       # https://github.com/antifuchs/nix-flake-tests/blob/bbd9216bd0f6495bb961a8eb8392b7ef55c67afb/default.nix
       formatValue =
-        val:
-        if (builtins.isList val || builtins.isAttrs val) then
-          builtins.toJSON val
-        else
-          builtins.toString val;
+        val: if (builtins.isList val || builtins.isAttrs val) then builtins.toJSON val else toString val;
 
       resultToString =
         {
@@ -107,7 +103,7 @@
     {
       checks.lib =
         if res != [ ] then
-          builtins.throw (lib.strings.concatStringsSep "\n" (map resultToString (lib.debug.traceValSeq res)))
+          throw (lib.strings.concatStringsSep "\n" (map resultToString (lib.debug.traceValSeq res)))
         else
           pkgs.runCommandLocal "nix-flake-tests-success" { } "echo > $out";
     };

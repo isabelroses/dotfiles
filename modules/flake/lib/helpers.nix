@@ -217,10 +217,10 @@ let
     {
       "https://${domain}/".insteadOf = "${alias}:";
       "ssh://${user}@${domain}${
-        if (builtins.isNull port) then
+        if (port == null) then
           ""
         else if (builtins.isInt port) then
-          ":" + (builtins.toString port)
+          ":" + (toString port)
         else
           ":" + port
       }/".pushInsteadOf =

@@ -39,7 +39,7 @@ let
       ...
     }@args:
     let
-      args' = builtins.removeAttrs args [
+      args' = removeAttrs args [
         "file"
         "owner"
         "group"
