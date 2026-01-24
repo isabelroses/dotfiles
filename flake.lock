@@ -212,11 +212,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769186374,
-        "narHash": "sha256-oNRJ2nYYsE+AI9lLUOK4HOwDOwOLtwDmHkWuQKFs+3Y=",
+        "lastModified": 1769285610,
+        "narHash": "sha256-woxOgTS2C4OoSi9dkX4MrOcCcYbaG9473C1030REfAs=",
         "owner": "BatteredBunny",
         "repo": "hostling",
-        "rev": "72496221490e0e2af8d9c4796fc33db524c7bdae",
+        "rev": "2250f9a0cf03d4f8127523ffac4057fae714eda7",
         "type": "github"
       },
       "original": {
