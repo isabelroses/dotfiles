@@ -7,7 +7,6 @@ in
 {
   services.fail2ban = {
     enable = true;
-    banaction = "iptables-multiport[blocktype=DROP]";
     maxretry = 7;
     ignoreIP = [
       "127.0.0.0/8"
