@@ -55,37 +55,24 @@ in
 
     users.groups.media = { };
 
-    systemd.tmpfiles.settings = {
-      "media-content-dirs" =
-        genAttrs
-          [
-            "${cfg.mediaDir}/content"
-            "${cfg.mediaDir}/content/tv"
-            "${cfg.mediaDir}/content/movies"
-            "${cfg.mediaDir}/content/home"
-          ]
-          (_: {
-            d = {
-              mode = "0775";
-              user = cfg.mediaOwner;
-              group = cfg.mediaGroup;
-            };
-          });
+    systemd.tmpfiles.settings."media-content-dirs" =
+      genAttrs
+        [
+          "${cfg.mediaDir}/content"
+          "${cfg.mediaDir}/content/tv"
+          "${cfg.mediaDir}/content/movies"
+          "${cfg.mediaDir}/content/home"
 
-      "media-downloads-dirs" =
-        genAttrs
-          [
-            "${cfg.mediaDir}/downloads"
-            "${cfg.mediaDir}/downloads/tv"
-            "${cfg.mediaDir}/downloads/movies"
-          ]
-          (_: {
-            d = {
-              mode = "0755";
-              user = "qbittorrent";
-              group = "media";
-            };
-          });
-    };
+          "${cfg.mediaDir}/downloads"
+          "${cfg.mediaDir}/downloads/tv"
+          "${cfg.mediaDir}/downloads/movies"
+        ]
+        (_: {
+          d = {
+            mode = "0775";
+            user = cfg.mediaOwner;
+            group = cfg.mediaGroup;
+          };
+        });
   };
 }
