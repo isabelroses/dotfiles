@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - name: Maximize Space
-        uses: easimon/maximize-build-space@v10
+        uses: easimon/maximize-build-space@fc881a613ad2a34aca9c9624518214ebc21dfc0c # v10
         with:
           overprovision-lvm: true
           remove-android: true
@@ -25,12 +25,12 @@ jobs:
           remove-docker-images: true
 
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
 
       - name: Install Lix
-        uses: samueldr/lix-gha-installer-action@v2025-10-27
+        uses: samueldr/lix-gha-installer-action@8c7f8a4b0f594ab8a6dc3bf71c217587bbc756b5 # v2025-10-27
         with:
           extra_nix_config: |
             substituters = https://nix-community.cachix.org https://catppuccin.cachix.org https://cache.nixos.org/ https://cache.tgirl.cloud/tgirlcloud/

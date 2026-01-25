@@ -21,12 +21,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
 
       - name: Install Lix
-        uses: samueldr/lix-gha-installer-action@v2025-10-27
+        uses: samueldr/lix-gha-installer-action@8c7f8a4b0f594ab8a6dc3bf71c217587bbc756b5 # v2025-10-27
         with:
           extra_nix_config: |
             substituters = https://nix-community.cachix.org https://catppuccin.cachix.org https://cache.nixos.org/ https://cache.tgirl.cloud/tgirlcloud/
@@ -34,7 +34,7 @@ jobs:
 
       - name: Update Lockfile
         id: pr
-        uses: DeterminateSystems/update-flake-lock@v27
+        uses: DeterminateSystems/update-flake-lock@c5930b397a673a70ca70be06020e943aeac310a1 # v27
         with:
           commit-msg: "flake.lock: update all inputs"
           pr-title: "flake.lock: update all inputs"

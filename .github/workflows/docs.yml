@@ -19,12 +19,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           persist-credentials: false
 
       - name: Install Lix
-        uses: samueldr/lix-gha-installer-action@v2025-10-27
+        uses: samueldr/lix-gha-installer-action@8c7f8a4b0f594ab8a6dc3bf71c217587bbc756b5 # v2025-10-27
         with:
           extra_nix_config: |
             substituters = https://nix-community.cachix.org https://catppuccin.cachix.org https://cache.nixos.org/ https://cache.tgirl.cloud/tgirlcloud/
@@ -34,7 +34,7 @@ jobs:
         run: nix build -L .#docs
 
       - name: Upload Pages Artifact
-        uses: "actions/upload-pages-artifact@v4"
+        uses: "actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b" # v4.0.0
         with:
           path: "result/"
 
@@ -53,4 +53,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
