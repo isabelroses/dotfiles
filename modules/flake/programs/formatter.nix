@@ -15,6 +15,7 @@
           statix
           stylua
           taplo
+          zizmor
           # keep-sorted end
 
           (writeShellScriptBin "statix-fix" ''
@@ -98,6 +99,14 @@
               command = "taplo";
               options = "format";
               includes = [ "*.toml" ];
+            };
+
+            zizmor = {
+              command = "zizmor";
+              includes = [
+                ".github/workflows/*.yml"
+                ".github/workflows/*.yaml"
+              ];
             };
             # keep-sorted end
           };
