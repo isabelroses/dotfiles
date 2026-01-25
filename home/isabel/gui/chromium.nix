@@ -24,6 +24,7 @@ in
       "ndcooeababalnlpkfedmmbbbgkljhpjf" # scriptcat
       "ephjcajbkgplkjmelpglennepbpmdpjg" # ff2mpv
       "kpmjjdhbcfebfjgdnpjagcndoelnidfj" # Control Panel for Twitter
+      "cgpmbiiagnehkikhcbnhiagfomajncpa" # margin.at
     ];
 
     package = pkgs.chromium.override {
