@@ -20,6 +20,7 @@
         "https://dataswamp.org/~solene/rss-html.xml"
         "https://maia.crimew.gay/feed.xml"
         "https://github.com/moonlight-mod/extensions/commits.atom" # moonlight extensions
+        "https://clan.lol/feed.xml"
       ];
     };
   };
