@@ -10,7 +10,7 @@
     ./borgbackup.nix
     ./cloudflared.nix
     ./forgejo.nix
-    ./glance.nix
+    ./glance
     ./hostling.nix
     ./immich.nix
     ./jellyfin.nix
