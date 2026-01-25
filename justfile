@@ -35,11 +35,11 @@ deploy host *args:
     if [[ -n "${DEPLOY_SUMMARY:-}" ]]; then
         {
             echo "===== {{ host }} ====="
-            ssh -q {{ host }} lix diff "$before"
+            ssh -q {{ host }} TERM=xterm-256color lix diff "$before"
             echo
         } >> "$DEPLOY_SUMMARY"
     else
-        ssh {{ host }} lix diff "$before"
+        ssh {{ host }} TERM=xterm-256color lix diff "$before"
     fi
 
 [group('rebuild')]
