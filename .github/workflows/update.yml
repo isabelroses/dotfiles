@@ -60,6 +60,14 @@ jobs:
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
 
+  diff:
+    name: Lix Diff
+    needs: update-lockfile
+
+    uses: ./.github/workflows/diff.yml
+    with:
+      ref: ${{ needs.update-lockfile.outputs.branch }}
+
   merge:
     name: Merge Pull Request
     needs: [update-lockfile, check, check-lock]

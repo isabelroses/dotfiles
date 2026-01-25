@@ -2,6 +2,11 @@ name: Lix Diff
 
 on:
   pull_request:
+  workflow_call:
+    inputs:
+      ref:
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -13,6 +18,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref && inputs.ref || github.ref_name }}
+          persist-credentials: false
 
       - name: Install Lix
         uses: samueldr/lix-gha-installer-action@v2025-10-27
