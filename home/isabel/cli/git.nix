@@ -190,6 +190,10 @@ in
               domain = "git.isabelroses.com";
               alias = "me";
             }
+            {
+              domain = "tangled.org";
+              alias = "tangled";
+            }
           ]
         );
       };
