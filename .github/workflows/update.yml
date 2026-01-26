@@ -36,6 +36,7 @@ jobs:
         id: pr
         uses: DeterminateSystems/update-flake-lock@c5930b397a673a70ca70be06020e943aeac310a1 # v27
         with:
+          token: ${{ secrets.GH_TOKEN_UPDATES }}
           commit-msg: "flake.lock: update all inputs"
           pr-title: "flake.lock: update all inputs"
           branch: update-flake-inputs
@@ -57,18 +58,6 @@ jobs:
     needs: update-lockfile
 
     uses: ./.github/workflows/check-lock.yml
-    with:
-      ref: ${{ needs.update-lockfile.outputs.branch }}
-
-  diff:
-    name: Lix Diff
-    needs: update-lockfile
-
-    permissions:
-      contents: read
-      pull-requests: write
-
-    uses: ./.github/workflows/diff.yml
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
 
