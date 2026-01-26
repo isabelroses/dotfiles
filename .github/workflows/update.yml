@@ -64,6 +64,10 @@ jobs:
     name: Lix Diff
     needs: update-lockfile
 
+    permissions:
+      contents: read
+      pull-requests: write
+
     uses: ./.github/workflows/diff.yml
     with:
       ref: ${{ needs.update-lockfile.outputs.branch }}
