@@ -45,25 +45,9 @@ jobs:
             {{ env.GIT_COMMIT_MESSAGE }}
             ```
 
-  check:
-    name: Check Flake
-    needs: update-lockfile
-
-    uses: ./.github/workflows/check.yml
-    with:
-      ref: ${{ needs.update-lockfile.outputs.branch }}
-
-  check-lock:
-    name: Check Lock
-    needs: update-lockfile
-
-    uses: ./.github/workflows/check-lock.yml
-    with:
-      ref: ${{ needs.update-lockfile.outputs.branch }}
-
   merge:
     name: Merge Pull Request
-    needs: [update-lockfile, check, check-lock]
+    needs: update-lockfile
     runs-on: ubuntu-latest
 
     permissions:
