@@ -106,6 +106,7 @@
       type = "github";
       owner = "zhaofengli";
       repo = "nix-homebrew";
+      inputs.brew-src.follows = "";
     };
 
     spicetify = {

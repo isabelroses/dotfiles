@@ -15,6 +15,13 @@
     nix-homebrew = {
       enable = true;
 
+      package = pkgs.fetchFromGitHub {
+        owner = "homebrew";
+        repo = "brew";
+        rev = "d01011cac6d72032c75fd2cd9489909e95d9faf2"; # version 5.0.12
+        hash = "sha256-BiGPeulrDVetXP+tjxhMcGLUROZAtZIhU5m4MqawCfM=";
+      };
+
       # I want to force us to only use declarative taps
       mutableTaps = false;
 
@@ -29,14 +36,14 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "4f56316185939aaa0708bbe1ddfd1d05513cdefc";
-          hash = "sha256-yAgaJq8jY8mWtO5LrokeECBMrUfJcx78qKlt+smhp0k=";
+          rev = "4d2a2d8fc9d623505079ceafbbd737db551baa41";
+          hash = "sha256-lcXa2ypf8YpKl6zn5sJvkXKB7ENMmOEGCZK0ISYQJE0=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "072a3dcd25bbb89262fa7a0e9d9cab3a071bce6b";
-          hash = "sha256-+2qy66bA9O8+IXd2v7xKBTJ9lhoLcKtQj+rF17I8T1U=";
+          rev = "c4fea0914d393a384a2ffcf2560fcb6da51925c4";
+          hash = "sha256-RaF3hSvG5wLX7pYQ8QdNYzIakTU+MOrqlBRP4SSfqHE=";
         };
       };
     };
@@ -71,7 +78,7 @@
       taps = builtins.attrNames config.nix-homebrew.taps;
 
       # `brew install`
-      brews = [ "openjdk" ];
+      brews = [ ];
 
       # `brew install --cask`
       casks = [
