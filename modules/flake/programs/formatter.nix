@@ -15,6 +15,7 @@
           statix
           stylua
           taplo
+          yamlfmt
           zizmor
           # keep-sorted end
 
@@ -99,6 +100,18 @@
               command = "taplo";
               options = "format";
               includes = [ "*.toml" ];
+            };
+
+            yamlfmt = {
+              command = "yamlfmt";
+              options = [
+                "-formatter"
+                "retain_line_breaks_single=true"
+              ];
+              includes = [
+                "*.yml"
+                "*.yaml"
+              ];
             };
 
             zizmor = {

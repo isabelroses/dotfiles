@@ -12,15 +12,15 @@ creation_rules:
   - path_regex: secrets/isabel\.yaml
     key_groups:
       - age:
-        - *isabel
+          - *isabel
 
   - path_regex: secrets/services/[^/]+\.(yaml|json|env|ini)$
     key_groups:
       - age:
-        - *isabel
-        - *minerva
-        - *skadi
-        - *athena
-        - *aphrodite
-        - *isis
-        - *hephaestus
+          - *isabel
+          - *minerva
+          - *skadi
+          - *athena
+          - *aphrodite
+          - *isis
+          - *hephaestus
