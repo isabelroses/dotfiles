@@ -32,6 +32,8 @@ in
         };
         meta.mainProgram = pkgs.obsidian.meta.mainProgram;
       };
+
+      inherit (pkgs) zotero;
     };
 
     programs.zk = {

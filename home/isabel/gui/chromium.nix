@@ -25,6 +25,7 @@ in
       "ephjcajbkgplkjmelpglennepbpmdpjg" # ff2mpv
       "kpmjjdhbcfebfjgdnpjagcndoelnidfj" # Control Panel for Twitter
       "cgpmbiiagnehkikhcbnhiagfomajncpa" # margin.at
+      "ekhagklcjbdpajgpjgmbionohlpdbjgc" # zeroto connector
     ];
 
     package = pkgs.chromium.override {
