@@ -157,11 +157,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769544286,
-        "narHash": "sha256-tJzEPNC6fMCzF4W8h2YdnvjlI4TpRV/yJg9cTnbwkfc=",
+        "lastModified": 1769638001,
+        "narHash": "sha256-hGwdJ/+oo+IRo2TiWV/V8BWWptQihcdFV/olTONaHqg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "d505dc46dc9831d1db4e7d6e323b2c42d5eba3e6",
+        "rev": "bd9f031efc634be4b80c5090b9171cc3a9f8e49c",
         "type": "github"
       },
       "original": {
@@ -215,11 +215,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769563030,
-        "narHash": "sha256-iwnwTgtGWTVS/9R5QxzYxHiO3Hw3ZdU/zSsz8xQx4zk=",
+        "lastModified": 1769650014,
+        "narHash": "sha256-34thwepWyS8UmEuChz8u1EvVbAx/Ntab7eXAGGgka08=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "3fde535ea19f6ba83f54db4d2645f64da5da23a2",
+        "rev": "f9b4c9a8c2605d893c509bee0c6dc09c2513656e",
         "type": "github"
       },
       "original": {
@@ -236,11 +236,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768966949,
-        "narHash": "sha256-7EP6fEtp32IPbwSUPeERxslcnPHql1T7sZhChnLZ78M=",
+        "lastModified": 1769571833,
+        "narHash": "sha256-gpinpTE3OZc7mmtmPe3fFeUpWj27S+qjLrdxPFTzcaE=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "a57339d52dbb8c8d18b35123a9435c64e44da4f4",
+        "rev": "b766643d82fd22f7d8bed45c579f6b8a22c37e41",
         "type": "github"
       },
       "original": {
@@ -295,11 +295,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1769433173,
-        "narHash": "sha256-XbbfHzR238bSuaXUsOj6zJnCqU2C2xeHcZYKlfwxCso=",
-        "rev": "13b0f9e6ac78abbbb736c635d87845c4f4bee51b",
+        "lastModified": 1769527094,
+        "narHash": "sha256-wHUZguLHxHpnrVW523J8oILdQcFPIUIn+021gBYpOuY=",
+        "rev": "afce96367b2e37fc29afb5543573cd49db3357b7",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre934966.13b0f9e6ac78/nixexprs.tar.xz?lastModified=1769433173&rev=13b0f9e6ac78abbbb736c635d87845c4f4bee51b"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre935717.afce96367b2e/nixexprs.tar.xz?lastModified=1769527094&rev=afce96367b2e37fc29afb5543573cd49db3357b7"
       },
       "original": {
         "type": "tarball",
@@ -457,11 +457,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1769561752,
-        "narHash": "sha256-JG4hTMVDGB9a+LGkDW6hpY5JVPaOrgWCPP9P3Pm0ZN0=",
+        "lastModified": 1769648544,
+        "narHash": "sha256-81eoHWzwOcG0RamW8TwM8GoGjrV7kZkP08QJ5ieUJsE=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "ffe16a6d3c086d3fd09361a9b58b3cc6373c11c1",
+        "rev": "95cfffadf3ce9c4c29b2053be966a108cf781183",
         "type": "github"
       },
       "original": {
