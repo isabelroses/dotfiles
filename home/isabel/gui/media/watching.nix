@@ -171,8 +171,10 @@ in
         };
 
         videoclip = {
-          video_folder_path = "~/media/videos";
-          audio_folder_path = "~/media/music";
+          video_folder_path = "~/media/videos/clips";
+          audio_folder_path = "~/media/music/clips";
+          video_quality = 0; # maintain orginal quality
+          custom_upload_command = "cdnadd %f";
         };
       };
     };
