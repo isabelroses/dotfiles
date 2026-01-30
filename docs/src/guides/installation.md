@@ -74,3 +74,4 @@ just provision <host>
   - [bleh](https://github.com/katelyynn/bleh/raw/uwu/fm/bleh.user.js)
   - [Info for merged pull requests](https://github.com/isabelroses/userscripts/raw/refs/heads/main/src/prs/script.user.js)
   - [bluesky hide followers & likes](https://github.com/isabelroses/userscripts/raw/refs/heads/main/src/bsky-hide-follows/script.user.js)
+- grab all my scripts: `git clone me:isabel/skid ~/.local/bin`
