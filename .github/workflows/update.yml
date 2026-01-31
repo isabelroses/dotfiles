@@ -15,10 +15,6 @@ jobs:
       pull-requests: write
       contents: write
 
-    outputs:
-      pr: ${{ steps.pr.outputs.pull-request-url }}
-      branch: ${{ steps.pr.outputs.pull-request-branch }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -45,19 +41,8 @@ jobs:
             {{ env.GIT_COMMIT_MESSAGE }}
             ```
 
-  merge:
-    name: Merge Pull Request
-    needs: update-lockfile
-    runs-on: ubuntu-latest
-
-    permissions:
-      pull-requests: write
-      contents: write
-
-    steps:
       - name: Merge Pull Request
         run: gh pr merge --rebase --auto --delete-branch "$PR"
         env:
           GH_TOKEN: ${{ github.token }}
-          PR: ${{ needs.update-lockfile.outputs.pr }}
-
+          PR: ${{ steps.pr.outputs.pull-request-url }}
