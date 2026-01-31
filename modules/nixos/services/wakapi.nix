@@ -19,43 +19,21 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets = {
-      wakapi = mkSecret {
-        file = "wakapi";
-        owner = "wakapi";
-        group = "wakapi";
-        key = "password";
-      };
-
-      wakapi-mailer = mkSecret {
-        file = "wakapi";
-        owner = "wakapi";
-        group = "wakapi";
-        key = "mailer";
-      };
-
-      wakapi-env = mkSecret {
-        file = "wakapi";
-        owner = "wakapi";
-        group = "wakapi";
-        key = "env";
-      };
+    sops.secrets.wakapi-env = mkSecret {
+      file = "wakapi";
+      owner = "wakapi";
+      group = "wakapi";
+      key = "env";
     };
 
     garden.services = {
       postgresql.enable = true;
     };
 
-    systemd.services.wakapi.serviceConfig.EnvironmentFile = [
-      config.sops.secrets.wakapi-env.path
-    ];
-
     services = {
       wakapi = {
         enable = true;
-
-        passwordSaltFile = config.sops.secrets.wakapi.path;
-        smtpPasswordFile = config.sops.secrets.wakapi-mailer.path;
+        environmentFiles = [ config.sops.secrets.wakapi-env.path ];
 
         # setup out postgresql database
         database.createLocally = true;
