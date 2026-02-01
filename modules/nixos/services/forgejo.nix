@@ -165,6 +165,8 @@ in
         };
       };
 
+      openssh.settings.UsePAM = mkForce true;
+
       postgresql = {
         ensureDatabases = [ "forgejo" ];
         ensureUsers = lib.singleton {
