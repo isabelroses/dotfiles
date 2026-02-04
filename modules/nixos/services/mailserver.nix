@@ -276,6 +276,24 @@ in
         "listen.group" = config.services.nginx.group;
       };
 
+      rspamd.locals = {
+        # PLEASE STOP ZENDESK PLEASEEEEE
+        "zendesk.conf".text = ''
+          ZENDESK_JUNK {
+            type = "content";
+            filter = "header";
+            map = [
+              "X-Zendesk-Priority-Mail=/Verification Email/i",
+              "Message-ID=/_sprut@zendesk\\.com/i",
+              "Auto-Submitted=/auto-generated/i"
+            ];
+            symbol = "ZENDESK_JUNK";
+            score = 100.0;
+            action = "junk";
+          }
+        '';
+      };
+
       nginx.virtualHosts = {
         "${cfg.domain}" = {
           forceSSL = true;
