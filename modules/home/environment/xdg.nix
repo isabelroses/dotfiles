@@ -107,8 +107,8 @@ in
       templates = "${config.home.homeDirectory}/public/templates";
 
       extraConfig = {
-        XDG_SCREENSHOTS_DIR = "${config.xdg.userDirs.pictures}/screenshots";
-        XDG_DEV_DIR = "${config.home.homeDirectory}/dev";
+        SCREENSHOTS = "${config.xdg.userDirs.pictures}/screenshots";
+        DEV = "${config.home.homeDirectory}/dev";
       };
     };
 
