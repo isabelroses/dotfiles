@@ -24,6 +24,12 @@ in
         extName = "bluetooth";
         npmDepsHash = "sha256-2F7D7DwNG/GAiE+o7srZhcOZzUiRjEVS9uWZAoD7sjo=";
       }
+      {
+        extName = "pdsls";
+        type = "raycast";
+        npmDepsHash = "sha256-vx/n64UZBZt1ntPbCILWhp/NJ56zCp9oUTDgqQB8Ny8=";
+      }
+
       # broken
       # {
       #   extName = "mullvad";
