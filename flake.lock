@@ -306,6 +306,22 @@
         "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz"
       }
     },
+    "nixpkgs-fetch-deno": {
+      "locked": {
+        "lastModified": 1766410835,
+        "narHash": "sha256-dRhVt0aFDyTqppyzRLxiO1JZEAoIA2fUnaeyJTe+UwU=",
+        "owner": "aMOPel",
+        "repo": "nixpkgs",
+        "rev": "c9801acc8c4fac6377d076bc1c102b15bd9cfa6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aMOPel",
+        "ref": "feat/fetchDenoDeps",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "pre-commit": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -346,7 +362,8 @@
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops": "sops",
         "spicetify": "spicetify",
-        "tgirlpkgs": "tgirlpkgs"
+        "tgirlpkgs": "tgirlpkgs",
+        "tranquil": "tranquil"
       }
     },
     "rust-overlay": {
@@ -468,6 +485,27 @@
         "owner": "tgirlcloud",
         "repo": "pkgs",
         "type": "github"
+      }
+    },
+    "tranquil": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "nixpkgs-fetch-deno": "nixpkgs-fetch-deno"
+      },
+      "locked": {
+        "lastModified": 1771716643,
+        "narHash": "sha256-8/x78cEfUL3KmSCxM3nSVjBZvYxOf880AbLLy1a9KIk=",
+        "ref": "refs/heads/main",
+        "rev": "61a60a3163055c40542dfc1b3a53bccd21e621aa",
+        "revCount": 183,
+        "type": "git",
+        "url": "https://tangled.org/tranquil.farm/tranquil-pds"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://tangled.org/tranquil.farm/tranquil-pds"
       }
     }
   },

@@ -123,6 +123,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    tranquil = {
+      url = "git+https://tangled.org/tranquil.farm/tranquil-pds";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ### misc
     # declarative theme management
     catppuccin = {

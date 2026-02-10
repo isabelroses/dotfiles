@@ -46,6 +46,7 @@
         bsky.enable = true;
       };
       matrix.enable = true;
+      tranquil.enable = true;
 
       # databases
       postgresql.enable = true;
