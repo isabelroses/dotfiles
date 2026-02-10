@@ -87,21 +87,24 @@ in
         # we need to change the package so we have patches that allow us to provision secrets
         package = pkgs.kanidmWithSecretProvisioning_1_8;
 
-        enableServer = true;
-        serverSettings = {
-          version = "2";
-          inherit (cfg) domain;
-          origin = "https://${cfg.domain}";
-          bindaddress = "${cfg.host}:${toString cfg.port}";
-          ldapbindaddress = "${cfg.host}:3636";
-          tls_chain = "${certDir}/fullchain.pem";
-          tls_key = "${certDir}/key.pem";
+        server = {
+          enable = true;
 
-          # TODO: reenable this + do systemd tempfiles + cleanup
-          # online_backup = {
-          #   path = "/srv/storage/kanidm/backups";
-          #   schedule = "0 0 * * *";
-          # };
+          settings = {
+            version = "2";
+            inherit (cfg) domain;
+            origin = "https://${cfg.domain}";
+            bindaddress = "${cfg.host}:${toString cfg.port}";
+            ldapbindaddress = "${cfg.host}:3636";
+            tls_chain = "${certDir}/fullchain.pem";
+            tls_key = "${certDir}/key.pem";
+
+            # TODO: reenable this + do systemd tempfiles + cleanup
+            # online_backup = {
+            #   path = "/srv/storage/kanidm/backups";
+            #   schedule = "0 0 * * *";
+            # };
+          };
         };
 
         provision = {
@@ -221,7 +224,7 @@ in
       };
 
       nginx.virtualHosts.${cfg.domain} = {
-        locations."/".proxyPass = "https://${config.services.kanidm.serverSettings.bindaddress}";
+        locations."/".proxyPass = "https://${config.services.kanidm.server.settings.bindaddress}";
       };
     };
 
