@@ -223,17 +223,16 @@ ColumnLayout {
       icon: Networking.icon
       label: "Networking"
       active: Networking.connected
-      onClicked: {
+      onClicked: (mouse) => {
         // Do nothing if ethernet is connected
         if (Networking.ethernetConnected) return;
 
+        if (mouse.button === Qt.RightButton) {
+          networkPanel.visible = !networkPanel.visible
+        }
+
         // otherwise lets actually do wifi stuff
         Networking.toggleWifi()
-      }
-      onPressAndHold: {
-        if (Networking.ethernetConnected) return;
-
-        networkPanel.visible = !networkPanel.visible
       }
     }
 
@@ -242,8 +241,14 @@ ColumnLayout {
       icon: Bluetooth.icon
       label: "Bluetooth"
       active: Bluetooth.powered
-      onClicked: Bluetooth.toggle()
-      onPressAndHold: bluetoothPanel.visible = !bluetoothPanel.visible
+      onClicked: (mouse) => {
+        if (mouse.button === Qt.RightButton) {
+          bluetoothPanel.visible = !bluetoothPanel.visible
+          return;
+        }
+
+        Bluetooth.toggle()
+      }
     }
 
     // Do Not Disturb Toggle
@@ -299,7 +304,6 @@ ColumnLayout {
           id: profileImage
           anchors.fill: parent
           source: Settings.profilePicture
-          mipmap: true
 
           onStatusChanged: {
             if (status === Image.Error) {
@@ -358,8 +362,7 @@ ColumnLayout {
     property string label: ""
     property bool active: false
 
-    signal clicked()
-    signal pressAndHold()
+    signal clicked(mouse: MouseEvent)
 
     ColumnLayout {
       anchors.centerIn: parent
@@ -383,8 +386,8 @@ ColumnLayout {
     MouseArea {
       anchors.fill: parent
       cursorShape: Qt.PointingHandCursor
-      onClicked: qsButton.clicked()
-      onPressAndHold: qsButton.pressAndHold()
+      onClicked: (mouse) => qsButton.clicked(mouse)
+      acceptedButtons: Qt.LeftButton | Qt.RightButton
     }
   }
 }
