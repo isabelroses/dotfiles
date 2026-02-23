@@ -36,14 +36,14 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "4d2a2d8fc9d623505079ceafbbd737db551baa41";
-          hash = "sha256-lcXa2ypf8YpKl6zn5sJvkXKB7ENMmOEGCZK0ISYQJE0=";
+          rev = "9a3a8cbd34f484f49eea6983c76bbb426471b2d4";
+          hash = "sha256-TgYG8IMWfUpCZU626tzYRblVNixUkBe1r64CCI/4xtY=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "c4fea0914d393a384a2ffcf2560fcb6da51925c4";
-          hash = "sha256-RaF3hSvG5wLX7pYQ8QdNYzIakTU+MOrqlBRP4SSfqHE=";
+          rev = "17c026cbe827d8eb5c751bfa6feadf8b68908074";
+          hash = "sha256-ZVEL9zEF9J2Yq7EvtAu96dorrBtmTaw13v+wQ+4cIj4=";
         };
       };
     };
@@ -78,7 +78,7 @@
       taps = builtins.attrNames config.nix-homebrew.taps;
 
       # `brew install`
-      brews = [ ];
+      brews = [ "mole" ];
 
       # `brew install --cask`
       casks = [
