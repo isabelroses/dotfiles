@@ -157,11 +157,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771756436,
-        "narHash": "sha256-Tl2I0YXdhSTufGqAaD1ySh8x+cvVsEI1mJyJg12lxhI=",
+        "lastModified": 1771851181,
+        "narHash": "sha256-gFgE6mGUftwseV3DUENMb0k0EiHd739lZexPo5O/sdQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5bd3589390b431a63072868a90c0f24771ff4cbb",
+        "rev": "9a4b494b1aa1b93d8edf167f46dc8e0c0011280c",
         "type": "github"
       },
       "original": {
@@ -215,11 +215,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771811021,
-        "narHash": "sha256-T9YC61Ie4B7rAtlYmpcPGqj99ol/QH6qURa96jHORIQ=",
+        "lastModified": 1771896576,
+        "narHash": "sha256-JSRVhl9lEuzNSWoKPmRJUy+YWYaRNGkfAs4ftAE+X3g=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "9c1da0037a401e197b16522116df75b0298efe0c",
+        "rev": "680cddd5283da5a44666b408cf432e2f45b7bc81",
         "type": "github"
       },
       "original": {
@@ -259,11 +259,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1771492583,
-        "narHash": "sha256-nQzvnU4BGu8dA6BsPPCqmVcab/3ebVmHtX3ZWbW3Hxc=",
+        "lastModified": 1771834715,
+        "narHash": "sha256-5VI2KiMifx3Dca7nDJzctO3HpnS6zrvesdkLoZBrQRY=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "5e9380994665ef66c87ab8e22c913ff837174ce4",
+        "rev": "b798c53da0f7e521317a5413335096a21070cf0b",
         "type": "github"
       },
       "original": {
@@ -295,11 +295,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1771207753,
-        "narHash": "sha256-7o+iRF++GO/gGrgrRMlnld2V/3QIzpdwMKViVkHtMEQ=",
-        "rev": "d1c15b7d5806069da59e819999d70e1cec0760bf",
+        "lastModified": 1771423170,
+        "narHash": "sha256-V/p5M4cAMbu/MJBDn5YABy5QJgCFpsgrnXVVc2Uo5+k=",
+        "rev": "bcc4a9d9533c033d806a46b37dc444f9b0da49dd",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre946960.d1c15b7d5806/nixexprs.tar.xz?lastModified=1771207753&rev=d1c15b7d5806069da59e819999d70e1cec0760bf"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre948338.bcc4a9d9533c/nixexprs.tar.xz?lastModified=1771423170&rev=bcc4a9d9533c033d806a46b37dc444f9b0da49dd"
       },
       "original": {
         "type": "tarball",
@@ -417,11 +417,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771789253,
-        "narHash": "sha256-CRKcyz+pY2rDhWsNfzgcFydhH5Lo8BkWiKGYvG5fK38=",
+        "lastModified": 1771889885,
+        "narHash": "sha256-0eHvAhgMYwVZpt3a61gTzNrFpV+F2N41LIpHvdDQJK4=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "142184952978d3766773b18685581904fbae94f5",
+        "rev": "1009838412bc8cc7fa1357077523a3fc4fa26c52",
         "type": "github"
       },
       "original": {
@@ -474,11 +474,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1771808847,
-        "narHash": "sha256-0QKLlysfq8GK25LVEUK0HvDWphxov7ZB8YRbcbz4HHA=",
+        "lastModified": 1771894980,
+        "narHash": "sha256-UQSFJpqFw9wEIpvDrl24UBd0EQk+H2AK7nsMoaGjeyk=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "579d9ecd98868566e4906d714d63a531721b5b9b",
+        "rev": "e53ef476577db5f61ee4ffa52ff0b788145442e2",
         "type": "github"
       },
       "original": {
@@ -495,11 +495,11 @@
         "nixpkgs-fetch-deno": "nixpkgs-fetch-deno"
       },
       "locked": {
-        "lastModified": 1771716643,
-        "narHash": "sha256-8/x78cEfUL3KmSCxM3nSVjBZvYxOf880AbLLy1a9KIk=",
+        "lastModified": 1771843236,
+        "narHash": "sha256-HKlsePak4zSnys4JdU1KEpCA0nhPULocxG5thDqeYZA=",
         "ref": "refs/heads/main",
-        "rev": "61a60a3163055c40542dfc1b3a53bccd21e621aa",
-        "revCount": 183,
+        "rev": "3913bf5c1a4488f711ecefeaf9ef1205d7d61f68",
+        "revCount": 185,
         "type": "git",
         "url": "https://tangled.org/tranquil.farm/tranquil-pds"
       },
