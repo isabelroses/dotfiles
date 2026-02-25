@@ -1,4 +1,5 @@
 {
+  lib,
   self,
   name,
   config,
@@ -11,7 +12,7 @@
 
   config = {
     sops = {
-      inherit (osConfig.sops) package;
+      package = lib.mkIf (osConfig ? sops) osConfig.sops.package;
       defaultSopsFile = "${self}/secrets/${name}.yaml";
       age.sshKeyFile = "${config.home.homeDirectory}/.ssh/id_ed25519";
     };
