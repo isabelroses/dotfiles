@@ -29,42 +29,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets = {
-      pds-env = mkSecret {
-        file = "pds";
-        owner = "pds";
-        group = "pds";
-      };
-
-      pds-dash = mkSecret { file = "pds"; };
+    sops.secrets.pds-env = mkSecret {
+      file = "pds";
+      owner = "pds";
+      group = "pds";
     };
 
     services = {
       bluesky-pds = {
         enable = true;
         pdsadmin.enable = false;
-
-        package = (pkgs.bluesky-pds.override { pnpm_9 = pkgs.pnpm_10; }).overrideAttrs (
-          finalAttrs: _: {
-            src = pkgs.fetchFromGitHub {
-              owner = "isabelroses";
-              repo = "pds-fork";
-              rev = "d7ce67938146276ad27bfbd769b2bb4683b30775";
-              hash = "sha256-vK61hBae9p2qf9LOvBtkWFgNzm84Vfoux9osu/b8VdM=";
-            };
-
-            pnpmDeps = pkgs.fetchPnpmDeps {
-              inherit (finalAttrs)
-                pname
-                version
-                src
-                sourceRoot
-                ;
-              fetcherVersion = 3;
-              hash = "sha256-muVT4STfdj+OA/k7Fteo8UwqT/XtYbmePpvgfQ5Q3Yo=";
-            };
-          }
-        );
 
         environmentFiles = [ config.sops.secrets.pds-env.path ];
 
@@ -109,8 +83,6 @@ in
       pds-dash = {
         enable = true;
         setupNginx = true;
-
-        environmentFiles = [ config.sops.secrets.pds-dash.path ];
 
         settings = {
           PORT = config.garden.services.pds-dash.port;
