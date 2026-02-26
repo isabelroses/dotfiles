@@ -20,7 +20,6 @@
     ./matrix.nix
     ./nginx.nix
     ./nixpkgs-prs-bot.nix
-    ./ntfy.nix
     ./pds
     ./piper.nix
     ./port-collector.nix
