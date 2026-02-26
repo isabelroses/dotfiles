@@ -1,5 +1,5 @@
 {
-  nix,
+  lixPackageSets,
   gum,
   vim,
   parted,
@@ -10,7 +10,7 @@ writeShellApplication {
   name = "iztaller";
 
   runtimeInputs = [
-    nix
+    lixPackageSets.git.lix
     gum
     vim
     parted

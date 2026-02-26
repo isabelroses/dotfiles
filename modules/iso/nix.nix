@@ -1,8 +1,8 @@
-{ inputs', ... }:
+{ pkgs, ... }:
 {
   nix = {
     # setting nix to be our preferred fork
-    package = inputs'.izlix.packages.lix;
+    package = pkgs.lixPackageSets.git.lix;
 
     # we can disable channels since we can just use the flake
     channel.enable = false;

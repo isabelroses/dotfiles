@@ -1,8 +1,5 @@
 I use [lix](https://git.lix.systems/lix-project/lix).
 
-> [!NOTE]
-> Furthermore this is with a custom patch set through [izlix](https://github.com/isabelroses/izlix). Though I don't recommend using izlix. If you want the patches you may copy them for personal use.
-
 This flake makes a point of using lix where possible.
 
 To do so we add the following snippet taken from [modules/base/nix/overlays/default.nix](https://github.com/isabelroses/dotfiles/blob/463e509725f610d802c483fdc00ce0b77cd778c2/modules/base/nixpkgs/overlays/default.nix#L13-L25).

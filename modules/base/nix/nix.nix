@@ -3,7 +3,6 @@
   pkgs,
   _class,
   inputs,
-  inputs',
   ...
 }:
 let
@@ -27,9 +26,7 @@ in
     #
     # You cannot build nix.exe with lix, I don't really know who this affects but...
     # https://akko.isabelroses.com/notice/AjMDXG28c8sLqhci0G
-    #
-    # NOTE: we are also using a specifically patched version, you can see this from overlays/lix.nix
-    package = inputs'.izlix.packages.lix;
+    package = pkgs.lixPackageSets.git.lix;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = (mapAttrs (_: flake: { inherit flake; }) flakeInputs) // {

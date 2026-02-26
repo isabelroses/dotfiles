@@ -29,10 +29,6 @@ donation platforms in order of preference:
      the home-manager users and configuring the options.
 4. You will then want to edit `modules/nixos/environment/locale.nix` such that
    you have the correct timezone and locale.
-5. You likely don't want to use my lix fork, so you should regex replace
-   `izlix` with your preferred nix implementation. If your preferred nix
-   implementation does not support nested `input.follows` you will have to edit
-   the `flake.nix`.
 6. There is a lot of maintenance burden in this repository, so you should see
    what you can remove safely. But there's no safe way to guide you on this so best of luck.
 
