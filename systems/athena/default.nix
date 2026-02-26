@@ -33,7 +33,6 @@
       immich.enable = true;
       arr.enable = true;
       borgbackup.enable = true;
-      glance.enable = true;
     };
   };
 
