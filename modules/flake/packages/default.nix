@@ -9,7 +9,6 @@
   perSystem =
     {
       pkgs,
-      inputs',
       ...
     }:
     let
@@ -17,10 +16,11 @@
         inherit inputs;
 
         # keep-sorted start block=yes newline_separated=yes
+        docs = self.callPackage ./docs/package.nix { };
+
         iztaller = self.callPackage ./iztaller/package.nix { };
 
         libdoc = self.callPackage ./docs/lib.nix { };
-        docs = self.callPackage ./docs/package.nix { };
         # keep-sorted end
       });
     in

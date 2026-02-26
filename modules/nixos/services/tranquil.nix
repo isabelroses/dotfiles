@@ -37,7 +37,7 @@ in
 
         settings = {
           server = {
-            port = cfg.port;
+            inherit (cfg) port;
             hostname = cfg.domain;
             invite_code_required = true;
             age_assurance_override = true;
