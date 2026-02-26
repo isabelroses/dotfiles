@@ -96,6 +96,9 @@ in
           PDS_OAUTH_PROVIDER_PRIMARY_COLOR = "#86DCE9";
           PDS_OAUTH_PROVIDER_ERROR_COLOR = "#F6598E";
 
+          # if your reading this you probably don't want this unless you
+          # intend to host a public free to join instance
+          PDS_INVITE_REQUIRED = "false";
           PDS_SERVICE_HANDLE_DOMAINS = ".tgirl.beauty";
 
           # custom session duration: 30 days
