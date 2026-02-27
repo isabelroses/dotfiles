@@ -46,13 +46,21 @@ jobs:
 
       - name: Build Lilith Iso
         continue-on-error: false
-        run: nix build -L .#nixosConfigurations.lilith.config.system.build.isoImage
+        run: |
+          nix build -L .#nixosConfigurations.lilith.config.system.build.isoImage
+          mv result/iso/*.iso ./lilith.iso
+
+      - name: Build config
+        run: |
+          nix build -L .#nixosConfigurations.amaterasu.home-manager.users.isabel.home-files
+          tar -czvf dotfiles.tar.gz result/
 
       - name: Upload Release Artifacts
         if: github.event_name == 'schedule'
         run: |
           release=$(date +"%Y-%m-%d")
           gh release create "$release"
-          gh release upload "$release" ./result/iso/*.iso
+          gh release upload "$release" ./lilith.iso
+          gh release upload "$release" ./dotfiles.tar.gz
         env:
           GH_TOKEN: ${{ github.token }}
