@@ -20,7 +20,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Lix
-        uses: samueldr/lix-gha-installer-action@8c7f8a4b0f594ab8a6dc3bf71c217587bbc756b5 # v2025-10-27
+        uses: samueldr/lix-gha-installer-action@7b7f14d320d6aacfb65bd1ef761566b3b69e474c # v2026-02-22
         with:
           extra_nix_config: |
             substituters = https://nix-community.cachix.org https://catppuccin.cachix.org https://cache.nixos.org/ https://cache.tgirl.cloud/tgirlcloud/
