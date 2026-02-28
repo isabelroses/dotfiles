@@ -2,14 +2,9 @@
 let
   inherit (lib) concatStrings;
 
-  # TODO: come back and change this a bit
-  ss = symbol: style: {
+  fmt = symbol: {
     inherit symbol;
-    format = "[$symbol ](${style})";
-  };
-  ssv = symbol: style: {
-    inherit symbol;
-    format = "via [$symbol](${style})";
+    format = "[$symbol]($style)";
   };
 in
 {
@@ -23,10 +18,19 @@ in
         "$all[╰─󰁔](237)$character"
       ];
 
-      character = {
-        success_symbol = "";
-        error_symbol = "";
-      };
+      character.disabled = true;
+      battery.disabled = true;
+
+      container = fmt "󰏖";
+      python = fmt "";
+      nodejs = fmt " ";
+      lua = fmt "󰢱 ";
+      rust = fmt "";
+      java = fmt " ";
+      c = fmt " ";
+      golang = fmt "";
+      docker_context = fmt " ";
+      nix_shell = fmt " ";
 
       username = {
         style_user = "white";
@@ -100,18 +104,6 @@ in
         };
       };
 
-      container = ss " 󰏖" "yellow dimmed";
-      python = ss "" "yellow";
-      nodejs = ss " " "yellow";
-      lua = ss "󰢱 " "blue";
-      rust = ss "" "red";
-      java = ss " " "red";
-      c = ss " " "blue";
-      golang = ss "" "blue";
-      docker_context = ss " " "blue";
-
-      nix_shell = ssv " " "blue";
-
       git_branch = {
         symbol = "󰊢 ";
         format = "on [$symbol$branch]($style) ";
@@ -134,8 +126,6 @@ in
         renamed = "󰖷 ";
         deleted = " ";
       };
-
-      battery.disabled = true;
     };
   };
 }
