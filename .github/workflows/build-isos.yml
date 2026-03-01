@@ -48,15 +48,14 @@ jobs:
         continue-on-error: false
         run: |
           nix build -L .#nixosConfigurations.lilith.config.system.build.isoImage
-          mv result/iso/*.iso ./lilith.iso
+          cp result/iso/*.iso ./lilith.iso
 
       - name: Build config
         run: |
-          nix build -L .#nixosConfigurations.amaterasu.home-manager.users.isabel.home-files
+          nix build -L .#nixosConfigurations.amaterasu.config.home-manager.users.isabel.home-files
           tar -czvf dotfiles.tar.gz result/
 
       - name: Upload Release Artifacts
-        if: github.event_name == 'schedule'
         run: |
           release=$(date +"%Y-%m-%d")
           gh release create "$release"
