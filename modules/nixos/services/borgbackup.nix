@@ -79,7 +79,10 @@ in
       borgbackup.jobs = mapAttrs (_name: jobCfg: {
         inherit (jobCfg) paths exclude;
         repo = "zh6120@zh6120.rsync.net:${jobCfg.repo}";
-        environment.BORG_RSH = "ssh -i ${config.sops.secrets.borg-sshkey.path}";
+        environment = {
+          BORG_RSH = "ssh -i ${config.sops.secrets.borg-sshkey.path}";
+          BORG_RELOCATED_REPO_ACCESS_IS_OK = "yes"; # oops
+        };
         encryption = {
           mode = "repokey-blake2";
           passCommand = "cat ${jobCfg.passkeyFile}";
