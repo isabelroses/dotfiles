@@ -15,7 +15,7 @@ in
       add_newline = true;
       format = concatStrings [
         "[╭╴](238)$os"
-        "$all[╰─󰁔](237)$character"
+        "$all[╰─󰁔](237) "
       ];
 
       character.disabled = true;
