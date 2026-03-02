@@ -53,7 +53,7 @@ jobs:
       - name: Build config
         run: |
           nix build -L .#nixosConfigurations.amaterasu.config.home-manager.users.isabel.home-files
-          tar -czvf dotfiles.tar.gz result/
+          tar -czvhf dotfiles.tar.gz result/
 
       - name: Upload Release Artifacts
         run: |
