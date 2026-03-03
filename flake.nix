@@ -107,13 +107,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hostling = {
-      type = "github";
-      owner = "BatteredBunny";
-      repo = "hostling";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     tranquil = {
       url = "git+https://tangled.org/tranquil.farm/tranquil-pds";
       inputs.nixpkgs.follows = "nixpkgs";

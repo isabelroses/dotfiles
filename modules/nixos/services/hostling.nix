@@ -2,7 +2,6 @@
   lib,
   self,
   config,
-  inputs,
   ...
 }:
 let
@@ -17,8 +16,6 @@ in
     host = "127.0.0.1";
     domain = "cdn.${config.networking.domain}";
   };
-
-  imports = [ inputs.hostling.nixosModules.default ];
 
   config = mkIf cfg.enable {
     sops.secrets.hostling = mkSecret {

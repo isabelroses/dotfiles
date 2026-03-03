@@ -188,26 +188,6 @@
         "type": "github"
       }
     },
-    "hostling": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1772404577,
-        "narHash": "sha256-ea3Zz7FCtbdoTB3KAzu+kGSwC7khaJFBAC9x5PDR3S4=",
-        "owner": "BatteredBunny",
-        "repo": "hostling",
-        "rev": "2661a04234e070bfb6e01860f5512073b1dd7cb6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "BatteredBunny",
-        "repo": "hostling",
-        "type": "github"
-      }
-    },
     "izvim": {
       "inputs": {
         "gift-wrap": "gift-wrap",
@@ -333,7 +313,6 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "homebrew": "homebrew",
-        "hostling": "hostling",
         "izvim": "izvim",
         "lanzaboote": "lanzaboote",
         "nixos-wsl": "nixos-wsl",
@@ -453,11 +432,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772500108,
-        "narHash": "sha256-AliFjPxYKEMWLr9V6cu7fYCj3N7IklAh367UcyprB7c=",
+        "lastModified": 1772575129,
+        "narHash": "sha256-t801IX+cUFRuX0U1BT8aSbtCixFoeEJQervyHaKlG8s=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "f64302eaf45afa97d1fbedb3bf7e0e384e1a8a65",
+        "rev": "dc4837af70367e6e329b53091767d271838b1368",
         "type": "github"
       },
       "original": {
