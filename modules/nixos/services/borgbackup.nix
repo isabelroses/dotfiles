@@ -5,7 +5,13 @@
   ...
 }:
 let
-  inherit (lib) mkOption types mapAttrs;
+  inherit (lib)
+    mkIf
+    mkOption
+    types
+    mapAttrs
+    mkEnableOption
+    ;
   inherit (self.lib) mkServiceOption mkSecret mkPubs;
 
   cfg = config.garden.services.borgbackup;
@@ -16,6 +22,11 @@ in
       type = types.attrsOf (
         types.submodule {
           options = {
+            enable = mkEnableOption "borgbackup job" // {
+              default = true;
+              defaultText = "true";
+            };
+
             paths = mkOption {
               type = types.listOf types.path;
               example = [
@@ -76,29 +87,32 @@ in
         }
       ];
 
-      borgbackup.jobs = mapAttrs (_name: jobCfg: {
-        inherit (jobCfg) paths exclude;
-        repo = "zh6120@zh6120.rsync.net:${jobCfg.repo}";
-        environment = {
-          BORG_RSH = "ssh -i ${config.sops.secrets.borg-sshkey.path}";
-          BORG_RELOCATED_REPO_ACCESS_IS_OK = "yes"; # oops
-        };
-        encryption = {
-          mode = "repokey-blake2";
-          passCommand = "cat ${jobCfg.passkeyFile}";
-        };
-        extraArgs = [ "--remote-path=borg14" ];
-        extraCreateArgs = [
-          "--progress"
-          "--stats"
-        ];
-        compression = "auto,zstd";
-        startAt = "Sat 02:30";
-        prune.keep.last = 5;
-        inhibitsSleep = true;
-        persistentTimer = true;
-        doInit = false;
-      }) cfg.jobs;
+      borgbackup.jobs = mapAttrs (
+        _name: jobCfg:
+        mkIf jobCfg.enable {
+          inherit (jobCfg) paths exclude;
+          repo = "zh6120@zh6120.rsync.net:${jobCfg.repo}";
+          environment = {
+            BORG_RSH = "ssh -i ${config.sops.secrets.borg-sshkey.path}";
+            BORG_RELOCATED_REPO_ACCESS_IS_OK = "yes"; # oops
+          };
+          encryption = {
+            mode = "repokey-blake2";
+            passCommand = "cat ${jobCfg.passkeyFile}";
+          };
+          extraArgs = [ "--remote-path=borg14" ];
+          extraCreateArgs = [
+            "--progress"
+            "--stats"
+          ];
+          compression = "auto,zstd";
+          startAt = "Sat 02:30";
+          prune.keep.last = 5;
+          inhibitsSleep = true;
+          persistentTimer = true;
+          doInit = false;
+        }
+      ) cfg.jobs;
     };
   };
 }
