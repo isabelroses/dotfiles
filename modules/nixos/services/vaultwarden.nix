@@ -18,24 +18,30 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets.vaultwarden-env = mkSecret {
-      file = "vaultwarden";
-      key = "env";
-      owner = "vaultwarden";
-      group = "vaultwarden";
+    sops.secrets = {
+      vaultwarden-env = mkSecret {
+        file = "vaultwarden";
+        key = "env";
+        owner = "vaultwarden";
+        group = "vaultwarden";
+      };
+
+      borg-vaultwarden-pass = mkSecret {
+        file = "borg";
+        key = "vaultwarden-passphrase";
+      };
     };
 
-    # this forces the system to create backup folder
-    systemd.services.backup-vaultwarden.serviceConfig = {
-      User = "root";
-      Group = "root";
+    garden.services.borgbackup.jobs.vaultwarden = {
+      paths = [ config.services.vaultwarden.config.DATA_DIR ];
+      repo = "vaultwarden";
+      passkeyFile = config.sops.secrets.borg-vaultwarden-pass.path;
     };
 
     services = {
       vaultwarden = {
         enable = true;
         environmentFile = config.sops.secrets.vaultwarden-env.path;
-        backupDir = "/srv/storage/vaultwarden/backup";
 
         # https://github.com/dani-garcia/vaultwarden/blob/1.34.1/.env.template
         config = {
