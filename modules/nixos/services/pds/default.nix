@@ -29,10 +29,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    sops.secrets.pds-env = mkSecret {
-      file = "pds";
-      owner = "pds";
-      group = "pds";
+    sops.secrets = {
+      pds-env = mkSecret {
+        file = "pds";
+        owner = "pds";
+        group = "pds";
+      };
+
+      pds-gatekeeper = mkSecret {
+        file = "pds";
+      };
     };
 
     services = {
@@ -93,6 +99,8 @@ in
       pds-gatekeeper = {
         enable = true;
         setupNginx = true;
+
+        environmentFiles = [ config.sops.secrets.pds-gatekeeper.path ];
 
         settings = {
           GATEKEEPER_PORT = gkCfg.port;
