@@ -32,7 +32,10 @@
       cloudflared.enable = true;
       immich.enable = true;
       arr.enable = true;
-      borgbackup.enable = true;
+      borgbackup = {
+        enable = true;
+        jobs.postgresql.enable = false;
+      };
     };
   };
 

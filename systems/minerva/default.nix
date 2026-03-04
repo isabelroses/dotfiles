@@ -29,6 +29,7 @@
       kanidm.enable = true;
       mailserver.enable = true;
       hostling.enable = true;
+      borgbackup.enable = true;
 
       # web
       nginx.enable = true;
