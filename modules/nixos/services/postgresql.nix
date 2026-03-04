@@ -6,8 +6,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
+  inherit (lib) mkIf;
+  inherit (self.lib) mkSecret mkServiceOption;
 
   cfg = config.garden.services;
 in
@@ -19,6 +19,17 @@ in
       mode = "0755";
       user = "postgres";
       group = "postgres";
+    };
+
+    garden.services.borgbackup.jobs.postgresql = {
+      paths = [ config.services.postgresql.dataDir ];
+      repo = "postgresql";
+      passkeyFile = config.sops.secrets.borg-postgresql-pass.path;
+    };
+
+    sops.secrets.borg-postgresql-pass = mkSecret {
+      file = "borg";
+      key = "postgresql-passphrase";
     };
 
     services.postgresql = {
