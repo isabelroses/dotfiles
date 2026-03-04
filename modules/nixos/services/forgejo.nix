@@ -33,11 +33,22 @@ in
         owner = "anubis";
         group = "anubis";
       };
+
+      borg-forgejo-pass = mkSecret {
+        file = "borg";
+        key = "forgejo-passphrase";
+      };
     };
 
     garden.services = {
       redis.enable = true;
       postgresql.enable = true;
+
+      borgbackup.jobs.forgejo = {
+        paths = [ config.services.forgejo.stateDir ];
+        repo = "forgejo";
+        passkeyFile = config.sops.secrets.borg-forgejo-pass.path;
+      };
     };
 
     networking.firewall.allowedTCPPorts = [
@@ -156,13 +167,7 @@ in
         };
 
         # backup
-        dump = {
-          enable = true;
-          backupDir = "/srv/storage/forgejo/dump";
-          interval = "06:00";
-          age = "7d";
-          type = "tar.zst";
-        };
+        dump.enable = false;
       };
 
       openssh.settings.UsePAM = mkForce true;
