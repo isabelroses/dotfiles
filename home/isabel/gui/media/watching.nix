@@ -98,7 +98,11 @@ in
         vo = "gpu-next"; # GPU-Next: https://github.com/mpv-player/mpv/wiki/GPU-Next-vs-GPV
 
         # screenshot settings
-        screenshot-directory = "~/media/pictures/screenshots";
+        screenshot-directory =
+          if pkgs.stdenv.hostPlatform.isDarwin then
+            "~/Pictures/screenshots"
+          else
+            "~/media/pictures/screenshots";
         screenshot-template = "%x/screenshot-%F-T%wH.%wM.%wS.%wT-F%{estimated-frame-number}";
         screenshot-format = "png";
         screenshot-png-compression = 4; # Range is 0 to 10. 0 being no compression.
@@ -171,8 +175,10 @@ in
         };
 
         videoclip = {
-          video_folder_path = "~/media/videos/clips";
-          audio_folder_path = "~/media/music/clips";
+          video_folder_path =
+            if pkgs.stdenv.hostPlatform.isDarwin then "~/Movies/clips" else "~/media/videos/clips";
+          audio_folder_path =
+            if pkgs.stdenv.hostPlatform.isDarwin then "~/Music/clips" else "~/media/music/clips";
           video_quality = 10;
           custom_upload_command = "cdnadd %f";
         };
