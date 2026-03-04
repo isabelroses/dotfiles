@@ -6,7 +6,7 @@ let
 in
 {
   programs.ssh = {
-    enable = true;
+    inherit (config.garden.profiles.workstation) enable;
     enableDefaultConfig = false;
 
     includes = [
