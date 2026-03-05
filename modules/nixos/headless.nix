@@ -49,10 +49,10 @@ in
         RebootWatchdogSec = "30s";
       };
 
-      sleep.extraConfig = ''
-        AllowSuspend=no
-        AllowHibernation=no
-      '';
+      sleep.settings.Sleep = {
+        AllowSuspend = false;
+        AllowHibernation = false;
+      };
     };
   };
 }
