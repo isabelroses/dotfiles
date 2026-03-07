@@ -157,11 +157,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772633327,
-        "narHash": "sha256-jl+DJB2DUx7EbWLRng+6HNWW/1/VQOnf0NsQB4PlA7I=",
+        "lastModified": 1772845525,
+        "narHash": "sha256-Dp5Ir2u4jJDGCgeMRviHvEQDe+U37hMxp6RSNOoMMPc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "5a75730e6f21ee624cbf86f4915c6e7489c74acc",
+        "rev": "27b93804fbef1544cb07718d3f0a451f4c4cd6c0",
         "type": "github"
       },
       "original": {
@@ -255,11 +255,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1772674223,
-        "narHash": "sha256-WK88zUooc09jTZIDe9QnXaN4RxjvsV1F0DnSVdt7Kpk=",
-        "rev": "66d9241e3dc2296726dc522e62dbfe89c7b449f3",
+        "lastModified": 1772736753,
+        "narHash": "sha256-QKxBW7o8gmUwDXQhsbIb0JCoUgCr8B80ltkjbg840UQ=",
+        "rev": "917fec990948658ef1ccd07cef2a1ef060786846",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre958526.66d9241e3dc2/nixexprs.tar.xz?lastModified=1772674223&rev=66d9241e3dc2296726dc522e62dbfe89c7b449f3"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre958799.917fec990948/nixexprs.tar.xz?lastModified=1772736753&rev=917fec990948658ef1ccd07cef2a1ef060786846"
       },
       "original": {
         "type": "tarball",
@@ -355,11 +355,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772722317,
-        "narHash": "sha256-y47/GkUkr/aKN8oBx3wLWgpIWnTY+x2pJ2mxD1AMeEg=",
+        "lastModified": 1772763116,
+        "narHash": "sha256-5NUtdVWnEflm829QI0BIj2rDhI+pfagt+cxIARJEhi8=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "3938a7518aa109697983103139cb6ea99d897af5",
+        "rev": "c04152fa90ba5079f4517aa24383245937e43ab8",
         "type": "gitlab"
       },
       "original": {
@@ -432,11 +432,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772759414,
-        "narHash": "sha256-/05pkrJKviZ4Y7/xs8SFnRDqJfFe1FAVRBRZ5rJyENE=",
+        "lastModified": 1772845346,
+        "narHash": "sha256-ssHYD+69TxopnyXoszwI47z6B4juyFcj0yvuObyW9/w=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "8d54eb84c9348acf0be78f7d2269b17d5f7bf916",
+        "rev": "8143e213925551439afb0e3bcf0db54a4390c07b",
         "type": "github"
       },
       "original": {
@@ -453,11 +453,11 @@
         "nixpkgs-fetch-deno": "nixpkgs-fetch-deno"
       },
       "locked": {
-        "lastModified": 1772627234,
-        "narHash": "sha256-A4ik7pf5TPONU3jgqRrlX/0vGFiiSzgoKCLfGhRB+bM=",
+        "lastModified": 1772913559,
+        "narHash": "sha256-RA4SxtwdmzkG/PMLEs1W9aCOZzFD2BIbWvZEtE0wvpo=",
         "ref": "refs/heads/main",
-        "rev": "dcdef508dea6aca01f9faf22a779cc0745ceaaee",
-        "revCount": 190,
+        "rev": "6200697ce06509127bd475f8d822b53b19f6c9b8",
+        "revCount": 197,
         "type": "git",
         "url": "https://tangled.org/tranquil.farm/tranquil-pds"
       },
