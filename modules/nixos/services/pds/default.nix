@@ -52,8 +52,10 @@ in
           PDS_PORT = cfg.port;
           PDS_HOSTNAME = cfg.domain;
 
-          # damn scrapers vro
-          PDS_ADMIN_EMAIL = "isabel" + "@" + "isabelroses" + "." + "com";
+          # don't confuse `PDS_ADMIN_EMAIL` with `PDS_CONTACT_EMAIL_ADDRESS`,
+          # the former is only used for tls;
+          # https://github.com/bluesky-social/pds/issues/320
+          PDS_CONTACT_EMAIL_ADDRESS = "isabel" + "@" + "isabelroses" + "." + "com";
 
           # crawlers shamlessly stolen from
           # <https://compare.hose.cam>
