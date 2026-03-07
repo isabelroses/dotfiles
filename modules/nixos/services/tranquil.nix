@@ -29,8 +29,6 @@ in
     services = {
       tranquil-pds = {
         enable = true;
-
-        nginx.enable = true;
         database.createLocally = true;
 
         environmentFiles = [ config.sops.secrets.tranquil-env.path ];
@@ -63,18 +61,8 @@ in
         };
       };
 
-      nginx.virtualHosts.${cfg.domain}.locations = {
-        "/xrpc/".extraConfig = ''
-          add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
-          add_header X-Frame-Options SAMEORIGIN always;
-          add_header X-Content-Type-Options nosniff;
-        '';
-
-        "/assets/".extraConfig = ''
-          add_header 'Referrer-Policy' 'origin-when-cross-origin';
-          add_header X-Frame-Options "SAMEORIGIN" always;
-          add_header X-Content-Type-Options nosniff;
-        '';
+      nginx.virtualHosts.${cfg.domain}.locations."/" = {
+        proxyPass = "http://127.0.0.1:${toString cfg.port}";
       };
     };
   };
