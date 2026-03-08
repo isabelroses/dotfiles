@@ -1,10 +1,11 @@
 {
+  lib,
   pkgs,
   config,
   ...
 }:
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 in
 {
   programs.ghostty = {
@@ -21,8 +22,9 @@ in
 
       window-save-state = "always";
 
-      font-family = config.garden.style.fonts.name;
-      font-size = 13;
+      # let fontconfig handle this on linux
+      font-family = lib.mkIf isDarwin config.garden.style.fonts.name;
+      font-size = lib.mkIf isDarwin 13;
 
       # home-manager does this for us
       shell-integration = "none";

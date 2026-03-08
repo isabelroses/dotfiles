@@ -21,6 +21,7 @@
       noto-fonts-cjk-serif
 
       # install some emoji fonts
+      twemoji-color-font
       noto-fonts-color-emoji
       material-icons
       material-design-icons

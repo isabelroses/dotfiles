@@ -63,25 +63,84 @@ in
       enable = true;
 
       # create all the fonts and set the fallback to the symbols nerd font
-      defaultFonts =
-        let
-          fnts = [
-            cfg.name
-            "Symbols Nerd Font"
-            # fallbacks
-            "Noto Sans Symbols"
-            "Noto Sans Symbols2"
-          ];
-        in
-        {
-          monospace = fnts;
-          sansSerif = fnts;
-          serif = fnts;
-          emoji = [
-            "Noto Color Emoji"
-            "Symbols Nerd Font"
-          ];
-        };
+      defaultFonts = {
+        monospace = [
+          cfg.name
+
+          # primary latin fallbacks
+          "Source Code Pro"
+
+          # unicode coverage
+          "Noto Sans Mono"
+          "Noto Sans"
+          "Noto Serif"
+
+          # CJK coverage
+          "Noto Sans CJK JP"
+          "Noto Sans CJK SC"
+          "Noto Sans CJK TC"
+          "Noto Sans CJK KR"
+
+          # icon fonts
+          "Material Icons"
+          "Material Design Icons"
+
+          # final fallback
+          "DejaVu Sans Mono"
+        ];
+
+        sansSerif = [
+          cfg.name
+
+          # primary latin fallbacks
+          "Inter"
+          "Source Sans 3"
+
+          # unicode coverage
+          "Noto Sans"
+
+          # CJK
+          "Noto Sans CJK JP"
+          "Noto Sans CJK SC"
+          "Noto Sans CJK TC"
+          "Noto Sans CJK KR"
+
+          # icons
+          "Material Icons"
+          "Material Design Icons"
+
+          # final fallback
+          "DejaVu Sans"
+        ];
+
+        serif = [
+          cfg.name
+
+          # latin serif
+          "Source Serif 4"
+
+          # unicode coverage
+          "Noto Serif"
+
+          # CJK
+          "Noto Serif CJK JP"
+          "Noto Serif CJK SC"
+          "Noto Serif CJK TC"
+          "Noto Serif CJK KR"
+
+          # icons
+          "Material Icons"
+          "Material Design Icons"
+
+          # final fallback
+          "DejaVu Serif"
+        ];
+
+        emoji = [
+          "Twemoji Color Font"
+          "Noto Color Emoji"
+        ];
+      };
     };
 
     garden.packages = mkIf (cfg.package != null) {
