@@ -1,5 +1,5 @@
 - [github](https://github.com/isabelroses/dotfiles)
 - [gitlab](https://gitlab.com/isabelroses/dotfiles)
-- [codeberg](https://codeberg.org/isabelroses/dotfiles)
+- [codeberg](https://codeberg.org/isabel/dotfiles)
 - [iztea](https://git.isabelroses.com/isabel/dotfiles)
 - [tangled](https://tangled.org/@isabelroses.com/dotfiles)
