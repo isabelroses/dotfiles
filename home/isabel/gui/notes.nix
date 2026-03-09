@@ -5,8 +5,6 @@
   ...
 }:
 let
-  inherit (lib) attrValues;
-
   inherit (config.garden.programs) defaults;
 
   cond =
@@ -16,24 +14,11 @@ in
 {
   config = lib.mkIf cond {
     garden.packages = {
-      obsidian = pkgs.symlinkJoin {
-        name = "obsidian-wrapped-${pkgs.obsidian.version}";
-        paths = attrValues {
-          inherit (pkgs)
-            # include obsidian itself
-            obsidian
-
-            # for the pandoc plugin
-            pandoc
-
-            # for the obsidian-git plugin
-            gitMinimal
-            ;
-        };
-        meta.mainProgram = pkgs.obsidian.meta.mainProgram;
-      };
-
-      inherit (pkgs) zotero;
+      inherit (pkgs)
+        obsidian
+        pandoc
+        zotero
+        ;
     };
 
     programs.zk = {
