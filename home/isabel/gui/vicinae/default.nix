@@ -11,6 +11,8 @@ in
       window.opacity = 1;
     };
 
+    # NOTE: I only do it this way because I hate IFD, normal people should use
+    # `config.lib.vicinae.mkExtension`
     extensions = map mkMyVicinaeExt [
       {
         extName = "nix";
