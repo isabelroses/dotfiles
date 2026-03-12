@@ -94,9 +94,7 @@ in
       enableManageSieve = true;
 
       # DKIM Settings
-      dkimKeyBits = 4096;
-      dkimSelector = "mail";
-      dkimSigning = true;
+      dkim.defaults.keyLength = 4096;
 
       hierarchySeparator = "/";
       localDnsResolver = false;
