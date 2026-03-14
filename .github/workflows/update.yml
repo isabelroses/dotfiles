@@ -33,6 +33,10 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@c5930b397a673a70ca70be06020e943aeac310a1 # v27
         with:
           token: ${{ secrets.GH_TOKEN_UPDATES }}
+          git-author-name: bell's bot
+          git-author-email: bot@isabelroses.com
+          git-committer-name: bell's bot
+          git-committer-email: bot@isabelroses.com
           commit-msg: "flake.lock: update all inputs"
           pr-title: "flake.lock: update all inputs"
           branch: update-flake-inputs

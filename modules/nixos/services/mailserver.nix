@@ -172,6 +172,8 @@ in
             "shush@${rdomain}"
             "stfu"
             "stfu@${rdomain}"
+            "bot"
+            "bot@${rdomain}"
           ];
           hashedPasswordFile = config.sops.secrets.mailserver-spam.path;
         };
