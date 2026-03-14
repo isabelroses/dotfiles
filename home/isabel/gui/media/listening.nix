@@ -24,8 +24,8 @@ in
         else
           pkgs.spotify;
 
-      colorScheme = "mocha";
-      theme = spicePkgs.themes.catppuccin;
+      colorScheme = "CatppuccinMocha";
+      theme = spicePkgs.themes.text;
 
       enabledExtensions = with spicePkgs.extensions; [
         shuffle
