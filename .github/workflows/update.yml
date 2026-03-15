@@ -48,5 +48,5 @@ jobs:
       - name: Merge Pull Request
         run: gh pr merge --rebase --auto --delete-branch "$PR"
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN_UPDATES }}
           PR: ${{ steps.pr.outputs.pull-request-url }}
