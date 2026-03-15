@@ -175,15 +175,15 @@
         "brew-src": []
       },
       "locked": {
-        "lastModified": 1769437432,
-        "narHash": "sha256-8d7KnCpT2LweRvSzZYEGd9IM3eFX+A78opcnDM0+ndk=",
-        "owner": "zhaofengli",
+        "lastModified": 1773614241,
+        "narHash": "sha256-Ou9E6jp2hQvM2/os+0DWvOMPAFGPYPXEVVUgC7imPTg=",
+        "owner": "isabelroses",
         "repo": "nix-homebrew",
-        "rev": "a5409abd0d5013d79775d3419bcac10eacb9d8c5",
+        "rev": "2789f55cd3fc93d602b33d7b08aa3fee3ca29176",
         "type": "github"
       },
       "original": {
-        "owner": "zhaofengli",
+        "owner": "isabelroses",
         "repo": "nix-homebrew",
         "type": "github"
       }
