@@ -180,7 +180,7 @@ in
           audio_folder_path =
             if pkgs.stdenv.hostPlatform.isDarwin then "~/Music/clips" else "~/media/music/clips";
           video_quality = 10;
-          custom_upload_command = "cdnadd %f";
+          custom_upload_command = "gup -c -s %f";
         };
       };
     };
