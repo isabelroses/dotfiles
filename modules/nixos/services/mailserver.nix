@@ -76,7 +76,6 @@ in
       vmailGroupName = "vmail";
 
       mailDirectory = "/srv/storage/mail/vmail";
-      dkimKeyDirectory = "/srv/storage/mail/dkim";
       sieveDirectory = "/srv/storage/mail/sieve";
 
       # Enable STARTTLS
@@ -94,7 +93,10 @@ in
       enableManageSieve = true;
 
       # DKIM Settings
-      dkim.defaults.keyLength = 4096;
+      dkim = {
+        defaults.keyLength = 4096;
+        keyDirectory = "/srv/storage/mail/dkim";
+      };
 
       hierarchySeparator = "/";
       localDnsResolver = false;
