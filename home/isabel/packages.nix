@@ -16,6 +16,7 @@ in
     (optionalAttrs cfg.workstation.enable {
       inherit (pkgs)
         # keep-sorted start
+        atproto-goat # a cli tool to help me manage my PDS
         glow # fancy markdown
         # gum # a nicer scripting
         jq # json parser
