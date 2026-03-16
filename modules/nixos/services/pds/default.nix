@@ -80,7 +80,7 @@ in
 
           # if your reading this you probably don't want this unless you
           # intend to host a public free to join instance
-          PDS_INVITE_REQUIRED = "false";
+          PDS_INVITE_REQUIRED = "true";
           PDS_SERVICE_HANDLE_DOMAINS = ".tgirl.beauty";
 
           # custom session duration: 30 days
@@ -115,6 +115,19 @@ in
               cp ${./two_factor_code.hbs} $out/two_factor_code.hbs
             ''
           );
+
+          # we want captcha for account creation, make sure to pick up
+          # `PDS_HCAPTCHA_SECRET_KEY` and `PDS_HCAPTCHA_SITE_KEY` from the
+          # something like <https://www.hcaptcha.com/>
+          GATEKEEPER_CREATE_ACCOUNT_CAPTCHA = "true";
+          GATEKEEPER_DEFAULT_CAPTCHA_REDIRECT = "https://pds.tgirl.cloud";
+          GATEKEEPER_CAPTCHA_SUCCESS_REDIRECTS = concatStringsSep "," [
+            "https://bsky.app"
+            "https://pdsmoover.com"
+            "https://blacksky.community"
+            "https://tektite.cc"
+            "https://pds.tgirl.cloud"
+          ];
 
           # we need to share a lot of secrets between pds and gatekeeper
           PDS_ENV_LOCATION = config.sops.secrets.pds-env.path;
