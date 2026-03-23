@@ -24,32 +24,9 @@ in
     terminal = {
       type = enum [
         "ghostty"
-        "alacritty"
-        "ghostty"
-        "kitty"
         "wezterm"
-        "foot"
       ];
       default = "ghostty";
-    };
-
-    fileManager = {
-      type = enum [
-        "cosmic-files"
-        "dolphin"
-        "nemo"
-      ];
-      default = "cosmic-files";
-    };
-
-    browser = {
-      type = enum [
-        "firefox"
-        "chromium"
-        "thorium"
-        "zen"
-      ];
-      default = "chromium";
     };
 
     editor = {
@@ -70,24 +47,6 @@ in
       default = "nvim +Man!";
     };
 
-    launcher = {
-      type = nullOr (enum [
-        "rofi"
-        "wofi"
-        "cosmic-launcher"
-      ]);
-      default = "rofi";
-    };
-
-    bar = {
-      type = nullOr (enum [
-        "waybar"
-        "ags"
-        "quickshell"
-      ]);
-      default = "ags";
-    };
-
     screenLocker = {
       type = nullOr (enum [
         "swaylock"
@@ -97,16 +56,6 @@ in
       default = "gtklock";
       description = ''
         The lockscreen module to be loaded by home-manager.
-      '';
-    };
-
-    noiseSuppressor = {
-      type = nullOr (enum [
-        "rnnoise"
-      ]);
-      default = "rnnoise";
-      description = ''
-        The noise suppressor to be used for desktop systems with sound enabled.
       '';
     };
   };

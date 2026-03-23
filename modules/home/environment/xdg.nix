@@ -15,7 +15,7 @@ let
 
   appsToAssoc = {
     browser = {
-      app = "${defaults.browser}-browser";
+      app = "chromium-browser";
       mimeTypes = [
         "text/html"
         "application/pdf"
@@ -64,11 +64,7 @@ let
     };
 
     fileManager = {
-      app =
-        if defaults.fileManager == "cosmic-files" then
-          "com.system76.CosmicFiles"
-        else
-          "${defaults.fileManager}";
+      app = "com.system76.CosmicFiles";
       mimeTypes = [ "inode/directory" ];
     };
   };

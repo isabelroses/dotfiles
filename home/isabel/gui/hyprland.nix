@@ -114,8 +114,8 @@ in
         bind = [
           # launchers
           "$mod, D, exec, vicinae toggle"
-          "$mod, B, exec, ${defaults.browser}"
-          "$mod, E, exec, ${defaults.fileManager}"
+          "$mod, B, exec, chromium"
+          "$mod, E, exec, cosmic-files"
           "$mod, C, exec, ${defaults.editor}"
           "$mod, Return, exec, ${defaults.terminal}"
           "$mod, L, exec, ${defaults.screenLocker}"
