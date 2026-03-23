@@ -11,7 +11,6 @@ let
 
   template = self.lib.template.xdg;
   vars = template.user config.xdg;
-  inherit (config.garden.programs) defaults;
 
   appsToAssoc = {
     browser = {
