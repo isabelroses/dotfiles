@@ -96,6 +96,7 @@ in
     userDirs = mkIf isLinux {
       enable = true;
       createDirectories = true;
+      setSessionVariables = true;
 
       documents = "${config.home.homeDirectory}/documents";
       download = "${config.home.homeDirectory}/downloads";
