@@ -13,13 +13,20 @@ let
 in
 {
   config = lib.mkIf cond {
-    garden.packages = {
-      inherit (pkgs)
-        obsidian
-        pandoc
-        zotero
-        ;
-    };
+    garden.packages = lib.mkMerge [
+      {
+        inherit (pkgs)
+          obsidian
+          pandoc
+          ;
+      }
+
+      (lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+        inherit (pkgs)
+          zotero
+          ;
+      })
+    ];
 
     programs.zk = {
       enable = true;
