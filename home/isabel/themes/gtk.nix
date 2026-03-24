@@ -87,7 +87,7 @@ in
       };
 
       gtk4 = {
-        theme = config.gtk.theme;
+        inherit (config.gtk) theme;
 
         extraConfig = {
           # make things look nice

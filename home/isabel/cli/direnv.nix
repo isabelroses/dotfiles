@@ -5,7 +5,7 @@
     silent = true;
 
     # FIXME: build error
-    package = pkgs.direnv.overrideAttrs (oldAttrs: {
+    package = pkgs.direnv.overrideAttrs (_oldAttrs: {
       postPatch = ''
         substituteInPlace GNUmakefile --replace-fail " -linkmode=external" ""
       '';
