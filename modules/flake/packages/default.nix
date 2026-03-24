@@ -9,6 +9,7 @@
   perSystem =
     {
       pkgs,
+      inputs',
       ...
     }:
     let
@@ -18,7 +19,7 @@
         # keep-sorted start block=yes newline_separated=yes
         docs = self.callPackage ./docs/package.nix { };
 
-        iztaller = self.callPackage ./iztaller/package.nix { };
+        iztaller = self.callPackage ./iztaller/package.nix { nix = inputs'.izlix.packages.lix; };
 
         libdoc = self.callPackage ./docs/lib.nix { };
         # keep-sorted end
