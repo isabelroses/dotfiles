@@ -188,6 +188,26 @@
         "type": "github"
       }
     },
+    "izlix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774392317,
+        "narHash": "sha256-VfcMXFre2KjW4wFB4u3A3H7zMIhCc2QrI7IPGcCsBKo=",
+        "owner": "isabelroses",
+        "repo": "izlix",
+        "rev": "fef6926a2eca6cd62684771aa27035f39f3c2ecd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "repo": "izlix",
+        "type": "github"
+      }
+    },
     "izvim": {
       "inputs": {
         "gift-wrap": "gift-wrap",
@@ -313,6 +333,7 @@
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "homebrew": "homebrew",
+        "izlix": "izlix",
         "izvim": "izvim",
         "lanzaboote": "lanzaboote",
         "nixos-wsl": "nixos-wsl",
