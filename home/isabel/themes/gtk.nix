@@ -86,20 +86,24 @@ in
         gtk-menu-images = 1;
       };
 
-      gtk4.extraConfig = {
-        # make things look nice
-        gtk-application-prefer-dark-theme = true;
+      gtk4 = {
+        theme = config.gtk.theme;
 
-        gtk-decoration-layout = "appmenu:none";
+        extraConfig = {
+          # make things look nice
+          gtk-application-prefer-dark-theme = true;
 
-        gtk-xft-antialias = 1;
-        gtk-xft-hinting = 1;
-        gtk-xft-hintstyle = "hintslight";
+          gtk-decoration-layout = "appmenu:none";
 
-        # stop annoying sounds again
-        gtk-enable-event-sounds = 0;
-        gtk-enable-input-feedback-sounds = 0;
-        gtk-error-bell = 0;
+          gtk-xft-antialias = 1;
+          gtk-xft-hinting = 1;
+          gtk-xft-hintstyle = "hintslight";
+
+          # stop annoying sounds again
+          gtk-enable-event-sounds = 0;
+          gtk-enable-input-feedback-sounds = 0;
+          gtk-error-bell = 0;
+        };
       };
     };
   };
