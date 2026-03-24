@@ -4,6 +4,13 @@
     inherit (config.garden.profiles.workstation) enable;
     silent = true;
 
+    # FIXME: build error
+    package = pkgs.direnv.overrideAttrs (oldAttrs: {
+      postPatch = ''
+        substituteInPlace GNUmakefile --replace-fail " -linkmode=external" ""
+      '';
+    });
+
     # faster, persistent implementation of use_nix and use_flake
     nix-direnv = {
       enable = true;
