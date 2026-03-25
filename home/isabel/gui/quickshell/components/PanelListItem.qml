@@ -17,6 +17,8 @@ Rectangle {
     height: 36
     radius: 6
     color: active ? Settings.colors.accent : "transparent"
+    border.color: Settings.colors.border
+    border.width: 1
 
     MouseArea {
         id: mouseArea

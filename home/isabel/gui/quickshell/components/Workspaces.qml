@@ -33,22 +33,16 @@ Item {
                     width: 22
                     height: 22
                     radius: 6
-                    color: workspaceItem.modelData.focused
-                        ? Settings.colors.accent
-                        : "transparent"
-
-                    Behavior on color {
-                        ColorAnimation { duration: 150 }
-                    }
+                    color: "transparent"
 
                     Text {
                         anchors.centerIn: parent
                         text: workspaceItem.modelData.id
                         color: workspaceItem.modelData.focused
-                            ? Settings.colors.background
+                            ? Settings.colors.accent
                             : Settings.colors.foreground
                         font {
-                            pixelSize: 12
+                            pixelSize: 14
                             weight: Font.Medium
                         }
                         opacity: workspaceItem.modelData.focused ? 1.0 : 0.6

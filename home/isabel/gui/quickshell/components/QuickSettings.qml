@@ -18,6 +18,11 @@ ColumnLayout {
     command: ["ghostty", "-e", "nvim", "~/.config/flake"]
   }
 
+  Process {
+    id: powerOffProc
+    command: ["systemctl", "poweroff"]
+  }
+
   Text {
     text: "Quick Settings"
     color: Settings.colors.foreground
@@ -35,6 +40,8 @@ ColumnLayout {
     visible: false
     radius: 8
     color: Settings.colors.backgroundLighter
+    border.color: Settings.colors.border
+    border.width: 1
     clip: true
 
     Behavior on Layout.preferredHeight {
@@ -116,6 +123,8 @@ ColumnLayout {
     visible: false
     radius: 8
     color: Settings.colors.backgroundLighter
+    border.color: Settings.colors.border
+    border.width: 1
     clip: true
 
     Behavior on Layout.preferredHeight {
@@ -285,6 +294,8 @@ ColumnLayout {
     Layout.preferredHeight: 72
     radius: 8
     color: Settings.colors.backgroundLighter
+    border.color: Settings.colors.border
+    border.width: 1
 
     RowLayout {
       anchors {
@@ -347,6 +358,13 @@ ColumnLayout {
           size: 18
           onClicked: openConfigProc.startDetached()
         }
+
+        // Power off button
+        IconButton {
+          icon: "system-shutdown-symbolic"
+          size: 18
+          onClicked: powerOffProc.startDetached()
+        }
     }
   }
 
@@ -357,6 +375,8 @@ ColumnLayout {
     Layout.preferredHeight: 64
     radius: 8
     color: active ? Settings.colors.accent : Settings.colors.backgroundLighter
+    border.color: Settings.colors.border
+    border.width: 1
 
     property string icon: ""
     property string label: ""

@@ -19,7 +19,7 @@ Singleton {
     property color warning: "#fab387"
     property color success: "#a6e3a1"
     property color info: "#94e2d5"
-    property color border: "#1e1e2e"
+    property color border: "#45475a"
   }
 
   property string username: "isabel"

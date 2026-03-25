@@ -30,6 +30,8 @@ LazyLoader {
       anchors.fill: parent
       radius: Settings.rounding
       color: Settings.colors.background
+      border.color: Settings.colors.border
+      border.width: 1
 
       ColumnLayout {
         spacing: 12
@@ -85,6 +87,8 @@ LazyLoader {
             height: 72
             radius: 8
             color: Settings.colors.backgroundLighter
+            border.color: Settings.colors.border
+            border.width: 1
 
             RowLayout {
               anchors {

@@ -35,6 +35,8 @@ Scope {
         anchors.fill: parent
         radius: Settings.rounding
         color: Settings.colors.background
+        border.color: Settings.colors.border
+        border.width: 1
 
         // Top section - Launcher & Workspaces
         ColumnLayout {
