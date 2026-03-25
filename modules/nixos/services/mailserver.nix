@@ -71,7 +71,7 @@ in
 
       stateVersion = 3;
 
-      useFsLayout = true;
+      useFSLayout = true;
       vmailUserName = "vmail";
       vmailGroupName = "vmail";
 
