@@ -138,46 +138,37 @@ in
         serverAliases = [ ".tgirl.beauty" ];
         enableACME = true;
 
-        locations =
-          let
-            mkAgeAssured = state: {
-              return = "200 '${builtins.toJSON state}'";
-              extraConfig = ''
-                add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
-                add_header access-control-allow-origin "*" always;
-                add_header X-Frame-Options SAMEORIGIN always;
-                add_header X-Content-Type-Options nosniff;
-                default_type application/json;
-              '';
-            };
-          in
-          {
-            # i am of age but i don't want to prove it lol
-            # https://gist.github.com/mary-ext/6e27b24a83838202908808ad528b3318
-            "/xrpc/app.bsky.unspecced.getAgeAssuranceState" = mkAgeAssured {
-              lastInitiatedAt = "2025-07-14T15:11:05.487Z";
-              status = "assured";
-            };
-            "/xrpc/app.bsky.ageassurance.getConfig" = mkAgeAssured {
-              regions = [ ];
-            };
-            "/xrpc/app.bsky.ageassurance.getState" = mkAgeAssured {
-              state = {
-                lastInitiatedAt = "2025-07-14T15:11:05.487Z";
-                status = "assured";
-                access = "full";
-              };
-              metadata = {
-                accountCreatedAt = "2022-11-17T00:35:16.391Z";
-              };
-            };
-
-            # pass everything else to the pds
-            "/" = {
-              proxyPass = "http://${cfg.host}:${toString cfg.port}";
-              proxyWebsockets = true;
-            };
+        locations = {
+          # i am of age but i don't want to prove it lol
+          # https://gist.github.com/mary-ext/6e27b24a83838202908808ad528b3318
+          "/xrpc/app.bsky.ageassurance.getState" = {
+            return = "200 '${
+              builtins.toJSON {
+                state = {
+                  lastInitiatedAt = "2025-07-14T15:11:05.487Z";
+                  status = "assured";
+                  access = "full";
+                };
+                metadata = {
+                  accountCreatedAt = "2022-11-17T00:35:16.391Z";
+                };
+              }
+            }'";
+            extraConfig = ''
+              add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
+              add_header access-control-allow-origin "*" always;
+              add_header X-Frame-Options SAMEORIGIN always;
+              add_header X-Content-Type-Options nosniff;
+              default_type application/json;
+            '';
           };
+
+          # pass everything else to the pds
+          "/" = {
+            proxyPass = "http://${cfg.host}:${toString cfg.port}";
+            proxyWebsockets = true;
+          };
+        };
       };
     };
   };
