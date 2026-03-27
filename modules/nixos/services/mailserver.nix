@@ -69,13 +69,15 @@ in
       enable = true;
       openFirewall = true;
 
-      stateVersion = 3;
+      stateVersion = 4;
 
-      useFSLayout = true;
-      vmailUserName = "vmail";
-      vmailGroupName = "vmail";
+      storage = {
+        directoryLayout = "fs";
+        owner = "vmail";
+        group = "vmail";
+        path = "/srv/storage/mail/vmail";
+      };
 
-      mailDirectory = "/srv/storage/mail/vmail";
       sieveDirectory = "/srv/storage/mail/sieve";
 
       # Enable STARTTLS
@@ -107,7 +109,7 @@ in
       # Set all no-reply addresses
       rejectRecipients = [ "noreply@${rdomain}" ];
 
-      loginAccounts = {
+      accounts = {
         "isabel@${rdomain}" = {
           hashedPasswordFile = config.sops.secrets.mailserver-isabel.path;
           aliases = [
