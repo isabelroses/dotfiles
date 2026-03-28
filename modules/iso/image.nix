@@ -39,13 +39,6 @@ in
     appendToMenuLabel = "";
 
     contents = [
-      # FIXME:
-      # {
-      #   # This should help for debugging if we ever get an unbootable system and have to
-      #   # prefrom some repairs on the system itself
-      #   source = pkgs.memtest86plus + "/memtest.bin";
-      #   target = "/boot/memtest.bin";
-      # }
       {
         # we also provide our flake such that a user can easily rebuild without needing
         # to clone the repo, which needlessly slows the install process
