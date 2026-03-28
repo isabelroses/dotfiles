@@ -99,5 +99,9 @@
     # unless the user ID of the follower matches the symlink, or the
     # directory owner matches the symlink
     "fs.protected_symlinks" = 1;
+
+    # increase the map count, this is important for applications that require a lot of memory mappings
+    # such as games and emulators
+    "vm.max_map_count" = 2147483642;
   };
 }

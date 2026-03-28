@@ -31,13 +31,6 @@
       boot = {
         loader = "systemd-boot";
         secureBoot = true;
-        enableKernelTweaks = true;
-        loadRecommendedModules = true;
-
-        initrd = {
-          enableTweaks = true;
-          optimizeCompressor = true;
-        };
       };
 
       bluetooth.enable = true;

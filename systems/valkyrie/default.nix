@@ -21,17 +21,9 @@
       boot = {
         loader = "none";
         secureBoot = false;
-        enableKernelTweaks = true;
-        loadRecommendedModules = true;
-
-        initrd = {
-          enableTweaks = true;
-          optimizeCompressor = true;
-        };
       };
 
       emulation.enable = true;
-
       bluetooth.enable = false;
     };
   };
