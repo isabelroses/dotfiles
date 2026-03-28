@@ -5,64 +5,32 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    mkMerge
-    getExe
-    mkOption
-    mkOptionDefault
-    concatStringsSep
-    ;
-  inherit (lib.types) nullOr enum;
+  inherit (lib) getExe concatStringsSep;
 
   sessionData = config.services.displayManager.sessionData.desktops;
   sessionPath = concatStringsSep ":" [
     "${sessionData}/share/xsessions"
     "${sessionData}/share/wayland-sessions"
   ];
-
-  cfg = config.garden.environment.loginManager;
 in
 {
-  options.garden.environment.loginManager = mkOption {
-    type = nullOr (enum [
-      "greetd"
-      "cosmic-greeter"
-    ]);
-    description = "The login manager to be used by the system.";
-  };
+  services.greetd = {
+    enable = true;
+    restart = true;
+    useTextGreeter = true;
 
-  config = mkMerge [
-    {
-      garden.environment.loginManager = mkOptionDefault (
-        if config.garden.profiles.graphical.enable then "greetd" else null
-      );
-    }
-
-    (mkIf (cfg == "greetd") {
-      services.greetd = {
-        enable = true;
-        restart = true;
-        useTextGreeter = true;
-
-        settings = {
-          default_session = {
-            user = "greeter";
-            command = concatStringsSep " " [
-              (getExe pkgs.tuigreet)
-              "--time"
-              "--remember"
-              "--remember-user-session"
-              "--asterisks"
-              "--sessions '${sessionPath}'"
-            ];
-          };
-        };
+    settings = {
+      default_session = {
+        user = "greeter";
+        command = concatStringsSep " " [
+          (getExe pkgs.tuigreet)
+          "--time"
+          "--remember"
+          "--remember-user-session"
+          "--asterisks"
+          "--sessions '${sessionPath}'"
+        ];
       };
-    })
-
-    (mkIf (cfg == "cosmic-greeter") {
-      services.displayManager.cosmic-greeter.enable = true;
-    })
-  ];
+    };
+  };
 }

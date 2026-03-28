@@ -51,7 +51,6 @@ in
       type = nullOr (enum [
         "swaylock"
         "gtklock"
-        "cosmic-greeter"
       ]);
       default = "gtklock";
       description = ''
