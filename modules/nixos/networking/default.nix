@@ -17,7 +17,6 @@ in
     ./optimise.nix
     ./systemd.nix
     ./tailscale.nix
-    ./tcpcrypt.nix
     ./vpn.nix
     ./wireless.nix
     # keep-sorted end
