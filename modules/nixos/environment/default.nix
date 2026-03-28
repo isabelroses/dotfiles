@@ -1,6 +1,7 @@
 {
   imports = [
     # keep-sorted start
+    ./binsh.nix # changes /bin/sh
     ./console.nix # changes to the console
     ./documentation.nix # nixos' provided documentation
     ./fonts.nix # fonts
