@@ -10,10 +10,7 @@ permissions: {}
 jobs:
   update-lockfile:
     runs-on: ubuntu-latest
-
-    permissions:
-      pull-requests: write
-      contents: write
+    environment: production
 
     steps:
       - name: Checkout
