@@ -14,7 +14,10 @@
     };
 
     system = {
-      boot.loader = "systemd-boot";
+      boot = {
+        loader = "systemd-boot";
+        initrd.tweaks.enable = false;
+      };
     };
 
     services = {

@@ -16,17 +16,10 @@ in
         bluetooth = false;
       };
 
-      system = {
-        boot = {
-          loader = "grub";
-          grub.device = "/dev/sda";
-          initrd.enableTweaks = true;
-          tmpOnTmpfs = false;
-        };
-
-        kernel = {
-          tweaks.enable = true;
-        };
+      system.boot = {
+        loader = "grub";
+        grub.device = "/dev/sda";
+        tmpOnTmpfs = false;
       };
     };
   };

@@ -12,8 +12,7 @@ in
     '';
 
     kernel.tweaks.enable = mkEnableOption "security and performance related kernel parameters" // {
-      default = config.garden.profiles.workstation.enable;
-      defaultText = "config.garden.profiles.workstation.enable";
+      default = true;
     };
   };
 
