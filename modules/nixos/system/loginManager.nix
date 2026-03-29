@@ -15,7 +15,7 @@ let
 in
 {
   services.greetd = {
-    enable = true;
+    inherit (config.garden.profiles.graphical) enable;
     restart = true;
     useTextGreeter = true;
 
