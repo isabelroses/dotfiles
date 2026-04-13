@@ -105,6 +105,7 @@ in
       fqdn = cfg.domain;
       x509.useACMEHost = cfg.domain;
       domains = [ rdomain ];
+      quota.enable = false;
 
       # Set all no-reply addresses
       rejectRecipients = [ "noreply@${rdomain}" ];
@@ -186,23 +187,23 @@ in
       mailboxes = {
         Archive = {
           auto = "subscribe";
-          specialUse = "Archive";
+          special_use = "\\Archive";
         };
         Drafts = {
           auto = "subscribe";
-          specialUse = "Drafts";
+          special_use = "\\Drafts";
         };
         Sent = {
           auto = "subscribe";
-          specialUse = "Sent";
+          special_use = "\\Sent";
         };
         Junk = {
           auto = "subscribe";
-          specialUse = "Junk";
+          special_use = "\\Junk";
         };
         Trash = {
           auto = "subscribe";
-          specialUse = "Trash";
+          special_use = "\\Trash";
         };
       };
 
