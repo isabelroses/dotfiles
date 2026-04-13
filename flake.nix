@@ -118,10 +118,7 @@
 
     tranquil = {
       url = "git+https://tangled.org/tranquil.farm/tranquil-pds";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-fetch-deno.url = "github:nixos/nixpkgs/pull/453904/merge";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     ### misc
