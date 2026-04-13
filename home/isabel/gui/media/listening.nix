@@ -30,7 +30,7 @@ in
       enabledExtensions = with spicePkgs.extensions; [
         shuffle
         copyToClipboard
-        lastfm
+        # lastfm
         hidePodcasts
         adblock
         volumePercentage
