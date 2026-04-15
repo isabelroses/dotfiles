@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775994227,
-        "narHash": "sha256-4VKeWtl9dEubrgpy9fSXkXbjBZlNXPNlQQM5l1ppHv4=",
+        "lastModified": 1776190523,
+        "narHash": "sha256-qfZWzaWuXfbF487cXj43uT7HWtqF45A+g7g59fOPYsk=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "d0a9a21ed8e235956a768fc624242ec9a3e15575",
+        "rev": "2eefec08414e2f90824bf2b508ea38ef6f295dfa",
         "type": "github"
       },
       "original": {
@@ -157,11 +157,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776046499,
-        "narHash": "sha256-Wzc4nn07/0RL21ypPHRzNDQZcjhIC8LaYo7QJQjM5T4=",
+        "lastModified": 1776184304,
+        "narHash": "sha256-No6QGBmIv5ChiwKCcbkxjdEQ/RO2ZS1gD7SFy6EZ7rc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "287f84846c1eb3b72c986f5f6bebcff0bd67440d",
+        "rev": "3c7524c68348ef79ce48308e0978611a050089b2",
         "type": "github"
       },
       "original": {
@@ -195,11 +195,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776045934,
-        "narHash": "sha256-D/KlPt1PzlPbU8v0R3cKQ3YcjYQAMjm88e3aZR+f3Go=",
+        "lastModified": 1776218231,
+        "narHash": "sha256-Ih7ln82r/hZ+G1sfkSKJcztiRdqcSDZkZ8z/m+UKy5c=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "abd3dccde5ad1aeb05b40146929c32180d183579",
+        "rev": "137c213e0dbeaabf77740666b82c7d1ae71b3829",
         "type": "github"
       },
       "original": {
@@ -239,11 +239,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1775866084,
-        "narHash": "sha256-mWn8D/oXXAaqeFFFRorKHvTLw5V9M8eYzAWRr4iffag=",
+        "lastModified": 1776186943,
+        "narHash": "sha256-AIhjvn51ErwyjekGaoVv1kDFQdUmxrkPcvcqDka/0Bk=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "29d2cca7fc3841708c1d48e2d1272f79db1538b6",
+        "rev": "5f50f40cb2731fcb27a7101f412a6ad823be8889",
         "type": "github"
       },
       "original": {
@@ -360,11 +360,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776036329,
-        "narHash": "sha256-Afl7dss2D6LNj8uIi13g61Y77IvVMrAud5Pvf6mOoGQ=",
+        "lastModified": 1776175145,
+        "narHash": "sha256-GaJQO2PeSZ36pFkEj3yIOFj+TWxM6UlSmnRThNZqTE0=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "4ddd48b5734d3f416dc87ab48b8f660e35703d2a",
+        "rev": "ceb3f17fe11a446f82dad91f5ef23f792a60b9f7",
         "type": "gitlab"
       },
       "original": {
@@ -380,11 +380,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775659564,
-        "narHash": "sha256-WFLi+JOeit3ymB0gw+hswtVuks0+qOYhJaJR5Y3ARww=",
+        "lastModified": 1776067069,
+        "narHash": "sha256-13ZGHGoDUfxeTdZ8o0eucln4iL939eonfe9E2wX39/k=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "4eac297e5dfce12420988df36defc177c1fe9ff0",
+        "rev": "c15a6fdca76951d3d576c816cfba7887fe80d2fc",
         "type": "github"
       },
       "original": {
@@ -402,11 +402,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1775421933,
-        "narHash": "sha256-JkEbzFDFTsUlVtHEzA8Y4r3O9LInhb96eOCbtGjGnbM=",
+        "lastModified": 1776126760,
+        "narHash": "sha256-Y/RrT7WdJe9B81ZSSRuSXktVyV5koWfcQIRHDqIIof4=",
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
-        "rev": "ec8d73085fdf807d55765335dc8126e14e7b2096",
+        "rev": "8b00357d910c5281181c21fc3a0d071ceec80c06",
         "type": "github"
       },
       "original": {
@@ -437,11 +437,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1775467435,
-        "narHash": "sha256-rR8xvm83pelKEt4SyOxSxZsC9ZX9Gw0VrW/jWjRqFBU=",
+        "lastModified": 1776200979,
+        "narHash": "sha256-LyTYftLFRVoednxftYutsNDLxvco7m3N/iMVmiP0CvE=",
         "owner": "tgirlcloud",
         "repo": "pkgs",
-        "rev": "fbb07200c9856446834b740fe4cb7a18e8a4c790",
+        "rev": "38ca0a5cae4984849c47124b79f84e13889032a2",
         "type": "github"
       },
       "original": {
@@ -457,11 +457,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776035319,
-        "narHash": "sha256-F2/rG0fzaAA5cjfM1bG8JCZ2o7yYpkUy+XgCurvIUVM=",
+        "lastModified": 1776201994,
+        "narHash": "sha256-jDVCApo9yqyQo5lObEajZvnp+Vfu+/NZpbw37Qr4+pY=",
         "ref": "refs/heads/main",
-        "rev": "cdbbaaccdf85093c50797281f3e08b6f4f90901b",
-        "revCount": 293,
+        "rev": "ec273fa814b29f994556b8a5c02f0d129378ee83",
+        "revCount": 297,
         "type": "git",
         "url": "https://tangled.org/tranquil.farm/tranquil-pds"
       },
