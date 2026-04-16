@@ -18,312 +18,320 @@ in
 
   options.garden.services.mailserver = mkServiceOption "mailserver" { domain = "mail.${rdomain}"; };
 
-  config = mkIf cfg.enable {
-    garden.services = {
-      redis.enable = true;
-      postgresql.enable = true;
-    };
+  config = lib.mkMerge [
+    {
+      # for some reason without doing it like this we get an eval error saying
+      # that "null cannot be coerced to a string". which i assume is caused by
+      # how lix handles pointers compared to nix
+      mailserver.quota.enable = false;
+    }
 
-    sops.secrets = {
-      mailserver-isabel = mkSecret {
-        file = "mailserver";
-        key = "isabel";
-      };
-      mailserver-jobs = mkSecret {
-        file = "mailserver";
-        key = "jobs";
-      };
-      mailserver-vaultwarden = mkSecret {
-        file = "mailserver";
-        key = "vaultwarden";
-      };
-      mailserver-database = mkSecret {
-        file = "mailserver";
-        key = "database";
-      };
-      mailserver-grafana = mkSecret {
-        file = "mailserver";
-        key = "grafana";
-      };
-      mailserver-git = mkSecret {
-        file = "mailserver";
-        key = "git";
-      };
-      mailserver-noreply = mkSecret {
-        file = "mailserver";
-        key = "noreply";
-      };
-      mailserver-spam = mkSecret {
-        file = "mailserver";
-        key = "spam";
-      };
-    };
-
-    # required for roundcube
-    networking.firewall.allowedTCPPorts = [
-      80
-      443
-    ];
-
-    mailserver = {
-      enable = true;
-      openFirewall = true;
-
-      stateVersion = 4;
-
-      storage = {
-        directoryLayout = "fs";
-        owner = "vmail";
-        group = "vmail";
-        path = "/srv/storage/mail/vmail";
+    (mkIf cfg.enable {
+      garden.services = {
+        redis.enable = true;
+        postgresql.enable = true;
       };
 
-      sieveDirectory = "/srv/storage/mail/sieve";
-
-      # Enable STARTTLS
-      enableImap = true;
-      enableImapSsl = true;
-
-      # eww
-      enablePop3 = false;
-      enablePop3Ssl = false;
-
-      enableSubmission = false;
-      enableSubmissionSsl = true;
-
-      # Enable ManageSieve so that we don't need to change the config to update sieves
-      enableManageSieve = true;
-
-      # DKIM Settings
-      dkim = {
-        defaults.keyLength = 4096;
-        keyDirectory = "/srv/storage/mail/dkim";
-      };
-
-      hierarchySeparator = "/";
-      localDnsResolver = false;
-      fqdn = cfg.domain;
-      x509.useACMEHost = cfg.domain;
-      domains = [ rdomain ];
-      quota.enable = false;
-
-      # Set all no-reply addresses
-      rejectRecipients = [ "noreply@${rdomain}" ];
-
-      accounts = {
-        "isabel@${rdomain}" = {
-          hashedPasswordFile = config.sops.secrets.mailserver-isabel.path;
-          aliases = [
-            "isabel"
-            "isabelroses"
-            "isabelroses@${rdomain}"
-            "bell"
-            "bell@${rdomain}"
-            "me@${rdomain}"
-            "admin"
-            "admin@${rdomain}"
-            "root"
-            "root@${rdomain}"
-            "postmaster"
-            "postmaster@${rdomain}"
-          ];
+      sops.secrets = {
+        mailserver-isabel = mkSecret {
+          file = "mailserver";
+          key = "isabel";
         };
-
-        "jobs@${rdomain}" = {
-          hashedPasswordFile = config.sops.secrets.mailserver-jobs.path;
-          aliases = [
-            "jobs"
-            "jobs@${rdomain}"
-            "job"
-            "job@${rdomain}"
-          ];
+        mailserver-jobs = mkSecret {
+          file = "mailserver";
+          key = "jobs";
         };
-
-        "git@${rdomain}" = {
-          aliases = [
-            "git"
-            "git@${rdomain}"
-          ];
-          hashedPasswordFile = config.sops.secrets.mailserver-git.path;
+        mailserver-vaultwarden = mkSecret {
+          file = "mailserver";
+          key = "vaultwarden";
         };
-
-        "vaultwarden@${rdomain}" = {
-          aliases = [
-            "vaultwarden"
-            "bitwarden"
-            "bitwarden@${rdomain}"
-          ];
-          hashedPasswordFile = config.sops.secrets.mailserver-vaultwarden.path;
+        mailserver-database = mkSecret {
+          file = "mailserver";
+          key = "database";
         };
-
-        "grafana@${rdomain}" = {
-          aliases = [
-            "grafana"
-            "monitor"
-            "monitor@${rdomain}"
-          ];
-          hashedPasswordFile = config.sops.secrets.mailserver-grafana.path;
+        mailserver-grafana = mkSecret {
+          file = "mailserver";
+          key = "grafana";
         };
-
-        "noreply@${rdomain}" = {
-          aliases = [ "noreply" ];
-          hashedPasswordFile = config.sops.secrets.mailserver-noreply.path;
+        mailserver-git = mkSecret {
+          file = "mailserver";
+          key = "git";
         };
-
-        "spam@${rdomain}" = {
-          aliases = [
-            "spam"
-            "shush"
-            "shush@${rdomain}"
-            "stfu"
-            "stfu@${rdomain}"
-            "bot"
-            "bot@${rdomain}"
-          ];
-          hashedPasswordFile = config.sops.secrets.mailserver-spam.path;
+        mailserver-noreply = mkSecret {
+          file = "mailserver";
+          key = "noreply";
+        };
+        mailserver-spam = mkSecret {
+          file = "mailserver";
+          key = "spam";
         };
       };
 
-      mailboxes = {
-        Archive = {
-          auto = "subscribe";
-          special_use = "\\Archive";
-        };
-        Drafts = {
-          auto = "subscribe";
-          special_use = "\\Drafts";
-        };
-        Sent = {
-          auto = "subscribe";
-          special_use = "\\Sent";
-        };
-        Junk = {
-          auto = "subscribe";
-          special_use = "\\Junk";
-        };
-        Trash = {
-          auto = "subscribe";
-          special_use = "\\Trash";
-        };
-      };
-
-      fullTextSearch = {
-        enable = true;
-        # index new email as they arrive
-        autoIndex = true;
-        enforced = "body";
-      };
-    };
-
-    services = {
-      roundcube = {
-        enable = true;
-
-        package = pkgs.roundcube.withPlugins (
-          plugins: builtins.attrValues { inherit (plugins) persistent_login carddav; }
-        );
-
-        # database = {
-        #   host = "/run/postgresql";
-        #   password = "";
-        # };
-
-        maxAttachmentSize = 50;
-
-        dicts = [ pkgs.aspellDicts.en ];
-
-        plugins = [
-          "carddav"
-          "persistent_login"
-        ];
-
-        # this is the url of the vhost, not necessarily the same as the fqdn of the mailserver
-        hostName = "webmail.${rdomain}";
-        extraConfig = ''
-          $config['imap_host'] = array(
-            'ssl://${config.mailserver.fqdn}' => "Isabelroses's Mail Server",
-            'ssl://imap.gmail.com:993' => 'Google Mail',
-          );
-          $config['username_domain'] = array(
-            '${config.mailserver.fqdn}' => '${rdomain}',
-            'mail.gmail.com' => 'gmail.com',
-          );
-          $config['x_frame_options'] = false;
-          # starttls needed for authentication, so the fqdn required to match
-          # the certificate
-          $config['smtp_host'] = "ssl://${config.mailserver.fqdn}";
-          $config['smtp_user'] = "%u";
-          $config['smtp_pass'] = "%p";
-        '';
-      };
-
-      postfix = {
-        dnsBlacklists = [
-          "all.s5h.net"
-          "b.barracudacentral.org"
-          "bl.spamcop.net"
-          "blacklist.woody.ch"
-        ];
-
-        dnsBlacklistOverrides = ''
-          ${rdomain} OK
-          ${config.mailserver.fqdn} OK
-          127.0.0.0/8 OK
-          10.0.0.0/8 OK
-          192.168.0.0/16 OK
-        '';
-
-        settings.main.smtp_hello_name = config.mailserver.fqdn;
-      };
-
-      phpfpm.pools.roundcube.settings = {
-        "listen.owner" = config.services.nginx.user;
-        "listen.group" = config.services.nginx.group;
-      };
-
-      rspamd.locals = {
-        # PLEASE STOP ZENDESK PLEASEEEEE
-        "zendesk.conf".text = ''
-          ZENDESK_JUNK {
-            type = "content";
-            filter = "header";
-            map = [
-              "X-Zendesk-Priority-Mail=/Verification Email/i",
-              "Message-ID=/_sprut@zendesk\\.com/i",
-              "Auto-Submitted=/auto-generated/i"
-            ];
-            symbol = "ZENDESK_JUNK";
-            score = 100.0;
-            action = "junk";
-          }
-        '';
-      };
-
-      nginx.virtualHosts = {
-        "${cfg.domain}" = {
-          forceSSL = true;
-          enableACME = true;
-        };
-
-        "webmail.${rdomain}" = {
-          locations."/".extraConfig = mkForce "";
-        };
-      };
-
-      postgresql = {
-        ensureDatabases = [ "roundcube" ];
-        ensureUsers = lib.singleton {
-          name = "roundcube";
-          ensureDBOwnership = true;
-        };
-      };
-    };
-
-    security.acme.certs.${cfg.domain} = {
-      reloadServices = [
-        "postfix.service"
-        "dovecot.service"
+      # required for roundcube
+      networking.firewall.allowedTCPPorts = [
+        80
+        443
       ];
-    };
-  };
+
+      mailserver = {
+        enable = true;
+        openFirewall = true;
+
+        stateVersion = 4;
+
+        storage = {
+          directoryLayout = "fs";
+          owner = "vmail";
+          group = "vmail";
+          path = "/srv/storage/mail/vmail";
+        };
+
+        sieveDirectory = "/srv/storage/mail/sieve";
+
+        # Enable STARTTLS
+        enableImap = true;
+        enableImapSsl = true;
+
+        # eww
+        enablePop3 = false;
+        enablePop3Ssl = false;
+
+        enableSubmission = false;
+        enableSubmissionSsl = true;
+
+        # Enable ManageSieve so that we don't need to change the config to update sieves
+        enableManageSieve = true;
+
+        # DKIM Settings
+        dkim = {
+          defaults.keyLength = 4096;
+          keyDirectory = "/srv/storage/mail/dkim";
+        };
+
+        hierarchySeparator = "/";
+        localDnsResolver = false;
+        fqdn = cfg.domain;
+        x509.useACMEHost = cfg.domain;
+        domains = [ rdomain ];
+
+        # Set all no-reply addresses
+        rejectRecipients = [ "noreply@${rdomain}" ];
+
+        accounts = {
+          "isabel@${rdomain}" = {
+            hashedPasswordFile = config.sops.secrets.mailserver-isabel.path;
+            aliases = [
+              "isabel"
+              "isabelroses"
+              "isabelroses@${rdomain}"
+              "bell"
+              "bell@${rdomain}"
+              "me@${rdomain}"
+              "admin"
+              "admin@${rdomain}"
+              "root"
+              "root@${rdomain}"
+              "postmaster"
+              "postmaster@${rdomain}"
+            ];
+          };
+
+          "jobs@${rdomain}" = {
+            hashedPasswordFile = config.sops.secrets.mailserver-jobs.path;
+            aliases = [
+              "jobs"
+              "jobs@${rdomain}"
+              "job"
+              "job@${rdomain}"
+            ];
+          };
+
+          "git@${rdomain}" = {
+            aliases = [
+              "git"
+              "git@${rdomain}"
+            ];
+            hashedPasswordFile = config.sops.secrets.mailserver-git.path;
+          };
+
+          "vaultwarden@${rdomain}" = {
+            aliases = [
+              "vaultwarden"
+              "bitwarden"
+              "bitwarden@${rdomain}"
+            ];
+            hashedPasswordFile = config.sops.secrets.mailserver-vaultwarden.path;
+          };
+
+          "grafana@${rdomain}" = {
+            aliases = [
+              "grafana"
+              "monitor"
+              "monitor@${rdomain}"
+            ];
+            hashedPasswordFile = config.sops.secrets.mailserver-grafana.path;
+          };
+
+          "noreply@${rdomain}" = {
+            aliases = [ "noreply" ];
+            hashedPasswordFile = config.sops.secrets.mailserver-noreply.path;
+          };
+
+          "spam@${rdomain}" = {
+            aliases = [
+              "spam"
+              "shush"
+              "shush@${rdomain}"
+              "stfu"
+              "stfu@${rdomain}"
+              "bot"
+              "bot@${rdomain}"
+            ];
+            hashedPasswordFile = config.sops.secrets.mailserver-spam.path;
+          };
+        };
+
+        mailboxes = {
+          Archive = {
+            auto = "subscribe";
+            special_use = "\\Archive";
+          };
+          Drafts = {
+            auto = "subscribe";
+            special_use = "\\Drafts";
+          };
+          Sent = {
+            auto = "subscribe";
+            special_use = "\\Sent";
+          };
+          Junk = {
+            auto = "subscribe";
+            special_use = "\\Junk";
+          };
+          Trash = {
+            auto = "subscribe";
+            special_use = "\\Trash";
+          };
+        };
+
+        fullTextSearch = {
+          enable = true;
+          # index new email as they arrive
+          autoIndex = true;
+          enforced = "body";
+        };
+      };
+
+      services = {
+        roundcube = {
+          enable = true;
+
+          package = pkgs.roundcube.withPlugins (
+            plugins: builtins.attrValues { inherit (plugins) persistent_login carddav; }
+          );
+
+          # database = {
+          #   host = "/run/postgresql";
+          #   password = "";
+          # };
+
+          maxAttachmentSize = 50;
+
+          dicts = [ pkgs.aspellDicts.en ];
+
+          plugins = [
+            "carddav"
+            "persistent_login"
+          ];
+
+          # this is the url of the vhost, not necessarily the same as the fqdn of the mailserver
+          hostName = "webmail.${rdomain}";
+          extraConfig = ''
+            $config['imap_host'] = array(
+              'ssl://${config.mailserver.fqdn}' => "Isabelroses's Mail Server",
+              'ssl://imap.gmail.com:993' => 'Google Mail',
+            );
+            $config['username_domain'] = array(
+              '${config.mailserver.fqdn}' => '${rdomain}',
+              'mail.gmail.com' => 'gmail.com',
+            );
+            $config['x_frame_options'] = false;
+            # starttls needed for authentication, so the fqdn required to match
+            # the certificate
+            $config['smtp_host'] = "ssl://${config.mailserver.fqdn}";
+            $config['smtp_user'] = "%u";
+            $config['smtp_pass'] = "%p";
+          '';
+        };
+
+        postfix = {
+          dnsBlacklists = [
+            "all.s5h.net"
+            "b.barracudacentral.org"
+            "bl.spamcop.net"
+            "blacklist.woody.ch"
+          ];
+
+          dnsBlacklistOverrides = ''
+            ${rdomain} OK
+            ${config.mailserver.fqdn} OK
+            127.0.0.0/8 OK
+            10.0.0.0/8 OK
+            192.168.0.0/16 OK
+          '';
+
+          settings.main.smtp_hello_name = config.mailserver.fqdn;
+        };
+
+        phpfpm.pools.roundcube.settings = {
+          "listen.owner" = config.services.nginx.user;
+          "listen.group" = config.services.nginx.group;
+        };
+
+        rspamd.locals = {
+          # PLEASE STOP ZENDESK PLEASEEEEE
+          "zendesk.conf".text = ''
+            ZENDESK_JUNK {
+              type = "content";
+              filter = "header";
+              map = [
+                "X-Zendesk-Priority-Mail=/Verification Email/i",
+                "Message-ID=/_sprut@zendesk\\.com/i",
+                "Auto-Submitted=/auto-generated/i"
+              ];
+              symbol = "ZENDESK_JUNK";
+              score = 100.0;
+              action = "junk";
+            }
+          '';
+        };
+
+        nginx.virtualHosts = {
+          "${cfg.domain}" = {
+            forceSSL = true;
+            enableACME = true;
+          };
+
+          "webmail.${rdomain}" = {
+            locations."/".extraConfig = mkForce "";
+          };
+        };
+
+        postgresql = {
+          ensureDatabases = [ "roundcube" ];
+          ensureUsers = lib.singleton {
+            name = "roundcube";
+            ensureDBOwnership = true;
+          };
+        };
+      };
+
+      security.acme.certs.${cfg.domain} = {
+        reloadServices = [
+          "postfix.service"
+          "dovecot.service"
+        ];
+      };
+    })
+  ];
 }

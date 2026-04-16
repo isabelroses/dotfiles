@@ -91,8 +91,9 @@
     # a plain simple way to host a mail server
     simple-nixos-mailserver = {
       type = "gitlab";
-      owner = "simple-nixos-mailserver";
+      owner = "isabelroses"; # "simple-nixos-mailserver";
       repo = "nixos-mailserver";
+      ref = "quotaUsers";
 
       inputs = {
         nixpkgs.follows = "nixpkgs";
