@@ -6,9 +6,15 @@
 }:
 let
   inherit (lib) mkIf genAttrs;
+
+  cfg = config.garden.system.security.binaries;
 in
 {
-  config = mkIf config.garden.profiles.graphical.enable {
+  options.garden.system.security = {
+    binaries.enable = lib.mkEnableOption "allow for none patched binaries to be run";
+  };
+
+  config = mkIf cfg.enable {
     garden.packages = { inherit (pkgs) appimage-run; };
 
     # run appimages with appimage-run
