@@ -29,7 +29,7 @@ in
 
           "favicon.png" = pkgs.fetchurl {
             url = "https://gravatar.com/avatar/c487c810e09878b4bd90df713a7c9523?size=512";
-            hash = "sha256-5AFovhfmH1njcZnyMAs0XtFdnEEkMjuyq5O3oZVvnTc=";
+            hash = "sha256-zn5Gq/MsVORhojU2PzHg/h4B0PfjcxvQpcClHa+YYXc=";
           };
 
           "emoji/blobs" = pkgs.blobs_gg;
