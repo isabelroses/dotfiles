@@ -360,16 +360,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1776297847,
+        "lastModified": 1776299036,
         "narHash": "sha256-szTWvOUFeCwvTpqFU5bacZpNbn5tedv7nPsx6Ea7Etc=",
-        "owner": "isabelroses",
+        "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "10b577c650f41201b7b5991bb9947d3652bec997",
+        "rev": "93b4e5f3cd9c16c4ffb231829b05e55600834303",
         "type": "gitlab"
       },
       "original": {
-        "owner": "isabelroses",
-        "ref": "quotaUsers",
+        "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
         "type": "gitlab"
       }
