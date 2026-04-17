@@ -6,11 +6,11 @@
 }:
 let
   inherit (lib) mkOption mergeAttrsList optionalAttrs;
-  inherit (lib.types) attrsOf package;
+  inherit (lib.types) lazyAttrsOf package;
 in
 {
   options.garden.packages = mkOption {
-    type = attrsOf package;
+    type = lazyAttrsOf package;
     default = { };
     description = ''
       A set of packages to install in the garden environment.
