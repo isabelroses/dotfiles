@@ -50,3 +50,107 @@ jobs:
         with:
           attributes: ${{ steps.hosts.outputs.attributes }}
           comment-strategy: update
+
+  nix-eval-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Install Lix
+        uses: samueldr/lix-gha-installer-action@7b7f14d320d6aacfb65bd1ef761566b3b69e474c # v2026-02-22
+        with:
+          extra_nix_config: |
+            substituters = https://nix-community.cachix.org https://catppuccin.cachix.org https://cache.nixos.org/ https://cache.tgirl.cloud/tgirlcloud/
+            trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= tgirlcloud:EaOlHrpuOI6Zwmir3/MzqS9uA0Xn3gYr15/k/v0HIPo=
+
+      - name: Checkout base
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+          persist-credentials: false
+
+      - name: Eval stats (before)
+        working-directory: base
+        run: |
+          NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH=../stats-before.json \
+            nix eval --no-eval-cache .#nixosConfigurations.amaterasu.config.system.build.toplevel > /dev/null
+
+      - name: Eval stats (after)
+        run: |
+          NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH=stats-after.json \
+            nix eval --no-eval-cache .#nixosConfigurations.amaterasu.config.system.build.toplevel > /dev/null
+
+      - name: Generate stats table
+        run: |
+          python3 << 'PYEOF'
+          import json
+
+          def flatten(d, prefix=''):
+              result = {}
+              for k, v in d.items():
+                  if isinstance(v, dict):
+                      result.update(flatten(v, f'{prefix}{k}.'))
+                  elif isinstance(v, (int, float)):
+                      result[f'{prefix}{k}'] = v
+              return result
+
+          with open('stats-before.json') as f:
+              before = flatten(json.load(f))
+          with open('stats-after.json') as f:
+              after = flatten(json.load(f))
+
+          all_keys = sorted(set(before) | set(after))
+
+          def fmt(n):
+              return f'{n:.3f}' if isinstance(n, float) else f'{n:,}'
+
+          lines = [
+              '| Metric | Before | After | Δ | % |',
+              '|--------|--------|-------|---|---|',
+          ]
+          for key in all_keys:
+              b = before.get(key, 0)
+              a = after.get(key, 0)
+              diff = a - b
+              pct = f'{diff / b * 100:+.1f}%' if b != 0 else 'N/A'
+              sign = '+' if diff > 0 else ''
+              lines.append(f'| `{key}` | {fmt(b)} | {fmt(a)} | {sign}{fmt(diff)} | {pct} |')
+
+          table = '\n'.join(lines)
+          with open('stats-table.md', 'w') as f:
+              f.write(f'## Nix Eval Stats: `amaterasu`\n\n{table}\n')
+          PYEOF
+
+      - name: Post comment
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('stats-table.md', 'utf8');
+            const marker = '## Nix Eval Stats: `amaterasu`';
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(c => c.body.includes(marker));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
+
