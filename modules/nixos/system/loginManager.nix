@@ -8,10 +8,6 @@ let
   inherit (lib) getExe concatStringsSep;
 
   sessionData = config.services.displayManager.sessionData.desktops;
-  sessionPath = concatStringsSep ":" [
-    "${sessionData}/share/xsessions"
-    "${sessionData}/share/wayland-sessions"
-  ];
 in
 {
   services.greetd = {
@@ -28,7 +24,12 @@ in
           "--remember"
           "--remember-user-session"
           "--asterisks"
-          "--sessions '${sessionPath}'"
+          "--sessions '${
+            concatStringsSep ":" [
+              "${sessionData}/share/xsessions"
+              "${sessionData}/share/wayland-sessions"
+            ]
+          }'"
         ];
       };
     };
