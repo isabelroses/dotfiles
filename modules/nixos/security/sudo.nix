@@ -5,17 +5,14 @@
   ...
 }:
 let
-  inherit (lib) mkDefault getExe';
+  inherit (lib) getExe getExe';
 in
 {
   # lets swap out our sudo for sudo-rs just like ubuntu does
   # <https://discourse.ubuntu.com/t/adopting-sudo-rs-by-default-in-ubuntu-25-10/60583>
   security.sudo-rs = {
     enable = true;
-
-    # wheelNeedsPassword = false means wheel group can execute commands without a password
-    # so just disable it, it only hurt security, BUT ... see below what commands can be run without password
-    wheelNeedsPassword = mkDefault false;
+    wheelNeedsPassword = true;
 
     # only allow members of the wheel group to execute sudo
     execWheelOnly = true;
@@ -35,7 +32,15 @@ in
         commands = [
           # try to make nixos-rebuild work without password
           {
-            command = getExe' config.system.build.nixos-rebuild "nixos-rebuild";
+            command = getExe config.system.build.nixos-rebuild;
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = getExe config.nix.package;
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = getExe' config.nix.package "nix-env";
             options = [ "NOPASSWD" ];
           }
 
