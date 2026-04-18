@@ -79,6 +79,11 @@ jobs:
           path: base
           persist-credentials: false
 
+      - name: Warmup eval
+        working-directory: base
+        run: |
+          nix eval --no-eval-cache .#nixosConfigurations.amaterasu.config.system.build.toplevel > /dev/null
+
       - name: Eval stats (before)
         working-directory: base
         run: |
