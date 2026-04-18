@@ -3,7 +3,7 @@ name: Build and Release ISO Images
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 4 1,15 * *" # Run on the 1st and 15th of every month at 3:00 AM
+    - cron: "0 4 1,15 * *" # Run on the 1st and 15th of every month at 4:00 AM UTC
 
 permissions:
   attestations: write
@@ -56,10 +56,6 @@ jobs:
           tar -czvhf dotfiles.tar.gz result/
 
       - name: Upload Release Artifacts
-        run: |
-          release=$(date +"%Y-%m-%d")
-          gh release create "$release"
-          gh release upload "$release" ./lilith.iso
-          gh release upload "$release" ./dotfiles.tar.gz
+        run: gh release create "$(date +"%Y-%m-%d")" ./lilith.iso ./dotfiles.tar.gz
         env:
           GH_TOKEN: ${{ github.token }}
