@@ -43,6 +43,14 @@ in
             command = getExe' config.nix.package "nix-env";
             options = [ "NOPASSWD" ];
           }
+          {
+            command = getExe' config.nix.package "nix-store";
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = "/nix/store/*/bin/switch-to-configuration";
+            options = [ "NOPASSWD" ];
+          }
 
           # allow reboot and shutdown without password
           {
