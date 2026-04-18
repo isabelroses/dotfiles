@@ -19,6 +19,7 @@ in
     # don't worry that you cannot see cache.nixos.org here, it is added by default
     substituters = [
       "https://nix-community.cachix.org" # nix-community cache
+      "https://tranquil.cachix.org" # tranquil pds cache
     ]
     ++ optionals hasCtp [
       "https://catppuccin.cachix.org" # a cache for all catppuccin ports
@@ -26,6 +27,7 @@ in
 
     trusted-public-keys = [
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "tranquil.cachix.org-1:PoO+mGL6a6LcJiPakMDHN4E218/ei/7v2sxeDtNkSRg="
     ]
     ++ optionals hasCtp [
       "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
