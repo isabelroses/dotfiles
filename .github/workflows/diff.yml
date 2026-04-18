@@ -3,13 +3,15 @@ name: Lix Diff
 on:
   pull_request:
 
-permissions:
-  contents: read
-  pull-requests: write
+permissions: {}
 
 jobs:
   lix-diff:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -53,6 +55,9 @@ jobs:
 
   nix-eval-stats:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
     steps:
       - name: Checkout PR
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
