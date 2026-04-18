@@ -13,6 +13,7 @@ in
 {
   home-manager = {
     verbose = true;
+    minimal = true;
     useUserPackages = true;
     useGlobalPkgs = true;
     backupFileExtension = "bak";
