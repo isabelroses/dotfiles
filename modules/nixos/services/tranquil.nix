@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   self,
   config,
   inputs,
@@ -40,8 +39,6 @@ in
             invite_code_required = true;
             age_assurance_override = true;
           };
-
-          signal.cli_path = pkgs.emptyFile;
 
           # crawlers shamlessly stolen from
           # <https://compare.hose.cam>
