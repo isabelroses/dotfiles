@@ -8,7 +8,7 @@
     ./paths.nix # paths
     ./wayland.nix # wayland settings
     ./xdg.nix # move everything to nice placee
-    ./zram.nix # zram optimisation and enabling
+    ./zswap.nix # zswap optimisation and enabling
     # keep-sorted end
   ];
 }
