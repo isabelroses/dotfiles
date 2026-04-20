@@ -1,129 +1,138 @@
-{ lib, ... }:
 {
-  perSystem =
-    { pkgs, ... }:
-    {
-      formatter = pkgs.treefmt.withConfig {
-        runtimeInputs = with pkgs; [
-          # keep-sorted start
-          actionlint
-          deadnix
-          keep-sorted
-          nixfmt
-          shellcheck
-          shfmt
-          statix
-          stylua
-          taplo
-          yamlfmt
-          zizmor
-          # keep-sorted end
+  lib,
+  treefmt,
+  actionlint,
+  deadnix,
+  keep-sorted,
+  nixfmt,
+  shellcheck,
+  shfmt,
+  statix,
+  stylua,
+  taplo,
+  yamlfmt,
+  zizmor,
+  writeShellScriptBin,
+}:
+treefmt.withConfig {
+  runtimeInputs = [
+    # keep-sorted start
+    actionlint
+    deadnix
+    keep-sorted
+    nixfmt
+    shellcheck
+    shfmt
+    statix
+    stylua
+    taplo
+    yamlfmt
+    zizmor
+    # keep-sorted end
 
-          (writeShellScriptBin "statix-fix" ''
-            for file in "$@"; do
-              ${lib.getExe statix} fix "$file"
-            done
-          '')
+    (writeShellScriptBin "statix-fix" ''
+      for file in "$@"; do
+        ${lib.getExe statix} fix "$file"
+      done
+    '')
+  ];
+
+  settings = {
+    on-unmatched = "info";
+    tree-root-file = "flake.nix";
+
+    excludes = [ "secrets/*" ];
+
+    formatter = {
+      # keep-sorted start block=yes newline_separated=yes
+      actionlint = {
+        command = "actionlint";
+        includes = [
+          ".github/workflows/*.yml"
+          ".github/workflows/*.yaml"
         ];
-
-        settings = {
-          on-unmatched = "info";
-          tree-root-file = "flake.nix";
-
-          excludes = [ "secrets/*" ];
-
-          formatter = {
-            # keep-sorted start block=yes newline_separated=yes
-            actionlint = {
-              command = "actionlint";
-              includes = [
-                ".github/workflows/*.yml"
-                ".github/workflows/*.yaml"
-              ];
-            };
-
-            deadnix = {
-              command = "deadnix";
-              options = [ "--edit" ];
-              includes = [ "*.nix" ];
-            };
-
-            keep-sorted = {
-              command = "keep-sorted";
-              includes = [ "*" ];
-            };
-
-            nixfmt = {
-              command = "nixfmt";
-              includes = [ "*.nix" ];
-            };
-
-            shellcheck = {
-              command = "shellcheck";
-              includes = [
-                "*.sh"
-                "*.bash"
-                # direnv
-                "*.envrc"
-                "*.envrc.*"
-              ];
-            };
-
-            shfmt = {
-              command = "shfmt";
-              options = [
-                "-s"
-                "-w"
-                "-i"
-                "2"
-              ];
-              includes = [
-                "*.sh"
-                "*.bash"
-                # direnv
-                "*.envrc"
-                "*.envrc.*"
-              ];
-            };
-
-            statix = {
-              command = "statix-fix";
-              includes = [ "*.nix" ];
-            };
-
-            stylua = {
-              command = "stylua";
-              includes = [ "*.lua" ];
-            };
-
-            taplo = {
-              command = "taplo";
-              options = "format";
-              includes = [ "*.toml" ];
-            };
-
-            yamlfmt = {
-              command = "yamlfmt";
-              options = [
-                "-formatter"
-                "retain_line_breaks_single=true"
-              ];
-              includes = [
-                "*.yml"
-                "*.yaml"
-              ];
-            };
-
-            zizmor = {
-              command = "zizmor";
-              includes = [
-                ".github/workflows/*.yml"
-                ".github/workflows/*.yaml"
-              ];
-            };
-            # keep-sorted end
-          };
-        };
       };
+
+      deadnix = {
+        command = "deadnix";
+        options = [ "--edit" ];
+        includes = [ "*.nix" ];
+      };
+
+      keep-sorted = {
+        command = "keep-sorted";
+        includes = [ "*" ];
+      };
+
+      nixfmt = {
+        command = "nixfmt";
+        includes = [ "*.nix" ];
+      };
+
+      shellcheck = {
+        command = "shellcheck";
+        includes = [
+          "*.sh"
+          "*.bash"
+          # direnv
+          "*.envrc"
+          "*.envrc.*"
+        ];
+      };
+
+      shfmt = {
+        command = "shfmt";
+        options = [
+          "-s"
+          "-w"
+          "-i"
+          "2"
+        ];
+        includes = [
+          "*.sh"
+          "*.bash"
+          # direnv
+          "*.envrc"
+          "*.envrc.*"
+        ];
+      };
+
+      statix = {
+        command = "statix-fix";
+        includes = [ "*.nix" ];
+      };
+
+      stylua = {
+        command = "stylua";
+        includes = [ "*.lua" ];
+      };
+
+      taplo = {
+        command = "taplo";
+        options = "format";
+        includes = [ "*.toml" ];
+      };
+
+      yamlfmt = {
+        command = "yamlfmt";
+        options = [
+          "-formatter"
+          "retain_line_breaks_single=true"
+        ];
+        includes = [
+          "*.yml"
+          "*.yaml"
+        ];
+      };
+
+      zizmor = {
+        command = "zizmor";
+        includes = [
+          ".github/workflows/*.yml"
+          ".github/workflows/*.yaml"
+        ];
+      };
+      # keep-sorted end
     };
+  };
 }

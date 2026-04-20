@@ -1,8 +1,7 @@
 {
   description = "Isabel's dotfiles";
 
-  outputs =
-    inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } { imports = [ ./modules/flake ]; };
+  outputs = inputs: import ./modules/flake inputs;
 
   inputs = {
     # our main package supplier
@@ -49,24 +48,6 @@
       owner = "nix-community";
       repo = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    ### Flake management
-    # bring all the mess together with flake-parts
-    flake-parts = {
-      type = "github";
-      owner = "hercules-ci";
-      repo = "flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
-
-    # easily manage our hosts
-    easy-hosts = {
-      type = "github";
-      owner = "tgirlcloud";
-      repo = "easy-hosts";
-
-      # url = "git+file:/Users/isabel/dev/easy-hosts";
     };
 
     ### Security stuff
