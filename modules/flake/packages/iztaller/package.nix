@@ -1,4 +1,5 @@
 {
+  lib,
   nix,
   gum,
   vim,
@@ -18,4 +19,6 @@ writeShellApplication {
   ];
 
   text = builtins.readFile ./iztaller.sh;
+
+  meta.platforms = lib.platforms.linux;
 }
