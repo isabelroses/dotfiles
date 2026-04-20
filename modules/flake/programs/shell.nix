@@ -1,50 +1,25 @@
 {
-  perSystem =
-    {
-      pkgs,
-      config,
-      ...
-    }:
-    {
-      devShells = {
-        default = pkgs.mkShellNoCC {
-          name = "dotfiles";
-          meta.description = "Development shell for this configuration";
+  mkShellNoCC,
+  just,
+  gitMinimal,
+  sops,
+  nix-output-monitor,
+  treefmt-wrapped,
+}:
+mkShellNoCC {
+  name = "dotfiles";
 
-          DIRENV_LOG_FORMAT = "";
+  packages = [
+    just # quick and easy task runner
+    gitMinimal # we need git
+    sops # secrets management
+    treefmt-wrapped # nix formatter
+    nix-output-monitor # get clean diff between generations
+  ];
 
-          packages = [
-            pkgs.just # quick and easy task runner
-            pkgs.gitMinimal # we need git
-            pkgs.sops # secrets management
-            config.formatter # nix formatter
-            pkgs.nix-output-monitor # get clean diff between generations
-          ];
+  inputsFrom = [ treefmt-wrapped ];
 
-          inputsFrom = [ config.formatter ];
-        };
+  env.DIRENV_LOG_FORMAT = "";
 
-        nixpkgs = pkgs.mkShellNoCC {
-          packages = builtins.attrValues {
-            inherit (pkgs)
-              # package creation helpers
-              nurl
-              nix-init
-
-              # nixpkgs dev stuff
-              hydra-check
-              nixpkgs-lint
-              nixpkgs-review
-              nixpkgs-hammering
-
-              # nix helpers
-              nix-melt
-              nix-tree
-              nix-inspect
-              nix-search-cli
-              ;
-          };
-        };
-      };
-    };
+  meta.description = "Development shell for this configuration";
 }
