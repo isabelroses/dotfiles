@@ -18,6 +18,7 @@
 - [secrets](guides/secrets.md)
 - [uninstalling](guides/uninstalling.md)
 - [issues](guides/issues.md)
+- [debugging](guides/debugging.md)
 
 # Configuration
 
