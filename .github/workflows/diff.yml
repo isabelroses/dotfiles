@@ -153,9 +153,34 @@ jobs:
           def fmt(n):
               return f'{n:.3f}' if isinstance(n, float) else f'{int(n):,}'
 
+          def is_significant(before_runs, after_runs, key, threshold=0.05):
+              """Welch's t-test to determine if the difference is significant."""
+              import math
+              b_vals = [r[key] for r in before_runs if key in r]
+              a_vals = [r[key] for r in after_runs if key in r]
+              n_b, n_a = len(b_vals), len(a_vals)
+              if n_b < 2 or n_a < 2:
+                  return False
+              mean_b = statistics.mean(b_vals)
+              mean_a = statistics.mean(a_vals)
+              var_b = statistics.variance(b_vals)
+              var_a = statistics.variance(a_vals)
+              se = math.sqrt(var_b / n_b + var_a / n_a)
+              if se == 0:
+                  return mean_a != mean_b
+              t_stat = abs(mean_a - mean_b) / se
+              # Approximate p-value using degrees of freedom via Welch-Satterthwaite
+              num = (var_b / n_b + var_a / n_a) ** 2
+              denom = (var_b / n_b) ** 2 / (n_b - 1) + (var_a / n_a) ** 2 / (n_a - 1)
+              df = num / denom if denom > 0 else 1
+              # Conservative t-critical values for two-tailed p<0.05
+              # For df>=4 (our case with 5 runs each), t_crit ~ 2.78 (df=4) to 2.31 (df=8)
+              t_crit = 2.78 if df <= 4 else 2.45 if df <= 6 else 2.31
+              return t_stat > t_crit
+
           lines = [
-              '| Metric | Before (mean ± σ) | After (mean ± σ) | Δ | % |',
-              '|--------|-------------------|------------------|---|---|',
+              '| Metric | Before (mean +/- σ) | After (mean +/- σ) | Δ | % | Sig? |',
+              '|--------|---------------------|--------------------|----|---|------|',
           ]
           for key in all_keys:
               b = before.get(key, 0)
@@ -165,7 +190,8 @@ jobs:
               diff = a - b
               pct = f'{diff / b * 100:+.1f}%' if b != 0 else 'N/A'
               sign = '+' if diff > 0 else ''
-              lines.append(f'| `{key}` | {fmt(b)} ± {fmt(bs)} | {fmt(a)} ± {fmt(as_)} | {sign}{fmt(diff)} | {pct} |')
+              sig = 'Yes' if is_significant(before_runs, after_runs, key) else ''
+              lines.append(f'| `{key}` | {fmt(b)} ± {fmt(bs)} | {fmt(a)} ± {fmt(as_)} | {sign}{fmt(diff)} | {pct} | {sig} |')
 
           table = '\n'.join(lines)
           with open('stats-table.md', 'w') as f:
