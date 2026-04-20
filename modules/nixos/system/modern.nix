@@ -6,10 +6,6 @@
 # WARNING: some of these options are experimental meaning they will and can
 # break things. so use at your own risk
 {
-  # We enable Systemd in the initrd so we can use it to mount the root
-  # filesystem this will remove Perl form the activation
-  boot.initrd.systemd.enable = true;
-
   # Declarative user management
   # either use this or systemd-sysusers :D
   services.userborn.enable = true;
