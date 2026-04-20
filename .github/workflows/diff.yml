@@ -48,7 +48,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Run lix-diff
-        uses: isabelroses/lix-diff-action@a3db1f293b554fb2918d1b39fd31f1e085a56a35 # main
+        uses: isabelroses/lix-diff-action@813069195be03ebafecaf0ad00823b853baf1057 # main
         with:
           attributes: ${{ steps.hosts.outputs.attributes }}
           comment-strategy: update
