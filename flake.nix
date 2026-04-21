@@ -1,5 +1,5 @@
 {
-  description = "Isabel's dotfiles";
+  description = "isabel's dotfiles";
 
   outputs = inputs: import ./modules/flake inputs;
 
