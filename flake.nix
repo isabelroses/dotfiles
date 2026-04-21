@@ -85,7 +85,7 @@
 
     homebrew = {
       type = "github";
-      owner = "isabelroses"; # zhaofengli
+      owner = "zhaofengli";
       repo = "nix-homebrew";
       inputs.brew-src.follows = "";
     };
