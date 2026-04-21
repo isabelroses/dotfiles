@@ -22,7 +22,7 @@ in
       ${cfg.domain} = {
         serverAliases = [ "www.${cfg.domain}" ];
         enableACME = true;
-        root = inputs'.tgirlpkgs.packages.isabelroses-website;
+        root = inputs'.extersia.packages.isabelroses-website;
       };
     };
   };

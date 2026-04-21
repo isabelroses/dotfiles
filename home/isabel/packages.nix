@@ -29,7 +29,7 @@ in
         # keep-sorted end
         ;
 
-      inherit (inputs'.tgirlpkgs.packages) zzz; # code snippets in the cli
+      inherit (inputs'.extersia.packages) zzz; # code snippets in the cli
     })
 
     # (optionalAttrs cfg.graphical.enable {
@@ -60,7 +60,7 @@ in
         # keep-sorted end
         ;
 
-      inherit (inputs'.tgirlpkgs.packages) cake-wallet;
+      inherit (inputs'.extersia.packages) cake-wallet;
     })
   ];
 }

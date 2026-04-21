@@ -112,9 +112,9 @@
     };
 
     ### my programs
-    tgirlpkgs = {
+    extersia = {
       type = "github";
-      owner = "tgirlcloud";
+      owner = "extersia-org";
       repo = "pkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
