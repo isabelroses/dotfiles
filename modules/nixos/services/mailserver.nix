@@ -218,7 +218,7 @@ in
           enable = true;
           # index new email as they arrive
           autoIndex = true;
-          enforced = "body";
+          fallback = false;
         };
       };
 
