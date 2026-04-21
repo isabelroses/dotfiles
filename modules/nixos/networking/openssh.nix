@@ -1,9 +1,4 @@
-{
-  lib,
-  self,
-  config,
-  ...
-}:
+{ lib, self, ... }:
 let
   inherit (lib) concatMapAttrs;
   inherit (self.lib) mkPubs;
@@ -14,10 +9,6 @@ in
     startWhenNeeded = true;
 
     allowSFTP = true;
-
-    banner = ''
-      Connected to ${config.system.name} @ ${config.system.configurationRevision}
-    '';
 
     settings = {
       # Don't allow root login
