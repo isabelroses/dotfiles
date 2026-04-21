@@ -42,11 +42,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767469770,
-        "narHash": "sha256-Rv1kumaBqlqCvLjVYuzdA38btSyjSRvXZ8UtwalGcHo=",
+        "lastModified": 1776732099,
+        "narHash": "sha256-3NUfNnruKlKbxPS9jtX+hq6YU1jm0TWN/gp3ZSfTfb4=",
         "owner": "isabelroses",
         "repo": "nix-darwin",
-        "rev": "1d46ab42afd10adf9751ab6cfba6b426bfb17e33",
+        "rev": "1e2d8fbb375432a32b19bd9af8759b3f86f00541",
         "type": "github"
       },
       "original": {
@@ -140,15 +140,15 @@
         "brew-src": []
       },
       "locked": {
-        "lastModified": 1773614241,
-        "narHash": "sha256-Ou9E6jp2hQvM2/os+0DWvOMPAFGPYPXEVVUgC7imPTg=",
-        "owner": "isabelroses",
+        "lastModified": 1774720267,
+        "narHash": "sha256-YYftFe8jyfpQI649yfr0E+dqEXE2jznZNcYvy/lKV1U=",
+        "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "2789f55cd3fc93d602b33d7b08aa3fee3ca29176",
+        "rev": "a7760a3a83f7609f742861afb5732210fdc437ed",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
+        "owner": "zhaofengli",
         "repo": "nix-homebrew",
         "type": "github"
       }
