@@ -2,8 +2,8 @@
 {
   imports = [
     # keep-sorted start
+    inputs.extersia.nixosModules.default
     inputs.home-manager.nixosModules.home-manager
-    inputs.tgirlpkgs.nixosModules.default
     # keep-sorted end
   ];
 }

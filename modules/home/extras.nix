@@ -2,7 +2,7 @@
 {
   imports = [
     #  # keep-sorted start
-    inputs.tgirlpkgs.homeModules.default
+    inputs.extersia.homeModules.default
     # keep-sorted end
   ];
 }

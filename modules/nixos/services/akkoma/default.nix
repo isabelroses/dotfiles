@@ -33,7 +33,7 @@ in
           };
 
           "emoji/blobs" = pkgs.blobs_gg;
-          "emoji/awesome" = inputs'.tgirlpkgs.packages.emojis;
+          "emoji/awesome" = inputs'.extersia.packages.emojis;
         };
 
         config = {

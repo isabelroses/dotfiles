@@ -56,6 +56,26 @@
         "type": "github"
       }
     },
+    "extersia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1776734296,
+        "narHash": "sha256-OT/1NPvxwuRPjOL1ysfWr3lPGosKjIbvmvBpCast8+o=",
+        "owner": "extersia-org",
+        "repo": "pkgs",
+        "rev": "cbccdaaa98e3d0e806c830c691d7e0bb894c40c3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "extersia-org",
+        "repo": "pkgs",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -278,6 +298,7 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "darwin": "darwin",
+        "extersia": "extersia",
         "home-manager": "home-manager",
         "homebrew": "homebrew",
         "izlix": "izlix",
@@ -288,7 +309,6 @@
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops": "sops",
         "spicetify": "spicetify",
-        "tgirlpkgs": "tgirlpkgs",
         "tranquil": "tranquil"
       }
     },
@@ -390,26 +410,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "tgirlpkgs": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1776298043,
-        "narHash": "sha256-J79s/xzEh5CKc2vQp7wFZd3LxQC2qaOXubk4OeEu72U=",
-        "owner": "tgirlcloud",
-        "repo": "pkgs",
-        "rev": "53d970f3ef8d81e42bbfdda941c8247abbd5c693",
-        "type": "github"
-      },
-      "original": {
-        "owner": "tgirlcloud",
-        "repo": "pkgs",
         "type": "github"
       }
     },
