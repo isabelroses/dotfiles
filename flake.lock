@@ -63,11 +63,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776734296,
-        "narHash": "sha256-OT/1NPvxwuRPjOL1ysfWr3lPGosKjIbvmvBpCast8+o=",
+        "lastModified": 1776766440,
+        "narHash": "sha256-x6DCihsks/lCif2jM4+6ewLIV+qi5Jp0LbsfuSC+uR4=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "cbccdaaa98e3d0e806c830c691d7e0bb894c40c3",
+        "rev": "6d455ec9676a421f8670b94640972dc5dabe45c4",
         "type": "github"
       },
       "original": {
@@ -343,11 +343,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1776727388,
-        "narHash": "sha256-+xXFdsOB1uo6WRvDodtMNSYz7VhGLReVmOPT5bHldFo=",
+        "lastModified": 1776776429,
+        "narHash": "sha256-IAWbpPbr2TJ1Znqi2y1kUv0YN2JxPwYKV61VszCvWpo=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "bd5b08681a3b85bf5587aa9453ede6244898152a",
+        "rev": "0b1ca542413481e6ebe56feca2c4df9326465fd0",
         "type": "gitlab"
       },
       "original": {
