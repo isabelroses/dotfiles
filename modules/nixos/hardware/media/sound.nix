@@ -11,6 +11,12 @@ let
 in
 {
   config = mkIf config.garden.profiles.graphical.enable {
+    # able to change scheduling policies, e.g. to SCHED_RR
+    security.rtkit.enable = lib.mkForce config.services.pipewire.enable;
+
+    # no thanks lol
+    services.pulseaudio.enable = lib.mkForce false;
+
     # pipewire is newer and just better
     services.pipewire = {
       enable = true;

@@ -1,7 +1,7 @@
 {
   imports = [
     # keep-sorted start
-    ./sound
+    ./sound.nix
     ./video.nix
     # keep-sorted end
   ];
