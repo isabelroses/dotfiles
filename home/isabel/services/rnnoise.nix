@@ -21,7 +21,7 @@ in
                 {
                   "type" = "ladspa";
                   "name" = "rnnoise";
-                  "plugin" = "${pkgs.rnnoise-plugin}/lib/ladspa/librnnoise_ladspa.so";
+                  "plugin" = "librnnoise_ladspa";
                   "label" = "noise_suppressor_stereo";
                   "control" = {
                     "VAD Threshold (%)" = 60.0;

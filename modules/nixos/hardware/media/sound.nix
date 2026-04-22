@@ -30,6 +30,8 @@ in
         support32Bit = isx86Linux pkgs;
       };
 
+      extraLadspaPackages = [ pkgs.rnnoise-plugin ];
+
       extraConfig.pipewire = {
         "10-loopback" = {
           "context.modules" = [
