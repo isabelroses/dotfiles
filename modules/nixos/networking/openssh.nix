@@ -1,4 +1,10 @@
-{ lib, self, ... }:
+{
+  lib,
+  pkgs,
+  self,
+  config,
+  ...
+}:
 let
   inherit (lib) concatMapAttrs;
   inherit (self.lib) mkPubs;
@@ -46,6 +52,12 @@ in
       # kick out inactive sessions
       ClientAliveCountMax = 5;
       ClientAliveInterval = 60;
+
+      Banner = toString (
+        pkgs.writeText "ssh_banner" ''
+          Connected to ${config.system.name} @ ${config.system.configurationRevision}
+        ''
+      );
     };
 
     openFirewall = true;
