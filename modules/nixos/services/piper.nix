@@ -8,14 +8,12 @@ let
   inherit (lib) mkIf;
   inherit (self.lib) mkServiceOption mkSecret;
 
-  rdomain = config.networking.domain;
-
   cfg = config.garden.services.piper;
 in
 {
   options.garden.services.piper = mkServiceOption "piper" {
     port = 3015;
-    domain = "piper.${rdomain}";
+    domain = "piper.kittysay.xyz";
   };
 
   config = mkIf cfg.enable {

@@ -63,8 +63,6 @@ in
 
     athena = { };
 
-    hephaestus = { };
-
     isis = { };
 
     lilith = {

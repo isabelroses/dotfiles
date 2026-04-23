@@ -24,6 +24,7 @@
       nginx.enable = true;
       uptime-kuma.enable = true;
       pds.enable = true;
+      piper.enable = true;
     };
   };
 }
