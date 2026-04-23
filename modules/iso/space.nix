@@ -19,4 +19,9 @@ in
 
   # don't include nixpkgs in our iso
   system.installer.channel.enable = false;
+
+  environment.defaultPackages = mkForce [ ];
+
+  # enabled by default to be the pager, but i don't use it
+  programs.less.enable = mkForce false;
 }
