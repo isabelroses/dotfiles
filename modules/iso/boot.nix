@@ -9,8 +9,6 @@ in
       "toram"
     ];
 
-    # have no need for systemd-boot
-    loader.systemd-boot.enable = mkForce false;
     # we don't need to have any raid tools in our system
     swraid.enable = mkForce false;
 
