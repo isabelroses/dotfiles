@@ -37,12 +37,14 @@
       substituters = [
         "https://nix-community.cachix.org" # nix-community cache
         "https://extersia.cachix.org" # packages for some of my stuff
+        "https://isabelroses.cachix.org" # some of my extra packages like lix
         "https://catppuccin.cachix.org" # a cache for all catppuccin ports
       ];
 
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "extersia.cachix.org-1:ZHy9765xrhn4lDKGTzWWykHC+B091oTqNxClgc78MQU="
+        "isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM="
         "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
       ];
     };
