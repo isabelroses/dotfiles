@@ -28,7 +28,6 @@
       blahaj.enable = true;
       kanidm.enable = true;
       mailserver.enable = true;
-      hostling.enable = true;
       borgbackup.enable = true;
 
       # web

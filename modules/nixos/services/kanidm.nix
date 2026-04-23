@@ -73,13 +73,6 @@ in
         group = "kanidm";
         mode = "440";
       };
-      kanidm-oauth2-hostling = mkSecret {
-        file = "kanidm";
-        key = "oauth2-hostling";
-        owner = "kanidm";
-        group = "kanidm";
-        mode = "440";
-      };
     };
 
     services = {
@@ -123,7 +116,6 @@ in
               "linkwarden.access"
               "wakapi.access"
               "immich.access"
-              "hostling.access"
             ];
           };
 
@@ -136,8 +128,6 @@ in
             "wakapi.access" = { };
 
             "immich.access" = { };
-
-            "hostling.access" = { };
           };
 
           systems.oauth2 = {
@@ -204,21 +194,6 @@ in
                 "profile"
               ];
             };
-
-            hostling = {
-              displayName = "hostling";
-              originUrl = "https://${cfg'.hostling.domain}/api/auth/login/openid-connect/callback";
-              originLanding = "https://${cfg'.hostling.domain}/";
-              basicSecretFile = config.sops.secrets.kanidm-oauth2-hostling.path;
-              allowInsecureClientDisablePkce = true;
-              preferShortUsername = true;
-              scopeMaps."hostling.access" = [
-                "openid"
-                "email"
-                "profile"
-              ];
-            };
-
           };
         };
       };
