@@ -82,12 +82,6 @@ evalHost {
       "${self}/modules/${class}/default.nix"
     ]
 
-    # get an installer profile from nixpkgs to base the Isos off of
-    # this is useful because it makes things alot easier
-    (optionals (class == "iso") [
-      "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel.nix"
-    ])
-
     # the next 3 singleton's are split up to make it easier to understand as they do things different things
 
     # recall `specialArgs` would take be preferred when resolving module structure
