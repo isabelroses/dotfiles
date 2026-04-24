@@ -26,11 +26,12 @@ builder goal *args:
 
 [group('rebuild')]
 [no-exit-message]
-deploy host *args:
+[private]
+deployer host goal *args:
     #!/usr/bin/env bash
     set -euo pipefail
     before=$(ssh -q {{ host }} 'readlink /run/current-system')
-    just builder switch --target-host {{ host }} --use-substitutes {{ args }}
+    just builder {{ goal }} --target-host {{ host }} --use-substitutes {{ args }}
 
     if [[ -n "${DEPLOY_SUMMARY:-}" ]]; then
         {
@@ -42,25 +43,46 @@ deploy host *args:
         ssh {{ host }} TERM=xterm-256color lix diff "$before"
     fi
 
+# deploy by switching the new system configuration
 [group('rebuild')]
 [no-exit-message]
-deploy-all:
+deploy host *args: (deployer host "switch" args)
+
+# deploy by setting the boot configuration
+[group('rebuild')]
+[no-exit-message]
+deploy-boot host *args: (deployer host "boot" args)
+
+[group('rebuild')]
+[no-exit-message]
+[private]
+deployer-all goal:
     #!/usr/bin/env bash
     set -euo pipefail
     export DEPLOY_SUMMARY=".deploy-summary"
     : > "$DEPLOY_SUMMARY"
 
-    just deploy minerva
-    just deploy athena
-    just deploy aphrodite
-    just deploy skadi
-    just deploy hephaestus
-    just deploy isis
+    just deployer minerva {{ goal }}
+    just deployer athena {{ goal }}
+    just deployer aphrodite {{ goal }}
+    just deployer skadi {{ goal }}
+    just deployer hephaestus {{ goal }}
+    just deployer isis {{ goal }}
 
     echo
     echo "===== DEPLOYMENT SUMMARY ====="
     cat "$DEPLOY_SUMMARY"
     rm "$DEPLOY_SUMMARY"
+
+# deploy to all hosts by switching
+[group('rebuild')]
+[no-exit-message]
+deploy-all: (deployer-all "switch")
+
+# deploy to all hosts by setting boot
+[group('rebuild')]
+[no-exit-message]
+deploy-all-boot: (deployer-all "boot")
 
 # rebuild the boot
 [group('rebuild')]
