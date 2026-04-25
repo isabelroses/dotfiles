@@ -66,7 +66,6 @@ deployer-all goal:
     just deployer athena {{ goal }}
     just deployer aphrodite {{ goal }}
     just deployer skadi {{ goal }}
-    just deployer hephaestus {{ goal }}
     just deployer isis {{ goal }}
 
     echo
