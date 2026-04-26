@@ -7,9 +7,12 @@
     # our main package supplier
     #
     # you may also notice that I don't use a `github:` url for nixpkgs this is
-    # beacuse we can save 15mb of data by using the channel tarball this is not
-    # a major saving but it is nice to have
-    # https://deer.social/profile/did:plc:mojgntlezho4qt7uvcfkdndg/post/3loogwsoqok2w
+    # this is because it save a massive 15mb, is faster than github and if I
+    # cared about command-not-found it would fix that
+    #
+    # See also:
+    # - https://nix.dev/manual/nix/stable/protocols/tarball-fetcher#lockable-http-tarball-protocol
+    # - http://web.archive.org/web/20250806225139/https://nix.dev/manual/nix/2.28/protocols/tarball-fetcher#lockable-http-tarball-protocol
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
 
     # lix a good fork of nix, but also patched with my stuff
