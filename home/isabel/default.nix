@@ -1,6 +1,7 @@
 {
   imports = [
     # keep-sorted start
+    ./all-modules.nix # all the modules i need
     ./cli # command line interface app confurations
     ./gui # graphical interface app confurations
     ./packages.nix # a top-level list of packages
