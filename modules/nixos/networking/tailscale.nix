@@ -1,9 +1,4 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 let
   inherit (lib)
     mkIf
@@ -62,9 +57,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    # make the tailscale command usable to users
-    garden.packages = { inherit (pkgs) tailscale; };
-
     networking.firewall = {
       # always allow traffic from your Tailscale network
       trustedInterfaces = [ "${tailscale.interfaceName}" ];
