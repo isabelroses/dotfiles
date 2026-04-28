@@ -42,11 +42,24 @@ in
 
       theme = {
         name = "catppuccin-${ctp.flavor}-${ctp.accent}-standard";
-        package = pkgs.catppuccin-gtk.override {
-          size = "standard";
-          accents = [ ctp.accent ];
-          variant = ctp.flavor;
-        };
+        package =
+          (pkgs.catppuccin-gtk.override {
+            size = "standard";
+            accents = [ ctp.accent ];
+            variant = ctp.flavor;
+          }).overrideAttrs
+            (oa: {
+              nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [
+                config.catppuccin.sources.whiskers
+                pkgs.which
+              ];
+
+              preInstall = ''
+                cd sources/patches/colloid
+                whiskers palette.tera
+                cd -
+              '';
+            });
       };
 
       font = {
