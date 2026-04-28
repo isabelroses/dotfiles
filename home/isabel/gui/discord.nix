@@ -35,6 +35,7 @@
           freeScreenShare = true;
           greentext = false;
           httpCats = true;
+          imageViewer = true;
           inviteToNowhere = true;
           lastFmRpc = false;
           memberCount = true;
@@ -47,7 +48,10 @@
           noReplyChainNag = true;
           noTrack = true;
           onePingPerDM = true;
+          openExternally = true;
+          ownerCrown = true;
           pronouns = true;
+          svgEmbed = true;
           textReplacer = {
             enabled = true;
             config = {
