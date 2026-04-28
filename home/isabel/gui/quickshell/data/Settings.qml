@@ -10,9 +10,9 @@ Singleton {
 
   component Colors: QtObject {
     property color backgroundLightest: "#313244"
-    property color backgroundLighter: "#1e1e2e"
-    property color background: "#181825"
-    property color backgroundDarker: "#11111b"
+    property color backgroundLighter: "#000000"
+    property color background: "#010101"
+    property color backgroundDarker: "#020202"
     property color foreground: "#cdd6f4"
     property color accent: "#89b4fa"
     property color error: "#f38ba8"
@@ -24,7 +24,7 @@ Singleton {
 
   property string username: "isabel"
   property string profilePicture: "/home/isabel/media/pictures/pfps/_current"
-  property string wallpaper: "/home/isabel/media/pictures/wallpapers/rep.png";
+  property string wallpaper: "/home/isabel/media/pictures/wallpapers/rn.jpg";
   property int rounding: 14
 
   // Notification settings
