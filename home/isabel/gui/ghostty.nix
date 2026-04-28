@@ -15,7 +15,7 @@ in
     settings = {
       command = "/run/current-system/sw/bin/fish";
 
-      background-opacity = 0.95;
+      background-opacity = 0.90;
       cursor-style = "bar";
       window-padding-x = "4,4";
       gtk-titlebar = false;
