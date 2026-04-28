@@ -26,7 +26,7 @@ in
     catppuccin = {
       inherit (config.garden.profiles.workstation) enable;
       sources =
-        if (options ? "catppuccin") then
+        if (osConfig ? "catppuccin") then
           osConfig.catppuccin.sources
         else
           (options.catppuccin.sources.default.overrideScope (
