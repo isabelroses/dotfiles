@@ -9,7 +9,7 @@
   libset ? [
     {
       name = "hardware";
-      description = "deterministic hardware";
+      description = "hardware";
     }
     {
       name = "helpers";
@@ -47,7 +47,6 @@ stdenvNoCC.mkDerivation {
       name=$1
       description=$3
       nixdoc -c "$name" -d "lib.$name: $description" -f "$name.nix" > "$out/$name.md"
-      echo "- [$name](lib/$name.md)" >> "$out/index.md"
     }
 
     ${lib.concatMapStrings (

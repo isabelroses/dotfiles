@@ -1,50 +1,51 @@
 {
-  stdenvNoCC,
-  mdbook,
-  fetchurl,
+  buildNpmPackage,
+  importNpmLock,
+  nodejs,
   simple-http-server,
   writeShellApplication,
 
   libdoc,
+  optiondoc,
 
   inputs,
   self ? inputs.self,
 }:
-stdenvNoCC.mkDerivation (finalAttrs: {
-  name = "docs";
+buildNpmPackage (finalAttrs: {
+  pname = "docs";
+  version = "0.0.1";
 
   src = self + /docs;
 
-  nativeBuildInputs = [ mdbook ];
+  npmDeps = importNpmLock { npmRoot = self + /docs; };
+  npmConfigHook = importNpmLock.npmConfigHook;
 
-  buildPhase = ''
-    runHook preBuild
+  nativeBuildInputs = [ nodejs ];
 
-    mkdir -p theme
-    cp ${finalAttrs.passthru.catppuccin-mdbook} theme/catppuccin.css
+  preBuild = ''
+    mkdir -p src/content/docs/lib
+    for file in ${libdoc}/*.md; do
+      name=$(basename "$file" .md)
+      {
+        echo "---"
+        echo "title: lib.$name"
+        echo "---"
+        echo
+        # strip nixdoc's mdBook-style heading attributes like `{#function-library-lib.foo}`
+        sed -E 's/[[:space:]]*\{#[^}]*\}//g' "$file"
+      } > "src/content/docs/lib/$name.md"
+    done
 
-    cp -r ${libdoc} src/lib
-
-    substituteInPlace src/SUMMARY.md \
-      --replace-fail "libdoc" "$(cat src/lib/index.md)"
-
-    mdbook build
-
-    runHook postBuild
+    cp -r ${optiondoc} src/content/docs/options
   '';
 
   installPhase = ''
     runHook preInstall
-    cp -r ./dist $out
+    cp -r dist $out
     runHook postInstall
   '';
 
   passthru = {
-    catppuccin-mdbook = fetchurl {
-      url = "https://github.com/catppuccin/mdBook/releases/download/v4.0.0/catppuccin.css";
-      hash = "sha256-4IvmqQrfOSKcx6PAhGD5G7I44UN2596HECCFzzr/p/8=";
-    };
-
     serve = writeShellApplication {
       name = "serve";
 

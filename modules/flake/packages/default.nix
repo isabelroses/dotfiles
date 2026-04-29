@@ -13,5 +13,6 @@ pkgs.lib.makeScope pkgs.newScope (self: {
   };
 
   libdoc = self.callPackage ./docs/lib.nix { };
+  optiondoc = self.callPackage ./docs/options.nix { };
   # keep-sorted end
 })
