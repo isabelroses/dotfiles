@@ -19,6 +19,7 @@
     ./security
     ./services
     ./system
+    ./topology.nix
     ./users
     # keep-sorted end
   ];
