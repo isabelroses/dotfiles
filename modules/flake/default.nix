@@ -11,7 +11,17 @@ let
     "aarch64-darwin"
   ];
 
-  forAllSystems = fn: lib.genAttrs systems (system: fn nixpkgs.legacyPackages.${system});
+  forAllSystems =
+    fn:
+    lib.genAttrs systems (
+      system:
+      fn (
+        import nixpkgs {
+          inherit system;
+          overlays = [ inputs.nix-topology.overlays.default ];
+        }
+      )
+    );
 
   mkHosts = lib.mapAttrs self.lib.mkHost;
 in
@@ -27,6 +37,21 @@ in
   });
 
   lib = import ./lib { inherit lib inputs; };
+
+  # nix build .#topology.x86_64-linux.config.output
+  # nix shell nixpkgs#librsvg
+  # rsvg-convert -o docs/src/images/topology.webp ./result/main.svg
+  topology = forAllSystems (
+    pkgs:
+    import inputs.nix-topology {
+      inherit pkgs;
+      modules = [
+        # filter out our iso
+        { nixosConfigurations = lib.filterAttrs (k: _: k != "lilith") self.nixosConfigurations; }
+        ./programs/topology
+      ];
+    }
+  );
 
   checks = forAllSystems (pkgs: import ./checks { inherit pkgs inputs; });
 
