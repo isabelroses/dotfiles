@@ -22,7 +22,7 @@ export default defineConfig({
       })],
       customCss: ["./src/styles/custom.css"],
       editLink: {
-        baseUrl: "https://github.com/isabelroses/dotfiles/edit/main/docs/src/content/docs/",
+        baseUrl: "https://github.com/isabelroses/dotfiles/edit/main/docs/",
       },
       sidebar: [
         { label: "Introduction", slug: "introduction" },
