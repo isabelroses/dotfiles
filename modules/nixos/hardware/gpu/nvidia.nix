@@ -59,8 +59,6 @@ in
 
         # adds nvidia-settings to pkgs, so useless on nixos
         nvidiaSettings = false;
-
-        nvidiaPersistenced = true;
       };
 
       graphics = {
