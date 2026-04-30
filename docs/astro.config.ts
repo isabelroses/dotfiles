@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
+import starlightCatppuccin from '@catppuccin/starlight'
 
 export default defineConfig({
   site: "https://dotfiles.isabelroses.com",
@@ -15,10 +16,14 @@ export default defineConfig({
           href: "https://github.com/isabelroses/dotfiles",
         },
       ],
+      plugins: [starlightCatppuccin({
+        dark: { flavor: "mocha", accent: "sapphire" },
+        light: { flavor: "latte", accent: "sapphire" },
+      })],
+      customCss: ["./src/styles/custom.css"],
       editLink: {
         baseUrl: "https://github.com/isabelroses/dotfiles/edit/main/docs/src/content/docs/",
       },
-      customCss: ["./src/styles/catppuccin.css"],
       sidebar: [
         { label: "Introduction", slug: "introduction" },
         {

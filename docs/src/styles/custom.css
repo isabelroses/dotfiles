@@ -1,0 +1,9 @@
+@layer starlight, catppuccin, oled;
+
+@layer oled {
+  :root {
+    --sl-color-gray-6: #010101;
+    --sl-color-gray-7: #020202;
+    --sl-color-black: #000;
+  }
+}
