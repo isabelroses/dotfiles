@@ -1,20 +1,9 @@
+{ config, ... }:
 {
-  lib,
-  config,
-  ...
-}:
-let
-  inherit (lib) mkIf;
-in
-{
-  config = mkIf config.garden.profiles.laptop.enable {
-    services = {
-      tuned = {
-        enable = true;
+  services.tuned = {
+    inherit (config.garden.profiles.laptop) enable;
 
-        # auto magically change the profile based on the battery charging state
-        ppdSettings.main.battery_detection = true;
-      };
-    };
+    # auto magically change the profile based on the battery charging state
+    ppdSettings.main.battery_detection = true;
   };
 }
