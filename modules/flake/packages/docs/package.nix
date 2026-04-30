@@ -18,7 +18,7 @@ buildNpmPackage (finalAttrs: {
   src = self + /docs;
 
   npmDeps = importNpmLock { npmRoot = self + /docs; };
-  npmConfigHook = importNpmLock.npmConfigHook;
+  inherit (importNpmLock) npmConfigHook;
 
   nativeBuildInputs = [ nodejs ];
 
