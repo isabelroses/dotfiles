@@ -28,6 +28,25 @@ in
 
   lib = import ./lib { inherit lib inputs; };
 
+  # nix build .#topology.x86_64-linux.config.output
+  # nix shell nixpkgs#librsvg
+  # rsvg-convert -o docs/src/images/topology.webp ./result/main.svg
+  topology = lib.attrsets.genAttrs systems (
+    system:
+    import inputs.nix-topology {
+      # only topology needs the overlay, so don't re-instantiate nixpkgs for every output
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ inputs.nix-topology.overlays.default ];
+      };
+      modules = [
+        # filter out our iso
+        { nixosConfigurations = lib.attrsets.filterAttrs (k: _: k != "lilith") self.nixosConfigurations; }
+        ./programs/topology
+      ];
+    }
+  );
+
   checks = forAllSystems (pkgs: import ./checks { inherit pkgs inputs; });
 
   formatter = forAllSystems (pkgs: pkgs.callPackage ./programs/formatter.nix { });
