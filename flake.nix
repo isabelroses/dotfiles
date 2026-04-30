@@ -92,6 +92,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-topology = {
+      type = "github";
+      owner = "oddlama";
+      repo = "nix-topology";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ### misc
     # declarative theme management
     catppuccin = {
