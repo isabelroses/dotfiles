@@ -10,9 +10,9 @@
 
 <br />
 
-![Preview image](./docs/src/images/main.webp)
+![Preview image](./docs/src/assets/main.webp)
 
-![image of my flakes topology](./docs/src/images/topology.webp)
+![image of my flakes topology](./docs/src/assets/topology.webp)
 
 ### Foreword
 
