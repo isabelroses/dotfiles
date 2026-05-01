@@ -123,8 +123,9 @@ in
         # allow usage of the pipe operator in nix expressions
         "pipe-operator"
 
+        # TODO: maybe readd later. i deal too much with people who use ref nix
         # allow nix to automatically coerce integers to strings
-        "coerce-integers"
+        # "coerce-integers"
       ];
 
       # don't warn me if the current working tree is dirty
