@@ -24,8 +24,7 @@ in
       "ndcooeababalnlpkfedmmbbbgkljhpjf" # scriptcat
       "ephjcajbkgplkjmelpglennepbpmdpjg" # ff2mpv
       "kpmjjdhbcfebfjgdnpjagcndoelnidfj" # Control Panel for Twitter
-      "cgpmbiiagnehkikhcbnhiagfomajncpa" # margin.at
-      "ekhagklcjbdpajgpjgmbionohlpdbjgc" # zeroto connector
+      "hlepfoohegkhhmjieoechaddaejaokhf" # refined github
     ];
 
     package = pkgs.chromium.override {
