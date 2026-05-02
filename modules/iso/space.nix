@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib) mkForce;
+  inherit (lib.modules) mkForce;
 in
 {
   # disable documentation

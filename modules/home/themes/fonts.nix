@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkOption mkEnableOption;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types)
     str
     int

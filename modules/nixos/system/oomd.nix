@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib) mkDefault;
+  inherit (lib.modules) mkDefault;
 in
 {
   systemd = {

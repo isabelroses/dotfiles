@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) mkOption;
+  inherit (lib.options) mkOption;
 
   cfg = config.garden.system;
 in

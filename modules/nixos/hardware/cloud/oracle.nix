@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkForce mkEnableOption;
+  inherit (lib.modules) mkForce;
+  inherit (lib.options) mkEnableOption;
 in
 {
   options.garden.profiles.oracle = {

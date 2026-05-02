@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf genAttrs;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.modules) mkIf;
 
   cfg = config.garden.system.security.binaries;
 in

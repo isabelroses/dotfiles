@@ -1,6 +1,7 @@
 { lib, ... }:
 let
-  inherit (lib) mkOption types;
+  inherit (lib.options) mkOption;
+  inherit (lib) types;
 in
 {
   options.garden.device = {

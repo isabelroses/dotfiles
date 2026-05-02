@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (self.lib) mkSecret mkServiceOption;
 
   cfg = config.garden.services;

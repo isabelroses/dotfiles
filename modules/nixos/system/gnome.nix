@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkForce;
+  inherit (lib.modules) mkIf mkForce;
 in
 {
   config = mkIf config.garden.profiles.graphical.enable {

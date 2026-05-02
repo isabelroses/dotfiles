@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 in
 {
   config = mkIf (!config.garden.profiles.server.enable) {

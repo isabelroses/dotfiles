@@ -9,7 +9,7 @@ let
   cfg = config.garden.services.forgejo;
   rdomain = config.networking.domain;
 
-  inherit (lib) mkIf mkForce;
+  inherit (lib.modules) mkIf mkForce;
   inherit (self.lib) mkServiceOption mkSecret;
 in
 {

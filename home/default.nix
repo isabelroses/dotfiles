@@ -8,7 +8,7 @@
   ...
 }:
 let
-  inherit (lib) genAttrs;
+  inherit (lib.attrsets) genAttrs;
 in
 {
   home-manager = {

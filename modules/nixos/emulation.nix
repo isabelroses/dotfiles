@@ -5,17 +5,13 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    splitString
-    genAttrs
-    flip
-    pipe
-    elemAt
-    filter
-    mkOption
-    mkEnableOption
-    ;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.lists) elemAt;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib.strings) splitString;
+  inherit (lib.trivial) flip pipe;
+  inherit (lib) filter;
   inherit (lib.types)
     listOf
     str

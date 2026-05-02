@@ -2,7 +2,8 @@
 # <https://www.kernel.org/doc/html/latest/admin-guide/kernel-parameters.html>
 { lib, config, ... }:
 let
-  inherit (lib) mkEnableOption optionals;
+  inherit (lib.lists) optionals;
+  inherit (lib.options) mkEnableOption;
   cfg = config.garden.system;
 in
 {

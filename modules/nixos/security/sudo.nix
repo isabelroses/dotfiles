@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib) mkDefault;
+  inherit (lib.modules) mkDefault;
 in
 {
   # lets swap out our sudo for sudo-rs just like ubuntu does

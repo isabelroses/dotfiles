@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkEnableOption mergeAttrsList optionalAttrs;
+  inherit (lib.attrsets) mergeAttrsList optionalAttrs;
+  inherit (lib.options) mkEnableOption;
 
   cfg = config.garden.system.tools;
 in

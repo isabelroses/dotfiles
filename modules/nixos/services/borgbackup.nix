@@ -5,13 +5,10 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    mkOption
-    types
-    mapAttrs
-    mkEnableOption
-    ;
+  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption mkEnableOption;
+  inherit (lib) types;
   inherit (self.lib) mkServiceOption mkSecret mkPubs;
 
   cfg = config.garden.services.borgbackup;

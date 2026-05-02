@@ -1,6 +1,6 @@
 { lib, osConfig, ... }:
 let
-  inherit (lib) mkDefault;
+  inherit (lib.modules) mkDefault;
 in
 {
   home.stateVersion = osConfig.garden.system.stateVersion;

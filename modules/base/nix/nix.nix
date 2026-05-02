@@ -7,12 +7,8 @@
   ...
 }:
 let
-  inherit (lib)
-    filterAttrs
-    attrValues
-    mapAttrs
-    mkForce
-    ;
+  inherit (lib.attrsets) filterAttrs attrValues mapAttrs;
+  inherit (lib.modules) mkForce;
   inherit (lib.types) isType;
 
   flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;

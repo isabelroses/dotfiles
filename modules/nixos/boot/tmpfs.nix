@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkEnableOption mkDefault;
+  inherit (lib.modules) mkDefault;
+  inherit (lib.options) mkEnableOption;
 
   cfg = config.garden.system.boot;
 in

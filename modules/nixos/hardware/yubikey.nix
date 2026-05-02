@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkEnableOption;
 in
 {
   options.garden.device.capabilities.yubikey = mkEnableOption "yubikey support";

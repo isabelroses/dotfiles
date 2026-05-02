@@ -5,13 +5,9 @@
   ...
 }:
 let
-  inherit (lib)
-    types
-    mkIf
-    mkOption
-    mkDefault
-    mkMerge
-    ;
+  inherit (lib.modules) mkIf mkDefault mkMerge;
+  inherit (lib.options) mkOption;
+  inherit (lib) types;
   inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.nginx;

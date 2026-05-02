@@ -9,7 +9,8 @@ let
   cfg = config.garden.services.pds;
   gkCfg = config.garden.services.pds-gatekeeper;
 
-  inherit (lib) mkIf concatStringsSep;
+  inherit (lib.modules) mkIf;
+  inherit (lib.strings) concatStringsSep;
   inherit (self.lib) mkServiceOption mkSecret;
 in
 {

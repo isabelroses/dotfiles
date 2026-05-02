@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) optionals;
+  inherit (lib.lists) optionals;
 
   # well well well
   hasCtp = if _class == "darwin" then true else (options ? catppuccin && config.catppuccin.enable);

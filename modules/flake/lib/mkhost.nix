@@ -5,13 +5,8 @@
 let
   inherit (inputs) self;
 
-  inherit (lib)
-    optionals
-    singleton
-    concatLists
-    recursiveUpdate
-    mapAttrs
-    ;
+  inherit (lib.attrsets) recursiveUpdate mapAttrs;
+  inherit (lib.lists) optionals singleton concatLists;
 in
 /**
   mkHost is a function that uses withSystem to give us inputs' and self'

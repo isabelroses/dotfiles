@@ -6,21 +6,17 @@
   ...
 }:
 let
-  inherit (lib)
-    length
-    optionalString
+  inherit (lib.attrsets) attrNames attrValues;
+  inherit (lib.lists)
     elemAt
     genList
     concatLists
     imap0
-    concatLines
-    mod
-    attrNames
-    attrValues
     foldl'
-    min
-    id
+    length
     ;
+  inherit (lib.strings) optionalString concatLines;
+  inherit (lib.trivial) mod min id;
 
   inherit (config.garden.programs) defaults;
   inherit (osConfig.garden.device) monitors keyboard;

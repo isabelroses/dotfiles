@@ -5,12 +5,9 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    concatLists
-    concatMapStrings
-    enableFeature
-    ;
+  inherit (lib.lists) concatLists;
+  inherit (lib.modules) mkIf;
+  inherit (lib.strings) concatMapStrings enableFeature;
 in
 {
   programs.chromium = {

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) optionalString;
+  inherit (lib.strings) optionalString;
 in
 {
   sops = {

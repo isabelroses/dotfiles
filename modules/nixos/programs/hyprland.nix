@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (self.lib) anyHome;
 
   cond = anyHome config (conf: conf.wayland.windowManager.hyprland.enable);

@@ -1,12 +1,8 @@
 { lib, config, ... }:
 let
-  inherit (lib)
-    mkIf
-    mkDefault
-    mkOption
-    mkEnableOption
-    optionals
-    ;
+  inherit (lib.lists) optionals;
+  inherit (lib.modules) mkIf mkDefault;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) bool listOf str;
 
   inherit (config.services) tailscale;

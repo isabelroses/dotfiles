@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkOption optional;
+  inherit (lib.lists) optional;
+  inherit (lib.options) mkOption;
   inherit (lib.types) enum listOf str;
 in
 {

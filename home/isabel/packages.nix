@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) optionalAttrs mergeAttrsList;
+  inherit (lib.attrsets) optionalAttrs mergeAttrsList;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 
   cfg = config.garden.profiles;

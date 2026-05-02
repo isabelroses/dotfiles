@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) optionalAttrs;
+  inherit (lib.attrsets) optionalAttrs;
 in
 {
   garden.packages = optionalAttrs config.garden.profiles.graphical.enable {

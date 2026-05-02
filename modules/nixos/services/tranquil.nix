@@ -8,7 +8,7 @@
 let
   cfg = config.garden.services.tranquil;
 
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (self.lib) mkServiceOption mkSecret;
 in
 {

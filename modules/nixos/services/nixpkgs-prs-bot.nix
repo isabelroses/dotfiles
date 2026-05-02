@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkMerge mkEnableOption;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.options) mkEnableOption;
   inherit (self.lib) mkServiceOption mkSecret;
 
   cfg = config.garden.services.nixpkgs-prs-bot;

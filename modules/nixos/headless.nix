@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf mapAttrs mkForce;
+  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.modules) mkIf mkForce;
 in
 {
   config = mkIf config.garden.profiles.headless.enable {

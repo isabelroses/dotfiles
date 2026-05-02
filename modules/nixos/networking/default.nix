@@ -4,7 +4,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkDefault mkForce;
+  inherit (lib.modules) mkIf mkDefault mkForce;
 in
 {
   imports = [

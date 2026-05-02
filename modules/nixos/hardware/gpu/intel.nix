@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf attrValues;
+  inherit (lib.attrsets) attrValues;
+  inherit (lib.modules) mkIf;
   inherit (config.garden) device;
 in
 {

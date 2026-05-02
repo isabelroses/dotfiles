@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkForce;
+  inherit (lib.modules) mkIf mkForce;
   enable =
     config.garden.profiles.hetzner.enable
     || config.garden.profiles.upcloud.enable

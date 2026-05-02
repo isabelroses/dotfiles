@@ -4,7 +4,8 @@
   ...
 }:
 let
-  inherit (lib) mkIf genAttrs;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.modules) mkIf;
 in
 {
   config = mkIf config.garden.profiles.graphical.enable {

@@ -1,11 +1,8 @@
 { lib, ... }:
 let
-  inherit (lib)
-    getAttrFromPath
-    filter
-    hasAttr
-    any
-    ;
+  inherit (lib.attrsets) getAttrFromPath;
+  inherit (lib.lists) any;
+  inherit (lib) filter hasAttr;
 
   /**
     a function that will append a list of groups if they exist in config.users.groups

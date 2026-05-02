@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) getExe concatStringsSep;
+  inherit (lib.meta) getExe;
+  inherit (lib.strings) concatStringsSep;
 
   sessionData = config.services.displayManager.sessionData.desktops;
 in

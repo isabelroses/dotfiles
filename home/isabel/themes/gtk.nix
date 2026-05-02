@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   cfg = config.garden.style;
   ctp = config.catppuccin;
 

@@ -6,12 +6,8 @@
   ...
 }:
 let
-  inherit (lib)
-    mkDefault
-    mergeAttrsList
-    optionalAttrs
-    genAttrs
-    ;
+  inherit (lib.attrsets) mergeAttrsList optionalAttrs genAttrs;
+  inherit (lib.modules) mkDefault;
   inherit (self.lib) ifTheyExist;
 in
 {

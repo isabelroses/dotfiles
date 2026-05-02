@@ -5,7 +5,8 @@
   ...
 }:
 let
-  inherit (lib) getExe mkDefault;
+  inherit (lib.meta) getExe;
+  inherit (lib.modules) mkDefault;
 in
 {
   xdg.portal = {

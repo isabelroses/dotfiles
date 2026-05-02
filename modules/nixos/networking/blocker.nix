@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
 in
 {
   # remove stupid sites that i just don't want to see

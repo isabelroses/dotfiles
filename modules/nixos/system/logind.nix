@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   prof = config.garden.profiles;
 in
 {

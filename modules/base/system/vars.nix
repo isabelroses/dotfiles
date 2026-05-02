@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkOption;
+  inherit (lib.options) mkOption;
   inherit (lib.types) str;
 
   sys = config.garden.system;

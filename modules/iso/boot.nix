@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib) mkForce mkAfter;
+  inherit (lib.modules) mkForce mkAfter;
 in
 {
   boot = {

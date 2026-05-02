@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) concatMapAttrs;
+  inherit (lib.attrsets) concatMapAttrs;
   inherit (self.lib) mkPubs;
 in
 {

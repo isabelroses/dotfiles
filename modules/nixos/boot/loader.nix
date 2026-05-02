@@ -5,15 +5,13 @@
   ...
 }:
 let
-  inherit (lib)
+  inherit (lib.modules)
     mkForce
-    mkOption
     mkDefault
     mkMerge
     mkIf
-    mkEnableOption
-    mkPackageOption
     ;
+  inherit (lib.options) mkOption mkEnableOption mkPackageOption;
   inherit (lib.types) enum nullOr str;
 
   cfg = config.garden.system.boot;

@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkMerge;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 in
 {

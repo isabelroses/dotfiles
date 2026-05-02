@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkOrder;
+  inherit (lib.modules) mkOrder;
 in
 {
   programs.zsh = {

@@ -5,12 +5,9 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    mkOption
-    mkEnableOption
-    attrValues
-    ;
+  inherit (lib.attrsets) attrValues;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) attrsOf path;
 
   cfg = config.garden.system.printing;

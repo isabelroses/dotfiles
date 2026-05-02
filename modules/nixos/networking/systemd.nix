@@ -1,6 +1,7 @@
 { lib, ... }:
 let
-  inherit (lib) mkForce concatMapAttrs genAttrs;
+  inherit (lib.attrsets) concatMapAttrs genAttrs;
+  inherit (lib.modules) mkForce;
 
   ethernetDevices = [
     "enp0s31f6" # ethernet interface on the motherboard

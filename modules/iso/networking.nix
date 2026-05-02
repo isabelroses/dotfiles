@@ -1,6 +1,6 @@
 { lib, ... }:
 let
-  inherit (lib) mkForce;
+  inherit (lib.modules) mkForce;
 in
 {
   # allow ssh into the system for headless installs

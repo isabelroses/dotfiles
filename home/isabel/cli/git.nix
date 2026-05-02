@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf map mkMerge;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (lib.hm.dag) entryBefore;
   inherit (self.lib) giturl;
 in

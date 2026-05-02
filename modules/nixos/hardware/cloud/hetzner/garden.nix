@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib.modules) mkIf;
+  inherit (lib.options) mkEnableOption;
 
   cfg = config.garden.profiles.hetzner;
 in

@@ -8,7 +8,7 @@
 }:
 let
   inherit (config.garden) device;
-  inherit (lib) mkIf mkDefault;
+  inherit (lib.modules) mkIf mkDefault;
 in
 {
   config = mkIf (device.gpu == "nvidia") {

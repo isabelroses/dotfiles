@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf mkMerge genAttrs;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.modules) mkIf mkMerge;
 
   services = [
     "login"

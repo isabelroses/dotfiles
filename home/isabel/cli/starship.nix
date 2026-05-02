@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) concatStrings;
+  inherit (lib.strings) concatStrings;
 
   fmt = symbol: {
     inherit symbol;

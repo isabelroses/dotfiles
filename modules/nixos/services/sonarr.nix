@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf;
+  inherit (lib.modules) mkIf;
   inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.sonarr;

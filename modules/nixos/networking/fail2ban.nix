@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf mkMerge;
+  inherit (lib.modules) mkIf mkMerge;
 
   cfg = config.garden.services;
 in

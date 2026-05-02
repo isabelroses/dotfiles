@@ -1,11 +1,8 @@
 { lib, config, ... }:
 let
-  inherit (lib)
-    mkEnableOption
-    mkOption
-    types
-    genAttrs
-    ;
+  inherit (lib.attrsets) genAttrs;
+  inherit (lib.options) mkEnableOption mkOption;
+  inherit (lib) types;
 
   cfg = config.garden.services.arr;
 in

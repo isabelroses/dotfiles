@@ -5,12 +5,8 @@
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    mkMerge
-    mkEnableOption
-    mkOption
-    ;
+  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.options) mkEnableOption mkOption;
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 
   cfg = config.programs.discord;

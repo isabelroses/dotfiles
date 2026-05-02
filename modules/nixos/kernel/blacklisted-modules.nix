@@ -1,6 +1,7 @@
 { config, lib, ... }:
 let
-  inherit (lib) optionals concatLists mkEnableOption;
+  inherit (lib.lists) optionals concatLists;
+  inherit (lib.options) mkEnableOption;
 
   sys = config.garden.system;
 in

@@ -7,7 +7,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkMerge;
+  inherit (lib.modules) mkIf mkMerge;
   inherit (self.lib) mkServiceOption mkSecret;
 
   inherit (config.sops) secrets;

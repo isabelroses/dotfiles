@@ -10,11 +10,9 @@
   linkFarm,
 }:
 let
-  inherit (lib)
-    evalModules
-    filterAttrs
-    removePrefix
-    ;
+  inherit (lib.attrsets) filterAttrs;
+  inherit (lib.modules) evalModules;
+  inherit (lib.strings) removePrefix;
 
   gitHubDeclaration = user: repo: subpath: {
     url = "https://github.com/${user}/${repo}/blob/main/${subpath}";
