@@ -42,8 +42,6 @@ in
               sha256 = "sha256-YfxFcGD9U7RzctnTRUQX1Nsz2EtiDIUGpz2nTo0OSWw=";
             };
           };
-
-      inherit (inputs'.extersia.packages) zzz; # code snippets in the cli
     })
 
     # (optionalAttrs cfg.graphical.enable {

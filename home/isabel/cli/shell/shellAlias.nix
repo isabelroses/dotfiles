@@ -6,8 +6,5 @@
     rs = "systemctl reboot";
     jctl = "journalctl -p 3 -xb"; # get error messages from journalctl
     lg = "lazygit";
-
-    zzzpl = "cd ~/.local/share/zzz ; git pull ; git push ; cd -";
-    zzzbk = "cd ~/.local/share/zzz ; git add . ; git commit -m 'chore: sync changes' ; git push ; cd -";
   };
 }
