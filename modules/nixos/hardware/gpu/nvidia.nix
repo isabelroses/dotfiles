@@ -47,7 +47,7 @@ in
     hardware = {
       nvidia = {
         # use the latest and greatest nvidia drivers
-        package = config.boot.kernelPackages.nvidiaPackages.beta;
+        branch = "bleeding_edge";
 
         powerManagement = {
           enable = true;
