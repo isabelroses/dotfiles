@@ -91,12 +91,6 @@ in
             ldapbindaddress = "${cfg.host}:3636";
             tls_chain = "${certDir}/fullchain.pem";
             tls_key = "${certDir}/key.pem";
-
-            # TODO: reenable this + do systemd tempfiles + cleanup
-            # online_backup = {
-            #   path = "/srv/storage/kanidm/backups";
-            #   schedule = "0 0 * * *";
-            # };
           };
         };
 
