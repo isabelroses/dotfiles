@@ -29,6 +29,9 @@ in
         # keep-sorted end
         ;
 
+      # a cli that tracks nixos deployments
+      inherit (inputs'.extersia.packages) lethe;
+
       # nom >= 2.1.7 breaks with lix so lets just use an older version for now.
       # also add a warning to eventually force me to fix this instead of forgetting
       nix-output-monitor =
