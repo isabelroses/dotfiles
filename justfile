@@ -32,6 +32,7 @@ deployer host goal *args:
     set -euo pipefail
     before=$(ssh -q {{ host }} 'readlink /run/current-system')
     just builder {{ goal }} --target-host {{ host }} --use-substitutes {{ args }}
+    lethe record {{ host }}
 
     if [[ -n "${DEPLOY_SUMMARY:-}" ]]; then
         {
@@ -102,6 +103,7 @@ switch *args:
     before=$(readlink /run/current-system)
     just builder switch {{ args }}
     lix diff "$before"
+    lethe record --local
 
 [group('rebuild')]
 [macos]
