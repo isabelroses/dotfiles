@@ -12,12 +12,8 @@
       outputs = [ "out" ];
     };
 
-    age = {
-      sshKeyFile = "/etc/ssh/ssh_host_ed25519_key";
-
-      # don't load extra keys
-      sshKeyPaths = [ ];
-    };
+    # do muh stuff
+    age.keyFile = "/var/lib/sops-nix/key.txt";
 
     # don't load extra keys
     gnupg.sshKeyPaths = [ ];

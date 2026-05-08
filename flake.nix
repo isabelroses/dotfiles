@@ -67,7 +67,6 @@
       type = "github";
       owner = "Mic92";
       repo = "sops-nix";
-      ref = "pull/779/merge";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
