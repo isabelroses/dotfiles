@@ -116,7 +116,7 @@ in
           "$mod, Return, exec, ${defaults.terminal}"
           "$mod, L, exec, ${defaults.screenLocker}"
           "$mod, O, exec, obsidian"
-          "$mod SHIFT, V, exec, vicinae deeplink vicinae://extensions/vicinae/clipboard/history"
+          "$mod SHIFT, V, exec, vicinae deeplink vicinae://launch/clipboard/history"
 
           # window management
           "$mod, Q, killactive,"
