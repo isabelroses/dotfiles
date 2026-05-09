@@ -30,29 +30,20 @@ builder goal *args:
 deployer host goal *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    before=$(ssh -q {{ host }} 'readlink /run/current-system')
     just builder {{ goal }} --target-host {{ host }} --use-substitutes {{ args }}
     lethe record {{ host }}
-
-    if [[ -n "${DEPLOY_SUMMARY:-}" ]]; then
-        {
-            echo "===== {{ host }} ====="
-            ssh -q {{ host }} TERM=xterm-256color lix diff "$before"
-            echo
-        } >> "$DEPLOY_SUMMARY"
-    else
-        ssh {{ host }} TERM=xterm-256color lix diff "$before"
-    fi
 
 # deploy by switching the new system configuration
 [group('rebuild')]
 [no-exit-message]
 deploy host *args: (deployer host "switch" args)
+  lethe diff {{ host }}
 
 # deploy by setting the boot configuration
 [group('rebuild')]
 [no-exit-message]
 deploy-boot host *args: (deployer host "boot" args)
+  lethe diff {{ host }}
 
 [group('rebuild')]
 [no-exit-message]
@@ -60,8 +51,6 @@ deploy-boot host *args: (deployer host "boot" args)
 deployer-all goal:
     #!/usr/bin/env bash
     set -euo pipefail
-    export DEPLOY_SUMMARY=".deploy-summary"
-    : > "$DEPLOY_SUMMARY"
 
     just deployer minerva {{ goal }}
     just deployer athena {{ goal }}
@@ -69,10 +58,12 @@ deployer-all goal:
     just deployer skadi {{ goal }}
     just deployer isis {{ goal }}
 
-    echo
-    echo "===== DEPLOYMENT SUMMARY ====="
-    cat "$DEPLOY_SUMMARY"
-    rm "$DEPLOY_SUMMARY"
+    lethe diff minerva
+    lethe diff athena
+    lethe diff aphrodite
+    lethe diff skadi
+    lethe diff isis
+
 
 # deploy to all hosts by switching
 [group('rebuild')]
@@ -88,6 +79,7 @@ deploy-all-boot: (deployer-all "boot")
 [group('rebuild')]
 [no-exit-message]
 boot *args: (builder "boot" args)
+  lethe diff $(hostname)
 
 # test what happens when you switch
 [group('rebuild')]
@@ -100,10 +92,9 @@ test *args: (builder "test" args)
 switch *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    before=$(readlink /run/current-system)
     just builder switch {{ args }}
-    lix diff "$before"
     lethe record --local
+    lethe diff $(hostname)
 
 [group('rebuild')]
 [macos]
