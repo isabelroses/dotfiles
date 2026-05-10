@@ -1,17 +1,17 @@
-# I would highly advise you do not use my flake as an input and instead you vendor this
-# if you want to use this code.
 { pkgs, inputs, ... }:
 
 let
   inherit (pkgs) lib;
 
-  scope = pkgs.lib.makeScope pkgs.newScope (scopeSelf: {
+  scope = lib.makeScope pkgs.newScope (scopeSelf: {
     inherit (inputs) self;
 
     # keep-sorted start block=yes newline_separated=yes
     formatting = scopeSelf.callPackage ./formatting.nix { };
 
-    # lib = scopeSelf.callPackage ./lib.nix { };
+    port-collector = scopeSelf.callPackage ./port-collector.nix { };
+
+    selflib = scopeSelf.callPackage ./lib.nix { };
     # keep-sorted end
   });
 

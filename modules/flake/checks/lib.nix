@@ -84,25 +84,34 @@ let
       expected,
       result,
     }:
-    builtins.readFile (
-      runCommandLocal "nix-flake-tests-error"
-        {
-          expected = formatValue expected;
-          result = formatValue result;
-          passAsFile = [
-            "expected"
-            "result"
-          ];
-        }
-        ''
-          echo "${name} failed (- expected, + result)" > $out
-          cp ''${expectedPath} ''${expectedPath}.json
-          cp ''${resultPath} ''${resultPath}.json
-          ${deepdiff}/bin/deep diff ''${expectedPath}.json ''${resultPath}.json >> $out
-        ''
-    );
+    runCommandLocal "nix-flake-tests-error"
+      {
+        __structuredAttrs = true;
+        strictDeps = true;
+        expected = formatValue expected;
+        result = formatValue result;
+      }
+      ''
+        printf '%s' "$expected" > expected.json
+        printf '%s' "$result" > result.json
+        echo "${name} failed (- expected, + result)" > $out
+        ${deepdiff}/bin/deep diff expected.json result.json >> $out
+      '';
 in
-if res != [ ] then
-  throw (lib.strings.concatStringsSep "\n" (map resultToString (lib.debug.traceValSeq res)))
-else
-  runCommandLocal "nix-flake-tests-success" { } "echo > $out"
+runCommandLocal "nix-flake-tests-success"
+  {
+    __structuredAttrs = true;
+    strictDeps = true;
+    failures = map resultToString res;
+  }
+  ''
+    if [ ''${#failures[@]} -gt 0 ]; then
+      for f in "''${failures[@]}"; do
+        cat "$f"
+        echo
+      done
+      exit 1
+    fi
+
+    touch $out
+  ''
