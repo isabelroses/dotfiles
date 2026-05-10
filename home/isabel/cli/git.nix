@@ -6,7 +6,8 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkMerge;
+  inherit (lib.modules) mkIf;
+  inherit (lib.attrsets) mergeAttrsList;
   inherit (lib.hm.dag) entryBefore;
   inherit (self.lib) giturl;
 in
@@ -163,7 +164,7 @@ in
         fetch.fsckObjects = true;
         receive.fsckObjects = true;
 
-        url = mkMerge (
+        url = mergeAttrsList (
           map giturl [
             {
               domain = "github.com";
