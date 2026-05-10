@@ -21,7 +21,6 @@
     ./nixpkgs-prs-bot.nix
     ./pds
     ./piper.nix
-    ./port-collector.nix
     ./postgresql.nix
     ./prowlarr.nix
     ./qbittorent.nix
