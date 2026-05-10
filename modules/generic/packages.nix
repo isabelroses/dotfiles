@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (lib.attrsets) mergeAttrsList optionalAttrs;
   inherit (lib.options) mkOption;
   inherit (lib.types) lazyAttrsOf package;
 in
@@ -18,13 +17,9 @@ in
     '';
   };
 
-  config = mergeAttrsList [
-    (optionalAttrs (_class == "nixos" || _class == "darwin") {
-      environment.systemPackages = builtins.attrValues config.garden.packages;
-    })
-
-    (optionalAttrs (_class == "homeManager") {
-      home.packages = builtins.attrValues config.garden.packages;
-    })
-  ];
+  config =
+    if _class == "homeManager" then
+      { home.packages = builtins.attrValues config.garden.packages; }
+    else
+      { environment.systemPackages = builtins.attrValues config.garden.packages; };
 }

@@ -5,7 +5,6 @@
   ...
 }:
 let
-  inherit (lib.attrsets) mergeAttrsList optionalAttrs;
   inherit (lib.options) mkEnableOption;
 
   cfg = config.garden.system.tools;
@@ -21,25 +20,25 @@ in
     };
   };
 
-  config = mergeAttrsList [
-    (optionalAttrs (_class == "nixos") {
-      system = {
-        disableInstallerTools = cfg.minimal;
+  config =
+    if _class == "nixos" then
+      {
+        system = {
+          disableInstallerTools = cfg.minimal;
 
-        tools = {
-          nixos-version.enable = true;
-          nixos-rebuild.enable = true;
+          tools = {
+            nixos-version.enable = true;
+            nixos-rebuild.enable = true;
+          };
+        };
+      }
+    else
+      {
+        system.tools = {
+          enable = !cfg.minimal;
+
+          darwin-version.enable = true;
+          darwin-rebuild.enable = true;
         };
       };
-    })
-
-    (optionalAttrs (_class == "darwin") {
-      system.tools = {
-        enable = !cfg.minimal;
-
-        darwin-version.enable = true;
-        darwin-rebuild.enable = true;
-      };
-    })
-  ];
 }
