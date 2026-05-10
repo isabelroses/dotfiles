@@ -53,8 +53,6 @@ in
   # the defaults consists of the following:
   #  arch = "x86_64";
   #  class = "nixos";
-  #  modules = [ ];
-  #  specialArgs = { };
   nixosConfigurations = mkHosts {
     # keep-sorted start block=yes newline_separated=yes
     amaterasu = { };
