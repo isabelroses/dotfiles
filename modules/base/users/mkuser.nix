@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib.attrsets) mergeAttrsList optionalAttrs genAttrs;
+  inherit (lib.attrsets) genAttrs;
   inherit (lib.modules) mkDefault;
   inherit (self.lib) ifTheyExist;
 in
@@ -16,47 +16,45 @@ in
     let
       inherit (config.home-manager.users.${name}.garden.programs.defaults) shell;
     in
-    mergeAttrsList [
-      {
-        shell = "/run/current-system/sw/bin/${shell}";
-      }
+    {
+      shell = "/run/current-system/sw/bin/${shell}";
+    }
+    // (
+      if _class == "nixos" then
+        {
+          home = "/home/${name}";
 
-      (optionalAttrs (_class == "darwin") {
-        home = "/Users/${name}";
-      })
+          uid = mkDefault 1000;
+          isNormalUser = true;
 
-      (optionalAttrs (_class == "nixos") {
-        home = "/home/${name}";
-
-        uid = mkDefault 1000;
-        isNormalUser = true;
-
-        # only add groups that exist
-        extraGroups = [
-          "wheel"
-          "nix"
-        ]
-        ++ ifTheyExist config [
-          "network"
-          "networkmanager"
-          "systemd-journal"
-          "audio"
-          "pipewire" # this give us access to the rt limits
-          "video"
-          "input"
-          "plugdev"
-          "lp"
-          "tss"
-          "power"
-          "wireshark"
-          "mysql"
-          "docker"
-          "podman"
-          "git"
-          "libvirtd"
-          "cloudflared"
-        ];
-      })
-    ]
+          # only add groups that exist
+          extraGroups = [
+            "wheel"
+            "nix"
+          ]
+          ++ ifTheyExist config [
+            "network"
+            "networkmanager"
+            "systemd-journal"
+            "audio"
+            "pipewire" # this give us access to the rt limits
+            "video"
+            "input"
+            "plugdev"
+            "lp"
+            "tss"
+            "power"
+            "wireshark"
+            "mysql"
+            "docker"
+            "podman"
+            "git"
+            "libvirtd"
+            "cloudflared"
+          ];
+        }
+      else
+        { home = "/Users/${name}"; }
+    )
   );
 }
