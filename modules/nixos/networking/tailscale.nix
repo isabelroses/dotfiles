@@ -1,6 +1,5 @@
 { lib, config, ... }:
 let
-  inherit (lib.lists) optionals;
   inherit (lib.modules) mkIf mkDefault;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) bool listOf str;
@@ -67,7 +66,7 @@ in
       enable = true;
       permitCertUid = "root";
       useRoutingFeatures = mkDefault "server";
-      extraUpFlags = cfg.defaultFlags ++ optionals cfg.enable [ "--advertise-exit-node" ];
+      extraUpFlags = cfg.defaultFlags ++ [ "--advertise-exit-node" ];
     };
 
     # server can't be client and client be server
