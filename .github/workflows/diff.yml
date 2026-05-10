@@ -67,6 +67,10 @@ jobs:
 
       - name: Install Lix
         uses: samueldr/lix-gha-installer-action@7b7f14d320d6aacfb65bd1ef761566b3b69e474c # v2026-02-22
+        with:
+          extra_nix_config: |
+            substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://isabelroses.cachix.org https://catppuccin.cachix.org https://extersia.cachix.org
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= isabelroses.cachix.org-1:mXdV/CMcPDaiTmkQ7/4+MzChpOe6Cb97njKmBQQmLPM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= extersia.cachix.org-1:ZHy9765xrhn4lDKGTzWWykHC+B091oTqNxClgc78MQU=
 
       - name: Checkout base
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -75,124 +79,60 @@ jobs:
           path: base
           persist-credentials: false
 
+      - name: Discover hosts
+        id: hosts
+        run: |
+          set -euo pipefail
+          # shellcheck disable=SC2016
+          nix eval --impure --json --expr '
+            let
+              flake = (builtins.getFlake (toString ./.)).outputs;
+              mk = attr: toplevel:
+                map (name: {
+                  inherit name;
+                  attribute = "${attr}.${name}.${toplevel}";
+                }) (builtins.attrNames (flake.${attr} or {}));
+            in
+              mk "nixosConfigurations" "config.system.build.toplevel"
+            ' > hosts.json
+          jq -r '.[] | .name' hosts.json
+
       - name: Eval stats (before)
         working-directory: base
         run: |
-          attr=.#nixosConfigurations.amaterasu.config.system.build.toplevel
-          nix eval "$attr" > /dev/null
-          for i in $(seq 1 5); do
-            NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH="../stats-before-$i.json" \
-              nix eval --no-eval-cache "$attr" > /dev/null
-          done
+          set -euo pipefail
+          mkdir -p ../stats-before/all
+          while IFS=$'\t' read -r name attr; do
+            echo "::group::eval before: $name"
+            NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH="../stats-before/all/${name}.json" \
+              nix eval --no-eval-cache ".#${attr}" > /dev/null || \
+              echo "warning: eval failed for $name (before)"
+            echo "::endgroup::"
+          done < <(jq -r '.[] | "\(.name)\t\(.attribute)"' ../hosts.json)
 
       - name: Eval stats (after)
         run: |
-          attr=.#nixosConfigurations.amaterasu.config.system.build.toplevel
-          nix eval "$attr" > /dev/null
-          for i in $(seq 1 5); do
-            NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH="stats-after-$i.json" \
-              nix eval --no-eval-cache "$attr" > /dev/null
-          done
+          set -euo pipefail
+          mkdir -p stats-after/all
+          while IFS=$'\t' read -r name attr; do
+            echo "::group::eval after: $name"
+            NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH="stats-after/all/${name}.json" \
+              nix eval --no-eval-cache ".#${attr}" > /dev/null || \
+              echo "warning: eval failed for $name (after)"
+            echo "::endgroup::"
+          done < <(jq -r '.[] | "\(.name)\t\(.attribute)"' hosts.json)
 
-      - name: Generate stats table
+      - name: Compare stats
         run: |
-          python3 << 'PYEOF'
-          import json
-          import statistics
-
-          def flatten(d, prefix=''):
-              result = {}
-              for k, v in d.items():
-                  if isinstance(v, dict):
-                      result.update(flatten(v, f'{prefix}{k}.'))
-                  elif isinstance(v, (int, float)):
-                      result[f'{prefix}{k}'] = v
-              return result
-
-          def load_runs(pattern, count=5):
-              runs = []
-              for i in range(1, count + 1):
-                  with open(pattern.format(i)) as f:
-                      runs.append(flatten(json.load(f)))
-              return runs
-
-          def average_runs(runs):
-              all_keys = set()
-              for r in runs:
-                  all_keys.update(r.keys())
-              result = {}
-              for k in all_keys:
-                  values = [r[k] for r in runs if k in r]
-                  result[k] = statistics.mean(values)
-              return result
-
-          def stddev_runs(runs):
-              all_keys = set()
-              for r in runs:
-                  all_keys.update(r.keys())
-              result = {}
-              for k in all_keys:
-                  values = [r[k] for r in runs if k in r]
-                  result[k] = statistics.stdev(values) if len(values) > 1 else 0
-              return result
-
-          before_runs = load_runs('stats-before-{}.json')
-          after_runs = load_runs('stats-after-{}.json')
-
-          before = average_runs(before_runs)
-          after = average_runs(after_runs)
-          before_sd = stddev_runs(before_runs)
-          after_sd = stddev_runs(after_runs)
-
-          all_keys = sorted(set(before) | set(after))
-
-          def fmt(n):
-              return f'{n:.3f}' if isinstance(n, float) else f'{int(n):,}'
-
-          def is_significant(before_runs, after_runs, key, threshold=0.05):
-              """Welch's t-test to determine if the difference is significant."""
-              import math
-              b_vals = [r[key] for r in before_runs if key in r]
-              a_vals = [r[key] for r in after_runs if key in r]
-              n_b, n_a = len(b_vals), len(a_vals)
-              if n_b < 2 or n_a < 2:
-                  return False
-              mean_b = statistics.mean(b_vals)
-              mean_a = statistics.mean(a_vals)
-              var_b = statistics.variance(b_vals)
-              var_a = statistics.variance(a_vals)
-              se = math.sqrt(var_b / n_b + var_a / n_a)
-              if se == 0:
-                  return mean_a != mean_b
-              t_stat = abs(mean_a - mean_b) / se
-              # Approximate p-value using degrees of freedom via Welch-Satterthwaite
-              num = (var_b / n_b + var_a / n_a) ** 2
-              denom = (var_b / n_b) ** 2 / (n_b - 1) + (var_a / n_a) ** 2 / (n_a - 1)
-              df = num / denom if denom > 0 else 1
-              # Conservative t-critical values for two-tailed p<0.05
-              # For df>=4 (our case with 5 runs each), t_crit ~ 2.78 (df=4) to 2.31 (df=8)
-              t_crit = 2.78 if df <= 4 else 2.45 if df <= 6 else 2.31
-              return t_stat > t_crit
-
-          lines = [
-              '| Metric | Before (mean +/- σ) | After (mean +/- σ) | Δ | % | Sig? |',
-              '|--------|---------------------|--------------------|----|---|------|',
-          ]
-          for key in all_keys:
-              b = before.get(key, 0)
-              a = after.get(key, 0)
-              bs = before_sd.get(key, 0)
-              as_ = after_sd.get(key, 0)
-              diff = a - b
-              pct = f'{diff / b * 100:+.1f}%' if b != 0 else 'N/A'
-              sign = '+' if diff > 0 else ''
-              sig = 'Yes' if is_significant(before_runs, after_runs, key) else ''
-              lines.append(f'| `{key}` | {fmt(b)} ± {fmt(bs)} | {fmt(a)} ± {fmt(as_)} | {sign}{fmt(diff)} | {pct} | {sig} |')
-
-          table = '\n'.join(lines)
-          with open('stats-table.md', 'w') as f:
-              f.write(f'## Nix Eval Stats: `amaterasu`\n\n{table}\n')
-          PYEOF
+          set -euo pipefail
+          {
+            echo "<!-- nix-eval-stats -->"
+            echo "## Nix Eval Stats"
+            echo
+            echo "Paired comparison across $(jq 'length' hosts.json) host(s). Metrics with identical values across all hosts are listed under _Unchanged_; the rest get a paired t-test (p-value, t-stat)."
+            echo
+            nix run .#cmp-stats -- --explain stats-before stats-after
+          } > stats-table.md
 
       - name: Post comment
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
@@ -200,7 +140,7 @@ jobs:
           script: |
             const fs = require('fs');
             const body = fs.readFileSync('stats-table.md', 'utf8');
-            const marker = '## Nix Eval Stats: `amaterasu`';
+            const marker = '<!-- nix-eval-stats -->';
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,

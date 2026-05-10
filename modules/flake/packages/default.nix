@@ -6,6 +6,8 @@ pkgs.lib.makeScope pkgs.newScope (self: {
   inherit inputs;
 
   # keep-sorted start block=yes newline_separated=yes
+  cmp-stats = self.callPackage ./cmp-stats/package.nix { };
+
   docs = self.callPackage ./docs/package.nix { };
 
   iztaller = self.callPackage ./iztaller/package.nix {
