@@ -1,15 +1,16 @@
-{
-  lib,
-  config,
-  ...
-}:
+{ lib, config, ... }:
 let
   inherit (lib.attrsets) genAttrs;
-  inherit (lib.modules) mkIf;
+  inherit (lib.modules) mkIf mkMerge;
 in
 {
-  config = mkIf config.garden.profiles.graphical.enable {
-    systemd = {
+  systemd = mkMerge [
+    {
+      # run shellcheck on the generated scripts for systemd units
+      enableStrictShellChecks = true;
+    }
+
+    (mkIf config.garden.profiles.graphical.enable {
       settings.Manager = {
         DefaultTimeoutStartSec = "15s";
         DefaultTimeoutStopSec = "15s";
@@ -37,6 +38,6 @@ in
           (_: {
             enable = false;
           });
-    };
-  };
+    })
+  ];
 }
