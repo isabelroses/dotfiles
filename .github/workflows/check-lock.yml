@@ -20,11 +20,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Lix
-        uses: samueldr/lix-gha-installer-action@7b7f14d320d6aacfb65bd1ef761566b3b69e474c # v2026-02-22
-        with:
-          extra_nix_config: |
-            substituters = https://cache.nixos.org/ https://extersia.cachix.org
-            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= extersia.cachix.org-1:ZHy9765xrhn4lDKGTzWWykHC+B091oTqNxClgc78MQU=
+        uses: ./.github/actions/install-lix
 
       - name: Check flake.lock
         run: nix run github:extersia-org/pkgs#locker

@@ -19,7 +19,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Lix
-        uses: samueldr/lix-gha-installer-action@7b7f14d320d6aacfb65bd1ef761566b3b69e474c # v2026-02-22
+        uses: ./.github/actions/install-lix
 
       - name: Update Lockfile
         id: pr
