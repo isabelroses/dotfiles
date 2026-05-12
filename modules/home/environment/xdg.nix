@@ -80,6 +80,8 @@ let
   associations = associations' // specifics;
 in
 {
+  home.preferXdgDirectories = true;
+
   xdg = {
     enable = true;
 
