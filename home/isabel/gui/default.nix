@@ -9,7 +9,6 @@
     ./notes.nix
     ./quickshell.nix
     ./vicinae
-    ./wezterm.nix
     # keep-sorted end
   ];
 }
