@@ -30,6 +30,14 @@ in
   programs.fish = {
     plugins = [ ];
 
+    shellAliases = {
+      mkdir = "mkdir -pv"; # always create pearent directory
+      df = "df -h"; # human readblity
+      rs = "systemctl reboot";
+      jctl = "journalctl -p 3 -xb"; # get error messages from journalctl
+      lg = "lazygit";
+    };
+
     functions = {
       bj = "nohup $argv </dev/null &>/dev/null &";
       "." = ''
