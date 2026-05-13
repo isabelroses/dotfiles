@@ -63,11 +63,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778550569,
-        "narHash": "sha256-Gy7l6Lns3frh3jXBY53Gar2uhvft+5CDL+y8cc7rA1g=",
+        "lastModified": 1778654229,
+        "narHash": "sha256-zkAdesvfX9iQJC3JFpuG3M4M/B7xspqYWDvQ40N+AOs=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "30c2f8deaece719c3570268811a539a1be5b1fe9",
+        "rev": "8fce4c1dcaf6dc2a6f89ca592493b8f5d8b66e8c",
         "type": "github"
       },
       "original": {
