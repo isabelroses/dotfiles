@@ -81,5 +81,15 @@ in
 
       inherit (inputs'.extersia.packages) cake-wallet;
     })
+
+    (optionalAttrs
+      (cfg.workstation.enable && (cfg.graphical.enable || pkgs.stdenv.hostPlatform.isDarwin))
+      {
+        inherit (pkgs)
+          obsidian
+          pandoc
+          ;
+      }
+    )
   ];
 }

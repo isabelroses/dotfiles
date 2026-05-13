@@ -6,7 +6,6 @@
     ./ghostty.nix
     ./hyprland.nix
     ./media
-    ./notes.nix
     ./quickshell.nix
     ./vicinae
     # keep-sorted end
