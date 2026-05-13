@@ -18,11 +18,7 @@ in
     nano.enable = false;
 
     # i don't need less, so lets just remove it, lol
-    less = {
-      # enabled by default to be the pageer, but i don't use it
-      enable = mkForce false;
-      lessopen = null; # don't install perl thanks
-    };
+    less.enable = mkForce false;
   };
 
   # this can allow us to save some storage space
