@@ -9,10 +9,7 @@ in
     inherit (config.garden.profiles.workstation) enable;
     enableDefaultConfig = false;
 
-    includes = [
-      secrets.uni-sshconf.path
-      secrets.rsync-sshconf.path
-    ];
+    includes = [ secrets.rsync-sshconf.path ];
 
     matchBlocks = {
       "*" = {
@@ -103,8 +100,6 @@ in
     keys-rsync.path = sshDir + "/rsync";
     keys-tangled = { };
     rsync-sshconf = { };
-    uni-central.path = sshDir + "/uni-central";
-    uni-sshconf = { };
     # keep-sorted end
   };
 }
