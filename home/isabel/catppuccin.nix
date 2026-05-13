@@ -68,6 +68,9 @@ in
 
       # IFD and can use term colors
       eza.enable = false;
+
+      # i don't really like the theme here
+      mpv.enable = false;
     };
   };
 }

@@ -7,7 +7,7 @@
 }:
 let
   inherit (lib.attrsets) optionalAttrs mergeAttrsList;
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 
   cfg = config.garden.profiles;
 in
@@ -82,14 +82,33 @@ in
       inherit (inputs'.extersia.packages) cake-wallet;
     })
 
-    (optionalAttrs
-      (cfg.workstation.enable && (cfg.graphical.enable || pkgs.stdenv.hostPlatform.isDarwin))
-      {
-        inherit (pkgs)
-          obsidian
-          pandoc
-          ;
-      }
-    )
+    (optionalAttrs (cfg.workstation.enable && (cfg.graphical.enable || isDarwin)) {
+      inherit (pkgs)
+        obsidian
+        pandoc
+        ;
+    })
+
+    (optionalAttrs cfg.media.watching.enable {
+      inherit (pkgs)
+        yt-dlp
+        ff2mpv-rust
+        ;
+    })
+
+    (optionalAttrs (cfg.media.watching.enable && isLinux) {
+      inherit (pkgs)
+        syncplay
+        ffmpeg
+        playerctl
+        ;
+    })
+
+    (optionalAttrs cfg.media.creation.enable {
+      inherit (pkgs)
+        inkscape # vector graphics editor
+        gimp # image editor
+        ;
+    })
   ];
 }
