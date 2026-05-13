@@ -12,23 +12,10 @@ let
   inherit (self.lib) giturl;
 in
 {
-  sops.secrets.uni-gitconf = { };
-
   programs = {
     git = {
       inherit (config.garden.profiles.workstation) enable;
       package = pkgs.gitMinimal;
-
-      includes = [
-        {
-          condition = "gitdir:~/dev/uni/";
-          inherit (config.sops.secrets."uni-gitconf") path;
-        }
-        {
-          condition = "gitdir:~/Dev/uni/";
-          inherit (config.sops.secrets."uni-gitconf") path;
-        }
-      ];
 
       lfs = {
         enable = false;
