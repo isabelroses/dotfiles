@@ -45,12 +45,10 @@
       };
     };
 
-    # manage userspace with nix
-    home-manager = {
+    wrappers = {
       type = "github";
-      owner = "nix-community";
-      repo = "home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      owner = "isabelroses";
+      repo = "wrapper-manager";
     };
 
     ### Security stuff

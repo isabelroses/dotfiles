@@ -135,26 +135,6 @@
         "type": "github"
       }
     },
-    "home-manager": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1778628724,
-        "narHash": "sha256-VNG6hJ146VEenXcDrB3t6MVnrMx+gtyCWTCDkzOp9Qs=",
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "rev": "6a0bbd6b4720da1c9ce7ebf35ff5c41a82db367a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "home-manager",
-        "type": "github"
-      }
-    },
     "homebrew": {
       "inputs": {
         "brew-src": []
@@ -299,7 +279,6 @@
         "catppuccin": "catppuccin",
         "darwin": "darwin",
         "extersia": "extersia",
-        "home-manager": "home-manager",
         "homebrew": "homebrew",
         "izlix": "izlix",
         "izvim": "izvim",
@@ -309,7 +288,8 @@
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "sops": "sops",
         "spicetify": "spicetify",
-        "tranquil": "tranquil"
+        "tranquil": "tranquil",
+        "wrappers": "wrappers"
       }
     },
     "rust-overlay": {
@@ -430,6 +410,21 @@
       "original": {
         "type": "git",
         "url": "https://tangled.org/tranquil.farm/tranquil-pds"
+      }
+    },
+    "wrappers": {
+      "locked": {
+        "lastModified": 1778626163,
+        "narHash": "sha256-ccJMLJ0Ns5Z0aDwFX2GNiqszwrPLaxBvx2BebBLffuA=",
+        "owner": "isabelroses",
+        "repo": "wrapper-manager",
+        "rev": "7e6bf96656d772a041f88cf04bb84e1ea9a69588",
+        "type": "github"
+      },
+      "original": {
+        "owner": "isabelroses",
+        "repo": "wrapper-manager",
+        "type": "github"
       }
     }
   },

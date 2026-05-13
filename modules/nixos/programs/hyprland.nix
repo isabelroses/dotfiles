@@ -1,17 +1,9 @@
-{
-  lib,
-  self,
-  config,
-  ...
-}:
+{ lib, ... }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib) anyHome;
-
-  cond = anyHome config (conf: conf.wayland.windowManager.hyprland.enable);
 in
 {
-  config = mkIf cond {
+  config = mkIf true {
     programs.hyprland.enable = true;
     xdg.portal.wlr.enable = false;
   };

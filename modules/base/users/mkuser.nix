@@ -13,11 +13,8 @@ in
 {
   users.users = genAttrs config.garden.system.users (
     name:
-    let
-      inherit (config.home-manager.users.${name}.garden.programs.defaults) shell;
-    in
     {
-      shell = "/run/current-system/sw/bin/${shell}";
+      shell = "/run/current-system/sw/bin/fish";
     }
     // (
       if _class == "nixos" then

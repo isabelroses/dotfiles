@@ -12,7 +12,7 @@ let
   cfg = config.garden.profiles;
 in
 {
-  garden.packages = mergeAttrsList [
+  users.users.isabel.packages = builtins.attrValues (mergeAttrsList [
     (optionalAttrs cfg.workstation.enable {
       inherit (pkgs)
         # keep-sorted start
@@ -77,5 +77,5 @@ in
 
       inherit (inputs'.extersia.packages) cake-wallet;
     })
-  ];
+  ]);
 }
