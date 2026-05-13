@@ -111,5 +111,12 @@ in
     # rd prefix means systemd-udev will be used instead of initrd
     "systemd.show_status=auto"
     "rd.systemd.show_status=auto"
+  ]
+  ++ optionals config.garden.profiles.headless.enable [
+    # since these are machines where we cannot interact with them. just reboot on panic
+    "panic=1"
+    "boot.panic_on_fail"
+    "vga=0x317"
+    "nomodeset"
   ];
 }
