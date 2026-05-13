@@ -33,18 +33,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # improved support for wsl
-    nixos-wsl = {
-      type = "github";
-      owner = "nix-community";
-      repo = "NixOS-WSL";
-
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "";
-      };
-    };
-
     # manage userspace with nix
     home-manager = {
       type = "github";

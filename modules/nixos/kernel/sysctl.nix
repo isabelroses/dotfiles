@@ -7,16 +7,9 @@
 #
 # a good place to quickly find what each setting does
 # https://sysctl-explorer.net/
-#
-# we disable sysctl tweaks on wsl since they don't work
+{ config, ... }:
 {
-  lib,
-  config,
-  options,
-  ...
-}:
-{
-  boot.kernel.sysctl = lib.mkIf (!(options ? "wsl")) {
+  boot.kernel.sysctl = {
     # The Magic SysRq key is a key combo that allows users connected to the
     # system console of a Linux kernel to perform some low-level commands.
     # Disable it, since we don't need it, and is a potential security concern.

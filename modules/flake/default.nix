@@ -72,10 +72,6 @@ in
     skadi = {
       arch = "aarch64";
     };
-
-    valkyrie = {
-      class = "wsl";
-    };
     # keep-sorted end
   };
 
