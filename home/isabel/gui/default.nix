@@ -7,6 +7,7 @@
     ./hyprland.nix
     ./media
     ./quickshell.nix
+    ./rnnoise.nix
     ./vicinae
     # keep-sorted end
   ];
