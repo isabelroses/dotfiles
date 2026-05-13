@@ -37,7 +37,6 @@ let
   os =
     {
       iso = "linux";
-      wsl = "linux";
       nixos = "linux";
     }
     .${class} or class;

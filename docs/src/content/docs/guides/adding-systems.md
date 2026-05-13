@@ -17,7 +17,7 @@ It accepts the following options:
   - options: `"x86_64"`, `"aarch64"`
 - **class**
   - default: `"nixos"`
-  - options: `"nixos"`, `"darwin"`, `"iso"`, `"wsl"`
+  - options: `"nixos"`, `"darwin"`, `"iso"`
 - **modules**
   - default: `[ ]`
   - extra NixOS / nix-darwin modules to import on top of the host's `systems/<hostname>/default.nix`
