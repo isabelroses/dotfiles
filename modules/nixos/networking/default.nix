@@ -4,7 +4,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkDefault mkForce;
+  inherit (lib.modules) mkDefault mkForce;
 in
 {
   imports = [
@@ -40,7 +40,7 @@ in
     usePredictableInterfaceNames = mkDefault true;
 
     # dns
-    nameservers = mkIf (!(config ? wsl)) [
+    nameservers = [
       "1.1.1.1"
       "1.0.0.1"
       "9.9.9.9"
