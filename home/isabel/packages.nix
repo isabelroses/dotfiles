@@ -32,6 +32,10 @@ in
       # a cli that tracks nixos deployments
       inherit (inputs'.extersia.packages) lethe;
 
+      izvim = inputs'.izvim.packages.izvim.override {
+        inherit (inputs'.izlix.packages) nil;
+      };
+
       # nom >= 2.1.7 breaks with lix so lets just use an older version for now.
       # also add a warning to eventually force me to fix this instead of forgetting
       nix-output-monitor =
