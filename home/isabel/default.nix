@@ -19,7 +19,7 @@
     ./ghostty.nix
     ./git.nix
     ./gtk.nix
-    ./hyprland.nix
+    ./hyprland
     ./izrss.nix
     ./jj.nix
     ./lazygit.nix
