@@ -38,8 +38,10 @@ jobs:
             {{ env.GIT_COMMIT_MESSAGE }}
             ```
 
-      - name: Merge Pull Request
-        run: gh pr merge --rebase --auto --delete-branch "$PR"
+      - name: Wait for Checks & Merge
+        run: |
+          gh pr checks "$PR" --watch --fail-fast
+          gh pr merge --rebase --delete-branch "$PR"
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN_UPDATES }}
           PR: ${{ steps.pr.outputs.pull-request-url }}
