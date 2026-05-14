@@ -2,6 +2,7 @@
   lib,
   pkgs,
   _class,
+  config,
   inputs,
   inputs',
   ...
@@ -10,6 +11,7 @@ let
   inherit (lib.attrsets) filterAttrs attrValues mapAttrs;
   inherit (lib.modules) mkForce;
   inherit (lib.types) isType;
+  inherit (lib.lists) optionals;
 
   flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;
 
@@ -26,6 +28,7 @@ in
     #
     # NOTE: we are also using a specifically patched version
     package = inputs'.izlix.packages.lix;
+    # package = pkgs.nixVersions.latest;
 
     # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
     registry = (mapAttrs (_: flake: { inherit flake; }) flakeInputs) // {
@@ -104,10 +107,6 @@ in
         # enables the nix3 commands, a requirement for flakes
         "nix-command"
 
-        # adds a new command called `lix` which allows you to run nix plugins,
-        # similar to how cargo works
-        "lix-custom-sub-commands"
-
         # Allows Nix to automatically pick UIDs for builds, rather than creating nixbld* user accounts
         # which is BEYOND annoying, which makes this a really nice feature to have
         "auto-allocate-uids"
@@ -115,6 +114,11 @@ in
         # allows Nix to execute builds inside cgroups
         # remember you must also enable use-cgroups in the nix.conf or settings
         "cgroups"
+      ]
+      ++ optionals (config.nix.package.pname == "lix") [
+        # adds a new command called `lix` which allows you to run nix plugins,
+        # similar to how cargo works
+        "lix-custom-sub-commands"
 
         # allow usage of the pipe operator in nix expressions
         "pipe-operator"
@@ -122,6 +126,13 @@ in
         # TODO: maybe readd later. i deal too much with people who use ref nix
         # allow nix to automatically coerce integers to strings
         # "coerce-integers"
+      ]
+      ++ optionals (config.nix.package.pname == "nix") [
+        # content addressable store paths created by git's hashing algo
+        "git-hashing"
+
+        # the pipe-operator from lix is but with a diffrent name lol
+        "pipe-operators"
       ];
 
       # don't warn me if the current working tree is dirty
