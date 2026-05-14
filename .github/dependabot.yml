@@ -12,3 +12,19 @@ updates:
       include: "scope"
     cooldown:
       default-days: 7
+  - package-ecosystem: npm
+    directory: "/docs"
+    schedule:
+      interval: weekly
+      time: "03:00"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    cooldown:
+      default-days: 7
+    groups:
+      npm:
+        patterns:
+          - "*"
