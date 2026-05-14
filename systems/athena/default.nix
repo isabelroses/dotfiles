@@ -12,7 +12,7 @@
     device = {
       cpu = "intel";
       gpu = "intel";
-      monitors.eDP-1 = { };
+      monitors = [ "eDP-1" ];
       keyboard = "us";
       capabilities = {
         tpm = true;
