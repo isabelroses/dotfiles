@@ -397,11 +397,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1777753977,
-        "narHash": "sha256-St0O1h5JIU+Rg0l7HzKHmk+MgoEDZ/TPIU8nAzpggOk=",
+        "lastModified": 1778783848,
+        "narHash": "sha256-l0p26NCZGOAV51tCa1+0IbKSMsTum/++vJA29OKKQKQ=",
         "ref": "refs/heads/main",
-        "rev": "f176f55862bc4c41472f8697cc2ca069c24d5e37",
-        "revCount": 339,
+        "rev": "1901b0a6304e716846e8bfa9da3c707189accc40",
+        "revCount": 343,
         "type": "git",
         "url": "https://tangled.org/tranquil.farm/tranquil-pds"
       },
