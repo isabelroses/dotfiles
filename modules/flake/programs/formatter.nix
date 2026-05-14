@@ -8,10 +8,10 @@
   shellcheck,
   shfmt,
   statix,
-  stylua,
   taplo,
   yamlfmt,
   zizmor,
+  stylua,
   writeShellScriptBin,
 }:
 treefmt.withConfig {
