@@ -42,7 +42,6 @@ hl.config({
 
   dwindle = {
     preserve_split = true,
-    pseudotile = true,
   },
 
   group = {
@@ -64,7 +63,7 @@ hl.config({
     kb_layout = kb,
     follow_mouse = 1,
     numlock_by_default = true,
-    sensitivity = if kb == "us" then -0.8 else 0,
+    sensitivity = (kb == "us") and -0.8 or 0,
     touchpad = {
       disable_while_typing = false,
       natural_scroll = false,

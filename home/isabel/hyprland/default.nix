@@ -12,11 +12,16 @@ let
     imap0
     length
     ;
-  inherit (lib.strings) optionalString concatLines;
+  inherit (lib.strings) optionalString concatStringsSep;
   inherit (lib.trivial) mod min;
 
   inherit (config.garden.programs) defaults;
   inherit (osConfig.garden.device) monitors keyboard;
+
+  # nixpkgs.lib adds a \n at the start and end but beacuse im using the multi
+  # line syntax for all my concatLines it makes the output larger than needed
+  # so lets just role our own lol
+  concatLines = concatStringsSep "";
 
   mapMonitors = concatLines (
     imap0 (i: output: ''
@@ -50,12 +55,22 @@ in
   config = lib.mkIf config.programs.hyprland.enable {
     garden.packages = { inherit (pkgs) hyprpicker cosmic-files; };
 
+    catppuccin.hyprland.enable = false;
+
     wayland.windowManager.hyprland = {
       enable = true;
-      systemd.enable = true;
 
       package = null;
       portalPackage = null;
+
+      systemd = {
+        enable = true;
+        variables = [ "--all" ];
+        extraCommands = [
+          "systemctl --user stop graphical-session.target"
+          "systemctl --user start hyprland-session.target"
+        ];
+      };
 
       # I AM NOT WRITING LUA IN NIX
       configType = "lua";
