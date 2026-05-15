@@ -40,6 +40,9 @@ jobs:
 
       - name: Wait for Checks & Merge
         run: |
+          # we can't instantly check for ci status or it errors; so lets horribly wait then
+          # then check and watch ci status then merge
+          sleep 30
           gh pr checks "$PR" --watch --fail-fast
           gh pr merge --rebase --delete-branch "$PR"
         env:
