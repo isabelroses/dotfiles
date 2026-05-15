@@ -28,19 +28,19 @@ export default defineConfig({
         { label: "Introduction", slug: "introduction" },
         {
           label: "Design",
-          autogenerate: { directory: "design" },
+          items: [{ autogenerate: { directory: "design" } }],
         },
         {
           label: "Guides",
-          autogenerate: { directory: "guides" },
+          items: [{ autogenerate: { directory: "guides" } }],
         },
         {
           label: "Lib",
-          autogenerate: { directory: "lib" },
+          items: [{ autogenerate: { directory: "lib" } }],
         },
         {
           label: "Modules options",
-          autogenerate: { directory: "options" },
+          items: [{ autogenerate: { directory: "options" } }],
         },
       ],
     }),
