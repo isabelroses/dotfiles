@@ -24,6 +24,7 @@
     ./postgresql.nix
     ./prowlarr.nix
     ./qbittorent.nix
+    ./quoteit.nix
     ./radarr.nix
     ./redis.nix
     ./sonarr.nix
