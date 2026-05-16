@@ -12,6 +12,9 @@
       update_check = false;
       sync_address = "https://atuin.isabelroses.com";
       sync_frequency = "5m";
+
+      # stop eating the ?
+      ai.enable = false;
     };
   };
 }
