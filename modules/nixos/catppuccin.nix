@@ -24,11 +24,11 @@ in
       flavor = "mocha";
 
       sources = options.catppuccin.sources.default.overrideScope (
-        _final: prev: {
+        _: _: {
           whiskers = pkgs.symlinkJoin {
             name = "whiskers-wrapped";
 
-            paths = [ prev.whiskers ];
+            paths = [ pkgs.catppuccin-whiskers ];
             nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
 
             postBuild = ''
