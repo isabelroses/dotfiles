@@ -63,11 +63,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778942279,
-        "narHash": "sha256-S1waEvhrU1yuHute1IoP1o4R2MsFzj3tbWuyeRVHWUw=",
+        "lastModified": 1778982749,
+        "narHash": "sha256-vhPUROWfyQgX/y4YdhtpzAMZnSPQ701pLDDLZzEAN7k=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "4379fcccb5d66cb96fb30f1220d225540c186247",
+        "rev": "0aa53e46d2ab4873db1ebd8cf81904b571999cc4",
         "type": "github"
       },
       "original": {
@@ -142,11 +142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778876681,
-        "narHash": "sha256-9XOIxYLBp+sJsPWNnNyk1aVfYXuuRJZ4Anpplm9Tn8g=",
+        "lastModified": 1778954430,
+        "narHash": "sha256-oaNyOr05lblaQdtbkbN1wO0b2KLIL2O1LkmwDgdQp4I=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c7fad8197070948d8aa02cb8922240ee129cab2e",
+        "rev": "26aaab785b0bab4af60a2c42b22760fa906ef22a",
         "type": "github"
       },
       "original": {
@@ -201,11 +201,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778956136,
-        "narHash": "sha256-X97tvImwBylyRV29b51Y+dSxYgPJMC7EpNhH7G6w7o0=",
+        "lastModified": 1778967708,
+        "narHash": "sha256-yHlt4BdrvpRwpC6NduW82Vfx/5/Q19ny4KhjVlziANQ=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "70c2f83f68a7fa89c34ee5d456ce21cd52c4213f",
+        "rev": "9695e7c64ad153395566e5ca8e8cfb5c89015a22",
         "type": "github"
       },
       "original": {
@@ -239,11 +239,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1778794387,
-        "narHash": "sha256-9yR9UAI7ZI5a98+eTkNFl8XogSQxU8bF3+pAU5zvuYI=",
-        "rev": "8a1b0127302ea51e05bf4ea5a291743fac442406",
+        "lastModified": 1778869304,
+        "narHash": "sha256-vZOcDniDPc1cS8A4Xi5YE6AGyPIvEpy4GMyayA3SWIM=",
+        "rev": "d233902339c02a9c334e7e593de68855ad26c4cb",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre998133.8a1b0127302e/nixexprs.tar.xz?lastModified=1778794387&rev=8a1b0127302ea51e05bf4ea5a291743fac442406"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.05pre998534.d233902339c0/nixexprs.tar.xz?lastModified=1778869304&rev=d233902339c02a9c334e7e593de68855ad26c4cb"
       },
       "original": {
         "type": "tarball",
