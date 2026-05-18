@@ -42,16 +42,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1776732099,
-        "narHash": "sha256-3NUfNnruKlKbxPS9jtX+hq6YU1jm0TWN/gp3ZSfTfb4=",
-        "owner": "isabelroses",
+        "lastModified": 1779036909,
+        "narHash": "sha256-zXcwYQGCT6pzinK+1dBB2ekTVtfxGZAapb3Evdcu4fY=",
+        "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "1e2d8fbb375432a32b19bd9af8759b3f86f00541",
+        "rev": "56c666e108467d87d13508936aade6d567f2a501",
         "type": "github"
       },
       "original": {
-        "owner": "isabelroses",
-        "ref": "darwin-rebuild",
+        "owner": "nix-darwin",
         "repo": "nix-darwin",
         "type": "github"
       }
@@ -63,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778982749,
-        "narHash": "sha256-vhPUROWfyQgX/y4YdhtpzAMZnSPQ701pLDDLZzEAN7k=",
+        "lastModified": 1779094705,
+        "narHash": "sha256-otze4UPL5jEPMJR0FetljU+cP2Q4Fhf0IJNQ/7dxApE=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "0aa53e46d2ab4873db1ebd8cf81904b571999cc4",
+        "rev": "e53ec5c482210463a5dcf6d879009d5a7f882236",
         "type": "github"
       },
       "original": {
@@ -142,11 +141,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778954430,
-        "narHash": "sha256-oaNyOr05lblaQdtbkbN1wO0b2KLIL2O1LkmwDgdQp4I=",
+        "lastModified": 1779075347,
+        "narHash": "sha256-ZqttlFPw0meQMdABi8/vgle14OWQ3FkIqUkb4/Mrc+0=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "26aaab785b0bab4af60a2c42b22760fa906ef22a",
+        "rev": "08c9d01457badce151aa4a983c475042d9dec018",
         "type": "github"
       },
       "original": {
@@ -180,11 +179,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778898367,
-        "narHash": "sha256-5D9Fl0W0SnN9RtAGaDTaEb/J4ZZbuqPrXnczES2EbXY=",
+        "lastModified": 1779005096,
+        "narHash": "sha256-Yv5M+i4yS+JWmwCKgZhzt7dETO6UkFMo9VQzS4Y44GI=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "8c8a911e7deba27cdd221c7303ef1b01c570d3b6",
+        "rev": "604b5652d513a73e5aa15174a83007d200580e90",
         "type": "github"
       },
       "original": {
@@ -201,11 +200,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778967708,
-        "narHash": "sha256-yHlt4BdrvpRwpC6NduW82Vfx/5/Q19ny4KhjVlziANQ=",
+        "lastModified": 1779026703,
+        "narHash": "sha256-O6nf3wbHbefevpVRamIYXAjyf/t0HqTsokLZOkZI4Aw=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "9695e7c64ad153395566e5ca8e8cfb5c89015a22",
+        "rev": "8cf35fd26b79de1cb86a433fe8d43f321b211660",
         "type": "github"
       },
       "original": {
@@ -362,11 +361,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1778793632,
-        "narHash": "sha256-HYHD6J64bAWB2iT00lyyTn0wWcb0POtV+nPshYvq6Uc=",
+        "lastModified": 1779000518,
+        "narHash": "sha256-wdtytSnzMe85J/qeXJALMzSLRFTZ1gBHwn81l1PtT8k=",
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
-        "rev": "e175a8b634e06a1b0635ec3d4db2c72cdc41fd15",
+        "rev": "5dde76b38418892ccb3d99e99bed7f8a43ac294c",
         "type": "github"
       },
       "original": {
@@ -397,11 +396,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778783848,
-        "narHash": "sha256-l0p26NCZGOAV51tCa1+0IbKSMsTum/++vJA29OKKQKQ=",
+        "lastModified": 1779030454,
+        "narHash": "sha256-lwpYXmIoBcvJBRltQbTPFCxshBbDKlbb3vAHfCHakV4=",
         "ref": "refs/heads/main",
-        "rev": "1901b0a6304e716846e8bfa9da3c707189accc40",
-        "revCount": 343,
+        "rev": "eb034cb8b3bb03487a0cc107a406040141358c6c",
+        "revCount": 349,
         "type": "git",
         "url": "https://tangled.org/tranquil.farm/tranquil-pds"
       },

@@ -27,9 +27,8 @@
     # improved support for darwin
     darwin = {
       type = "github";
-      owner = "isabelroses";
+      owner = "nix-darwin";
       repo = "nix-darwin";
-      ref = "darwin-rebuild";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
