@@ -200,11 +200,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779026703,
-        "narHash": "sha256-O6nf3wbHbefevpVRamIYXAjyf/t0HqTsokLZOkZI4Aw=",
+        "lastModified": 1779257144,
+        "narHash": "sha256-dYShOcCHUFt+rlo6r8GZRyc89eMJNixclHVNc/dxJ58=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "8cf35fd26b79de1cb86a433fe8d43f321b211660",
+        "rev": "ae5a5ae7ff4a701492ad0663045d962be4580234",
         "type": "github"
       },
       "original": {
@@ -396,11 +396,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779219035,
-        "narHash": "sha256-KqyByzkqM2xcDU3lyAiOhfzX0oE380vMQcWXdATqN00=",
+        "lastModified": 1779304820,
+        "narHash": "sha256-rJLMmPVc2zrw/ZmEtWFyVr3E6nqgfiTHoIXf0n5TIY4=",
         "ref": "refs/heads/main",
-        "rev": "9ebde275409b18d03e43f64598c3079bd76e1430",
-        "revCount": 363,
+        "rev": "a3bd7c59ad1165eee76aaa962b11b437a41ef1ef",
+        "revCount": 364,
         "type": "git",
         "url": "https://tangled.org/tranquil.farm/tranquil-pds"
       },
