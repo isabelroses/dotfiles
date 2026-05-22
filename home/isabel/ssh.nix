@@ -11,7 +11,7 @@ in
 
     includes = [ secrets.rsync-sshconf.path ];
 
-    matchBlocks = {
+    settings = {
       "*" = {
         forwardAgent = false;
         addKeysToAgent = "no";
