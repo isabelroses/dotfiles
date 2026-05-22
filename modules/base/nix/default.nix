@@ -4,6 +4,7 @@
     ./environment.nix # environment settings that nix requires
     ./nix.nix # nix the package manager's settings
     ./plugins.nix # nix plugins
+    ./registry.nix # the nix registry
     ./substituters.nix # nixpkgs substituters
     # keep-sorted end
   ];

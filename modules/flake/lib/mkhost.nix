@@ -92,17 +92,9 @@ evalHost {
       key = "dotfiles#nixpkgs";
       _file = "${__curPos.file}";
 
-      nixpkgs = {
-        # you can also do this as `inherit system;` with the normal `lib.nixosSystem`
-        # however for evalModules this will not work, so we do this instead
-        hostPlatform = system;
-
-        # The path to the nixpkgs sources used to build the system.
-        # This is automatically set up to be the store path of the nixpkgs flake used to build
-        # the system if using lib.nixosSystem, and is otherwise null by default.
-        # so that means that we should set it to our nixpkgs flake output path
-        flake.source = nixpkgs.outPath;
-      };
+      # you can also do this as `inherit system;` with the normal `lib.nixosSystem`
+      # however for evalModules this will not work, so we do this instead
+      nixpkgs.hostPlatform = system;
     }
   ]
   # if we are on darwin we need to import the nixpkgs source, its used in some

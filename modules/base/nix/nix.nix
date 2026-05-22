@@ -3,17 +3,11 @@
   pkgs,
   _class,
   config,
-  inputs,
   inputs',
   ...
 }:
 let
-  inherit (lib.attrsets) filterAttrs attrValues mapAttrs;
-  inherit (lib.modules) mkForce;
-  inherit (lib.types) isType;
   inherit (lib.lists) optionals;
-
-  flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;
 
   sudoers = if (_class == "nixos") then "@wheel" else "@admin";
 in
@@ -29,19 +23,6 @@ in
     # NOTE: we are also using a specifically patched version
     package = inputs'.izlix.packages.lix;
     # package = pkgs.nixVersions.latest;
-
-    # pin the registry to avoid downloading and evaluating a new nixpkgs version everytime
-    registry = (mapAttrs (_: flake: { inherit flake; }) flakeInputs) // {
-      # https://github.com/NixOS/nixpkgs/pull/388090
-      nixpkgs = lib.mkForce { flake = inputs.nixpkgs; };
-    };
-
-    # We love legacy support (for now)
-    nixPath =
-      if (_class == "nixos") then
-        attrValues (mapAttrs (k: v: "${k}=flake:${v.outPath}") flakeInputs)
-      else
-        mkForce (mapAttrs (_: v: v.outPath) flakeInputs);
 
     # set up garbage collection to run <on the time frame specified per system>, and removing packages after 3 days
     gc = {
