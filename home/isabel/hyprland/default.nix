@@ -55,8 +55,6 @@ in
   config = lib.mkIf config.programs.hyprland.enable {
     garden.packages = { inherit (pkgs) hyprpicker cosmic-files; };
 
-    catppuccin.hyprland.enable = false;
-
     wayland.windowManager.hyprland = {
       enable = true;
 

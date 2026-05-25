@@ -1,10 +1,5 @@
 local mod = "SUPER"
 
--- inlined until catppuccin catches up
-local pink = "rgba(f5c2e7ee)"
-local surface1 = "rgba(45475aee)"
-local rosewater = "rgba(f5e0dcee)"
-
 hl.config({
   general = {
     border_size = 2,
@@ -12,8 +7,8 @@ hl.config({
     gaps_out = 8,
     gaps_workspaces = 0,
     col = {
-      active_border = pink,
-      inactive_border = surface1,
+      active_border = colors.accent,
+      inactive_border = colors.surface1,
     },
   },
 
@@ -48,8 +43,8 @@ hl.config({
     focus_removed_window = true,
     insert_after_current = true,
     col = {
-      border_active = rosewater,
-      border_inactive = surface1,
+      border_active = colors.rosewater,
+      border_inactive = colors.surface1,
     },
     groupbar = {
       font_size = 12,
