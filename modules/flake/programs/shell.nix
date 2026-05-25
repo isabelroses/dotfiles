@@ -5,7 +5,6 @@
   sops,
   # nix-output-monitor,
   treefmt-wrapped,
-  stylua,
 }:
 mkShellNoCC {
   name = "dotfiles";
@@ -16,10 +15,8 @@ mkShellNoCC {
     sops # secrets management
     treefmt-wrapped # nix formatter
     # nix-output-monitor # get clean diff between generations
-    stylua # does not seem to be getting picked up by inputsFrom
-  ];
-
-  inputsFrom = [ treefmt-wrapped ];
+  ]
+  ++ treefmt-wrapped.runtimeInputs; # collect all our formatters
 
   env.DIRENV_LOG_FORMAT = "";
 
