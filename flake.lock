@@ -62,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779587950,
-        "narHash": "sha256-h+/kiv+UAESCagqnHqqpimf3E1LnbFZfQ0neDDkP+TU=",
+        "lastModified": 1779674781,
+        "narHash": "sha256-oEt/QzP4Si0aJY2ylcKetib0JOTL1gCZ73MPZPnR4bc=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "311cb0d086a61d6bbb8526d625a8684d466934ff",
+        "rev": "6025e748cb498d3ade2942805b4ca9f6a9b9d110",
         "type": "github"
       },
       "original": {
@@ -141,11 +141,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779592288,
-        "narHash": "sha256-pVZwRFVFdHS3D3G07MiZQcSPENnv1xlYCJtfabkqd3Q=",
+        "lastModified": 1779678629,
+        "narHash": "sha256-gHcIFg0mm+KFsg7iZQt67kni3+qR5U3PhEC9P7vKlZ4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "23703a32ef3d7803a2f1bb9909a3f46fc5185e37",
+        "rev": "612bbe3b405ad5f71d7bf9edecc04b678a061652",
         "type": "github"
       },
       "original": {
@@ -179,11 +179,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779590509,
-        "narHash": "sha256-/xiGVx0NnQ9ZWjcvoVKPgEF7ghbAW8FfYCHwKd2wuoQ=",
+        "lastModified": 1779677444,
+        "narHash": "sha256-Px//HBzWeGtI2GdcFmlnNChGsNp1SKRgrUR+Bl/K/IM=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "68f7b1860fd380922f55a3b5b3025195122013ca",
+        "rev": "29eb0a4bbcdf0e4d80192f32e23d3fbd801e9095",
         "type": "github"
       },
       "original": {
@@ -320,11 +320,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779592058,
-        "narHash": "sha256-HmSXe9IdT8hPc9pSRRuc0462if3mIEnrvrIP5VqiN3g=",
+        "lastModified": 1779651995,
+        "narHash": "sha256-JT27OzVt+zKC9OUzG9siqRA2tqRiNwu+aWER67FNnNY=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "e5ae7b5b962bfbbea5966701fe4384ecb51e07de",
+        "rev": "da16ebd4b5f8c2867f0a5220780f87d94d979626",
         "type": "gitlab"
       },
       "original": {
@@ -361,11 +361,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1779567740,
-        "narHash": "sha256-nmNLrkM0uO3gqwNgg8l4XxLnEE9S37jWD5Qv60dgyEE=",
+        "lastModified": 1779607677,
+        "narHash": "sha256-Ang2de6zfcFF8v7LWqSDD1n6bgYj0vN1PY5hi7lOLsM=",
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
-        "rev": "bcfc51ca18c0a65774dc4639ea971ed5cca57c48",
+        "rev": "e69b824f3c4f4db836f47193723b6d37f93e0dc0",
         "type": "github"
       },
       "original": {
@@ -396,11 +396,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779566563,
-        "narHash": "sha256-iDRCDf9omPGVAmJycqkNXbXh8dqYgNS0MC3gCS55cm4=",
+        "lastModified": 1779652214,
+        "narHash": "sha256-XDx5APMfUSod9PoQNttG8t1m3PqpFp1a7yJRIcP79uE=",
         "ref": "refs/heads/main",
-        "rev": "4d2c7d47236b539f74b3225c989ebaa2c7609136",
-        "revCount": 371,
+        "rev": "86c5995568a0b7ffc7f3199ee0f14aaeaba607a3",
+        "revCount": 373,
         "type": "git",
         "url": "https://tangled.org/tranquil.farm/tranquil-pds"
       },
