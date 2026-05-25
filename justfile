@@ -20,6 +20,7 @@ builder goal *args:
     {{ rebuild }} {{ goal }} \
       --flake {{ flake }} \
       --log-format internal-json \
+      --option allow-import-from-derivation false \
       {{ system-args }} \
       {{ args }} \
       |& nom --json

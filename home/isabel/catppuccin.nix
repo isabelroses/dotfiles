@@ -9,15 +9,18 @@
   ...
 }:
 let
+  inherit (lib.modules) mkForce;
+  inherit (lib.attrsets) mapAttrs;
+
   isGui = osClass == "nixos" && config.garden.profiles.graphical.enable;
 
-  oled = {
-    mocha = {
-      base = "000000";
-      mantle = "010101";
-      crust = "020202";
-    };
+  oled.mocha = {
+    base = "000000";
+    mantle = "010101";
+    crust = "020202";
   };
+
+  hasCtp = osConfig ? "catppuccin";
 in
 {
   imports = [ inputs.catppuccin.homeModules.catppuccin ];
@@ -25,8 +28,14 @@ in
   config = {
     catppuccin = {
       inherit (config.garden.profiles.workstation) enable;
+
+      flavor = "mocha";
+      accent = "pink";
+
+      palette.mocha.colors = mapAttrs (_: v: { hex = mkForce "#${v}"; }) oled.mocha;
+
       sources =
-        if (osConfig ? "catppuccin") then
+        if hasCtp then
           osConfig.catppuccin.sources
         else
           (options.catppuccin.sources.default.overrideScope (
@@ -47,9 +56,6 @@ in
             }
           ));
 
-      flavor = "mocha";
-      accent = "pink";
-
       cursors = {
         enable = isGui;
         accent = "dark";
@@ -62,9 +68,6 @@ in
 
       # IFD and can use term colors
       starship.enable = false;
-
-      # IFD and easy enough to vendor
-      fzf.enable = false;
 
       # IFD and can use term colors
       eza.enable = false;
