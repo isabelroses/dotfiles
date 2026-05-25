@@ -3,6 +3,7 @@
 {
   imports = [
     # keep-sorted start
+    ./account-utils.nix # drop suid/guid changes from the config
     ./apparmor.nix # apparmor
     ./auditd.nix # auditd
     ./login-defs.nix # login.defs configuration
