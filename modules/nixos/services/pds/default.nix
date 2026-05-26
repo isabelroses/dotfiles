@@ -40,6 +40,10 @@ in
       pds-gatekeeper = mkSecret {
         file = "pds";
       };
+
+      pds-dash = mkSecret {
+        file = "pds";
+      };
     };
 
     services = {
@@ -97,6 +101,8 @@ in
           PORT = config.garden.services.pds-dash.port;
           LOCATION = config.sops.secrets.pds-env.path;
         };
+
+        environmentFiles = [ config.sops.secrets.pds-dash.path ];
       };
 
       pds-gatekeeper = {
@@ -121,13 +127,14 @@ in
           # `PDS_HCAPTCHA_SECRET_KEY` and `PDS_HCAPTCHA_SITE_KEY` from the
           # something like <https://www.hcaptcha.com/>
           GATEKEEPER_CREATE_ACCOUNT_CAPTCHA = "true";
-          GATEKEEPER_DEFAULT_CAPTCHA_REDIRECT = "https://pds.tgirl.cloud";
+          GATEKEEPER_DEFAULT_CAPTCHA_REDIRECT = "https://${cfg.domain}/signup/callback";
           GATEKEEPER_CAPTCHA_SUCCESS_REDIRECTS = concatStringsSep "," [
             "https://bsky.app"
             "https://pdsmoover.com"
             "https://blacksky.community"
+            "https://witchsky.com"
             "https://tektite.cc"
-            "https://pds.tgirl.cloud"
+            "https://${cfg.domain}"
           ];
 
           # we need to share a lot of secrets between pds and gatekeeper
