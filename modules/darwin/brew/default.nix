@@ -91,7 +91,6 @@
         "discord"
         "ghostty"
         "helium-browser"
-        "jellyfin-media-player"
       ];
     };
   };
