@@ -16,5 +16,5 @@
   programs.git.package = pkgs.gitMinimal;
 
   # needed packages for the installer
-  environment.systemPackages = [ self'.packages.iztaller ];
+  environment.systemPackages = [ self'.legacyPackages.iztaller ];
 }
