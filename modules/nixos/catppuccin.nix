@@ -20,8 +20,12 @@ in
 
   config = {
     catppuccin = {
-      enable = lib.mkDefault (!config.garden.profiles.headless.enable);
+      # this option acts more like an auto enable than a blank check enable
+      # like other programs. so we can then later pick the ones we want
+      enable = false;
+
       flavor = "mocha";
+      accent = "pink";
 
       sources = options.catppuccin.sources.default.overrideScope (
         _: _: {
@@ -41,8 +45,8 @@ in
         }
       );
 
-      # IFD, easy to vendor
-      tty.enable = false;
+      # pick our ports
+      forgejo.enable = true;
     };
 
     console.colors = lib.mkIf config.catppuccin.enable [

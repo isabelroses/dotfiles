@@ -25,6 +25,10 @@ in
   config = {
     catppuccin = {
       inherit (config.garden.profiles.workstation) enable;
+
+      flavor = "mocha";
+      accent = "pink";
+
       sources =
         if (osConfig ? "catppuccin") then
           osConfig.catppuccin.sources
@@ -46,9 +50,6 @@ in
               };
             }
           ));
-
-      flavor = "mocha";
-      accent = "pink";
 
       cursors = {
         enable = isGui;
