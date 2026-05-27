@@ -22,8 +22,6 @@ in
     // (
       if _class == "nixos" then
         {
-          home = "/home/${name}";
-
           uid = mkDefault 1000;
           isNormalUser = true;
 
