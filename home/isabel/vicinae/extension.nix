@@ -27,15 +27,15 @@ lib.extendMkDerivation {
               fetchFromGitHub {
                 owner = "vicinaehq";
                 repo = "extensions";
-                rev = "ffbb04567d5108a0fb197aedb7642a0aa6ae7aad";
-                hash = "sha256-1Q/vrarA1M5rIIOZeSmqpC2e33ncpI7dL8AkNIHgtVo=";
+                rev = "c7a8d7d2e3fa599922c4964a94315c55c9bfe80b";
+                hash = "sha256-M2hmGokQXbvoKUEvkgF2IIxOUGCF5v7bXyjPzpSQIJw=";
               }
             else
               fetchFromGitHub {
                 owner = "raycast";
                 repo = "extensions";
-                rev = "9b5cbcb7204b895e478f58db1485559b7f7d28d8";
-                hash = "sha256-ARrEyBSqw0RSSoRZBCLoiN3Bg1OSKC+uPkwfO29KkfA=";
+                rev = "b51d43359d1b3bde44046956bb53aecb7549c0da";
+                hash = "sha256-pSUiNWo8D/ZMEcivMR/uSUGHBpVTW3ITdKBlWf/GmtU=";
 
                 # littrally grind to a halt if we don't add this
                 sparseCheckout = [ "/extensions/${extName}" ];

@@ -20,16 +20,16 @@ in
       }
       {
         extName = "wifi-commander";
-        npmDepsHash = "sha256-ufVZm0mpRPAgWRXP+h6yNM7cEfM/tdcc0FUBmZiBvBA=";
+        npmDepsHash = "sha256-lP/M+r8Y6j15i8vOxZG75vHUnmVss2gX/5oWvPUft1Q=";
       }
       {
         extName = "bluetooth";
-        npmDepsHash = "sha256-2F7D7DwNG/GAiE+o7srZhcOZzUiRjEVS9uWZAoD7sjo=";
+        npmDepsHash = "sha256-WN8tMQIZKr1MjttcFX8ft623gElN0BY9uvEjUpPNjZQ=";
       }
       {
         extName = "pdsls";
         type = "raycast";
-        npmDepsHash = "sha256-vx/n64UZBZt1ntPbCILWhp/NJ56zCp9oUTDgqQB8Ny8=";
+        npmDepsHash = "sha256-I+eYqIPvnPOvDRJoS7ootxQ9Kg8FsfaJoT4VcEe+gLM=";
       }
 
       # broken
