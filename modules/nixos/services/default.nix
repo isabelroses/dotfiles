@@ -33,7 +33,6 @@
     ./vaultwarden.nix
     ./wakapi.nix
     ./website.nix
-    ./xmrig.nix
     # keep-sorted end
   ];
 }

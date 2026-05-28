@@ -25,8 +25,6 @@
       keyboard = "us";
     };
 
-    # services.xmrig.enable = true;
-
     system = {
       boot = {
         loader = "systemd-boot";
