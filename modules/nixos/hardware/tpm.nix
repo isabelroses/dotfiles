@@ -2,7 +2,7 @@
 let
   inherit (lib.options) mkOption;
   inherit (lib.types) bool;
-  inherit (lib.modules) mkIf mkDefault;
+  inherit (lib.modules) mkIf;
 
   inherit (config.garden) device;
 in
@@ -15,19 +15,15 @@ in
 
   config = mkIf device.capabilities.tpm {
     security.tpm2 = {
-      # enable Trusted Platform Module 2 support
-      enable = mkDefault true;
-
-      # enable Trusted Platform 2 userspace resource manager daemon
-      abrmd.enable = mkDefault false;
+      enable = true;
 
       # set TCTI environment variables to the specified values if enabled
       # - TPM2TOOLS_TCTI
       # - TPM2_PKCS11_TCTI
-      tctiEnvironment.enable = mkDefault true;
+      tctiEnvironment.enable = true;
 
       # enable TPM2 PKCS#11 tool and shared library in system path
-      pkcs11.enable = mkDefault true;
+      pkcs11.enable = true;
     };
 
     boot.initrd.kernelModules = [ "tpm" ];

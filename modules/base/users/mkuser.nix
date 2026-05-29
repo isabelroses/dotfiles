@@ -40,7 +40,7 @@ in
             "input"
             "plugdev"
             "lp"
-            "tss"
+            "tss" # tpm2
             "power"
             "wireshark"
             "mysql"
