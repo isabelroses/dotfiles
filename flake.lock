@@ -141,11 +141,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780044943,
-        "narHash": "sha256-P+MrzPC4i5aS/P08YmfuVtVlfYZ6l2sn1EEl+YmVcMg=",
+        "lastModified": 1780145896,
+        "narHash": "sha256-Xxsj4wFzF7i+QDcscrY3GWCpiG26nMpjNNYVaj8tuMY=",
         "owner": "isabelroses",
         "repo": "home-manager",
-        "rev": "15ef1ba67ddce3ca4fb49003debe2160e945f18b",
+        "rev": "9df00030940242bb3e22fc6888991efadf55f3bd",
         "type": "github"
       },
       "original": {
