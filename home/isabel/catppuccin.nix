@@ -25,6 +25,7 @@ in
   config = {
     catppuccin = {
       inherit (config.garden.profiles.workstation) enable;
+      autoEnable = true;
 
       flavor = "mocha";
       accent = "pink";

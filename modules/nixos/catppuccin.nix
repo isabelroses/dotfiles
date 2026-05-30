@@ -20,9 +20,8 @@ in
 
   config = {
     catppuccin = {
-      # this option acts more like an auto enable than a blank check enable
-      # like other programs. so we can then later pick the ones we want
-      enable = false;
+      enable = true;
+      autoEnable = false;
 
       flavor = "mocha";
       accent = "pink";
