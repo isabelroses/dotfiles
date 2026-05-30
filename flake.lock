@@ -141,11 +141,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779960214,
-        "narHash": "sha256-zN/SjI6t9bIYsz1FcxGFCi3wtlukavocBFfLD8k71R8=",
+        "lastModified": 1780044943,
+        "narHash": "sha256-P+MrzPC4i5aS/P08YmfuVtVlfYZ6l2sn1EEl+YmVcMg=",
         "owner": "isabelroses",
         "repo": "home-manager",
-        "rev": "098f2a64cd5c987288bf8b8592997c5db6b13e3f",
+        "rev": "15ef1ba67ddce3ca4fb49003debe2160e945f18b",
         "type": "github"
       },
       "original": {
@@ -224,11 +224,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1779865172,
-        "narHash": "sha256-QZuox/4ww6vOmUu9lCpKlQbU3MER1kmgnJmXP1LO1K0=",
+        "lastModified": 1780086788,
+        "narHash": "sha256-edFSV4opXjcMqk0iyA80X2Mrez9jPtxNv7bjzwGJj/U=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "f42b84f9fb03db98dee2073e932010f3a76eeb9a",
+        "rev": "d3ebe900ef5de5bcb20c46837fc76ee4b9276abd",
         "type": "github"
       },
       "original": {
@@ -239,11 +239,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1779694939,
-        "narHash": "sha256-luOcHMj74mEbDfB9dbcvMlXUF/6oefoKI2xxyZAvyy0=",
-        "rev": "f9d8b65950353691ab56561e7c73d2e1063d810b",
+        "lastModified": 1779877693,
+        "narHash": "sha256-24YGUZ9p3uLeDBGS5Nc8V7Rt5PaRg1vZ+rnfSuBW7hM=",
+        "rev": "4100e830e085863741bc69b156ec4ccd53ab5be0",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1004746.f9d8b6595035/nixexprs.tar.xz?lastModified=1779694939&rev=f9d8b65950353691ab56561e7c73d2e1063d810b"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1006043.4100e830e085/nixexprs.tar.xz?lastModified=1779877693&rev=4100e830e085863741bc69b156ec4ccd53ab5be0"
       },
       "original": {
         "type": "tarball",
@@ -397,11 +397,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780036754,
-        "narHash": "sha256-accV4hQriX5WMxKKWJVc67kpq59njWidHo5u9LHwofk=",
+        "lastModified": 1780094275,
+        "narHash": "sha256-2oUl6yn80sRIvjVPjg15VdnEotucD3iO1sc2ksXL/a8=",
         "ref": "refs/heads/main",
-        "rev": "7a54ccf6a38a748e9a63c9d7c8bfe201aeefeeec",
-        "revCount": 384,
+        "rev": "38508c2c6e54a85750ad511b38e68e2043fc0b39",
+        "revCount": 385,
         "type": "git",
         "url": "https://tangled.org/tranquil.farm/tranquil-pds"
       },
