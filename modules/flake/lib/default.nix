@@ -31,9 +31,5 @@ lib.fixedPoints.makeExtensible (final: {
     ;
   inherit (final.secrets) mkSecret;
   inherit (final.services) mkGraphicalService mkServiceOption;
-  inherit (final.validators)
-    ifTheyExist
-    ifOneEnabled
-    anyHome
-    ;
+  inherit (final.validators) ifOneEnabled anyHome;
 })

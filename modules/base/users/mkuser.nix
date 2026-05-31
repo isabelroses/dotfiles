@@ -1,6 +1,5 @@
 {
   lib,
-  self,
   _class,
   config,
   ...
@@ -8,7 +7,6 @@
 let
   inherit (lib.attrsets) genAttrs;
   inherit (lib.modules) mkDefault;
-  inherit (self.lib) ifTheyExist;
 in
 {
   users.users = genAttrs config.garden.system.users (
@@ -25,12 +23,9 @@ in
           uid = mkDefault 1000;
           isNormalUser = true;
 
-          # only add groups that exist
           extraGroups = [
             "wheel"
             "nix"
-          ]
-          ++ ifTheyExist config [
             "network"
             "networkmanager"
             "systemd-journal"

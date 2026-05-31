@@ -2,30 +2,6 @@
 let
   inherit (lib.attrsets) getAttrFromPath;
   inherit (lib.lists) any;
-  inherit (lib) filter hasAttr;
-
-  /**
-    a function that will append a list of groups if they exist in config.users.groups
-
-    # Arguments
-
-    - [config] the configuration that nixosConfigurations provides
-    - [groups] a list of groups to check for
-
-    # Type
-
-    ```
-    ifTheyExist :: AttrSet -> List -> List
-    ```
-
-    # Example
-
-    ```nix
-    ifTheyExist config ["wheel" "users"]
-    => ["wheel"]
-    ```
-  */
-  ifTheyExist = config: groups: filter (group: hasAttr group config.users.groups) groups;
 
   /**
     check if a predicate for any user config is true
@@ -63,8 +39,5 @@ let
     any cond list;
 in
 {
-  inherit
-    ifTheyExist
-    anyHome
-    ;
+  inherit anyHome;
 }
