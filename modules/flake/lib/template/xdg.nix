@@ -60,6 +60,7 @@ in
       IPYTHONDIR = "${config}/ipython";
       JUPYTER_CONFIG_DIR = "${config}/jupyter";
       GOPATH = "${data}/go";
+      GOMODCACHE = "${cache}/go/pkg/mod";
       M2_HOME = "${data}/m2";
       CARGO_HOME = "${data}/cargo";
       RUSTUP_HOME = "${data}/rustup";
