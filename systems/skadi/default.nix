@@ -22,7 +22,7 @@
 
     services = {
       nginx.enable = true;
-      uptime-kuma.enable = true;
+      gatus.enable = true;
       pds.enable = true;
       piper.enable = true;
     };

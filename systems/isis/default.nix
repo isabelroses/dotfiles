@@ -14,7 +14,10 @@
         domain = "tgirl.cloud";
       };
 
-      uptime-kuma.enable = true;
+      gatus = {
+        enable = true;
+        isPersonal = false;
+      };
     };
   };
 }

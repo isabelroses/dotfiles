@@ -10,6 +10,7 @@
     ./borgbackup.nix
     ./cloudflared.nix
     ./forgejo.nix
+    ./gatus
     ./immich.nix
     ./jellyfin.nix
     ./kanidm.nix
@@ -29,7 +30,6 @@
     ./redis.nix
     ./sonarr.nix
     ./tranquil.nix
-    ./uptime-kuma.nix
     ./vaultwarden.nix
     ./wakapi.nix
     ./website.nix
