@@ -28,7 +28,10 @@ in
 
           tools = {
             nixos-version.enable = true;
-            nixos-rebuild.enable = true;
+            nixos-rebuild = {
+              enable = true;
+              enableRun0Elevation = true;
+            };
           };
         };
       }
