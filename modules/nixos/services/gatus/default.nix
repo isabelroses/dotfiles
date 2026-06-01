@@ -45,6 +45,7 @@ in
       isPersonal = mkOption {
         type = lib.types.bool;
         default = true;
+        description = "Whether this is a personal deployment of gatus";
       };
     };
 
