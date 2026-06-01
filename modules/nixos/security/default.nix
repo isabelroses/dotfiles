@@ -8,6 +8,7 @@
     ./login-defs.nix # login.defs configuration
     ./pam.nix # pam configuration
     ./polkit.nix # polkit configuration
+    ./run0.nix # run0 config
     ./sudo.nix # sudo rules and configuration
     # keep-sorted end
   ];
