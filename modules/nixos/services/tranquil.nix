@@ -2,7 +2,6 @@
   lib,
   self,
   config,
-  inputs,
   ...
 }:
 let
@@ -16,8 +15,6 @@ in
     port = 3032;
     domain = "pds.isabelroses.com";
   };
-
-  imports = [ inputs.tranquil.nixosModules.default ];
 
   config = mkIf cfg.enable {
     sops.secrets.tranquil-env = mkSecret {
