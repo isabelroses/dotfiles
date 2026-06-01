@@ -25,5 +25,3 @@ Therefore most things will not work out of the box without some changes, so be w
 
 > [!NOTE]
 > Please read [the documentation](https://dotfiles.isabelroses.com/)
-
-[![Star History Chart](https://api.star-history.com/svg?repos=isabelroses/dotfiles&type=Date)](https://star-history.com/#isabelroses/dotfiles&Date)
