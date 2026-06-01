@@ -107,7 +107,7 @@ in
 
     (optionalAttrs cfg.media.creation.enable {
       inherit (pkgs)
-        inkscape # vector graphics editor
+        # inkscape # vector graphics editor
         gimp # image editor
         ;
     })
