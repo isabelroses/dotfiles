@@ -90,7 +90,7 @@ in
     dataHome = "${config.home.homeDirectory}/.local/share";
     stateHome = "${config.home.homeDirectory}/.local/state";
 
-    userDirs = mkIf isLinux {
+    userDirs = mkIf (isLinux && config.garden.profiles.workstation.enable) {
       enable = true;
       createDirectories = true;
       setSessionVariables = true;
