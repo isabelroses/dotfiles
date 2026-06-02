@@ -69,6 +69,10 @@ in
         configurationLimit = 15; # prevent "too many" configuration from showing up on the boot menu
         consoleMode = mkDefault "max"; # the default is "keep"
 
+        # counts the failed boots and will mark them as unsafe and rollback automatically
+        # <https://systemd.io/AUTOMATIC_BOOT_ASSESSMENT/>
+        bootCounting.enable = true;
+
         # Fix a security hole. See desc in nixpkgs/nixos/modules/system/boot/loader/systemd-boot/systemd-boot.nix
         editor = false;
       };
