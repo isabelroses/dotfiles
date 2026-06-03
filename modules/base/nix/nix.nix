@@ -64,6 +64,9 @@ in
       # we only enable this on linux because it servirly breaks on darwin
       sandbox = pkgs.stdenv.hostPlatform.isLinux;
 
+      # not enabled by default; unsure how much use it will get but its nice to have
+      http3 = true;
+
       # supported system features
       system-features = [
         "nixos-test"
