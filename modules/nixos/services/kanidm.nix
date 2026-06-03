@@ -61,7 +61,7 @@ in
       };
       kanidm-oauth2-wakapi = mkSecret {
         file = "kanidm";
-        key = "oauth2-linkwarden";
+        key = "oauth2-wakapi";
         owner = "kanidm";
         group = "kanidm";
         mode = "440";
@@ -161,7 +161,7 @@ in
 
             wakapi = {
               displayName = "wakapi";
-              originUrl = "https://${cfg'.wakapi.domain}/oidc/wakapi/callback";
+              originUrl = "https://${cfg'.wakapi.domain}/oidc/kanidm/callback";
               originLanding = "https://${cfg'.wakapi.domain}/";
               basicSecretFile = config.sops.secrets.kanidm-oauth2-wakapi.path;
               allowInsecureClientDisablePkce = true;
