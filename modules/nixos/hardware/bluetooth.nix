@@ -19,7 +19,10 @@ in
     hardware.bluetooth = {
       enable = true;
 
-      disabledPlugins = [ "sap" ];
+      disabledPlugins = [
+        "sap"
+        "handsfree"
+      ];
 
       # https://github.com/bluez/bluez/blob/master/src/main.conf
       settings.General = {
