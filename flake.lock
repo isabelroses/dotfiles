@@ -160,11 +160,11 @@
         "brew-src": []
       },
       "locked": {
-        "lastModified": 1778851564,
-        "narHash": "sha256-p8wzcnpB2Iys+QzAKM9/Eyw/pUyqCO3sw/NCnDH4dTE=",
+        "lastModified": 1780492467,
+        "narHash": "sha256-zMEJwtQPmsPPgPczFkyjWHgd1z0HagOPS2Wt2WDYLJY=",
         "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "b3a87b4793205cc111f3c61e25e018ffac3b8039",
+        "rev": "562332f97de9f5ba51aa647d70462e88222b2988",
         "type": "github"
       },
       "original": {
@@ -201,11 +201,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780348190,
-        "narHash": "sha256-2OEBfnxpoSvFZVvV/vxXM6smLuOnVDdmAt+U8cHLBWo=",
+        "lastModified": 1780469486,
+        "narHash": "sha256-r8kvfohc+aEG3QeFUIyOtqYCr43kVqzeplS3QyR1BFo=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "fb61efd08633cdbd342ddf0b5c8b9fe7ed65286a",
+        "rev": "74cef510b665c570fca4d2f01ad85b854ae6f017",
         "type": "github"
       },
       "original": {
