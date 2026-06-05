@@ -180,11 +180,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780577233,
-        "narHash": "sha256-a0beOBUFtOd7yqTN3JzpR2apZJ0dp2WbdoKCNjzyyWc=",
+        "lastModified": 1780627744,
+        "narHash": "sha256-WnmobOpZbrGeR3AcXBsKuT0BBhe2mZ/NDz5tN7VKXPE=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "4030480aa6e0c37cf215f365c847a85516e8e6ed",
+        "rev": "315cca65436214dc77565b9422bed77885a9de93",
         "type": "github"
       },
       "original": {
@@ -201,11 +201,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780469486,
-        "narHash": "sha256-r8kvfohc+aEG3QeFUIyOtqYCr43kVqzeplS3QyR1BFo=",
+        "lastModified": 1780617975,
+        "narHash": "sha256-nuvKgvWFUireRKedlaP/oVAvepRt+BfCjIYgrRBwRps=",
         "owner": "isabelroses",
         "repo": "nvim",
-        "rev": "74cef510b665c570fca4d2f01ad85b854ae6f017",
+        "rev": "b9e7c52569c7568e0679daf5458e22ead2e30454",
         "type": "github"
       },
       "original": {
@@ -224,11 +224,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1780308674,
-        "narHash": "sha256-68H7z1MLdPCtWE4qetwTiMdtztZ7AwEKM9yS9Q+wZa8=",
+        "lastModified": 1780574905,
+        "narHash": "sha256-2YH74Fj5+/gc94qW7ZMN0YF3sMhf2BFB5NBaJgDsugo=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "11918137828af784150f7a2da52cf50abf34f501",
+        "rev": "e780b8e19d405b6906d759d270bbc125d221e81a",
         "type": "github"
       },
       "original": {
