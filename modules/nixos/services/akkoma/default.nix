@@ -24,6 +24,10 @@ in
         enable = true;
         extraPackages = builtins.attrValues { inherit (pkgs) ffmpeg exiftool imagemagick; };
 
+        # produces a warning when sudo is not installed
+        # its just `sudo -s akkoma pleroma_ctl` anyways
+        installWrapper = false;
+
         extraStatic = {
           "static/terms-of-service.html" = pkgs.writeText "terms-of-service.html" "Just be normal please";
 
