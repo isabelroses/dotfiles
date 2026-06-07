@@ -21,7 +21,7 @@
             "--paging=never"
             "--line-numbers"
             "--hyperlinks"
-            "--hyperlinks-file-link-format='lazygit-edit://{path}:{line}'"
+            "--hyperlinks-file-link-format=lazygit-edit://{path}:{line}"
           ];
         };
       };
