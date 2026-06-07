@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    #  # keep-sorted start
+    # keep-sorted start
     inputs.extersia.homeModules.default
     # keep-sorted end
   ];
