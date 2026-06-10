@@ -1,27 +1,22 @@
-{ lib, config, ... }:
-let
-  inherit (lib.modules) mkIf;
-in
+{ config, ... }:
 {
-  config = mkIf config.garden.profiles.laptop.enable {
-    # Input settings for libinput
-    services.libinput = {
-      enable = true;
+  # Input settings for libinput
+  services.libinput = {
+    enable = config.garden.profiles.laptop.enable;
 
-      # disable mouse acceleration (yes im gamer)
-      mouse = {
-        accelProfile = "flat";
-        accelSpeed = "0";
-        middleEmulation = false;
-      };
+    # disable mouse acceleration (yes im gamer)
+    mouse = {
+      accelProfile = "flat";
+      accelSpeed = "0";
+      middleEmulation = false;
+    };
 
-      # touchpad settings
-      touchpad = {
-        naturalScrolling = true;
-        tapping = true;
-        clickMethod = "clickfinger";
-        disableWhileTyping = true;
-      };
+    # touchpad settings
+    touchpad = {
+      naturalScrolling = true;
+      tapping = true;
+      clickMethod = "clickfinger";
+      disableWhileTyping = true;
     };
   };
 }
