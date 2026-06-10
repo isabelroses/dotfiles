@@ -138,10 +138,11 @@ hl.window_rule({
   size = "(monitor_w*0.4) (monitor_h*0.6)",
 })
 
-hl.window_rule({ match = { title = "Bitwarden" }, float = true, size = "800 600" })
+hl.window_rule({ match = { title = "(?i)bitwarden" }, float = true, size = "800 600" })
 
-hl.window_rule({ match = { class = "discord" }, workspace = "6" })
-hl.window_rule({ match = { class = "spotify" }, workspace = "7" })
+hl.window_rule({ match = { class = "(?i)discord" }, workspace = "6" })
+hl.window_rule({ match = { class = "(?i)spotify" }, workspace = "7" })
+hl.window_rule({ match = { class = "(?i)signal" }, workspace = "8" })
 
 hl.window_rule({ match = { title = "^(Firefox — Sharing Indicator)$" }, workspace = "special silent" })
 hl.window_rule({ match = { title = "^(.*is sharing (your screen|a window).)$" }, workspace = "special silent" })

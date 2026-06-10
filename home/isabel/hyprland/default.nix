@@ -42,9 +42,11 @@ let
       monitorIdx =
         i: if i < perMon + extra then 0 else min (1 + (i - perMon - extra) / perMon) (count - 1);
       rule = i: ''
-        hl.workspace_rule({ workspace = ${toString (i + 1)}, monitor = "${elemAt monitors (monitorIdx i)}"${
-          optionalString (i == 0) ", default = true"
-        } })
+        hl.workspace_rule({
+          workspace = ${toString (i + 1)},
+          monitor = "${elemAt monitors (monitorIdx i)}",
+          ${optionalString (i == 0) "default = true"}
+        })
       '';
     in
     concatLines (genList rule 10);
