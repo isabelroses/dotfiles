@@ -6,7 +6,7 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkForce;
+  inherit (lib.modules) mkForce;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 
   template = self.lib.template.xdg;
@@ -90,8 +90,8 @@ in
     dataHome = "${config.home.homeDirectory}/.local/share";
     stateHome = "${config.home.homeDirectory}/.local/state";
 
-    userDirs = mkIf (isLinux && config.garden.profiles.workstation.enable) {
-      enable = true;
+    userDirs = {
+      enable = isLinux && config.garden.profiles.workstation.enable;
       createDirectories = true;
       setSessionVariables = true;
 
