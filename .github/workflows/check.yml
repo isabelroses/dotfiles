@@ -34,4 +34,4 @@ jobs:
         uses: ./.github/actions/install-lix
 
       - name: Check Flake
-        run: nix flake check --show-trace --option allow-import-from-derivation false
+        run: nix develop -c just check --show-trace

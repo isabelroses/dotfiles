@@ -43,7 +43,7 @@ jobs:
       - name: Build Lilith Iso
         continue-on-error: false
         run: |
-          nix build -L .#nixosConfigurations.lilith.config.system.build.isoImage
+          nix develop -c just iso lilith
           cp result/iso/*.iso ./lilith.iso
 
       - name: Build config

@@ -109,7 +109,14 @@ provision host:
 [group('package')]
 [no-exit-message]
 iso image:
-    nom build {{ flake }}#nixosConfigurations.{{ image }}.config.system.build.isoImage
+    #!/usr/bin/env bash
+    set -euo pipefail
+    target="{{ flake }}#nixosConfigurations.{{ image }}.config.system.build.isoImage"
+    if [ -n "${CI:-}" ]; then
+      nix build "$target"
+    else
+      nom build "$target"
+    fi
 
 # build the tarball, you must specify the host you want to build
 [group('package')]
