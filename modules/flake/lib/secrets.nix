@@ -24,31 +24,19 @@ let
     mkSecret { file = "./my-secret.age"; }
     => {
       file = "./my-secret.age";
-      owner = "root";
-      group = "root";
-      mode = "400";
     }
     ```
   */
   mkSecret =
     {
       file,
-      owner ? "root",
-      group ? "root",
-      mode ? "0400",
       ...
     }@args:
     let
-      args' = removeAttrs args [
-        "file"
-        "owner"
-        "group"
-        "mode"
-      ];
+      args' = removeAttrs args [ "file" ];
     in
     {
       sopsFile = "${self}/secrets/services/${file}.yaml";
-      inherit owner group mode;
     }
     // args';
 in
