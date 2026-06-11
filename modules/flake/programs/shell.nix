@@ -3,7 +3,8 @@
   just,
   gitMinimal,
   sops,
-  # nix-output-monitor,
+  npins,
+  nix-output-monitor,
   treefmt-wrapped,
 }:
 mkShellNoCC {
@@ -14,7 +15,8 @@ mkShellNoCC {
     gitMinimal # we need git
     sops # secrets management
     treefmt-wrapped # nix formatter
-    # nix-output-monitor # get clean diff between generations
+    npins
+    nix-output-monitor # get clean diff between generations
   ]
   ++ treefmt-wrapped.runtimeInputs; # collect all our formatters
 

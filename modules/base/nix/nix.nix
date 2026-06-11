@@ -3,7 +3,7 @@
   pkgs,
   _class,
   config,
-  inputs',
+  inputs,
   ...
 }:
 let
@@ -21,7 +21,7 @@ in
     # https://akko.isabelroses.com/notice/AjMDXG28c8sLqhci0G
     #
     # NOTE: we are also using a specifically patched version
-    package = inputs'.izlix.packages.lix;
+    package = inputs.izlix.packages.lix;
     # package = pkgs.nixVersions.latest;
 
     # set up garbage collection to run <on the time frame specified per system>, and removing packages after 3 days

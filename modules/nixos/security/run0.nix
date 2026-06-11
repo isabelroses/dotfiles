@@ -1,7 +1,7 @@
 {
   lib,
   options,
-  inputs',
+  inputs,
   ...
 }:
 {
@@ -18,7 +18,7 @@
   };
 
   garden.packages = {
-    inherit (inputs'.extersia.packages) run0-sudo-shim;
+    inherit (inputs.extersia.packages) run0-sudo-shim;
   };
 
   warnings = lib.lists.optional (options.security.run0 ? enable) ''

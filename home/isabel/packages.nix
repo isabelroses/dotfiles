@@ -2,7 +2,7 @@
   lib,
   pkgs,
   config,
-  inputs',
+  inputs,
   ...
 }:
 let
@@ -28,13 +28,13 @@ in
         # keep-sorted end
         ;
 
-      inherit (inputs'.extersia.packages)
+      inherit (inputs.extersia.packages)
         lethe # a cli that tracks nixos deployments
         quoteit # the cli for my quote's service
         ;
 
-      izvim = inputs'.izvim.packages.izvim.override {
-        inherit (inputs'.izlix.packages) nil;
+      izvim = inputs.izvim.packages.izvim.override {
+        inherit (inputs.izlix.packages) nil;
       };
 
       # nom >= 2.1.7 breaks with lix so lets just use an older version for now.
@@ -80,7 +80,7 @@ in
         # keep-sorted end
         ;
 
-      inherit (inputs'.extersia.packages) cake-wallet;
+      inherit (inputs.extersia.packages) cake-wallet;
     })
 
     (optionalAttrs (cfg.workstation.enable && (cfg.graphical.enable || isDarwin)) {

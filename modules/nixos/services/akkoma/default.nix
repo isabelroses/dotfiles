@@ -3,7 +3,7 @@
   self,
   pkgs,
   config,
-  inputs',
+  inputs,
   ...
 }:
 let
@@ -37,7 +37,7 @@ in
           };
 
           "emoji/blobs" = pkgs.blobs_gg;
-          "emoji/awesome" = inputs'.extersia.packages.emojis;
+          "emoji/awesome" = inputs.extersia.packages.emojis;
         };
 
         config = {

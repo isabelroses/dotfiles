@@ -30,7 +30,7 @@ jobs:
             # shellcheck disable=SC2016
             nix eval --impure --json --expr '
               let
-                flake = (builtins.getFlake (toString ./.)).outputs;
+                flake = import ./. { };
                 mk = attr: toplevel:
                   map (name: {
                     displayName = name;
@@ -78,7 +78,7 @@ jobs:
           # shellcheck disable=SC2016
           nix eval --impure --json --expr '
             let
-              flake = (builtins.getFlake (toString ./.)).outputs;
+              flake = import ./. { };
               mk = attr: toplevel:
                 map (name: {
                   inherit name;
@@ -97,7 +97,7 @@ jobs:
           while IFS=$'\t' read -r name attr; do
             echo "::group::eval before: $name"
             NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH="../stats-before/all/${name}.json" \
-              nix eval --no-eval-cache ".#${attr}" > /dev/null || \
+              nix eval --no-eval-cache --file default.nix "${attr}" --option pure-eval true > /dev/null || \
               echo "warning: eval failed for $name (before)"
             echo "::endgroup::"
           done < <(jq -r '.[] | "\(.name)\t\(.attribute)"' ../hosts.json)
@@ -109,7 +109,7 @@ jobs:
           while IFS=$'\t' read -r name attr; do
             echo "::group::eval after: $name"
             NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH="stats-after/all/${name}.json" \
-              nix eval --no-eval-cache ".#${attr}" > /dev/null || \
+              nix eval --no-eval-cache --file default.nix "${attr}" --option pure-eval true > /dev/null || \
               echo "warning: eval failed for $name (after)"
             echo "::endgroup::"
           done < <(jq -r '.[] | "\(.name)\t\(.attribute)"' hosts.json)
@@ -117,13 +117,14 @@ jobs:
       - name: Compare stats
         run: |
           set -euo pipefail
+          cmp_stats="$(nix build --file default.nix packages.cmp-stats --option pure-eval true --no-link --print-out-paths)/bin/cmp-stats"
           {
             echo "<!-- nix-eval-stats -->"
             echo "## Nix Eval Stats"
             echo
             echo "Paired comparison across $(jq 'length' hosts.json) host(s). Metrics with identical values across all hosts are listed under _Unchanged_; the rest get a paired t-test (p-value, t-stat)."
             echo
-            nix run .#cmp-stats -- --explain stats-before stats-after
+            "$cmp_stats" --explain stats-before stats-after
           } > stats-table.md
 
       - name: Post comment

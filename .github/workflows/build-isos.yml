@@ -43,12 +43,12 @@ jobs:
       - name: Build Lilith Iso
         continue-on-error: false
         run: |
-          nix build -L .#nixosConfigurations.lilith.config.system.build.isoImage
+          nix-shell --run 'just iso lilith'
           cp result/iso/*.iso ./lilith.iso
 
       - name: Build config
         run: |
-          nix build -L .#nixosConfigurations.amaterasu.config.home-manager.users.isabel.home-files
+          nix build --file default.nix nixosConfigurations.amaterasu.config.home-manager.users.isabel.home-files --option pure-eval true
           tar -czvhf dotfiles.tar.gz result/
 
       - name: Upload Release Artifacts

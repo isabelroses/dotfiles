@@ -7,7 +7,6 @@ lib.fixedPoints.makeExtensible (final: {
   # keep-sorted start block=yes
   hardware = import ./hardware.nix;
   helpers = import ./helpers.nix { inherit lib; };
-  mkHost = import ./mkhost.nix { inherit inputs lib; };
   secrets = import ./secrets.nix { inherit inputs; };
   services = import ./services.nix { inherit lib; };
   template = import ./template; # templates, selections of code that are repeated
@@ -31,5 +30,5 @@ lib.fixedPoints.makeExtensible (final: {
     ;
   inherit (final.secrets) mkSecret;
   inherit (final.services) mkGraphicalService mkServiceOption;
-  inherit (final.validators) ifOneEnabled anyHome;
+  inherit (final.validators) anyHome;
 })

@@ -1,10 +1,9 @@
 {
-  stdenvNoCC,
   runCommandLocal,
   self,
 }:
 let
-  fmt = self.formatter.${stdenvNoCC.hostPlatform.system};
+  fmt = self.formatter;
 in
 runCommandLocal "formatting-checks"
   {

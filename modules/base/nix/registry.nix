@@ -2,9 +2,8 @@
 let
   inherit (lib.attrsets) filterAttrs attrValues mapAttrs;
   inherit (lib.modules) mkForce;
-  inherit (lib.types) isType;
 
-  flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;
+  flakeInputs = filterAttrs (name: value: (value ? outPath) && (name != "self")) inputs;
 in
 {
   # The path to the nixpkgs sources used to build the system. This is

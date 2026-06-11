@@ -39,7 +39,7 @@ treefmt.withConfig {
 
   settings = {
     on-unmatched = "info";
-    tree-root-file = "flake.nix";
+    tree-root-file = "justfile";
 
     excludes = [ "secrets/*" ];
 

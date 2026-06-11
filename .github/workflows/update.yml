@@ -1,4 +1,4 @@
-name: Bump Flake Inputs
+name: Bump npins Sources
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
 permissions: {}
 
 jobs:
-  update-lockfile:
+  update-sources:
     runs-on: ubuntu-latest
     environment: production
 
@@ -21,30 +21,47 @@ jobs:
       - name: Install Lix
         uses: ./.github/actions/install-lix
 
-      - name: Update Lockfile
+      - name: Update sources & open PR
         id: pr
-        uses: DeterminateSystems/update-flake-lock@c5930b397a673a70ca70be06020e943aeac310a1 # v27
-        with:
-          token: ${{ secrets.GH_TOKEN_UPDATES }}
-          git-author-name: bell's bot
-          git-author-email: bot@isabelroses.com
-          git-committer-name: bell's bot
-          git-committer-email: bot@isabelroses.com
-          commit-msg: "flake.lock: update all inputs"
-          pr-title: "flake.lock: update all inputs"
-          branch: update-flake-inputs
-          pr-body: |
-            ```
-            {{ env.GIT_COMMIT_MESSAGE }}
-            ```
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_UPDATES }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "bell's bot"
+          git config user.email "bot@isabelroses.com"
+
+          nix-shell --run 'npins update'
+
+          if git diff --quiet -- npins/sources.json; then
+            echo "sources already up to date"
+            exit 0
+          fi
+
+          branch="update-npins-sources"
+          git switch -C "$branch"
+          git commit -am "npins: update sources"
+          git push --force "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git" "HEAD:${branch}"
+
+          url="$(gh pr view "$branch" --json url --jq .url 2>/dev/null || true)"
+          if [ -z "$url" ]; then
+            url="$(gh pr create \
+              --title "npins: update sources" \
+              --body "Automated npins source update." \
+              --base main \
+              --head "$branch")"
+          fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
 
       - name: Wait for Checks & Merge
+        if: steps.pr.outputs.url != ''
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN_UPDATES }}
+          PR: ${{ steps.pr.outputs.url }}
         run: |
           # we can't instantly check for ci status or it errors; so lets horribly wait then
           # then check and watch ci status then merge
           sleep 30
           gh pr checks "$PR" --watch --fail-fast
           gh pr merge --rebase --delete-branch "$PR"
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN_UPDATES }}
-          PR: ${{ steps.pr.outputs.pull-request-url }}

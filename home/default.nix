@@ -1,10 +1,8 @@
 {
   lib,
   self,
-  self',
   config,
   inputs,
-  inputs',
   ...
 }:
 let
@@ -22,12 +20,7 @@ in
     });
 
     extraSpecialArgs = {
-      inherit
-        self
-        self'
-        inputs
-        inputs'
-        ;
+      inherit self inputs;
     };
 
     # we should define grauntied common modules here

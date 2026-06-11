@@ -10,7 +10,7 @@ builtins.removeAttrs (pkgs.lib.makeScope pkgs.newScope (self: {
   docs = self.callPackage ./docs/package.nix { };
 
   iztaller = self.callPackage ./iztaller/package.nix {
-    nix = inputs.izlix.packages.${pkgs.stdenv.hostPlatform.system}.lix;
+    nix = inputs.izlix.packages.lix;
   };
 
   libdoc = self.callPackage ./docs/lib.nix { };

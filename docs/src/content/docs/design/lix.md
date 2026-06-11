@@ -12,7 +12,7 @@ Furthermore this is with a custom patch set through [izlix](https://github.com/i
 This flake makes a point of using Lix where possible. The package is wired up directly in [`modules/base/nix/nix.nix`](https://github.com/isabelroses/dotfiles/blob/main/modules/base/nix/nix.nix) via:
 
 ```nix
-nix.package = inputs'.izlix.packages.lix;
+nix.package = inputs.izlix.packages.lix;
 ```
 
 If you'd rather use upstream Lix without my patches, swap `izlix` for the `lix-module`/`lix` flake of your choice.
