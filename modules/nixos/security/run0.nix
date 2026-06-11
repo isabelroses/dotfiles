@@ -5,10 +5,16 @@
   ...
 }:
 {
-  security.run0 = {
-    # wheelNeedsPassword = false means wheel group can execute commands without
-    # a password so just disable it
-    wheelNeedsPassword = false;
+  security = {
+    run0 = {
+      # wheelNeedsPassword = false means wheel group can execute commands without
+      # a password so just disable it
+      wheelNeedsPassword = false;
+    };
+
+    # we are committed
+    sudo.enable = false;
+    sudo-rs.enable = false;
   };
 
   garden.packages = {
