@@ -1,15 +1,15 @@
-{
-  lib,
-  pkgs,
-  options,
-  ...
-}:
+{ pkgs, ... }:
 {
   security = {
     run0 = {
+      enable = true;
+
       # wheelNeedsPassword = false means wheel group can execute commands without
       # a password so just disable it
       wheelNeedsPassword = false;
+
+      # installs run0-sudo-shim
+      # sudo-shim.enable = true;
     };
 
     # we are committed
@@ -20,8 +20,4 @@
   garden.packages = {
     inherit (pkgs) run0-sudo-shim;
   };
-
-  warnings = lib.lists.optional (options.security.run0 ? enable) ''
-    Don't get yourself locked out twin
-  '';
 }
