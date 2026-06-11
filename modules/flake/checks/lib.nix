@@ -6,48 +6,6 @@
 }:
 let
   res = lib.debug.runTests {
-    boolToNum = {
-      expr = self.lib.helpers.boolToNum true;
-      expected = 1;
-    };
-
-    intListToStringList = {
-      expr = self.lib.helpers.intListToStringList [
-        1
-        2
-        3
-      ];
-      expected = [
-        "1"
-        "2"
-        "3"
-      ];
-    };
-
-    indexOf = {
-      expr = self.lib.helpers.indexOf [
-        1
-        2
-        3
-      ] 2;
-      expected = 1;
-    };
-
-    containsStrings = {
-      expr =
-        self.lib.helpers.containsStrings
-          [
-            "a"
-            "b"
-            "c"
-          ]
-          [
-            "a"
-            "b"
-          ];
-      expected = true;
-    };
-
     giturl = {
       expr = self.lib.helpers.giturl {
         domain = "github.com";

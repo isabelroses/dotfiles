@@ -17,19 +17,9 @@ lib.fixedPoints.makeExtensible (final: {
   # we have to rexport the functions we want to use, but don't want to refer to the whole lib
   # "path". e.g. gardenLib.hardware.isx86Linux can be shortened to gardenLib.isx86Linux
   # NOTE: never rexport templates
-  inherit (final.hardware) isx86Linux ldTernary;
-  inherit (final.helpers)
-    mkPubs
-    giturl
-    filterNixFiles
-    importNixFiles
-    importNixFilesAndDirs
-    boolToNum
-    containsStrings
-    indexOf
-    intListToStringList
-    ;
+  inherit (final.hardware) isx86Linux;
+  inherit (final.helpers) mkPubs giturl;
   inherit (final.secrets) mkSecret;
-  inherit (final.services) mkGraphicalService mkServiceOption;
-  inherit (final.validators) ifOneEnabled anyHome;
+  inherit (final.services) mkServiceOption;
+  inherit (final.validators) anyHome;
 })
