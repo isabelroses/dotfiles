@@ -190,16 +190,21 @@ in
       };
 
       nginx.virtualHosts.${cfg.domain} = {
-        locations."/" = {
-          recommendedProxySettings = true;
-          proxyPass =
-            "http://unix:"
-            + (
-              if config.garden.services.anubis.enable then
-                config.services.anubis.instances.forgejo.settings.BIND
-              else
-                config.services.forgejo.settings.server.HTTP_ADDR
-            );
+        locations = {
+          "/" = {
+            recommendedProxySettings = true;
+            proxyPass =
+              "http://unix:"
+              + (
+                if config.garden.services.anubis.enable then
+                  config.services.anubis.instances.forgejo.settings.BIND
+                else
+                  config.services.forgejo.settings.server.HTTP_ADDR
+              );
+          };
+
+          # I HATE YOU I HATE YOU I HATE YOU I HATE YOU. STOP SCRAPING MY SERVER
+          "~ ^/[^/]+/[^/]+/archive/.+\\.bundle$".extraConfig = "return 403;";
         };
       };
     };
