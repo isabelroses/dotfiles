@@ -103,8 +103,12 @@ in
             "--stats"
           ];
           compression = "auto,zstd";
-          startAt = "Sat 02:30";
-          prune.keep.last = 5;
+          startAt = "*-*-* 02:30:00";
+          prune.keep = {
+            daily = 7;
+            weekly = 4;
+            monthly = 3;
+          };
           inhibitsSleep = true;
           persistentTimer = true;
           doInit = false;
