@@ -1,6 +1,8 @@
 { inputs', ... }:
 {
   security.run0 = {
+    enable = true;
+
     # wheelNeedsPassword = false means wheel group can execute commands without
     # a password so just disable it
     wheelNeedsPassword = false;
