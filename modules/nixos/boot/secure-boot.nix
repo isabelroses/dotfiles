@@ -20,11 +20,10 @@ in
   config = mkIf sys.secureBoot {
     garden.packages = { inherit (pkgs) sbctl; };
 
-    # Lanzaboote replaces the systemd-boot module.
-    boot.loader.systemd-boot.enable = mkForce false;
-
     boot = {
-      bootspec.enable = true;
+      # Lanzaboote replaces the systemd-boot module.
+      loader.systemd-boot.enable = mkForce false;
+
       lanzaboote = {
         enable = true;
         pkiBundle = "/var/lib/sbctl";
