@@ -3,7 +3,7 @@ name: Bump Flake Inputs
 on:
   workflow_dispatch:
   schedule:
-    - cron: "3 0 * * *" # run daily at 00:03 UTC
+    - cron: "45 0 * * *" # run daily at 00:45 UTC
 
 permissions: {}
 
