@@ -151,7 +151,13 @@ in
 
           migrations.ALLOWED_DOMAINS = "github.com, *.github.com, gitlab.com, *.gitlab.com";
           packages.ENABLED = false;
-          repository.PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
+
+          repository = {
+            PREFERRED_LICENSES = "MIT,GPL-3.0,GPL-2.0,LGPL-3.0,LGPL-2.1";
+            # scrapers love hammering archive downloads (.bundle especially);
+            # there is no per-format toggle, so zip/tar.gz go too
+            DISABLE_DOWNLOAD_SOURCE_ARCHIVES = true;
+          };
 
           "repository.upload" = {
             FILE_MAX_SIZE = 100;
@@ -190,21 +196,16 @@ in
       };
 
       nginx.virtualHosts.${cfg.domain} = {
-        locations = {
-          "/" = {
-            recommendedProxySettings = true;
-            proxyPass =
-              "http://unix:"
-              + (
-                if config.garden.services.anubis.enable then
-                  config.services.anubis.instances.forgejo.settings.BIND
-                else
-                  config.services.forgejo.settings.server.HTTP_ADDR
-              );
-          };
-
-          # I HATE YOU I HATE YOU I HATE YOU I HATE YOU. STOP SCRAPING MY SERVER
-          "~ ^/[^/]+/[^/]+/archive/.+\\.bundle$".extraConfig = "return 403;";
+        locations."/" = {
+          recommendedProxySettings = true;
+          proxyPass =
+            "http://unix:"
+            + (
+              if config.garden.services.anubis.enable then
+                config.services.anubis.instances.forgejo.settings.BIND
+              else
+                config.services.forgejo.settings.server.HTTP_ADDR
+            );
         };
       };
     };
