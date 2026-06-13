@@ -30,7 +30,7 @@
 
     # Maybe I can pickup so packages
     # Also a good idea to know which packages might be very out of date or broken
-    # showDerivationWarnings = [ "maintainerless" ];
+    # config.problems.matchers = [ { kind = "maintainerless"; handler = "warn"; } ];
   };
 
   assertions = [
