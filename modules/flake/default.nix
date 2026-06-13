@@ -20,22 +20,6 @@ in
   # a raw unfilted scope of packages
   legacyPackages = forAllSystems (pkgs: import ./packages { inherit pkgs inputs; });
 
-  packages = forAllSystems (
-    pkgs:
-    lib.filterAttrs (
-      _: pkg:
-      let
-        isDerivation = lib.isDerivation pkg;
-        availableOnHost = lib.meta.availableOn pkgs.stdenv.hostPlatform pkg;
-        isBroken = pkg.meta.broken or false;
-      in
-      isDerivation && !isBroken && availableOnHost
-    ) self.legacyPackages.${pkgs.stdenv.hostPlatform.system}
-  );
-
-  # get a list of packages for the host system, and if none exist use an empty set
-  overlays.default = _: prev: self.packages.${prev.stdenv.hostPlatform.system} or { };
-
   devShells = forAllSystems (pkgs: {
     default = pkgs.callPackage ./programs/shell.nix {
       treefmt-wrapped = self.formatter.${pkgs.stdenv.hostPlatform.system};
