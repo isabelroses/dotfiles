@@ -153,6 +153,8 @@ in
         hover_effect_color = "#74c7ec";
         seekbarfg_color = "#74c7ec";
         seekbarbg_color = "#181825";
+        seek_handle_color = "#74c7ec";
+        seek_handle_border_color = "#1e1e2e";
       };
 
       videoclip = {
