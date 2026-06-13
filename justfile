@@ -159,7 +159,6 @@ serve:
 push-mirrors:
     git push git@gitlab.com:isabelroses/dotfiles.git
     git push --mirror ssh://git@codeberg.org/isabel/dotfiles.git
-    git push --mirror git@tangled.org:isabelroses.com/dotfiles
 
 # rotate all secrets
 [group('dev')]

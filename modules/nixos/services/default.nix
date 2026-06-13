@@ -28,6 +28,7 @@
     ./quoteit.nix
     ./radarr.nix
     ./redis.nix
+    ./snot.nix
     ./sonarr.nix
     ./tranquil.nix
     ./vaultwarden.nix

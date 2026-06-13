@@ -36,6 +36,7 @@
       # dev
       atuin.enable = true;
       forgejo.enable = true;
+      snot.enable = true;
       wakapi.enable = true;
 
       # social
