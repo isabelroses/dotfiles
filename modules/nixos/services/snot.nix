@@ -9,7 +9,7 @@ let
   rdomain = config.networking.domain;
 
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption;
+  inherit (self.lib) mkServiceOption mkSecret;
 in
 {
   options.garden.services.snot = mkServiceOption "snot" {
@@ -18,11 +18,17 @@ in
   };
 
   config = mkIf cfg.enable {
+    sops.secrets.snot-webhook = mkSecret {
+      file = "snot";
+      key = "env";
+    };
+
     services = {
       snot = {
         enable = true;
 
         forgejoGroup = config.services.forgejo.group;
+        environmentFiles = [ config.sops.secrets.snot-webhook.path ];
 
         settings = {
           hostname = cfg.domain;
@@ -38,8 +44,6 @@ in
 
       nginx.virtualHosts.${cfg.domain} = {
         locations."/" = {
-          recommendedProxySettings = true;
-          # /events is a websocket
           proxyWebsockets = true;
           proxyPass = "http://${cfg.host}:${toString cfg.port}";
         };
