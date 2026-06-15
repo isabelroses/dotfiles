@@ -5,7 +5,7 @@ runs:
   using: composite
   steps:
     - name: Install Lix
-      uses: samueldr/lix-gha-installer-action@7b7f14d320d6aacfb65bd1ef761566b3b69e474c # v2026-02-22
+      uses: samueldr/lix-gha-installer-action@a0fee77b2a98bb7c5c0ed7ae6d6ad4903dbdad0d # v2026-05-15
       with:
         extra_nix_config: |
           substituters = https://cache.nixos.org/ https://nix-community.cachix.org https://isabelroses.cachix.org https://catppuccin.cachix.org https://extersia.cachix.org
