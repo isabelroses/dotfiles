@@ -32,6 +32,7 @@ in
           "static/terms-of-service.html" = pkgs.writeText "terms-of-service.html" "Just be normal please";
 
           "favicon.png" = pkgs.fetchurl {
+            name = "akkoma-favicon.png";
             url = "https://gravatar.com/avatar/c487c810e09878b4bd90df713a7c9523?size=512";
             hash = "sha256-ICpi70BaV7/k/Wj3VhGXAymZteJugHJCXj57a6EKcUA=";
           };
