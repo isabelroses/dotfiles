@@ -12,14 +12,12 @@ let
     (pkgs.yt-dlp.override {
       jsRuntime = pkgs.nodejs;
     }).overrideAttrs
-      (
-        finalAttrs: prevAttrs: {
-          makeWrapperArgs = prevAttrs.makeWrapperArgs or [ ] ++ [
-            "--add-flag"
-            "--js-runtimes=node"
-          ];
-        }
-      );
+      (prevAttrs: {
+        makeWrapperArgs = prevAttrs.makeWrapperArgs or [ ] ++ [
+          "--add-flag"
+          "--js-runtimes=node"
+        ];
+      });
 in
 {
   config = mkIf config.garden.profiles.media.watching.enable {
