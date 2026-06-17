@@ -91,10 +91,7 @@ in
     })
 
     (optionalAttrs cfg.media.watching.enable {
-      inherit (pkgs)
-        yt-dlp
-        ff2mpv-rust
-        ;
+      inherit (pkgs) ff2mpv-rust;
     })
 
     (optionalAttrs (cfg.media.watching.enable && isLinux) {

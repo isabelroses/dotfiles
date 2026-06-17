@@ -5,165 +5,189 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
+
+  yt-dlp =
+    (pkgs.yt-dlp.override {
+      jsRuntime = pkgs.nodejs;
+    }).overrideAttrs
+      (
+        finalAttrs: prevAttrs: {
+          makeWrapperArgs = prevAttrs.makeWrapperArgs or [ ] ++ [
+            "--add-flag"
+            "--js-runtimes=node"
+          ];
+        }
+      );
 in
 {
-  programs.mpv = {
-    inherit (config.garden.profiles.media.watching) enable;
-
-    scripts =
-      (with pkgs.mpvScripts; [
-        sponsorblock
-
-        # unify my clipboard
-        (videoclip.override { wl-clipboard = pkgs.wl-clipboard-rs; })
-
-        # modern ui
-        modernz
-        thumbfast
-
-        # mpv as our image viewer
-        mpv-image-viewer.image-positioning
-      ])
-      ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
-        pkgs.mpvScripts.mpris
-      ];
-
-    bindings = {
-      # sane defaults
-      "AXIS_UP" = "add volume 2";
-      "AXIS_DOWN" = "add volume -2";
-      "UP" = "add volume 2";
-      "DOWN" = "add volume -2";
-      "Shift+RIGHT" = "frame-step";
-      "Shift+LEFT" = "frame-back-step";
-      "Shift+UP" = "add volume 10";
-      "Shift+DOWN" = "add volume -10";
-      "y" = "cycle deband";
-      "z" = "cycle deband";
-      "ctrl+d" = "vf toggle yadif";
-      "e" = "add sub-delay +0.042";
-      "w" = "add sub-delay -0.042";
-      "b" = "add audio-delay +0.042";
-      "n" = "add audio-delay -0.042";
-      "a" = "cycle-values video-aspect \"16:9\" \"4:3\" \"2.35:1\" \"-1\"";
-
-      # videoclip script
-      "c" = "script-binding videoclip-menu-open";
-
-      # mpv as a image viewer
-      MBTN_RIGHT = "script-binding drag-to-pan";
-      "alt+down" = "repeatable script-message pan-image y -0.01 yes yes";
-      "alt+up" = "repeatable script-message pan-image y +0.01 yes yes";
-      "alt+right" = "repeatable script-message pan-image x -0.01 yes yes";
-      "alt+left" = "repeatable script-message pan-image x +0.01 yes yes";
+  config = mkIf config.garden.profiles.media.watching.enable {
+    garden.packages = {
+      inherit yt-dlp;
     };
 
-    config = {
-      # osc settings
-      osc = "no"; # i am using modernz ^.^
-      border = "no";
-      msg-color = "yes";
-      msg-module = "yes";
+    programs.mpv = {
+      enable = true;
 
-      save-watch-history = "yes";
+      package = pkgs.mpv.override {
+        inherit yt-dlp;
 
-      #  audio settings
-      volume-max = 200;
+        scripts =
+          (with pkgs.mpvScripts; [
+            sponsorblock
 
-      # video settings
-      # use hardware decoding when available, prefer vulkan
-      hwdec = if isLinux then "auto-copy" else "auto";
-      gpu-api = if isLinux then "vulkan" else "auto";
-      profile = "gpu-hq";
-      vo = "gpu-next"; # GPU-Next: https://github.com/mpv-player/mpv/wiki/GPU-Next-vs-GPV
+            # unify my clipboard
+            (videoclip.override { wl-clipboard = pkgs.wl-clipboard-rs; })
 
-      # screenshot settings
-      screenshot-directory =
-        if pkgs.stdenv.hostPlatform.isDarwin then
-          "~/Pictures/screenshots"
-        else
-          "~/media/pictures/screenshots";
-      screenshot-template = "%x/screenshot-%F-T%wH.%wM.%wS.%wT-F%{estimated-frame-number}";
-      screenshot-format = "png";
-      screenshot-png-compression = 4; # Range is 0 to 10. 0 being no compression.
-      screenshot-tag-colorspace = "yes";
-      screenshot-high-bit-depth = "yes"; # Same output bitdepth as the video
+            # modern ui
+            modernz
+            thumbfast
 
-      # use English audio and subtitles if available
-      alang = "en,jpn,jp";
-
-      # misc
-      stop-screensaver = "yes";
-      cursor-autohide = 100; # auto hide cursor after 100ms
-      reset-on-next-file = "video-zoom,panscan,video-unscaled,video-rotate,video-align-x,video-align-y";
-      ytdl-raw-options = "cookies=~/documents/yt-dlp-cookies.txt";
-    };
-
-    profiles = {
-      image = {
-        profile-cond = "p[\"current-tracks/video\"] and p[\"current-tracks/video\"].image and not p[\"current-tracks/video\"].albumart";
-        profile-restore = "copy-equal";
-
-        # we need duplicate config options which nix doesn't really handle
-        include = toString (
-          pkgs.writeText "mpv-image-viewer.conf" ''
-            script-opts-append=modernz-fade_alpha=50
-            script-opts-append=modernz-window_title=yes
-            script-opts-append=modernz-bottomhover_zone=50
-          ''
-        );
-
-        title = "\${media-title} [\${?width:\${width}x\${height}}]";
-        taskbar-progress = "no";
-        video-unscaled = "yes";
-        video-recenter = "yes";
-        window-dragging = "no";
-
-        prefetch-playlist = "yes";
-        video-aspect-override = "no";
-
-        # keep the file open
-        loop-file = "inf";
-        image-display-duration = "inf";
-        loop-playlist = "inf";
+            # mpv as our image viewer
+            mpv-image-viewer.image-positioning
+          ])
+          ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+            pkgs.mpvScripts.mpris
+          ];
       };
 
-      # good refrences for mpv config:
-      # <https://github.com/Tsubajashi/mpv-settings>
-      video = {
-        profile-cond = "p[\"current-tracks/video\"] and not p[\"current-tracks/video\"].image";
-        profile-restore = "copy-equal";
-        taskbar-progress = "yes";
+      bindings = {
+        # sane defaults
+        "AXIS_UP" = "add volume 2";
+        "AXIS_DOWN" = "add volume -2";
+        "UP" = "add volume 2";
+        "DOWN" = "add volume -2";
+        "Shift+RIGHT" = "frame-step";
+        "Shift+LEFT" = "frame-back-step";
+        "Shift+UP" = "add volume 10";
+        "Shift+DOWN" = "add volume -10";
+        "y" = "cycle deband";
+        "z" = "cycle deband";
+        "ctrl+d" = "vf toggle yadif";
+        "e" = "add sub-delay +0.042";
+        "w" = "add sub-delay -0.042";
+        "b" = "add audio-delay +0.042";
+        "n" = "add audio-delay -0.042";
+        "a" = "cycle-values video-aspect \"16:9\" \"4:3\" \"2.35:1\" \"-1\"";
+
+        # videoclip script
+        "c" = "script-binding videoclip-menu-open";
+
+        # mpv as a image viewer
+        MBTN_RIGHT = "script-binding drag-to-pan";
+        "alt+down" = "repeatable script-message pan-image y -0.01 yes yes";
+        "alt+up" = "repeatable script-message pan-image y +0.01 yes yes";
+        "alt+right" = "repeatable script-message pan-image x -0.01 yes yes";
+        "alt+left" = "repeatable script-message pan-image x +0.01 yes yes";
       };
-    };
 
-    scriptOpts = {
-      modernz = {
-        idlescreen = "no";
-        download_path = "~/media/videos";
+      config = {
+        # osc settings
+        osc = "no"; # i am using modernz ^.^
+        border = "no";
+        msg-color = "yes";
+        msg-module = "yes";
 
-        # change some buttons
-        ontop_button = "no";
-        speed_button = "yes";
-        info_button = "no";
-        fullscreen_button = "no";
+        save-watch-history = "yes";
 
-        hover_effect = "color";
-        hover_effect_color = "#74c7ec";
-        seekbarfg_color = "#74c7ec";
-        seekbarbg_color = "#181825";
-        seek_handle_color = "#74c7ec";
-        seek_handle_border_color = "#1e1e2e";
+        #  audio settings
+        volume-max = 200;
+
+        # video settings
+        # use hardware decoding when available, prefer vulkan
+        hwdec = if isLinux then "auto-copy" else "auto";
+        gpu-api = if isLinux then "vulkan" else "auto";
+        profile = "gpu-hq";
+        vo = "gpu-next"; # GPU-Next: https://github.com/mpv-player/mpv/wiki/GPU-Next-vs-GPV
+
+        # screenshot settings
+        screenshot-directory =
+          if pkgs.stdenv.hostPlatform.isDarwin then
+            "~/Pictures/screenshots"
+          else
+            "~/media/pictures/screenshots";
+        screenshot-template = "%x/screenshot-%F-T%wH.%wM.%wS.%wT-F%{estimated-frame-number}";
+        screenshot-format = "png";
+        screenshot-png-compression = 4; # Range is 0 to 10. 0 being no compression.
+        screenshot-tag-colorspace = "yes";
+        screenshot-high-bit-depth = "yes"; # Same output bitdepth as the video
+
+        # use English audio and subtitles if available
+        alang = "en,jpn,jp";
+
+        # misc
+        stop-screensaver = "yes";
+        cursor-autohide = 100; # auto hide cursor after 100ms
+        reset-on-next-file = "video-zoom,panscan,video-unscaled,video-rotate,video-align-x,video-align-y";
+        ytdl-raw-options = "cookies=~/documents/yt-dlp-cookies.txt";
       };
 
-      videoclip = {
-        video_folder_path =
-          if pkgs.stdenv.hostPlatform.isDarwin then "~/Movies/clips" else "~/media/videos/clips";
-        audio_folder_path =
-          if pkgs.stdenv.hostPlatform.isDarwin then "~/Music/clips" else "~/media/music/clips";
-        video_quality = 10;
-        custom_upload_command = "gup -c -s %f";
+      profiles = {
+        image = {
+          profile-cond = "p[\"current-tracks/video\"] and p[\"current-tracks/video\"].image and not p[\"current-tracks/video\"].albumart";
+          profile-restore = "copy-equal";
+
+          # we need duplicate config options which nix doesn't really handle
+          include = toString (
+            pkgs.writeText "mpv-image-viewer.conf" ''
+              script-opts-append=modernz-fade_alpha=50
+              script-opts-append=modernz-window_title=yes
+              script-opts-append=modernz-bottomhover_zone=50
+            ''
+          );
+
+          title = "\${media-title} [\${?width:\${width}x\${height}}]";
+          taskbar-progress = "no";
+          video-unscaled = "yes";
+          video-recenter = "yes";
+          window-dragging = "no";
+
+          prefetch-playlist = "yes";
+          video-aspect-override = "no";
+
+          # keep the file open
+          loop-file = "inf";
+          image-display-duration = "inf";
+          loop-playlist = "inf";
+        };
+
+        # good refrences for mpv config:
+        # <https://github.com/Tsubajashi/mpv-settings>
+        video = {
+          profile-cond = "p[\"current-tracks/video\"] and not p[\"current-tracks/video\"].image";
+          profile-restore = "copy-equal";
+          taskbar-progress = "yes";
+        };
+      };
+
+      scriptOpts = {
+        modernz = {
+          idlescreen = "no";
+          download_path = "~/media/videos";
+
+          # change some buttons
+          ontop_button = "no";
+          speed_button = "yes";
+          info_button = "no";
+          fullscreen_button = "no";
+
+          hover_effect = "color";
+          hover_effect_color = "#74c7ec";
+          seekbarfg_color = "#74c7ec";
+          seekbarbg_color = "#181825";
+          seek_handle_color = "#74c7ec";
+          seek_handle_border_color = "#1e1e2e";
+        };
+
+        videoclip = {
+          video_folder_path =
+            if pkgs.stdenv.hostPlatform.isDarwin then "~/Movies/clips" else "~/media/videos/clips";
+          audio_folder_path =
+            if pkgs.stdenv.hostPlatform.isDarwin then "~/Music/clips" else "~/media/music/clips";
+          video_quality = 10;
+          custom_upload_command = "gup -c -s %f";
+        };
       };
     };
   };
