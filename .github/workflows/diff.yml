@@ -44,7 +44,7 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: Run lix-diff
-        uses: isabelroses/lix-diff-action@813069195be03ebafecaf0ad00823b853baf1057 # main
+        uses: isabelroses/lix-diff-action@c42ea4830ba0ab4061a847e974817f25d0ce8389 # main
         with:
           attributes: ${{ steps.hosts.outputs.attributes }}
           comment-strategy: update
@@ -154,4 +154,3 @@ jobs:
                 body,
               });
             }
-
