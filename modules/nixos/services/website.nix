@@ -2,7 +2,7 @@
   lib,
   self,
   config,
-  inputs',
+  extpkgs,
   ...
 }:
 let
@@ -22,7 +22,7 @@ in
       ${cfg.domain} = {
         serverAliases = [ "www.${cfg.domain}" ];
         enableACME = true;
-        root = inputs'.extersia.packages.isabelroses-website;
+        root = extpkgs.isabelroses-website;
       };
     };
   };

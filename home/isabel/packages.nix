@@ -3,6 +3,7 @@
   pkgs,
   config,
   inputs',
+  extpkgs,
   ...
 }:
 let
@@ -28,7 +29,7 @@ in
         # keep-sorted end
         ;
 
-      inherit (inputs'.extersia.packages)
+      inherit (extpkgs)
         lethe # a cli that tracks nixos deployments
         quoteit # the cli for my quote's service
         ;
@@ -80,7 +81,7 @@ in
         # keep-sorted end
         ;
 
-      inherit (inputs'.extersia.packages) cake-wallet;
+      inherit (extpkgs) cake-wallet;
     })
 
     (optionalAttrs (cfg.workstation.enable && (cfg.graphical.enable || isDarwin)) {

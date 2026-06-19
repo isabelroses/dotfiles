@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  inputs',
+  extpkgs,
   ...
 }:
 let
@@ -20,7 +20,7 @@ in
       default_session = {
         user = "greeter";
         command = concatStringsSep " " [
-          (getExe inputs'.extersia.packages.tuigreet)
+          (getExe extpkgs.tuigreet)
           "--time"
           "--remember"
           "--remember-user-session"
