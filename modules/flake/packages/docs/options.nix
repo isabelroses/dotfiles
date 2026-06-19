@@ -14,6 +14,9 @@ let
   inherit (lib.modules) evalModules;
   inherit (lib.strings) removePrefix;
 
+  # hoist to prevent recomputation
+  selfStr = toString self;
+
   gitHubDeclaration = user: repo: subpath: {
     url = "https://github.com/${user}/${repo}/blob/main/${subpath}";
     name = subpath;
@@ -50,10 +53,11 @@ let
           // {
             declarations = map (
               decl:
-              if lib.hasPrefix (toString self) (toString decl) then
-                gitHubDeclaration "isabelroses" "dotfiles" (
-                  removePrefix "/" (removePrefix (toString self) (toString decl))
-                )
+              let
+                declStr = toString decl;
+              in
+              if lib.hasPrefix selfStr declStr then
+                gitHubDeclaration "isabelroses" "dotfiles" (removePrefix "/" (removePrefix selfStr declStr))
               else
                 decl
             ) opt.declarations;
