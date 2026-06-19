@@ -17,6 +17,7 @@
     ./nix.nix # nix the package manager configurations
     ./nixpkgs.nix # nixpkgs configurations like unfree packages
     ./programs.nix # programs that we will need to make our NixOS install
+    ./security.nix # security stuff; i.e. sudo and run0
     ./space.nix # ways that we save valuable space on the iso
     # keep-sorted end
   ];
