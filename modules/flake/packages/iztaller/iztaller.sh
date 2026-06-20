@@ -13,11 +13,11 @@ die() {
 # device numbers (rdev) rather than trusting any particular symlink.
 find_stable_dev_path() {
   local dev="$1"
-  [[ "${dev:0:1}" == "/" ]] || {
+  [[ ${dev:0:1} == "/" ]] || {
     printf '%s' "$dev"
     return
   }
-  [[ -e "$dev" ]] || {
+  [[ -e $dev ]] || {
     printf '%s' "$dev"
     return
   }
@@ -29,9 +29,9 @@ find_stable_dev_path() {
   }
 
   for cand in /dev/mapper/* /dev/disk/by-uuid/* /dev/disk/by-label/*; do
-    [[ -e "$cand" ]] || continue
+    [[ -e $cand ]] || continue
     rdev2=$(stat -L -c '%t:%T' "$cand" 2>/dev/null) || continue
-    if [[ "$rdev2" == "$rdev" ]]; then
+    if [[ $rdev2 == "$rdev" ]]; then
       printf '%s' "$cand"
       return
     fi
@@ -42,7 +42,7 @@ find_stable_dev_path() {
 
 # Returns true if $1 is $2 or lives underneath it (e.g. "/proc/foo" in "/proc").
 is_in() {
-  [[ "$1" == "$2" || "${1:0:$((${#2} + 1))}" == "$2/" ]]
+  [[ $1 == "$2" || ${1:0:$((${#2} + 1))} == "$2/" ]]
 }
 
 # Generate the `fileSystems` and `swapDevices` options from what is currently
@@ -69,14 +69,14 @@ generate_hardware_config() {
     local mount_point="${f[4]}"
     mount_point="${mount_point//\\040/ }"     # spaces are escaped as \040
     mount_point="${mount_point//\\011/$'\t'}" # tabs are escaped as \011
-    [[ -d "$mount_point" ]] || continue
+    [[ -d $mount_point ]] || continue
 
     local mount_options="${f[5]}"
 
     # only consider things mounted under the target root, and strip its prefix
     is_in "$mount_point" "$root_dir" || continue
     mount_point="${mount_point:${#root_dir}}"
-    [[ -z "$mount_point" ]] && mount_point="/"
+    [[ -z $mount_point ]] && mount_point="/"
 
     # skip special filesystems
     local sp skip=0
@@ -86,11 +86,11 @@ generate_hardware_config() {
         break
       fi
     done
-    [[ "$skip" == 1 || "$mount_point" == "/var/lib/nfs/rpc_pipefs" ]] && continue
+    [[ $skip == 1 || $mount_point == "/var/lib/nfs/rpc_pipefs" ]] && continue
 
     # locate the separator ("-") and read the post-separator fields
     local n=6
-    while [[ "${f[$n]}" != "-" ]]; do n=$((n + 1)); done
+    while [[ ${f[$n]} != "-" ]]; do n=$((n + 1)); done
     n=$((n + 1))
     local fs_type="${f[$n]}"
     local device="${f[$((n + 1))]}"
@@ -99,7 +99,7 @@ generate_hardware_config() {
     device="${device//\\011/$'\t'}"
 
     # skip the read-only bind-mount on /nix/store
-    if [[ "$mount_point" == "/nix/store" && ",$super_options," == *,rw,* && ",$mount_options," == *,ro,* ]]; then
+    if [[ $mount_point == "/nix/store" && ",$super_options," == *,rw,* && ",$mount_options," == *,ro,* ]]; then
       continue
     fi
 
@@ -108,68 +108,68 @@ generate_hardware_config() {
 
     # maybe this is a bind-mount of a filesystem we saw earlier? (unless it is
     # actually a btrfs subvolume of one)
-    if [[ -n "${fs_by_dev[$devid]:-}" ]] && ! btrfs subvol show "$root_dir$mount_point" >/dev/null 2>&1; then
+    if [[ -n ${fs_by_dev[$devid]:-} ]] && ! btrfs subvol show "$root_dir$mount_point" >/dev/null 2>&1; then
       local path="${f[3]}"
-      [[ "$path" == "/" ]] && path=""
+      [[ $path == "/" ]] && path=""
       local base="${fs_by_dev[$devid]}"
-      [[ "$base" == "/" ]] && base=""
+      [[ $base == "/" ]] && base=""
       file_systems+="\"$mount_point\" = { device = \"$base$path\"; fsType = \"none\"; options = [ \"bind\" ]; };"$'\n'
       continue
     fi
     fs_by_dev[$devid]="$mount_point"
 
     # we don't know how to handle FUSE filesystems
-    if [[ "$fs_type" == "fuseblk" || "$fs_type" == "fuse" ]]; then
+    if [[ $fs_type == "fuseblk" || $fs_type == "fuse" ]]; then
       echo "warning: don't know how to emit 'fileSystems' option for FUSE filesystem '$mount_point'" >&2
       continue
     fi
 
     # is this a mount of a loopback device?
-    if [[ "$device" =~ ^/dev/loop([0-9]+)$ ]]; then
+    if [[ $device =~ ^/dev/loop([0-9]+)$ ]]; then
       local backer
       backer=$(cat "/sys/block/loop${BASH_REMATCH[1]}/loop/backing_file" 2>/dev/null) || true
-      if [[ -n "$backer" ]]; then
+      if [[ -n $backer ]]; then
         device="$backer"
         extra_options+=("loop")
       fi
     fi
 
     # is this a btrfs filesystem? if so, record the subvolume
-    if [[ "$fs_type" == "btrfs" ]]; then
+    if [[ $fs_type == "btrfs" ]]; then
       local info status
       info=$(btrfs subvol show "$root_dir$mount_point" 2>&1) && status=0 || status=$?
-      if [[ "$status" != 0 || "$info" == *ERROR:* ]]; then
+      if [[ $status != 0 || $info == *ERROR:* ]]; then
         die "Failed to retrieve subvolume info for $mount_point"
       fi
       local first_line="${info%%$'\n'*}"
-      if [[ "$first_line" != "/" && "$info" == *"Subvolume ID:"* ]]; then
+      if [[ $first_line != "/" && $info == *"Subvolume ID:"* ]]; then
         extra_options+=("subvol=$first_line")
       fi
     fi
 
     # preserve fmask/dmask for vfat so the ESP isn't world-readable
-    if [[ "$fs_type" == "vfat" ]]; then
+    if [[ $fs_type == "vfat" ]]; then
       local -a sopts o
       IFS=',' read -ra sopts <<<"$super_options"
       for o in "${sopts[@]}"; do
-        [[ "$o" == fmask* || "$o" == dmask* ]] && extra_options+=("$o")
+        [[ $o == fmask* || $o == dmask* ]] && extra_options+=("$o")
       done
     fi
 
     # /tmp on tmpfs is handled declaratively by boot.tmp.useTmpfs
-    [[ "$mount_point" == "/tmp" && "$fs_type" == "tmpfs" ]] && continue
+    [[ $mount_point == "/tmp" && $fs_type == "tmpfs" ]] && continue
 
     local stable
     stable=$(find_stable_dev_path "$device")
 
     local entry="\"$mount_point\" = { device = \"$stable\"; fsType = \"$fs_type\";"
-    if [[ "${#extra_options[@]}" -gt 0 ]]; then
+    if [[ ${#extra_options[@]} -gt 0 ]]; then
       # uniq, preserving order
       local -a uniq=() seen u
       for o in "${extra_options[@]}"; do
         seen=0
-        for u in "${uniq[@]}"; do [[ "$u" == "$o" ]] && seen=1 && break; done
-        [[ "$seen" == 0 ]] && uniq+=("$o")
+        for u in "${uniq[@]}"; do [[ $u == "$o" ]] && seen=1 && break; done
+        [[ $seen == 0 ]] && uniq+=("$o")
       done
       entry+=" options = ["
       for o in "${uniq[@]}"; do entry+=" \"$o\""; done
@@ -184,14 +184,14 @@ generate_hardware_config() {
   while IFS= read -r swap; do
     local -a fields
     read -ra fields <<<"$swap"
-    [[ "${fields[0]}" == "Filename" ]] && continue # header
+    [[ ${fields[0]} == "Filename" ]] && continue # header
     local swap_filename="${fields[0]}" swap_type="${fields[1]}"
-    [[ -e "$swap_filename" ]] || continue
-    if [[ "$swap_type" == *partition* ]]; then
+    [[ -e $swap_filename ]] || continue
+    if [[ $swap_type == *partition* ]]; then
       # zram swap is created declaratively, ignore it here
-      [[ "$swap_filename" == /dev/zram* ]] && continue
+      [[ $swap_filename == /dev/zram* ]] && continue
       swap_devices+=("{ device = \"$(find_stable_dev_path "$swap_filename")\"; }")
-    elif [[ "$swap_type" == *file* ]]; then
+    elif [[ $swap_type == *file* ]]; then
       : # swap files are configured declaratively, ignore them here
     else
       die "Unsupported swap type: $swap_type"
@@ -202,7 +202,7 @@ generate_hardware_config() {
   {
     printf '{\n'
     printf '  fileSystems = {\n%s  };\n' "$file_systems"
-    if [[ "${#swap_devices[@]}" -gt 0 ]]; then
+    if [[ ${#swap_devices[@]} -gt 0 ]]; then
       printf '  swapDevices = ['
       printf ' %s' "${swap_devices[@]}"
       printf ' ];\n'
