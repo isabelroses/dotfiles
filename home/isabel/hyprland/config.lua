@@ -87,6 +87,31 @@ hl.config({
   },
 })
 
+-- Monitors; data is taken from the nix config
+for _, m in ipairs(monitors) do
+  hl.monitor({
+    output = m.output,
+    mode = m.mode,
+    position = m.position,
+    scale = m.scale,
+  })
+end
+
+-- Spread the 10 workspaces across monitors in contiguous blocks; the last
+-- monitor takes any remainder.
+-- PERF: don't run on a single monitor; its pointless
+if #monitors > 1 then
+  local per_mon = math.floor(10 / #monitors)
+  for ws = 1, 10 do
+    local idx = math.min(math.floor((ws - 1) / per_mon), #monitors - 1)
+    hl.workspace_rule({
+      workspace = ws,
+      monitor = monitors[idx + 1].output,
+      default = ws == 1 or nil,
+    })
+  end
+end
+
 -- Bezier curves
 hl.curve("wind", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
 hl.curve("winIn", { type = "bezier", points = { { 0.1, 1.1 }, { 0.1, 1.1 } } })

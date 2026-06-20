@@ -13,10 +13,10 @@
     device = {
       cpu = "intel";
       gpu = "nvidia";
-      monitors = [
-        "DP-1"
-        "DP-2"
-      ];
+      monitors = {
+        "DP-1".hz = 144;
+        "DP-2".hz = 144;
+      };
       capabilities = {
         tpm = true;
         bluetooth = true;
