@@ -35,9 +35,6 @@ in
     # what is this even doing
     extraDependencies = mkForce [ ];
 
-    # activate without bash
-    nixos-init.enable = true;
-
     # don't include nixpkgs in our iso
     installer.channel.enable = false;
 
