@@ -37,13 +37,5 @@ in
 
     # don't include nixpkgs in our iso
     installer.channel.enable = false;
-
-    tools = {
-      # drop to remove perl
-      nixos-generate-config.enable = false;
-
-      # allow rebuilds with run0
-      nixos-rebuild.enableRun0Elevation = true;
-    };
   };
 }
