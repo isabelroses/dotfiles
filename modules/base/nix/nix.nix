@@ -73,6 +73,11 @@ in
         "kvm"
         "recursive-nix"
         "big-parallel"
+
+        # in order to use systemd-nspawn containers we add this system feature;
+        # but thats not the only requirement so read the bellow passage
+        # <https://github.com/NixOS/nixpkgs/blob/master/nixos/doc/manual/development/running-nixos-tests.section.md#system-requirements-sec-running-nixos-tests-requirements>
+        "uid-range"
       ];
 
       # continue building derivations even if one fails
