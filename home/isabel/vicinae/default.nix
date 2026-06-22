@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   mkMyVicinaeExt = pkgs.callPackage ./extension.nix { };
 in
@@ -8,7 +13,27 @@ in
     systemd.enable = true;
 
     settings = {
-      window.opacity = 1;
+      telemetry.system_info = false;
+      pop_to_root_on_close = true;
+      theme.dark.name = lib.modules.mkForce "oledpuccin";
+      launcher_window = {
+        opacity = 1;
+        layer_shell.keyboard_interactivity = "on_demand";
+      };
+    };
+
+    themes.oledpuccin = {
+      meta = {
+        version = 1;
+        name = "oledpuccin";
+        description = "catppuccin customised";
+        variant = "dark";
+        inherits = "catppuccin-mocha";
+      };
+      colors.core = {
+        background = "#000000";
+        secondary_background = "#000000";
+      };
     };
 
     # NOTE: I only do it this way because I hate IFD, normal people should use
