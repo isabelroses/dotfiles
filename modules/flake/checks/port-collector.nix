@@ -21,9 +21,8 @@ let
 
   # "0" is the catch all for services that don't bind a port; we will drop it
   # before checking for collisions.
-  collissions = filter (srvList: length srvList > 1) (
-    builtins.attrValues (removeAttrs portsToServices [ "0" ])
-  );
+  collissions =
+    removeAttrs portsToServices [ "0" ] |> builtins.attrValues |> filter (srvList: length srvList > 1);
 in
 runCommandLocal "port-collector"
   {

@@ -6,21 +6,17 @@
 }:
 let
   inherit (lib.attrsets) genAttrs;
-  inherit (lib.lists) elemAt;
+  inherit (lib.lists) head;
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.strings) splitString;
-  inherit (lib.trivial) flip pipe;
   inherit (lib) filter;
   inherit (lib.types)
     listOf
     str
     ;
 
-  getArch = flip pipe [
-    (splitString "-")
-    (flip elemAt 0)
-  ];
+  getArch = system: splitString "-" system |> head;
 
   cfg = config.garden.system.emulation;
 in

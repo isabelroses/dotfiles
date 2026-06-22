@@ -6,6 +6,7 @@
   ...
 }:
 let
+  inherit (lib.attrsets) nameValuePair listToAttrs;
   inherit (lib.modules) mkForce;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
 
@@ -68,9 +69,11 @@ let
     };
   };
 
-  associations' = lib.concatMapAttrs (
-    _: val: lib.listToAttrs (lib.map (mt: lib.nameValuePair mt "${val.app}.desktop") val.mimeTypes)
-  ) appsToAssoc;
+  associations' =
+    appsToAssoc
+    |> lib.concatMapAttrs (
+      _: val: val.mimeTypes |> map (mt: nameValuePair mt "${val.app}.desktop") |> listToAttrs
+    );
 
   specifics = {
     "x-scheme-handler/spotify" = [ "spotify.desktop" ];

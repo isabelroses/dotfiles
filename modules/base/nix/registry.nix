@@ -23,6 +23,6 @@ in
   nix = {
     # pin to avoid downloading and evaluating a new inputs everytime
     registry = mapAttrs (_: flake: { inherit flake; }) flakeInputs;
-    nixPath = attrValues (mapAttrs (k: v: "${k}=flake:${v.outPath}") flakeInputs);
+    nixPath = flakeInputs |> mapAttrs (k: v: "${k}=flake:${v.outPath}") |> attrValues;
   };
 }
