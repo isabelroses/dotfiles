@@ -4,7 +4,7 @@ let
 
   fmt = symbol: {
     inherit symbol;
-    format = "[$symbol]($style)";
+    format = "[$symbol ]($style)";
   };
 in
 {
@@ -23,14 +23,16 @@ in
 
       container = fmt "󰏖";
       python = fmt "";
-      nodejs = fmt " ";
-      lua = fmt "󰢱 ";
+      nodejs = fmt "";
+      lua = fmt "󰢱";
       rust = fmt "";
-      java = fmt " ";
-      c = fmt " ";
+      java = fmt "";
+      c = fmt "";
       golang = fmt "";
-      docker_context = fmt " ";
-      nix_shell = fmt " ";
+      docker_context = fmt "";
+      nix_shell = fmt "" // {
+        heuristic = true;
+      };
 
       username = {
         style_user = "white";
@@ -50,21 +52,15 @@ in
         substitutions = {
           "󰋞 /Documents" = "󰈙 ";
           "󰋞 /documents" = "󰈙 ";
-
           "󰋞 /Downloads" = " ";
           "󰋞 /downloads" = " ";
-
           "󰋞 /media/music" = " ";
           "󰋞 /media/pictures" = " ";
           "󰋞 /media/videos" = " ";
           "󰋞 /Music" = " ";
           "󰋞 /Pictures" = " ";
           "󰋞 /Videos" = " ";
-
           "󰋞 /dev" = "󱌢 ";
-          "󰋞 /Dev" = "󱌢 ";
-
-          "󰋞 /skl" = "󰑴 ";
           "󰋞 /.config" = " ";
         };
       };
