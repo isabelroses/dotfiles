@@ -4,32 +4,22 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 
-// Screenshot tool with screen freezing during region selection.
-//
-// Entry points (also exposed over IPC as `qs ipc call screenshot <fn>`):
-//   menu()    - freeze + macOS-style mode picker toolbar
-//   region()  - freeze + drag-select a region
-//   window()  - active window (instant grim)
-//   output()  - focused monitor (instant grim)
-//   all()     - whole layout (instant grim)
-//
-// The ScreenshotOverlay module renders the frozen overlay/picker and performs
-// the region crop, then calls back into regionCaptured(). Window/output/all are
-// instant single-snapshot grim calls (no freeze needed - a snapshot is already
-// a frozen instant).
 Singleton {
   id: root
 
-  // Overlay state, read by ScreenshotOverlay.
-  property bool active: false        // overlay shown
-  property string mode: ""           // "picker" | "region" | ""
-  property string pendingPath: ""    // target file for the current capture
-  property string pendingKind: ""    // "window" | "output" | "all" for instant modes
+  property bool active: false
+  property string mode: ""
+  property string pendingMode: ""
+  property string pendingPath: ""
+  property string pendingKind: ""
+  property var autoGrab: null
 
-  // Screenshots directory. XDG_SCREENSHOTS_DIR is not in quickshell's launch
-  // environment (it's only exported into interactive shells that source
-  // ~/.config/user-dirs.dirs), so Quickshell.env() can't see it. Resolve it at
-  // startup by sourcing user-dirs.dirs directly. Falls back to ~/Pictures/Screenshots.
+  readonly property string freezeAll: "/tmp/qs-screenshot-freeze-all.png"
+  function freezeOut(name: string): string { return "/tmp/qs-screenshot-freeze-" + name + ".png"; }
+
+  // XDG_SCREENSHOTS_DIR is not in quickshell's launch environment (only
+  // interactive shells that source ~/.config/user-dirs.dirs export it), so
+  // Quickshell.env() can't see it; resolve it by sourcing that file at startup.
   property string dir: Quickshell.env("HOME") + "/Pictures/Screenshots"
 
   function newPath(): string {
@@ -40,25 +30,31 @@ Singleton {
     return "'" + ("" + s).replace(/'/g, "'\\''") + "'";
   }
 
-  // --- Entry points -------------------------------------------------------
+  function menu(): void { root.openOverlay("picker"); }
+  function region(): void { root.openOverlay("region"); }
 
-  function menu(): void {
+  function openOverlay(m: string): void {
+    // Re-triggering while up would rewrite the freeze temps under the live Image.
+    if (root.active || freezeProc.running)
+      return;
     root.pendingPath = root.newPath();
-    root.mode = "picker";
-    root.active = true;
+    root.pendingMode = m;
+    // Freeze before the overlay is shown so the overlay can never be in a capture.
+    let parts = [];
+    for (const s of Quickshell.screens)
+      parts.push("grim -o " + root.shq(s.name) + " " + root.shq(root.freezeOut(s.name)));
+    parts.push("grim " + root.shq(root.freezeAll));
+    freezeProc.command = ["bash", "-c", parts.join(" & ") + " & wait"];
+    freezeProc.running = true;
   }
 
-  function region(): void {
-    root.pendingPath = root.newPath();
-    root.mode = "region";
-    root.active = true;
+  Process {
+    id: freezeProc
+    onExited: (code, status) => {
+      root.mode = root.pendingMode;
+      root.active = true;
+    }
   }
-
-  function window(): void { root.startInstant("window"); }
-  function output(): void { root.startInstant("output"); }
-  function all(): void { root.startInstant("all"); }
-
-  // --- Region (called back from the overlay after grabToImage) -----------
 
   function regionCaptured(): void {
     const p = root.pendingPath;
@@ -72,55 +68,159 @@ Singleton {
     root.mode = "";
     root.pendingPath = "";
     root.pendingKind = "";
+    root.autoGrab = null;
   }
 
-  // --- Instant grim modes ------------------------------------------------
+  function window(): void { root.startInstant("window"); }
+  function output(): void { root.startInstant("output"); }
+  function all(): void { root.startInstant("all"); }
 
   function startInstant(kind: string): void {
     root.pendingKind = kind;
     if (root.pendingPath.length === 0)
       root.pendingPath = root.newPath();
-    if (root.active) {
-      // Came from the picker: drop the overlay first so it isn't in the shot,
-      // then capture once it has cleared.
+    if (root.active)
+      root.captureFromFreeze(kind);
+    else
+      root.runLive();
+  }
+
+  // From the menu: crop/copy the clean freeze instead of grabbing live, so the
+  // overlay can't appear in the shot (no teardown race with a live grim).
+  function captureFromFreeze(kind: string): void {
+    if (kind === "all") {
       root.active = false;
       root.mode = "";
-      teardownTimer.restart();
-    } else {
-      root.runInstant();
+      root.copyThenFinalize(root.freezeAll);
+    } else if (kind === "output") {
+      outputResolveProc.running = true;
+    } else if (kind === "window") {
+      windowResolveProc.running = true;
     }
   }
 
-  function runInstant(): void {
+  function copyThenFinalize(src: string): void {
+    cpProc.command = ["cp", src, root.pendingPath];
+    cpProc.running = true;
+  }
+
+  Process {
+    id: cpProc
+    onExited: (code, status) => {
+      if (code === 0) root.finalize(root.pendingPath);
+      else root.fail("Could not copy capture");
+    }
+  }
+
+  Process {
+    id: outputResolveProc
+    command: ["hyprctl", "monitors", "-j"]
+    stdout: StdioCollector {
+      onStreamFinished: {
+        try {
+          const mons = JSON.parse(text);
+          const f = mons.find(m => m.focused) ?? mons[0];
+          root.active = false;
+          root.mode = "";
+          root.copyThenFinalize(root.freezeOut(f.name));
+        } catch (e) {
+          root.fail("Could not determine monitor");
+        }
+      }
+    }
+  }
+
+  Process {
+    id: windowResolveProc
+    command: ["hyprctl", "activewindow", "-j"]
+    stdout: StdioCollector {
+      onStreamFinished: {
+        try {
+          const w = JSON.parse(text);
+          if (!w || !w.at || !w.size || w.size[0] <= 0) { root.fail("No active window"); return; }
+          const cx = w.at[0] + w.size[0] / 2;
+          const cy = w.at[1] + w.size[1] / 2;
+          let target = Quickshell.screens[0];
+          for (const s of Quickshell.screens)
+            if (cx >= s.x && cx < s.x + s.width && cy >= s.y && cy < s.y + s.height) { target = s; break; }
+          const lx = Math.max(0, w.at[0] - target.x);
+          const ly = Math.max(0, w.at[1] - target.y);
+          root.autoGrab = {
+            output: target.name,
+            x: lx,
+            y: ly,
+            w: Math.min(w.size[0], target.width - lx),
+            h: Math.min(w.size[1], target.height - ly)
+          };
+        } catch (e) {
+          root.fail("No active window");
+        }
+      }
+    }
+  }
+
+  function runLive(): void {
     if (root.pendingKind === "all") {
       grimProc.command = ["grim", root.pendingPath];
       grimProc.running = true;
     } else if (root.pendingKind === "output") {
-      monitorsProc.running = true;
+      liveMonitorsProc.running = true;
     } else if (root.pendingKind === "window") {
-      activeWinProc.running = true;
+      liveWindowProc.running = true;
     }
   }
 
-  Timer {
-    id: teardownTimer
-    interval: 90
-    onTriggered: root.runInstant()
+  Process {
+    id: grimProc
+    onExited: (code, status) => {
+      if (code === 0) root.finalize(root.pendingPath);
+      else root.fail("grim exited with code " + code);
+    }
   }
 
-  // --- Shared finish: save notification + swappy annotate -> clipboard ----
+  Process {
+    id: liveMonitorsProc
+    command: ["hyprctl", "monitors", "-j"]
+    stdout: StdioCollector {
+      onStreamFinished: {
+        try {
+          const mons = JSON.parse(text);
+          const f = mons.find(m => m.focused) ?? mons[0];
+          grimProc.command = ["grim", "-o", f.name, root.pendingPath];
+          grimProc.running = true;
+        } catch (e) {
+          root.fail("Could not determine monitor");
+        }
+      }
+    }
+  }
+
+  Process {
+    id: liveWindowProc
+    command: ["hyprctl", "activewindow", "-j"]
+    stdout: StdioCollector {
+      onStreamFinished: {
+        try {
+          const w = JSON.parse(text);
+          if (!w || !w.at || !w.size || w.size[0] <= 0) { root.fail("No active window"); return; }
+          const geom = w.at[0] + "," + w.at[1] + " " + w.size[0] + "x" + w.size[1];
+          grimProc.command = ["grim", "-g", geom, root.pendingPath];
+          grimProc.running = true;
+        } catch (e) {
+          root.fail("No active window");
+        }
+      }
+    }
+  }
 
   function finalize(path: string): void {
-    notifyProc.command = ["notify-send", "Screenshot saved", path, "-i", path];
-    notifyProc.running = true;
-
-    // swappy reads the raw capture, writes its annotated result to stdout
-    // (-> wl-copy), and its own Save button writes to swappy's configured dir.
+    // swappy's -o - writes its annotated result to stdout (-> wl-copy); its own
+    // Save button additionally writes to swappy's configured dir.
     swappyProc.command = ["bash", "-c", "swappy -f " + root.shq(path) + " -o - | wl-copy"];
     swappyProc.running = true;
-
     root.pendingKind = "";
     root.pendingPath = "";
+    root.autoGrab = null;
   }
 
   function fail(msg: string): void {
@@ -128,11 +228,10 @@ Singleton {
     root.mode = "";
     root.pendingPath = "";
     root.pendingKind = "";
+    root.autoGrab = null;
     notifyProc.command = ["notify-send", "Screenshot failed", msg, "-u", "critical"];
     notifyProc.running = true;
   }
-
-  // --- Processes ----------------------------------------------------------
 
   Component.onCompleted: dirProc.running = true
 
@@ -153,52 +252,6 @@ Singleton {
   Process { id: mkdirProc }
   Process { id: notifyProc }
   Process { id: swappyProc }
-
-  Process {
-    id: grimProc
-    onExited: (code, status) => {
-      if (code === 0)
-        root.finalize(root.pendingPath);
-      else
-        root.fail("grim exited with code " + code);
-    }
-  }
-
-  Process {
-    id: monitorsProc
-    command: ["hyprctl", "monitors", "-j"]
-    stdout: StdioCollector {
-      onStreamFinished: {
-        try {
-          const mons = JSON.parse(text);
-          const focused = mons.find(m => m.focused) ?? mons[0];
-          if (!focused) { root.fail("No monitor found"); return; }
-          grimProc.command = ["grim", "-o", focused.name, root.pendingPath];
-          grimProc.running = true;
-        } catch (e) {
-          root.fail("Could not parse monitors");
-        }
-      }
-    }
-  }
-
-  Process {
-    id: activeWinProc
-    command: ["hyprctl", "activewindow", "-j"]
-    stdout: StdioCollector {
-      onStreamFinished: {
-        try {
-          const w = JSON.parse(text);
-          if (!w || !w.at || !w.size || w.size[0] <= 0) { root.fail("No active window"); return; }
-          const geom = w.at[0] + "," + w.at[1] + " " + w.size[0] + "x" + w.size[1];
-          grimProc.command = ["grim", "-g", geom, root.pendingPath];
-          grimProc.running = true;
-        } catch (e) {
-          root.fail("No active window");
-        }
-      }
-    }
-  }
 
   IpcHandler {
     target: "screenshot"

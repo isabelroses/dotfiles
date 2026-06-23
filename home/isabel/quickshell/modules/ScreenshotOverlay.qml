@@ -1,14 +1,9 @@
 import QtQuick
 import Quickshell
-import Quickshell.Io
 import Quickshell.Wayland
 import "root:/data"
 import "root:/services"
 
-// Per-output fullscreen overlay used for the frozen region select and the
-// macOS-style mode picker. Only mapped while Screenshot.active. On activation
-// each window snapshots its own output with grim (the freeze); region selection
-// then crops that frozen image natively via grabToImage.
 Variants {
   model: Quickshell.screens
 
@@ -22,8 +17,8 @@ Variants {
                                       && modelData.name === Quickshell.screens[0].name
     readonly property string freezePath: "/tmp/qs-screenshot-freeze-" + (modelData ? modelData.name : "x") + ".png"
 
-    // Selection rect in this window's logical coordinates.
-    property bool frozenReady: false
+    readonly property bool frozenReady: Screenshot.active && frozen.status === Image.Ready
+
     property bool selecting: false
     property real selX: 0
     property real selY: 0
@@ -63,37 +58,33 @@ Variants {
       }, Qt.size(w, h));
     }
 
-    onVisibleChanged: {
-      if (visible) {
-        frozenReady = false;
-        resetSelection();
-        // Capture while the surface is still fully transparent, so the overlay
-        // itself never lands in the frozen image.
-        freezeProc.command = ["grim", "-o", modelData.name, freezePath];
-        freezeProc.running = true;
-      } else {
-        frozenReady = false;
+    onVisibleChanged: if (visible) resetSelection()
+
+    // menu -> window: grab this output's freeze cropped to the window's rect.
+    Connections {
+      target: Screenshot
+      function onAutoGrabChanged() {
+        const g = Screenshot.autoGrab;
+        if (!g || g.output !== win.modelData.name) return;
+        win.selX = g.x;
+        win.selY = g.y;
+        win.selW = g.w;
+        win.selH = g.h;
+        Qt.callLater(win.confirmRegion);
       }
     }
 
-    Process {
-      id: freezeProc
-      onExited: (code, status) => { if (code === 0) win.frozenReady = true; }
-    }
-
-    // Frozen screen.
     Image {
       id: frozen
       anchors.fill: parent
       visible: win.frozenReady
       cache: false
-      source: win.frozenReady ? ("file://" + win.freezePath) : ""
+      source: Screenshot.active ? ("file://" + win.freezePath) : ""
       sourceSize.width: win.width * win.dpr
       sourceSize.height: win.height * win.dpr
       fillMode: Image.Stretch
     }
 
-    // Dimming scrim.
     Rectangle {
       anchors.fill: parent
       visible: win.frozenReady
@@ -101,11 +92,11 @@ Variants {
       opacity: (Screenshot.mode === "region" && win.hasSelection) ? 0.45 : 0.30
     }
 
-    // Bright selection cutout. This item is the grabToImage source, so it must
-    // contain ONLY the frozen image (border/label are siblings below).
+    // grabToImage source: must contain ONLY the frozen image (border/label are
+    // siblings below so they stay out of the capture).
     Item {
       id: cutout
-      visible: win.frozenReady && Screenshot.mode === "region" && win.hasSelection
+      visible: win.frozenReady && win.hasSelection
       x: win.selX
       y: win.selY
       width: win.selW
@@ -136,7 +127,6 @@ Variants {
       border.width: 1
     }
 
-    // Live W x H readout (native pixels).
     Rectangle {
       visible: cutout.visible
       color: Settings.colors.background
@@ -157,7 +147,6 @@ Variants {
       }
     }
 
-    // Region drag handling.
     MouseArea {
       anchors.fill: parent
       visible: win.frozenReady && Screenshot.mode === "region"
@@ -193,7 +182,6 @@ Variants {
       }
     }
 
-    // macOS-style mode picker toolbar (primary output only).
     Rectangle {
       id: toolbar
       visible: win.frozenReady && Screenshot.mode === "picker" && win.isPrimary
@@ -259,8 +247,6 @@ Variants {
       }
     }
 
-    // Keyboard: Esc cancels everywhere, Enter confirms a region, R/W/O/A pick
-    // a mode while the picker is open.
     Item {
       anchors.fill: parent
       focus: win.frozenReady
