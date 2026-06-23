@@ -8,6 +8,8 @@ let
   inherit (lib.lists) concatLists;
   inherit (lib.modules) mkIf;
   inherit (lib.strings) concatMapStrings enableFeature;
+
+  features = en: features: "--${en}-features=" + (concatMapStrings (x: x + ",") features);
 in
 {
   programs.chromium = {
@@ -32,8 +34,8 @@ in
       commandLineArgs = concatLists [
         # Aesthetics
         [
-          # "--force-dark-mode"
           "--gtk-version=4"
+          "--vertical-tabs"
         ]
 
         # Performance
@@ -41,21 +43,24 @@ in
           (enableFeature true "gpu-rasterization")
           (enableFeature true "oop-rasterization")
           (enableFeature true "zero-copy")
+
+          # share a process per site
+          "--process-per-site"
+
+          # allow parallel downloads
+          (enableFeature true "parallel-downloading")
+
+          # vaapi info: https://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/gpu/vaapi.md
           "--ignore-gpu-blocklist"
+          "--disable-gpu-driver-bug-workaround"
         ]
 
         # Wayland
-        [
-          "--ozone-platform=wayland"
-          "--enable-features=UseOzonePlatform"
-        ]
+        [ "--ozone-platform=wayland" ]
 
         # Etc
         [
           "--disk-cache=$XDG_RUNTIME_DIR/chromium-cache"
-
-          # disable canvas reading for privacy
-          # (enableFeature false "reading-from-canvas")
 
           "--no-first-run"
           "--disable-wake-on-wifi"
@@ -63,6 +68,9 @@ in
 
           # please stop asking me to be the default browser
           "--no-default-browser-check"
+
+          # hdr some others too
+          (enableFeature true "experimental-web-platform-features")
 
           # I don't need these, thus I disable them
           (enableFeature false "speech-api")
@@ -90,98 +98,111 @@ in
           # Disable sync
           "--disable-sync"
 
-          (
-            "--enable-features="
-            + concatMapStrings (x: x + ",") [
-              # Enable visited link database partitioning
-              "PartitionVisitedLinkDatabase"
+          # disable canvas reading for privacy
+          # (enableFeature false "reading-from-canvas")
 
-              # Enable prefetch privacy changes
-              "PrefetchPrivacyChanges"
+          "--password-store=gnome-libsecret"
+        ]
 
-              # Enable split cache
-              "SplitCacheByNetworkIsolationKey"
-              "SplitCodeCacheByNetworkIsolationKey"
+        [
+          (features "enable" [
+            # needed for wayland
+            "UseOzonePlatform"
 
-              # Enable partitioning connections
-              "EnableCrossSiteFlagNetworkIsolationKey"
-              "HttpCacheKeyingExperimentControlGroup"
-              "PartitionConnectionsByNetworkIsolationKey"
+            "MiddleClickAutoscroll"
 
-              # Enable strict origin isolation
-              "StrictOriginIsolation"
+            # allow manifest v2
+            "AllowLegacyMV2Extensions"
 
-              # Enable reduce accept language header
-              "ReduceAcceptLanguage"
+            # see the performance section as to why these are added
+            "AcceleratedVideoEncoder"
+            "AcceleratedVideoDecodeLinuxGL"
+            "VaapiOnNvidiaGPUs"
+            "WaylandLinuxDrmSyncobj"
 
-              # Enable content settings partitioning
-              "ContentSettingsPartitioning"
+            # Enable visited link database partitioning
+            "PartitionVisitedLinkDatabase"
 
-              # allow --force-dark-mode to work
-              # "WebContentsForceDark"
-            ]
-          )
+            # Enable prefetch privacy changes
+            "PrefetchPrivacyChanges"
 
-          (
-            "--disable-features="
-            + concatMapStrings (x: x + ",") [
-              # Disable autofill
-              "AutofillPaymentCardBenefits"
-              "AutofillPaymentCvcStorage"
-              "AutofillPaymentCardBenefits"
+            # Enable split cache
+            "SplitCacheByNetworkIsolationKey"
+            "SplitCodeCacheByNetworkIsolationKey"
 
-              # Disable third-party cookie deprecation bypasses
-              "TpcdHeuristicsGrants"
-              "TpcdMetadataGrants"
+            # Enable partitioning connections
+            "EnableCrossSiteFlagNetworkIsolationKey"
+            "HttpCacheKeyingExperimentControlGroup"
+            "PartitionConnectionsByNetworkIsolationKey"
 
-              # Disable hyperlink auditing
-              "EnableHyperlinkAuditing"
+            # Enable strict origin isolation
+            "StrictOriginIsolation"
 
-              # Disable showing popular sites
-              "NTPPopularSitesBakedInContent"
-              "UsePopularSitesSuggestions"
+            # Enable reduce accept language header
+            "ReduceAcceptLanguage"
 
-              # Disable article suggestions
-              "EnableSnippets"
-              "ArticlesListVisible"
-              "EnableSnippetsByDse"
+            # Enable content settings partitioning
+            "ContentSettingsPartitioning"
+          ])
 
-              # Disable content feed suggestions
-              "InterestFeedV2"
+          (features "disable" [
+            # Disable autofill
+            "AutofillPaymentCardBenefits"
+            "AutofillPaymentCvcStorage"
+            "AutofillPaymentCardBenefits"
 
-              # Disable media DRM preprovisioning
-              "MediaDrmPreprovisioning"
+            # Disable third-party cookie deprecation bypasses
+            "TpcdHeuristicsGrants"
+            "TpcdMetadataGrants"
 
-              # Disable autofill server communication
-              "AutofillServerCommunication"
+            # Disable hyperlink auditing
+            "EnableHyperlinkAuditing"
 
-              # Disable new privacy sandbox features
-              "PrivacySandboxSettings4"
-              "BrowsingTopics"
-              "BrowsingTopicsDocumentAPI"
-              "BrowsingTopicsParameters"
+            # Disable showing popular sites
+            "NTPPopularSitesBakedInContent"
+            "UsePopularSitesSuggestions"
 
-              # Disable translate button
-              "AdaptiveButtonInTopToolbarTranslate"
+            # Disable article suggestions
+            "EnableSnippets"
+            "ArticlesListVisible"
+            "EnableSnippetsByDse"
 
-              # Disable detailed language settings
-              "DetailedLanguageSettings"
+            # Disable content feed suggestions
+            "InterestFeedV2"
 
-              # Disable fetching optimization guides
-              "OptimizationHintsFetching"
+            # Disable media DRM preprovisioning
+            "MediaDrmPreprovisioning"
 
-              # Partition third-party storage
-              "DisableThirdPartyStoragePartitioningDeprecationTrial2"
+            # Disable autofill server communication
+            "AutofillServerCommunication"
 
-              # Disable media engagement
-              "PreloadMediaEngagementData"
-              "MediaEngagementBypassAutoplayPolicies"
+            # Disable new privacy sandbox features
+            "PrivacySandboxSettings4"
+            "BrowsingTopics"
+            "BrowsingTopicsDocumentAPI"
+            "BrowsingTopicsParameters"
 
-              # allow manifest v2
-              "ExtensionManifestV2Unsupported"
-              "ExtensionManifestV2Disabled"
-            ]
-          )
+            # Disable translate button
+            "AdaptiveButtonInTopToolbarTranslate"
+
+            # Disable detailed language settings
+            "DetailedLanguageSettings"
+
+            # Disable fetching optimization guides
+            "OptimizationHintsFetching"
+
+            # Partition third-party storage
+            "DisableThirdPartyStoragePartitioningDeprecationTrial2"
+
+            # Disable media engagement
+            "PreloadMediaEngagementData"
+            "MediaEngagementBypassAutoplayPolicies"
+
+            # allow manifest v2
+            "ExtensionsManifestV3Only"
+            "ExtensionManifestV2Unsupported"
+            "ExtensionManifestV2Disabled"
+          ])
         ]
       ];
     };
