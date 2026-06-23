@@ -9,4 +9,5 @@ Scope {
     Desktop {}
     Osd {}
     QuickSettingsPopup {}
+    ScreenshotOverlay {}
 }

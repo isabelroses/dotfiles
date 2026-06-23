@@ -67,15 +67,15 @@ in
       inherit (pkgs)
         # keep-sorted start
         brightnessctl # brightness managed via cli
-        grim
+        grim # screenshots
         libnotify # needed for some notifications
         pwvucontrol
         signal-desktop
-        slurp
+        slurp # used for screenshot area selection
         # bitwarden-desktop # password manager
         # jellyfin-media-player
         # insomnia # rest client
-        swappy # used for screenshot area selection
+        swappy # used for post screenshot editing
         wl-clipboard-rs
         wl-gammactl
         # keep-sorted end
