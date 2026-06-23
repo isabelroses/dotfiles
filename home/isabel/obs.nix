@@ -11,6 +11,7 @@
       wlrobs
       obs-multi-rtmp
       obs-move-transition
+      obs-pipewire-audio-capture
     ];
   };
 }
