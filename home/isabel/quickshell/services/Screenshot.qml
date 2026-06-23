@@ -26,13 +26,11 @@ Singleton {
   property string pendingPath: ""    // target file for the current capture
   property string pendingKind: ""    // "window" | "output" | "all" for instant modes
 
-  // Resolved screenshots directory: $XDG_SCREENSHOTS_DIR, else ~/Pictures/Screenshots.
-  readonly property string dir: {
-    const xdg = Quickshell.env("XDG_SCREENSHOTS_DIR");
-    if (xdg && ("" + xdg).length > 0)
-      return "" + xdg;
-    return Quickshell.env("HOME") + "/Pictures/Screenshots";
-  }
+  // Screenshots directory. XDG_SCREENSHOTS_DIR is not in quickshell's launch
+  // environment (it's only exported into interactive shells that source
+  // ~/.config/user-dirs.dirs), so Quickshell.env() can't see it. Resolve it at
+  // startup by sourcing user-dirs.dirs directly. Falls back to ~/Pictures/Screenshots.
+  property string dir: Quickshell.env("HOME") + "/Pictures/Screenshots"
 
   function newPath(): string {
     return root.dir + "/Screenshot_" + Qt.formatDateTime(new Date(), "yyyy-MM-dd_HH-mm-ss") + ".png";
@@ -136,9 +134,20 @@ Singleton {
 
   // --- Processes ----------------------------------------------------------
 
-  Component.onCompleted: {
-    mkdirProc.command = ["mkdir", "-p", root.dir];
-    mkdirProc.running = true;
+  Component.onCompleted: dirProc.running = true
+
+  Process {
+    id: dirProc
+    command: ["bash", "-c", 'd="${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs"; [ -f "$d" ] && . "$d"; echo -n "${XDG_SCREENSHOTS_DIR:-$HOME/Pictures/Screenshots}"']
+    stdout: StdioCollector {
+      onStreamFinished: {
+        const d = text.trim();
+        if (d.length > 0)
+          root.dir = d;
+        mkdirProc.command = ["mkdir", "-p", root.dir];
+        mkdirProc.running = true;
+      }
+    }
   }
 
   Process { id: mkdirProc }
