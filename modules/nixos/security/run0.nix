@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 {
   security = {
     run0 = {
@@ -9,15 +8,11 @@
       wheelNeedsPassword = false;
 
       # installs run0-sudo-shim
-      # sudo-shim.enable = true;
+      sudo-shim.enable = true;
     };
 
     # we are committed
     sudo.enable = false;
     sudo-rs.enable = false;
-  };
-
-  garden.packages = {
-    inherit (pkgs) run0-sudo-shim;
   };
 }
