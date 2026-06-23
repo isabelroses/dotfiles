@@ -40,17 +40,24 @@ in
 
       # nom >= 2.1.7 breaks with lix so lets just use an older version for now.
       # also add a warning to eventually force me to fix this instead of forgetting
+      # <https://github.com/maralorn/nix-output-monitor/issues/230>
       nix-output-monitor =
         if lib.versionAtLeast pkgs.nix-output-monitor.version "2.1.9" then
           throw "time to update nix-output-monitor. also rember to change the shell.nix"
         else
-          pkgs.nix-output-monitor.overrideAttrs {
-            version = "2.1.6";
-            src = pkgs.fetchzip {
-              url = "https://code.maralorn.de/maralorn/nix-output-monitor/archive/v2.1.6.tar.gz";
-              sha256 = "sha256-YfxFcGD9U7RzctnTRUQX1Nsz2EtiDIUGpz2nTo0OSWw=";
+          pkgs.nix-output-monitor.overrideAttrs (oa: {
+            version = "2.1.9-unstable";
+            src = pkgs.fetchFromGitHub {
+              owner = "maralorn";
+              repo = "nix-output-monitor";
+              rev = "71963f8de25875a4c03f2a0b61c658fa4eb2ce07";
+              hash = "sha256-5TZiccmY/UmKVunO6x9AhBUKltDheXtCWmpY/OUaArQ=";
             };
-          };
+
+            propagatedBuildInputs = (oa.nix-output-monitor.propagatedBuildInputs or [ ]) ++ [
+              pkgs.haskellPackages.fsnotify
+            ];
+          });
     })
 
     # (optionalAttrs cfg.graphical.enable {
