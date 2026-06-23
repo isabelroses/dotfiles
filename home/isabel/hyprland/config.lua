@@ -192,7 +192,8 @@ hl.bind(mod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special" })
 
 -- Screenshots
 hl.bind("Print", hl.dsp.exec_cmd("qs ipc call screenshot menu"))
-hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("qs ipc call screenshot menu"))
+hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("qs ipc call screenshot region"))
+hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("qs ipc call screenshot menu"))
 
 -- Audio / media keys
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
