@@ -56,12 +56,13 @@
             enabled = true;
             config = {
               patterns = {
-                "://instagram.com/" = "://vxinstagram.com/";
-                "://reddit.com/" = "://rxddit.com/";
                 "://tiktok.com/" = "://tnktok.com/";
-                "://twitter.com/" = "://vxtwitter.com/";
                 "://vm.tiktok.com/" = "://vm.tnktok.com/";
+                "://www.tiktok.com/" = "://www.tnktok.com/";
+                "://twitter.com/" = "://vxtwitter.com/";
+                "://instagram.com/" = "://vxinstagram.com/";
                 "://www.instagram.com/" = "://vxinstagram.com/";
+                "://reddit.com/" = "://rxddit.com/";
                 "://www.reddit.com/" = "://rxddit.com/";
                 "://x.com/" = "://vxtwitter.com/";
               };
