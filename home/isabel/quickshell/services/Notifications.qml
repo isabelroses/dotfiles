@@ -26,6 +26,7 @@ Singleton {
     }
 
     actionsSupported: true
+    inlineReplySupported: true
   }
 
   IpcHandler {

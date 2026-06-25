@@ -13,9 +13,12 @@ Singleton {
   property string pendingPath: ""
   property string pendingKind: ""
   property var autoGrab: null
+  // Set true only when the picker (menu) initiated the capture; gates swappy.
+  property bool fromMenu: false
 
-  readonly property string freezeAll: "/tmp/qs-screenshot-freeze-all.png"
-  function freezeOut(name: string): string { return "/tmp/qs-screenshot-freeze-" + name + ".png"; }
+  // PPM, not PNG: these are internal temps reloaded immediately by Qt, and
+  // grim's PNG zlib encoding was the bulk of the freeze latency (~240 -> ~55ms).
+  function freezeOut(name: string): string { return "/tmp/qs-screenshot-freeze-" + name + ".ppm"; }
 
   // XDG_SCREENSHOTS_DIR is not in quickshell's launch environment (only
   // interactive shells that source ~/.config/user-dirs.dirs export it), so
@@ -42,8 +45,7 @@ Singleton {
     // Freeze before the overlay is shown so the overlay can never be in a capture.
     let parts = [];
     for (const s of Quickshell.screens)
-      parts.push("grim -o " + root.shq(s.name) + " " + root.shq(root.freezeOut(s.name)));
-    parts.push("grim " + root.shq(root.freezeAll));
+      parts.push("grim -t ppm -o " + root.shq(s.name) + " " + root.shq(root.freezeOut(s.name)));
     freezeProc.command = ["bash", "-c", parts.join(" & ") + " & wait"];
     freezeProc.running = true;
   }
@@ -69,6 +71,7 @@ Singleton {
     root.pendingPath = "";
     root.pendingKind = "";
     root.autoGrab = null;
+    root.fromMenu = false;
   }
 
   function window(): void { root.startInstant("window"); }
@@ -89,9 +92,13 @@ Singleton {
   // overlay can't appear in the shot (no teardown race with a live grim).
   function captureFromFreeze(kind: string): void {
     if (kind === "all") {
+      // There's no clean full-layout freeze any more (the full-screen grim was
+      // the slow part). Tear the overlay down and grab live after a short
+      // settle, so the layer surface is gone and can't land in the shot.
       root.active = false;
       root.mode = "";
-      root.copyThenFinalize(root.freezeAll);
+      root.pendingKind = "all";
+      allSettleTimer.restart();
     } else if (kind === "output") {
       outputResolveProc.running = true;
     } else if (kind === "window") {
@@ -99,17 +106,10 @@ Singleton {
     }
   }
 
-  function copyThenFinalize(src: string): void {
-    cpProc.command = ["cp", src, root.pendingPath];
-    cpProc.running = true;
-  }
-
-  Process {
-    id: cpProc
-    onExited: (code, status) => {
-      if (code === 0) root.finalize(root.pendingPath);
-      else root.fail("Could not copy capture");
-    }
+  Timer {
+    id: allSettleTimer
+    interval: 120
+    onTriggered: root.runLive()
   }
 
   Process {
@@ -120,9 +120,11 @@ Singleton {
         try {
           const mons = JSON.parse(text);
           const f = mons.find(m => m.focused) ?? mons[0];
-          root.active = false;
-          root.mode = "";
-          root.copyThenFinalize(root.freezeOut(f.name));
+          const target = Quickshell.screens.find(s => s.name === f.name) ?? Quickshell.screens[0];
+          // Crop the focused output's frozen image to its full rect via the same
+          // grab path as window mode — turns the PPM freeze into a clean PNG
+          // without a live re-grab (overlay can't appear in the shot).
+          root.autoGrab = { output: target.name, x: 0, y: 0, w: target.width, h: target.height };
         } catch (e) {
           root.fail("Could not determine monitor");
         }
@@ -214,10 +216,16 @@ Singleton {
   }
 
   function finalize(path: string): void {
-    // swappy's -o - writes its annotated result to stdout (-> wl-copy); its own
-    // Save button additionally writes to swappy's configured dir.
-    swappyProc.command = ["bash", "-c", "swappy -f " + root.shq(path) + " -o - | wl-copy"];
-    swappyProc.running = true;
+    if (root.fromMenu) {
+      // Menu flow only: swappy's -o - writes its annotated result to stdout
+      // (-> wl-copy); its own Save button additionally writes to swappy's dir.
+      deliverProc.command = ["bash", "-c", "swappy -f " + root.shq(path) + " -o - | wl-copy"];
+    } else {
+      // Direct keybind: copy the saved PNG to the clipboard, no editor.
+      deliverProc.command = ["bash", "-c", "wl-copy --type image/png < " + root.shq(path)];
+    }
+    deliverProc.running = true;
+    root.fromMenu = false;
     root.pendingKind = "";
     root.pendingPath = "";
     root.autoGrab = null;
@@ -229,8 +237,8 @@ Singleton {
     root.pendingPath = "";
     root.pendingKind = "";
     root.autoGrab = null;
-    notifyProc.command = ["notify-send", "Screenshot failed", msg, "-u", "critical"];
-    notifyProc.running = true;
+    root.fromMenu = false;
+    Quickshell.execDetached(["notify-send", "Screenshot failed", msg, "-u", "critical"]);
   }
 
   Component.onCompleted: dirProc.running = true
@@ -243,23 +251,23 @@ Singleton {
         const d = text.trim();
         if (d.length > 0)
           root.dir = d;
-        mkdirProc.command = ["mkdir", "-p", root.dir];
-        mkdirProc.running = true;
+        Quickshell.execDetached(["mkdir", "-p", root.dir]);
       }
     }
   }
 
-  Process { id: mkdirProc }
-  Process { id: notifyProc }
-  Process { id: swappyProc }
+  Process { id: deliverProc }
 
   IpcHandler {
     target: "screenshot"
-    function menu(): void { root.menu(); }
-    function region(): void { root.region(); }
-    function window(): void { root.window(); }
-    function output(): void { root.output(); }
-    function all(): void { root.all(); }
+    // fromMenu gates swappy in finalize(): only the picker opens the editor.
+    // The picker's buttons call root.window()/output()/all() directly (not these
+    // IPC handlers), so the flag menu() sets survives the in-overlay dispatch.
+    function menu(): void { root.fromMenu = true; root.menu(); }
+    function region(): void { root.fromMenu = false; root.region(); }
+    function window(): void { root.fromMenu = false; root.window(); }
+    function output(): void { root.fromMenu = false; root.output(); }
+    function all(): void { root.fromMenu = false; root.all(); }
   }
 
   reloadableId: "screenshot"

@@ -6,6 +6,7 @@ import Quickshell.Services.Mpris
 Singleton {
   id: root
 
-  property MprisPlayer selectedPlayer: players[0]
-  property list<MprisPlayer> players: Mpris.players.values.filter(player => player.length != 0 && player?.trackTitle != "")
+  // MprisPlayer has no `length`; the old `player.length != 0` filter was a no-op.
+  property list<MprisPlayer> players: Mpris.players.values.filter(player => player?.trackTitle != "")
+  property MprisPlayer selectedPlayer: players.length > 0 ? players[0] : null
 }

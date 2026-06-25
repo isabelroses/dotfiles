@@ -26,8 +26,8 @@ Scope {
 
       margins {
         left: 10
-        top: 10
-        bottom: 10
+        top: 6
+        bottom: 6
       }
 
       Rectangle {

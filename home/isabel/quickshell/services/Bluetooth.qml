@@ -12,16 +12,9 @@ Singleton {
     readonly property bool powered: adapter?.enabled ?? false
     readonly property int state: adapter?.state ?? BluetoothAdapterState.Disabled
 
-    // Device state
-    readonly property var devices: adapter?.devices ?? []
-    readonly property BluetoothDevice connectedDevice: {
-        if (!adapter) return null;
-        for (let i = 0; i < devices.count; i++) {
-            const device = devices.values[i];
-            if (device.connected) return device;
-        }
-        return null;
-    }
+    // adapter.devices is an ObjectModel: it has .values (a list) but no .count.
+    readonly property var devices: adapter?.devices?.values ?? []
+    readonly property BluetoothDevice connectedDevice: devices.find(d => d.connected) ?? null
     readonly property bool connected: connectedDevice !== null
 
     // Icon based on state

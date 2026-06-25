@@ -1,189 +1,70 @@
-// Network service with WiFi and Ethernet support
+// Wraps the native Quickshell.Networking singleton. Imported `as Net` because
+// this singleton is itself named Networking and the names would collide.
 
 pragma Singleton
 
 import Quickshell
-import Quickshell.Io
+import Quickshell.Networking as Net
 import QtQuick
 
 Singleton {
     id: root
 
+    readonly property var wifiDevice: Net.Networking.devices.values.find(d => d.type === Net.DeviceType.Wifi) ?? null
+    readonly property var wiredDevice: Net.Networking.devices.values.find(d => d.type === Net.DeviceType.Wired) ?? null
+
     // WiFi
-    readonly property list<AccessPoint> networks: []
-    readonly property AccessPoint activeWifi: networks.find(n => n.active) ?? null
-    readonly property bool wifiEnabled: internal.wifiEnabled
+    readonly property bool wifiEnabled: Net.Networking.wifiEnabled
+    readonly property var networks: wifiDevice?.networks?.values ?? []
+    readonly property var activeWifi: networks.find(n => n.connected) ?? null
 
     // Ethernet
-    readonly property bool ethernetConnected: internal.ethernetConnected
-    readonly property string ethernetDevice: internal.ethernetDevice
+    readonly property bool ethernetConnected: wiredDevice?.connected ?? false
+    readonly property string ethernetDevice: wiredDevice?.name ?? ""
 
     // Combined state
     readonly property bool connected: ethernetConnected || activeWifi !== null
     readonly property string connectionType: ethernetConnected ? "ethernet" : (activeWifi ? "wifi" : "none")
 
+    // Scanning is expensive; the UI sets this true only while showing the list.
+    property bool scanning: false
+    onScanningChanged: if (wifiDevice) wifiDevice.scannerEnabled = scanning
+    onWifiDeviceChanged: if (wifiDevice) wifiDevice.scannerEnabled = scanning
+
+    // signalStrength is a fraction 0.0-1.0, not a percentage.
+    function networkIcon(network): string {
+        const s = network?.signalStrength ?? 0;
+        if (s >= 0.75) return "network-wireless-signal-excellent-symbolic";
+        if (s >= 0.5) return "network-wireless-signal-good-symbolic";
+        if (s >= 0.25) return "network-wireless-signal-ok-symbolic";
+        if (s > 0) return "network-wireless-signal-weak-symbolic";
+        return "network-wireless-signal-none-symbolic";
+    }
+
     readonly property string icon: {
         if (ethernetConnected) return "network-wired-symbolic";
-        if (activeWifi) return activeWifi.icon;
+        if (activeWifi) return networkIcon(activeWifi);
         if (!wifiEnabled) return "network-wireless-disabled-symbolic";
         return "network-wireless-offline-symbolic";
     }
 
     readonly property string statusText: {
         if (ethernetConnected) return ethernetDevice;
-        if (activeWifi) return activeWifi.ssid;
+        if (activeWifi) return activeWifi.name;
+        if (!wifiEnabled) return "WiFi Off";
         return "Disconnected";
     }
 
+    function toggleWifi(): void {
+        Net.Networking.wifiEnabled = !Net.Networking.wifiEnabled;
+    }
+
+    // Open and OWE (enhanced open) networks join without a password.
+    function needsPassword(network): bool {
+        if (!network || network.known) return false;
+        const s = network.security;
+        return s !== Net.WifiSecurityType.Open && s !== Net.WifiSecurityType.Owe;
+    }
+
     reloadableId: "network"
-
-    function toggleWifi() {
-        toggleWifiProc.running = true;
-    }
-
-    function reload() {
-        checkStatus.running = true;
-    }
-
-    function connectToNetwork(ssid) {
-        connectProc.command = ["nmcli", "d", "wifi", "connect", ssid];
-        connectProc.running = true;
-    }
-
-    QtObject {
-        id: internal
-        property bool wifiEnabled: true
-        property bool ethernetConnected: false
-        property string ethernetDevice: ""
-    }
-
-    // Monitor for network changes
-    Process {
-        running: true
-        command: ["nmcli", "m"]
-        stdout: SplitParser {
-            onRead: checkStatus.running = true
-        }
-    }
-
-    // Check overall network status
-    Process {
-        id: checkStatus
-        running: true
-        command: ["bash", "-c", `
-            # Check WiFi status
-            wifi_status=$(nmcli radio wifi 2>/dev/null)
-            echo "WIFI:$wifi_status"
-            
-            # Check Ethernet
-            eth_info=$(nmcli -t -f TYPE,STATE,DEVICE,CONNECTION device 2>/dev/null | grep '^ethernet:connected' | head -1)
-            if [ -n "$eth_info" ]; then
-                eth_name=$(echo "$eth_info" | cut -d: -f4)
-                echo "ETH:connected:$eth_name"
-            else
-                echo "ETH:disconnected:"
-            fi
-        `]
-        environment: ({ LANG: "C", LC_ALL: "C" })
-        stdout: SplitParser {
-            onRead: data => {
-                const line = data.trim();
-                if (line.startsWith("WIFI:")) {
-                    internal.wifiEnabled = line.includes("enabled");
-                } else if (line.startsWith("ETH:")) {
-                    const parts = line.split(":");
-                    internal.ethernetConnected = parts[1] === "connected";
-                    internal.ethernetDevice = parts[2] || "";
-                }
-            }
-        }
-        onExited: {
-            if (internal.wifiEnabled) {
-                getNetworks.running = true;
-            }
-        }
-    }
-
-    Process {
-        id: toggleWifiProc
-        command: ["nmcli", "radio", "wifi", internal.wifiEnabled ? "off" : "on"]
-        onExited: checkStatus.running = true
-    }
-
-    Process {
-        id: connectProc
-        onExited: checkStatus.running = true
-    }
-
-    Process {
-        id: getNetworks
-        command: ["nmcli", "-g", "ACTIVE,SIGNAL,FREQ,SSID,BSSID", "d", "w"]
-        environment: ({ LANG: "C", LC_ALL: "C" })
-        stdout: StdioCollector {
-            onStreamFinished: {
-                const PLACEHOLDER = "STRINGWHICHHOPEFULLYWONTBEUSED";
-                const rep = new RegExp("\\\\:", "g");
-                const rep2 = new RegExp(PLACEHOLDER, "g");
-
-                const networks = text.trim().split("\n").filter(l => l.length > 0).map(n => {
-                    const net = n.replace(rep, PLACEHOLDER).split(":");
-                    return {
-                        active: net[0] === "yes",
-                        strength: parseInt(net[1]) || 0,
-                        frequency: parseInt(net[2]) || 0,
-                        ssid: net[3] || "",
-                        bssid: net[4]?.replace(rep2, ":") ?? ""
-                    };
-                }).filter(n => n.ssid !== "");
-
-                const rNetworks = root.networks;
-
-                // Remove networks that no longer exist
-                const destroyed = rNetworks.filter(rn => !networks.find(n => 
-                    n.frequency === rn.frequency && n.ssid === rn.ssid && n.bssid === rn.bssid
-                ));
-                for (const network of destroyed) {
-                    const idx = rNetworks.indexOf(network);
-                    if (idx >= 0) {
-                        rNetworks.splice(idx, 1);
-                        network.destroy();
-                    }
-                }
-
-                // Update or add networks
-                for (const network of networks) {
-                    const match = rNetworks.find(n => 
-                        n.frequency === network.frequency && n.ssid === network.ssid && n.bssid === network.bssid
-                    );
-                    if (match) {
-                        match.lastIpcObject = network;
-                    } else {
-                        rNetworks.push(apComp.createObject(root, { lastIpcObject: network }));
-                    }
-                }
-            }
-        }
-    }
-
-    component AccessPoint: QtObject {
-        required property var lastIpcObject
-        readonly property string ssid: lastIpcObject.ssid
-        readonly property string bssid: lastIpcObject.bssid
-        readonly property int strength: lastIpcObject.strength
-        readonly property int frequency: lastIpcObject.frequency
-        readonly property bool active: lastIpcObject.active
-        readonly property string icon: {
-            if (strength >= 75) return "network-wireless-signal-excellent-symbolic";
-            if (strength >= 50) return "network-wireless-signal-good-symbolic";
-            if (strength >= 25) return "network-wireless-signal-ok-symbolic";
-            if (strength > 0) return "network-wireless-signal-weak-symbolic";
-            return "network-wireless-signal-none-symbolic";
-        }
-    }
-
-    Component {
-        id: apComp
-        AccessPoint {}
-    }
 }
-

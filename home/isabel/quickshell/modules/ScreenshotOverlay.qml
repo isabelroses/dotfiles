@@ -15,7 +15,7 @@ Variants {
     readonly property real dpr: modelData ? modelData.devicePixelRatio : 1
     readonly property bool isPrimary: modelData && Quickshell.screens.length > 0
                                       && modelData.name === Quickshell.screens[0].name
-    readonly property string freezePath: "/tmp/qs-screenshot-freeze-" + (modelData ? modelData.name : "x") + ".png"
+    readonly property string freezePath: "/tmp/qs-screenshot-freeze-" + (modelData ? modelData.name : "x") + ".ppm"
 
     readonly property bool frozenReady: Screenshot.active && frozen.status === Image.Ready
 

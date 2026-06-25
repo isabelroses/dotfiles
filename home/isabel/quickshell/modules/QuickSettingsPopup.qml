@@ -25,6 +25,7 @@ LazyLoader {
     implicitHeight: screen.height * 0.98
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Overlay
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
 
     Rectangle {
       anchors.fill: parent
@@ -82,65 +83,100 @@ LazyLoader {
           }
 
           delegate: Rectangle {
+            id: notiDelegate
             required property QsNotifications.Notification modelData
             width: ListView.view.width
-            height: 72
+            height: modelData.hasInlineReply ? 116 : 72
             radius: 8
             color: Settings.colors.backgroundLighter
             border.color: Settings.colors.border
             border.width: 1
 
-            RowLayout {
+            ColumnLayout {
               anchors {
                 fill: parent
                 margins: 10
               }
-              spacing: 10
+              spacing: 8
 
-              IconImage {
-                source: Quickshell.iconPath(modelData?.appIcon ? Utils.getIcon(modelData.appIcon) : "application-x-executable")
-
-                implicitSize: 40
-                Layout.alignment: Qt.AlignVCenter
-              }
-
-              ColumnLayout {
+              RowLayout {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                spacing: 2
+                spacing: 10
 
-                Text {
-                  text: modelData.appName
-                  color: Settings.colors.foreground
-                  font {
-                    pixelSize: 13
-                    weight: Font.Medium
-                  }
-                  elide: Text.ElideRight
-                  Layout.fillWidth: true
+                IconImage {
+                  source: Quickshell.iconPath(notiDelegate.modelData?.appIcon ? Utils.getIcon(notiDelegate.modelData.appIcon) : "application-x-executable")
+
+                  implicitSize: 40
+                  Layout.alignment: Qt.AlignVCenter
                 }
 
-                Text {
-                  text: modelData.body
-                  color: Settings.colors.foreground
-                  opacity: 0.8
-                  font.pixelSize: 12
-                  elide: Text.ElideRight
-                  maximumLineCount: 2
-                  wrapMode: Text.WordWrap
+                ColumnLayout {
                   Layout.fillWidth: true
+                  Layout.fillHeight: true
+                  spacing: 2
+
+                  Text {
+                    text: notiDelegate.modelData.appName
+                    color: Settings.colors.foreground
+                    font {
+                      pixelSize: 13
+                      weight: Font.Medium
+                    }
+                    elide: Text.ElideRight
+                    Layout.fillWidth: true
+                  }
+
+                  Text {
+                    text: notiDelegate.modelData.body
+                    color: Settings.colors.foreground
+                    opacity: 0.8
+                    font.pixelSize: 12
+                    elide: Text.ElideRight
+                    maximumLineCount: 2
+                    wrapMode: Text.WordWrap
+                    Layout.fillWidth: true
+                  }
+                }
+
+                IconButton {
+                  icon: "window-close-symbolic"
+                  size: 14
+                  Layout.alignment: Qt.AlignTop
+                  onClicked: {
+                    notiDelegate.modelData.dismiss();
+                    if (Notifications.list.length <= 0) {
+                      popup.visible = false;
+                    }
+                  }
                 }
               }
 
-              IconButton {
-                icon: "window-close-symbolic"
-                size: 14
-                Layout.alignment: Qt.AlignTop
-                onClicked: {
-                  modelData.dismiss();
-                  if (Notifications.list.length <= 0) {
-                    popup.visible = false;
+              RowLayout {
+                visible: notiDelegate.modelData.hasInlineReply
+                Layout.fillWidth: true
+                spacing: 6
+
+                TextField {
+                  id: listReplyField
+                  Layout.fillWidth: true
+                  placeholderText: notiDelegate.modelData.inlineReplyPlaceholder || "Reply..."
+                  placeholderTextColor: Qt.rgba(Settings.colors.foreground.r, Settings.colors.foreground.g, Settings.colors.foreground.b, 0.4)
+                  color: Settings.colors.foreground
+                  font.pixelSize: 12
+                  onAccepted: { notiDelegate.modelData.sendInlineReply(text); text = ""; }
+                  background: Rectangle {
+                    radius: 6
+                    color: Settings.colors.background
+                    border.color: listReplyField.activeFocus ? Settings.colors.accent : Settings.colors.border
+                    border.width: 1
                   }
+                }
+
+                IconButton {
+                  icon: "mail-send-symbolic"
+                  size: 14
+                  onClicked: { notiDelegate.modelData.sendInlineReply(listReplyField.text); listReplyField.text = ""; }
                 }
               }
             }

@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import Quickshell
-import Quickshell.Io
 import Quickshell.Widgets
 import "root:/data"
 import "root:/services"
@@ -13,14 +12,10 @@ ColumnLayout {
   Layout.fillWidth: true
   spacing: 12
 
-  Process {
-    id: openConfigProc
-    command: ["ghostty", "-e", "nvim", "~/.config/flake"]
-  }
-
-  Process {
-    id: powerOffProc
-    command: ["systemctl", "poweroff"]
+  Binding {
+    target: Networking
+    property: "scanning"
+    value: networkPanel.visible
   }
 
   Text {
@@ -71,7 +66,11 @@ ColumnLayout {
         IconButton {
           icon: "view-refresh-symbolic"
           size: 14
-          onClicked: Networking.reload()
+          // Toggling the scanner off/on prompts a fresh scan.
+          onClicked: {
+            Networking.scanning = false;
+            Networking.scanning = true;
+          }
         }
       }
 
@@ -89,13 +88,16 @@ ColumnLayout {
           delegate: PanelListItem {
             required property var modelData
             width: ListView.view.width
-            icon: modelData.icon
-            text: modelData.ssid || "Unknown"
-            badge: modelData.strength + "%"
-            active: modelData.active
+            icon: Networking.networkIcon(modelData)
+            text: modelData.name || "Unknown"
+            badge: modelData.known ? "Saved" : Math.round(modelData.signalStrength * 100) + "%"
+            active: modelData.connected
             onClicked: {
-              if (!modelData.active) {
-                Networking.connectToNetwork(modelData.ssid);
+              if (modelData.connected) return;
+              if (Networking.needsPassword(modelData)) {
+                Runtime.openWifiPassword(modelData);
+              } else {
+                modelData.connect();
               }
             }
           }
@@ -103,11 +105,11 @@ ColumnLayout {
       }
 
       Text {
-        text: Networking.networks?.count === 0 ? "No networks found" : ""
+        text: Networking.networks.length === 0 ? "No networks found" : ""
         color: Settings.colors.foreground
         opacity: 0.5
         font.pixelSize: 12
-        visible: Networking.networks?.count === 0
+        visible: Networking.networks.length === 0
         Layout.alignment: Qt.AlignHCenter
       }
 
@@ -208,13 +210,13 @@ ColumnLayout {
       Text {
         text: {
           if (!Bluetooth.adapter) return "No Bluetooth adapter";
-          if (Bluetooth.devices?.count === 0) return "No devices found";
+          if (Bluetooth.devices.length === 0) return "No devices found";
           return "";
         }
         color: Settings.colors.foreground
         opacity: 0.5
         font.pixelSize: 12
-        visible: !Bluetooth.adapter || Bluetooth.devices?.count === 0
+        visible: !Bluetooth.adapter || Bluetooth.devices.length === 0
         Layout.alignment: Qt.AlignHCenter
       }
 
@@ -233,14 +235,12 @@ ColumnLayout {
       label: "Networking"
       active: Networking.connected
       onClicked: (mouse) => {
-        // Do nothing if ethernet is connected
-        if (Networking.ethernetConnected) return;
-
         if (mouse.button === Qt.RightButton) {
           networkPanel.visible = !networkPanel.visible
+          return;
         }
 
-        // otherwise lets actually do wifi stuff
+        if (Networking.ethernetConnected) return;
         Networking.toggleWifi()
       }
     }
@@ -352,18 +352,11 @@ ColumnLayout {
       }
 
 
-        // Settings button
-        IconButton {
-          icon: "applications-system-symbolic"
-          size: 18
-          onClicked: openConfigProc.startDetached()
-        }
-
         // Power off button
         IconButton {
           icon: "system-shutdown-symbolic"
           size: 18
-          onClicked: powerOffProc.startDetached()
+          onClicked: Quickshell.execDetached(["systemctl", "poweroff"])
         }
     }
   }

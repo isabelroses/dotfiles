@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Wayland
@@ -44,6 +45,12 @@ Scope {
     notificationHideTimer.restart();
   }
 
+  function sendReply(text: string): void {
+    if (!root.currentNotification || text.length === 0) return;
+    root.currentNotification.sendInlineReply(text);
+    root.notificationVisible = false;
+  }
+
   Timer {
     id: osdHideTimer
     interval: 1500
@@ -67,8 +74,6 @@ Scope {
 
   PanelWindow {
     id: osdWindow
-    property var modelData
-    screen: modelData
 
     visible: root.osdVisible
     color: "transparent"
@@ -147,14 +152,14 @@ Scope {
   // Notification Popup
   PanelWindow {
     id: notificationWindow
-    property var modelData
-    screen: modelData
 
     visible: root.notificationVisible && root.currentNotification !== null
     color: "transparent"
 
     WlrLayershell.namespace: "notification"
     WlrLayershell.layer: WlrLayer.Overlay
+    // Grab keyboard only when there's a reply field to type into.
+    WlrLayershell.keyboardFocus: root.currentNotification?.hasInlineReply ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
     exclusionMode: ExclusionMode.Ignore
 
     anchors {
@@ -162,7 +167,7 @@ Scope {
     }
 
     implicitWidth: 420
-    implicitHeight: 100
+    implicitHeight: root.currentNotification?.hasInlineReply ? 150 : 100
 
     margins {
       top: 16
@@ -227,6 +232,37 @@ Scope {
             wrapMode: Text.WordWrap
             maximumLineCount: 2
             Layout.fillWidth: true
+          }
+
+          RowLayout {
+            visible: root.currentNotification?.hasInlineReply ?? false
+            Layout.fillWidth: true
+            Layout.topMargin: 2
+            spacing: 6
+
+            TextField {
+              id: replyField
+              Layout.fillWidth: true
+              placeholderText: root.currentNotification?.inlineReplyPlaceholder || "Reply..."
+              placeholderTextColor: Qt.rgba(Settings.colors.foreground.r, Settings.colors.foreground.g, Settings.colors.foreground.b, 0.4)
+              color: Settings.colors.foreground
+              font.pixelSize: 11
+              // Don't let the toast time out while the user is typing.
+              onActiveFocusChanged: activeFocus ? notificationHideTimer.stop() : notificationHideTimer.restart()
+              onAccepted: { root.sendReply(text); text = ""; }
+              background: Rectangle {
+                radius: 6
+                color: Settings.colors.backgroundLighter
+                border.color: replyField.activeFocus ? Settings.colors.accent : Settings.colors.border
+                border.width: 1
+              }
+            }
+
+            IconButton {
+              icon: "mail-send-symbolic"
+              size: 14
+              onClicked: { root.sendReply(replyField.text); replyField.text = ""; }
+            }
           }
         }
 
