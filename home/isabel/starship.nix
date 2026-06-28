@@ -30,9 +30,7 @@ in
       c = fmt "";
       golang = fmt "";
       docker_context = fmt "";
-      nix_shell = fmt "" // {
-        heuristic = true;
-      };
+      nix_shell = fmt "";
 
       username = {
         style_user = "white";
