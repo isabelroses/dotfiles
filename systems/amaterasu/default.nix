@@ -34,6 +34,8 @@
       bluetooth.enable = true;
       printing.enable = false;
       emulation.enable = true;
+
+      security.auditd.enable = true;
     };
   };
 }

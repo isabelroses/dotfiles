@@ -20,9 +20,13 @@
       };
     };
 
-    system.boot = {
-      loader = "systemd-boot";
-      secureBoot = false;
+    system = {
+      boot = {
+        loader = "systemd-boot";
+        secureBoot = false;
+      };
+
+      security.auditd.enable = true;
     };
 
     services = {
