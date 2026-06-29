@@ -1,18 +1,22 @@
 {
   lib,
+  writeShellScriptBin,
   treefmt,
+
+  # keep-sorted start
   actionlint,
   deadnix,
   keep-sorted,
+  locker,
   nixfmt,
   shellcheck,
   shfmt,
   statix,
+  stylua,
   taplo,
   yamlfmt,
   zizmor,
-  stylua,
-  writeShellScriptBin,
+  # keep-sorted end
 }:
 treefmt.withConfig {
   runtimeInputs = [
@@ -20,6 +24,7 @@ treefmt.withConfig {
     actionlint
     deadnix
     keep-sorted
+    locker
     nixfmt
     shellcheck
     shfmt
@@ -62,6 +67,11 @@ treefmt.withConfig {
       keep-sorted = {
         command = "keep-sorted";
         includes = [ "*" ];
+      };
+
+      locker = {
+        command = "locker";
+        includes = [ "flake.lock" ];
       };
 
       nixfmt = {
