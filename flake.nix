@@ -47,7 +47,11 @@
       type = "github";
       owner = "nix-community";
       repo = "lanzaboote";
-      inputs.nixpkgs.follows = "nixpkgs";
+
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        pre-commit.follows = "";
+      };
     };
 
     # Secrets, shhh
