@@ -59,14 +59,8 @@ in
 
       gtk.icon.enable = isGui;
 
-      # I don't even use the colors from the port
-      waybar.enable = false;
-
       # IFD and can use term colors
       starship.enable = false;
-
-      # IFD and easy enough to vendor
-      fzf.enable = false;
 
       # IFD and can use term colors
       eza.enable = false;
