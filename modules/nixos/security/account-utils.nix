@@ -8,7 +8,7 @@ let
   inherit (lib.modules) mkDefault;
 in
 {
-  systemd.settings.Manager.NoNewPrivileges = true;
+  # systemd.settings.Manager.NoNewPrivileges = true;
 
   security.account-utils.enable = true;
 
