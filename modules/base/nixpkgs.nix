@@ -17,7 +17,10 @@
     # But occasionally we need to install some anyway so we can predicated those
     # these are usually packages like electron because discord and others love
     # to take their sweet time updating it
-    permittedInsecurePackages = [ ];
+    permittedInsecurePackages = [
+      # TODO: remove when bluesky-pds updates
+      "pnpm-9.15.9"
+    ];
 
     # do not allow building packages for unsuppoted systems. they are
     # unsupported for a reason. it can also cause side effects with cuda
