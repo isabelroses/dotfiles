@@ -14,11 +14,11 @@
     ./immich.nix
     ./jellyfin.nix
     ./kanidm.nix
-    # ./buildbot.nix
     ./lego.nix
     ./mailserver.nix
     ./matrix.nix
     ./nginx.nix
+    # ./nixbot.nix
     ./nixpkgs-prs-bot.nix
     ./pds
     ./piper.nix
