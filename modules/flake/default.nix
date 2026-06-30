@@ -45,6 +45,8 @@ in
 
     athena = { };
 
+    freyja = { };
+
     isis = { };
 
     lilith = {
