@@ -62,8 +62,8 @@
                 "://twitter.com/" = "://vxtwitter.com/";
                 "://instagram.com/" = "://vxinstagram.com/";
                 "://www.instagram.com/" = "://vxinstagram.com/";
-                "://reddit.com/" = "://rxddit.com/";
-                "://www.reddit.com/" = "://rxddit.com/";
+                "://reddit.com/" = "://vxreddit.com/";
+                "://www.reddit.com/" = "://vxreddit.com/";
                 "://x.com/" = "://vxtwitter.com/";
               };
             };
