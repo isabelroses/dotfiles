@@ -1,32 +1,102 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, ... }:
 let
   inherit (lib.lists) concatLists;
-  inherit (lib.modules) mkIf;
   inherit (lib.strings) concatMapStrings enableFeature;
 
   features = en: features: "--${en}-features=" + (concatMapStrings (x: x + ",") features);
+
+  extension =
+    {
+      id,
+      version,
+      hash,
+    }:
+    {
+      inherit id version;
+      crxPath = pkgs.fetchurl {
+        name = "${id}.crx";
+        url = "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=149&x=id%3D${id}%26installsource%3Dondemand%26uc";
+        inherit hash;
+      };
+    };
 in
 {
   programs.chromium = {
-    extensions = [
-      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-      "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
-      "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-      "aihndpeeoneojofmliffjknbegmipbim" # at://wormhole
-      "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
-      "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
-      "ndcooeababalnlpkfedmmbbbgkljhpjf" # scriptcat
-      "ephjcajbkgplkjmelpglennepbpmdpjg" # ff2mpv
-      "kpmjjdhbcfebfjgdnpjagcndoelnidfj" # Control Panel for Twitter
-      "hlepfoohegkhhmjieoechaddaejaokhf" # refined github
+    extensions = map extension [
+      # uBlock Origin
+      {
+        id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
+        version = "1.72.0";
+        hash = "sha256-b18FKOXz5mGKbIMd5TvmXz95KQ7fTT44Qzk46xGCQ/I=";
+      }
+
+      # stylus
+      {
+        id = "clngdbkpkpeebahjckkjfobafhncgmne";
+        version = "2.4.2";
+        hash = "sha256-3K3NCSJFyoY3Z5aEWNi2DWAucilJ3urHDuwSsev2Sv4=";
+      }
+
+      # Bitwarden
+      {
+        id = "nngceckbapebfimnlniiiahkandclblb";
+        version = "2026.6.0";
+        hash = "sha256-szBs8uPHBpgx4VAprSLOtD1XOAjUgecoAp6aJsvuT74=";
+      }
+
+      # at://wormhole
+      {
+        id = "aihndpeeoneojofmliffjknbegmipbim";
+        version = "1.1.0";
+        hash = "sha256-oR4q4U1R5GDjCkwwjZSMU0amR91+T1h76cpsjOxnGiM=";
+      }
+
+      # SponsorBlock
+      {
+        id = "mnjggcdmjocbbbhaepdhchncahnbgone";
+        version = "6.1.6";
+        hash = "sha256-VYf+K2qZRhAcoN3nxu/nanVcXuW21uY9/EjH9zbNtP8=";
+      }
+
+      # Volume Master
+      {
+        id = "jghecgabfgfdldnmbfkhmffcabddioke";
+        version = "2.4.0";
+        hash = "sha256-dSLS7Km/5gbb07xEYACAOs9EBfvbJGlqx4qwFkKV95U=";
+      }
+
+      # scriptcat
+      {
+        id = "ndcooeababalnlpkfedmmbbbgkljhpjf";
+        version = "1.4.0";
+        hash = "sha256-8YLHEQogwSB+EDKIFqJycj5JcGHhRZxLwxYMS22ZRZ0=";
+      }
+
+      # ff2mpv
+      {
+        id = "ephjcajbkgplkjmelpglennepbpmdpjg";
+        version = "6.0.0";
+        hash = "sha256-4VEwf3rqtobbOElIsYi1mIcIvFS3KXlpHYfs3d+AzGg=";
+      }
+
+      # Control Panel for Twitter
+      {
+        id = "kpmjjdhbcfebfjgdnpjagcndoelnidfj";
+        version = "4.22.5";
+        hash = "sha256-CmJoZ+5vsk/T8cTP0LE+oGs8EM5nlzrLWn2MzoEMldM=";
+      }
+
+      # refined github
+      {
+        id = "hlepfoohegkhhmjieoechaddaejaokhf";
+        version = "26.6.7";
+        hash = "sha256-Iht2QFqg3FixCfuX9fl4/SA9iXiK4x4t+vnlbS8Di1I=";
+      }
     ];
 
-    package = pkgs.chromium.override {
+    nativeMessagingHosts = [ pkgs.ff2mpv-rust ];
+
+    package = pkgs.ungoogled-chromium.override {
       enableWideVine = true;
 
       # https://github.com/secureblue/hardened-chromium
@@ -79,10 +149,6 @@ in
 
         # Security
         [
-          # Use strict extension verification
-          "--extension-content-verification=enforce_strict"
-          "--extensions-install-verification=enforce_strict"
-
           # Disable pings
           "--no-pings"
 
@@ -206,15 +272,5 @@ in
         ]
       ];
     };
-  };
-
-  xdg.configFile = mkIf (pkgs.stdenv.hostPlatform.isLinux && config.programs.chromium.enable) {
-    "chromium/NativeMessagingHosts/ff2mpv.json".source =
-      "${pkgs.ff2mpv-rust}/etc/chromium/native-messaging-hosts/ff2mpv.json";
-  };
-
-  home.file = mkIf pkgs.stdenv.hostPlatform.isDarwin {
-    "Library/Application Support/Chromium/NativeMessagingHosts/ff2mpv.json".source =
-      "${pkgs.ff2mpv-rust}/etc/chromium/native-messaging-hosts/ff2mpv.json";
   };
 }
