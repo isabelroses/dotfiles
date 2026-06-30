@@ -26,6 +26,9 @@ jobs:
       - name: Install Lix
         uses: ./.github/actions/install-lix
 
+      - name: Setup Cache
+        uses: Mic92/hestia@7ae4509d1c3cacd4a31b91d9ad308d74e0b5a053 # v1.0.2
+
       - name: Build docs
         run: nix build .#docs
 
