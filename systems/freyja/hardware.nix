@@ -13,6 +13,11 @@
         "dmask=0022"
       ];
     };
+
+    "/media" = {
+      device = "/dev/disk/by-uuid/65d0801f-b72b-4a8f-84bf-115a5a4839ef";
+      fsType = "ext4";
+    };
   };
 
   swapDevices = [

@@ -1,3 +1,4 @@
+{ lib, ... }:
 {
   imports = [
     ./hardware.nix
@@ -18,5 +19,17 @@
     };
 
     system.boot.loader = "systemd-boot";
+
+    services = {
+      cloudflared.enable = true;
+      immich.enable = true;
+      arr.enable = true;
+      borgbackup = {
+        enable = true;
+        jobs.postgresql.enable = false;
+      };
+    };
   };
+
+  services.smartd.enable = lib.mkForce false;
 }
