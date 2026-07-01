@@ -72,7 +72,7 @@ in
             acceptedAudioCodecs = [
               "aac"
               "mp3"
-              "libopus"
+              "opus"
             ];
             acceptedContainers = [
               "mov"
@@ -170,7 +170,7 @@ in
               enabled = true;
               maxDistance = 0.5;
               minFaces = 3;
-              minScore = 0.65;
+              minScore = 0.7;
               modelName = "buffalo_l";
             };
 
