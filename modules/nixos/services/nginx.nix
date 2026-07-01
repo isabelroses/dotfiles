@@ -41,10 +41,16 @@ in
     (mkIf cfg.enable {
       users.users.nginx.extraGroups = [ "acme" ];
 
-      networking.firewall.allowedTCPPorts = [
-        80
-        443
-      ];
+      networking.firewall = {
+        allowedTCPPorts = [
+          80
+          443
+        ];
+        allowedUDPPorts = [
+          80
+          443
+        ];
+      };
 
       services.nginx = {
         enable = true;
