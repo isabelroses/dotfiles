@@ -47,6 +47,8 @@ in
         identityFile = secrets.keys-codeberg.path;
       };
 
+      "freyja".hostname = "192.168.86.4";
+
       "git.auxolotl.org" = {
         user = "forgejo";
         hostname = "git.auxolotl.org";
@@ -81,7 +83,7 @@ in
         identityFile = secrets.keys-tangled.path;
       };
 
-      "tatsumaki".hostname = "192.168.1.217";
+      "tatsumaki".hostname = "192.168.86.5";
       # keep-sorted end
     };
   };
