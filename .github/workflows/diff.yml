@@ -1,7 +1,12 @@
-name: Lix Diff
+name: Diff Changes
 
 on:
   pull_request:
+    paths:
+      - "flake.lock"
+      - "modules/**/*"
+      - "systems/**/*"
+      - "home/**/*"
 
 permissions: {}
 
