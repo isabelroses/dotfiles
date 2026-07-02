@@ -5,7 +5,7 @@ on:
   push:
     paths:
       - "**.nix"
-      - "**.lock"
+      - "flake.lock"
       - ".github/workflows/check.yml"
       - ".github/actions/**/*"
 
