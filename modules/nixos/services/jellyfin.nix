@@ -28,6 +28,28 @@ in
         dataDir = "/srv/storage/jellyfin";
         group = "media";
         inherit (config.garden.services.arr) openFirewall;
+
+        hardwareAcceleration = {
+          enable = true;
+          type = "nvenc";
+          device = "/dev/dri/renderD128";
+        };
+
+        transcoding = {
+          hardwareDecodingCodecs = {
+            h264 = true;
+            hevc = true;
+            hevc10bit = true;
+            hevcRExt10bit = true;
+            hevcRExt12bit = true;
+            mpeg2 = true;
+            vc1 = true;
+            vp8 = true;
+            vp9 = true;
+          };
+
+          hardwareEncodingCodecs.hevc = true;
+        };
       };
 
       cloudflared.tunnels.${config.networking.hostName} = {
