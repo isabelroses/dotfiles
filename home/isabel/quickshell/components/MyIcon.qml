@@ -1,4 +1,3 @@
-import org.kde.kirigami
 import QtQuick
 import QtQuick.Effects
 import Quickshell
@@ -15,14 +14,16 @@ Item {
     implicitWidth: size
     implicitHeight: size
 
-    Icon {
+    IconImage {
         id: iconSource
         anchors.fill: parent
         source: Quickshell.iconPath(root.icon)
 
-        isMask: true
-        // FIXME:
-        // color: Settings.colors.foreground
-        color: invert ? "#1e1e2e" : "#cdd6f4"
+        layer.enabled: true
+        layer.effect: MultiEffect {
+            brightness: 1.0
+            colorization: 1.0
+            colorizationColor: root.invert ? "#1e1e2e" : "#cdd6f4"
+        }
     }
 }
