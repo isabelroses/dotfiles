@@ -52,13 +52,13 @@ deployer-all goal:
     set -euo pipefail
 
     just deployer minerva {{ goal }}
-    just deployer athena {{ goal }}
+    just deployer frejya {{ goal }}
     just deployer aphrodite {{ goal }}
     just deployer skadi {{ goal }}
     just deployer isis {{ goal }}
 
     lethe diff minerva
-    lethe diff athena
+    lethe diff frejya
     lethe diff aphrodite
     lethe diff skadi
     lethe diff isis

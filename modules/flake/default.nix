@@ -43,8 +43,6 @@ in
 
     aphrodite = { };
 
-    athena = { };
-
     freyja = { };
 
     isis = { };
