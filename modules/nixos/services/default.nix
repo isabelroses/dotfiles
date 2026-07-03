@@ -4,7 +4,6 @@
     ./akkoma
     ./anubis.nix
     ./arr.nix
-    ./attic.nix
     ./atuin.nix
     ./blahaj.nix
     ./borgbackup.nix
