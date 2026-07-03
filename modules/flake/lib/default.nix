@@ -10,7 +10,6 @@ lib.fixedPoints.makeExtensible (final: {
   mkHost = import ./mkhost.nix { inherit inputs lib; };
   secrets = import ./secrets.nix { inherit inputs; };
   services = import ./services.nix { inherit lib; };
-  template = import ./template; # templates, selections of code that are repeated
   validators = import ./validators.nix { inherit lib; };
   # keep-sorted end
 

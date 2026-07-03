@@ -1,3 +1,0 @@
-{
-  xdg = import ./xdg.nix;
-}

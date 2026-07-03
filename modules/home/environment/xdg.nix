@@ -1,16 +1,12 @@
 {
   lib,
   pkgs,
-  self,
   config,
   ...
 }:
 let
   inherit (lib.modules) mkForce;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-
-  template = self.lib.template.xdg;
-  vars = template.user config.xdg;
 
   appsToAssoc = {
     browser = {
@@ -78,6 +74,8 @@ let
   };
 
   associations = associations' // specifics;
+
+  cfg = config.xdg;
 in
 {
   home.preferXdgDirectories = true;
@@ -120,12 +118,84 @@ in
     portal.enable = lib.mkForce false;
   };
 
-  home.sessionVariables = vars // {
-    GNUPGHOME = mkForce vars.GNUPGHOME;
+  # You can generate something like this using xdg-ninja
+  home.sessionVariables = {
+    # desktop
+    KDEHOME = "${cfg.configHome}/kde";
+    XCOMPOSECACHE = "${cfg.cacheHome}/X11/xcompose";
+    ERRFILE = "${cfg.cacheHome}/X11/xsession-errors";
+    WINEPREFIX = "${cfg.dataHome}/wine";
+
+    # programs
+    GNUPGHOME = mkForce "${cfg.dataHome}/gnupg";
+    LESSHISTFILE = "${cfg.dataHome}/less/history";
+    CUDA_CACHE_PATH = "${cfg.cacheHome}/nv";
+    STEPPATH = "${cfg.dataHome}/step";
+    WAKATIME_HOME = "${cfg.configHome}/wakatime";
+    INPUTRC = "${cfg.configHome}/readline/inputrc";
+    PLATFORMIO_CORE_DIR = "${cfg.dataHome}/platformio";
+    DOTNET_CLI_HOME = "${cfg.dataHome}/dotnet";
+    MPLAYER_HOME = "${cfg.configHome}/mplayer";
+    SQLITE_HISTORY = "${cfg.cacheHome}/sqlite_history";
+
+    # programming
+    ANDROID_HOME = "${cfg.dataHome}/android";
+    ANDROID_USER_HOME = "${cfg.dataHome}/android";
+    GRADLE_USER_HOME = "${cfg.dataHome}/gradle";
+    IPYTHONDIR = "${cfg.configHome}/ipython";
+    JUPYTER_CONFIG_DIR = "${cfg.configHome}/jupyter";
+    GOPATH = "${cfg.dataHome}/go";
+    GOMODCACHE = "${cfg.cacheHome}/go/pkg/mod";
+    M2_HOME = "${cfg.dataHome}/m2";
+    CARGO_HOME = "${cfg.dataHome}/cargo";
+    RUSTUP_HOME = "${cfg.dataHome}/rustup";
+    STACK_ROOT = "${cfg.dataHome}/stack";
+    STACK_XDG = 1;
+    NODE_REPL_HISTORY = "${cfg.dataHome}/node_repl_history";
+    NPM_CONFIG_CACHE = "${cfg.cacheHome}/npm";
+    NPM_CONFIG_TMP = "/run/user/$UID/npm";
+    NPM_CONFIG_USERCONFIG = "${cfg.configHome}/npm/config";
   };
 
   xdg.configFile = {
-    "npm/npmrc" = template.npmrc;
-    "python/pythonrc" = template.pythonrc;
+    "npm/npmrc".text = ''
+      prefix=''${cfg.dataHome}/npm
+      cache=''${cfg.cacheHome}/npm
+      init-module=''${cfg.configHome}/npm/config/npm-init.js
+    '';
+
+    "python/pythonrc".text = ''
+      import os
+      import atexit
+      import readline
+      from pathlib import Path
+
+      if readline.get_current_history_length() == 0:
+
+          state_home = os.environ.get("state")
+          if state_home is None:
+              state_home = Path.home() / ".local" / "state"
+          else:
+              state_home = Path(state_home)
+
+          history_path = state_home / "python_history"
+          if history_path.is_dir():
+              raise OSError(f"'{history_path}' cannot be a directory")
+
+          history = str(history_path)
+
+          try:
+              readline.read_history_file(history)
+          except OSError: # Non existent
+              pass
+
+          def write_history():
+              try:
+                  readline.write_history_file(history)
+              except OSError:
+                  pass
+
+          atexit.register(write_history)
+    '';
   };
 }
