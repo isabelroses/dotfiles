@@ -41,8 +41,6 @@ in
     # keep-sorted start block=yes newline_separated=yes
     amaterasu = { };
 
-    aphrodite = { };
-
     freyja = { };
 
     isis = { };

@@ -31,8 +31,6 @@ in
         identityFile = secrets.keys-amity.path;
       };
 
-      "aphrodite".hostname = "95.111.208.153";
-
       "aur.archlinux.org" = {
         user = "aur";
         hostname = "aur.archlinux.org";
