@@ -24,7 +24,7 @@ in
       XDG_BIN_HOME
       XDG_RUNTIME_DIR
       ;
-    PATH = [ "$bin" ];
+    PATH = [ "$XDG_BIN_HOME" ];
   };
 
   user =
