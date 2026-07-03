@@ -28,7 +28,7 @@
     system = {
       boot = {
         loader = "systemd-boot";
-        secureBoot = true;
+        # secureBoot = true;
       };
 
       bluetooth.enable = true;
