@@ -11,20 +11,16 @@ in
   sops = {
     secrets.env = { };
 
-    templates.fish-env = {
-      content = ''
-        function setup_secrets_vars;
-          if [ -n "$__SECRETS_SOURCED" ]
-            return
-          end
-          set -gx __SECRETS_SOURCED '1'
-          ${config.sops.placeholder.env}
+    templates.fish-env.content = ''
+      function setup_secrets_vars;
+        if [ -n "$__SECRETS_SOURCED" ]
+          return
         end
-        setup_secrets_vars
-      '';
-
-      path = "${config.home.homeDirectory}/.config/fish/conf.d/sops-env.fish";
-    };
+        set -gx __SECRETS_SOURCED '1'
+        ${config.sops.placeholder.env}
+      end
+      setup_secrets_vars
+    '';
   };
 
   programs.fish = {
@@ -54,7 +50,7 @@ in
     };
 
     loginShellInit = optionalString pkgs.stdenv.hostPlatform.isDarwin ''
-      fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin 
+      fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /run/current-system/sw/bin /nix/var/nix/profiles/default/bin
     '';
 
     shellInit = ''
@@ -63,6 +59,8 @@ in
       set -g theme_display_date no
       set -g theme_nerd_fonts yes
       set -g theme_newline_cursor yes
+
+      source ${config.sops.templates.fish-env.path}
     '';
   };
 }
