@@ -50,12 +50,13 @@ in
             src = pkgs.fetchFromGitHub {
               owner = "maralorn";
               repo = "nix-output-monitor";
-              rev = "71963f8de25875a4c03f2a0b61c658fa4eb2ce07";
-              hash = "sha256-5TZiccmY/UmKVunO6x9AhBUKltDheXtCWmpY/OUaArQ=";
+              rev = "e22c16dab4a203a53efe311f0161e82a37e5dbf7";
+              hash = "sha256-lCzWt0eafug0ZKITSxJnVLrmI4Cr22I8g4zgsetiLtc=";
             };
 
             propagatedBuildInputs = (oa.nix-output-monitor.propagatedBuildInputs or [ ]) ++ [
               pkgs.haskellPackages.fsnotify
+              pkgs.haskellPackages.doctest-parallel
             ];
           });
     })
