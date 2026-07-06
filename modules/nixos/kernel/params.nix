@@ -70,8 +70,11 @@ in
     # auto means kernel will automatically decide the pti state
     "pti=auto" # on || off
 
-    # disable the intel_idle (it stinks anyway) driver and use acpi_idle instead
-    "idle=nomwait"
+    # NOTE: do NOT add "idle=nomwait" here. It disables MWAIT, which forces the
+    # kernel off intel_idle onto acpi_idle, whose coarse ACPI C-states have huge
+    # exit latencies (~1ms C3 on Alder Lake). That wakeup latency causes audio
+    # xruns (crackle) and network stalls at idle. intel_idle gives fine-grained,
+    # low-latency C-states and is the correct driver on modern Intel.
 
     # enable IOMMU for devices used in passthrough and provide better host performance
     "iommu=pt"
