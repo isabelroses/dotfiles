@@ -42,7 +42,13 @@
           moonbase = true;
           nativeFixes = {
             enabled = pkgs.stdenv.hostPlatform.isLinux;
-            config.vaapiIgnoreDriverChecks = true;
+            config = {
+              vaapiIgnoreDriverChecks = true;
+              vaapiNvidia = true;
+              linuxAutoscroll = true;
+              zeroCopy = true;
+              ignoreGpuBlocklist = true;
+            };
           };
           noHideToken = true;
           noReplyChainNag = true;
