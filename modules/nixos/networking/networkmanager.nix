@@ -29,7 +29,8 @@ in
     wifi = {
       # this can be iwd or wpa_supplicant
       backend = "iwd";
-      powersave = true;
+
+      powersave = config.garden.profiles.laptop.enable;
 
       # The below is disabled as my uni hated me for it
       # use a random mac address on every boot, this can scew with static ip
