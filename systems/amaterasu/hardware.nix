@@ -18,12 +18,4 @@
   swapDevices = [
     { device = "/dev/disk/by-uuid/55606623-362b-4c53-a9da-26ea202aff23"; }
   ];
-
-  # https://bbs.archlinux.org/viewtopic.php?id=287947
-  boot.kernelParams = [
-    "rtw89_core.disable_ps_mode=1"
-    "rtw89_pci.disable_aspm_l1=1"
-    "rtw89_pci.disable_aspm_l1ss=1"
-    "rtw89_pci.disable_clkreq=1"
-  ];
 }
