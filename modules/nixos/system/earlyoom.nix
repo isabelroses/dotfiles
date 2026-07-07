@@ -27,7 +27,6 @@ let
     "zsh"
     "fish"
     "n?vim"
-    "akkoma"
   ];
 
   prefer = concatStringsSep "|" [

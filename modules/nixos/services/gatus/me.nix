@@ -58,11 +58,6 @@
 
   # social
   {
-    name = "akkoma";
-    group = "social";
-    url = "https://akko.isabelroses.com/api/v1/instance";
-  }
-  {
     name = "matrix";
     group = "social";
     url = "https://matrix.isabelroses.com/_matrix/client/versions";

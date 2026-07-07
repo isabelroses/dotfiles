@@ -40,10 +40,8 @@
       wakapi.enable = true;
 
       # social
-      akkoma.enable = true;
       nixpkgs-prs-bot = {
         enable = true;
-        fedi.enable = true;
         bsky.enable = true;
       };
       matrix.enable = true;
