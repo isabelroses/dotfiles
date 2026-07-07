@@ -6,18 +6,14 @@
   self,
 }:
 let
-  inherit (lib.attrsets) foldlAttrs;
-  inherit (lib.lists) filter length;
+  inherit (lib.attrsets) attrNames;
+  inherit (lib.lists) filter length groupBy;
   inherit (lib.strings) concatMapStringsSep concatStringsSep;
 
+  services = self.nixosConfigurations.amaterasu.config.garden.services;
+
   # build {"3000" = ["pds" "kittr"]; "0" = [ ... ]; ...} in a single pass.
-  portsToServices = foldlAttrs (
-    acc: name: srv:
-    let
-      port = toString (srv.port or 0);
-    in
-    acc // { ${port} = (acc.${port} or [ ]) ++ [ name ]; }
-  ) { } self.nixosConfigurations.amaterasu.config.garden.services;
+  portsToServices = groupBy (name: toString (services.${name}.port or 0)) (attrNames services);
 
   # "0" is the catch all for services that don't bind a port; we will drop it
   # before checking for collisions.

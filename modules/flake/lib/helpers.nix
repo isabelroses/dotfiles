@@ -122,7 +122,7 @@ let
     }
     ```
   */
-  mkPubs = host: keys: lib.foldl' (acc: key: acc // mkPub host key) { } keys;
+  mkPubs = host: keys: lib.attrsets.mergeAttrsList (map (mkPub host) keys);
 in
 {
   inherit
