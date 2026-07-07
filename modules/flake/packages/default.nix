@@ -1,7 +1,7 @@
 # I would highly advise you do not use my flake as an input and instead you vendor this
 # if you want to use this code.
 { pkgs, inputs, ... }:
-builtins.removeAttrs (pkgs.lib.makeScope pkgs.newScope (self: {
+removeAttrs (pkgs.lib.makeScope pkgs.newScope (self: {
   inherit inputs;
 
   # keep-sorted start block=yes newline_separated=yes
