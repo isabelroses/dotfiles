@@ -1,23 +1,12 @@
 {
-  lib,
-  pkgs,
   config,
   inputs,
-  options,
   osClass,
   osConfig,
   ...
 }:
 let
   isGui = osClass == "nixos" && config.garden.profiles.graphical.enable;
-
-  oled = {
-    mocha = {
-      base = "000000";
-      mantle = "010101";
-      crust = "020202";
-    };
-  };
 in
 {
   imports = [ inputs.catppuccin.homeModules.catppuccin ];
@@ -30,27 +19,7 @@ in
       flavor = "mocha";
       accent = "pink";
 
-      sources =
-        if (osConfig ? "catppuccin") then
-          osConfig.catppuccin.sources
-        else
-          (options.catppuccin.sources.default.overrideScope (
-            _: _: {
-              whiskers = pkgs.symlinkJoin {
-                name = "whiskers-wrapped";
-
-                paths = [ pkgs.catppuccin-whiskers ];
-                nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
-
-                postBuild = ''
-                  wrapProgram $out/bin/whiskers \
-                    --add-flag ${lib.escapeShellArg "--color-overrides=${builtins.toJSON oled}"}
-                '';
-
-                meta.mainProgram = "whiskers";
-              };
-            }
-          ));
+      sources = osConfig.catppuccin.sources;
 
       cursors = {
         enable = isGui;
