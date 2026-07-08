@@ -62,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783389114,
-        "narHash": "sha256-pZiPtmULFwOr/Wk+4R00rZ0W1CNiHgtaXLA0W6z1Z+g=",
+        "lastModified": 1783473904,
+        "narHash": "sha256-X8tk/7MkZXl0t8RNbNXHA5TOF/0F+B2kzSPq38VCtfk=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "4a6b0aaf488809955c0172e27f38279e6a67a30c",
+        "rev": "2f097d7999e0a8b301b1623c3a6f8016dda6f021",
         "type": "github"
       },
       "original": {
@@ -142,11 +142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783391495,
-        "narHash": "sha256-+fuWfVGEQqErRAOVMf4La6TPRmeTyhcdA6GPgSTgZj4=",
+        "lastModified": 1783476347,
+        "narHash": "sha256-XeJZREHCp3nAspN5rigiiJATufipghy85EeG0qYcXw4=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "a84b1adcd197f1eda6bd07c16128eea64d25d073",
+        "rev": "013a70297c05bc40c83a0817dbef1ed0c0a1ed75",
         "type": "github"
       },
       "original": {
@@ -186,11 +186,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1783187991,
-        "narHash": "sha256-qGYEthfxqPeGfEkcJzZv98cX3+8Mg29PZDfZEhZ+Byg=",
+        "lastModified": 1783456399,
+        "narHash": "sha256-fB2qDgwWldQpS6TGgfKb7yVKSPsiV1NS8RdrdJ3vWUg=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "0368b35d4677854d897951d35b0bfd3649664383",
+        "rev": "202d6ad36b8bc024bb7ead06aaf1ba018be28c41",
         "type": "github"
       },
       "original": {
