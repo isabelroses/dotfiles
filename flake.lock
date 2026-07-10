@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783545128,
-        "narHash": "sha256-APzF91kOgKOHwx/KRu7710A8MYihVtKmUbjK5dAIltc=",
+        "lastModified": 1783587400,
+        "narHash": "sha256-UEZ8LIavX5HFjtvSkj34ZBM30cWNpqJfXujm+B4rY1k=",
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "28731a367cfd8fb1eaec31d72bb75fee43971db4",
+        "rev": "b69e0494705aaf50cb2c6e0e005639b632044c6d",
         "type": "github"
       },
       "original": {
@@ -62,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783561535,
-        "narHash": "sha256-mqfz4rtBDBHhK9b28bWrgndc4cf5k1CI35wEEKbLDf8=",
+        "lastModified": 1783646993,
+        "narHash": "sha256-7/eyLDIHm6liesFc3MIrXN7umgcNV12Xlv0wklmPRgA=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "67a6a6bfa731e28775ab26edd16b1d46e4e7aac0",
+        "rev": "0871ca68471a1d4ee72542996eee5f624a8eab08",
         "type": "github"
       },
       "original": {
@@ -142,11 +142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783563858,
-        "narHash": "sha256-nirMbvLHrA8xzGLKWQmj2es6qmk/It8J6rTt3t8NsIc=",
+        "lastModified": 1783650312,
+        "narHash": "sha256-S7c/KoG3yNK/Vz1+4dpwB6MlX0lLmuv/3Qsk8hR/+M8=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "ff243ddc8dc139f5d5b7c04ddc617c70c205a557",
+        "rev": "aa517eb66b54ccf066d1b2b4b6bda0d121fe936b",
         "type": "github"
       },
       "original": {
@@ -259,11 +259,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783272034,
-        "narHash": "sha256-PFVI20RpmBCAjstjfzidH0UciHxZOWc1X6KW6NYAzwM=",
+        "lastModified": 1783626363,
+        "narHash": "sha256-QRuF6YabMrlQc4UXrq07uKO6y+Pnjlhy6ul5aKUu89M=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "c8babc10612312e344ddf16472a16a1906f0125c",
+        "rev": "d80b23bd88fc52cc107d455e7149a0112f289672",
         "type": "gitlab"
       },
       "original": {
