@@ -13,7 +13,7 @@
     # See also:
     # - https://nix.dev/manual/nix/stable/protocols/tarball-fetcher#lockable-http-tarball-protocol
     # - http://web.archive.org/web/20250806225139/https://nix.dev/manual/nix/2.28/protocols/tarball-fetcher#lockable-http-tarball-protocol
-    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
 
     # lix a good fork of nix, but also patched with my stuff
     # so really you want: https://git.lix.systems/lix-project/lix/archive/main.tar.gz
