@@ -142,11 +142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783735402,
-        "narHash": "sha256-1sp06yDb9buAYjTX9W51c8StGNluflMx0dGQXjgEYNQ=",
+        "lastModified": 1783822020,
+        "narHash": "sha256-O1F7oI30LKknm500qF4eoWR99nxz9AmD6oqT1sDfpwM=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "832a45389021af6a58ee2c1ea00a6dcb6ac6fd9c",
+        "rev": "630f8c0508aa2a229b592803bcdb0cbee8fb6f44",
         "type": "github"
       },
       "original": {
@@ -201,10 +201,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 315532800,
-        "narHash": "sha256-E/v/PHozqkEfjEy5iyvJJ+aQxgH+XV6hOjle67HQ+P4=",
+        "lastModified": 1783791668,
+        "narHash": "sha256-MMD52/T3QOqSB2V1UZgp4dw0pa4P89YEP5SbM2xuwa0=",
+        "rev": "716c7a2664ca8325617b8a7fbb609273f2c4cae7",
         "type": "tarball",
-        "url": "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1032970.716c7a2664ca/nixexprs.tar.zst?lastModified=1783791668&rev=716c7a2664ca8325617b8a7fbb609273f2c4cae7"
       },
       "original": {
         "type": "tarball",
