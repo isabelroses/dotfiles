@@ -4,7 +4,6 @@
     ./earlyoom.nix
     ./firmware.nix
     ./flatpak.nix
-    ./gnome.nix
     ./location.nix
     ./loginManager.nix
     ./logind.nix

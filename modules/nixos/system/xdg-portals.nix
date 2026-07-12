@@ -18,7 +18,7 @@ in
       common = {
         default = [ "gtk" ];
 
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+        "org.freedesktop.impl.portal.Secret" = [ "oo7-portal" ];
       };
     };
 

@@ -9,12 +9,16 @@ let
 in
 {
   config = mkIf config.garden.profiles.graphical.enable {
-    programs = {
-      # we need dconf to interact with gtk
-      dconf.enable = true;
+    # we need dconf to interact with gtk
+    programs.dconf.enable = true;
 
-      # gnome's keyring manager
-      seahorse.enable = true;
+    services = {
+      # keyring manager
+      oo7.enable = true;
+
+      udev.packages = [ pkgs.gnome-settings-daemon ];
+
+      gnome.glib-networking.enable = true;
     };
 
     garden.packages = {
