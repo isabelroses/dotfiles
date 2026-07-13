@@ -62,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783846701,
-        "narHash": "sha256-hvNbrQouJKPM0L0YNhEk0ERmsYuabhVh3jyicFlKX1w=",
+        "lastModified": 1783905922,
+        "narHash": "sha256-oWguvpz5XqW5IyPniLjVhR52+XnZwRra3aF+F9bGjhE=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "ccdddf7b1587e5797ee4f8b1513551d647c938f6",
+        "rev": "bc4294c59eb5d6b37f01fd4db0f1b1a237f28d78",
         "type": "github"
       },
       "original": {
@@ -122,11 +122,11 @@
         "brew-src": []
       },
       "locked": {
-        "lastModified": 1781389246,
-        "narHash": "sha256-ORqLAo/hoJdsZC7UPAuEHev6S0+XIqKEC7vjo5prz1k=",
+        "lastModified": 1783875858,
+        "narHash": "sha256-+yYNOkj/bkVQmwKH0hewqwBwAEoh4Gq2BmQPIP1jNrg=",
         "owner": "zhaofengli",
         "repo": "nix-homebrew",
-        "rev": "de7953a08ed4bb9245be043e468561c17b89130d",
+        "rev": "60641da8324e6a1af716a0340d901ccb131c91ef",
         "type": "github"
       },
       "original": {
@@ -142,11 +142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783822020,
-        "narHash": "sha256-O1F7oI30LKknm500qF4eoWR99nxz9AmD6oqT1sDfpwM=",
+        "lastModified": 1783908510,
+        "narHash": "sha256-E47GdfcvilOeIIyhGU9GD7nvTMfzLeND7FX21B/9hBo=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "630f8c0508aa2a229b592803bcdb0cbee8fb6f44",
+        "rev": "61e9607051c131a0c87967a69c938e2d9bbb404d",
         "type": "github"
       },
       "original": {
