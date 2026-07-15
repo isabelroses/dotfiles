@@ -150,7 +150,7 @@ in
           loop-playlist = "inf";
         };
 
-        # good refrences for mpv config:
+        # good references for mpv config:
         # <https://github.com/Tsubajashi/mpv-settings>
         video = {
           profile-cond = "p[\"current-tracks/video\"] and not p[\"current-tracks/video\"].image";

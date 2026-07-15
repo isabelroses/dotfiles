@@ -43,7 +43,7 @@ in
       # <https://github.com/maralorn/nix-output-monitor/issues/230>
       nix-output-monitor =
         if lib.versionAtLeast pkgs.nix-output-monitor.version "2.1.9" then
-          throw "time to update nix-output-monitor. also rember to change the shell.nix"
+          throw "time to update nix-output-monitor. also remember to change the shell.nix"
         else
           pkgs.nix-output-monitor.overrideAttrs (oa: {
             version = "2.1.9-unstable";

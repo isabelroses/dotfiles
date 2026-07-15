@@ -120,7 +120,7 @@ in
         # content addressable store paths created by git's hashing algo
         "git-hashing"
 
-        # the pipe-operator from lix is but with a diffrent name lol
+        # the pipe-operator from lix is but with a different name lol
         "pipe-operators"
       ];
 

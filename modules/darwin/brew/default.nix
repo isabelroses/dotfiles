@@ -52,7 +52,7 @@
     # are not managed by nix, and not reproducible! But with the use
     # of nix-homebrew, we can manage these apps with nix.
     #
-    # for "legeacy reasons" you may want to remove nix-homebrew and
+    # for "legacy reasons" you may want to remove nix-homebrew and
     # need to install homebrew manually, see https://brew.sh
     homebrew = {
       enable = true;

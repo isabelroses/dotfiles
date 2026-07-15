@@ -127,7 +127,7 @@ treefmt.withConfig {
 
       typos = {
         command = "typos";
-        options = [ "--fix" ];
+        options = [ "--write-changes" ];
         includes = [
           "*.nix"
           "*.md"

@@ -1,4 +1,4 @@
-# this file is used to enable or disable shell intergrations based on the shell itself
+# this file is used to enable or disable shell integrations based on the shell itself
 { config, ... }:
 {
   home.shell = {

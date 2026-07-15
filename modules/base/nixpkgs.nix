@@ -22,7 +22,7 @@
       "pnpm-9.15.9"
     ];
 
-    # do not allow building packages for unsuppoted systems. they are
+    # do not allow building packages for unsupported systems. they are
     # unsupported for a reason. it can also cause side effects with cuda
     # packages
     allowUnsupportedSystem = false;

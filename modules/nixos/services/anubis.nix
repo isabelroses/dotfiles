@@ -14,7 +14,7 @@ in
   options.garden.services.anubis = mkServiceOption "anubis" { };
 
   config = mkIf cfg.enable {
-    # add anubis to the nginx group, such that it can use unix sockets and TCP or somethng like that
+    # add anubis to the nginx group, such that it can use unix sockets and TCP or something like that
     # see <https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/networking/anubis.md>
     users.users.nginx.extraGroups = [ config.users.groups.anubis.name ];
   };

@@ -71,7 +71,7 @@
     # awesome stuff from
     # https://github.com/NixOS/nixpkgs/pull/391473/
     #
-    # Mitigate some TOCTOU vulnerabilites
+    # Mitigate some TOCTOU vulnerabilities
     # cf. https://www.kernel.org/doc/Documentation/admin-guide/sysctl/fs.rst
     #
     # Don’t allow O_CREAT open on FIFOs not owned by the user in world‐ or

@@ -51,7 +51,7 @@ in
         inherit (cfg) port host;
         openFirewall = true;
 
-        # give it acess to all hardware devices
+        # give it access to all hardware devices
         accelerationDevices = null;
 
         # where to store our media

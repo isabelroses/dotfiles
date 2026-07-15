@@ -33,7 +33,7 @@ in
       powersave = config.garden.profiles.laptop.enable;
 
       # The below is disabled as my uni hated me for it
-      # use a random mac address on every boot, this can scew with static ip
+      # use a random mac address on every boot, this can skew with static ip
       # macAddress = "random";
 
       # MAC address randomization of a Wi-Fi device during scanning

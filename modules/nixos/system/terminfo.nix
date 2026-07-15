@@ -1,4 +1,4 @@
-# put terminfo onto our servers so the ssh experince is better
+# put terminfo onto our servers so the ssh experience is better
 {
   lib,
   pkgs,

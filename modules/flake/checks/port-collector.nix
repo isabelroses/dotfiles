@@ -17,7 +17,7 @@ let
 
   # "0" is the catch all for services that don't bind a port; we will drop it
   # before checking for collisions.
-  collissions = filter (srvList: length srvList > 1) (
+  collisions = filter (srvList: length srvList > 1) (
     builtins.attrValues (removeAttrs portsToServices [ "0" ])
   );
 in
@@ -26,9 +26,9 @@ runCommandLocal "port-collector"
     __structuredAttrs = true;
   }
   ''
-    if [ ${toString (collissions != [ ])} ]; then
+    if [ ${toString (collisions != [ ])} ]; then
       echo "Port collisions detected between services ${
-        concatMapStringsSep ", " (s: concatStringsSep " and " s) collissions
+        concatMapStringsSep ", " (s: concatStringsSep " and " s) collisions
       }"
       exit 1
     fi
