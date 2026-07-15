@@ -14,6 +14,6 @@ runCommandLocal "formatting-checks"
   }
   ''
     cd ${self}
-    treefmt --no-cache --fail-on-change
+    treefmt --ci
     touch $out
   ''
