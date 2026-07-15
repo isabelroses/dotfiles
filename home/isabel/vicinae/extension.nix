@@ -27,15 +27,15 @@ lib.extendMkDerivation {
               fetchFromGitHub {
                 owner = "vicinaehq";
                 repo = "extensions";
-                rev = "c7a8d7d2e3fa599922c4964a94315c55c9bfe80b";
-                hash = "sha256-M2hmGokQXbvoKUEvkgF2IIxOUGCF5v7bXyjPzpSQIJw=";
+                rev = "afb84fe4b5253777ff82db8e19e6cc0c9b7f811f";
+                hash = "sha256-Non+frT3WG0TN60zCq63m8+d7yNmCCMaI363kZaDmPM=";
               }
             else
               fetchFromGitHub {
                 owner = "raycast";
                 repo = "extensions";
-                rev = "b51d43359d1b3bde44046956bb53aecb7549c0da";
-                hash = "sha256-pSUiNWo8D/ZMEcivMR/uSUGHBpVTW3ITdKBlWf/GmtU=";
+                rev = "6b00026a230c116ca890b6e8c0b0a343cd6cbae7";
+                hash = "sha256-iqITYshrGABjaOWl6AKXuOznvPlfjQkZ3cvFFzthl9M=";
 
                 # littrally grind to a halt if we don't add this
                 sparseCheckout = [ "/extensions/${extName}" ];
@@ -45,7 +45,11 @@ lib.extendMkDerivation {
 
         dontNpmInstall = true;
         buildPhase = ''
-          npm run build -- -o=$out
+          runHook preBuild
+
+          npm run build -- -o "$out"
+
+          runHook postBuild
         '';
       };
 }

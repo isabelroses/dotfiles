@@ -16,15 +16,22 @@ in
     extensions = map mkMyVicinaeExt [
       {
         extName = "nix";
-        npmDepsHash = "sha256-HPWNUznCWVPz39PlPEBR7GpgbC0DuIAvVBdB2GAs47A=";
+        npmDepsHash = "sha256-TEyCCDjAtRYX2uH2TpLfe4/hTzyfMiyDhzVdyQXhEus=";
       }
       {
         extName = "wifi-commander";
-        npmDepsHash = "sha256-lP/M+r8Y6j15i8vOxZG75vHUnmVss2gX/5oWvPUft1Q=";
+        npmDepsHash = "sha256-jwqICwIlJPRV3UdFBtA5ltjR8dImPFtsOqda1MqPMY4=";
       }
       {
         extName = "bluetooth";
-        npmDepsHash = "sha256-WN8tMQIZKr1MjttcFX8ft623gElN0BY9uvEjUpPNjZQ=";
+        npmDepsHash = "sha256-F/vURwdEPwzZwlS4j0lGV8aN7VDGmdiV+WCy2vXN2Eo=";
+
+        # usocket 0.3.0 requires `debug` without declaring it as a
+        # dependency, so esbuild cannot resolve it; stub out the logger
+        preBuild = ''
+          substituteInPlace node_modules/usocket/index.js \
+            --replace-fail "var debug = require('debug')(\"usocket\");" "var debug = function () { };"
+        '';
       }
       {
         extName = "pdsls";
