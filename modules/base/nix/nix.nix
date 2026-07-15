@@ -8,8 +8,6 @@
 }:
 let
   inherit (lib.lists) optionals;
-
-  sudoers = if (_class == "nixos") then "@wheel" else "@admin";
 in
 {
   nix = {
@@ -48,7 +46,9 @@ in
       auto-optimise-store = true;
 
       # users or groups which are allowed to do anything with the Nix daemon
-      allowed-users = [ sudoers ];
+      # in the past trusted-users was also set but that's the same as adding a root
+      # user, so lets not do that!
+      allowed-users = [ (if (_class == "nixos") then "@wheel" else "@admin") ];
 
       # we don't want to track the registry, but we do want to allow the usage
       # of the `flake:` references, so we need to enable use-registries
