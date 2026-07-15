@@ -1,7 +1,13 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
-  inherit (lib.lists) concatLists;
-  inherit (lib.strings) concatMapStrings enableFeature;
+  inherit (lib.lists) concatLists head;
+  inherit (lib.strings) concatMapStrings enableFeature getVersion;
+  inherit (lib.versions) splitVersion;
 
   features = en: features: "--${en}-features=" + (concatMapStrings (x: x + ",") features);
 
@@ -15,7 +21,7 @@ let
       inherit id version;
       crxPath = pkgs.fetchurl {
         name = "${id}.crx";
-        url = "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=149&x=id%3D${id}%26installsource%3Dondemand%26uc";
+        url = "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${head (splitVersion (getVersion config.programs.chromium.package))}&x=id%3D${id}%26installsource%3Dondemand%26uc";
         inherit hash;
       };
     };
@@ -26,21 +32,21 @@ in
       # uBlock Origin
       {
         id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
-        version = "1.72.0";
-        hash = "sha256-b18FKOXz5mGKbIMd5TvmXz95KQ7fTT44Qzk46xGCQ/I=";
+        version = "1.72.2";
+        hash = "sha256-bgLY5tzlae7HIbUx+cfShAPlQmRCQX1ahVoX3SiLVvg=";
       }
 
       # stylus
       {
         id = "clngdbkpkpeebahjckkjfobafhncgmne";
-        version = "2.4.2";
-        hash = "sha256-3K3NCSJFyoY3Z5aEWNi2DWAucilJ3urHDuwSsev2Sv4=";
+        version = "2.4.5";
+        hash = "sha256-mST2glhYqJuYce1SDxnqHdSIaVsGJ/m5CTcE8Tlib2E=";
       }
 
       # Bitwarden
       {
         id = "nngceckbapebfimnlniiiahkandclblb";
-        version = "2026.6.0";
+        version = "2026.6.1";
         hash = "sha256-szBs8uPHBpgx4VAprSLOtD1XOAjUgecoAp6aJsvuT74=";
       }
 
@@ -82,15 +88,15 @@ in
       # Control Panel for Twitter
       {
         id = "kpmjjdhbcfebfjgdnpjagcndoelnidfj";
-        version = "4.22.5";
-        hash = "sha256-CmJoZ+5vsk/T8cTP0LE+oGs8EM5nlzrLWn2MzoEMldM=";
+        version = "4.23.0";
+        hash = "sha256-6H757aZJv1ArCN2qVMkn4WX9CFtE6CWfOzGggp1X1Cc=";
       }
 
       # refined github
       {
         id = "hlepfoohegkhhmjieoechaddaejaokhf";
-        version = "26.6.7";
-        hash = "sha256-Iht2QFqg3FixCfuX9fl4/SA9iXiK4x4t+vnlbS8Di1I=";
+        version = "26.7.12";
+        hash = "sha256-yoDSMpA/bdaGTS8FuF4ukHOyCeWYN/JNOqlU8IomiT4=";
       }
     ];
 
