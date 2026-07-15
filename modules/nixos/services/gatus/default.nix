@@ -71,7 +71,7 @@ in
 
         settings = {
           web = {
-            adress = cfg.host;
+            address = cfg.host;
             inherit (cfg) port;
           };
 

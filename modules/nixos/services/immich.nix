@@ -14,7 +14,6 @@ in
 {
   options.garden.services.immich = mkServiceOption "immich" {
     port = 3007;
-    host = "0.0.0.0";
     domain = "photos.${rdomain}";
   };
 

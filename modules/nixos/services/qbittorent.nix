@@ -12,10 +12,7 @@ let
   inherit (config.garden.services) arr;
 in
 {
-  options.garden.services.qbittorrent = mkServiceOption "qbittorrent" {
-    port = 3019;
-    host = "0.0.0.0";
-  };
+  options.garden.services.qbittorrent = mkServiceOption "qbittorrent" { port = 3019; };
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [
