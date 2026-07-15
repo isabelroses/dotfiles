@@ -1,0 +1,6 @@
+# https://github.com/crate-ci/typos/blob/master/docs/reference.md
+[default]
+locale = "en"
+
+[default.extend-words]
+muh = "muh" # lol

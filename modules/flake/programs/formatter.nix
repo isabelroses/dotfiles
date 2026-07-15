@@ -14,6 +14,7 @@
   statix,
   stylua,
   taplo,
+  typos,
   yamlfmt,
   zizmor,
   # keep-sorted end
@@ -31,6 +32,7 @@ treefmt.withConfig {
     statix
     stylua
     taplo
+    typos
     yamlfmt
     zizmor
     # keep-sorted end
@@ -121,6 +123,23 @@ treefmt.withConfig {
         command = "taplo";
         options = "format";
         includes = [ "*.toml" ];
+      };
+
+      typos = {
+        command = "typos";
+        options = [ "--fix" ];
+        includes = [
+          "*.nix"
+          "*.md"
+        ];
+        excludes = [
+          # weird option names
+          "home/isabel/discord.nix"
+          # colors
+          "modules/nixos/catppuccin.nix"
+          # driver name
+          "modules/nixos/hardware/gpu/nvidia.nix"
+        ];
       };
 
       yamlfmt = {
