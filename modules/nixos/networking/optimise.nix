@@ -89,7 +89,7 @@ in
         "net.ipv4.tcp_rmem" = "4096 1048576 2097152";
         "net.ipv4.tcp_wmem" = "4096 65536 16777216";
 
-        # http://www.nateware.com/linux-network-tuning-for-2013.html
+        # https://nateware.com/2013/04/06/linux-network-tuning-for-2013/
         "net.core.netdev_max_backlog" = 100000;
         "net.core.netdev_budget" = 100000;
         "net.core.netdev_budget_usecs" = 100000;

@@ -18,7 +18,7 @@ in
     # or rendered https://docs.lix.systems/manual/lix/nightly/release-notes/rl-next.html
     #
     # You cannot build nix.exe with lix, I don't really know who this affects but...
-    # https://akko.isabelroses.com/notice/AjMDXG28c8sLqhci0G
+    # https://bsky.app/profile/isabelroses.com/post/3likd3inbtc24
     #
     # NOTE: we are also using a specifically patched version
     package = inputs'.izlix.packages.lix;

@@ -41,16 +41,11 @@ in
           # <https://compare.hose.cam>
           firehose.crawlers = [
             "https://bsky.network"
-            "https://relay.cerulea.blue"
-            "https://relay.fire.hose.cam"
-            "https://relay2.fire.hose.cam"
-            "https://relay3.fr.hose.cam"
-            "https://relay.hayescmd.net"
-            "https://relay.xero.systems"
-            "https://relay.upcloud.world"
-            "https://relay.feeds.blue"
             "https://atproto.africa"
-            "https://relay.whey.party"
+            "https://relay1.us-east.bsky.network"
+            "https://relay.fire.hose.cam"
+            "https://relay3.fr.hose.cam"
+            "https://relay.feeds.blue"
           ];
         };
       };
