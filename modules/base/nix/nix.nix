@@ -110,7 +110,7 @@ in
         # allow usage of the pipe operator in nix expressions
         "pipe-operator"
 
-        # TODO: maybe read later. i deal too much with people who use ref nix
+        # TODO: maybe re-add later. i deal too much with people who use ref nix
         # allow nix to automatically coerce integers to strings
         # "coerce-integers"
       ]
