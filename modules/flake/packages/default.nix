@@ -16,5 +16,7 @@ removeAttrs (pkgs.lib.makeScope pkgs.newScope (self: {
   libdoc = self.callPackage ./docs/lib.nix { };
 
   optiondoc = self.callPackage ./docs/options.nix { };
+
+  update-pins = self.callPackage ./update-pins/package.nix { };
   # keep-sorted end
 })) [ "inputs" ]
