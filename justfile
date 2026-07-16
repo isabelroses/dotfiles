@@ -29,7 +29,7 @@ builder goal *args:
 deployer host goal *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    just builder {{ goal }} --target-host {{ host }} --use-substitutes {{ args }}
+    just builder {{ goal }} --target-host ssh-ng://{{ host }} --use-substitutes {{ args }}
     lethe record {{ host }}
 
 # deploy by switching the new system configuration
@@ -52,12 +52,12 @@ deployer-all goal:
     set -euo pipefail
 
     just deployer minerva {{ goal }}
-    just deployer frejya {{ goal }}
+    just deployer freyja {{ goal }}
     just deployer skadi {{ goal }}
     just deployer isis {{ goal }}
 
     lethe diff minerva
-    lethe diff frejya
+    lethe diff freyja
     lethe diff skadi
     lethe diff isis
 
