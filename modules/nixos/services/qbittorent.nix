@@ -63,9 +63,6 @@ in
 
           Core.AutoDeleteAddedTorrentFile = "IfAdded";
 
-          # i will handle this myself lol
-          Network.PortForwardingEnabled = false;
-
           Preferences.WebUI = {
             LocalHostAuth = false;
 
