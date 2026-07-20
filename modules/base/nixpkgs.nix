@@ -10,7 +10,7 @@
     # use pkgs.pkgsCuda
     # this list also does not include actually useful sets like pkgsi686Linux
     # however this can also break some packages from building
-    allowVariants = false;
+    allowVariants = true;
 
     # If a package is broken, I don't want it
     allowBroken = false;
