@@ -14,7 +14,7 @@
       sync_frequency = "5m";
 
       # stop eating the ?
-      ai.enable = false;
+      ai.enabled = false;
     };
   };
 }
