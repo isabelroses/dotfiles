@@ -1,6 +1,7 @@
 {
   lib,
   self,
+  pkgs,
   config,
   ...
 }:
@@ -51,8 +52,28 @@ in
         inherit (cfg) port host;
         openFirewall = true;
 
+        # it kept trying to run on GPU and erroring out
+        # https://github.com/NixOS/nixpkgs/pull/516980
+        package = pkgs.immich.overrideAttrs (prev: {
+          passthru = prev.passthru // {
+            machine-learning = pkgs.immich-machine-learning.override {
+              python3 = pkgs.python3.override {
+                packageOverrides = _: pyPrev: {
+                  onnxruntime = pyPrev.onnxruntime.override {
+                    onnxruntime = pkgs.onnxruntime.override {
+                      cudaSupport = true;
+                    };
+                  };
+                };
+              };
+            };
+          };
+        });
+
         # give it access to all hardware devices
         accelerationDevices = null;
+
+        machine-learning.environment.DEVICE = "cuda";
 
         # where to store our media
         mediaLocation = "/srv/storage/immich";
