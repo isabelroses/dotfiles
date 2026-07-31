@@ -46,8 +46,8 @@ in
       # Bitwarden
       {
         id = "nngceckbapebfimnlniiiahkandclblb";
-        version = "2026.6.1";
-        hash = "sha256-szBs8uPHBpgx4VAprSLOtD1XOAjUgecoAp6aJsvuT74=";
+        version = "2026.7.0";
+        hash = "sha256-PwXLkgGS9YjvBRUHgwiEtqiXkXmWngv3xA4Boqj9f74=";
       }
 
       # at://wormhole
@@ -95,8 +95,8 @@ in
       # refined github
       {
         id = "hlepfoohegkhhmjieoechaddaejaokhf";
-        version = "26.7.12";
-        hash = "sha256-yoDSMpA/bdaGTS8FuF4ukHOyCeWYN/JNOqlU8IomiT4=";
+        version = "26.7.26";
+        hash = "sha256-G0ht0WUH+I5e7UJHbw9NvTKvV77rNjP8ox9PKbvJMYI=";
       }
     ];
 
