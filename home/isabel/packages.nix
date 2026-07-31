@@ -22,7 +22,7 @@ in
         # gum # a nicer scripting
         jq # json parser
         just # cool build tool
-        # nix-output-monitor # much nicer nix build output
+        nix-output-monitor # much nicer nix build output
         unzip
         wakatime-cli
         yq # yaml parser
@@ -37,28 +37,6 @@ in
       izvim = inputs'.izvim.packages.izvim.override {
         inherit (inputs'.izlix.packages) nil;
       };
-
-      # nom >= 2.1.7 breaks with lix so lets just use an older version for now.
-      # also add a warning to eventually force me to fix this instead of forgetting
-      # <https://github.com/maralorn/nix-output-monitor/issues/230>
-      nix-output-monitor =
-        if lib.versionAtLeast pkgs.nix-output-monitor.version "2.1.9" then
-          throw "time to update nix-output-monitor. also remember to change the shell.nix"
-        else
-          pkgs.nix-output-monitor.overrideAttrs (oa: {
-            version = "2.1.9-unstable";
-            src = pkgs.fetchFromGitHub {
-              owner = "maralorn";
-              repo = "nix-output-monitor";
-              rev = "e22c16dab4a203a53efe311f0161e82a37e5dbf7";
-              hash = "sha256-lCzWt0eafug0ZKITSxJnVLrmI4Cr22I8g4zgsetiLtc=";
-            };
-
-            propagatedBuildInputs = (oa.nix-output-monitor.propagatedBuildInputs or [ ]) ++ [
-              pkgs.haskellPackages.fsnotify
-              pkgs.haskellPackages.doctest-parallel
-            ];
-          });
     })
 
     # (optionalAttrs cfg.graphical.enable {
