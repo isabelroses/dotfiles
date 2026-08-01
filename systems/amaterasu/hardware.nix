@@ -19,5 +19,11 @@
     { device = "/dev/disk/by-uuid/55606623-362b-4c53-a9da-26ea202aff23"; }
   ];
 
-  boot.kernelModules = [ "rtw89_8852ce" ];
+  # https://bbs.archlinux.org/viewtopic.php?id=287947
+  boot.kernelParams = [
+    "rtw89_core.disable_ps_mode=Y"
+    "rtw89_pci.disable_clkreq=Y"
+    "rtw89_pci.disable_aspm_l1=Y"
+    "rtw89_pci.disable_aspm_l1ss=Y"
+  ];
 }
