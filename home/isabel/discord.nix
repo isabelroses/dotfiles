@@ -48,6 +48,7 @@
               linuxAutoscroll = true;
               zeroCopy = true;
               ignoreGpuBlocklist = true;
+              waylandExplicitSync = true;
             };
           };
           noHideToken = true;
