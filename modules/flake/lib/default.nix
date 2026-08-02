@@ -5,7 +5,6 @@
 
 lib.fixedPoints.makeExtensible (final: {
   # keep-sorted start block=yes
-  hardware = import ./hardware.nix;
   helpers = import ./helpers.nix { inherit lib; };
   mkHost = import ./mkhost.nix { inherit inputs lib; };
   secrets = import ./secrets.nix { inherit inputs; };
@@ -14,9 +13,8 @@ lib.fixedPoints.makeExtensible (final: {
   # keep-sorted end
 
   # we have to rexport the functions we want to use, but don't want to refer to the whole lib
-  # "path". e.g. gardenLib.hardware.isx86Linux can be shortened to gardenLib.isx86Linux
+  # "path". e.g. gardenLib.helpers.giturl can be shortened to gardenLib.giturl
   # NOTE: never rexport templates
-  inherit (final.hardware) isx86Linux;
   inherit (final.helpers) mkPubs giturl;
   inherit (final.secrets) mkSecret;
   inherit (final.services) mkServiceOption;
