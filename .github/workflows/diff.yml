@@ -48,8 +48,8 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Run lix-diff
-        uses: isabelroses/lix-diff-action@c42ea4830ba0ab4061a847e974817f25d0ce8389 # main
+      - name: Run lix diff
+        uses: natsukium/nix-diff-action@4091452e4c7b3c7ea4ecbaec84be7f0066d810d7 # v1.1.1
         with:
           attributes: ${{ steps.hosts.outputs.attributes }}
           comment-strategy: update
