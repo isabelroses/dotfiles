@@ -8,10 +8,6 @@
 
   libset ? [
     {
-      name = "hardware";
-      description = "hardware";
-    }
-    {
       name = "helpers";
       description = "helpers";
     }
