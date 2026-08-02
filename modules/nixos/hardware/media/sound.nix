@@ -1,13 +1,11 @@
 {
   lib,
-  self,
   pkgs,
   config,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib) isx86Linux;
 in
 {
   config = mkIf config.garden.profiles.graphical.enable {
@@ -20,12 +18,8 @@ in
 
       audio.enable = true;
       pulse.enable = true;
-      jack.enable = true;
-
-      alsa = {
-        enable = true;
-        support32Bit = isx86Linux pkgs;
-      };
+      alsa.enable = true;
+      jack.enable = false;
 
       extraLadspaPackages = [ pkgs.rnnoise-plugin ];
 
