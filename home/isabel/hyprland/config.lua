@@ -176,7 +176,6 @@ hl.window_rule({ match = { title = "^(.*is sharing (your screen|a window).)$" },
 hl.bind(mod .. " + D", hl.dsp.exec_cmd("vicinae toggle"))
 hl.bind(mod .. " + B", hl.dsp.exec_cmd("chromium"))
 hl.bind(mod .. " + E", hl.dsp.exec_cmd("cosmic-files"))
-hl.bind(mod .. " + C", hl.dsp.exec_cmd(editor))
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mod .. " + L", hl.dsp.exec_cmd(screenLocker))
 hl.bind(mod .. " + O", hl.dsp.exec_cmd("obsidian"))

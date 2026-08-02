@@ -43,7 +43,6 @@ in
       configType = "lua";
       extraConfig = ''
         local kb = "${keyboard}"
-        local editor = "${defaults.editor}"
         local terminal = "${defaults.terminal}"
         local screenLocker = "${defaults.screenLocker}"
         local monitors = ${toLua { } monitorList}
