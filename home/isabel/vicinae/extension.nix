@@ -27,14 +27,14 @@ lib.extendMkDerivation {
               fetchFromGitHub {
                 owner = "vicinaehq";
                 repo = "extensions";
-                rev = "afb84fe4b5253777ff82db8e19e6cc0c9b7f811f";
-                hash = "sha256-Non+frT3WG0TN60zCq63m8+d7yNmCCMaI363kZaDmPM=";
+                rev = "7b5905d08a2c9fda456b2e66894ba3e17997a6cb";
+                hash = "sha256-u2VtHkzueezRNZIfn0HVA2WCZtSt3VKusAjhaPWvDl4=";
               }
             else
               fetchFromGitHub {
                 owner = "raycast";
                 repo = "extensions";
-                rev = "6b00026a230c116ca890b6e8c0b0a343cd6cbae7";
+                rev = "3b0c72bb82ddef684eeeb9a5d69cb278eecf3efe";
                 hash = "sha256-iqITYshrGABjaOWl6AKXuOznvPlfjQkZ3cvFFzthl9M=";
 
                 # littrally grind to a halt if we don't add this
