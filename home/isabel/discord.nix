@@ -26,7 +26,7 @@ in
     (mkIf isDarwin {
       programs.discord.package = null;
 
-      home.file = {
+      home.file = mkIf cfg.enable {
         "Library/Application Support/moonlight-mod/stable.json".source =
           settingsFormat.generate "moonlight-settings.json" cfg.moonlight;
       };
@@ -37,7 +37,7 @@ in
         withMoonlight = true;
       };
 
-      xdg.configFile = {
+      xdg.configFile = mkIf cfg.enable {
         "moonlight-mod/stable.json".source =
           settingsFormat.generate "moonlight-settings.json" cfg.moonlight;
       };
