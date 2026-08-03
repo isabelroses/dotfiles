@@ -108,8 +108,8 @@ in
                   "://vm.tiktok.com/" = "://vm.tnktok.com/";
                   "://www.tiktok.com/" = "://www.tnktok.com/";
                   "://twitter.com/" = "://vxtwitter.com/";
-                  "://instagram.com/" = "://vxinstagram.com/";
-                  "://www.instagram.com/" = "://vxinstagram.com/";
+                  "://instagram.com/" = "://kkinstagram.com/";
+                  "://www.instagram.com/" = "://kkinstagram.com/";
                   "://reddit.com/" = "://vxreddit.com/";
                   "://www.reddit.com/" = "://vxreddit.com/";
                   "://x.com/" = "://vxtwitter.com/";
