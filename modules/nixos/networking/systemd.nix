@@ -9,7 +9,12 @@ let
 in
 {
   # systemd DNS resolver daemon
-  services.resolved.enable = true;
+  services.resolved = {
+    enable = true;
+
+    # remove LLMNR attack vector
+    settings.Resolve.LLMNR = "false";
+  };
 
   systemd = {
     # allow for the system to boot without waiting for the network interfaces are online
