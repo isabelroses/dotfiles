@@ -16,10 +16,8 @@
       };
     };
 
-    device = {
-      cpu = "amd";
-      gpu = null;
-    };
+    # AMD EPYC-Rome, no gpu
+    device.cpu = "vm-amd";
 
     services = {
       anubis.enable = true;

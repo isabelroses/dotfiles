@@ -14,10 +14,8 @@
       };
     };
 
-    device = {
-      cpu = null;
-      gpu = null;
-    };
+    # ampere altra, aarch64
+    device.cpu = null;
 
     system = {
       boot = {

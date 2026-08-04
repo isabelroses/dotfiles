@@ -8,6 +8,9 @@
       upcloud.enable = true;
     };
 
+    # AMD EPYC 9575F, no gpu
+    device.cpu = "vm-amd";
+
     services = {
       nginx = {
         enable = true;

@@ -9,16 +9,9 @@ in
   };
 
   config = mkIf config.garden.profiles.upcloud.enable {
-    garden = {
-      device = {
-        cpu = "intel";
-        gpu = "intel";
-      };
-
-      system.boot = {
-        loader = "grub";
-        grub.device = "/dev/vda";
-      };
+    garden.system.boot = {
+      loader = "grub";
+      grub.device = "/dev/vda";
     };
   };
 }
