@@ -50,6 +50,10 @@ in
       dhcpcd.enable = mkForce false;
       usePredictableInterfaceNames = mkForce false;
 
+      # since we are statically configuring networking we can drop
+      # network manager
+      networkmanager.enable = mkForce false;
+
       interfaces = {
         eth0 = {
           ipv4 = {

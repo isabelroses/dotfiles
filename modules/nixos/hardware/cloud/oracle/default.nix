@@ -1,10 +1,8 @@
 {
   imports = [
     # keep-sorted start
-    ./hetzner
-    ./oracle
-    ./overrides.nix
-    ./upcloud
+    ./garden.nix
+    ./networking.nix
     # keep-sorted end
   ];
 }
