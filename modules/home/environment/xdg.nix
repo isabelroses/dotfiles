@@ -109,6 +109,8 @@ in
       };
     };
 
+    mime.enable = isLinux && !config.garden.profiles.headless.enable;
+
     mimeApps = {
       enable = isLinux;
       associations.added = associations;
