@@ -27,7 +27,7 @@ jobs:
         uses: ./.github/actions/install-lix
 
       - name: Setup Cache
-        uses: Mic92/hestia@fb239a2f72d4b6e26eec5425f289dea23b27a527 # v2.0.0
+        uses: Mic92/hestia@b21a1aaf8c3d5c2e430c9ba278c0f78abd46a320 # v3.0.0
 
       - name: Build docs
         run: nix build .#docs
