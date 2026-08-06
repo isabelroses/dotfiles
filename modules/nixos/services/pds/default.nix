@@ -127,7 +127,7 @@ in
             "https://bsky.app"
             "https://pdsmoover.com"
             "https://blacksky.community"
-            "https://witchsky.com"
+            "https://witchsky.app"
             "https://tektite.cc"
             "https://${cfg.domain}"
           ];
