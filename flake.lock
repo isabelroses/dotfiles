@@ -62,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785892978,
-        "narHash": "sha256-Lt3VaSUljE2EMJT0ZNai0JkR2LwQJfmCMslXT0pbLWo=",
+        "lastModified": 1786068071,
+        "narHash": "sha256-3kp2d7Q59YhTEM58+F27E/rm5DTzg67T7B21JhggJds=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "87d1a400265898e6c4696dba33132431d1f14229",
+        "rev": "34dae89dae98043eb4ac4fc49d1fbf410cd95d7d",
         "type": "github"
       },
       "original": {
@@ -142,11 +142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785981512,
-        "narHash": "sha256-/mkTy5qfsnLAp14Ip9vgNXi+FtpI3UScbfv953M0xuQ=",
+        "lastModified": 1786069325,
+        "narHash": "sha256-esGB9SvaH9ZJAjQdHN6YrP+bo6oxLSFvPPZCTp1koBI=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "bf4b40a302c9a7ba19915219427261c303175d97",
+        "rev": "e429fdddd982682140f1d2691e32c99bf1db5ada",
         "type": "github"
       },
       "original": {
