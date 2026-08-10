@@ -32,15 +32,15 @@ in
       # uBlock Origin
       {
         id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
-        version = "1.72.2";
-        hash = "sha256-bgLY5tzlae7HIbUx+cfShAPlQmRCQX1ahVoX3SiLVvg=";
+        version = "1.73.0";
+        hash = "sha256-am9BiDyrsTDQCNXazBGIKEkMJwE3ZbNRiSR+i+oXg5E=";
       }
 
       # stylus
       {
         id = "clngdbkpkpeebahjckkjfobafhncgmne";
-        version = "2.4.5";
-        hash = "sha256-mST2glhYqJuYce1SDxnqHdSIaVsGJ/m5CTcE8Tlib2E=";
+        version = "2.4.9";
+        hash = "sha256-qMU7PiV38+dCIH+NbWv1PA4PoSX3simCQeT4sTqmXGM=";
       }
 
       # Bitwarden
@@ -95,8 +95,8 @@ in
       # refined github
       {
         id = "hlepfoohegkhhmjieoechaddaejaokhf";
-        version = "26.7.26";
-        hash = "sha256-G0ht0WUH+I5e7UJHbw9NvTKvV77rNjP8ox9PKbvJMYI=";
+        version = "26.8.8";
+        hash = "sha256-YMxdns0GeVQieUCsQiJRS2CGHC0JwVSmNZ4vApKPasw=";
       }
     ];
 
