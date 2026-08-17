@@ -46,12 +46,7 @@ jobs:
           nix develop -c just iso lilith
           cp result/iso/*.iso ./lilith.iso
 
-      - name: Build config
-        run: |
-          nix build -L .#nixosConfigurations.amaterasu.config.home-manager.users.isabel.home-files
-          tar -czvhf dotfiles.tar.gz result/
-
       - name: Upload Release Artifacts
-        run: gh release create "$(date +"%Y-%m-%d")" ./lilith.iso ./dotfiles.tar.gz
+        run: gh release create "$(date +"%Y-%m-%d")" ./lilith.iso
         env:
           GH_TOKEN: ${{ github.token }}
