@@ -11,7 +11,7 @@
     # pick our ports
     catppuccin.forgejo.enable = true;
 
-    console.colors = lib.mkIf config.catppuccin.enable [
+    console.colors = lib.modules.mkIf config.catppuccin.enable [
       "000000"
       "f38ba8"
       "a6e3a1"

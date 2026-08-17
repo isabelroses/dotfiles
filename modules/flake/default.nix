@@ -11,9 +11,9 @@ let
     "aarch64-darwin"
   ];
 
-  forAllSystems = fn: lib.genAttrs systems (system: fn nixpkgs.legacyPackages.${system});
+  forAllSystems = fn: lib.attrsets.genAttrs systems (system: fn nixpkgs.legacyPackages.${system});
 
-  mkHosts = lib.mapAttrs self.lib.mkHost;
+  mkHosts = lib.attrsets.mapAttrs self.lib.mkHost;
 in
 
 {

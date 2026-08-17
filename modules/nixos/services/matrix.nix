@@ -163,7 +163,7 @@ in
         '';
 
         ensureDatabases = [ "matrix-sliding-sync" ];
-        ensureUsers = lib.singleton {
+        ensureUsers = lib.lists.singleton {
           name = "matrix-sliding-sync";
           ensureDBOwnership = true;
         };

@@ -40,7 +40,7 @@ in
         };
       };
 
-      postgresql.ensureUsers = lib.singleton { name = "snot"; };
+      postgresql.ensureUsers = lib.lists.singleton { name = "snot"; };
 
       nginx.virtualHosts.${cfg.domain} = {
         locations."/" = {
@@ -50,7 +50,7 @@ in
       };
     };
 
-    systemd.services.postgresql-setup.script = lib.mkAfter ''
+    systemd.services.postgresql-setup.script = lib.modules.mkAfter ''
       psql -d forgejo <<'EOF'
         GRANT CONNECT ON DATABASE forgejo TO "snot";
         ALTER DEFAULT PRIVILEGES FOR ROLE forgejo GRANT SELECT ON TABLES TO "snot";

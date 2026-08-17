@@ -3,7 +3,7 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-lib.extendMkDerivation {
+lib.customisation.extendMkDerivation {
   constructDrv = buildNpmPackage;
 
   extendDrvArgs =
@@ -14,7 +14,7 @@ lib.extendMkDerivation {
       type ? "vicinae",
       ...
     }@args:
-    lib.checkListOfEnum "${finalAttrs.pname}: type must be one of vicinae or raycast"
+    lib.trivial.checkListOfEnum "${finalAttrs.pname}: type must be one of vicinae or raycast"
       [ "vicinae" "raycast" ]
       [ type ]
       {

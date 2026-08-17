@@ -3,7 +3,7 @@
 let
   inherit (pkgs) lib;
 
-  scope = lib.makeScope pkgs.newScope (scopeSelf: {
+  scope = lib.customisation.makeScope pkgs.newScope (scopeSelf: {
     inherit (inputs) self;
 
     # keep-sorted start block=yes newline_separated=yes
@@ -17,4 +17,4 @@ let
 
 in
 
-lib.filterAttrs (_: lib.isDerivation) scope
+lib.attrsets.filterAttrs (_: lib.attrsets.isDerivation) scope

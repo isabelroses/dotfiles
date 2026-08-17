@@ -52,7 +52,7 @@ in
           "9p"
           "9pnet_virtio"
         ]
-        ++ lib.optionals (!config.garden.profiles.oracle.enable) [
+        ++ lib.lists.optionals (!config.garden.profiles.oracle.enable) [
           "vmw_pvscsi"
         ];
 

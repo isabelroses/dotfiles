@@ -12,7 +12,7 @@ let
 in
 {
   options.garden.system.security = {
-    binaries.enable = lib.mkEnableOption "allow for none patched binaries to be run";
+    binaries.enable = lib.options.mkEnableOption "allow for none patched binaries to be run";
   };
 
   config = mkIf cfg.enable {

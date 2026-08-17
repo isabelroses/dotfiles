@@ -23,8 +23,8 @@ in
       window-save-state = "always";
 
       # let fontconfig handle this on linux
-      font-family = lib.mkIf isDarwin config.garden.style.fonts.name;
-      font-size = lib.mkIf isDarwin 13;
+      font-family = lib.modules.mkIf isDarwin config.garden.style.fonts.name;
+      font-size = lib.modules.mkIf isDarwin 13;
 
       # home-manager does this for us
       shell-integration = "none";

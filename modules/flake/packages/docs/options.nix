@@ -56,7 +56,7 @@ let
               let
                 declStr = toString decl;
               in
-              if lib.hasPrefix selfStr declStr then
+              if lib.strings.hasPrefix selfStr declStr then
                 gitHubDeclaration "isabelroses" "dotfiles" (removePrefix "/" (removePrefix selfStr declStr))
               else
                 decl

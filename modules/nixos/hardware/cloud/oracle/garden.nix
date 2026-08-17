@@ -8,7 +8,7 @@ in
     enable = mkEnableOption "Oracle Cloud profile";
   };
 
-  config = lib.mkIf config.garden.profiles.oracle.enable {
+  config = lib.modules.mkIf config.garden.profiles.oracle.enable {
     services.thermald.enable = mkForce false; # Unavailable - device lacks thermal sensors.
   };
 }

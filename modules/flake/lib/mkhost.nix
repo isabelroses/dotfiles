@@ -99,7 +99,7 @@ evalHost {
   ]
   # if we are on darwin we need to import the nixpkgs source, its used in some
   # modules, if this is not set then you will get an error
-  ++ lib.optional (class == "darwin") {
+  ++ lib.lists.optional (class == "darwin") {
     key = "dotfiles#nixpkgs-darwin";
     _file = "${__curPos.file}";
 

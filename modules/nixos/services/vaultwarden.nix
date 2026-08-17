@@ -81,7 +81,7 @@ in
 
       postgresql = {
         ensureDatabases = [ "vaultwarden" ];
-        ensureUsers = lib.singleton {
+        ensureUsers = lib.lists.singleton {
           name = "vaultwarden";
           ensureDBOwnership = true;
         };

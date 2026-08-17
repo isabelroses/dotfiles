@@ -45,13 +45,13 @@ stdenvNoCC.mkDerivation {
       nixdoc -c "$name" -d "lib.$name: $description" -f "$name.nix" > "$out/$name.md"
     }
 
-    ${lib.concatMapStrings (
+    ${lib.strings.concatMapStrings (
       {
         name,
         description,
       }:
       ''
-        docgen ${name} ${lib.escapeShellArg description}
+        docgen ${name} ${lib.strings.escapeShellArg description}
       ''
     ) libset}
 

@@ -18,7 +18,7 @@ in
 
   options.garden.services.mailserver = mkServiceOption "mailserver" { domain = "mail.${rdomain}"; };
 
-  config = lib.mkMerge [
+  config = lib.modules.mkMerge [
     {
       # for some reason without doing it like this we get an eval error saying
       # that "null cannot be coerced to a string". which i assume is caused by
@@ -317,7 +317,7 @@ in
 
         postgresql = {
           ensureDatabases = [ "roundcube" ];
-          ensureUsers = lib.singleton {
+          ensureUsers = lib.lists.singleton {
             name = "roundcube";
             ensureDBOwnership = true;
           };

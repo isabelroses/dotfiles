@@ -10,7 +10,7 @@ in
 {
   config = mkIf config.garden.profiles.graphical.enable {
     # no thanks lol
-    services.pulseaudio.enable = lib.mkForce false;
+    services.pulseaudio.enable = lib.modules.mkForce false;
 
     # pipewire is newer and just better
     services.pipewire = {

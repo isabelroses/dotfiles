@@ -126,7 +126,7 @@ in
         log_statement = "all";
         logging_collector = true;
         log_disconnections = true;
-        log_destination = lib.mkForce "syslog";
+        log_destination = lib.modules.mkForce "syslog";
       };
     };
   };

@@ -64,8 +64,8 @@ let
     };
   };
 
-  associations' = lib.concatMapAttrs (
-    _: val: lib.listToAttrs (lib.map (mt: lib.nameValuePair mt "${val.app}.desktop") val.mimeTypes)
+  associations' = lib.attrsets.concatMapAttrs (
+    _: val: lib.attrsets.listToAttrs (lib.lists.map (mt: lib.attrsets.nameValuePair mt "${val.app}.desktop") val.mimeTypes)
   ) appsToAssoc;
 
   specifics = {
@@ -117,7 +117,7 @@ in
       defaultApplications = associations;
     };
 
-    portal.enable = lib.mkForce false;
+    portal.enable = lib.modules.mkForce false;
   };
 
   # You can generate something like this using xdg-ninja

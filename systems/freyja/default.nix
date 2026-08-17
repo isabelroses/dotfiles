@@ -31,5 +31,5 @@
     };
   };
 
-  services.smartd.enable = lib.mkForce false;
+  services.smartd.enable = lib.modules.mkForce false;
 }

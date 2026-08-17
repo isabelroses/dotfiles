@@ -39,7 +39,7 @@ treefmt.withConfig {
 
     (writeShellScriptBin "statix-fix" ''
       for file in "$@"; do
-        ${lib.getExe statix} fix "$file"
+        ${lib.meta.getExe statix} fix "$file"
       done
     '')
   ];

@@ -6,7 +6,7 @@
   ...
 }:
 {
-  config = lib.mkIf config.services.openssh.enable {
+  config = lib.modules.mkIf config.services.openssh.enable {
     garden.packages = {
       inherit (pkgs.ghostty) terminfo;
     };

@@ -62,7 +62,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.modules.mkIf cfg.enable {
     sops.secrets.borg-sshkey = mkSecret {
       file = "borg";
       key = "sshkey";

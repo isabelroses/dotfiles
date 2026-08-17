@@ -57,7 +57,7 @@ in
 
       # don't start a tty on the serial consoles; we have no need for it here
       services = {
-        "serial-getty@ttyS0".enable = lib.mkDefault false;
+        "serial-getty@ttyS0".enable = lib.modules.mkDefault false;
         "serial-getty@hvc0".enable = false;
         "getty@tty1".enable = false;
         "autovt@".enable = false;

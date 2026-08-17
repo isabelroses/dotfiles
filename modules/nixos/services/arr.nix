@@ -41,7 +41,7 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.modules.mkIf cfg.enable {
     garden.services = {
       jellyfin.enable = true;
       sonarr.enable = true;

@@ -29,7 +29,7 @@ in
     isClient = mkOption {
       type = bool;
       default = config.garden.profiles.workstation.enable;
-      defaultText = lib.literalExpression "config.garden.profiles.workstation.enable";
+      defaultText = lib.options.literalExpression "config.garden.profiles.workstation.enable";
       example = true;
       description = ''
         Whether the target host should utilize Tailscale client features";
@@ -41,7 +41,7 @@ in
     isServer = mkOption {
       type = bool;
       default = config.garden.profiles.server.enable;
-      defaultText = lib.literalExpression "config.garden.profiles.server.enable";
+      defaultText = lib.options.literalExpression "config.garden.profiles.server.enable";
       example = true;
       description = ''
         Whether the target host should utilize Tailscale server features.

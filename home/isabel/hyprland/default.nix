@@ -19,9 +19,9 @@ let
   }) monitors;
 in
 {
-  options.programs.hyprland.enable = lib.mkEnableOption "Enable Hyprland as the Wayland window manager";
+  options.programs.hyprland.enable = lib.options.mkEnableOption "Enable Hyprland as the Wayland window manager";
 
-  config = lib.mkIf config.programs.hyprland.enable {
+  config = lib.modules.mkIf config.programs.hyprland.enable {
     garden.packages = { inherit (pkgs) hyprpicker cosmic-files; };
 
     wayland.windowManager.hyprland = {

@@ -4,7 +4,7 @@
   ...
 }:
 {
-  fonts.packages = lib.attrValues {
+  fonts.packages = lib.attrsets.attrValues {
     inherit (pkgs)
       corefonts
 

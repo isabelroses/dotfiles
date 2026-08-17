@@ -11,7 +11,7 @@ let
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.strings) splitString;
   inherit (lib.trivial) flip pipe;
-  inherit (lib) filter;
+  inherit (lib.lists) filter;
   inherit (lib.types)
     listOf
     str
