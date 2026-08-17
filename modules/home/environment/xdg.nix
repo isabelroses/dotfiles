@@ -65,7 +65,10 @@ let
   };
 
   associations' = lib.attrsets.concatMapAttrs (
-    _: val: lib.attrsets.listToAttrs (lib.lists.map (mt: lib.attrsets.nameValuePair mt "${val.app}.desktop") val.mimeTypes)
+    _: val:
+    lib.attrsets.listToAttrs (
+      lib.lists.map (mt: lib.attrsets.nameValuePair mt "${val.app}.desktop") val.mimeTypes
+    )
   ) appsToAssoc;
 
   specifics = {

@@ -1,7 +1,9 @@
 { lib, config, ... }:
 {
   time = {
-    timeZone = lib.modules.mkDefault (if config.garden.profiles.server.enable then "UTC" else "Europe/London");
+    timeZone = lib.modules.mkDefault (
+      if config.garden.profiles.server.enable then "UTC" else "Europe/London"
+    );
     hardwareClockInLocalTime = true;
   };
 
