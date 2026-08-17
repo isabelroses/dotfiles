@@ -39,8 +39,8 @@ in
       # stylus
       {
         id = "clngdbkpkpeebahjckkjfobafhncgmne";
-        version = "2.4.9";
-        hash = "sha256-qMU7PiV38+dCIH+NbWv1PA4PoSX3simCQeT4sTqmXGM=";
+        version = "2.4.10";
+        hash = "sha256-+A+9w8Fc7VJD3Azofjyhchmpd2QQhDPoKsfkD6C9cpM=";
       }
 
       # Bitwarden
@@ -88,8 +88,8 @@ in
       # Control Panel for Twitter
       {
         id = "kpmjjdhbcfebfjgdnpjagcndoelnidfj";
-        version = "4.23.0";
-        hash = "sha256-6H757aZJv1ArCN2qVMkn4WX9CFtE6CWfOzGggp1X1Cc=";
+        version = "4.24.0";
+        hash = "sha256-ayBmfQ+qN1MUL4uc3tdsxos4WgqnweVWhU7VTZzSwQI=";
       }
 
       # refined github
