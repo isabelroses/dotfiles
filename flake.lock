@@ -62,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787185978,
-        "narHash": "sha256-tbd4Itvtrqz66/VrVc0zaJXCRqsFbhTStDQnvj4p3k0=",
+        "lastModified": 1787272541,
+        "narHash": "sha256-R3vnEYR92c0BlQQi7qNRCWz+KsfxbbVsrOQ2KhIEa5w=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "65d0c219c53abf639299c7d444f8272e1d255cfb",
+        "rev": "6c2c59222df16afcb6e8f04ecb7c31041943dfa9",
         "type": "github"
       },
       "original": {
@@ -142,11 +142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787187167,
-        "narHash": "sha256-SSk5VWBATWAsQP4IC5EXZWGSd9ABM9lXeVzVhdva3Dc=",
+        "lastModified": 1787273719,
+        "narHash": "sha256-oTU2Y3PYVZruN8iVYkca8lbYjQgEKE1Du5w7LxE48uE=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "9c131fe654f92d99f1adcbd0bdd2ca5d4701edc7",
+        "rev": "6f2a1f57cb8647c5be52aafcb7bdb761aac7b3fb",
         "type": "github"
       },
       "original": {
@@ -201,11 +201,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1787111413,
-        "narHash": "sha256-93GX5Q/npwBE92xpHlktxgGztuIP/2kwOMukz+qyJBk=",
-        "rev": "afe3d8ac4395617bdcdac9f188ac8717a062e014",
+        "lastModified": 1787172299,
+        "narHash": "sha256-LS/aXgJh+/1UgtrOxdS5Wum/PgmQYa1AMFZHdH+xGyo=",
+        "rev": "07e1d92cdc0ed416cfa11ff3ca40d17e61cfba7a",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1057999.afe3d8ac4395/nixexprs.tar.zst?lastModified=1787111413&rev=afe3d8ac4395617bdcdac9f188ac8717a062e014"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1058374.07e1d92cdc0e/nixexprs.tar.zst?lastModified=1787172299&rev=07e1d92cdc0ed416cfa11ff3ca40d17e61cfba7a"
       },
       "original": {
         "type": "tarball",
