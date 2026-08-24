@@ -51,8 +51,6 @@ in
         enable = true;
         pdsadmin.enable = false;
 
-        package = pkgs.bluesky-pds.override { nodejs_24 = pkgs.nodejs_22; };
-
         environmentFiles = [ config.sops.secrets.pds-env.path ];
 
         settings = {
