@@ -10,9 +10,6 @@
     # this means you cannot set `"user.max_user_namespaces" = 0;` in sysctl
     allowUserNamespaces = true;
 
-    # Disable unprivileged user namespaces, unless containers are enabled
-    unprivilegedUsernsClone = false;
-
     allowSimultaneousMultithreading = true;
   };
 }
