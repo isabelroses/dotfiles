@@ -62,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787618064,
-        "narHash": "sha256-5zOc1/LOv00LJoMScMUQhqGC6BNMN3GiYUB2TatELIc=",
+        "lastModified": 1787704508,
+        "narHash": "sha256-5MTjMfcY3LZmTzs+/k1rCRVfrCNdApvaunskZUFQ/iQ=",
         "owner": "extersia-org",
         "repo": "pkgs",
-        "rev": "91a6db7d948266aa1523b3296c2ee7ddee07b48c",
+        "rev": "99535cb5f705d4b3dfa8126fde8c3844593a4f1d",
         "type": "github"
       },
       "original": {
@@ -142,11 +142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787619290,
-        "narHash": "sha256-ps/UiM8NN2q05F8nBEjmJ18US12p5Mwuwmy7HdTfJh4=",
+        "lastModified": 1787705729,
+        "narHash": "sha256-htvBPL8kem1BcTXJxnj34RxwHlYHfWMpDBwBjYiVmtY=",
         "owner": "isabelroses",
         "repo": "izlix",
-        "rev": "8902d2a69e7898849f012fcc4eace66d67d70066",
+        "rev": "d1658812cf937c3ce50d495c713e23b62090d57c",
         "type": "github"
       },
       "original": {
@@ -186,11 +186,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1787571731,
-        "narHash": "sha256-tflJ5j78ZkBrIo5QzB8ykMN8hYLyBajHVMEmec1nUUg=",
+        "lastModified": 1787658383,
+        "narHash": "sha256-I+zCjwAtkmgnet+08H+7HV8qJjf6BoFMYsX/8lMiW/s=",
         "owner": "nix-community",
         "repo": "lanzaboote",
-        "rev": "bfc757a93ab33570e6c5517a4998f7307ff00a11",
+        "rev": "69cf334f9dbc11213c6228c97e9b32924d51443f",
         "type": "github"
       },
       "original": {
@@ -201,11 +201,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1787394516,
-        "narHash": "sha256-wS+SNrj0wobAXQONggzrpetnZ9E0FL7l0WVWDRQ77Sc=",
-        "rev": "c8f90650c15282fa8656a041bfbbd2403997a9a7",
+        "lastModified": 1787631388,
+        "narHash": "sha256-ZEByVBPrWjUOLKInvr2aOGcy13/ObSLNEt/1o5ThyzA=",
+        "rev": "ac6b2166e7a9375683b8e98f860f273222337b16",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1059707.c8f90650c152/nixexprs.tar.zst?lastModified=1787394516&rev=c8f90650c15282fa8656a041bfbbd2403997a9a7"
+        "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1061294.ac6b2166e7a9/nixexprs.tar.zst?lastModified=1787631388&rev=ac6b2166e7a9375683b8e98f860f273222337b16"
       },
       "original": {
         "type": "tarball",
