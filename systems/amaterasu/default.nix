@@ -1,6 +1,7 @@
 {
   imports = [
     ./hardware.nix
+    ./signing.nix
     ./users.nix
   ];
 
