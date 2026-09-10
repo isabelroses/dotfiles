@@ -4,7 +4,7 @@
   treefmt,
 
   # keep-sorted start
-  actionlint,
+  # actionlint,
   deadnix,
   keep-sorted,
   locker,
@@ -22,7 +22,7 @@
 treefmt.withConfig {
   runtimeInputs = [
     # keep-sorted start
-    actionlint
+    # actionlint
     deadnix
     keep-sorted
     locker
@@ -52,13 +52,13 @@ treefmt.withConfig {
 
     formatter = {
       # keep-sorted start block=yes newline_separated=yes
-      actionlint = {
-        command = "actionlint";
-        includes = [
-          ".github/workflows/*.yml"
-          ".github/workflows/*.yaml"
-        ];
-      };
+      # actionlint = {
+      #   command = "actionlint";
+      #   includes = [
+      #     ".github/workflows/*.yml"
+      #     ".github/workflows/*.yaml"
+      #   ];
+      # };
 
       deadnix = {
         command = "deadnix";

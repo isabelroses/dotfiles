@@ -24,7 +24,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Lix
-        uses: ./.github/actions/install-lix
+        uses: $/.github/actions/install-lix
 
       - name: Setup Cache
         uses: Mic92/hestia@f1f4df2801140a36398ed423533c8460618539df # v3.0.1

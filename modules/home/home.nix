@@ -3,8 +3,7 @@
   home = {
     stateVersion = osConfig.garden.system.stateVersion;
 
-    # WARNING: this is an experimental option added by my fork of home-manager
-    linker.backend = "smfh";
+    fileActivator = "putter";
   };
 
   # let HM manage itself when in standalone mode
