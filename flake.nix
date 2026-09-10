@@ -35,9 +35,8 @@
     # manage userspace with nix
     home-manager = {
       type = "github";
-      owner = "isabelroses";
+      owner = "nix-community";
       repo = "home-manager";
-      ref = "smfh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
