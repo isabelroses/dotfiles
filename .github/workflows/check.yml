@@ -31,7 +31,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Lix
-        uses: ./.github/actions/install-lix
+        uses: $/.github/actions/install-lix
 
       - name: Check Flake
         run: nix develop -c just check --show-trace

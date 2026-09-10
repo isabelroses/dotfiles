@@ -30,7 +30,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Lix
-        uses: ./.github/actions/install-lix
+        uses: $/.github/actions/install-lix
 
       # we shouldn't really be needing to do this, but sometimes lix isn't
       # build before we get here
