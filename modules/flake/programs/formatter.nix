@@ -52,14 +52,6 @@ treefmt.withConfig {
 
     formatter = {
       # keep-sorted start block=yes newline_separated=yes
-      # actionlint = {
-      #   command = "actionlint";
-      #   includes = [
-      #     ".github/workflows/*.yml"
-      #     ".github/workflows/*.yaml"
-      #   ];
-      # };
-
       deadnix = {
         command = "deadnix";
         options = [ "--edit" ];
