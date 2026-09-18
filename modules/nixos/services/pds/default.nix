@@ -141,6 +141,12 @@ in
         serverAliases = [ ".tgirl.beauty" ];
         enableACME = true;
 
+        extraConfig = ''
+          add_header 'Referrer-Policy' 'origin-when-cross-origin';
+          add_header Content-Security-Policy "frame-ancestors 'self' https://pdsmoover.com" always;
+          add_header X-Content-Type-Options nosniff;
+        '';
+
         locations = {
           # i am of age but i don't want to prove it lol
           # https://gist.github.com/mary-ext/6e27b24a83838202908808ad528b3318
@@ -160,7 +166,8 @@ in
             extraConfig = ''
               add_header access-control-allow-headers "authorization,dpop,atproto-accept-labelers,atproto-proxy" always;
               add_header access-control-allow-origin "*" always;
-              add_header X-Frame-Options SAMEORIGIN always;
+              add_header 'Referrer-Policy' 'origin-when-cross-origin';
+              add_header Content-Security-Policy "frame-ancestors 'none'" always;
               add_header X-Content-Type-Options nosniff;
               default_type application/json;
             '';
