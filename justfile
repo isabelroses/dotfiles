@@ -29,7 +29,7 @@ builder goal *args:
 deployer host goal *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    just builder {{ goal }} --target-host {{ host }} --use-substitutes {{ args }}
+    just builder {{ goal }} --target-host ssh-ng://{{ host }} --use-substitutes {{ args }}
     lethe record {{ host }}
 
 # deploy by switching the new system configuration
