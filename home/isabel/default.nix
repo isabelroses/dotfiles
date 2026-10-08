@@ -1,5 +1,6 @@
 {
   imports = [
+    ./all-modules.nix # all the modules i need
     ./packages.nix # a top-level list of packages
 
     # keep-sorted start
