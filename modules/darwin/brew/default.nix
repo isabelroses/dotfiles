@@ -45,6 +45,12 @@
           rev = "d4d25dbd93eef9ed20f4ae73f3c269a728a412eb";
           hash = "sha256-FkuEIGWiCMhpV7OYfwJUkI7yrHI3AY70KrZ2KnF9hXI=";
         };
+        "abue-ammar/homebrew-tinycast" = pkgs.fetchFromGitHub {
+          owner = "abue-ammar";
+          repo = "homebrew-tinycast";
+          rev = "3a9a0fa4de664a0aa2b34880e71626dd55309a38";
+          hash = "sha256-GSG018gaRrzd0iycO3cM2rNPpamTXwt1Z5AlQG/kcZo=";
+        };
       };
     };
 
@@ -82,15 +88,14 @@
 
       # `brew install --cask`
       casks = [
-        # "loungy" # app launcher, too beta to use mainstream
         "gimp" # image editor
-        "raycast" # app launcher, and clipboard manager
         # "inkscape" # vector graphics editor
         # "intellij-idea" # IDE
         # "jordanbaird-ice@beta" # better status bar
         "discord"
         "ghostty"
         "helium-browser"
+        "abue-ammar/tinycast/tinycast" # native app launcher, raycast replacement
       ];
     };
   };
