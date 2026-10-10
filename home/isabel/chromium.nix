@@ -29,25 +29,25 @@ in
 {
   programs.chromium = {
     extensions = map extension [
-      # uBlock Origin
+      # uBlock Origin lite
       {
-        id = "cjpalhdlnbpafiamejdnhcphjbkeiagm";
-        version = "1.73.0";
-        hash = "sha256-am9BiDyrsTDQCNXazBGIKEkMJwE3ZbNRiSR+i+oXg5E=";
+        id = "ddkjiahejlhfcafbddmgiahcphecmpfh";
+        version = "2026.1006.1931";
+        hash = "sha256-bugfnnGh+h0b1v38QfFM+nOb22jm7hN79SmQeq/dcwg=";
       }
 
       # stylus
       {
         id = "clngdbkpkpeebahjckkjfobafhncgmne";
-        version = "2.4.10";
-        hash = "sha256-+A+9w8Fc7VJD3Azofjyhchmpd2QQhDPoKsfkD6C9cpM=";
+        version = "2.4.14";
+        hash = "sha256-82toCWp5v/Crf35et50ISOw2Q66ZhJrCx59rhDVTRPk=";
       }
 
       # Bitwarden
       {
         id = "nngceckbapebfimnlniiiahkandclblb";
-        version = "2026.7.0";
-        hash = "sha256-PwXLkgGS9YjvBRUHgwiEtqiXkXmWngv3xA4Boqj9f74=";
+        version = "2026.9.3";
+        hash = "sha256-mWT2YKEQI8sZpzC3+Qg1PsHa53oCfIGSMV0Kfz2O+SE=";
       }
 
       # at://wormhole
@@ -88,15 +88,15 @@ in
       # Control Panel for Twitter
       {
         id = "kpmjjdhbcfebfjgdnpjagcndoelnidfj";
-        version = "4.24.0";
-        hash = "sha256-ayBmfQ+qN1MUL4uc3tdsxos4WgqnweVWhU7VTZzSwQI=";
+        version = "4.24.5";
+        hash = "sha256-8P0vsBeA28y79iAaXAU75KJAps4TBFyX0Z4asZsEVGY=";
       }
 
       # refined github
       {
         id = "hlepfoohegkhhmjieoechaddaejaokhf";
-        version = "26.8.8";
-        hash = "sha256-YMxdns0GeVQieUCsQiJRS2CGHC0JwVSmNZ4vApKPasw=";
+        version = "26.10.0";
+        hash = "sha256-Ua3DlSiSkXx7VefXwbdG7M95wTf3qe3lVmSdQOu3Q58=";
       }
     ];
 
