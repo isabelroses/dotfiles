@@ -59,7 +59,11 @@ in
         # give it access to all hardware devices
         accelerationDevices = null;
 
-        machine-learning.environment.DEVICE = "cuda";
+        machine-learning.environment = {
+          DEVICE = "cuda";
+          # opt in to the optimised models, ignored before immich 3.3
+          MACHINE_LEARNING_MODEL_REVISION = "v2";
+        };
 
         # where to store our media
         mediaLocation = "/srv/storage/immich";
@@ -185,7 +189,7 @@ in
               maxResolution = 736;
               minDetectionScore = 0.5;
               minRecognitionScore = 0.8;
-              modelName = "PP-OCRv5_mobile";
+              modelName = "PP-OCRv6_medium";
             };
 
             urls = [ "http://127.0.0.1:3003" ];
@@ -235,7 +239,7 @@ in
             mobileOverrideEnabled = true;
             mobileRedirectUri = "https://${cfg.domain}/api/oauth/mobile-redirect";
             profileSigningAlgorithm = "none";
-            roleClaim = "immich.access";
+            roleClaim = "immich_role";
             scope = "openid email profile";
             signingAlgorithm = "ES256";
             storageLabelClaim = "preferred_username";

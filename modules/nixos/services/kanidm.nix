@@ -110,6 +110,7 @@ in
               "linkwarden.access"
               "wakapi.access"
               "immich.access"
+              "immich.admins"
             ];
           };
 
@@ -122,6 +123,7 @@ in
             "wakapi.access" = { };
 
             "immich.access" = { };
+            "immich.admins" = { };
           };
 
           systems.oauth2 = {
@@ -187,6 +189,13 @@ in
                 "email"
                 "profile"
               ];
+              claimMaps.immich_role = {
+                joinType = "array";
+                valuesByGroup = {
+                  "immich.access" = [ "user" ];
+                  "immich.admins" = [ "admin" ];
+                };
+              };
             };
           };
         };
