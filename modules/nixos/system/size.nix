@@ -19,6 +19,10 @@ in
 
     # i don't need less, so lets just remove it, lol
     less.enable = mkForce false;
+
+    # disable command-not-found, it doesn't help, and it adds perl
+    # which we don't need, and we know when we don't have a command anyway
+    command-not-found.enable = false;
   };
 
   # this can allow us to save some storage space
