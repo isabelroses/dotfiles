@@ -1,108 +1,28 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ lib, pkgs, ... }:
 let
-  inherit (lib.lists) concatLists head;
-  inherit (lib.strings) concatMapStrings enableFeature getVersion;
-  inherit (lib.versions) splitVersion;
+  inherit (lib.lists) concatLists;
+  inherit (lib.strings) concatMapStrings enableFeature;
 
   features = en: features: "--${en}-features=" + (concatMapStrings (x: x + ",") features);
-
-  extension =
-    {
-      id,
-      version,
-      hash,
-    }:
-    {
-      inherit id version;
-      crxPath = pkgs.fetchurl {
-        name = "${id}.crx";
-        url = "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${head (splitVersion (getVersion config.programs.chromium.package))}&x=id%3D${id}%26installsource%3Dondemand%26uc";
-        inherit hash;
-      };
-    };
 in
 {
   programs.chromium = {
-    extensions = map extension [
-      # uBlock Origin lite
-      {
-        id = "ddkjiahejlhfcafbddmgiahcphecmpfh";
-        version = "2026.1006.1931";
-        hash = "sha256-bugfnnGh+h0b1v38QfFM+nOb22jm7hN79SmQeq/dcwg=";
-      }
-
-      # stylus
-      {
-        id = "clngdbkpkpeebahjckkjfobafhncgmne";
-        version = "2.4.14";
-        hash = "sha256-82toCWp5v/Crf35et50ISOw2Q66ZhJrCx59rhDVTRPk=";
-      }
-
-      # Bitwarden
-      {
-        id = "nngceckbapebfimnlniiiahkandclblb";
-        version = "2026.9.3";
-        hash = "sha256-mWT2YKEQI8sZpzC3+Qg1PsHa53oCfIGSMV0Kfz2O+SE=";
-      }
-
-      # at://wormhole
-      {
-        id = "aihndpeeoneojofmliffjknbegmipbim";
-        version = "1.1.0";
-        hash = "sha256-oR4q4U1R5GDjCkwwjZSMU0amR91+T1h76cpsjOxnGiM=";
-      }
-
-      # SponsorBlock
-      {
-        id = "mnjggcdmjocbbbhaepdhchncahnbgone";
-        version = "6.1.6";
-        hash = "sha256-VYf+K2qZRhAcoN3nxu/nanVcXuW21uY9/EjH9zbNtP8=";
-      }
-
-      # Volume Master
-      {
-        id = "jghecgabfgfdldnmbfkhmffcabddioke";
-        version = "2.4.0";
-        hash = "sha256-dSLS7Km/5gbb07xEYACAOs9EBfvbJGlqx4qwFkKV95U=";
-      }
-
-      # scriptcat
-      {
-        id = "ndcooeababalnlpkfedmmbbbgkljhpjf";
-        version = "1.4.0";
-        hash = "sha256-8YLHEQogwSB+EDKIFqJycj5JcGHhRZxLwxYMS22ZRZ0=";
-      }
-
-      # ff2mpv
-      {
-        id = "ephjcajbkgplkjmelpglennepbpmdpjg";
-        version = "6.0.0";
-        hash = "sha256-4VEwf3rqtobbOElIsYi1mIcIvFS3KXlpHYfs3d+AzGg=";
-      }
-
-      # Control Panel for Twitter
-      {
-        id = "kpmjjdhbcfebfjgdnpjagcndoelnidfj";
-        version = "4.24.5";
-        hash = "sha256-8P0vsBeA28y79iAaXAU75KJAps4TBFyX0Z4asZsEVGY=";
-      }
-
-      # refined github
-      {
-        id = "hlepfoohegkhhmjieoechaddaejaokhf";
-        version = "26.10.0";
-        hash = "sha256-Ua3DlSiSkXx7VefXwbdG7M95wTf3qe3lVmSdQOu3Q58=";
-      }
+    extensions = [
+      "ddkjiahejlhfcafbddmgiahcphecmpfh" # uBlock Origin lite
+      "clngdbkpkpeebahjckkjfobafhncgmne" # stylus
+      "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+      "aihndpeeoneojofmliffjknbegmipbim" # at://wormhole
+      "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock
+      "jghecgabfgfdldnmbfkhmffcabddioke" # Volume Master
+      "ndcooeababalnlpkfedmmbbbgkljhpjf" # scriptcat
+      "ephjcajbkgplkjmelpglennepbpmdpjg" # ff2mpv
+      "kpmjjdhbcfebfjgdnpjagcndoelnidfj" # Control Panel for Twitter
+      "hlepfoohegkhhmjieoechaddaejaokhf" # refined github
     ];
 
     nativeMessagingHosts = [ pkgs.ff2mpv-rust ];
 
-    package = pkgs.ungoogled-chromium.override {
+    package = pkgs.chromium.override {
       enableWideVine = true;
 
       # https://github.com/secureblue/hardened-chromium
