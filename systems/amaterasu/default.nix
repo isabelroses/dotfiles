@@ -14,8 +14,14 @@
       cpu = "intel";
       gpu = "nvidia";
       monitors = {
-        "DP-1".hz = 144;
-        "DP-2".hz = 144;
+        "DP-1" = {
+          hz = 144;
+          position = "1920x0";
+        };
+        "DP-2" = {
+          hz = 144;
+          position = "0x0";
+        };
       };
       capabilities = {
         tpm = true;
