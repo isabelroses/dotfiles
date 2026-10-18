@@ -43,7 +43,7 @@ in
         identityFile = secrets.keys-codeberg.path;
       };
 
-      "freyja".hostname = "192.168.86.4";
+      "freyja".hostname = "192.168.0.201";
 
       "git.auxolotl.org" = {
         user = "forgejo";
