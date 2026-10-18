@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 usage() {
-  echo "usage: update-pins [chromium|brew|vicinae]..." >&2
+  echo "usage: update-pins [brew|vicinae]..." >&2
   exit 2
 }
 
 FLAKE_ROOT="${FLAKE:-$(git rev-parse --show-toplevel)}"
 
-CHROMIUM_FILE="$FLAKE_ROOT/home/isabel/chromium.nix"
 BREW_FILE="$FLAKE_ROOT/modules/darwin/brew/default.nix"
 VICINAE_EXT_FILE="$FLAKE_ROOT/home/isabel/vicinae/extension.nix"
 VICINAE_FILE="$FLAKE_ROOT/home/isabel/vicinae/default.nix"
@@ -19,87 +18,6 @@ prefetch_github() {
 # shellcheck disable=SC2329
 is_sri() {
   [[ $1 =~ ^sha256-[A-Za-z0-9+/]{43}=$ ]]
-}
-
-# shellcheck disable=SC2329
-crx_url() {
-  echo "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${CHROME_MAJOR}&x=id%3D${1}%26installsource%3Dondemand%26uc"
-}
-
-# shellcheck disable=SC2329
-update_chromium() {
-  local version
-  if [ -n "${CHROME_VERSION:-}" ]; then
-    version="$CHROME_VERSION"
-  else
-    version=$(nix eval --raw "$FLAKE_ROOT#nixosConfigurations.$(hostname).config.home-manager.users.isabel.programs.chromium.package.version")
-  fi
-  CHROME_MAJOR="${version%%.*}"
-
-  local id current location latest hash rc=0 count=0
-  while read -r id; do
-    count=$((count + 1))
-    current=$(sed -n "/id = \"$id\"/,/}/ s/.*version = \"\(.*\)\";.*/\1/p" "$CHROMIUM_FILE") || {
-      echo "chromium/$id: failed to read current version" >&2
-      rc=1
-      continue
-    }
-
-    location=$(curl -fsI "$(crx_url "$id")" | tr -d '\r' | sed -n 's/^[Ll]ocation: //p') || {
-      echo "chromium/$id: version discovery failed" >&2
-      rc=1
-      continue
-    }
-
-    # CJPAL..._1_72_2_0.crx -> 1.72.2; the store pads versions to four
-    # components, so strip one trailing .0 (a real 4-part version ending
-    # in .0 would be mis-parsed, none of ours are)
-    latest=$(basename "$location" .crx)
-    latest=${latest#"${id^^}"_}
-    latest=${latest//_/.}
-    if [[ $latest == *.*.*.* ]]; then
-      latest=${latest%.0}
-    fi
-
-    [[ $latest =~ ^[0-9]+(\.[0-9]+)*$ ]] || {
-      echo "chromium/$id: unexpected version '$latest'" >&2
-      rc=1
-      continue
-    }
-
-    if [ "$latest" = "$current" ]; then
-      echo "chromium/$id: up to date ($current)"
-      continue
-    fi
-
-    hash=$(nix store prefetch-file --name "$id.crx" --json "$(crx_url "$id")" | jq -r .hash) || {
-      echo "chromium/$id: prefetch failed" >&2
-      rc=1
-      continue
-    }
-    is_sri "$hash" || {
-      echo "chromium/$id: unexpected hash '$hash'" >&2
-      rc=1
-      continue
-    }
-
-    sed -i "/id = \"$id\"/,/}/ {
-      s|version = \".*\";|version = \"$latest\";|
-      s|hash = \".*\";|hash = \"$hash\";|
-    }" "$CHROMIUM_FILE" || {
-      echo "chromium/$id: failed to edit $CHROMIUM_FILE" >&2
-      rc=1
-      continue
-    }
-    echo "chromium/$id: $current -> $latest"
-  done < <(sed -n 's/.*id = "\([a-p]\{32\}\)";.*/\1/p' "$CHROMIUM_FILE")
-
-  if [ "$count" -eq 0 ]; then
-    echo "chromium: found no extension ids in $CHROMIUM_FILE" >&2
-    return 1
-  fi
-
-  return "$rc"
 }
 
 # shellcheck disable=SC2329
@@ -379,13 +297,13 @@ run_target() {
 main() {
   local -a targets=("$@")
   if [ ${#targets[@]} -eq 0 ]; then
-    targets=(chromium brew vicinae)
+    targets=(brew vicinae)
   fi
 
   local t
   for t in "${targets[@]}"; do
     case "$t" in
-    chromium | brew | vicinae) run_target "$t" ;;
+    brew | vicinae) run_target "$t" ;;
     *) usage ;;
     esac
   done

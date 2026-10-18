@@ -1,7 +1,6 @@
 {
   lib,
   writeShellApplication,
-  curl,
   jq,
   gnused,
   gawk,
@@ -14,7 +13,6 @@ writeShellApplication {
   name = "update-pins";
 
   runtimeInputs = [
-    curl
     jq
     gnused
     gawk
@@ -27,7 +25,7 @@ writeShellApplication {
   text = builtins.readFile ./update-pins.sh;
 
   meta = {
-    description = "Update the pinned brew, vicinae and chromium extension sources";
+    description = "Update the pinned brew and vicinae extension sources";
     license = lib.licenses.eupl12;
     mainProgram = "update-pins";
     maintainers = with lib.maintainers; [ isabelroses ];

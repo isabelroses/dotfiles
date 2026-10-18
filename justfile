@@ -145,7 +145,7 @@ update *input:
       --commit-lockfile-summary "flake.lock: update {{ if input == "" { "all inputs" } else { input } }}" \
       --flake {{ flake }}
 
-# update the pinned brew, vicinae and chromium sources
+# update the pinned brew and vicinae sources
 [group('dev')]
 [no-exit-message]
 update-pins *targets:
