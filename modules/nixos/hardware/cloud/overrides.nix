@@ -31,7 +31,6 @@ in
     systemd.services.qemu-guest-agent.path = [ pkgs.shadow ];
 
     boot = {
-      growPartition = !config.boot.initrd.systemd.enable;
       kernelParams = [ "net.ifnames=0" ];
       kernel.sysctl = {
         "net.ipv4.ip_forward" = true;
