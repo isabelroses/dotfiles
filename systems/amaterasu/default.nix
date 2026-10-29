@@ -8,6 +8,7 @@
     profiles = {
       graphical.enable = true;
       workstation.enable = true;
+      gaming.enable = true;
     };
 
     device = {

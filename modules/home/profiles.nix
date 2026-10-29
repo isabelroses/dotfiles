@@ -24,6 +24,7 @@ in
         graphical
         headless
         workstation
+        gaming
         laptop
         server
         ;
