@@ -23,6 +23,15 @@ in
         serverAliases = [ "www.${cfg.domain}" ];
         enableACME = true;
         root = extpkgs.isabelroses-website;
+        locations = {
+          "/".tryFiles = "$uri $uri.html $uri/ =404";
+          "/_astro/".extraConfig = ''
+            expires max;
+          '';
+        };
+        extraConfig = ''
+          error_page 404 /404.html;
+        '';
       };
     };
   };
