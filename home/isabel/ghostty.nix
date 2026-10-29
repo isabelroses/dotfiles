@@ -28,7 +28,7 @@ in
 
       # home-manager does this for us
       shell-integration = "none";
-      shell-integration-features = "ssh-env";
+      shell-integration-features = "ssh-env,ssh-terminfo";
 
       keybind = [
         "super+u=copy_url_to_clipboard"
