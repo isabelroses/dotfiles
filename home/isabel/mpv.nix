@@ -1,23 +1,14 @@
 {
   lib,
   pkgs,
+  self',
   config,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-
-  yt-dlp =
-    (pkgs.yt-dlp.override {
-      jsRuntime = pkgs.nodejs;
-    }).overrideAttrs
-      (prevAttrs: {
-        makeWrapperArgs = prevAttrs.makeWrapperArgs or [ ] ++ [
-          "--add-flag"
-          "--js-runtimes=node"
-        ];
-      });
+  inherit (self'.legacyPackages) yt-dlp;
 in
 {
   config = mkIf config.garden.profiles.media.watching.enable {

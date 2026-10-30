@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  self',
   inputs',
   extpkgs,
   ...
@@ -79,6 +80,7 @@ in
 
     (optionalAttrs cfg.media.watching.enable {
       inherit (pkgs) ff2mpv-rust;
+      inherit (self'.legacyPackages) gup;
     })
 
     (optionalAttrs (cfg.media.watching.enable && isLinux) {

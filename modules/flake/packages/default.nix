@@ -9,6 +9,8 @@ removeAttrs (pkgs.lib.customisation.makeScope pkgs.newScope (self: {
 
   docs = self.callPackage ./docs/package.nix { };
 
+  gup = self.callPackage ./gup/package.nix { };
+
   iztaller = self.callPackage ./iztaller/package.nix {
     nix = inputs.izlix.packages.${pkgs.stdenv.hostPlatform.system}.lix;
   };
@@ -18,5 +20,8 @@ removeAttrs (pkgs.lib.customisation.makeScope pkgs.newScope (self: {
   optiondoc = self.callPackage ./docs/options.nix { };
 
   update-pins = self.callPackage ./update-pins/package.nix { };
+
+  # the scope's own yt-dlp would recurse, so take the nixpkgs one
+  yt-dlp = self.callPackage ./yt-dlp/package.nix { inherit (pkgs) yt-dlp; };
   # keep-sorted end
 })) [ "inputs" ]

@@ -1,0 +1,810 @@
+#!/usr/bin/env python3
+import argparse
+import dbm.sqlite3
+import hashlib
+import logging
+import os
+import re
+import shelve
+import sys
+import time
+from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from contextlib import contextmanager, nullcontext
+from dataclasses import dataclass, field, replace
+from datetime import UTC, datetime
+from itertools import chain
+from pathlib import Path
+from xml.sax.saxutils import escape
+
+import httpx
+from gallery_dl import config as gdl_config
+from gallery_dl import exception as gdl_exception
+from gallery_dl import formatter as gdl_formatter
+from gallery_dl import job as gdl_job
+from gallery_dl.extractor.booru import BooruExtractor
+
+IMMICH_SERVER = "https://photos.isabelroses.com"
+STATE = Path(os.environ.get("XDG_STATE_HOME") or Path.home() / ".local/state")
+COOKIES = STATE / "gup/cookies.txt"
+UPLOADED = STATE / "gup/uploaded"
+# each file's own post, for files found through searches, profiles, and pools,
+# keyed by gallery-dl category, or base category for sites with many instances
+POST_URLS = {
+    "Danbooru": "{root}/posts/{id}",
+    "E621": "{root}/posts/{id}",
+    "gelbooru": "{root}/index.php?page=post&s=view&id={id}",
+    "gelbooru_v02": "{root}/index.php?page=post&s=view&id={id}",
+    "moebooru": "{root}/post/show/{id}",
+    "pixiv": "https://www.pixiv.net/artworks/{id}",
+    "twitter": "https://x.com/i/status/{tweet_id}",
+}
+# parallel requests to Immich, for hashing, uploads, and lookups
+WORKERS = 4
+# retries for reads that hit a dropped connection
+RETRIES = 2
+RETRYABLE = (httpx.ReadError, httpx.ReadTimeout, httpx.RemoteProtocolError)
+# Immich and digiKam nest tags at "/", so site tags get a look-alike instead
+SLASH = "\u2215"
+XMP = """\
+<x:xmpmeta xmlns:x="adobe:ns:meta/">
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about=""
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:tiff="http://ns.adobe.com/tiff/1.0/"
+ xmlns:digiKam="http://www.digikam.org/ns/1.0/">
+{}
+</rdf:Description>
+</rdf:RDF>
+</x:xmpmeta>
+"""
+
+log, warn, error = logging.info, logging.warning, logging.error
+COLORS = {
+    logging.DEBUG: "2",
+    logging.INFO: "34",
+    logging.WARNING: "33",
+    logging.ERROR: "31",
+}
+
+
+class ColorFormatter(logging.Formatter):
+    def __init__(self, color):
+        super().__init__("%(message)s")
+        self.color = color
+
+    def format(self, record):
+        level = f"[{record.levelname}]"
+        if self.color:
+            level = f"\033[{COLORS.get(record.levelno, '1;31')}m{level}\033[0m"
+        return f"{level} {super().format(record)}"
+
+
+@dataclass(frozen=True, slots=True)
+class File:
+    path: Path
+    # where gup's archive remembers it, see archive_key
+    key: str = ""
+    # "given" by hand, "downloaded" by this run, or found "on disk"
+    origin: str = "given"
+    posted: datetime | None = None
+    description: str = ""
+    tags: frozenset[str] = frozenset()
+
+
+@dataclass(frozen=True, slots=True)
+class Copy:
+    """A downloaded file to delete once Immich settles it, if still unchanged."""
+
+    path: Path
+    size: int
+    mtime: int
+
+    @classmethod
+    def of(cls, path):
+        stat = (path := path.resolve()).stat()
+        return cls(path, stat.st_size, stat.st_mtime_ns)
+
+    def unchanged(self):
+        try:
+            return Copy.of(self.path) == self
+        except OSError:
+            return False
+
+
+@dataclass(frozen=True, slots=True)
+class Asset:
+    id: str
+    key: str = ""
+    description: str = ""
+    tags: frozenset[str] = frozenset()
+    copy: Copy | None = None
+
+
+class Uploaded:
+    """What gup put on one Immich server, see UPLOADED.
+
+    Uploads wait as pending until a look at the asset on a later run finds
+    its description and tags, and settle then: settled files are skipped for
+    good, and downloaded copies uploaded with -d deleted.
+    """
+
+    def __init__(self, settled_db, pending_db):
+        self.settled_db, self.pending_db = settled_db, pending_db
+        self._pending = {
+            key: Asset(
+                v["id"],
+                "" if key.startswith("asset:") else key,
+                v["description"],
+                v["tags"],
+                v["copy"] and Copy(Path(v["copy"][0]), *v["copy"][1:]),
+            )
+            for key, v in pending_db.items()
+        }
+
+    @staticmethod
+    def _key(asset):
+        # files given by hand have no archive key, so they wait under their id
+        return asset.key or f"asset:{asset.id}"
+
+    @classmethod
+    @contextmanager
+    def open(cls, path):
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with (
+            dbm.sqlite3.open(f"{path}.done", "c") as settled,
+            shelve.Shelf(dbm.sqlite3.open(f"{path}.pending", "c")) as pending,
+        ):
+            yield cls(settled, pending)
+
+    def __contains__(self, key):
+        return key in self.settled_db or key in self._pending
+
+    @property
+    def pending(self):
+        return list(self._pending.values())
+
+    def remember(self, file, asset_id, delete=False):
+        """Records an upload as pending, with its copy if delete may remove it."""
+        removable = delete and file.origin == "downloaded"
+        copy = Copy.of(file.path) if removable else None
+        asset = Asset(asset_id, file.key, file.description, file.tags, copy)
+        key = self._key(asset)
+        self._pending[key] = asset
+        self.pending_db[key] = {
+            "id": asset.id,
+            "description": asset.description,
+            "tags": asset.tags,
+            "copy": copy and (str(copy.path), copy.size, copy.mtime),
+        }
+        return asset
+
+    def settle(self, settled, gone, keep=frozenset()):
+        """Settles and forgets assets, returning how many copies it deleted.
+
+        Copies at a path in keep, or changed since upload, stay.
+        """
+        removed = 0
+        for asset in (*settled, *gone):
+            key = self._key(asset)
+            self._pending.pop(key, None)
+            self.pending_db.pop(key, None)
+        for asset in settled:
+            if asset.key:
+                self.settled_db[asset.key] = b"1"
+            if not (copy := asset.copy):
+                continue
+            if copy.path not in keep and copy.unchanged():
+                copy.path.unlink()
+                removed += 1
+            else:
+                log(f"Kept {copy.path.name}, it changed or was given by hand")
+        return removed
+
+
+def archive_key(extr, url, info):
+    """A stable id for the file, from gallery-dl's archive format.
+
+    The file's url stands in when a field of the format is missing.
+    """
+    if extr.archive_fmt:
+        present = {k: v for k, v in info.items() if v is not None}
+        key = gdl_formatter.parse(extr.archive_fmt, "\0").format_map(present)
+        if key and "\0" not in key:
+            return f"{extr.category}:{key}"
+    return f"{extr.category}:{url}"
+
+
+def archive_path(server):
+    return UPLOADED / re.sub(r"\W+", "_", server.rstrip("/"))
+
+
+def author_of(info):
+    author = info.get("author") or info.get("user") or info.get("pinner")
+    if isinstance(author, dict):
+        keys = ("name", "handle", "uniqueId", "username")
+        author = next(filter(None, map(author.get, keys)), None)
+    fallbacks = ("username", "blog_name", "channel", "uploader")
+    return author or next(filter(None, map(info.get, fallbacks)), "")
+
+
+def tags_of(extr, info):
+    """Every tag gup gives the file: Source/, Author/, and the site's own."""
+    source = (
+        extr.basecategory
+        if extr.basecategory in {"Danbooru", "E621"}
+        else extr.category
+    )
+    tags = {f"Source/{source.title()}"}
+    if author := author_of(info):
+        tags.add(f"Author/{author.replace('/', SLASH)}")
+    for key, value in info.items():
+        if key not in {"tags", "hashtags"} and not key.startswith("tags_"):
+            continue
+        # booru tags come space separated, e621's grouped by kind
+        if isinstance(value, str):
+            value = value.split()
+        elif isinstance(value, dict):
+            value = chain.from_iterable(value.values())
+        tags.update(
+            t.lstrip("#").replace("/", SLASH) for t in value or () if isinstance(t, str)
+        )
+    return frozenset(tags)
+
+
+def post_url(extr, info):
+    template = POST_URLS.get(extr.category) or POST_URLS.get(extr.basecategory)
+    try:
+        return template.format_map({"root": extr.root, **info}) if template else ""
+    except KeyError:
+        return ""
+
+
+def posted_at(info):
+    # gallery-dl dates are naive utc, yt-dlp only gives a timestamp
+    if isinstance(date := info.get("date"), datetime):
+        return date.replace(tzinfo=UTC)
+    if (timestamp := info.get("timestamp")) is not None:
+        return datetime.fromtimestamp(timestamp, UTC)
+    return None
+
+
+def file_from(extr, info, path, key, origin):
+    post = info.get("webpage_url") or post_url(extr, info)
+    return File(path, key, origin, posted_at(info), post, tags_of(extr, info))
+
+
+class SkipUploaded:
+    """gallery-dl's download archive interface over gup's upload archive.
+
+    gallery-dl then skips what gup uploaded like what it archived itself, so
+    skip: abort:N and such count those too. Wraps gallery-dl's own archive.
+    """
+
+    def __init__(self, job, inner):
+        self.job, self.inner = job, inner
+
+    def check(self, kwdict):
+        job = self.job
+        job.key = archive_key(job.extractor, job.url, kwdict)
+        if job.key in job.uploaded:
+            job.skipped.append(job.key)
+            log(f"Skip {kwdict.get('filename')}.{kwdict.get('extension')}")
+            return True
+        return self.inner is not None and self.inner.check(kwdict)
+
+    def add(self, kwdict):
+        if self.inner is not None:
+            self.inner.add(kwdict)
+
+    def finalize(self):
+        if self.inner is not None:
+            self.inner.finalize()
+
+    def close(self):
+        if self.inner is not None:
+            self.inner.close()
+
+
+class CollectJob(gdl_job.DownloadJob):
+    """Collects the files a gallery-dl job downloads or finds on disk."""
+
+    def __init__(self, url, parent=None, *args, archive=None):
+        super().__init__(url, parent, *args)
+        self.files = parent.files if parent else []
+        self.skipped = parent.skipped if parent else []
+        self.uploaded = parent.uploaded if parent else archive or {}
+        self.overwrites = self.extractor.config("skip", True) is False
+        if isinstance(self.extractor, BooruExtractor):
+            # read per site, so setting it once under "booru" does nothing
+            gdl_config.set(("extractor", self.extractor.category), "tags", True)
+        self.url = self.key = ""
+        self.found = False
+
+    def initialize(self, kwdict=None):
+        super().initialize(kwdict)
+        if self.archive is None:
+            # gallery-dl only sets these along with an archive of its own
+            self._archive_write_file = False
+            self._archive_write_skip = self._archive_write_after = False
+        self.archive = SkipUploaded(self, self.archive)
+
+    def handle_skip(self):
+        self.found = True
+        super().handle_skip()
+
+    def handle_url(self, url, kwdict):
+        self.url, self.found, self.pathfmt.path = url, False, ""
+        super().handle_url(url, kwdict)
+        if self.pathfmt.path and (path := Path(self.pathfmt.path)).exists():
+            fetched = not self.found and not self.overwrites
+            origin = "downloaded" if fetched else "on disk"
+            self.files.append(file_from(self.extractor, kwdict, path, self.key, origin))
+            log(f"Downloaded {path.name}" if fetched else f"Already here: {path.name}")
+
+
+def setup_gallery_dl(out_dir):
+    gdl_config.load()
+    gdl_config.set(("extractor",), "base-directory", str(out_dir))
+    gdl_config.set(("extractor",), "directory", [""])
+    if gdl_config.get(("extractor",), "cookies") is None and COOKIES.exists():
+        gdl_config.set(("extractor",), "cookies", str(COOKIES))
+    gdl_config.set(("output",), "mode", "null")
+
+    config_home = Path(os.environ.get("XDG_CONFIG_HOME") or Path.home() / ".config")
+    if (ytdl_config := config_home / "yt-dlp/config").exists():
+        gdl_config.set(("extractor", "ytdl"), "config-file", str(ytdl_config))
+
+
+def without_tracking(url, extr):
+    """Drops the query (?s=20 and such) unless the extractor needs it.
+
+    Some sites keep ids there, like gelbooru's index.php?page=post&id=1.
+    """
+    bare = re.split(r"[?#]", url, maxsplit=1)[0]
+    match = type(extr).pattern.match(bare)
+    return bare if match and match.groups() == extr.groups else url
+
+
+@dataclass(slots=True)
+class Fetch:
+    url: str
+    files: list[File] = field(default_factory=list)
+    skipped: int = 0
+    error: str = ""
+
+
+def download(raw, archive):
+    """Downloads a url's files, keeping those that landed if some failed."""
+    try:
+        job = CollectJob(raw, archive=archive)
+        url = without_tracking(raw, job.extractor)
+    except gdl_exception.NoExtractorError:
+        # yt-dlp sites like youtube need their query
+        url = raw
+        job = CollectJob(f"ytdl:{raw}", archive=archive)
+
+    log(f"Fetch {url}")
+    status = job.run()
+    files = [replace(f, description=f.description or url) for f in job.files]
+    error = ""
+    if status:
+        error = f"gallery-dl exited with status {status}"
+    elif not files and not job.skipped:
+        error = "nothing to download"
+    return Fetch(raw, files, len(job.skipped), error)
+
+
+class ImmichError(Exception):
+    def __init__(self, message, response=None):
+        super().__init__(message)
+        self.response = response
+
+
+class Immich(httpx.Client):
+    def __init__(self, server, key):
+        super().__init__(
+            base_url=server.rstrip("/") + "/api",
+            headers={"x-api-key": key, "Accept": "application/json"},
+            timeout=httpx.Timeout(600, connect=30),
+            transport=httpx.HTTPTransport(retries=RETRIES),
+        )
+
+    def call(self, method, endpoint, read=None, **kwargs):
+        """Makes a request, passing the json answer through read.
+
+        Raises ImmichError for failed requests and unexpected answers only,
+        so bugs elsewhere still surface as tracebacks.
+        """
+        # only reads are safe to repeat, and keep-alive connections Immich
+        # dropped while gallery-dl was busy surface on the next one
+        retry = method == "GET" or endpoint == "/assets/bulk-upload-check"
+        for attempt in range(RETRIES + 1 if retry else 1):
+            try:
+                r = self.request(method, endpoint, **kwargs)
+                r.raise_for_status()
+                answer = r.json() if r.content else None
+                return read(answer) if read else answer
+            except httpx.HTTPError as e:
+                if retry and isinstance(e, RETRYABLE) and attempt < RETRIES:
+                    time.sleep(attempt + 1)
+                    continue
+                raise ImmichError(e, getattr(e, "response", None)) from e
+            except (ValueError, KeyError, TypeError, AttributeError) as e:
+                raise ImmichError(f"unexpected answer from {endpoint} ({e!r})") from e
+
+    def known(self, checksums):
+        """Maps each sha1 Immich rejects to its asset id, or None if unsupported."""
+
+        def rejected(r):
+            found = {}
+            for a in r["results"]:
+                if a["action"] != "reject":
+                    continue
+                if a.get("isTrashed"):
+                    warn(f"In Immich's trash, restore it to see it: {a['assetId']}")
+                found[a["id"]] = a.get("assetId")
+            return found
+
+        assets = [{"id": c, "checksum": c} for c in checksums]
+        check = "/assets/bulk-upload-check"
+        return self.call("POST", check, rejected, json={"assets": assets})
+
+    def upload(self, path, sha1, posted=None, sidecar=None):
+        """Returns the asset id, and whether Immich already had the file."""
+        stat = path.stat()
+        when = (posted or datetime.fromtimestamp(stat.st_mtime, UTC)).isoformat()
+        with path.open("rb") as f:
+            fields = dict.fromkeys(("fileCreatedAt", "fileModifiedAt"), when)
+            files = {"assetData": (path.name, f, "application/octet-stream")}
+            if sidecar:
+                files["sidecarData"] = (f"{path.name}.xmp", sidecar)
+            read = lambda r: (r["id"], r["status"] == "duplicate")
+            return self.call(
+                "POST",
+                "/assets",
+                read,
+                data=fields,
+                files=files,
+                headers={"x-immich-checksum": sha1},
+            )
+
+    def metadata(self, asset_id):
+        """The asset's description and tags, or None if it was deleted."""
+
+        def read(info):
+            description = (info.get("exifInfo") or {}).get("description") or ""
+            return description, {t["value"] for t in info.get("tags") or []}
+
+        try:
+            return self.call("GET", f"/assets/{asset_id}", read)
+        except ImmichError as e:
+            r = e.response
+            if r is not None and r.status_code == 400 and "not found" in r.text.lower():
+                return None
+            raise
+
+    def describe(self, asset_ids, description):
+        body = {"ids": sorted(asset_ids), "description": description}
+        self.call("PUT", "/assets", json=body)
+
+    def tag_ids(self, tags):
+        """Maps tag names to ids, creating missing tags, in one request."""
+        by_name = lambda r: {t["value"]: t["id"] for t in r}
+        return self.call("PUT", "/tags", by_name, json={"tags": sorted(tags)})
+
+    def tag(self, tag_ids, asset_ids):
+        """Gives every asset every tag."""
+        body = {"tagIds": sorted(tag_ids), "assetIds": sorted(asset_ids)}
+        self.call("PUT", "/tags/assets", json=body)
+
+
+def sha1_of(path):
+    with path.open("rb") as f:
+        return hashlib.file_digest(f, "sha1").hexdigest()
+
+
+def sidecar(file):
+    """XMP holding gup's description and tags.
+
+    Immich's metadata extraction overwrites description and tags set over
+    the API before it finishes, but reads them from the sidecar.
+    """
+    fields = []
+    if description := escape(file.description):
+        alt = f'<rdf:Alt><rdf:li xml:lang="x-default">{description}</rdf:li></rdf:Alt>'
+        # Immich prefers the file's own ImageDescription over Description
+        fields.append(f"<dc:description>{alt}</dc:description>")
+        fields.append(f"<tiff:ImageDescription>{alt}</tiff:ImageDescription>")
+    if file.tags:
+        seq = "".join(f"<rdf:li>{escape(t)}</rdf:li>" for t in sorted(file.tags))
+        fields.append(f"<digiKam:TagsList><rdf:Seq>{seq}</rdf:Seq></digiKam:TagsList>")
+    return XMP.format("\n".join(fields)).encode() if fields else None
+
+
+def push(immich, files, pool):
+    """Uploads the files Immich lacks, sending each distinct content once.
+
+    Yields (file, asset id, how) as uploads finish: the id is None if the file
+    failed, how is "uploaded", "copy" for more files with that content, or
+    "already" if Immich had it before.
+    """
+
+    def checksum(file):
+        try:
+            return sha1_of(file.path)
+        except OSError as e:
+            warn(f"Can't read {file.path.name}: {e}")
+            return None
+
+    by_sum = defaultdict(list)
+    for file, sha1 in zip(files, pool.map(checksum, files)):
+        if sha1:
+            by_sum[sha1].append(file)
+        else:
+            yield file, None, ""
+    try:
+        known = immich.known(list(by_sum)) if by_sum else {}
+    except ImmichError as e:
+        warn(f"Duplicate check failed; uploading anyway: {e}")
+        known = {}
+
+    def send(sha1):
+        if sha1 in known:
+            if not known[sha1]:
+                raise ImmichError("Immich doesn't support this format")
+            return known[sha1], True
+        file = by_sum[sha1][0]
+        return immich.upload(file.path, sha1, file.posted, sidecar(file))
+
+    uploads = {pool.submit(send, sha1): same for sha1, same in by_sum.items()}
+    for future in as_completed(uploads):
+        same = uploads[future]
+        try:
+            asset_id, had = future.result()
+        except (ImmichError, OSError) as e:
+            warn(f"Upload failed {same[0].path.name}: {e}")
+            yield from ((file, None, "") for file in same)
+            continue
+        for i, file in enumerate(same):
+            how = "already" if had else "copy" if i else "uploaded"
+            log(f"{how.title()}: {file.path.name}")
+            yield file, asset_id, how
+
+
+def tag_plan(missing):
+    """Splits {asset id: missing tags} into (tags, asset ids) requests.
+
+    Each request gives all its assets all its tags, so either one per tag or
+    one per distinct set of tags covers everything exactly; take the shorter.
+    Shared tags like Author/ favour the first, booru posts the second.
+    """
+    by_tag, by_set = defaultdict(set), defaultdict(set)
+    for asset_id, tags in missing.items():
+        if tags:
+            by_set[frozenset(tags)].add(asset_id)
+        for tag in tags:
+            by_tag[tag].add(asset_id)
+    if len(by_tag) <= len(by_set):
+        return [({tag}, ids) for tag, ids in by_tag.items()]
+    return list(by_set.items())
+
+
+def reconcile(immich, assets, pool):
+    """Fills in missing descriptions and tags, never replacing a description.
+
+    Returns the assets that now have both, and those deleted from Immich.
+    """
+    by_id = defaultdict(list)
+    for asset in assets:
+        by_id[asset.id].append(asset)
+
+    def read(asset_id):
+        try:
+            return immich.metadata(asset_id)
+        except ImmichError as e:
+            warn(f"Reading {asset_id} failed: {e}")
+            return False
+
+    gone_ids, unsettled = set(), set()
+    to_describe, missing = defaultdict(set), {}
+    for (asset_id, group), have in zip(by_id.items(), pool.map(read, by_id)):
+        if have is None:
+            gone_ids.add(asset_id)
+        elif have is False:
+            unsettled.add(asset_id)
+        else:
+            description, tags = have
+            url = next((a.description for a in group if a.description), "")
+            if url and not description.strip():
+                to_describe[url].add(asset_id)
+            missing[asset_id] = set().union(*(a.tags for a in group)) - tags
+
+    # files of one post share their description, so each post is one request
+    def describe(item):
+        url, ids = item
+        try:
+            immich.describe(ids, url)
+        except ImmichError as e:
+            warn(f"Describing failed {url}: {e}")
+            return ids
+        return set()
+
+    unsettled = unsettled.union(*pool.map(describe, to_describe.items()))
+    plan = tag_plan(missing)
+    try:
+        names = set().union(*(tags for tags, _ in plan))
+        tag_ids = immich.tag_ids(names) if names else {}
+    except ImmichError as e:
+        warn(f"Tag creation failed: {e}")
+        tag_ids = {}
+
+    def apply(request):
+        tags, ids = request
+        what = ", ".join(sorted(tags)) if len(tags) < 4 else f"{len(tags)} tags"
+        log(f"Tag {len(ids)} asset(s): {what}")
+        try:
+            if not tags <= tag_ids.keys():
+                raise ImmichError("tag missing")
+            immich.tag({tag_ids[t] for t in tags}, ids)
+        except ImmichError as e:
+            warn(f"Tagging failed {what}: {e}")
+            return ids
+        return set()
+
+    unsettled |= gone_ids.union(*pool.map(apply, plan))
+    settled = [a for a in assets if a.id not in unsettled]
+    return settled, [a for a in assets if a.id in gone_ids]
+
+
+@dataclass(slots=True)
+class Upload:
+    uploaded: int = 0
+    already: int = 0
+    failed: int = 0
+    settled: int = 0
+    gone: int = 0
+    pending: int = 0
+    removed: int = 0
+    removing: int = 0
+
+
+def upload_to_immich(immich, files, archive, delete=False):
+    """Uploads the files and settles earlier runs' pending uploads.
+
+    Downloads uploaded with delete are removed once Immich settles them,
+    which for new uploads is on a later run, whether or not it passes delete.
+    """
+    # a file given by hand is never deleted, even if this run downloaded it too
+    keep = {f.path.resolve() for f in files if f.origin == "given"}
+    files = [
+        replace(f, origin="given") if f.path.resolve() in keep else f for f in files
+    ]
+    result = Upload()
+    pending = archive.pending
+    if files:
+        log(f"Upload {len(files)} files")
+    # new uploads carry their metadata in the sidecar, but Immich only reads it
+    # after a while, so they are checked on the next run with the pending ones
+    had_it = []
+    with ThreadPoolExecutor(WORKERS) as pool:
+        for file, asset_id, how in push(immich, files, pool):
+            if not asset_id:
+                result.failed += 1
+                continue
+            if how == "uploaded":
+                result.uploaded += 1
+            else:
+                result.already += 1
+            asset = archive.remember(file, asset_id, delete)
+            if how == "already":
+                had_it.append(asset)
+        settled, gone = reconcile(immich, had_it + pending, pool)
+    earlier = {a.id for a in pending}
+    result.settled = sum(a.id in earlier for a in settled)
+    result.gone = len(gone)
+    result.removed = archive.settle(settled, gone, keep)
+    result.pending = len(archive.pending)
+    result.removing = sum(bool(a.copy) for a in archive.pending)
+    return result
+
+
+@dataclass(slots=True)
+class Run:
+    fetches: list[Fetch]
+    upload: Upload = field(default_factory=Upload)
+
+    @property
+    def failed(self):
+        return any(f.error for f in self.fetches) or self.upload.failed
+
+    def summary(self):
+        files = [f for fetch in self.fetches for f in fetch.files]
+        failures = [f"{f.url}: {f.error}" for f in self.fetches if f.error]
+        up = self.upload
+        counts = [
+            (sum(f.origin == "downloaded" for f in files), "file(s) downloaded"),
+            (sum(f.origin == "on disk" for f in files), "file(s) already on disk"),
+            (
+                sum(f.skipped for f in self.fetches),
+                "file(s) skipped, gup uploaded them before (-f refetches)",
+            ),
+            (up.uploaded, "file(s) uploaded to Immich"),
+            (up.already, "file(s) already in Immich"),
+            (up.failed, "file(s) failed to upload"),
+            (up.removed, "downloaded file(s) deleted after upload"),
+            (up.removing, "downloaded file(s) deleted once Immich confirms them"),
+            (up.settled, "earlier upload(s) confirmed"),
+            (up.gone, "file(s) deleted from Immich, fetched again next run"),
+            (up.pending, "upload(s) waiting on Immich, checked next run"),
+        ]
+        lines = ["", "Summary:"]
+        if self.fetches:
+            fetched = len(self.fetches) - len(failures)
+            lines.append(f"  {fetched} of {len(self.fetches)} URL(s) fetched")
+        lines += [f"  {n} {text}" for n, text in counts if n]
+        if failures:
+            lines += ["Failed:", *(f"  {f}" for f in failures)]
+        return "\n".join(lines)
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        usage="%(prog)s [OPTIONS] <url|path> [url|path ...]",
+    )
+    downloads = os.environ.get("XDG_DOWNLOAD_DIR") or Path.home() / "Downloads"
+    parser.add_argument("--dir", type=Path, default=Path(downloads))
+    parser.add_argument("-n", "--no-upload", dest="upload", action="store_false")
+    levels = ("DEBUG", "INFO", "WARNING", "ERROR")
+    parser.add_argument(
+        "-l", "--log-level", type=str.upper, choices=levels, default="INFO"
+    )
+    # download files even if gup has put them in Immich before
+    parser.add_argument("-f", "--refetch", action="store_true")
+    parser.add_argument("-d", "--delete", action="store_true")
+    parser.add_argument("inputs", nargs="+")
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    handler = logging.StreamHandler()
+    handler.setFormatter(
+        ColorFormatter(sys.stderr.isatty() and not os.environ.get("NO_COLOR"))
+    )
+    logging.basicConfig(level=args.log_level, handlers=[handler])
+    logging.getLogger("httpx").setLevel(logging.WARNING)
+    logging.getLogger("urllib3").setLevel(logging.ERROR)
+
+    server = os.environ.get("IMMICH_SERVER") or IMMICH_SERVER
+    api_key = os.environ.get("IMMICH_API_KEY")
+    if args.upload and not api_key:
+        error("IMMICH_API_KEY is missing")
+        sys.exit(1)
+
+    args.dir.mkdir(parents=True, exist_ok=True)
+    setup_gallery_dl(args.dir)
+
+    paths, urls = [], []
+    for raw in args.inputs:
+        (paths if Path(raw).exists() else urls).append(raw)
+    # with -n the point is a local copy, so files already in Immich still count
+    no_archive = nullcontext(Uploaded({}, {}))
+    with Uploaded.open(archive_path(server)) if args.upload else no_archive as archive:
+        run = Run([download(url, {} if args.refetch else archive) for url in urls])
+        files = [File(Path(p)) for p in paths]
+        files += [f for fetch in run.fetches for f in fetch.files]
+        if args.upload:
+            with Immich(server, api_key) as immich:
+                run.upload = upload_to_immich(immich, files, archive, args.delete)
+
+    if run.failed or logging.getLogger().level <= logging.INFO:
+        print(run.summary())
+    if run.failed:
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
+
+# vim: ft=python
