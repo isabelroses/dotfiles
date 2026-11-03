@@ -18,8 +18,8 @@
       package = pkgs.fetchFromGitHub {
         owner = "homebrew";
         repo = "brew";
-        tag = "7.0.9";
-        hash = "sha256-+7waf1/I5YZPPZOwGDGqhrw9k3lDdXhdk4nglsQcqyA=";
+        tag = "7.0.11";
+        hash = "sha256-8mCor0DDjNhi+0e+FllfqiMABujBl+/RxYW+wgMpcto=";
       };
 
       # I want to force us to only use declarative taps
@@ -36,20 +36,20 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "a0882cbbae13d9802a4472d836b328f8497834bf";
-          hash = "sha256-pvHQwCCG4zAfN8RHzM7BygKHbzksAsl3cGNekmkdXVA=";
+          rev = "44447c5cdba6a67ce116e4f78bab29b4c69312d7";
+          hash = "sha256-Sef2RSF9s24ID91htwuAVGsZZwA+kroBRM77qbbRzT0=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "d4d25dbd93eef9ed20f4ae73f3c269a728a412eb";
-          hash = "sha256-FkuEIGWiCMhpV7OYfwJUkI7yrHI3AY70KrZ2KnF9hXI=";
+          rev = "e9707c29ee761b7190f73cc79e56e1033b685cbc";
+          hash = "sha256-4zrPeeSgvWGrsZXHtmgEhtR63bi2YWMDk7cu6XlofLI=";
         };
         "abue-ammar/homebrew-tinycast" = pkgs.fetchFromGitHub {
           owner = "abue-ammar";
           repo = "homebrew-tinycast";
-          rev = "3a9a0fa4de664a0aa2b34880e71626dd55309a38";
-          hash = "sha256-GSG018gaRrzd0iycO3cM2rNPpamTXwt1Z5AlQG/kcZo=";
+          rev = "16a510a98e61b3ff882844c57f5656386735fa8d";
+          hash = "sha256-2e24I9zGYRK++ff2wBcj11u7KbapzOYYbI/KRpRMsfc=";
         };
       };
     };
