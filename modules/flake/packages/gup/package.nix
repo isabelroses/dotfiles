@@ -8,15 +8,18 @@
 python3Packages.buildPythonApplication {
   pname = "gup";
   version = "0";
-  pyproject = false;
+  pyproject = true;
 
   src = lib.fileset.toSource {
     root = ./.;
     fileset = lib.fileset.unions [
-      ./gup
+      ./pyproject.toml
+      ./src
       ./tests
     ];
   };
+
+  build-system = [ python3Packages.uv-build ];
 
   # gallery-dl brings the yt-dlp its ytdl extractor imports
   dependencies = [
@@ -32,23 +35,14 @@ python3Packages.buildPythonApplication {
     (lib.makeBinPath [ ffmpeg ])
   ];
 
-  installPhase = ''
-    runHook preInstall
+  nativeCheckInputs = [ python3Packages.unittestCheckHook ];
+  unittestFlags = [
+    "-s"
+    "tests"
+    "-v"
+  ];
 
-    install -Dm755 gup "$out/bin/gup"
-
-    runHook postInstall
-  '';
-
-  doCheck = true;
-
-  checkPhase = ''
-    runHook preCheck
-
-    python -m unittest discover -s tests -v
-
-    runHook postCheck
-  '';
+  pythonImportsCheck = [ "gup.cli" ];
 
   meta = {
     description = "Download media with gallery-dl and yt-dlp and upload it to Immich";

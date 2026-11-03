@@ -1,0 +1,13 @@
+[build-system]
+requires = ["uv_build>=0.12"]
+build-backend = "uv_build"
+
+[project]
+name = "gup"
+version = "0"
+description = "Download media with gallery-dl and yt-dlp and upload it to Immich"
+requires-python = ">=3.14"
+dependencies = ["gallery-dl", "httpx"]
+
+[project.scripts]
+gup = "gup.cli:main"

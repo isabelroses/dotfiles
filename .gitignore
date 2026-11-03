@@ -7,3 +7,6 @@ result*
 
 # deploy script
 .deploy-summary
+
+# python bytecode
+__pycache__/
