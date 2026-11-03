@@ -78,7 +78,7 @@ in
     services = {
       kanidm = {
         # we need to change the package so we have patches that allow us to provision secrets
-        package = pkgs.kanidmWithSecretProvisioning_1_11;
+        package = pkgs.kanidmWithSecretProvisioning_1_12;
 
         server = {
           enable = true;
