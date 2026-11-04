@@ -1,7 +1,6 @@
 {
   imports = [
     # keep-sorted start
-    ./anubis.nix
     ./arr.nix
     ./atuin.nix
     ./blahaj.nix

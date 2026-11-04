@@ -27,13 +27,6 @@ in
         group = "forgejo";
       };
 
-      anubis-forgejo = mkSecret {
-        file = "anubis";
-        key = "forgejo";
-        owner = "anubis";
-        group = "anubis";
-      };
-
       borg-forgejo-pass = mkSecret {
         file = "borg";
         key = "forgejo-passphrase";
@@ -185,26 +178,10 @@ in
         };
       };
 
-      anubis = mkIf config.garden.services.anubis.enable {
-        instances.forgejo.settings = {
-          BIND = "/run/anubis/anubis-forgejo/anubis.sock";
-          METRICS_BIND = "/run/anubis/anubis-forgejo/anubis-metrics.sock";
-          TARGET = "unix://${config.services.forgejo.settings.server.HTTP_ADDR}";
-          ED25519_PRIVATE_KEY_HEX_FILE = config.sops.secrets.anubis-forgejo.path;
-        };
-      };
-
       nginx.virtualHosts.${cfg.domain} = {
         locations."/" = {
           recommendedProxySettings = true;
-          proxyPass =
-            "http://unix:"
-            + (
-              if config.garden.services.anubis.enable then
-                config.services.anubis.instances.forgejo.settings.BIND
-              else
-                config.services.forgejo.settings.server.HTTP_ADDR
-            );
+          proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
         };
       };
     };
