@@ -4,6 +4,7 @@
   gallery-dl,
   yt-dlp,
   ffmpeg,
+  mkvtoolnix-cli,
 }:
 python3Packages.buildPythonApplication {
   pname = "gup";
@@ -27,12 +28,16 @@ python3Packages.buildPythonApplication {
     python3Packages.httpx
   ];
 
-  # yt-dlp merges separate video and audio streams with ffmpeg
+  # yt-dlp merges separate video and audio streams with ffmpeg, and
+  # gallery-dl turns pixiv's ugoira zips into webm with ffmpeg and mkvmerge
   makeWrapperArgs = [
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ ffmpeg ])
+    (lib.makeBinPath [
+      ffmpeg
+      mkvtoolnix-cli
+    ])
   ];
 
   nativeCheckInputs = [ python3Packages.unittestCheckHook ];

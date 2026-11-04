@@ -18,7 +18,10 @@ KEY = "_gup_key"
 COOKIES = STATE / "gup/cookies.txt"
 DEFAULTS = {
     ("extractor",): {
-        "postprocessors": [{"name": "mtime", "value": "{date|timestamp}"}],
+        "postprocessors": [
+            {"name": "ugoira", "mode": "mkvmerge"},
+            {"name": "mtime", "value": "{date|timestamp}"},
+        ],
     },
     ("extractor", "ytdl"): {"enabled": True},
 }

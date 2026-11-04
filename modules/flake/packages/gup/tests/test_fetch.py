@@ -103,8 +103,8 @@ class GalleryDlTests(unittest.TestCase):
 
         self.assertEqual(gdl_config.get(("extractor",), "cookies"), "mine.txt")
         self.assertIs(gdl_config.get(("extractor", "ytdl"), "enabled"), True)
-        [mtime] = gdl_config.get(("extractor",), "postprocessors")
-        self.assertEqual(mtime["name"], "mtime")
+        names = [pp["name"] for pp in gdl_config.get(("extractor",), "postprocessors")]
+        self.assertEqual(names, ["ugoira", "mtime"])
 
     def test_gups_cookies_are_used_only_if_they_exist(self):
         cookies = self.dir / "cookies.txt"
