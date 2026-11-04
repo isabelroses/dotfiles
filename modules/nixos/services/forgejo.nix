@@ -75,7 +75,6 @@ in
 
             START_SSH_SERVER = false;
             # BUILTIN_SSH_SERVER_USER = "git";
-            DISABLE_ROUTER_LOG = true;
             # LANDING_PAGE = "/explore/repos";
 
             SSH_CREATE_AUTHORIZED_KEYS_FILE = true;
@@ -86,6 +85,9 @@ in
           };
 
           api.ENABLE_SWAGGER = false;
+
+          # the fail2ban jail bans on the 401s in these
+          log."logger.router.MODE" = ",";
 
           DEFAULT.APP_NAME = "iztea";
           attachment.ALLOWED_TYPES = "*/*";
