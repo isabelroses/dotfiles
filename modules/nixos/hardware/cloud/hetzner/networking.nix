@@ -1,30 +1,23 @@
 { lib, config, ... }:
 let
   inherit (lib.modules) mkIf mkForce;
-  inherit (lib.options) mkOption;
 
   cfg = config.garden.profiles.hetzner;
+
+  inherit (config.networking) hostName;
+  fleet = config.garden.fleet.${hostName} or { };
+  ipv4 = fleet.ipv4 or null;
+  ipv6 = fleet.ipv6 or null;
 in
 {
-  options.garden.profiles.hetzner = {
-    ipv4 = mkOption {
-      type = lib.types.str;
-      description = ''
-        The IPv4 address to assign to the server.
-        This should be a single IP address, not a range.
-      '';
-    };
-
-    ipv6 = mkOption {
-      type = lib.types.str;
-      description = ''
-        The IPv6 address to assign to the server.
-        This should be a single IP address, not a range.
-      '';
-    };
-  };
-
   config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = ipv4 != null && ipv6 != null;
+        message = "${hostName} needs ipv4 and ipv6 in garden.fleet";
+      }
+    ];
+
     networking = {
       # see <https://community.hetzner.com/tutorials/install-and-configure-ntp>
       timeServers = [
@@ -59,7 +52,7 @@ in
           ipv4 = {
             addresses = [
               {
-                address = cfg.ipv4;
+                address = ipv4;
                 prefixLength = 32;
               }
             ];
@@ -75,7 +68,7 @@ in
           ipv6 = {
             addresses = [
               {
-                address = cfg.ipv6;
+                address = ipv6;
                 prefixLength = 64;
               }
               {

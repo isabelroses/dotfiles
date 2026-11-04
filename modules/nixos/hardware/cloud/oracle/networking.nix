@@ -1,34 +1,30 @@
 { lib, config, ... }:
 let
   inherit (lib.modules) mkIf mkForce;
-  inherit (lib.options) mkOption;
-  inherit (lib.types) str;
 
   cfg = config.garden.profiles.oracle;
+
+  inherit (config.networking) hostName;
+  fleet = config.garden.fleet.${hostName} or { };
+  ipv4 = fleet.ipv4 or null;
+  ipv6 = fleet.ipv6 or null;
 in
 {
-  options.garden.profiles.oracle = {
-    ipv4 = mkOption {
-      type = str;
-      description = ''
-        The private IPv4 address to assign to the vnic.
-        Oracle NATs the public address to this, so it is never seen by the os.
-      '';
-    };
-
-    ipv6 = mkOption {
-      type = str;
-      description = ''
-        The IPv6 address to assign to the vnic.
-        Oracle hands this out as a /128 over dhcpv6.
-      '';
-    };
-  };
-
   # <https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingIPaddresses.htm>
   config = mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = ipv4 != null;
+        message = "${hostName} needs ipv4 in garden.fleet";
+      }
+    ];
+
     networking = {
       networkmanager.enable = mkForce false;
+
+      # with no ipv6 in the fleet, turn it off so nothing tries a route that
+      # goes nowhere
+      enableIPv6 = ipv6 != null;
 
       nameservers = [ "169.254.169.254" ];
       search = [ "vcn04081257.oraclevcn.com" ];
@@ -38,7 +34,7 @@ in
         interface = "eth0";
       };
 
-      defaultGateway6 = {
+      defaultGateway6 = mkIf (ipv6 != null) {
         address = "fe80::200:17ff:feb0:5c74";
         interface = "eth0";
       };
@@ -49,7 +45,7 @@ in
         ipv4 = {
           addresses = [
             {
-              address = cfg.ipv4;
+              address = ipv4;
               prefixLength = 24;
             }
           ];
@@ -63,10 +59,10 @@ in
           ];
         };
 
-        ipv6 = {
+        ipv6 = mkIf (ipv6 != null) {
           addresses = [
             {
-              address = cfg.ipv6;
+              address = ipv6;
               prefixLength = 128;
             }
           ];

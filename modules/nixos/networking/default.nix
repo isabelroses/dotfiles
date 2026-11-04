@@ -12,6 +12,7 @@ in
     ./blocker.nix
     ./fail2ban.nix
     ./firewall.nix
+    ./fleet.nix
     ./networkmanager.nix
     ./openssh.nix
     ./optimise.nix
