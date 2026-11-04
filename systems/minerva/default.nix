@@ -1,6 +1,7 @@
 {
   imports = [
     ./hardware.nix
+    ./relay.nix
     ./users.nix
   ];
 
