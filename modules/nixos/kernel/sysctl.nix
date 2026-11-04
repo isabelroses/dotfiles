@@ -27,9 +27,6 @@
     # <https://github.com/isabelroses/dotfiles/issues/591>
     "net.core.bpf_jit_enable" = config.services.scx.enable;
 
-    # Disable ftrace debugging
-    "kernel.ftrace_enabled" = false;
-
     # Avoid kernel memory address exposures via dmesg (this value can also be set by CONFIG_SECURITY_DMESG_RESTRICT).
     "kernel.dmesg_restrict" = 1;
 
