@@ -25,6 +25,7 @@ in
             quic = mkDefault true;
             forceSSL = mkDefault true;
             enableACME = mkDefault true;
+            extraConfig = "if ($ai_crawler) { return 403; }";
           };
         })
       );
@@ -62,6 +63,12 @@ in
         statusPage = true; # For monitoring scraping.
 
         commonHttpConfig = ''
+          # crawlers that train models or resell scraped data
+          map $http_user_agent $ai_crawler {
+            default 0;
+            "~*(GPTBot|ChatGPT-User|OAI-SearchBot|ClaudeBot|Claude-Web|anthropic-ai|CCBot|Bytespider|Amazonbot|meta-externalagent|FacebookBot|PerplexityBot|cohere-ai|Diffbot|ImagesiftBot|Omgilibot|Timpibot|PetalBot|YouBot|AI2Bot|Scrapy)" 1;
+          }
+
           add_header 'Referrer-Policy' 'origin-when-cross-origin';
           add_header Content-Security-Policy "frame-ancestors 'self'" always;
           add_header X-Content-Type-Options nosniff;
