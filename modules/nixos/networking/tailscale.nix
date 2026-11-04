@@ -56,7 +56,6 @@ in
     networking.firewall = {
       # always allow traffic from your Tailscale network
       trustedInterfaces = [ "${tailscale.interfaceName}" ];
-      checkReversePath = "loose";
 
       # allow the Tailscale UDP port through the firewall
       allowedUDPPorts = [ tailscale.port ];
@@ -68,6 +67,12 @@ in
       permitCertUid = "root";
       useRoutingFeatures = mkDefault (if cfg.isServer then "server" else "client");
       extraUpFlags = cfg.defaultFlags ++ optional cfg.isServer "--advertise-exit-node";
+    };
+
+    # use nftables directly rather than letting tailscaled guess
+    # <https://wiki.nixos.org/wiki/Tailscale#Native_nftables_Support_(Modern_Setup)>
+    systemd.services.tailscaled.environment = mkIf config.networking.nftables.enable {
+      TS_DEBUG_FIREWALL_MODE = "nftables";
     };
 
     # server can't be client and client be server
