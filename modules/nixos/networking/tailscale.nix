@@ -1,5 +1,6 @@
 { lib, config, ... }:
 let
+  inherit (lib.lists) optional;
   inherit (lib.modules) mkIf mkDefault;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) bool listOf str;
@@ -65,8 +66,8 @@ in
     services.tailscale = {
       enable = true;
       permitCertUid = "root";
-      useRoutingFeatures = mkDefault "server";
-      extraUpFlags = cfg.defaultFlags ++ [ "--advertise-exit-node" ];
+      useRoutingFeatures = mkDefault (if cfg.isServer then "server" else "client");
+      extraUpFlags = cfg.defaultFlags ++ optional cfg.isServer "--advertise-exit-node";
     };
 
     # server can't be client and client be server
