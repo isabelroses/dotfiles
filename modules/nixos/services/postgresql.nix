@@ -10,6 +10,8 @@ let
   inherit (self.lib) mkSecret mkServiceOption;
 
   cfg = config.garden.services;
+  # dump right before borg runs, only on hosts that back postgres up
+  dumped = cfg.borgbackup.enable && cfg.borgbackup.jobs.postgresql.enable;
 in
 {
   options.garden.services.postgresql = mkServiceOption "postgresql" { };
@@ -22,15 +24,28 @@ in
     };
 
     garden.services.borgbackup.jobs.postgresql = {
-      paths = [ config.services.postgresql.dataDir ];
+      paths = [ config.services.postgresqlBackup.location ];
       repo = "postgresql";
       passkeyFile = config.sops.secrets.borg-postgresql-pass.path;
     };
 
-    sops.secrets.borg-postgresql-pass = mkSecret {
+    services.postgresqlBackup = mkIf dumped {
+      enable = true;
+      backupAll = true;
+      location = "/srv/storage/postgresql-backup";
+      compression = "none";
+      startAt = [ ];
+    };
+
+    systemd.services."borgbackup-job-postgresql" = mkIf dumped {
+      requires = [ "postgresqlBackup.service" ];
+      after = [ "postgresqlBackup.service" ];
+    };
+
+    sops.secrets.borg-postgresql-pass = mkIf dumped (mkSecret {
       file = "borg";
       key = "postgresql-passphrase";
-    };
+    });
 
     services.postgresql = {
       enable = true;
@@ -123,7 +138,6 @@ in
 
         # logging configuration
         log_connections = true;
-        log_statement = "all";
         logging_collector = true;
         log_disconnections = true;
         log_destination = lib.modules.mkForce "syslog";
