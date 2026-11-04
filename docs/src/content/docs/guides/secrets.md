@@ -29,28 +29,36 @@ Where `your_username` is your actual username.
 
 ## System secrets
 
-If you are adding system-level secrets, get the hostname and its accompanying
-public key. To get the public key, run:
+Hosts decrypt with the age key at `/var/lib/sops-nix/key.txt`, not their SSH
+host keys. To get a host's public key, run this on the host:
 
 ```bash
-ssh-keyscan <host>
+run0 age-keygen -y /var/lib/sops-nix/key.txt
 ```
 
-Where `<host>` is the IP address or hostname of the system you want to add.
-
-Alternatively, if you are on the machine you can run:
-
-```bash
-cat /etc/ssh/ssh_host_ed25519_key.pub
-```
-
-Then create the system secrets file:
+Add it under `keys:` in `.sops.yaml`, then create the system secrets file:
 
 ```bash
 sops secrets/services/<service>.yaml
 ```
 
 Replace `<service>` with the name of the service you are adding the secrets for.
+
+### Which hosts can read a file
+
+Each file in `secrets/services` is encrypted only to the hosts that run the
+service using it. sops picks the **first** `creation_rules` entry whose
+`path_regex` matches, so a new service file falls through to the last rule
+and is readable by you alone until you add it to a host's rule.
+
+When you enable a service on another host, add that host to the file's rule
+and run `sops updatekeys`. Otherwise `sops-install-secrets` fails during
+activation. To see which files a host uses:
+
+```bash
+nix eval --json .#nixosConfigurations.<host>.config.sops.secrets \
+  --apply 's: map (v: baseNameOf (toString v.sopsFile)) (builtins.attrValues s)'
+```
 
 ## Rotating secrets
 
@@ -84,3 +92,16 @@ To batch update all secrets, run:
 ```bash
 find secrets/ -name "*.yaml" | xargs -I {} sops updatekeys -y {}
 ```
+
+## Removing a host's access
+
+`sops updatekeys` re-wraps the file's existing data key for the new set of
+recipients. A host you removed can still decrypt the file from git history,
+and the data key has not changed. To actually cut it off:
+
+1. Remove the host from the rule in `.sops.yaml`.
+2. `sops updatekeys -y <file>` then `sops rotate -i <file>`, which creates a
+   new data key.
+3. If the host may have been compromised, change the secret **values** too
+   (passwords, tokens, keys) at the service, because the old values are still
+   readable from history.
