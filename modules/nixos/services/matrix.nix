@@ -41,8 +41,6 @@ in
       owner = "matrix-synapse";
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
-
     garden.services = {
       postgresql.enable = true;
     };
