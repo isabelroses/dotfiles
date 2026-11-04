@@ -6,15 +6,11 @@ let
 
   # an attrset filter makes the module write filter.d/<jail name>.conf
   vaultwardenJail = failregex: {
-    filter = {
-      INCLUDES.before = "common.conf";
-      Definition = {
-        inherit failregex;
-        ignoreregex = "";
-      };
+    filter.Definition = {
+      inherit failregex;
+      ignoreregex = "";
     };
     settings = {
-      backend = "systemd";
       journalmatch = "_SYSTEMD_UNIT=vaultwarden.service";
       port = "http,https";
       # quic is on, so a tcp-only ban leaves http/3 open
@@ -33,6 +29,8 @@ in
       "127.0.0.0/8"
       "10.0.0.0/8"
       "192.168.0.0/16"
+      # the tailnet
+      "100.64.0.0/10"
     ];
 
     bantime-increment = {
@@ -57,6 +55,14 @@ in
         dovecot.settings = {
           mode = "aggressive";
           port = "pop3,pop3s,imap,imaps,submission,465,sieve";
+        };
+      })
+
+      # clients that keep getting rate limited, mostly scrapers
+      (mkIf config.services.nginx.enable {
+        nginx-limit-req.settings = {
+          port = "http,https";
+          protocol = "tcp,udp";
         };
       })
 
