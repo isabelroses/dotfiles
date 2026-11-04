@@ -82,3 +82,7 @@ class State:
             row = file.key, asset_id, file.post, now
             with transaction(self.con) as con:
                 con.execute(f"INSERT OR REPLACE INTO {TABLE} VALUES (?, ?, ?, ?)", row)
+
+    def forget(self, keys):
+        with transaction(self.con) as con:
+            con.executemany(f"DELETE FROM {TABLE} WHERE entry = ?", [(k,) for k in keys])

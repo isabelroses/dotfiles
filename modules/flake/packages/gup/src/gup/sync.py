@@ -1,5 +1,6 @@
 import hashlib
 import logging
+import queue
 import threading
 from collections import defaultdict
 from concurrent.futures import CancelledError, Future, ThreadPoolExecutor
@@ -9,7 +10,8 @@ from functools import partial
 from .immich import ImmichError
 from .meta import Origin, sidecar
 
-WORKERS, UPLOADS, READS, WRITES = 8, 4, 16, 8
+WORKERS, HASHES, UPLOADS, READS, WRITES = 32, 8, 4, 16, 8
+PENDING = 64
 
 logger = logging.getLogger("gup")
 log, warn = logger.info, logger.warning
@@ -87,6 +89,43 @@ def fill_in(immich, unfilled):
         list(pool.map(lambda call: call(), calls))
 
 
+class Checker:
+    """Sends every duplicate check waiting at once as one request."""
+
+    def __init__(self, immich):
+        self.immich, self.queue = immich, queue.SimpleQueue()
+        self.thread = threading.Thread(target=self.run, daemon=True)
+        self.thread.start()
+
+    def check(self, sha1):
+        self.queue.put((sha1, future := Future()))
+        return future.result()
+
+    def close(self):
+        self.queue.put(None)
+        self.thread.join()
+
+    def run(self):
+        while item := self.queue.get():
+            batch = [item]
+            while not self.queue.empty() and (item := self.queue.get()):
+                batch.append(item)
+            self.answer(batch)
+            if not item:
+                return
+
+    def answer(self, batch):
+        try:
+            verdicts = self.immich.check([sha1 for sha1, _ in batch])
+            answers = [verdicts[sha1] for sha1, _ in batch]
+        except BaseException as e:  # noqa: BLE001
+            for _, future in batch:
+                future.set_exception(e)
+            return
+        for (_, future), verdict in zip(batch, answers):
+            future.set_result(verdict)
+
+
 class Sync:
     """Uploads files as they come, each content once."""
 
@@ -95,6 +134,9 @@ class Sync:
         self.immich, self.state = immich, state
         self.delete = delete and delete.resolve()
         self.workers = ThreadPoolExecutor(workers)
+        self.checker = Checker(immich)
+        self.hashing = threading.Semaphore(HASHES)
+        self.pending = threading.Semaphore(PENDING)
         self.keep = {f.path.resolve() for f in given}
         self.uploading = threading.Semaphore(UPLOADS)
         self.stopping, self.error = False, None
@@ -103,6 +145,7 @@ class Sync:
         self.uploads = {}
         self.unfilled = defaultdict(list)
         self.removed = {}
+        self.forgotten = set()
         try:
             for file in given:
                 self.add(file)
@@ -116,7 +159,14 @@ class Sync:
             raise self.error
         if self.keep and file.path.resolve() in self.keep:
             file = replace(file, origin=Origin.GIVEN)
-        self.workers.submit(self.guarded, self.handle, file)
+        with self.lock:
+            self.forgotten.discard(file.key)
+        self.pending.acquire()
+        try:
+            self.workers.submit(self.guarded, self.handle, file)
+        except BaseException:
+            self.pending.release()
+            raise
 
     def finish(self):
         """Waits for everything to be uploaded, recorded, and filled in."""
@@ -124,6 +174,13 @@ class Sync:
         if self.error:
             raise self.error
         return self.result
+
+    def forget(self, files):
+        """Unrecords files from a failed fetch, so the next run fetches them again."""
+        keys = {f.key for f in files if f.key}
+        with self.lock:
+            self.forgotten |= keys
+            self.state.forget(keys)
 
     def abort(self):
         """Starts no new upload, but records and fills in what Immich got."""
@@ -133,6 +190,7 @@ class Sync:
     def wind_down(self):
         """Waits for every file, then fills in once, even if abort follows."""
         self.workers.shutdown()
+        self.checker.close()
         unfilled, self.unfilled = self.unfilled, defaultdict(list)
         if unfilled:
             fill_in(self.immich, unfilled)
@@ -143,12 +201,15 @@ class Sync:
             fn(*args)
         except BaseException as e:  # noqa: BLE001
             self.error = self.error or e
+        finally:
+            self.pending.release()
 
     def handle(self, file):
         if self.stopping:
             return
         try:
-            sha1, stat = hashed(file.path)
+            with self.hashing:
+                sha1, stat = hashed(file.path)
         except OSError as e:
             with self.lock:
                 asset_id = self.removed.get(str(file.path.resolve()))
@@ -160,13 +221,11 @@ class Sync:
         if self.stopping:
             return
         with self.lock:
-            upload = self.uploads.get(sha1)
-            if first := upload is None:
-                upload = self.uploads[sha1] = Future()
-        if first:
+            upload = self.uploads.setdefault(sha1, mine := Future())
+        if first := upload is mine:
             self.send(sha1, file, upload)
         try:
-            asset_id, had = upload.result() if isinstance(upload, Future) else upload
+            asset_id, had = upload.result()
         except CancelledError:
             return
         except (ImmichError, OSError) as e:
@@ -178,7 +237,7 @@ class Sync:
         """Checks, then uploads unless Immich has it; copies get the outcome."""
         try:
             try:
-                verdict = self.immich.check(sha1)
+                verdict = self.checker.check(sha1)
             except ImmichError as e:
                 warn(f"Duplicate check failed; uploading anyway: {e}")
                 verdict = None
@@ -202,13 +261,12 @@ class Sync:
                 raise
             return
         upload.set_result(outcome)
-        with self.lock:
-            self.uploads[sha1] = outcome
 
     def settle(self, file, stat, asset_id, had, fresh):
         """Records the file and queues its fill-in; copies keep the description."""
         with self.lock:
-            self.state.record(file, asset_id)
+            if file.key not in self.forgotten:
+                self.state.record(file, asset_id)
             if not fresh:
                 fill = file if had else replace(file, post="")
                 if fill.post or fill.tags:

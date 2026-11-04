@@ -7,9 +7,11 @@ from contextlib import closing
 from pathlib import Path
 from unittest.mock import patch
 
+import httpx
 from fake_immich import FakeImmich
 
 from gup import sync
+from gup.immich import Immich, ImmichError
 from gup.meta import File, Origin
 from gup.state import State
 from gup.sync import Sync, hashed, tag_plan
@@ -83,6 +85,63 @@ class SyncTests(unittest.TestCase):
         self.assertIn(file.key, self.state)
         self.assertFalse(file.path.exists())
         self.assertEqual((result.uploaded, result.removed), (1, 1))
+
+    def test_a_failed_fetchs_files_are_unrecorded_even_if_they_settle_later(self):
+        immich = FakeImmich()
+        settled, late = self.download("a.jpg"), self.download("b.jpg", b"y")
+        release = threading.Event()
+        with immich.client() as client:
+            upload = client.upload
+
+            def held(path, *args):
+                if path == late.path:
+                    release.wait(5)
+                return upload(path, *args)
+
+            with patch.object(client, "upload", held):
+                run = self.sync(client)
+                run.add(settled)
+                run.add(late)
+                self.assertTrue(waits_for(lambda: self.recorded(settled.key)))
+                run.forget([settled, late])
+                release.set()
+                result = run.finish()
+
+        self.assertEqual(result.uploaded, 2)
+        self.assertNotIn(settled.key, self.state)
+        self.assertNotIn(late.key, self.state)
+
+    def test_a_key_a_failed_fetch_forgot_is_recorded_when_handed_over_again(self):
+        immich = FakeImmich()
+        file = self.download("a.jpg")
+        with immich.client() as client:
+            run = self.sync(client)
+            run.add(file)
+            run.forget([file])
+            run.add(file)
+            run.finish()
+
+        self.assertIn(file.key, self.state)
+
+    def test_a_broken_check_answer_fails_the_check_instead_of_hanging(self):
+        immich = FakeImmich()
+        with immich.client() as client, patch.object(client, "check", lambda _: {}):
+            run = self.sync(client)
+            run.add(self.download("a.jpg"))
+            raised = []
+
+            def finish():
+                try:
+                    run.finish()
+                except KeyError as e:
+                    raised.append(e)
+
+            finished = threading.Thread(target=finish, daemon=True)
+            finished.start()
+            finished.join(5)
+
+        self.assertFalse(finished.is_alive())
+        self.assertEqual(len(raised), 1)
 
     def test_a_file_is_uploaded_recorded_and_deleted_before_the_next_lands(self):
         immich = FakeImmich()
@@ -159,8 +218,79 @@ class SyncTests(unittest.TestCase):
         files.append(self.download("copy.jpg", b"0"))
         self.run_sync(immich, files)
 
-        self.assertEqual(immich.requests.count(("POST", CHECK)), 20)
+        self.assertEqual(len(immich.checked), 20)
+        self.assertEqual(len(set(immich.checked)), 20)
         self.assertEqual(immich.writes.count(UPLOAD), 20)
+
+    def test_checks_waiting_together_share_a_request(self):
+        immich = FakeImmich()
+        files = [self.download(f"{n}.jpg", str(n).encode()) for n in range(20)]
+        with immich.client() as client:
+            check, started = client.check, threading.Event()
+
+            def slow(sha1s):
+                started.set()
+                time.sleep(0.2)
+                return check(sha1s)
+
+            with patch.object(client, "check", slow):
+                run = self.sync(client, workers=20)
+                run.add(files[0])
+                self.assertTrue(started.wait(5))
+                for file in files[1:]:
+                    run.add(file)
+                result = run.finish()
+
+        self.assertEqual(result.uploaded, 20)
+        self.assertEqual(immich.requests.count(("POST", CHECK)), 2)
+
+    def test_a_failed_check_uploads_every_file_it_held_anyway(self):
+        immich = FakeImmich()
+        files = [self.download(f"{n}.jpg", str(n).encode()) for n in range(3)]
+        with immich.client() as client:
+            failing = ImmichError("check down")
+            with patch.object(client, "check", side_effect=failing):
+                run = self.sync(client)
+                for file in files:
+                    run.add(file)
+                result = run.finish()
+
+        self.assertEqual(result.uploaded, 3)
+
+    def test_a_verdict_missing_from_immichs_answer_is_an_error(self):
+        respond = lambda _: httpx.Response(200, json={"results": []})
+        with Immich("https://immich.test", "k", httpx.MockTransport(respond)) as c:
+            with self.assertRaises(ImmichError):
+                c.check(["a"])
+
+    def test_downloads_wait_while_too_many_files_are_pending(self):
+        immich = FakeImmich()
+        files = [self.download(f"{n}.jpg", str(n).encode()) for n in range(3)]
+        release, added = threading.Event(), []
+        with immich.client() as client:
+            upload = client.upload
+
+            def held(*args):
+                release.wait(5)
+                return upload(*args)
+
+            with (
+                patch.object(client, "upload", held),
+                patch.object(sync, "PENDING", 2),
+            ):
+                run = self.sync(client)
+                adder = threading.Thread(
+                    target=lambda: [run.add(f) or added.append(f) for f in files]
+                )
+                adder.start()
+                self.assertTrue(waits_for(lambda: len(added) == 2))
+                time.sleep(0.1)
+                self.assertEqual(len(added), 2)
+                release.set()
+                adder.join(5)
+                result = run.finish()
+
+        self.assertEqual(result.uploaded, 3)
 
     def test_copies_handled_at_once_wait_for_one_upload(self):
         immich = FakeImmich()

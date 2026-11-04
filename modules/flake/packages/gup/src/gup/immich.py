@@ -51,19 +51,22 @@ class Immich(httpx.Client):
             except (ValueError, KeyError, TypeError, AttributeError) as e:
                 raise ImmichError(f"unexpected answer from {endpoint} ({e!r})") from e
 
-    def check(self, sha1):
-        """None if Immich lacks it, else (asset id or None, whether trashed)."""
+    def check(self, sha1s):
+        """{sha1: None if Immich lacks it, else (asset id or None, whether trashed)}."""
 
-        def verdict(r):
-            [answer] = r["results"]
+        def verdict(answer):
             if answer["action"] != "reject":
                 return None
             if (asset_id := answer.get("assetId")) is not None:
                 asset_id = checked(asset_id)
             return asset_id, bool(answer.get("isTrashed"))
 
-        assets = [{"id": sha1, "checksum": sha1}]
-        return self.call("POST", CHECK, verdict, json={"assets": assets})
+        def verdicts(r):
+            found = {a["id"]: verdict(a) for a in r["results"]}
+            return {sha1: found[sha1] for sha1 in sha1s}
+
+        assets = [{"id": sha1, "checksum": sha1} for sha1 in sha1s]
+        return self.call("POST", CHECK, verdicts, json={"assets": assets})
 
     def upload(self, path, sha1, sidecar):
         """(asset id, whether Immich already had it), dated by the file's mtime."""

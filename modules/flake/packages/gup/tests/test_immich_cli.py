@@ -42,7 +42,7 @@ class ImmichClientTests(unittest.TestCase):
                 results = [{"id": "a", **answer}]
                 respond = lambda _, r=results: httpx.Response(200, json={"results": r})
                 with self.client(respond) as client:
-                    self.assertEqual(client.check("a"), verdict)
+                    self.assertEqual(client.check(["a"]), {"a": verdict})
 
     def test_answers_that_arent_immich_ids_are_refused(self):
         for answer in ({"id": None}, {"id": "../../elsewhere"}, {"id": 7}):
@@ -79,7 +79,7 @@ class ImmichClientTests(unittest.TestCase):
             return httpx.Response(200, json={"results": [accept], "id": "me"})
 
         with self.client(respond) as client, patch("time.sleep"):
-            self.assertIsNone(client.check("a"))
+            self.assertEqual(client.check(["a"]), {"a": None})
             self.assertEqual(client.account(), "me")
             with self.assertRaises(ImmichError):
                 client.call("PUT", "/assets", json={"ids": []})

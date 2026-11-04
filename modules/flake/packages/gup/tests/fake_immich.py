@@ -22,6 +22,7 @@ class FakeImmich:
     def __init__(self):
         self.assets, self.by_sum, self.tag_ids, self.requests = {}, {}, {}, []
         self.unsupported, self.trashed = set(), set()
+        self.checked = []
 
     account = "user-1"
 
@@ -45,6 +46,7 @@ class FakeImmich:
         match method, path:
             case "POST", "/assets/bulk-upload-check":
                 assets = json.loads(request.content)["assets"]
+                self.checked += [a["checksum"] for a in assets]
                 results = [self.check(a) for a in assets]
                 return httpx.Response(200, json={"results": results})
             case "POST", "/assets":

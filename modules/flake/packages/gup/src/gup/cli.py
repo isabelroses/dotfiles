@@ -78,7 +78,8 @@ class Run:
     def summary(self):
         files = [f for fetch in self.fetches for f in fetch.files]
         failures = [f"{f.url}: {f.error}" for f in self.fetches if f.error]
-        up, skipped = self.upload, sum(f.skipped for f in self.fetches)
+        up = self.upload
+        skipped = sum(f.skipped for f in self.fetches if not f.error)
         counts = [
             (sum(f.origin is Origin.DOWNLOADED for f in files), "file(s) downloaded"),
             (sum(f.origin is Origin.ON_DISK for f in files), "file(s) already on disk"),
@@ -103,7 +104,11 @@ def upload(args, immich, state):
     given = [File(p) for p in args.paths]
     sync = Sync(immich, state, delete=args.dir if args.delete else None, given=given)
     try:
-        fetches = [download(url, sync.add) for url in args.urls]
+        fetches = []
+        for url in args.urls:
+            fetches.append(fetch := download(url, sync.add))
+            if fetch.error:
+                sync.forget(fetch.files)
         return Run(fetches, sync.finish())
     except BaseException:
         sync.abort()
