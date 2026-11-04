@@ -80,7 +80,7 @@ in
 
     (mkIf cfg.memtest.enable {
       boot.loader.systemd-boot = {
-        extraFiles."efi/memtest86plus/memtest.efi" = "${cfg.boot.memtest.package}/memtest.efi";
+        extraFiles."efi/memtest86plus/memtest.efi" = "${cfg.memtest.package}/memtest.efi";
         extraEntries."memtest86plus.conf" = ''
           title MemTest86+
           efi   /efi/memtest86plus/memtest.efi
