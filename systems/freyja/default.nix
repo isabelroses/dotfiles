@@ -22,8 +22,13 @@
 
     services = {
       cloudflared.enable = true;
-      immich.enable = true;
       arr.enable = true;
+
+      immich = {
+        enable = true;
+        host = "0.0.0.0";
+      };
+      qbittorrent.host = "0.0.0.0";
       borgbackup = {
         enable = true;
         jobs.postgresql.enable = false;
