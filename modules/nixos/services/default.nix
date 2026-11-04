@@ -10,7 +10,6 @@
     ./immich.nix
     ./jellyfin.nix
     ./kanidm.nix
-    ./lego.nix
     ./mailserver.nix
     ./matrix.nix
     ./nginx.nix

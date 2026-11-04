@@ -41,6 +41,11 @@ in
     (mkIf cfg.enable {
       users.users.nginx.extraGroups = [ "acme" ];
 
+      security.acme = {
+        acceptTerms = true;
+        defaults.email = "isabel@isabelroses.com";
+      };
+
       networking.firewall = {
         allowedTCPPorts = [
           80

@@ -19,14 +19,6 @@ creation_rules:
           - *minerva
           - *freyja
 
-  - path_regex: secrets/services/lego\.yaml$
-    key_groups:
-      - age:
-          - *isabel
-          - *minerva
-          - *skadi
-          - *isis
-
   - path_regex: secrets/services/gatus\.yaml$
     key_groups:
       - age:
