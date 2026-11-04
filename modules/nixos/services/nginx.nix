@@ -62,7 +62,20 @@ in
         enable = true;
         statusPage = true; # For monitoring scraping.
 
+        # `proxy_cache static;` in a location caches what upstream marks
+        # cacheable, or 200s for a day when it says nothing
+        proxyCachePath.static = {
+          enable = true;
+          keysZoneName = "static";
+          maxSize = "2g";
+          inactive = "7d";
+        };
+
         commonHttpConfig = ''
+          proxy_cache_valid 200 1d;
+          proxy_cache_use_stale error timeout updating http_502 http_503 http_504;
+          proxy_cache_lock on;
+
           # crawlers that train models or resell scraped data
           map $http_user_agent $ai_crawler {
             default 0;
