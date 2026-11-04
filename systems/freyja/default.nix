@@ -21,7 +21,6 @@
     system.boot.loader = "systemd-boot";
 
     services = {
-      cloudflared.enable = true;
       arr.enable = true;
 
       immich = {

@@ -280,10 +280,6 @@ in
           user.deleteDelay = 7;
         };
       };
-
-      cloudflared.tunnels.${config.networking.hostName} = {
-        ingress.${cfg.domain} = "http://${cfg.host}:${toString cfg.port}";
-      };
     };
   };
 }

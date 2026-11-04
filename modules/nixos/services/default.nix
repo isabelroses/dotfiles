@@ -5,7 +5,6 @@
     ./atuin.nix
     ./blahaj.nix
     ./borgbackup.nix
-    ./cloudflared.nix
     ./forgejo.nix
     ./gatus
     ./immich.nix

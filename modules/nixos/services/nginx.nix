@@ -57,7 +57,6 @@ in
         statusPage = true; # For monitoring scraping.
 
         commonHttpConfig = ''
-          # real_ip_header CF-Connecting-IP;
           add_header 'Referrer-Policy' 'origin-when-cross-origin';
           add_header Content-Security-Policy "frame-ancestors 'self'" always;
           add_header X-Content-Type-Options nosniff;

@@ -43,7 +43,6 @@ in
             "podman"
             "git"
             "libvirtd"
-            "cloudflared"
           ];
         }
       else

@@ -62,10 +62,6 @@ in
           hardwareEncodingCodecs.hevc = true;
         };
       };
-
-      cloudflared.tunnels.${config.networking.hostName} = {
-        ingress.${cfg.domain} = "http://${cfg.host}:${toString cfg.port}";
-      };
     };
   };
 }
