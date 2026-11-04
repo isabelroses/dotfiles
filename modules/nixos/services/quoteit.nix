@@ -13,17 +13,18 @@ in
 {
   options.garden.services.quoteit = mkServiceOption "quoteit" {
     port = 3018;
+    domain = "evilbel.org";
   };
 
-  config = mkIf config.garden.services.blahaj.enable {
+  config = mkIf cfg.enable {
     services = {
       quoteit = {
         enable = true;
         inherit (cfg) port;
       };
 
-      nginx.virtualHosts."evilbel.org" = {
-        locations."/".proxyPass = "http://127.0.0.1:${toString cfg.port}";
+      nginx.virtualHosts.${cfg.domain} = {
+        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
       };
     };
   };

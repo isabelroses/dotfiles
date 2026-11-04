@@ -23,6 +23,7 @@
       vaultwarden.enable = true;
       isabelroses-website.enable = true;
       blahaj.enable = true;
+      quoteit.enable = true;
       kanidm.enable = true;
       mailserver.enable = true;
       borgbackup.enable = true;
