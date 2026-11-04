@@ -17,6 +17,18 @@ in
   };
 
   config = mkIf config.garden.services.jellyfin.enable {
+    # the web port plus jellyfin's https and client discovery ports
+    garden.networking.lan = {
+      allowedTCPPorts = [
+        cfg.port
+        8920
+      ];
+      allowedUDPPorts = [
+        1900
+        7359
+      ];
+    };
+
     users.users.jellyfin.extraGroups = [
       "video"
       "render"
@@ -27,7 +39,6 @@ in
         enable = true;
         dataDir = "/srv/storage/jellyfin";
         group = "media";
-        inherit (config.garden.services.arr) openFirewall;
 
         hardwareAcceleration = {
           enable = true;

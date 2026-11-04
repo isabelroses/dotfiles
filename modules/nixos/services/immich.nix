@@ -19,6 +19,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    garden.networking.lan.allowedTCPPorts = [ cfg.port ];
+
     garden.services = {
       postgresql.enable = true;
 
@@ -50,7 +52,6 @@ in
       immich = {
         enable = true;
         inherit (cfg) port host;
-        openFirewall = true;
 
         # it kept trying to run on GPU and erroring out
         # https://github.com/NixOS/nixpkgs/pull/516980

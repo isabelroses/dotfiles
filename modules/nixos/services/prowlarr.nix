@@ -18,9 +18,10 @@ in
   config = mkIf config.garden.services.prowlarr.enable {
     services.prowlarr = {
       enable = true;
-      inherit (config.garden.services.arr) openFirewall;
       settings.server.port = cfg.port;
     };
+
+    garden.networking.lan.allowedTCPPorts = [ cfg.port ];
 
     systemd.services.prowlarr.serviceConfig = {
       User = "prowlarr";

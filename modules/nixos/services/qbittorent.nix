@@ -15,10 +15,9 @@ in
   options.garden.services.qbittorrent = mkServiceOption "qbittorrent" { port = 3019; };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = [
-      cfg.port
-      config.services.qbittorrent.torrentingPort
-    ];
+    # peers have to reach the torrenting port from anywhere
+    networking.firewall.allowedTCPPorts = [ config.services.qbittorrent.torrentingPort ];
+    garden.networking.lan.allowedTCPPorts = [ cfg.port ];
 
     sops.secrets.qui = mkSecret {
       file = "qui";

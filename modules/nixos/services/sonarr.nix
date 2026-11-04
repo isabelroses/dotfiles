@@ -20,9 +20,10 @@ in
       inherit (cfg) enable;
       group = "media";
       dataDir = "/srv/storage/sonarr";
-      inherit (config.garden.services.arr) openFirewall;
       settings.server.port = cfg.port;
     };
+
+    garden.networking.lan.allowedTCPPorts = [ cfg.port ];
 
     systemd.services.sonarr.serviceConfig = {
       CapabilityBoundingSet = "";
