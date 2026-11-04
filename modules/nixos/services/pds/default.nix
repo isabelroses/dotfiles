@@ -8,6 +8,7 @@
 let
   cfg = config.garden.services.pds;
   gkCfg = config.garden.services.pds-gatekeeper;
+  handles = "tgirl.beauty";
 
   inherit (lib.modules) mkIf;
   inherit (lib.strings) concatStringsSep;
@@ -46,6 +47,24 @@ in
       };
     };
 
+    # handles (name.tgirl.beauty) are checked over https, which needs a
+    # wildcard cert, and let's encrypt only issues those over dns-01
+    sops.secrets.lego-cloudflare = mkSecret {
+      file = "lego";
+      key = "cloudflare";
+    };
+
+    security.acme.certs.${handles} = {
+      domain = "*.${handles}";
+      extraDomainNames = [ handles ];
+      dnsProvider = "cloudflare";
+      environmentFile = config.sops.secrets.lego-cloudflare.path;
+      # check propagation against the zone's own nameserver, since the local
+      # resolver caches the miss from before the record existed
+      dnsResolver = "kehlani.ns.cloudflare.com:53";
+      group = "nginx";
+    };
+
     services = {
       bluesky-pds = {
         enable = true;
@@ -81,7 +100,7 @@ in
           # if your reading this you probably don't want this unless you
           # intend to host a public free to join instance
           PDS_INVITE_REQUIRED = "true";
-          PDS_SERVICE_HANDLE_DOMAINS = ".tgirl.beauty";
+          PDS_SERVICE_HANDLE_DOMAINS = ".${handles}";
 
           # custom session duration: 30 days
           PDS_OAUTH_AUTHENTICATION_MAX_AGE = "2592000000";
@@ -137,8 +156,17 @@ in
         };
       };
 
+      nginx.virtualHosts.${handles} = {
+        serverAliases = [ "*.${handles}" ];
+        enableACME = false;
+        useACMEHost = handles;
+        locations."/" = {
+          proxyPass = "http://${cfg.host}:${toString cfg.port}";
+          proxyWebsockets = true;
+        };
+      };
+
       nginx.virtualHosts.${cfg.domain} = {
-        serverAliases = [ ".tgirl.beauty" ];
         enableACME = true;
 
         extraConfig = ''

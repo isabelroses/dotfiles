@@ -32,7 +32,7 @@ creation_rules:
           - *isabel
           - *minerva
 
-  - path_regex: secrets/services/(pds|piper)\.yaml$
+  - path_regex: secrets/services/(lego|pds|piper)\.yaml$
     key_groups:
       - age:
           - *isabel
