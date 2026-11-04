@@ -71,7 +71,7 @@ in
         settings = {
           backup = {
             database = {
-              enabled = false; # we use borg for this
+              enabled = true;
               cronExpression = "0 02 * * *";
               keepLastAmount = 14;
             };
