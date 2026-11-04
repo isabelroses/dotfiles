@@ -14,7 +14,7 @@ in
   # Type
 
   ```
-  mkHost :: String -> AttrSet -> AttrSet
+  mkHost :: String -> { arch ? String, class ? String } -> AttrSet
   ```
 
   # Example

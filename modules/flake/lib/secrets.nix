@@ -3,27 +3,27 @@ let
   inherit (inputs) self;
 
   /**
-    Create secrets for use with `agenix`.
+    Create a `sops.secrets` entry for a file in `secrets/services/`.
 
     # Arguments
 
-    - [file] the age file to use for the secret
-    - [owner] the owner of the secret, this defaults to "root"
-    - [group] the group of the secret, this defaults to "root"
-    - [mode] the permissions of the secret, this defaults to "400"
+    - [file] the name of the sops file, without `secrets/services/` or `.yaml`
+    - every other attribute (`key`, `owner`, `mode`, …) is passed through to
+      `sops.secrets.<name>` unchanged
 
     # Type
 
     ```
-    mkSecret :: (String -> String -> String -> String) -> AttrSet
+    mkSecret :: { file :: String, ... } -> AttrSet
     ```
 
     # Example
 
     ```nix
-    mkSecret { file = "./my-secret.age"; }
+    mkSecret { file = "borg"; key = "forgejo-passphrase"; }
     => {
-      file = "./my-secret.age";
+      sopsFile = "${self}/secrets/services/borg.yaml";
+      key = "forgejo-passphrase";
     }
     ```
   */

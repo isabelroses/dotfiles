@@ -9,11 +9,14 @@ let
     # Arguments
 
     - [name]: The name of the service
+    - [port]: The default port, this defaults to 0 for services without one
+    - [host]: The default bind address, this defaults to "127.0.0.1"
+    - [domain]: The default domain, this defaults to ""
 
     # Type
 
     ```
-    mkServiceOption :: String -> (Int -> String -> String -> AttrSet) -> AttrSet
+    mkServiceOption :: String -> { port ? Int, host ? String, domain ? String } -> AttrSet
     ```
   */
   mkServiceOption =

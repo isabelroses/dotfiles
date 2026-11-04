@@ -9,12 +9,12 @@ let
     # Arguments
 
     - [conf] the configuration that nixosConfigurations provides
-    - [cond] predicate function to check against config variable
+    - [cond] predicate checked against each user's home-manager config
 
     # Type
 
     ```
-    anyHome :: AttrSet -> (Any -> Bool) -> Bool
+    anyHome :: AttrSet -> (AttrSet -> Bool) -> Bool
     ```
 
     # Example

@@ -13,7 +13,7 @@ let
     # Type
 
     ```
-    giturl :: (String -> String -> String -> Int) -> AttrSet
+    giturl :: { domain :: String, alias :: String, user ? String, port ? (Int | String) } -> AttrSet
     ```
 
     # Example
@@ -53,12 +53,12 @@ let
     # Arguments
 
     - [host] the host to create the public key for
-    - [key] this is a attrset with the key type and key
+    - [key] an attrset with the key's `type` and the `key` itself
 
     # Type
 
     ```
-    mkPub :: (String -> AttrSet -> AttrSet) -> String -> AttrSet -> AttrSet
+    mkPub :: String -> { type :: String, key :: String } -> AttrSet
     ```
 
     # Example
@@ -94,7 +94,7 @@ let
     # Type
 
     ```
-    mkPubs :: (String -> List) -> String -> List -> AttrSet
+    mkPubs :: String -> [ { type :: String, key :: String } ] -> AttrSet
     ```
 
     # Example
