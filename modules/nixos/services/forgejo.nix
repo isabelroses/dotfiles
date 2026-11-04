@@ -7,6 +7,7 @@
 }:
 let
   cfg = config.garden.services.forgejo;
+  socket = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
   rdomain = config.networking.domain;
 
   inherit (lib.modules) mkIf mkForce;
@@ -178,10 +179,22 @@ in
         };
       };
 
-      nginx.virtualHosts.${cfg.domain} = {
-        locations."/" = {
-          recommendedProxySettings = true;
-          proxyPass = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
+      nginx = {
+        appendHttpConfig = ''
+          limit_req_zone $binary_remote_addr zone=forgejo_heavy:10m rate=30r/m;
+        '';
+
+        virtualHosts.${cfg.domain}.locations = {
+          "/".proxyPass = socket;
+
+          # crawlers walk these endlessly and each one is expensive to render
+          "~ ^/[^/]+/[^/]+/(blame|commits|compare|raw)/" = {
+            proxyPass = socket;
+            extraConfig = ''
+              limit_req zone=forgejo_heavy burst=20 nodelay;
+              limit_req_status 429;
+            '';
+          };
         };
       };
     };
