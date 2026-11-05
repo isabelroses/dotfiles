@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
-  services.scx = {
+  services.scx-loader = {
     # inherit (config.garden.profiles.workstation) enable;
-    scheduler = "scx_bpfland";
-    package = pkgs.scx.rustscheds;
+    schedsPackages = [ pkgs.scx.rustscheds ];
+    config.default_sched = "scx_bpfland";
   };
 }
