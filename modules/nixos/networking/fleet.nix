@@ -57,7 +57,7 @@ in
   config = {
     garden.fleet = {
       freyja = {
-        lan = "wlan0";
+        lan = "enp6s0";
         tailscale = "100.69.230.34";
       };
 
