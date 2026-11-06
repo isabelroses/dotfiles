@@ -26,6 +26,8 @@ in
       };
 
       # keep-sorted start block=yes newline_separated=yes
+      "amaterau".hostname = "192.168.10.2";
+
       "amity" = {
         hostname = "143.47.240.116";
         identityFile = secrets.keys-amity.path;
@@ -43,7 +45,7 @@ in
         identityFile = secrets.keys-codeberg.path;
       };
 
-      "freyja".hostname = "192.168.0.102";
+      "freyja".hostname = "192.168.10.3";
 
       "git.auxolotl.org" = {
         user = "forgejo";
