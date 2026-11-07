@@ -18,7 +18,7 @@ in
 
   config = mkIf config.garden.services.jellyfin.enable {
     # the web port plus jellyfin's https and client discovery ports
-    garden.networking.lan = {
+    networking.firewall = {
       allowedTCPPorts = [
         cfg.port
         8920

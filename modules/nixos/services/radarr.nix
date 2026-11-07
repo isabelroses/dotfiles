@@ -23,7 +23,7 @@ in
       settings.server.port = cfg.port;
     };
 
-    garden.networking.lan.allowedTCPPorts = [ cfg.port ];
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     systemd.services.radarr.serviceConfig = {
       CapabilityBoundingSet = "";

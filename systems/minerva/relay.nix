@@ -17,7 +17,7 @@ let
 
     locations =
       let
-        upstream = "http://${config.garden.fleet.freyja.tailscale}:${toString port}";
+        upstream = "http://freyja:${toString port}";
       in
       {
         "/" = {
@@ -36,6 +36,11 @@ let
   };
 in
 {
+  systemd.services.nginx = {
+    after = [ "tailscaled.service" ];
+    wants = [ "tailscaled.service" ];
+  };
+
   services.nginx.virtualHosts = {
     # immich's thumbnails need a session, so nothing there is safe to share
     "photos.isabelroses.com" = relay immich.port [ ];

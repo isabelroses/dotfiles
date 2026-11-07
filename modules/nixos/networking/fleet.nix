@@ -4,15 +4,12 @@ let
   inherit (lib.options) mkOption;
   inherit (lib.types)
     attrsOf
-    listOf
     nullOr
-    port
     str
     submodule
     ;
 
-  lan = config.garden.fleet.${config.networking.hostName}.lan or null;
-  cfg = config.garden.networking.lan;
+  inherit (config.garden.fleet.${config.networking.hostName}) wakeOnLan;
 
   address =
     description: example:
@@ -27,38 +24,25 @@ in
     fleet = mkOption {
       type = attrsOf (submodule {
         options = {
-          lan = address "The interface facing the home LAN" "wlan0";
-          # a literal address rather than a MagicDNS name, since nginx resolves
-          # upstreams once at startup and would fail to start if tailscale wasn't up
-          tailscale = address "The host's tailnet IPv4 address" "100.64.0.1";
           ipv4 = address "The IPv4 address on the host's primary interface" "203.0.113.10";
           ipv6 = address "The IPv6 address on the host's primary interface" "2001:db8::1";
+          wakeOnLan = address "The interface on which to enable Wake-on-LAN" "enp1s0";
         };
       });
       default = { };
       description = "Facts about every host, identical on all of them, so no host has to evaluate another to learn about it";
     };
 
-    networking.lan = {
-      allowedTCPPorts = mkOption {
-        type = listOf port;
-        default = [ ];
-        description = "TCP ports opened only on this host's LAN interface";
-      };
-
-      allowedUDPPorts = mkOption {
-        type = listOf port;
-        default = [ ];
-        description = "UDP ports opened only on this host's LAN interface";
-      };
-    };
   };
 
   config = {
     garden.fleet = {
+      amaterasu = {
+        wakeOnLan = "enp4s0";
+      };
+
       freyja = {
-        lan = "enp6s0";
-        tailscale = "100.69.230.34";
+        wakeOnLan = "enp6s0";
       };
 
       minerva = {
@@ -74,15 +58,8 @@ in
       };
     };
 
-    assertions = [
-      {
-        assertion = lan != null || (cfg.allowedTCPPorts == [ ] && cfg.allowedUDPPorts == [ ]);
-        message = "garden.networking.lan opens ports but ${config.networking.hostName} has no `lan` in garden.fleet";
-      }
-    ];
-
-    networking.firewall.interfaces = optionalAttrs (lan != null) {
-      ${lan} = { inherit (cfg) allowedTCPPorts allowedUDPPorts; };
+    networking.interfaces = optionalAttrs (wakeOnLan != null) {
+      ${wakeOnLan}.wakeOnLan.enable = true;
     };
   };
 }

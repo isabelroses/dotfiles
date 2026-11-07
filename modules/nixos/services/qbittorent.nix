@@ -16,8 +16,10 @@ in
 
   config = mkIf cfg.enable {
     # peers have to reach the torrenting port from anywhere
-    networking.firewall.allowedTCPPorts = [ config.services.qbittorrent.torrentingPort ];
-    garden.networking.lan.allowedTCPPorts = [ cfg.port ];
+    networking.firewall.allowedTCPPorts = [
+      config.services.qbittorrent.torrentingPort
+      cfg.port
+    ];
 
     sops.secrets.qui = mkSecret {
       file = "qui";

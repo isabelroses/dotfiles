@@ -19,7 +19,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    garden.networking.lan.allowedTCPPorts = [ cfg.port ];
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
 
     garden.services = {
       postgresql.enable = true;
