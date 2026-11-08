@@ -21,7 +21,7 @@ builder goal *args:
       --log-format internal-json \
       {{ system-args }} \
       {{ args }} \
-      |& nom --json
+      |& rom --format dashboard
 
 [group('rebuild')]
 [no-exit-message]
@@ -119,7 +119,7 @@ iso image:
     if [ -n "${CI:-}" ]; then
       nix build "$target"
     else
-      nom build "$target"
+      rom --format dashboard build "$target"
     fi
 
 # build the tarball, you must specify the host you want to build
