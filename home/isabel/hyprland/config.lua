@@ -35,6 +35,10 @@ hl.config({
     },
   },
 
+  render = {
+    cm_auto_hdr = false,
+  },
+
   dwindle = {
     preserve_split = true,
   },
