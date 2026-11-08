@@ -9,7 +9,7 @@ let
     submodule
     ;
 
-  inherit (config.garden.fleet.${config.networking.hostName}) wakeOnLan;
+  wakeOnLan = config.garden.fleet.${config.networking.hostName}.wakeOnLan or null;
 
   address =
     description: example:
