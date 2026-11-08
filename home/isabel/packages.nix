@@ -23,7 +23,7 @@ in
         # gum # a nicer scripting
         jq # json parser
         just # cool build tool
-        nix-output-monitor # much nicer nix build output
+        rom # much nicer nix build output
         unzip
         wakatime-cli
         yq # yaml parser
@@ -54,6 +54,7 @@ in
       inherit (pkgs)
         # keep-sorted start
         brightnessctl # brightness managed via cli
+        discord
         grim # screenshots
         libnotify # needed for some notifications
         pwvucontrol

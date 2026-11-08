@@ -125,8 +125,6 @@ treefmt.withConfig {
           "*.md"
         ];
         excludes = [
-          # weird option names
-          "home/isabel/discord.nix"
           # colors
           "modules/nixos/catppuccin.nix"
           # driver name

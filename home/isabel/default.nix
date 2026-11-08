@@ -9,7 +9,6 @@
     ./chromium.nix
     ./cursors.nix
     ./direnv.nix
-    ./discord.nix
     ./eza.nix
     ./fd.nix
     ./fish.nix
