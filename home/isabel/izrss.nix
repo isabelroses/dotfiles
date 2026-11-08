@@ -4,10 +4,7 @@
     inherit (config.garden.profiles.workstation) enable;
 
     settings = {
-      reader = {
-        size = "full";
-        theme = "environment";
-      };
+      reader.size = "full";
 
       urls = [
         "https://isabelroses.com/feed.xml"
@@ -19,7 +16,6 @@
         "https://mitchellh.com/feed.xml"
         "https://dataswamp.org/~solene/rss-html.xml"
         "https://maia.crimew.gay/feed.xml"
-        "https://github.com/moonlight-mod/extensions/commits.atom" # moonlight extensions
         "https://clan.lol/feed.xml"
       ];
     };
