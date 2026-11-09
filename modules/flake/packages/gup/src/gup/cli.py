@@ -108,14 +108,17 @@ def servers(value):
 
 
 def connect(addresses, key, client=Immich):
-    """(client, account id) for the first address that answers."""
+    """(client, account id) for the first address that answers a ping."""
     for address in addresses:
         immich = client(address, key)
-        try:
-            return immich, immich.account()
-        except ImmichError as e:
-            immich.close()
-            log.warning(f"{address}: {e}")
+        if immich.ping():
+            try:
+                return immich, immich.account()
+            except BaseException:
+                immich.close()
+                raise
+        immich.close()
+        log.warning(f"{address} didn't answer, trying the next server")
     raise ImmichError(f"no Immich server answered ({', '.join(addresses)})")
 
 

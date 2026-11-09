@@ -51,6 +51,8 @@ class FakeImmich:
                 return httpx.Response(200, json={"results": results})
             case "POST", "/assets":
                 return self.upload(request)
+            case "GET", "/server/ping":
+                return httpx.Response(200, json={"res": "pong"})
             case "GET", "/users/me":
                 return httpx.Response(200, json={"id": self.account})
             case "GET", _ if asset := self.assets.get(path.rpartition("/")[2]):

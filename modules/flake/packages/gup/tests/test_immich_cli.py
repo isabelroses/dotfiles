@@ -11,7 +11,7 @@ import httpx
 from fake_immich import FakeImmich
 
 from gup.cli import Formatter, connect, main, parse_args, servers
-from gup.immich import Immich, ImmichError
+from gup.immich import PING, Immich, ImmichError
 
 
 class ImmichClientTests(unittest.TestCase):
@@ -44,6 +44,18 @@ class ImmichClientTests(unittest.TestCase):
                 respond = lambda _, r=results: httpx.Response(200, json={"results": r})
                 with self.client(respond) as client:
                     self.assertEqual(client.check(["a"]), {"a": verdict})
+
+    def test_a_ping_is_quick_and_never_raises(self):
+        seen = []
+
+        def respond(request):
+            seen.append(request)
+            raise httpx.ConnectTimeout("slow")
+
+        with self.client(respond) as client:
+            self.assertFalse(client.ping())
+        self.assertEqual(seen[0].url.path, "/api/server/ping")
+        self.assertEqual(seen[0].extensions["timeout"], PING.as_dict())
 
     def test_answers_that_arent_immich_ids_are_refused(self):
         for answer in ({"id": None}, {"id": "../../elsewhere"}, {"id": 7}):
@@ -185,6 +197,18 @@ class CommandLineTests(unittest.TestCase):
             self.assertEqual(str(immich.base_url), "http://up/api/")
         self.assertNotIn("http://unused", tried)
         self.assertEqual(len(logs.output), 2)
+
+    def test_a_server_that_answers_but_refuses_the_key_isnt_skipped(self):
+        def client(address, key):
+            def respond(request):
+                if request.url.path == "/api/server/ping":
+                    return httpx.Response(200, json={"res": "pong"})
+                return httpx.Response(401)
+
+            return Immich(address, key, httpx.MockTransport(respond))
+
+        with self.assertRaises(ImmichError):
+            connect(["http://a", "http://b"], "key", client)
 
     def test_no_server_answering_is_an_error(self):
         def client(address, key):

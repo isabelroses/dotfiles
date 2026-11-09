@@ -7,6 +7,7 @@ from datetime import UTC, datetime
 import httpx
 
 RETRIES = 2
+PING = httpx.Timeout(2)
 DROPPED = (httpx.ReadError, httpx.ReadTimeout, httpx.RemoteProtocolError)
 CHECK = "/assets/bulk-upload-check"
 ID = re.compile(r"[0-9A-Za-z-]+")
@@ -84,6 +85,14 @@ class Immich(httpx.Client):
                 files=files,
                 headers={"x-immich-checksum": sha1},
             )
+
+    def ping(self):
+        """Whether Immich answers quickly, without retrying or raising."""
+        try:
+            r = self.request("GET", "/server/ping", timeout=PING)
+            return r.is_success and r.json().get("res") == "pong"
+        except (httpx.HTTPError, ValueError, AttributeError):
+            return False
 
     def account(self):
         return self.call("GET", "/users/me", lambda r: checked(r["id"]))
