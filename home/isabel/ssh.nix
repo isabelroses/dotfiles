@@ -26,7 +26,7 @@ in
       };
 
       # keep-sorted start block=yes newline_separated=yes
-      "amaterau".hostname = "192.168.10.2";
+      "amaterasu".hostname = "192.168.10.2";
 
       "amity" = {
         hostname = "143.47.240.116";
