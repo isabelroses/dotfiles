@@ -1,4 +1,5 @@
 import contextlib
+from contextlib import closing
 import io
 import logging
 import tempfile
@@ -9,7 +10,7 @@ from unittest.mock import patch
 import httpx
 from fake_immich import FakeImmich
 
-from gup.cli import Formatter, main, parse_args
+from gup.cli import Formatter, connect, main, parse_args, servers
 from gup.immich import Immich, ImmichError
 
 
@@ -144,6 +145,59 @@ class CommandLineTests(unittest.TestCase):
         ):
             main(["https://example/post"])
         self.assertIn("http(s) address", logs.output[0])
+
+    def test_a_list_with_one_address_without_a_scheme_is_refused(self):
+        env = {"IMMICH_SERVER": "http://a, 192.168.0.102:3007", "IMMICH_API_KEY": "k"}
+        with (
+            patch.dict("os.environ", env, clear=True),
+            patch("logging.basicConfig"),
+            self.assertLogs("gup", level="ERROR") as logs,
+            self.assertRaises(SystemExit),
+        ):
+            main(["https://example/post"])
+        self.assertIn("'192.168.0.102:3007'", logs.output[0])
+
+    def test_servers_are_split_by_commas_or_spaces(self):
+        self.assertEqual(
+            servers(" http://a,http://b  https://c ,\nhttp://d "),
+            ["http://a", "http://b", "https://c", "http://d"],
+        )
+
+    def test_the_first_server_that_answers_is_used(self):
+        fake, tried = FakeImmich(), []
+
+        def client(address, key):
+            def respond(request):
+                tried.append(address)
+                if address == "http://up":
+                    return fake.handle(request)
+                if address == "http://bad":
+                    return httpx.Response(502)
+                raise httpx.ConnectError("refused")
+
+            return Immich(address, key, httpx.MockTransport(respond))
+
+        addresses = ["http://down", "http://bad", "http://up", "http://unused"]
+        with self.assertLogs("gup", level="WARNING") as logs:
+            immich, account = connect(addresses, "key", client)
+        with closing(immich):
+            self.assertEqual(account, "user-1")
+            self.assertEqual(str(immich.base_url), "http://up/api/")
+        self.assertNotIn("http://unused", tried)
+        self.assertEqual(len(logs.output), 2)
+
+    def test_no_server_answering_is_an_error(self):
+        def client(address, key):
+            def respond(_):
+                raise httpx.ConnectError("refused")
+
+            return Immich(address, key, httpx.MockTransport(respond))
+
+        with (
+            self.assertLogs("gup", level="WARNING"),
+            self.assertRaisesRegex(ImmichError, "http://a, http://b"),
+        ):
+            connect(["http://a", "http://b"], "key", client)
 
     def test_a_dir_that_is_a_file_is_an_error(self):
         with (

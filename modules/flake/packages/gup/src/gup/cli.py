@@ -5,6 +5,7 @@ import logging
 import os
 import re
 import sys
+from contextlib import closing
 from dataclasses import dataclass, field
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -21,9 +22,11 @@ URL = re.compile(r"^(ytdl:)?[a-z][a-z0-9+.-]*://", re.IGNORECASE)
 USAGE = """\
 %(prog)s [OPTIONS] <url|path> [url|path ...]
 
-uploading needs IMMICH_SERVER and IMMICH_API_KEY; state is kept per Immich
-account, whatever IMMICH_SERVER's address"""
-error = logging.getLogger("gup").error
+uploading needs IMMICH_SERVER and IMMICH_API_KEY; IMMICH_SERVER may list
+several addresses, split by commas or spaces, tried in order until one answers;
+state is kept per Immich account, whatever the server's address"""
+log = logging.getLogger("gup")
+error = log.error
 COLORS = {logging.DEBUG: "2", logging.INFO: "34", logging.WARNING: "33"}
 
 
@@ -99,6 +102,23 @@ class Run:
         return "\n".join(lines)
 
 
+def servers(value):
+    """The addresses listed in IMMICH_SERVER, in order."""
+    return value.replace(",", " ").split()
+
+
+def connect(addresses, key, client=Immich):
+    """(client, account id) for the first address that answers."""
+    for address in addresses:
+        immich = client(address, key)
+        try:
+            return immich, immich.account()
+        except ImmichError as e:
+            immich.close()
+            log.warning(f"{address}: {e}")
+    raise ImmichError(f"no Immich server answered ({', '.join(addresses)})")
+
+
 def upload(args, immich, state):
     setup_gallery_dl(args.dir, None if args.refetch else state.path)
     given = [File(p) for p in args.paths]
@@ -127,10 +147,12 @@ def main(argv=None):
     if args.upload and (missing := [name for name, value in env.items() if not value]):
         error(f"{' and '.join(missing)} must be set to upload")
         sys.exit(1)
-    server = urlsplit(env["IMMICH_SERVER"] or "")
-    if args.upload and not (server.scheme in {"http", "https"} and server.netloc):
-        error(f"IMMICH_SERVER must be an http(s) address, not {server.geturl()!r}")
-        sys.exit(1)
+    addresses = servers(env["IMMICH_SERVER"] or "")
+    for address in addresses if args.upload else ():
+        server = urlsplit(address)
+        if not (server.scheme in {"http", "https"} and server.netloc):
+            error(f"IMMICH_SERVER must list http(s) addresses, not {address!r}")
+            sys.exit(1)
     load_config()
     if logfile := gdl_output.setup_logging_handler("logfile", lvl=level):
         logging.getLogger().addHandler(logfile)
@@ -147,10 +169,8 @@ def main(argv=None):
         run = Run([download(url) for url in args.urls])
     else:
         try:
-            with (
-                Immich(env["IMMICH_SERVER"], env["IMMICH_API_KEY"]) as immich,
-                State.open(path_for(immich.account())) as state,
-            ):
+            immich, account = connect(addresses, env["IMMICH_API_KEY"])
+            with closing(immich), State.open(path_for(account)) as state:
                 run = upload(args, immich, state)
         except (StateError, ImmichError) as e:
             error(e)
