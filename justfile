@@ -21,7 +21,7 @@ builder goal *args:
       --log-format internal-json \
       {{ system-args }} \
       {{ args }} \
-      |& rom --format dashboard
+      |& rom
 
 [group('rebuild')]
 [no-exit-message]
@@ -29,7 +29,7 @@ builder goal *args:
 deployer host goal *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    just builder {{ goal }} --target-host {{ host }} --use-substitutes {{ args }}
+    just builder {{ goal }} --target-host ssh-ng://{{ host }} --use-substitutes {{ args }}
     lethe record {{ host }}
 
 # deploy by switching the new system configuration
@@ -42,7 +42,7 @@ deploy host *args: (deployer host "switch" args)
 [group('rebuild')]
 [no-exit-message]
 deploy-dry host *args:
-    just builder dry-activate --target-host {{ host }} --use-substitutes {{ args }}
+    just builder dry-activate --target-host ssh-ng://{{ host }} --use-substitutes {{ args }}
 
 # deploy by setting the boot configuration
 [group('rebuild')]
