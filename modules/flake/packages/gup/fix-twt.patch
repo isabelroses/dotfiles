@@ -1,0 +1,76 @@
+From f7d84bb7ad41aa6c3022122559befed5c8438dfd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Mike=20F=C3=A4hrmann?= <mike_faehrmann@web.de>
+Date: Tue, 10 Nov 2026 10:30:02 +0100
+Subject: [PATCH] =?UTF-8?q?[twitter:ctid]=20improve=20'ondemand.s.?=
+ =?UTF-8?q?=E2=80=A6a.js'=20key=20extraction=20(gh#9867)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+* use '/i/jf/' instead of '/home'
+* add 'ondemand' option to specify custom path
+
+https://github.com/mikf/gallery-dl/issues/9867#issuecomment-6747989764
+---
+ docs/configuration.rst                             | 14 ++++++++++++++
+ docs/gallery-dl.conf                               |  1 +
+ .../extractor/utils/twitter_transaction_id.py      |  4 ++--
+ 3 files changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/docs/configuration.rst b/docs/configuration.rst
+index b4ec5fcd4..93ca30aa7 100644
+--- a/docs/configuration.rst
++++ b/docs/configuration.rst
+@@ -7675,6 +7675,20 @@ Note
+     This requires 2 additional HTTP requests per user.
+ 
+ 
++extractor.twitter.ondemand
++--------------------------
++Type
++    ``string``
++Default
++    ``"/i/jf/"``
++Example
++    * ``"/home"``
++    * ``"/explore"``
++Description
++    Webpage path to load when collecting data during
++    client transaction key initialization.
++
++
+ extractor.twitter.pinned
+ ------------------------
+ Type
+diff --git a/docs/gallery-dl.conf b/docs/gallery-dl.conf
+index a331d7d8c..ce59fe0fa 100644
+--- a/docs/gallery-dl.conf
++++ b/docs/gallery-dl.conf
+@@ -1033,6 +1033,7 @@
+             "locked"      : "abort",
+             "logout"      : true,
+             "metadata-user": false,
++            "ondemand"    : "/i/jf/",
+             "pinned"      : false,
+             "previews"    : false,
+             "quoted"      : false,
+diff --git a/gallery_dl/extractor/utils/twitter_transaction_id.py b/gallery_dl/extractor/utils/twitter_transaction_id.py
+index 29e1bce46..1d1e1c494 100644
+--- a/gallery_dl/extractor/utils/twitter_transaction_id.py
++++ b/gallery_dl/extractor/utils/twitter_transaction_id.py
+@@ -35,13 +35,13 @@ class ClientTransaction():
+ 
+     def initialize(self, extractor, homepage=None):
+         if homepage is None:
++            path = extractor.config("ondemand") or "/i/jf/"
+             response = extractor.request(
+-                extractor.root + "/home", allow_redirects=False)
++                extractor.root + path, allow_redirects=False)
+             if 300 <= response.status_code < 400:
+                 extractor.log.warning("HTTP redirect to login page (%s)",
+                                       response.headers.get("Location"))
+                 extractor.log.warning("Update your login session cookies!")
+-                response = extractor.request(extractor.root + "/i/jf/")
+             homepage = response.text
+ 
+         key = self._extract_verification_key(homepage)

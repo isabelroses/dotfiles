@@ -24,7 +24,13 @@ python3Packages.buildPythonApplication {
 
   # gallery-dl brings the yt-dlp its ytdl extractor imports
   dependencies = [
-    (python3Packages.toPythonModule (gallery-dl.override { inherit yt-dlp; }))
+    (python3Packages.toPythonModule (
+      (gallery-dl.override { inherit yt-dlp; }).overrideAttrs (_: {
+        patches = [
+          ./fix-twt.patch
+        ];
+      })
+    ))
     python3Packages.httpx
   ];
 
