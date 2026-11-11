@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   _class,
   config,
   ...
@@ -33,6 +34,23 @@ in
               enableRun0Elevation = true;
             };
           };
+
+          # lix 2.97 drops `ssh://` stores and `nix copy` to `ssh-ng://` checks
+          # signatures, which our unsigned builds lack. this passes
+          # `--no-check-sigs` for ssh-ng copies like nix-copy-closure did.
+          # drop once <https://github.com/NixOS/nixpkgs/pull/574160> is merged
+          build.nixos-rebuild = lib.mkForce (
+            (pkgs.nixos-rebuild-ng.override { nix = config.nix.package; }).overrideAttrs (oa: {
+              patches = (oa.patches or [ ]) ++ [
+                (pkgs.fetchpatch {
+                  name = "nixos-rebuild-ng-ssh-ng-no-check-sigs.patch";
+                  url = "https://github.com/NixOS/nixpkgs/commit/e2cad8b9ce401587a9661a4573976d14a7043904.patch";
+                  relative = "pkgs/by-name/ni/nixos-rebuild-ng/src";
+                  hash = "sha256-JXiP3MqwwL1gyOPs0BefNhWycmg6bukk1sro7XOGgMk=";
+                })
+              ];
+            })
+          );
         };
       }
     else
