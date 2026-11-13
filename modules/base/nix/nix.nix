@@ -88,6 +88,9 @@ in
       # show more log lines for failed builds, as this happens alot and is useful
       log-lines = 30;
 
+      # set the log format to my custom type. on lix the default is pretty good anyways being multiline-with-logs
+      log-format = "nom-with-logs";
+
       # https://docs.lix.systems/manual/lix/nightly/contributing/experimental-features.html
       experimental-features = [
         # enables flakes, needed for this config

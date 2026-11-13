@@ -3,7 +3,6 @@
   just,
   gitMinimal,
   sops,
-  rom,
   treefmt-wrapped,
 }:
 mkShellNoCC {
@@ -14,7 +13,6 @@ mkShellNoCC {
     gitMinimal # we need git
     sops # secrets management
     treefmt-wrapped # nix formatter
-    rom # get clean diff between generations
   ]
   ++ treefmt-wrapped.runtimeInputs; # collect all our formatters
 

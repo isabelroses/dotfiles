@@ -18,10 +18,8 @@ builder goal *args:
     set -euo pipefail
     {{ rebuild }} {{ goal }} \
       --flake {{ flake }} \
-      --log-format internal-json \
       {{ system-args }} \
-      {{ args }} \
-      |& rom
+      {{ args }}
 
 [group('rebuild')]
 [no-exit-message]
@@ -113,14 +111,7 @@ provision host:
 [group('package')]
 [no-exit-message]
 iso image:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    target="{{ flake }}#nixosConfigurations.{{ image }}.config.system.build.isoImage"
-    if [ -n "${CI:-}" ]; then
-      nix build "$target"
-    else
-      rom --format dashboard build "$target"
-    fi
+    nix build {{ flake }}#nixosConfigurations.{{ image }}.config.system.build.isoImage
 
 # build the tarball, you must specify the host you want to build
 [group('package')]

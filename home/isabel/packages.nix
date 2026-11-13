@@ -23,7 +23,6 @@ in
         # gum # a nicer scripting
         jq # json parser
         just # cool build tool
-        rom # much nicer nix build output
         unzip
         wakatime-cli
         yq # yaml parser
