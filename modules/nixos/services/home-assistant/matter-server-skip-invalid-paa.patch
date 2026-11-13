@@ -1,0 +1,17 @@
+--- a/matter_server/server/helpers/paa_certificates.py	2026-11-13 20:45:10.056728965 +0000
++++ b/matter_server/server/helpers/paa_certificates.py	2026-11-13 20:45:10.071308619 +0000
+@@ -71,7 +71,13 @@
+             # via Slack.
+             warnings.simplefilter("ignore", CryptographyDeprecationWarning)
+ 
+-        cert = x509.load_pem_x509_certificate(pem_certificate.encode())
++        try:
++            cert = x509.load_pem_x509_certificate(pem_certificate.encode())
++        except ValueError as err:
++            # newer cryptography refuses some malformed certs on the DCL
++            # rather than warning, skip them instead of aborting startup
++            LOGGER.warning("Skipping invalid PAA certificate '%s': %s", subject, err)
++            return False
+ 
+     ski: x509.SubjectKeyIdentifier = cert.extensions.get_extension_for_class(
+         x509.SubjectKeyIdentifier

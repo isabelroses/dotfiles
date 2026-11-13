@@ -23,6 +23,13 @@
     services = {
       arr.enable = true;
 
+      home-assistant = {
+        enable = true;
+        # set to the dongle's /dev/serial/by-id path once it's flashed to
+        # thread firmware to bring up the border router
+        # radio = "/dev/serial/by-id/...";
+      };
+
       immich = {
         enable = true;
         host = "0.0.0.0";
@@ -36,4 +43,7 @@
   };
 
   services.smartd.enable = lib.modules.mkForce false;
+
+  # where to advertise the thread mesh, only used once the radio is set
+  services.openthread-border-router.backboneInterfaces = [ "enp6s0" ];
 }

@@ -7,6 +7,7 @@
     ./borgbackup.nix
     ./forgejo.nix
     ./gatus
+    ./home-assistant
     ./immich.nix
     ./jellyfin.nix
     ./kanidm.nix
