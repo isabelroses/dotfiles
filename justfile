@@ -96,7 +96,7 @@ switch *args:
     #!/usr/bin/env bash
     set -euo pipefail
     just builder switch {{ args }}
-    lethe record --local
+    lethe record
     lethe diff $(hostname)
 
 [group('rebuild')]
