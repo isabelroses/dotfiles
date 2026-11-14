@@ -30,6 +30,9 @@ in
     settings = {
       window.opacity = 1;
       launcher_window.rounding = 0;
+      telemetry.system_info = false;
+      tray.enabled = false;
+      compact_mode.enabled = true;
 
       theme = {
         dark.name = lib.mkForce "oledppuccin";
