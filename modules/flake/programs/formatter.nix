@@ -129,6 +129,8 @@ treefmt.withConfig {
           "modules/nixos/catppuccin.nix"
           # driver name
           "modules/nixos/hardware/gpu/nvidia.nix"
+          # account name
+          "modules/nixos/services/home-assistant/default.nix"
         ];
       };
 
