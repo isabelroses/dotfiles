@@ -1,7 +1,12 @@
-{ lib, inputs, ... }:
+{
+  lib,
+  config,
+  inputs,
+  ...
+}:
 let
   inherit (lib.attrsets) filterAttrs attrValues mapAttrs;
-  inherit (lib.modules) mkForce;
+  inherit (lib.modules) mkForce mkIf;
   inherit (lib.types) isType;
 
   flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;
@@ -20,7 +25,10 @@ in
 
   # now the explanation is done above we can pin our nixpkgs and inputs
   # however we like
-  nix = {
+  #
+  # a pin keeps the input's source in the closure, and nixpkgs alone is over
+  # 200MiB, so headless hosts go without; nothing is evaluated on them
+  nix = mkIf (!config.garden.profiles.headless.enable) {
     # pin to avoid downloading and evaluating a new inputs everytime
     registry = mapAttrs (_: flake: { inherit flake; }) flakeInputs;
     nixPath = attrValues (mapAttrs (k: v: "${k}=flake:${v.outPath}") flakeInputs);
