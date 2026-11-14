@@ -1,20 +1,15 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls.Basic
-import "root:/data"
-import "root:/components"
-import "root:/services"
+import qs.data
+import qs.services
 
-Item {
-    id: root
+MyIcon {
+    Layout.alignment: Qt.AlignHCenter
+    icon: Networking.icon
+    size: 16
+    color: Networking.connected ? Settings.colors.sky : Settings.colors.textSubtle
 
-    Layout.alignment: Qt.AlignCenter
-    implicitWidth: 20
-    implicitHeight: 20
-
-    MyIcon {
-        anchors.centerIn: parent
-        icon: Networking.icon
-        size: 18
+    BarTooltip {
+        text: Networking.statusText
     }
 }

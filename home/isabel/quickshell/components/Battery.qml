@@ -1,37 +1,36 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
-import "root:/data"
-import "root:/components"
-import "root:/services"
+import qs.data
+import qs.services
 
-Item {
+ColumnLayout {
     id: root
 
-    Layout.alignment: Qt.AlignCenter
-    implicitWidth: 20
-    implicitHeight: 20
+    readonly property bool low: UPower.percentage < 20 && !UPower.charging
 
-    // Only show if battery is present
     visible: UPower.isPresent
+    Layout.alignment: Qt.AlignHCenter
+    spacing: 2
 
     MyIcon {
-        anchors.centerIn: parent
+        Layout.alignment: Qt.AlignHCenter
         icon: UPower.icon
-        size: 18
+
+        BarTooltip {
+            text: `${Math.round(UPower.percentage)}%${UPower.charging ? " · charging" : ""}`
+        }
+        size: 16
+        color: root.low ? Settings.colors.error
+            : UPower.charging ? Settings.colors.success
+            : Settings.colors.text
     }
 
-    // Tooltip showing percentage and status
-    ToolTip {
-        id: tooltip
-        visible: mouseArea.containsMouse
-        text: `${Math.round(UPower.percentage)}% - ${UPower.statusText}`
-        delay: 500
-    }
-
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        hoverEnabled: true
+    StyledText {
+        Layout.alignment: Qt.AlignHCenter
+        visible: Config.get("bar.battery_percent")
+        text: Math.round(UPower.percentage)
+        mono: true
+        font.pixelSize: 9
+        color: root.low ? Settings.colors.error : Settings.colors.textMuted
     }
 }

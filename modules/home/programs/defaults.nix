@@ -6,7 +6,7 @@
 let
   inherit (lib.attrsets) mapAttrs;
   inherit (lib.options) mkOption;
-  inherit (lib.types) enum nullOr str;
+  inherit (lib.types) enum str;
 
   mkDefault = name: args: mkOption ({ description = "default ${name} for the system"; } // args);
 in
@@ -46,17 +46,6 @@ in
     manpager = {
       type = str;
       default = "nvim +Man!";
-    };
-
-    screenLocker = {
-      type = nullOr (enum [
-        "swaylock"
-        "gtklock"
-      ]);
-      default = "gtklock";
-      description = ''
-        The lockscreen module to be loaded by home-manager.
-      '';
     };
   };
 }

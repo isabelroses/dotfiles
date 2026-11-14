@@ -1,232 +1,235 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 import Quickshell
 import Quickshell.Widgets
 import Quickshell.Services.SystemTray
-import "root:/data"
+import qs.data
 
 Item {
   id: trayItem
   required property SystemTrayItem modelData
 
   Layout.alignment: Qt.AlignHCenter
-  implicitWidth: 24
-  implicitHeight: 24
+  implicitWidth: 30
+  implicitHeight: 30
+
+  Rectangle {
+    anchors.fill: parent
+    radius: Settings.radiusSm
+    color: popup.visible ? Settings.colors.accentSoft : Settings.colors.surfaceRaised
+    opacity: popup.visible || mouseArea.containsMouse ? 1 : 0
+    Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
+  }
 
   IconImage {
-    source: Utils.getIcon(modelData.icon)
-    implicitSize: 18
+    asynchronous: true
+    source: Utils.getIcon(trayItem.modelData.icon)
+    implicitSize: 16
     anchors.centerIn: parent
     mipmap: true
   }
 
+  BarTooltip {
+    text: popup.visible ? "" : (trayItem.modelData.tooltipTitle || trayItem.modelData.title || trayItem.modelData.id)
+  }
+
   MouseArea {
+    id: mouseArea
     anchors.fill: parent
     hoverEnabled: true
     cursorShape: Qt.PointingHandCursor
     acceptedButtons: Qt.LeftButton | Qt.RightButton
     onClicked: (mouse) => {
-      if (mouse.button === Qt.RightButton || modelData.onlyMenu) {
-        popupLoader.item.visible = !popupLoader.item.visible;
+      if (mouse.button === Qt.RightButton || trayItem.modelData.onlyMenu) {
+        if (trayItem.modelData.hasMenu) popup.visible = !popup.visible;
       } else {
-        modelData.activate();
+        trayItem.modelData.activate();
       }
     }
   }
 
-  ToolTip {
-    visible: trayMouseArea.containsMouse && modelData.tooltipTitle !== ""
-    text: modelData.tooltipTitle
-    delay: 500
+  property var menuStack: []
+  readonly property QsMenuHandle currentMenu: menuStack.length > 0
+    ? menuStack[menuStack.length - 1]
+    : modelData.menu
+
+  function pushMenu(entry: QsMenuEntry): void {
+    menuStack = [...menuStack, entry];
   }
 
-  MouseArea {
-    id: trayMouseArea
-    anchors.fill: parent
-    hoverEnabled: true
-    acceptedButtons: Qt.NoButton
+  function popMenu(): void {
+    menuStack = menuStack.slice(0, -1);
   }
 
   QsMenuOpener {
     id: menu
-    menu: modelData.menu
+    menu: trayItem.currentMenu
   }
 
-  LazyLoader {
-    id: popupLoader
-    loading: true
+  PopupWindow {
+    id: popup
+    visible: false
+    grabFocus: true
+    color: "transparent"
 
-    PopupWindow {
-      id: popup
-      anchor.window: trayItem.QsWindow.window
-      anchor.rect.x: (trayItem.QsWindow.window?.width ?? 0) * 1.15
-      anchor.rect.y: (trayItem.QsWindow.window?.height ?? 0) / 1.25
-      visible: false
-      color: "transparent"
+    anchor.item: trayItem
+    anchor.rect.x: -(Settings.barWidth - trayItem.width) / 2
+    anchor.rect.width: Settings.barWidth
+    anchor.rect.height: trayItem.height
+    anchor.edges: (Settings.barOnRight ? Edges.Left : Edges.Right) | Edges.Top
+    anchor.gravity: (Settings.barOnRight ? Edges.Left : Edges.Right) | Edges.Bottom
 
-      implicitWidth: 220
-      implicitHeight: menuColumn.implicitHeight + 16
+    implicitWidth: 240
+    implicitHeight: menuColumn.implicitHeight + 12
 
-      Rectangle {
-        anchors.fill: parent
-        color: Settings.colors.background
-        radius: 10
+    onVisibleChanged: if (!visible) trayItem.menuStack = []
 
-        // Shadow effect
-        layer.enabled: true
-        layer.effect: null
+    Rectangle {
+      anchors.fill: parent
+      color: Settings.colors.base
+      radius: Settings.radiusMd
+      border.color: Settings.colors.borderStrong
+      border.width: 1
+    }
+
+    ColumnLayout {
+      id: menuColumn
+      anchors {
+        left: parent.left
+        right: parent.right
+        top: parent.top
+        margins: 6
+      }
+      spacing: 1
+
+      Clickable {
+        Layout.fillWidth: true
+        onClicked: if (trayItem.menuStack.length > 0) trayItem.popMenu()
+        implicitHeight: 30
+        radius: Settings.radiusXs
+        color: hovered && trayItem.menuStack.length > 0
+          ? Settings.colors.surfaceRaised : "transparent"
+
+        RowLayout {
+          anchors { fill: parent; leftMargin: 8; rightMargin: 8 }
+          spacing: 6
+
+          MyIcon {
+            visible: trayItem.menuStack.length > 0
+            icon: "go-previous-symbolic"
+            size: 12
+            color: Settings.colors.textMuted
+          }
+
+          StyledText {
+            Layout.fillWidth: true
+            text: trayItem.menuStack.length > 0
+              ? trayItem.menuStack[trayItem.menuStack.length - 1].text.replace("_", "")
+              : (trayItem.modelData.title || trayItem.modelData.id)
+            color: Settings.colors.textMuted
+            font.pixelSize: 11
+            font.weight: Font.DemiBold
+            font.letterSpacing: 0.4
+            elide: Text.ElideRight
+          }
+        }
       }
 
-      ColumnLayout {
-        id: menuColumn
-        anchors {
-          fill: parent
-          margins: 8
-        }
-        spacing: 2
+      Rectangle {
+        Layout.fillWidth: true
+        Layout.leftMargin: 6
+        Layout.rightMargin: 6
+        Layout.bottomMargin: 3
+        implicitHeight: 1
+        color: Settings.colors.border
+      }
 
-        // Header with app name
-        Text {
-          text: modelData.title || modelData.id
-          color: Settings.colors.foreground
-          font {
-            pixelSize: 12
-            weight: Font.Bold
-          }
-          opacity: 0.7
+      Repeater {
+        model: menu.children
+
+        delegate: Loader {
+          id: entryLoader
+          required property QsMenuEntry modelData
+
           Layout.fillWidth: true
-          Layout.leftMargin: 8
-          Layout.bottomMargin: 4
-          elide: Text.ElideRight
-          visible: text !== ""
-        }
+          sourceComponent: modelData.isSeparator ? separatorComponent : entryComponent
 
-        Rectangle {
-          Layout.fillWidth: true
-          Layout.preferredHeight: 1
-          Layout.leftMargin: 4
-          Layout.rightMargin: 4
-          Layout.bottomMargin: 4
-          color: Settings.colors.foreground
-          opacity: 0.1
-          visible: (modelData.title || modelData.id) !== ""
-        }
+          Component {
+            id: separatorComponent
 
-        Repeater {
-          model: menu.children
-
-          delegate: Loader {
-            id: menuItemLoader
-            required property var modelData
-
-            Layout.fillWidth: true
-            sourceComponent: modelData.isSeparator ? separatorComponent : menuItemComponent
-
-            Component {
-              id: separatorComponent
+            Item {
+              implicitHeight: 9
 
               Rectangle {
-                height: 9
-                color: "transparent"
-
-                Rectangle {
-                  anchors.centerIn: parent
-                  width: parent.width - 16
-                  height: 1
-                  color: Settings.colors.foreground
-                  opacity: 0.1
-                }
+                anchors.centerIn: parent
+                width: parent.width - 12
+                height: 1
+                color: Settings.colors.border
               }
             }
+          }
 
-            Component {
-              id: menuItemComponent
+          Component {
+            id: entryComponent
 
-              Rectangle {
-                id: menuItemRect
-                height: 32
-                radius: 6
-                color: menuMouse.containsMouse && menuItemLoader.modelData.enabled
-                ? Settings.colors.backgroundLighter
-                : "transparent"
-                opacity: menuItemLoader.modelData.enabled ? 1.0 : 0.5
+            Clickable {
+              readonly property QsMenuEntry entry: entryLoader.modelData
+              onClicked: {
+                if (!entry.enabled) return;
+                if (entry.hasChildren) trayItem.pushMenu(entry);
+                else {
+                  entry.triggered();
+                  popup.visible = false;
+                }
+              }
+              readonly property bool checked: entry.checkState !== Qt.Unchecked
 
-                RowLayout {
-                  anchors {
-                    fill: parent
-                    leftMargin: 10
-                    rightMargin: 10
-                  }
-                  spacing: 8
+              implicitHeight: 32
+              radius: Settings.radiusXs
+              color: hovered && entry.enabled ? Settings.colors.surfaceRaised : "transparent"
+              opacity: entry.enabled ? 1.0 : 0.4
 
-                  // Checkbox/Radio indicator
+              RowLayout {
+                anchors { fill: parent; leftMargin: 10; rightMargin: 8 }
+                spacing: 10
+
+                Rectangle {
+                  visible: entry.buttonType !== QsMenuButtonType.None
+                  implicitWidth: 14
+                  implicitHeight: 14
+                  radius: entry.buttonType === QsMenuButtonType.RadioButton ? 7 : Settings.radiusXs
+                  color: checked ? Settings.colors.accent : "transparent"
+                  border.width: checked ? 0 : 1.5
+                  border.color: Settings.colors.textSubtle
+
                   Rectangle {
-                    visible: menuItemLoader.modelData.buttonType !== 0 // QsMenuButtonType.None
-                    Layout.preferredWidth: 16
-                    Layout.preferredHeight: 16
-                    radius: menuItemLoader.modelData.buttonType === 2 ? 8 : 3 // RadioButton = 2
-                    color: "transparent"
-                    border.width: 1.5
-                    border.color: menuItemLoader.modelData.checkState !== Qt.Unchecked
-                    ? Settings.colors.accent
-                    : Settings.colors.foreground
-                    opacity: menuItemLoader.modelData.checkState !== Qt.Unchecked ? 1.0 : 0.5
-
-                    Rectangle {
-                      anchors.centerIn: parent
-                      width: 8
-                      height: 8
-                      radius: menuItemLoader.modelData.buttonType === 2 ? 4 : 2
-                      color: Settings.colors.accent
-                      visible: menuItemLoader.modelData.checkState !== Qt.Unchecked
-                    }
-                  }
-
-                  // Icon
-                  Image {
-                    visible: menuItemLoader.modelData.icon !== "" && menuItemLoader.modelData.buttonType === 0
-                    source: menuItemLoader.modelData.icon
-                    Layout.preferredWidth: 16
-                    Layout.preferredHeight: 16
-                    sourceSize.width: 16
-                    sourceSize.height: 16
-                    smooth: true
-                  }
-
-                  // Text
-                  Text {
-                    text: menuItemLoader.modelData.text
-                    color: Settings.colors.foreground
-                    font.pixelSize: 13
-                    elide: Text.ElideRight
-                    Layout.fillWidth: true
-                  }
-
-                  // Submenu indicator
-                  MyIcon {
-                    visible: menuItemLoader.modelData.hasChildren
-                    icon: "go-next-symbolic"
-                    size: 12
-                    opacity: 0.6
+                    anchors.centerIn: parent
+                    visible: checked
+                    width: 6
+                    height: 6
+                    radius: entry.buttonType === QsMenuButtonType.RadioButton ? 3 : 1
+                    color: Settings.colors.textOnAccent
                   }
                 }
 
-                MouseArea {
-                  id: menuMouse
-                  anchors.fill: parent
-                  hoverEnabled: true
-                  cursorShape: menuItemLoader.modelData.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
-                  onClicked: {
-                    if (!menuItemLoader.modelData.enabled) return;
+                IconImage {
+                  asynchronous: true
+                  visible: entry.icon !== "" && entry.buttonType === QsMenuButtonType.None
+                  source: entry.icon
+                  implicitSize: 16
+                }
 
-                    if (menuItemLoader.modelData.hasChildren) {
-                      // TODO: Handle submenu
-                    } else {
-                      menuItemLoader.modelData.triggered();
-                      popup.visible = false;
-                    }
-                  }
+                StyledText {
+                  Layout.fillWidth: true
+                  text: entry.text.replace("_", "")
+                  elide: Text.ElideRight
+                }
+
+                MyIcon {
+                  visible: entry.hasChildren
+                  icon: "go-next-symbolic"
+                  size: 12
+                  color: Settings.colors.textMuted
                 }
               }
             }

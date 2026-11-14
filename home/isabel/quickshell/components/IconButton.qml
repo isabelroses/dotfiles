@@ -1,39 +1,46 @@
 import QtQuick
-import Quickshell
-import Quickshell.Widgets
-import "root:/data"
-import "root:/components"
+import qs.data
 
 Item {
     id: root
 
     property string icon: ""
     property int size: 18
-    property bool invert: false
+    property int padding: 6
+    property color color: Settings.colors.text
+    property color hoverColor: Settings.colors.surfaceRaised
+    property bool enabled: true
 
     signal clicked
 
-    implicitWidth: size
-    implicitHeight: size
+    implicitWidth: size + padding * 2
+    implicitHeight: size + padding * 2
+    opacity: enabled ? 1 : 0.4
+
+    Rectangle {
+        anchors.fill: parent
+        radius: Settings.radiusSm
+        color: mouseArea.pressed ? Settings.colors.overlay : root.hoverColor
+        opacity: mouseArea.containsMouse && root.enabled ? 1 : 0
+
+        Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
+    }
 
     MyIcon {
         anchors.centerIn: parent
         icon: root.icon
         size: root.size
-        invert: root.invert
+        color: root.color
     }
 
     MouseArea {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
-        onClicked: root.clicked()
+        cursorShape: root.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+        onClicked: if (root.enabled) root.clicked()
     }
 
-    scale: mouseArea.pressed ? 0.9 : 1.0
-
-    Behavior on scale {
-        NumberAnimation { duration: 100 }
-    }
+    scale: mouseArea.pressed ? 0.92 : 1.0
+    Behavior on scale { NumberAnimation { duration: 90 } }
 }

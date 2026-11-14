@@ -1,10 +1,9 @@
 import Quickshell
-import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
-import "root:/data"
-import "root:/components"
+import qs.data
+import qs.components
+import qs.services
 
 Scope {
   id: root
@@ -13,88 +12,86 @@ Scope {
     model: Quickshell.screens
 
     PanelWindow {
-      property var modelData
+      required property ShellScreen modelData
       screen: modelData
-      implicitWidth: 48
+      implicitWidth: Settings.barWidth
       color: "transparent"
 
       anchors {
         top: true
-        left: true
         bottom: true
-      }
-
-      margins {
-        left: 10
-        top: 6
-        bottom: 6
+        left: !Settings.barOnRight
+        right: Settings.barOnRight
       }
 
       Rectangle {
         id: bar
         anchors.fill: parent
-        radius: Settings.rounding
-        color: Settings.colors.background
-        border.color: Settings.colors.border
-        border.width: 1
+        color: Settings.colors.base
 
-        // Top section - Launcher & Workspaces
+        Rectangle {
+          anchors { top: parent.top; bottom: parent.bottom }
+          x: Settings.barOnRight ? 0 : parent.width - width
+          width: 1
+          color: Settings.colors.border
+        }
+
         ColumnLayout {
           anchors {
             horizontalCenter: parent.horizontalCenter
             top: parent.top
-            topMargin: 12
+            topMargin: 9
           }
-          spacing: 16
+          spacing: 12
 
           Launcher {}
-
           BarDivider {}
-
           Workspaces {}
         }
 
-        // Center section - Clock
+        Clock {
+          anchors.centerIn: parent
+        }
+
         ColumnLayout {
           anchors {
             horizontalCenter: parent.horizontalCenter
-            verticalCenter: parent.verticalCenter
-          }
-          spacing: 16
-
-          Clock {}
-        }
-
-        // Bottom section - System tray, Notis, Volume, Network
-        Item {
-          anchors {
-            horizontalCenter: parent.horizontalCenter
             bottom: parent.bottom
-            bottomMargin: 12
+            bottomMargin: 9
           }
-          implicitWidth: bottomColumn.implicitWidth
-          implicitHeight: bottomColumn.implicitHeight
+          spacing: 10
 
-          MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            cursorShape: Qt.PointingHandCursor
+          RecordingDot {}
+          NowPlaying {}
+          SysTray {}
+
+          Clickable {
+            id: capsule
             onClicked: Runtime.toggleQuickSettings()
-          }
+            onScrolled: (e) => Pipewire.setSinkVolume(Pipewire.sinkVolume + (e.angleDelta.y > 0 ? 0.05 : -0.05))
+            Layout.alignment: Qt.AlignHCenter
+            implicitWidth: 34
+            implicitHeight: statusColumn.implicitHeight + 22
+            radius: Settings.radiusSm
+            color: Runtime.quickSettingsOpen ? Settings.colors.accentSoft
+                 : capsule.hovered ? Settings.colors.surfaceRaised
+                 : Settings.colors.surface
+            border.color: Runtime.quickSettingsOpen ? Settings.colors.accent : Settings.colors.border
+            border.width: 1
 
-          ColumnLayout {
-            id: bottomColumn
-            anchors.fill: parent
-            spacing: 12
+            Behavior on color { ColorAnimation { duration: Settings.animFast } }
+            Behavior on border.color { ColorAnimation { duration: Settings.animFast } }
 
-            SysTray {}
+            ColumnLayout {
+              id: statusColumn
+              anchors.centerIn: parent
+              spacing: 12
 
-            BarDivider {}
-
-            Noti { }
-            Volume {}
-            Network {}
-            Battery {}
+              Noti {}
+              Volume {}
+              Network {}
+              Battery {}
+            }
           }
         }
       }

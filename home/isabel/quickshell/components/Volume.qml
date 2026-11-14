@@ -1,18 +1,15 @@
 import QtQuick
 import QtQuick.Layouts
-import "root:/data"
-import "root:/services"
+import qs.data
+import qs.services
 
-Item {
-    id: root
+MyIcon {
+    Layout.alignment: Qt.AlignHCenter
+    icon: Pipewire.sinkIcon
+    size: 16
+    color: Pipewire.sinkMuted ? Settings.colors.textSubtle : Settings.colors.pink
 
-    Layout.alignment: Qt.AlignCenter
-    implicitWidth: 20
-    implicitHeight: 20
-
-    MyIcon {
-        anchors.centerIn: parent
-        icon: Pipewire.sinkIcon
-        size: 18
+    BarTooltip {
+        text: (Pipewire.sinkMuted ? "Muted · " : Pipewire.sinkVolumeText + " · ") + Pipewire.nodeName(Pipewire.sink)
     }
 }

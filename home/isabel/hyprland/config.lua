@@ -2,9 +2,9 @@ local mod = "SUPER"
 
 hl.config({
   general = {
-    border_size = 2,
-    gaps_in = 8,
-    gaps_out = 8,
+    border_size = 1,
+    gaps_in = 0,
+    gaps_out = 0,
     gaps_workspaces = 0,
     col = {
       active_border = colors.accent,
@@ -13,7 +13,7 @@ hl.config({
   },
 
   decoration = {
-    rounding = 15,
+    rounding = 0,
     active_opacity = 1.0,
     inactive_opacity = 1.0,
     fullscreen_opacity = 1.0,
@@ -140,6 +140,7 @@ hl.gesture({ fingers = 4, direction = "horizontal", action = "workspace" })
 -- Layer rules
 hl.layer_rule({ match = { namespace = "vicinae" }, blur = true, ignore_alpha = 0 })
 hl.layer_rule({ match = { namespace = "vicinae" }, no_anim = true })
+hl.layer_rule({ match = { namespace = "^(quicksettings|settings)$" }, no_anim = true })
 
 -- Window rules
 hl.window_rule({ match = { title = "^(nm-connection-editor)$" }, float = true })
@@ -170,9 +171,16 @@ hl.window_rule({
 
 hl.window_rule({ match = { title = "(?i)bitwarden" }, float = true, size = "800 600" })
 
-hl.window_rule({ match = { class = "(?i)discord" }, workspace = "6" })
-hl.window_rule({ match = { class = "(?i)spotify" }, workspace = "7" })
-hl.window_rule({ match = { class = "(?i)signal" }, workspace = "8" })
+-- Assign apps to workspaces; the layout depends on how many monitors exist
+local app_workspaces
+if #monitors == 2 then
+  app_workspaces = { chromium = 1, discord = 2, ghostty = 6, spotify = 7, signal = 8 }
+else
+  app_workspaces = { chromium = 2, discord = 6, ghostty = 1, spotify = 7, signal = 8 }
+end
+for class, ws in pairs(app_workspaces) do
+  hl.window_rule({ match = { class = "(?i)" .. class }, workspace = tostring(ws) })
+end
 
 hl.window_rule({ match = { title = "^(Firefox — Sharing Indicator)$" }, workspace = "special silent" })
 hl.window_rule({ match = { title = "^(.*is sharing (your screen|a window).)$" }, workspace = "special silent" })
@@ -182,7 +190,7 @@ hl.bind(mod .. " + D", hl.dsp.exec_cmd("vicinae toggle"))
 hl.bind(mod .. " + B", hl.dsp.exec_cmd("chromium"))
 hl.bind(mod .. " + E", hl.dsp.exec_cmd("cosmic-files"))
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
-hl.bind(mod .. " + L", hl.dsp.exec_cmd(screenLocker))
+hl.bind(mod .. " + L", hl.dsp.exec_cmd("qs ipc call shell lock"))
 hl.bind(mod .. " + O", hl.dsp.exec_cmd("obsidian"))
 hl.bind(mod .. " + SHIFT + V", hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"))
 
@@ -210,8 +218,8 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
 -- Repeating volume / brightness
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true })
 hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+ -q"), { repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%- -q"), { repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl --class=backlight set 5%+ -q"), { repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl --class=backlight set 5%- -q"), { repeating = true })
 
 -- Workspaces 1..10
 for i = 1, 10 do

@@ -1,0 +1,52 @@
+# Quickshell settings. Edited from the settings window (gear in quick settings),
+# but hand edits are fine too: the shell reloads this file when it changes.
+
+[appearance]
+# Accent colour
+accent = "sapphire"
+# Corner rounding
+rounding = 2
+# Animations
+animations = true
+# Animation speed
+animation_speed = 1
+
+[bar]
+# Screen edge
+side = "left"
+# 24-hour clock
+clock_24h = false
+# System tray
+show_tray = true
+# Battery percentage
+battery_percent = true
+# Colour-coded workspaces
+workspace_colours = true
+
+[quick_settings]
+# Media player
+show_media = true
+# Notification list
+show_notifications = true
+
+[notifications]
+# Do not disturb
+dnd = false
+# Pop-up toasts
+toasts = true
+# Toast duration (s)
+toast_timeout = 5
+# Muted apps
+blacklist = ["Spotify"]
+
+[osd]
+# Volume OSD
+volume = true
+
+[general]
+# Name
+username = "isabel"
+# Profile picture
+profile_picture = "/home/isabel/media/pictures/pfps/_current.png"
+# Wallpaper
+wallpaper = "/home/isabel/media/pictures/wallpapers/rn.jpg"

@@ -1,25 +1,29 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
-import "root:/data"
+import qs.data
 
-Item {
+Clickable {
     id: root
 
-    Layout.alignment: Qt.AlignCenter
-    implicitWidth: 24
-    implicitHeight: 24
+    Layout.alignment: Qt.AlignHCenter
+    implicitWidth: 34
+    implicitHeight: 34
+    radius: Settings.radiusSm
+    color: root.hovered ? Settings.colors.accent : "transparent"
+    border.color: Settings.colors.accent
+    border.width: 1
+    onClicked: Quickshell.execDetached(["vicinae", "toggle"])
 
-    IconButton {
+    Behavior on color { ColorAnimation { duration: Settings.animFast } }
+
+    MyIcon {
         anchors.centerIn: parent
         icon: "nix-snowflake"
-        size: 20
-        onClicked: launcherProcess.running = true
+        size: 18
+        color: root.hovered ? Settings.colors.textOnAccent : Settings.colors.accent
     }
 
-    Process {
-        id: launcherProcess
-        command: ["vicinae", "toggle"]
-    }
+    scale: root.pressed ? 0.92 : 1.0
+    Behavior on scale { NumberAnimation { duration: 90 } }
 }

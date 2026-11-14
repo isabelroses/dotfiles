@@ -1,66 +1,61 @@
 import QtQuick
-import Quickshell
-import Quickshell.Io
 import QtQuick.Layouts
+import Quickshell
 import Quickshell.Hyprland
-import "root:/data"
+import qs.data
 
-Item {
+ColumnLayout {
     id: root
 
-    Layout.alignment: Qt.AlignCenter
-    implicitWidth: 24
-    implicitHeight: workspaceColumn.implicitHeight
+    Layout.alignment: Qt.AlignHCenter
+    spacing: 4
 
-    ColumnLayout {
-        id: workspaceColumn
-        anchors.horizontalCenter: parent.horizontalCenter
-        spacing: 4
+    WheelHandler {
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+        onWheel: (e) => Hyprland.dispatch(`hl.dsp.focus({ workspace = "${e.angleDelta.y < 0 ? "e+1" : "e-1"}" })`)
+    }
 
-        Repeater {
-            model: Hyprland.workspaces
+    Repeater {
+        model: Hyprland.workspaces
 
-            delegate: Item {
-                id: workspaceItem
-                required property HyprlandWorkspace modelData
+        delegate: Clickable {
+            id: ws
+            required property HyprlandWorkspace modelData
+            readonly property bool focused: modelData.focused
+            readonly property color tint: Config.get("bar.workspace_colours")
+              ? Settings.colors.pops[(Math.max(1, modelData.id) - 1) % Settings.colors.pops.length]
+              : Settings.colors.accent
 
-                Layout.alignment: Qt.AlignHCenter
-                implicitWidth: 24
-                implicitHeight: 24
+            visible: modelData.id > 0
+            Layout.alignment: Qt.AlignHCenter
+            implicitWidth: 28
+            implicitHeight: 28
+            radius: Settings.radiusSm
+            color: focused ? tint : Utils.withAlpha(tint, hovered ? 0.22 : 0.08)
+            border.width: 1
+            border.color: focused || hovered ? tint : Utils.withAlpha(tint, 0.55)
+            onClicked: modelData.activate()
 
-                Rectangle {
-                    anchors.centerIn: parent
-                    width: 22
-                    height: 22
-                    radius: 6
-                    color: "transparent"
+            Behavior on color { ColorAnimation { duration: Settings.animFast } }
+            Behavior on border.color { ColorAnimation { duration: Settings.animFast } }
 
-                    Text {
-                        anchors.centerIn: parent
-                        text: workspaceItem.modelData.id
-                        color: workspaceItem.modelData.focused
-                            ? Settings.colors.accent
-                            : Settings.colors.foreground
-                        font {
-                            pixelSize: 14
-                            weight: Font.Medium
-                        }
-                        opacity: workspaceItem.modelData.focused ? 1.0 : 0.6
+            StyledText {
+                anchors.centerIn: parent
+                text: ws.modelData.id
+                mono: true
+                color: ws.focused ? Settings.colors.textOnAccent : ws.tint
+                font.pixelSize: 12
+                font.weight: Font.Bold
+            }
 
-                        Behavior on color {
-                            ColorAnimation { duration: 150 }
-                        }
-                        Behavior on opacity {
-                            NumberAnimation { duration: 150 }
-                        }
-                    }
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    hoverEnabled: true
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: workspaceItem.modelData.activate()
+            BarTooltip {
+                id: tip
+                text: {
+                    if (!tip.hovered) return `Workspace ${ws.modelData.id}`;
+                    const titles = Hyprland.toplevels.values
+                        .filter(t => t.workspace?.id === ws.modelData.id)
+                        .map(t => t.title);
+                    return `Workspace ${ws.modelData.id}` + (titles.length ? "\n" + titles.join("\n") : " · empty");
                 }
             }
         }

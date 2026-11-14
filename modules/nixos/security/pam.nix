@@ -39,11 +39,8 @@ in
       ];
 
       # allow screen lockers to also unlock the screen
-      # (e.g. swaylock, gtklock)
-      services = {
-        swaylock.text = "auth include login";
-        gtklock.text = "auth include login";
-      };
+      # (quickshell)
+      services.quickshell.text = "auth include login";
     }
 
     (mkIf config.garden.profiles.graphical.enable {

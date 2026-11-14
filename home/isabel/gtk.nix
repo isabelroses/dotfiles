@@ -11,6 +11,14 @@ let
   ctp = config.catppuccin;
 
   schema = pkgs.gsettings-desktop-schemas;
+
+  squareWindowsCss = ''
+    window, window.csd, window.solid-csd, window.background,
+    window decoration, window.csd decoration, decoration,
+    window > headerbar, window .titlebar, window headerbar {
+      border-radius: 0;
+    }
+  '';
 in
 {
   config = mkIf (config.garden.profiles.graphical.enable && osClass == "nixos") {
@@ -20,11 +28,18 @@ in
       configFile =
         let
           gtk4Dir = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0";
+
+          withSquareWindows =
+            file:
+            pkgs.runCommand "gtk4-${file}" { } ''
+              cat ${gtk4Dir}/${file} > $out
+              echo ${lib.strings.escapeShellArg squareWindowsCss} >> $out
+            '';
         in
         {
           "gtk-4.0/assets".source = "${gtk4Dir}/assets";
-          "gtk-4.0/gtk.css".source = "${gtk4Dir}/gtk.css";
-          "gtk-4.0/gtk-dark.css".source = "${gtk4Dir}/gtk-dark.css";
+          "gtk-4.0/gtk.css".source = withSquareWindows "gtk.css";
+          "gtk-4.0/gtk-dark.css".source = withSquareWindows "gtk-dark.css";
         };
     };
 
@@ -65,6 +80,8 @@ in
       font = {
         inherit (cfg.fonts) name size;
       };
+
+      gtk3.extraCss = squareWindowsCss;
 
       gtk3.extraConfig = {
         # make things look nice

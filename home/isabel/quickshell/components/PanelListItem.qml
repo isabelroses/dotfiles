@@ -1,59 +1,58 @@
 import QtQuick
 import QtQuick.Layouts
-import "root:/data"
+import qs.data
 
-Rectangle {
+Clickable {
     id: root
 
     property string icon: ""
     property string text: ""
     property string badge: ""
     property bool active: false
-    property bool showBadge: badge !== ""
+    property color tint: Settings.colors.accent
 
-    signal clicked()
 
-    width: parent?.width ?? 100
-    height: 36
-    radius: 6
-    color: active ? Settings.colors.accent : "transparent"
-    border.color: Settings.colors.border
-    border.width: 1
+    implicitHeight: 40
+    radius: Settings.radiusSm
+    color: active ? Utils.withAlpha(tint, 0.12)
+         : root.hovered ? Settings.colors.surfaceRaised
+         : "transparent"
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        cursorShape: Qt.PointingHandCursor
-        hoverEnabled: true
-        onEntered: if (!root.active) parent.color = Settings.colors.backgroundLightest
-        onExited: parent.color = root.active ? Settings.colors.accent : "transparent"
-        onClicked: root.clicked()
+    Behavior on color { ColorAnimation { duration: Settings.animFast } }
+
+    Rectangle {
+        visible: root.active
+        anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
+        width: 2
+        color: root.tint
     }
 
     RowLayout {
-        anchors.fill: parent
-        anchors.margins: 8
-        spacing: 8
+        anchors { fill: parent; leftMargin: 10; rightMargin: 12 }
+        spacing: 10
 
-        MyIcon {
+        IconChip {
+            size: 26
+            color: root.active ? root.tint : Settings.colors.overlay
             icon: root.icon
-            size: 16
+            iconSize: 14
+            iconColor: root.active ? Settings.colors.textOnAccent : Settings.colors.text
         }
 
-        Text {
-            text: root.text
-            color: root.active ? Settings.colors.background : Settings.colors.foreground
-            font.pixelSize: 12
-            elide: Text.ElideRight
+        StyledText {
             Layout.fillWidth: true
+            text: root.text
+            color: root.active ? root.tint : Settings.colors.text
+            font.weight: root.active ? Font.DemiBold : Font.Normal
+            elide: Text.ElideRight
         }
 
-        Text {
-            visible: root.showBadge
+        StyledText {
+            visible: root.badge !== ""
             text: root.badge
-            color: root.active ? Settings.colors.background : Settings.colors.foreground
-            opacity: 0.7
-            font.pixelSize: 11
+            mono: true
+            color: root.active ? root.tint : Settings.colors.textSubtle
+            font.pixelSize: 10
         }
     }
 }

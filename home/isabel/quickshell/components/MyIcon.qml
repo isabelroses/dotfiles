@@ -2,14 +2,14 @@ import QtQuick
 import QtQuick.Effects
 import Quickshell
 import Quickshell.Widgets
-import "root:/data"
+import qs.data
 
 Item {
     id: root
 
     property string icon: ""
     property int size: 18
-    property bool invert: false
+    property color color: Settings.colors.text
 
     implicitWidth: size
     implicitHeight: size
@@ -18,12 +18,15 @@ Item {
         id: iconSource
         anchors.fill: parent
         source: Quickshell.iconPath(root.icon)
+        visible: root.icon !== ""
 
         layer.enabled: true
         layer.effect: MultiEffect {
             brightness: 1.0
             colorization: 1.0
-            colorizationColor: root.invert ? "#1e1e2e" : "#cdd6f4"
+            colorizationColor: root.color
         }
+
+        Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
     }
 }

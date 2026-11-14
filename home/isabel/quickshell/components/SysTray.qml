@@ -1,16 +1,15 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 import Quickshell
 import Quickshell.Services.SystemTray
-import "root:/data"
-import "root:/components"
+import qs.data
 
 ColumnLayout {
   id: root
 
-  Layout.alignment: Qt.AlignCenter
-  spacing: 6
+  Layout.alignment: Qt.AlignHCenter
+  spacing: 2
+  visible: Config.get("bar.show_tray") && SystemTray.items.values.length > 0
 
   Repeater {
     model: SystemTray.items

@@ -1,15 +1,16 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
-import "root:/data"
-import "root:/services"
+import qs.data
+import qs.services
+import qs.components
 
 Variants {
   model: Quickshell.screens
 
   PanelWindow {
     id: win
-    property var modelData
+    required property ShellScreen modelData
     screen: modelData
 
     readonly property real dpr: modelData ? modelData.devicePixelRatio : 1
@@ -60,7 +61,6 @@ Variants {
 
     onVisibleChanged: if (visible) resetSelection()
 
-    // menu -> window: grab this output's freeze cropped to the window's rect.
     Connections {
       target: Screenshot
       function onAutoGrabChanged() {
@@ -124,25 +124,25 @@ Variants {
       height: win.selH
       color: "transparent"
       border.color: Settings.colors.accent
-      border.width: 1
+      border.width: 2
     }
 
     Rectangle {
       visible: cutout.visible
-      color: Settings.colors.background
-      border.color: Settings.colors.border
+      color: Settings.colors.base
+      border.color: Settings.colors.borderStrong
       border.width: 1
-      radius: 4
-      width: dimLabel.implicitWidth + 12
+      radius: Settings.radiusSm
+      width: dimLabel.implicitWidth + 16
       height: dimLabel.implicitHeight + 8
       x: win.selX
       y: win.selY - height - 6 >= 0 ? win.selY - height - 6 : win.selY + 6
 
-      Text {
+      StyledText {
         id: dimLabel
         anchors.centerIn: parent
-        color: Settings.colors.foreground
-        font.pixelSize: 12
+        mono: true
+        font.pixelSize: 11
         text: Math.round(win.selW * win.dpr) + " × " + Math.round(win.selH * win.dpr)
       }
     }
@@ -188,41 +188,70 @@ Variants {
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.bottom: parent.bottom
       anchors.bottomMargin: 80
-      radius: 16
-      color: Settings.colors.background
-      border.color: Settings.colors.border
+      radius: Settings.rounding
+      color: Settings.colors.base
+      border.color: Settings.colors.borderStrong
       border.width: 1
-      implicitWidth: toolRow.implicitWidth + 24
+      implicitWidth: toolRow.implicitWidth + 16
       implicitHeight: toolRow.implicitHeight + 16
 
       Row {
         id: toolRow
         anchors.centerIn: parent
-        spacing: 8
+        spacing: 6
 
         Repeater {
           model: [
-            { key: "region", label: "Region (R)" },
-            { key: "window", label: "Window (W)" },
-            { key: "output", label: "Output (O)" },
-            { key: "all", label: "All (A)" },
-            { key: "cancel", label: "Cancel (Esc)" }
+            { key: "region", label: "Region", hint: "R" },
+            { key: "window", label: "Window", hint: "W" },
+            { key: "output", label: "Screen", hint: "O" },
+            { key: "all", label: "All", hint: "A" },
+            { key: "cancel", label: "Cancel", hint: "Esc" }
           ]
 
           delegate: Rectangle {
+            id: toolBtn
             required property var modelData
-            radius: 10
-            implicitWidth: btnText.implicitWidth + 24
-            implicitHeight: 36
-            color: btnArea.containsMouse ? Settings.colors.backgroundLightest
-                                         : Settings.colors.backgroundLighter
+            readonly property bool lit: btnArea.containsMouse && modelData.key !== "cancel"
+            radius: Settings.radiusSm
+            implicitWidth: btnRow.implicitWidth + 28
+            implicitHeight: 40
+            color: lit ? Settings.colors.accent
+                 : btnArea.containsMouse ? Settings.colors.overlay
+                 : Settings.colors.surfaceRaised
 
-            Text {
-              id: btnText
+            Behavior on color { ColorAnimation { duration: Settings.animFast } }
+
+            Row {
+              id: btnRow
               anchors.centerIn: parent
-              text: modelData.label
-              color: Settings.colors.foreground
-              font.pixelSize: 13
+              spacing: 8
+
+              StyledText {
+                anchors.verticalCenter: parent.verticalCenter
+                text: toolBtn.modelData.label
+                font.weight: Font.Medium
+                color: toolBtn.lit ? Settings.colors.textOnAccent : Settings.colors.text
+              }
+
+              Rectangle {
+                anchors.verticalCenter: parent.verticalCenter
+                implicitWidth: hintText.implicitWidth + 10
+                implicitHeight: 18
+                radius: Settings.radiusXs
+                color: "transparent"
+                border.color: toolBtn.lit ? Qt.rgba(0, 0, 0, 0.25) : Settings.colors.borderStrong
+                border.width: 1
+
+                StyledText {
+                  id: hintText
+                  anchors.centerIn: parent
+                  text: toolBtn.modelData.hint
+                  mono: true
+                  font.pixelSize: 9
+                  color: toolBtn.lit ? Settings.colors.textOnAccent : Settings.colors.textMuted
+                }
+              }
             }
 
             MouseArea {

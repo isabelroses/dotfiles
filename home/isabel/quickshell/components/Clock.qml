@@ -1,23 +1,47 @@
 import QtQuick
 import QtQuick.Layouts
-import "root:/data"
+import qs.data
 
 Item {
     id: root
 
-    Layout.alignment: Qt.AlignCenter
-    implicitWidth: 30
-    implicitHeight: 50
+    implicitWidth: 40
+    implicitHeight: column.implicitHeight + 12
 
-    Text {
-        id: clockText
+    ColumnLayout {
+        id: column
         anchors.centerIn: parent
-        text: Time.time
-        color: Settings.colors.foreground
-        font {
-            pixelSize: 14
-            weight: Font.Medium
+        spacing: -2
+
+        StyledText {
+            Layout.alignment: Qt.AlignHCenter
+            text: Time.hours
+            mono: true
+            font.pixelSize: 15
+            font.weight: Font.Bold
         }
-        horizontalAlignment: Text.AlignHCenter
+
+        StyledText {
+            Layout.alignment: Qt.AlignHCenter
+            text: Time.minutes
+            mono: true
+            color: Settings.colors.textMuted
+            font.pixelSize: 15
+        }
+
+        StyledText {
+            Layout.alignment: Qt.AlignHCenter
+            Layout.topMargin: 4
+            visible: text !== ""
+            text: Time.period
+            color: Settings.colors.accent
+            font.pixelSize: 9
+            font.weight: Font.DemiBold
+            font.letterSpacing: 1
+        }
+    }
+
+    BarTooltip {
+        text: Time.longDate
     }
 }

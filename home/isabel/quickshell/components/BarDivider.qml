@@ -1,11 +1,11 @@
 import QtQuick
 import QtQuick.Layouts
-import "root:/data"
+import qs.data
 
 Rectangle {
     Layout.alignment: Qt.AlignHCenter
-    width: 20
-    height: 1
-    color: Settings.colors.foreground
-    opacity: 0.2
+    implicitWidth: 16
+    implicitHeight: 1
+    radius: 0
+    color: Settings.colors.borderStrong
 }

@@ -13,7 +13,6 @@ Singleton {
   property string pendingPath: ""
   property string pendingKind: ""
   property var autoGrab: null
-  // Set true only when the picker (menu) initiated the capture; gates swappy.
   property bool fromMenu: false
 
   // PPM, not PNG: these are internal temps reloaded immediately by Qt, and
@@ -92,9 +91,7 @@ Singleton {
   // overlay can't appear in the shot (no teardown race with a live grim).
   function captureFromFreeze(kind: string): void {
     if (kind === "all") {
-      // There's no clean full-layout freeze any more (the full-screen grim was
-      // the slow part). Tear the overlay down and grab live after a short
-      // settle, so the layer surface is gone and can't land in the shot.
+      // No full-layout freeze exists, so tear the overlay down and grab live once it's gone.
       root.active = false;
       root.mode = "";
       root.pendingKind = "all";
@@ -121,9 +118,7 @@ Singleton {
           const mons = JSON.parse(text);
           const f = mons.find(m => m.focused) ?? mons[0];
           const target = Quickshell.screens.find(s => s.name === f.name) ?? Quickshell.screens[0];
-          // Crop the focused output's frozen image to its full rect via the same
-          // grab path as window mode — turns the PPM freeze into a clean PNG
-          // without a live re-grab (overlay can't appear in the shot).
+          // Crop the frozen output via the window path: clean PNG, no live re-grab.
           root.autoGrab = { output: target.name, x: 0, y: 0, w: target.width, h: target.height };
         } catch (e) {
           root.fail("Could not determine monitor");
@@ -221,7 +216,6 @@ Singleton {
       // (-> wl-copy); its own Save button additionally writes to swappy's dir.
       deliverProc.command = ["bash", "-c", "swappy -f " + root.shq(path) + " -o - | wl-copy"];
     } else {
-      // Direct keybind: copy the saved PNG to the clipboard, no editor.
       deliverProc.command = ["bash", "-c", "wl-copy --type image/png < " + root.shq(path)];
     }
     deliverProc.running = true;

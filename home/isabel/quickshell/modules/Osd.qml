@@ -1,287 +1,182 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 import Quickshell
-import Quickshell.Widgets
 import Quickshell.Wayland
 import Quickshell.Services.Notifications as QsNotifications
-import "root:/data"
-import "root:/components"
-import "root:/services"
+import qs.data
+import qs.components
+import qs.services
 
 Scope {
   id: root
 
-  // OSD State
-  property string osdType: ""
-  property real progress: 0
-  property string iconSource: ""
-  property string osdText: ""
-  property bool osdVisible: false
+  property bool osdShown: false
+  property bool osdMic: false
+  readonly property bool osdMuted: osdMic ? Pipewire.sourceMuted : Pipewire.sinkMuted
+  readonly property real osdVolume: osdMic ? Pipewire.sourceVolume : Pipewire.sinkVolume
+  readonly property string osdIcon: osdMic ? Pipewire.sourceIcon : Pipewire.sinkIcon
 
-  // Notification State
-  property var currentNotification: null
-  property bool notificationVisible: false
+  property QsNotifications.Notification currentNotification: null
+  property bool toastShown: false
+  readonly property int toastTimeout: Config.get("notifications.toast_timeout") * 1000
 
-  // Connect to Pipewire service for volume changes
   Connections {
     target: Pipewire
-    function onSinkVolumeChanged() { showVolumeOsd(); }
-    function onSinkMutedChanged() { showVolumeOsd(); }
+    function onSinkVolumeChanged() { if (Config.get("osd.volume")) root.showVolumeOsd(); }
+    function onSinkMutedChanged() { if (Config.get("osd.volume")) root.showVolumeOsd(); }
+    function onSourceMutedChanged() { if (Config.get("osd.volume")) root.showVolumeOsd(true); }
   }
 
-  function showVolumeOsd(): void {
-    root.osdType = "volume";
-    root.progress = Pipewire.sinkVolume;
-    root.iconSource = Pipewire.sinkIcon;
-    root.osdText = Pipewire.sinkVolumeText;
-    root.osdVisible = true;
+  Connections {
+    target: Notifications
+    function onNewNotification(notification: QsNotifications.Notification): void {
+      if (!Config.get("notifications.toasts")) return;
+      root.currentNotification = notification;
+      root.toastShown = true;
+      toastProgress.restart();
+    }
+  }
+
+  function showVolumeOsd(mic = false): void {
+    root.osdMic = mic;
+    root.osdShown = true;
     osdHideTimer.restart();
-  }
-
-  function showNotification(notification: QsNotifications.Notification): void {
-    root.currentNotification = notification;
-    root.notificationVisible = true;
-    notificationHideTimer.restart();
-  }
-
-  function sendReply(text: string): void {
-    if (!root.currentNotification || text.length === 0) return;
-    root.currentNotification.sendInlineReply(text);
-    root.notificationVisible = false;
   }
 
   Timer {
     id: osdHideTimer
     interval: 1500
-    onTriggered: root.osdVisible = false
+    onTriggered: root.osdShown = false
   }
-
-  Timer {
-    id: notificationHideTimer
-    interval: 4000
-    onTriggered: root.notificationVisible = false
-  }
-
-  // Connect to the shared notification service
-  Connections {
-    target: Notifications
-    function onNewNotification(notification) {
-      root.showNotification(notification);
-    }
-  }
-
 
   PanelWindow {
     id: osdWindow
 
-    visible: root.osdVisible
+    visible: root.osdShown || osdPill.opacity > 0
     color: "transparent"
 
     WlrLayershell.namespace: "osd"
     WlrLayershell.layer: WlrLayer.Overlay
     exclusionMode: ExclusionMode.Ignore
 
-    anchors {
-      bottom: true
-    }
-
-    implicitWidth: 320
-    implicitHeight: 80
-
-    margins {
-      bottom: 80
-    }
+    anchors.bottom: true
+    margins.bottom: 72
+    implicitWidth: 300
+    implicitHeight: 64
 
     Rectangle {
-      id: osdContainer
-      anchors.centerIn: parent
-      width: 300
-      height: 56
-      radius: 14
-      color: Settings.colors.background
+      id: osdPill
+      anchors.horizontalCenter: parent.horizontalCenter
+      y: root.osdShown ? 4 : 16
+      width: 280
+      height: 52
+      radius: Settings.rounding
+      color: Settings.colors.base
+      border.color: Settings.colors.borderStrong
+      border.width: 1
+      opacity: root.osdShown ? 1 : 0
+
+      Behavior on opacity { NumberAnimation { duration: Settings.animNormal } }
+      Behavior on y { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.OutCubic } }
 
       RowLayout {
-        anchors {
-          fill: parent
-          leftMargin: 18
-          rightMargin: 18
-        }
-        spacing: 14
+        anchors { fill: parent; leftMargin: 8; rightMargin: 18 }
+        spacing: 12
 
-        MyIcon {
-          icon: root.iconSource
-          size: 22
-          Layout.alignment: Qt.AlignVCenter
+        IconChip {
+          size: 36
+          color: root.osdMuted ? Settings.colors.overlay : Settings.colors.accentSoft
+          icon: root.osdIcon
+          iconSize: 18
+          iconColor: root.osdMuted ? Settings.colors.textMuted : Settings.colors.accent
         }
 
         Rectangle {
           Layout.fillWidth: true
-          Layout.preferredHeight: 6
-          Layout.alignment: Qt.AlignVCenter
-          radius: 3
-          color: Settings.colors.backgroundLighter
+          implicitHeight: 6
+          radius: 0
+          color: Settings.colors.overlay
 
           Rectangle {
-            width: parent.width * Math.min(root.progress, 1.0)
+            width: parent.width * Math.min(root.osdVolume, 1.0)
             height: parent.height
-            radius: 3
-            color: root.muted ? Settings.colors.error : Settings.colors.accent
+            radius: 0
+            color: root.osdMuted ? Settings.colors.textSubtle : Settings.colors.accent
 
-            Behavior on width {
-              SmoothedAnimation { velocity: 600 }
-            }
+            Behavior on width { SmoothedAnimation { velocity: 600 } }
           }
         }
 
-        Text {
-          text: root.osdText
-          color: Settings.colors.foreground
-          font {
-            pixelSize: 13
-            weight: Font.Medium
-          }
-          Layout.preferredWidth: 40
-          Layout.alignment: Qt.AlignVCenter
+        StyledText {
+          Layout.preferredWidth: 34
           horizontalAlignment: Text.AlignRight
+          text: root.osdMuted ? "—" : Math.round(root.osdVolume * 100)
+          mono: true
+          font.pixelSize: 13
+          font.weight: Font.Medium
         }
       }
     }
   }
 
-  // Notification Popup
   PanelWindow {
-    id: notificationWindow
+    id: toastWindow
 
-    visible: root.notificationVisible && root.currentNotification !== null
+    visible: root.currentNotification !== null && (root.toastShown || toastSlot.opacity > 0)
     color: "transparent"
 
     WlrLayershell.namespace: "notification"
     WlrLayershell.layer: WlrLayer.Overlay
-    // Grab keyboard only when there's a reply field to type into.
     WlrLayershell.keyboardFocus: root.currentNotification?.hasInlineReply ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
     exclusionMode: ExclusionMode.Ignore
 
-    anchors {
-      top: true
+    anchors.top: true
+    margins.top: 12
+    implicitWidth: 400
+    implicitHeight: toastSlot.implicitHeight + 16
+
+    NumberAnimation {
+      id: toastProgress
+      target: countdown
+      property: "fraction"
+      from: 1
+      to: 0
+      duration: root.toastTimeout
+      paused: running && (card.cardHovered || card.replyFocused)
+      onFinished: root.toastShown = false
     }
 
-    implicitWidth: 420
-    implicitHeight: root.currentNotification?.hasInlineReply ? 150 : 100
+    Item {
+      id: toastSlot
+      anchors.horizontalCenter: parent.horizontalCenter
+      width: parent.width - 16
+      implicitHeight: card.implicitHeight
+      y: root.toastShown ? 4 : -12
+      opacity: root.toastShown ? 1 : 0
 
-    margins {
-      top: 16
-    }
+      Behavior on opacity { NumberAnimation { duration: Settings.animNormal } }
+      Behavior on y { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.OutCubic } }
 
-    Rectangle {
-      id: notificationContainer
-      anchors {
-        fill: parent
-        margins: 8
-      }
-      radius: 12
-      color: Settings.colors.background
+      NotificationCard {
+        id: card
+        width: parent.width
+        notification: root.currentNotification
+        elevated: true
+        onDismissed: root.toastShown = false
+        onReplied: root.toastShown = false
+        onActionInvoked: root.toastShown = false
 
-      RowLayout {
-        anchors {
-          fill: parent
-          margins: 14
-        }
-        spacing: 12
-
-        IconImage {
-          source: Quickshell.iconPath(root.currentNotification?.appIcon ? Utils.getIcon(root.currentNotification.appIcon) : "application-x-executable")
-          implicitSize: 40
-          Layout.alignment: Qt.AlignTop
-        }
-
-        ColumnLayout {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-          spacing: 4
-
-          Text {
-            text: root.currentNotification?.appName ?? ""
-            color: Settings.colors.foreground
-            font {
-              pixelSize: 13
-              weight: Font.Bold
-            }
-            elide: Text.ElideRight
-            Layout.fillWidth: true
-          }
-
-          Text {
-            text: root.currentNotification?.summary ?? ""
-            color: Settings.colors.foreground
-            font {
-              pixelSize: 12
-              weight: Font.Medium
-            }
-            elide: Text.ElideRight
-            Layout.fillWidth: true
-            visible: text !== ""
-          }
-
-          Text {
-            text: root.currentNotification?.body ?? ""
-            color: Settings.colors.foreground
-            opacity: 0.8
-            font.pixelSize: 11
-            elide: Text.ElideRight
-            wrapMode: Text.WordWrap
-            maximumLineCount: 2
-            Layout.fillWidth: true
-          }
-
-          RowLayout {
-            visible: root.currentNotification?.hasInlineReply ?? false
-            Layout.fillWidth: true
-            Layout.topMargin: 2
-            spacing: 6
-
-            TextField {
-              id: replyField
-              Layout.fillWidth: true
-              placeholderText: root.currentNotification?.inlineReplyPlaceholder || "Reply..."
-              placeholderTextColor: Qt.rgba(Settings.colors.foreground.r, Settings.colors.foreground.g, Settings.colors.foreground.b, 0.4)
-              color: Settings.colors.foreground
-              font.pixelSize: 11
-              // Don't let the toast time out while the user is typing.
-              onActiveFocusChanged: activeFocus ? notificationHideTimer.stop() : notificationHideTimer.restart()
-              onAccepted: { root.sendReply(text); text = ""; }
-              background: Rectangle {
-                radius: 6
-                color: Settings.colors.backgroundLighter
-                border.color: replyField.activeFocus ? Settings.colors.accent : Settings.colors.border
-                border.width: 1
-              }
-            }
-
-            IconButton {
-              icon: "mail-send-symbolic"
-              size: 14
-              onClicked: { root.sendReply(replyField.text); replyField.text = ""; }
-            }
-          }
-        }
-
-        IconButton {
-          icon: "window-close-symbolic"
-          size: 14
-          Layout.alignment: Qt.AlignTop
-          onClicked: {
-            root.currentNotification?.dismiss();
-            root.notificationVisible = false;
-          }
-        }
       }
 
-      // Click to dismiss
-      MouseArea {
-        anchors.fill: parent
-        z: -1
-        onClicked: root.notificationVisible = false
+      Rectangle {
+        id: countdown
+        property real fraction: 1
+        anchors { bottom: card.bottom; left: card.left; bottomMargin: 1; leftMargin: Settings.radiusMd }
+        width: (card.width - Settings.radiusMd * 2) * fraction
+        height: 2
+        radius: 0
+        color: card.critical ? Settings.colors.error : Settings.colors.accent
+        opacity: 0.8
       }
     }
   }

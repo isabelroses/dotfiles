@@ -1,8 +1,7 @@
 //@ pragma IconTheme Adwaita
 
 import Quickshell
-import "root:/modules"
-import "root:/services"
+import qs.modules
 
 Scope {
     Bar {}
@@ -11,4 +10,8 @@ Scope {
     QuickSettingsPopup {}
     ScreenshotOverlay {}
     NetworkPasswordDialog {}
+    PolkitDialog {}
+    PowerMenu {}
+    LockScreen {}
+    SettingsWindow {}
 }

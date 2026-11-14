@@ -10,28 +10,22 @@ import QtQuick
 Singleton {
     id: root
 
-    readonly property var wifiDevice: Net.Networking.devices.values.find(d => d.type === Net.DeviceType.Wifi) ?? null
-    readonly property var wiredDevice: Net.Networking.devices.values.find(d => d.type === Net.DeviceType.Wired) ?? null
+    readonly property Net.WifiDevice wifiDevice: Net.Networking.devices.values.find(d => d.type === Net.DeviceType.Wifi) ?? null
+    readonly property Net.WiredDevice wiredDevice: Net.Networking.devices.values.find(d => d.type === Net.DeviceType.Wired) ?? null
 
-    // WiFi
     readonly property bool wifiEnabled: Net.Networking.wifiEnabled
-    readonly property var networks: wifiDevice?.networks?.values ?? []
-    readonly property var activeWifi: networks.find(n => n.connected) ?? null
+    readonly property list<Net.WifiNetwork> networks: wifiDevice?.networks?.values ?? []
+    readonly property Net.WifiNetwork activeWifi: networks.find(n => n.connected) ?? null
 
-    // Ethernet
     readonly property bool ethernetConnected: wiredDevice?.connected ?? false
     readonly property string ethernetDevice: wiredDevice?.name ?? ""
 
-    // Combined state
     readonly property bool connected: ethernetConnected || activeWifi !== null
-    readonly property string connectionType: ethernetConnected ? "ethernet" : (activeWifi ? "wifi" : "none")
-
     // Scanning is expensive; the UI sets this true only while showing the list.
     property bool scanning: false
     onScanningChanged: if (wifiDevice) wifiDevice.scannerEnabled = scanning
     onWifiDeviceChanged: if (wifiDevice) wifiDevice.scannerEnabled = scanning
 
-    // signalStrength is a fraction 0.0-1.0, not a percentage.
     function networkIcon(network): string {
         const s = network?.signalStrength ?? 0;
         if (s >= 0.75) return "network-wireless-signal-excellent-symbolic";

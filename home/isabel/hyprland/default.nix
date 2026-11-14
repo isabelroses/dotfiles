@@ -44,7 +44,6 @@ in
       extraConfig = ''
         local kb = "${keyboard}"
         local terminal = "${defaults.terminal}"
-        local screenLocker = "${defaults.screenLocker}"
         local monitors = ${toLua { } monitorList}
         ${builtins.readFile ./config.lua}
       '';
