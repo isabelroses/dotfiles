@@ -87,7 +87,7 @@ in
           recorder.db_url = "postgresql://@/hass";
 
           http = {
-            server_host = cfg.host;
+            server_host = [ cfg.host ];
             server_port = cfg.port;
           };
 
