@@ -10,13 +10,23 @@ let
   rdomain = config.networking.domain;
 
   inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption;
   inherit (self.lib) mkServiceOption mkSecret;
 in
 {
-  options.garden.services.immich = mkServiceOption "immich" {
-    port = 3007;
-    domain = "photos.${rdomain}";
-  };
+  options.garden.services.immich =
+    mkServiceOption "immich" {
+      port = 3007;
+      domain = "photos.${rdomain}";
+    }
+    // {
+      machineLearningPort = mkOption {
+        type = lib.types.port;
+        default = 3003;
+        readOnly = true;
+        description = "The port immich's machine learning listens on, which nixpkgs fixes";
+      };
+    };
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ cfg.port ];
@@ -27,8 +37,6 @@ in
       borgbackup.jobs.immich = {
         paths = [ config.services.immich.mediaLocation ];
         exclude = [ "**/thumbs/**" ];
-        repo = "immich";
-        passkeyFile = config.sops.secrets.borg-immich-pass.path;
       };
     };
 
@@ -36,10 +44,6 @@ in
       immich-clientid = mkSecret {
         file = "immich";
         key = "clientid";
-      };
-      borg-immich-pass = mkSecret {
-        file = "borg";
-        key = "immich-passphrase";
       };
     };
 
@@ -193,7 +197,7 @@ in
               modelName = "PP-OCRv6_medium";
             };
 
-            urls = [ "http://127.0.0.1:3003" ];
+            urls = [ "http://127.0.0.1:${toString cfg.machineLearningPort}" ];
           };
 
           map = {

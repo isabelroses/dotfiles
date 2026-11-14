@@ -11,6 +11,8 @@ let
 
     port-collector = scopeSelf.callPackage ./port-collector.nix { };
 
+    relay-contract = scopeSelf.callPackage ./relay-contract.nix { };
+
     selflib = scopeSelf.callPackage ./lib.nix { };
     # keep-sorted end
   });

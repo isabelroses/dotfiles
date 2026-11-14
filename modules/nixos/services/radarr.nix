@@ -20,7 +20,10 @@ in
       inherit (cfg) enable;
       group = "media";
       dataDir = "/srv/storage/radarr";
-      settings.server.port = cfg.port;
+      settings.server = {
+        inherit (cfg) port;
+        bindaddress = cfg.host;
+      };
     };
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];

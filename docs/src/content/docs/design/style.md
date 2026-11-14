@@ -59,8 +59,8 @@ in
 On occasion you may find yourself repeating code. This is why I expose `lib`.
 Within the config this is accessible via `self.lib`. Some uses of this currently include:
 
-- `mkServiceOption` declares the usual `enable`/`host`/`port`/`domain` options
-  for a service.
+- `mkServiceOption` declares `enable`, plus `host`/`port`/`domain` for the ones
+  the service is given a default for, so every option it declares is honoured.
 - `mkSecret` wires up a `sops` secret from `secrets/services/`.
 
 ### Pipe operator

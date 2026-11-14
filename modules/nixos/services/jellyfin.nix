@@ -6,22 +6,35 @@
 }:
 let
   inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption;
   inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.jellyfin;
 in
 {
-  options.garden.services.jellyfin = mkServiceOption "jellyfin" {
-    port = 8096;
-    domain = "tv.${config.networking.domain}";
-  };
+  options.garden.services.jellyfin =
+    mkServiceOption "jellyfin" {
+      # jellyfin's own default; nixpkgs can't set its port or bind address, it
+      # always listens on every interface
+      port = 8096;
+      host = null;
+      domain = "tv.${config.networking.domain}";
+    }
+    // {
+      httpsPort = mkOption {
+        type = lib.types.port;
+        default = 8920;
+        readOnly = true;
+        description = "jellyfin's https port, which like its http port can't be set here";
+      };
+    };
 
   config = mkIf config.garden.services.jellyfin.enable {
     # the web port plus jellyfin's https and client discovery ports
     networking.firewall = {
       allowedTCPPorts = [
         cfg.port
-        8920
+        cfg.httpsPort
       ];
       allowedUDPPorts = [
         1900

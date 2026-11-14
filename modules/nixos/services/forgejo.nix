@@ -11,7 +11,7 @@ let
   rdomain = config.networking.domain;
 
   inherit (lib.modules) mkIf mkForce;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkServiceOption mkSecret journalJail;
 in
 {
   options.garden.services.forgejo = mkServiceOption "forgejo" {
@@ -27,11 +27,6 @@ in
         owner = "forgejo";
         group = "forgejo";
       };
-
-      borg-forgejo-pass = mkSecret {
-        file = "borg";
-        key = "forgejo-passphrase";
-      };
     };
 
     garden.services = {
@@ -40,8 +35,6 @@ in
 
       borgbackup.jobs.forgejo = {
         paths = [ config.services.forgejo.stateDir ];
-        repo = "forgejo";
-        passkeyFile = config.sops.secrets.borg-forgejo-pass.path;
       };
     };
 
@@ -56,6 +49,14 @@ in
     };
 
     services = {
+      # api and git auth failures only show as 401s, and git sends one before
+      # every authenticated request, so it gets more tries. the router log
+      # these match is turned on below
+      fail2ban.jails.forgejo = journalJail "forgejo" [
+        ''^.*Failed authentication attempt for .* from <ADDR>(?::\d+)?:''
+        ''^.*router: completed \S+ \S+ for <ADDR>:\d+, 401 Unauthorized''
+      ] { maxretry = 10; };
+
       forgejo = {
         enable = true;
         package = pkgs.forgejo;
@@ -86,7 +87,7 @@ in
 
           api.ENABLE_SWAGGER = false;
 
-          # the fail2ban jail bans on the 401s in these
+          # the fail2ban jail above bans on the 401s in these
           log."logger.router.MODE" = ",";
 
           DEFAULT.APP_NAME = "iztea";
@@ -114,7 +115,11 @@ in
           cache = {
             ENABLED = true;
             ADAPTER = "redis";
-            HOST = "redis://:forgejo@localhost:6371";
+            HOST =
+              let
+                inherit (config.garden.services) redis;
+              in
+              "redis://:forgejo@${redis.host}:${toString redis.port}";
           };
 
           oauth2_client = {

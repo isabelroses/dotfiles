@@ -34,7 +34,11 @@
         enable = true;
         host = "0.0.0.0";
       };
+      # reached from the lan
       qbittorrent.host = "0.0.0.0";
+      sonarr.host = "0.0.0.0";
+      radarr.host = "0.0.0.0";
+      prowlarr.host = "0.0.0.0";
       borgbackup = {
         enable = true;
         jobs.postgresql.enable = false;

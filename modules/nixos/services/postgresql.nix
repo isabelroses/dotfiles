@@ -7,7 +7,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkSecret mkServiceOption;
+  inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services;
   # dump right before borg runs, only on hosts that back postgres up
@@ -25,8 +25,6 @@ in
 
     garden.services.borgbackup.jobs.postgresql = {
       paths = [ config.services.postgresqlBackup.location ];
-      repo = "postgresql";
-      passkeyFile = config.sops.secrets.borg-postgresql-pass.path;
     };
 
     services.postgresqlBackup = mkIf dumped {
@@ -41,11 +39,6 @@ in
       requires = [ "postgresqlBackup.service" ];
       after = [ "postgresqlBackup.service" ];
     };
-
-    sops.secrets.borg-postgresql-pass = mkIf dumped (mkSecret {
-      file = "borg";
-      key = "postgresql-passphrase";
-    });
 
     services.postgresql = {
       enable = true;

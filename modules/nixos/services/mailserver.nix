@@ -221,6 +221,18 @@ in
       };
 
       services = {
+        fail2ban.jails = {
+          postfix.settings = {
+            mode = "aggressive";
+            port = "smtp,465,submission";
+          };
+
+          dovecot.settings = {
+            mode = "aggressive";
+            port = "pop3,pop3s,imap,imaps,submission,465,sieve";
+          };
+        };
+
         roundcube = {
           enable = true;
 

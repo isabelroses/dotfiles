@@ -5,6 +5,7 @@
 
 lib.fixedPoints.makeExtensible (final: {
   # keep-sorted start block=yes
+  fail2ban = import ./fail2ban.nix { inherit lib; };
   helpers = import ./helpers.nix { inherit lib; };
   mkHost = import ./mkhost.nix { inherit inputs lib; };
   secrets = import ./secrets.nix { inherit inputs; };
@@ -15,6 +16,7 @@ lib.fixedPoints.makeExtensible (final: {
   # we have to rexport the functions we want to use, but don't want to refer to the whole lib
   # "path". e.g. gardenLib.helpers.giturl can be shortened to gardenLib.giturl
   # NOTE: never rexport templates
+  inherit (final.fail2ban) journalJail;
   inherit (final.helpers) mkPubs giturl;
   inherit (final.secrets) mkSecret;
   inherit (final.services) mkServiceOption;

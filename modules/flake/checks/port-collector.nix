@@ -1,4 +1,6 @@
-# collect all the ports even if they are disabled, we want to avoid any conflicts
+# collect every port a garden service declares on every nixos host, even if
+# the service is disabled there, so a port can be moved between hosts freely.
+# a service's port is its `port` option plus any option ending in `Port`
 
 {
   lib,
@@ -6,20 +8,48 @@
   self,
 }:
 let
-  inherit (lib.attrsets) attrNames;
-  inherit (lib.lists) filter length groupBy;
-  inherit (lib.strings) concatMapStringsSep concatStringsSep;
+  inherit (lib.attrsets)
+    attrNames
+    attrValues
+    filterAttrs
+    mapAttrsToList
+    ;
+  inherit (lib.lists)
+    concatLists
+    concatMap
+    filter
+    groupBy
+    length
+    ;
+  inherit (lib.strings) concatMapStringsSep concatStringsSep hasSuffix;
 
-  services = self.nixosConfigurations.amaterasu.config.garden.services;
+  isPort = name: value: (name == "port" || hasSuffix "Port" name) && builtins.isInt value;
 
-  # build {"3000" = ["pds" "kittr"]; "0" = [ ... ]; ...} in a single pass.
-  portsToServices = groupBy (name: toString (services.${name}.port or 0)) (attrNames services);
+  # [ { port = "3000"; owner = "pds.port"; } ... ]
+  portsOf =
+    services:
+    concatMap (
+      service:
+      mapAttrsToList (option: port: {
+        port = toString port;
+        owner = "${service}.${option}";
+      }) (filterAttrs isPort services.${service})
+    ) (attrNames services);
 
-  # "0" is the catch all for services that don't bind a port; we will drop it
-  # before checking for collisions.
-  collisions = filter (srvList: length srvList > 1) (
-    builtins.attrValues (removeAttrs portsToServices [ "0" ])
-  );
+  collisionsOn =
+    host: nixos:
+    map (owners: "${host}: ${concatStringsSep " and " owners}") (
+      filter (owners: length owners > 1) (
+        attrValues (
+          builtins.mapAttrs (_: map (p: p.owner)) (groupBy (p: p.port) (portsOf nixos.config.garden.services))
+        )
+      )
+    );
+
+  # the installer doesn't import the garden modules
+  hosts = filterAttrs (_: nixos: nixos.config ? garden) self.nixosConfigurations;
+
+  collisions = concatLists (mapAttrsToList collisionsOn hosts);
 in
 runCommandLocal "port-collector"
   {
@@ -27,9 +57,7 @@ runCommandLocal "port-collector"
   }
   ''
     if [ ${toString (collisions != [ ])} ]; then
-      echo "Port collisions detected between services ${
-        concatMapStringsSep ", " (s: concatStringsSep " and " s) collisions
-      }"
+      echo "Port collisions detected between ${concatMapStringsSep ", " (s: s) collisions}"
       exit 1
     fi
 

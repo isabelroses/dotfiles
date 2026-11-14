@@ -3,6 +3,22 @@
   self,
 }:
 callPackage ./mk-test-check.nix { } "nix-flake-tests" {
+  testJournalJail = {
+    expr = self.lib.fail2ban.journalJail "forgejo" [ "a <ADDR>" "b <ADDR>" ] { maxretry = 10; };
+    expected = {
+      filter.Definition = {
+        failregex = "a <ADDR>\n    b <ADDR>";
+        ignoreregex = "";
+      };
+      settings = {
+        port = "http,https";
+        protocol = "tcp,udp";
+        journalmatch = "_SYSTEMD_UNIT=forgejo.service";
+        maxretry = 10;
+      };
+    };
+  };
+
   testGiturl = {
     expr = self.lib.helpers.giturl {
       domain = "github.com";

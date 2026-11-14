@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib.attrsets) mapAttrs;
+  inherit (lib.attrsets) filterAttrs mapAttrs mapAttrs';
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib) types;
@@ -17,45 +17,50 @@ in
   options.garden.services.borgbackup = mkServiceOption "borgbackup" { } // {
     jobs = mkOption {
       type = types.attrsOf (
-        types.submodule {
-          options = {
-            enable = mkEnableOption "borgbackup job" // {
-              default = true;
-              defaultText = "true";
-            };
+        types.submodule (
+          { name, ... }:
+          {
+            options = {
+              enable = mkEnableOption "borgbackup job" // {
+                default = true;
+                defaultText = "true";
+              };
 
-            paths = mkOption {
-              type = types.listOf types.path;
-              example = [
-                "/home/user/Documents"
-                "/etc"
-              ];
-              description = "List of paths to back up.";
-            };
+              paths = mkOption {
+                type = types.listOf types.path;
+                example = [
+                  "/home/user/Documents"
+                  "/etc"
+                ];
+                description = "List of paths to back up.";
+              };
 
-            exclude = mkOption {
-              type = types.listOf types.str;
-              example = [
-                "*.cache"
-                "*.tmp"
-              ];
-              description = "List of glob patterns to exclude from the backup.";
-              default = [ ];
-            };
+              exclude = mkOption {
+                type = types.listOf types.str;
+                example = [
+                  "*.cache"
+                  "*.tmp"
+                ];
+                description = "List of glob patterns to exclude from the backup.";
+                default = [ ];
+              };
 
-            repo = mkOption {
-              type = types.str;
-              example = "repo";
-              description = "The Borg repository location.";
-            };
+              repo = mkOption {
+                type = types.str;
+                default = name;
+                defaultText = "the job's name";
+                description = "The Borg repository location.";
+              };
 
-            passkeyFile = mkOption {
-              type = types.path;
-              example = "/run/secrets/borg-passkey";
-              description = "Path to the file containing the Borg repository passkey.";
+              passkeyFile = mkOption {
+                type = types.path;
+                default = config.sops.secrets."borg-${name}-pass".path;
+                defaultText = "the `<name>-passphrase` key in the borg secrets";
+                description = "Path to the file containing the Borg repository passkey.";
+              };
             };
-          };
-        }
+          }
+        )
       );
       default = { };
       description = "Define borg backup jobs.";
@@ -63,10 +68,19 @@ in
   };
 
   config = lib.modules.mkIf cfg.enable {
-    sops.secrets.borg-sshkey = mkSecret {
-      file = "borg";
-      key = "sshkey";
-    };
+    sops.secrets = {
+      borg-sshkey = mkSecret {
+        file = "borg";
+        key = "sshkey";
+      };
+    }
+    // mapAttrs' (name: _: {
+      name = "borg-${name}-pass";
+      value = mkSecret {
+        file = "borg";
+        key = "${name}-passphrase";
+      };
+    }) (filterAttrs (_: job: job.enable) cfg.jobs);
 
     services = {
       openssh.knownHosts = mkPubs "zh6120.rsync.net" [
