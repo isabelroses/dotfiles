@@ -62,7 +62,7 @@ in
       {
         extName = "pdsls";
         type = "raycast";
-        npmDepsHash = "sha256-LcB3a77R1cRuOEfKyQWiHqZeG9bzWiJsixbZs6wsrjs=";
+        npmDepsHash = "sha256-dfzo6cuLgxmuBHU7r/EKHGo2OrXtwlLhzLZ4QXJvsxo=";
       }
 
       # broken

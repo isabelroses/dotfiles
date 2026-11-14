@@ -27,15 +27,15 @@ lib.customisation.extendMkDerivation {
               fetchFromGitHub {
                 owner = "vicinaehq";
                 repo = "extensions";
-                rev = "56b0e02307f7dea3ca013e8a5c96128c700eec75";
-                hash = "sha256-x500JT5z1ef6AHgjU4IMS8AFVWW+UVn925mYkYGWZVc=";
+                rev = "181904331f5289b53ee3443f98cfa5441d399f35";
+                hash = "sha256-UR269g8GwB5jywGcxqViVscjl8gtvRO9XjtCoGnUbSs=";
               }
             else
               fetchFromGitHub {
                 owner = "raycast";
                 repo = "extensions";
-                rev = "b8d63f2c8578215e2d7d5c25784245bca8c3bf4a";
-                hash = "sha256-0b50Pc/V8EVlHspsZ3V5Wk/qCcGmjWAtfRVmIjJaCWg=";
+                rev = "87abd696c19759d2e56553940235d7a653d0b8a6";
+                hash = "sha256-y6wFE5XUmSG2NMDKIW+GVcgXnVor4K10vCSjMH+WCZE=";
 
                 # littrally grind to a halt if we don't add this
                 sparseCheckout = [ "/extensions/${extName}" ];
