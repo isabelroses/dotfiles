@@ -30,6 +30,7 @@
     ./quickshell.nix
     ./ripgrep.nix
     ./rnnoise.nix
+    ./slop.nix
     ./sops.nix
     ./spotify.nix
     ./ssh.nix
