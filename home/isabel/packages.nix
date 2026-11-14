@@ -39,6 +39,10 @@ in
       };
     })
 
+    (optionalAttrs (cfg.workstation.enable && isLinux) {
+      inherit (extpkgs) t3code-server;
+    })
+
     # (optionalAttrs cfg.graphical.enable {
     #   inherit (pkgs)
     #     # keep-sorted start
