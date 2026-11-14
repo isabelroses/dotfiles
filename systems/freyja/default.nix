@@ -22,28 +22,6 @@
 
       networking.useRouterDns = true;
     };
-
-    services = {
-      arr.enable = true;
-
-      home-assistant = {
-        enable = true;
-        radio = "/dev/serial/by-id/usb-SONOFF_SONOFF_Dongle_Plus_MG24_a8ad9d6a37a1ef11b4e1976661ce3355-if00-port0";
-      };
-
-      immich = {
-        enable = true;
-        host = "0.0.0.0";
-      };
-      lethe = {
-        enable = true;
-        host = "0.0.0.0";
-      };
-      borgbackup = {
-        enable = true;
-        jobs.postgresql.enable = false;
-      };
-    };
   };
 
   # where to advertise the thread mesh, only used once the radio is set
