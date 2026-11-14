@@ -25,9 +25,7 @@
 
       home-assistant = {
         enable = true;
-        # set to the dongle's /dev/serial/by-id path once it's flashed to
-        # thread firmware to bring up the border router
-        # radio = "/dev/serial/by-id/...";
+        radio = "/dev/serial/by-id/usb-SONOFF_SONOFF_Dongle_Plus_MG24_a8ad9d6a37a1ef11b4e1976661ce3355-if00-port0";
       };
 
       immich = {
