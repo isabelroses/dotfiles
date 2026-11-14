@@ -13,7 +13,6 @@ let
 
   cfg = config.garden.services.matrix;
 
-  bindAddress = "::1";
   serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
   clientConfig = {
     "m.homeserver".base_url = "https://${cfg.domain}";
@@ -32,6 +31,7 @@ in
 {
   options.garden.services.matrix = mkServiceOption "matrix" {
     port = 3012;
+    host = "::1";
     domain = "matrix.${rdomain}";
   };
 
@@ -106,7 +106,7 @@ in
           listeners = [
             {
               inherit (cfg) port;
-              bind_addresses = [ "${bindAddress}" ];
+              bind_addresses = [ cfg.host ];
               resources = [
                 {
                   names = [
@@ -172,8 +172,8 @@ in
         locations = {
           "= /.well-known/matrix/server".extraConfig = mkWellKnown serverConfig;
           "= /.well-known/matrix/client".extraConfig = mkWellKnown clientConfig;
-          "/_matrix".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
-          "/_synapse/client".proxyPass = "http://[${bindAddress}]:${toString cfg.port}";
+          "/_matrix".proxyPass = "http://[${cfg.host}]:${toString cfg.port}";
+          "/_synapse/client".proxyPass = "http://[${cfg.host}]:${toString cfg.port}";
         };
         serverAliases = [ "${cfg.domain}" ];
       };

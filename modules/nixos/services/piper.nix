@@ -33,13 +33,14 @@ in
         ];
 
         settings = {
+          SERVER_HOST = cfg.host;
           SERVER_PORT = cfg.port;
           SERVER_ROOT_URL = "https://${cfg.domain}";
         };
       };
 
       nginx.virtualHosts.${cfg.domain} = {
-        locations."/".proxyPass = "http://localhost:${toString cfg.port}";
+        locations."/".proxyPass = "http://${cfg.host}:${toString cfg.port}";
       };
     };
   };

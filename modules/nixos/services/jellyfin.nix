@@ -13,6 +13,7 @@ in
 {
   options.garden.services.jellyfin = mkServiceOption "jellyfin" {
     port = 8096;
+    host = null;
     domain = "tv.${config.networking.domain}";
   };
 

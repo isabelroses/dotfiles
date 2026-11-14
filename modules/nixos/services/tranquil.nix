@@ -31,7 +31,7 @@ in
 
         settings = {
           server = {
-            inherit (cfg) port;
+            inherit (cfg) host port;
             hostname = cfg.domain;
             invite_code_required = true;
             age_assurance_override = true;
@@ -51,7 +51,7 @@ in
       };
 
       nginx.virtualHosts.${cfg.domain}.locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}";
+        proxyPass = "http://${cfg.host}:${toString cfg.port}";
         proxyWebsockets = true;
         extraConfig = "client_max_body_size ${toString config.services.tranquil-pds.settings.server.max_blob_size};";
       };
