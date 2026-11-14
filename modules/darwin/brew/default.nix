@@ -36,14 +36,14 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "e902821d78f60726afc6e65c5f99df8dfc1e2759";
-          hash = "sha256-F5d6fpWccPavwNZ7vVdx/oWvz2xxVFLElR/ySecVWSk=";
+          rev = "64bc06c2787a164b51ee741053f5af5740218896";
+          hash = "sha256-AsT8a2o9+tsRyqQ1d18VQgyzuOuGKQotlhBRY8YULBw=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "6b8a59b4e9b927ca54d3b921b1c8949106a3eb44";
-          hash = "sha256-pjpBCNKuV19m7S+wBJCmA9yWCuIpWFdPq7+aJV0A8Kw=";
+          rev = "c9913ee2904e0f3bc7e26f72abb88e573ca8fbeb";
+          hash = "sha256-NjNwjx1XeOtDQ0aEYFA3+Oy0ejZWOgHubNaRA7a9oz4=";
         };
         "abue-ammar/homebrew-tinycast" = pkgs.fetchFromGitHub {
           owner = "abue-ammar";
