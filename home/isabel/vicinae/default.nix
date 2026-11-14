@@ -1,4 +1,9 @@
-{ pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   mkMyVicinaeExt = pkgs.callPackage ./extension.nix { };
 in
@@ -7,8 +12,29 @@ in
     enable = config.garden.profiles.graphical.enable && pkgs.stdenv.hostPlatform.isLinux;
     systemd.enable = true;
 
+    themes.oledppuccin = {
+      meta = {
+        version = 1;
+        name = "Oledppuccin";
+        description = "Oledppuccin";
+        variant = "dark";
+        inherits = "catppuccin-${config.catppuccin.flavor}";
+      };
+
+      colors.core = {
+        background = "#000000";
+        secondary_background = "#010101";
+      };
+    };
+
     settings = {
       window.opacity = 1;
+      launcher_window.rounding = 0;
+
+      theme = {
+        dark.name = lib.mkForce "oledppuccin";
+        light.name = lib.mkForce "oledppuccin";
+      };
     };
 
     # NOTE: I only do it this way because I hate IFD, normal people should use
