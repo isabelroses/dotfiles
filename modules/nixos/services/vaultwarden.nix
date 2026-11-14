@@ -25,17 +25,10 @@ in
         owner = "vaultwarden";
         group = "vaultwarden";
       };
-
-      borg-vaultwarden-pass = mkSecret {
-        file = "borg";
-        key = "vaultwarden-passphrase";
-      };
     };
 
     garden.services.borgbackup.jobs.vaultwarden = {
       paths = [ config.services.vaultwarden.config.DATA_DIR ];
-      repo = "vaultwarden";
-      passkeyFile = config.sops.secrets.borg-vaultwarden-pass.path;
     };
 
     services = {

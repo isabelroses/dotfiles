@@ -27,8 +27,6 @@ in
       borgbackup.jobs.immich = {
         paths = [ config.services.immich.mediaLocation ];
         exclude = [ "**/thumbs/**" ];
-        repo = "immich";
-        passkeyFile = config.sops.secrets.borg-immich-pass.path;
       };
     };
 
@@ -36,10 +34,6 @@ in
       immich-clientid = mkSecret {
         file = "immich";
         key = "clientid";
-      };
-      borg-immich-pass = mkSecret {
-        file = "borg";
-        key = "immich-passphrase";
       };
     };
 

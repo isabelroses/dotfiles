@@ -27,11 +27,6 @@ in
         owner = "forgejo";
         group = "forgejo";
       };
-
-      borg-forgejo-pass = mkSecret {
-        file = "borg";
-        key = "forgejo-passphrase";
-      };
     };
 
     garden.services = {
@@ -40,8 +35,6 @@ in
 
       borgbackup.jobs.forgejo = {
         paths = [ config.services.forgejo.stateDir ];
-        repo = "forgejo";
-        passkeyFile = config.sops.secrets.borg-forgejo-pass.path;
       };
     };
 
