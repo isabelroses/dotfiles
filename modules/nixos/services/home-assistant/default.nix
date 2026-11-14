@@ -36,6 +36,8 @@ in
     };
 
   config = mkIf cfg.enable {
+    garden.services.postgresql.enable = true;
+
     networking.firewall = {
       allowedTCPPorts = [ cfg.port ];
       allowedUDPPorts = [
@@ -75,8 +77,14 @@ in
           "wake_on_lan"
         ];
 
+        # the recorder needs a driver to talk to postgres
+        extraPackages = ps: [ ps.psycopg2 ];
+
         config = {
           default_config = { };
+
+          # no host means the unix socket, where peer auth lets hass in
+          recorder.db_url = "postgresql://@/hass";
 
           http = {
             server_host = cfg.host;
@@ -87,6 +95,14 @@ in
           "automation ui" = "!include automations.yaml";
           "scene ui" = "!include scenes.yaml";
           "script ui" = "!include scripts.yaml";
+        };
+      };
+
+      postgresql = {
+        ensureDatabases = [ "hass" ];
+        ensureUsers = lib.lists.singleton {
+          name = "hass";
+          ensureDBOwnership = true;
         };
       };
 
