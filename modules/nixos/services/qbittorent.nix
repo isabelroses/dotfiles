@@ -15,19 +15,24 @@ let
 in
 {
   # port is qui's, which fronts qbittorrent's own webui
-  options.garden.services.qbittorrent = mkServiceOption "qbittorrent" { port = 3019; } // {
-    webuiPort = mkOption {
-      type = port;
-      default = 4019;
-      description = "The port for qbittorrent's own webui, which qui talks to";
-    };
+  options.garden.services.qbittorrent =
+    mkServiceOption "qbittorrent" {
+      port = 3019;
+      host = "0.0.0.0";
+    }
+    // {
+      webuiPort = mkOption {
+        type = port;
+        default = 4019;
+        description = "The port for qbittorrent's own webui, which qui talks to";
+      };
 
-    torrentingPort = mkOption {
-      type = port;
-      default = 43125;
-      description = "The port peers reach qbittorrent on";
+      torrentingPort = mkOption {
+        type = port;
+        default = 43125;
+        description = "The port peers reach qbittorrent on";
+      };
     };
-  };
 
   config = mkIf cfg.enable {
     # peers have to reach the torrenting port from anywhere

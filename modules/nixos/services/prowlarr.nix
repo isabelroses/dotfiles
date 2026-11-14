@@ -13,12 +13,16 @@ in
 {
   options.garden.services.prowlarr = mkServiceOption "prowlarr" {
     port = 3022;
+    host = "0.0.0.0";
   };
 
   config = mkIf config.garden.services.prowlarr.enable {
     services.prowlarr = {
       enable = true;
-      settings.server.port = cfg.port;
+      settings.server = {
+        inherit (cfg) port;
+        bindaddress = cfg.host;
+      };
     };
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];

@@ -13,6 +13,7 @@ in
 {
   options.garden.services.sonarr = mkServiceOption "sonarr" {
     port = 3020;
+    host = "0.0.0.0";
   };
 
   config = mkIf config.garden.services.sonarr.enable {
@@ -20,7 +21,10 @@ in
       inherit (cfg) enable;
       group = "media";
       dataDir = "/srv/storage/sonarr";
-      settings.server.port = cfg.port;
+      settings.server = {
+        inherit (cfg) port;
+        bindaddress = cfg.host;
+      };
     };
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
