@@ -10,6 +10,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption;
   inherit (self.lib) mkServiceOption mkSecret;
 
   rdomain = config.networking.domain;
@@ -20,10 +21,18 @@ let
   cfg' = config.garden.services;
 in
 {
-  options.garden.services.kanidm = mkServiceOption "kanidm" {
-    port = 3010;
-    domain = "sso.${rdomain}";
-  };
+  options.garden.services.kanidm =
+    mkServiceOption "kanidm" {
+      port = 3010;
+      domain = "sso.${rdomain}";
+    }
+    // {
+      ldapPort = mkOption {
+        type = lib.types.port;
+        default = 3636;
+        description = "The port for kanidm's ldap interface";
+      };
+    };
 
   config = mkIf cfg.enable {
     garden.services = {
@@ -88,7 +97,7 @@ in
             inherit (cfg) domain;
             origin = "https://${cfg.domain}";
             bindaddress = "${cfg.host}:${toString cfg.port}";
-            ldapbindaddress = "${cfg.host}:3636";
+            ldapbindaddress = "${cfg.host}:${toString cfg.ldapPort}";
             tls_chain = "${certDir}/fullchain.pem";
             tls_key = "${certDir}/key.pem";
           };

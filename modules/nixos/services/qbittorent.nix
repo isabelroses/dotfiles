@@ -6,13 +6,28 @@
 }:
 let
   inherit (lib.modules) mkIf;
+  inherit (lib.options) mkOption;
+  inherit (lib.types) port;
   inherit (self.lib) mkServiceOption mkSecret;
 
   cfg = config.garden.services.qbittorrent;
   inherit (config.garden.services) arr;
 in
 {
-  options.garden.services.qbittorrent = mkServiceOption "qbittorrent" { port = 3019; };
+  # port is qui's, which fronts qbittorrent's own webui
+  options.garden.services.qbittorrent = mkServiceOption "qbittorrent" { port = 3019; } // {
+    webuiPort = mkOption {
+      type = port;
+      default = 4019;
+      description = "The port for qbittorrent's own webui, which qui talks to";
+    };
+
+    torrentingPort = mkOption {
+      type = port;
+      default = 43125;
+      description = "The port peers reach qbittorrent on";
+    };
+  };
 
   config = mkIf cfg.enable {
     # peers have to reach the torrenting port from anywhere
@@ -40,8 +55,7 @@ in
         enable = true;
         group = arr.mediaGroup;
 
-        webuiPort = 4019;
-        torrentingPort = 43125;
+        inherit (cfg) webuiPort torrentingPort;
 
         serverConfig = {
           LegalNotice.Accepted = true;

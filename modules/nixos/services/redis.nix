@@ -12,7 +12,8 @@ let
   cfg = config.garden.services;
 in
 {
-  options.garden.services.redis = mkServiceOption "redis" { };
+  # only forgejo's server for now, so it gets the port
+  options.garden.services.redis = mkServiceOption "redis" { port = 6371; };
 
   config = mkIf cfg.redis.enable {
     services.redis = {
@@ -23,7 +24,8 @@ in
           forgejo = {
             enable = true;
             user = "forgejo";
-            port = 6371;
+            inherit (cfg.redis) port;
+            bind = cfg.redis.host;
             databases = 16;
             logLevel = "debug";
             requirePass = "forgejo";
