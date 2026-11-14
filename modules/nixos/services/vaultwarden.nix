@@ -6,7 +6,16 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkServiceOption mkSecret journalJail;
+
+  # https://github.com/dani-garcia/vaultwarden/wiki/Fail2Ban-Setup
+  jail =
+    failregex:
+    journalJail "vaultwarden" [ failregex ] {
+      maxretry = 3;
+      bantime = 14400;
+      findtime = 14400;
+    };
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.vaultwarden;
@@ -32,6 +41,11 @@ in
     };
 
     services = {
+      fail2ban.jails = {
+        vaultwarden = jail ''^.*?Username or password is incorrect\. Try again\. IP: <ADDR>\. Username:.*$'';
+        vaultwarden-admin = jail ''^.*?Invalid admin token\. IP: <ADDR>.*$'';
+      };
+
       vaultwarden = {
         enable = true;
         environmentFile = config.sops.secrets.vaultwarden-env.path;

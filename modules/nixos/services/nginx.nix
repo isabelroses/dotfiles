@@ -9,6 +9,7 @@ let
   inherit (lib.options) mkOption;
   inherit (lib) types;
   inherit (self.lib) mkServiceOption;
+  f2bweb = self.lib.fail2ban.web;
 
   cfg = config.garden.services.nginx;
 in
@@ -58,50 +59,60 @@ in
         ];
       };
 
-      services.nginx = {
-        enable = true;
-        statusPage = true; # For monitoring scraping.
-
-        # `proxy_cache static;` in a location caches what upstream marks
-        # cacheable, or 200s for a day when it says nothing
-        proxyCachePath.static = {
-          enable = true;
-          keysZoneName = "static";
-          maxSize = "2g";
-          inactive = "7d";
+      services = {
+        fail2ban.jails = {
+          nginx-limit-req.settings = f2bweb;
+          nginx-botsearch.settings = f2bweb // {
+            backend = "auto";
+            logpath = "/var/log/nginx/access.log";
+          };
         };
 
-        commonHttpConfig = ''
-          proxy_cache_valid 200 1d;
-          proxy_cache_use_stale error timeout updating http_502 http_503 http_504;
-          proxy_cache_lock on;
+        nginx = {
+          enable = true;
+          statusPage = true; # For monitoring scraping.
 
-          # crawlers that train models or resell scraped data
-          map $http_user_agent $ai_crawler {
-            default 0;
-            "~*(GPTBot|ChatGPT-User|OAI-SearchBot|ClaudeBot|Claude-Web|anthropic-ai|CCBot|Bytespider|Amazonbot|meta-externalagent|FacebookBot|PerplexityBot|cohere-ai|Diffbot|ImagesiftBot|Omgilibot|Timpibot|PetalBot|YouBot|AI2Bot|Scrapy)" 1;
-          }
+          # `proxy_cache static;` in a location caches what upstream marks
+          # cacheable, or 200s for a day when it says nothing
+          proxyCachePath.static = {
+            enable = true;
+            keysZoneName = "static";
+            maxSize = "2g";
+            inactive = "7d";
+          };
 
-          add_header 'Referrer-Policy' 'origin-when-cross-origin';
-          add_header Content-Security-Policy "frame-ancestors 'self'" always;
-          add_header X-Content-Type-Options nosniff;
-        '';
+          commonHttpConfig = ''
+            proxy_cache_valid 200 1d;
+            proxy_cache_use_stale error timeout updating http_502 http_503 http_504;
+            proxy_cache_lock on;
 
-        recommendedTlsSettings = true;
-        recommendedBrotliSettings = true;
-        recommendedOptimisation = true;
-        recommendedGzipSettings = true;
-        recommendedProxySettings = true;
+            # crawlers that train models or resell scraped data
+            map $http_user_agent $ai_crawler {
+              default 0;
+              "~*(GPTBot|ChatGPT-User|OAI-SearchBot|ClaudeBot|Claude-Web|anthropic-ai|CCBot|Bytespider|Amazonbot|meta-externalagent|FacebookBot|PerplexityBot|cohere-ai|Diffbot|ImagesiftBot|Omgilibot|Timpibot|PetalBot|YouBot|AI2Bot|Scrapy)" 1;
+            }
 
-        experimentalZstdSettings = true;
+            add_header 'Referrer-Policy' 'origin-when-cross-origin';
+            add_header Content-Security-Policy "frame-ancestors 'self'" always;
+            add_header X-Content-Type-Options nosniff;
+          '';
 
-        sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
-        sslProtocols = "TLSv1.3 TLSv1.2";
+          recommendedTlsSettings = true;
+          recommendedBrotliSettings = true;
+          recommendedOptimisation = true;
+          recommendedGzipSettings = true;
+          recommendedProxySettings = true;
 
-        # undo the the changes we made to `services.nginx.virtualHosts`
-        virtualHosts.localhost = {
-          forceSSL = false;
-          enableACME = false;
+          experimentalZstdSettings = true;
+
+          sslCiphers = "EECDH+aRSA+AESGCM:EDH+aRSA:EECDH+aRSA:+AES256:+AES128:+SHA1:!CAMELLIA:!SEED:!3DES:!DES:!RC4:!eNULL";
+          sslProtocols = "TLSv1.3 TLSv1.2";
+
+          # undo the the changes we made to `services.nginx.virtualHosts`
+          virtualHosts.localhost = {
+            forceSSL = false;
+            enableACME = false;
+          };
         };
       };
     })

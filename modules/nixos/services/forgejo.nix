@@ -11,7 +11,7 @@ let
   rdomain = config.networking.domain;
 
   inherit (lib.modules) mkIf mkForce;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkServiceOption mkSecret journalJail;
 in
 {
   options.garden.services.forgejo = mkServiceOption "forgejo" {
@@ -49,6 +49,11 @@ in
     };
 
     services = {
+      fail2ban.jails.forgejo = journalJail "forgejo" [
+        ''^.*Failed authentication attempt for .* from <ADDR>(?::\d+)?:''
+        ''^.*router: completed \S+ \S+ for <ADDR>:\d+, 401 Unauthorized''
+      ] { maxretry = 10; };
+
       forgejo = {
         enable = true;
         package = pkgs.forgejo;
