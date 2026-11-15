@@ -133,7 +133,8 @@ in
 
     # programs
     GNUPGHOME = mkForce "${cfg.dataHome}/gnupg";
-    LESSHISTFILE = "${cfg.dataHome}/less/history";
+    HISTFILE = "${cfg.stateHome}/bash/history";
+    LESSHISTFILE = "${cfg.stateHome}/less/history";
     CUDA_CACHE_PATH = "${cfg.cacheHome}/nv";
     STEPPATH = "${cfg.dataHome}/step";
     WAKATIME_HOME = "${cfg.configHome}/wakatime";
@@ -146,6 +147,7 @@ in
     # programming
     ANDROID_HOME = "${cfg.dataHome}/android";
     ANDROID_USER_HOME = "${cfg.dataHome}/android";
+    _JAVA_OPTIONS = "-Djava.util.prefs.userRoot='${cfg.configHome}/java'";
     GRADLE_USER_HOME = "${cfg.dataHome}/gradle";
     IPYTHONDIR = "${cfg.configHome}/ipython";
     JUPYTER_CONFIG_DIR = "${cfg.configHome}/jupyter";
@@ -157,9 +159,9 @@ in
     STACK_ROOT = "${cfg.dataHome}/stack";
     STACK_XDG = 1;
     NODE_REPL_HISTORY = "${cfg.dataHome}/node_repl_history";
+    NPM_CONFIG_INIT_MODULE = "${cfg.configHome}/npm/config/npm-init.js";
     NPM_CONFIG_CACHE = "${cfg.cacheHome}/npm";
     NPM_CONFIG_TMP = "/run/user/$UID/npm";
-    NPM_CONFIG_USERCONFIG = "${cfg.configHome}/npm/config";
   };
 
   xdg.configFile = {
