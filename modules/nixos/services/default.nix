@@ -11,6 +11,7 @@
     ./immich.nix
     ./jellyfin.nix
     ./kanidm.nix
+    ./lethe.nix
     ./mailserver.nix
     ./matrix.nix
     ./nginx.nix

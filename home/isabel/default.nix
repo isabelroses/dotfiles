@@ -22,6 +22,7 @@
     ./izrss.nix
     ./jj.nix
     ./lazygit.nix
+    ./lethe.nix
     ./man.nix
     ./mpv.nix
     ./nix-your-shell.nix

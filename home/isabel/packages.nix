@@ -29,10 +29,7 @@ in
         # keep-sorted end
         ;
 
-      inherit (extpkgs)
-        lethe # a cli that tracks nixos deployments
-        quoteit # the cli for my quote's service
-        ;
+      inherit (extpkgs) quoteit; # the cli for my quote's service
 
       izvim = inputs'.izvim.packages.izvim.override {
         inherit (inputs'.izlix.packages) nil;

@@ -38,7 +38,7 @@ creation_rules:
           - *isabel
           - *skadi
 
-  - path_regex: secrets/services/(immich|qui)\.yaml$
+  - path_regex: secrets/services/(immich|lethe|qui)\.yaml$
     key_groups:
       - age:
           - *isabel

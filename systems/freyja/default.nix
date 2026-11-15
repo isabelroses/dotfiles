@@ -36,6 +36,10 @@
         enable = true;
         host = "0.0.0.0";
       };
+      lethe = {
+        enable = true;
+        host = "0.0.0.0";
+      };
       qbittorrent.host = "0.0.0.0";
       borgbackup = {
         enable = true;
