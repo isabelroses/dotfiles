@@ -82,6 +82,9 @@ in
           # watching the server and closet
           "systemmonitor"
           "wake_on_lan"
+
+          # misc
+          "pi_hole"
         ];
 
         # the recorder needs a driver to talk to postgres
