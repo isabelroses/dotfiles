@@ -12,6 +12,10 @@ in
     enable = config.garden.profiles.graphical.enable && pkgs.stdenv.hostPlatform.isLinux;
     systemd.enable = true;
 
+    # keeps adding .mozilla and .librewolf
+    enableFirefoxIntegration = false;
+    enableLibrewolfIntegration = false;
+
     themes.oledppuccin = {
       meta = {
         version = 1;
