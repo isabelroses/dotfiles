@@ -11,7 +11,18 @@ let
     "aarch64-darwin"
   ];
 
-  forAllSystems = fn: lib.attrsets.genAttrs systems (system: fn nixpkgs.legacyPackages.${system});
+  # one nixpkgs per system, shared by every host and every output below, so
+  # nothing gets evaluated on a second instance
+  pkgsFor = lib.attrsets.genAttrs systems (
+    system:
+    import nixpkgs {
+      inherit system;
+      config = import ./nixpkgs.nix;
+      overlays = [ ];
+    }
+  );
+
+  forAllSystems = fn: lib.attrsets.mapAttrs (_: fn) pkgsFor;
 
   mkHosts = lib.attrsets.mapAttrs self.lib.mkHost;
 in
@@ -26,7 +37,7 @@ in
     };
   });
 
-  lib = import ./lib { inherit lib inputs; };
+  lib = import ./lib { inherit lib inputs pkgsFor; };
 
   checks = forAllSystems (pkgs: import ./checks { inherit pkgs inputs; });
 

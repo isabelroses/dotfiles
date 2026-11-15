@@ -1,6 +1,7 @@
 {
   lib,
   inputs,
+  pkgsFor,
 }:
 let
   inherit (inputs) self;
@@ -92,11 +93,15 @@ evalHost {
       key = "dotfiles#nixpkgs";
       _file = "${__curPos.file}";
 
-      # you can also do this as `inherit system;` with the normal `lib.nixosSystem`
-      # however for evalModules this will not work, so we do this instead
-      nixpkgs.hostPlatform = system;
+      # every host takes the nixpkgs the flake already instantiated for its
+      # system, rather than creating its own. this is also what puts
+      # `self'.legacyPackages` on the same package set as `pkgs`
+      nixpkgs.pkgs = pkgsFor.${system};
     }
   ]
+  # nixos needs to be told that nothing else may configure nixpkgs, nix-darwin
+  # has no such module and only asserts that `nixpkgs.config` was left alone
+  ++ lib.lists.optional (class != "darwin") nixpkgs.nixosModules.readOnlyPkgs
   # if we are on darwin we need to import the nixpkgs source, its used in some
   # modules, if this is not set then you will get an error
   ++ lib.lists.optional (class == "darwin") {

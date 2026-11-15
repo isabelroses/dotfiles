@@ -1,12 +1,16 @@
 # following https://github.com/NixOS/nixpkgs/blob/77ee426a4da240c1df7e11f48ac6243e0890f03e/lib/default.nix
 # as a rough template we can create our own extensible lib and expose it to the flake
 # we can then use that elsewhere like our hosts
-{ lib, inputs }:
+{
+  lib,
+  inputs,
+  pkgsFor,
+}:
 
 lib.fixedPoints.makeExtensible (final: {
   # keep-sorted start block=yes
   helpers = import ./helpers.nix { inherit lib; };
-  mkHost = import ./mkhost.nix { inherit inputs lib; };
+  mkHost = import ./mkhost.nix { inherit inputs lib pkgsFor; };
   secrets = import ./secrets.nix { inherit inputs; };
   services = import ./services.nix { inherit lib; };
   validators = import ./validators.nix { inherit lib; };
