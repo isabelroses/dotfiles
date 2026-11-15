@@ -36,20 +36,14 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "64bc06c2787a164b51ee741053f5af5740218896";
-          hash = "sha256-AsT8a2o9+tsRyqQ1d18VQgyzuOuGKQotlhBRY8YULBw=";
+          rev = "ce88df6ffd5568842fb6e167d238625c6759a835";
+          hash = "sha256-/Ty9p3HuBv9eIZPx5yDjuBce77XmCOpa6B/seUhKm+4=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "c9913ee2904e0f3bc7e26f72abb88e573ca8fbeb";
-          hash = "sha256-NjNwjx1XeOtDQ0aEYFA3+Oy0ejZWOgHubNaRA7a9oz4=";
-        };
-        "abue-ammar/homebrew-tinycast" = pkgs.fetchFromGitHub {
-          owner = "abue-ammar";
-          repo = "homebrew-tinycast";
-          rev = "16a510a98e61b3ff882844c57f5656386735fa8d";
-          hash = "sha256-2e24I9zGYRK++ff2wBcj11u7KbapzOYYbI/KRpRMsfc=";
+          rev = "75b4c981867552418c0e97f410e203fcf7b324b8";
+          hash = "sha256-MSUFrCQqfxDZ6RQxWQguAMY75YtNMHlMUP/pTVLPjKA=";
         };
       };
     };
@@ -95,7 +89,7 @@
         "discord"
         "ghostty"
         "helium-browser"
-        "abue-ammar/tinycast/tinycast" # native app launcher, raycast replacement
+        "tinycast" # native app launcher, raycast replacement
       ];
     };
   };
