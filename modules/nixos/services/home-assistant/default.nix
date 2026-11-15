@@ -2,6 +2,7 @@
   lib,
   pkgs,
   self,
+  self',
   config,
   ...
 }:
@@ -12,7 +13,7 @@ let
   inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.home-assistant;
-  hashDir = config.services.home-assistant.configDir;
+  hassDir = config.services.home-assistant.configDir;
   thread = cfg.radio != null;
 in
 {
@@ -47,6 +48,12 @@ in
         # matter's operational port, devices send subscription reports here
         # long after any conntrack entry has expired
         5540
+      ];
+      interfaces.wpan0.allowedUDPPortRanges = mkIf thread [
+        {
+          from = 32768;
+          to = 60999;
+        }
       ];
     };
 
@@ -122,15 +129,17 @@ in
         enable = true;
         radio = {
           device = cfg.radio;
-          # the MG24's thread firmware runs at 460800 with flow control
-          baudRate = 460800;
-          flowControl = true;
+          # the MG24's thread firmware (SL-OPENTHREAD 2.4.4.0) talks 115200,
+          # and CTS is never raised so flow control would block every write
+          baudRate = 115200;
+          flowControl = false;
         };
       };
     };
 
-    # home assistant refuses to start if the included files are missing
-    systemd.tmpfiles.rules = map (f: "f ${hashDir}/${f} 0644 hash hash") [
+    systemd.services.matter-server.path = [ self'.legacyPackages.chip-ota-provider-app ];
+
+    systemd.tmpfiles.rules = map (f: "f ${hassDir}/${f} 0644 hass hass") [
       "automations.yaml"
       "scenes.yaml"
       "scripts.yaml"
