@@ -18,7 +18,11 @@
       };
     };
 
-    system.boot.loader = "systemd-boot";
+    system = {
+      boot.loader = "systemd-boot";
+
+      networking.useRouterDns = true;
+    };
 
     services = {
       arr.enable = true;

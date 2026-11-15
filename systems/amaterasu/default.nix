@@ -42,6 +42,8 @@
       printing.enable = false;
       emulation.enable = true;
 
+      networking.useRouterDns = true;
+
       security.auditd.enable = true;
     };
   };
