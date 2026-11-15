@@ -5,7 +5,6 @@
     ../../home
     ./catppuccin.nix
     ./nix
-    ./nixpkgs.nix
     ./programs.nix
     ./system
     ./users
