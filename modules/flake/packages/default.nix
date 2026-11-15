@@ -19,6 +19,8 @@ removeAttrs (pkgs.lib.customisation.makeScope pkgs.newScope (self: {
 
   libdoc = self.callPackage ./docs/lib.nix { };
 
+  mushroom-strategy = self.callPackage ./mushroom-strategy/package.nix { };
+
   optiondoc = self.callPackage ./docs/options.nix { };
 
   update-pins = self.callPackage ./update-pins/package.nix { };
