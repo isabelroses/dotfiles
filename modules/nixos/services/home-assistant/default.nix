@@ -208,7 +208,6 @@ in
               mush-rgb-grey = "108, 112, 134";
               mush-rgb-disabled = "69, 71, 90";
 
-              mush-spacing = "6px";
               mush-title-padding = "12px 12px 6px";
               ha-card-box-shadow = "inset 0px 0px 0px 1px var(--border-color)";
               ha-card-border-color = "rgba(0,0,0,0)";
