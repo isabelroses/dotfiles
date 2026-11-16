@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  extpkgs,
   ...
 }:
 let
@@ -14,12 +15,12 @@ in
 
     xdgOpenUsePortal = true;
 
-    config = {
-      common = {
-        default = [ "gtk" ];
+    extraPortals = [ extpkgs.xdg-desktop-portal-gtk4 ];
 
-        "org.freedesktop.impl.portal.Secret" = [ "oo7-portal" ];
-      };
+    config.common = {
+      default = [ "gtk4" ];
+
+      "org.freedesktop.impl.portal.Secret" = [ "oo7-portal" ];
     };
 
     wlr = {
