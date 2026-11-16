@@ -228,16 +228,16 @@ in
         };
       };
 
-      matter-server = {
+      matterjs-server = {
         enable = true;
-
-        # one of the PAA root certs on the DCL is malformed, and cryptography
-        # 50 throws on it instead of warning. that kills the startup task
-        # before the websocket ever binds, while systemd still says active
-        # top-level, not python3Packages: only it has the server extras
-        package = pkgs.python-matter-server.overridePythonAttrs (oa: {
-          patches = (oa.patches or [ ]) ++ [ ./matter-server-skip-invalid-paa.patch ];
-        });
+        extraArgs = [
+          "--enable-time-sync"
+          # our devices are paired to a fabric created by python-matter-server,
+          # which uses vendor id 4939 (0x134B), not matter.js's default 0xFFF1.
+          # if these don't match, the server ignores that fabric and starts a
+          # new empty one, so every device disappears
+          "--vendorid=4939"
+        ];
       };
 
       openthread-border-router = mkIf thread {
@@ -252,7 +252,7 @@ in
       };
     };
 
-    systemd.services.matter-server.path = [ self'.legacyPackages.chip-ota-provider-app ];
+    systemd.services.matterjs-server.environment.TZ = "Europe/London";
 
     systemd.tmpfiles.rules = map (f: "f ${hassDir}/${f} 0644 hass hass") [
       "automations.yaml"

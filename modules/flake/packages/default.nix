@@ -5,8 +5,6 @@ removeAttrs (pkgs.lib.customisation.makeScope pkgs.newScope (self: {
   inherit inputs;
 
   # keep-sorted start block=yes newline_separated=yes
-  chip-ota-provider-app = self.callPackage ./chip-ota-provider-app/package.nix { };
-
   cmp-stats = self.callPackage ./cmp-stats/package.nix { };
 
   docs = self.callPackage ./docs/package.nix { };
