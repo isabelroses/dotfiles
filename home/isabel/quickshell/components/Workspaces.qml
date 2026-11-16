@@ -8,7 +8,11 @@ BarGroup {
     id: root
 
     Layout.alignment: Qt.AlignCenter
-    spacing: 4
+    spacing: 2
+
+    // one hover tracker for the whole strip, so at most one dot reads as hovered
+    readonly property int hoveredId: hover.hovered ? (root.childAt(hover.point.position.x, hover.point.position.y)?.modelData?.id ?? -1) : -1
+    HoverHandler { id: hover }
 
     WheelHandler {
         acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
@@ -22,30 +26,32 @@ BarGroup {
             id: ws
             required property HyprlandWorkspace modelData
             readonly property bool focused: modelData.focused
+            readonly property bool visibleElsewhere: modelData.active && !focused
+            readonly property bool hot: root.hoveredId === modelData.id
             readonly property color tint: Config.get("bar.workspace_colours")
               ? Settings.colors.pops[(Math.max(1, modelData.id) - 1) % Settings.colors.pops.length]
               : Settings.colors.accent
 
             visible: modelData.id > 0
             Layout.alignment: Qt.AlignCenter
-            implicitWidth: 28
-            implicitHeight: 28
-            radius: Settings.radiusSm
-            color: focused ? tint : hovered ? Settings.colors.surfaceRaised : "transparent"
-            border.width: 1
-            border.color: focused ? tint : hovered ? Settings.colors.borderStrong : Settings.colors.border
+            // fixed slot that fits the longest pill, so dots never shift when focus moves
+            implicitWidth: Settings.barVertical ? 24 : 26
+            implicitHeight: Settings.barVertical ? 26 : 24
             onClicked: modelData.activate()
 
-            Behavior on color { ColorAnimation { duration: Settings.animFast } }
-            Behavior on border.color { ColorAnimation { duration: Settings.animFast } }
-
-            StyledText {
+            Rectangle {
+                // focused: long pill; shown on another monitor: shorter, dimmer tint; otherwise a dot
+                property real length: ws.focused ? 22 : ws.visibleElsewhere ? 14 : 8
                 anchors.centerIn: parent
-                text: ws.modelData.id
-                mono: true
-                color: ws.focused ? Settings.colors.textOnAccent : ws.hovered ? Settings.colors.text : Settings.colors.textMuted
-                font.pixelSize: 12
-                font.weight: Font.Bold
+                width: Settings.barVertical ? 8 : length
+                height: Settings.barVertical ? length : 8
+                radius: 4
+                color: ws.focused || ws.visibleElsewhere ? ws.tint : ws.hot ? Settings.colors.text : Settings.colors.textMuted
+                opacity: ws.focused || ws.hot ? 1 : ws.visibleElsewhere ? 0.6 : 0.5
+
+                Behavior on length { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.OutCubic } }
+                Behavior on color { ColorAnimation { duration: Settings.animFast } }
+                Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
             }
 
             BarTooltip {

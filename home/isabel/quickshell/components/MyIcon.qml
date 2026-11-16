@@ -17,7 +17,9 @@ Item {
     IconImage {
         id: iconSource
         anchors.fill: parent
-        source: Quickshell.iconPath(root.icon)
+        // prefer the symbolic variant: colourising a full-colour icon fills it into a solid block
+        source: root.icon === "" ? ""
+          : Quickshell.iconPath(`${root.icon.replace(/-symbolic$/, "")}-symbolic`, true) || Quickshell.iconPath(root.icon)
         visible: root.icon !== ""
 
         layer.enabled: true

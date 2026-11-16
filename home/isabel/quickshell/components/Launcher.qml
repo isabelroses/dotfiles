@@ -10,9 +10,7 @@ Clickable {
     implicitWidth: 34
     implicitHeight: 34
     radius: Settings.radiusSm
-    color: root.hovered ? Settings.colors.accent : "transparent"
-    border.color: Settings.colors.accent
-    border.width: 1
+    color: root.hovered ? Settings.colors.accent : Settings.colors.accentSoft
     onClicked: Quickshell.execDetached(["vicinae", "toggle"])
 
     Behavior on color { ColorAnimation { duration: Settings.animFast } }

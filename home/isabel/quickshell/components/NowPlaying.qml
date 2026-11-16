@@ -16,8 +16,6 @@ Clickable {
   implicitHeight: 30
   radius: Settings.radiusSm
   color: root.hovered ? Settings.colors.surfaceRaised : "transparent"
-  border.width: 1
-  border.color: root.hovered ? Settings.colors.borderStrong : "transparent"
   acceptedButtons: Qt.LeftButton | Qt.RightButton
   onClicked: (e) => {
     if (e.button === Qt.RightButton) Runtime.toggleNotifications();
