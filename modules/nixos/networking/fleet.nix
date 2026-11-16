@@ -53,8 +53,7 @@ in
       skadi = {
         # oracle NATs the public address to this private one
         ipv4 = "10.0.0.11";
-        # oracle doesn't route 2603:c020:c011:9c00:0:c069:1ff7:1ff3 to the
-        # internet yet, so ipv6 stays off until the vcn does
+        ipv6 = "2603:c020:c011:9c00:0:c069:1ff7:1ff3";
       };
     };
 
