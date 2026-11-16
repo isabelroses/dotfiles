@@ -4,20 +4,22 @@ hl.config({
   general = {
     gaps_in = 0,
     gaps_out = 0,
-    col = {
-      active_border = colors.accent,
-      inactive_border = colors.surface1,
-    },
+    border_size = 0,
   },
 
   decoration = {
     rounding = 0,
+    active_opacity = 0.90,
+    inactive_opacity = 0.85,
+    fullscreen_opacity = 1.0,
     blur = {
-      contrast = 1.3,
-      passes = 2,
-      size = 2,
+      enabled = true,
+      contrast = 1.17,
+      passes = 4,
+      size = 8,
+      vibrancy = 0.25,
       variant = "frost",
-      xray = true,
+      xray = false,
     },
     shadow = {
       color = "rgb(11111B)",
