@@ -113,7 +113,12 @@ in
             mode = "repokey-blake2";
             passCommand = "cat ${jobCfg.passkeyFile}";
           };
-          extraArgs = [ "--remote-path=borg14" ];
+          extraArgs = [
+            "--remote-path=borg14"
+            # hosts share a repo when they share a job name, telling their
+            # archives apart by archiveBaseName, so one waits for the other
+            "--lock-wait=3600"
+          ];
           extraCreateArgs = [
             "--progress"
             "--stats"

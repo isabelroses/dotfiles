@@ -12,7 +12,7 @@ relay = { via = "minerva", services = ["immich", "jellyfin"] }
 
 [freyja.services]
 arr.enable = true
-borgbackup = { enable = true, jobs.postgresql.enable = false }
+borgbackup.enable = true
 immich = { enable = true, host = "0.0.0.0" }
 jellyfin.enable = true
 lethe = { enable = true, host = "0.0.0.0" }
