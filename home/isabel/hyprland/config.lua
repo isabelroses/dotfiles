@@ -2,10 +2,8 @@ local mod = "SUPER"
 
 hl.config({
   general = {
-    border_size = 1,
     gaps_in = 0,
     gaps_out = 0,
-    gaps_workspaces = 0,
     col = {
       active_border = colors.accent,
       inactive_border = colors.surface1,
@@ -14,22 +12,14 @@ hl.config({
 
   decoration = {
     rounding = 0,
-    active_opacity = 1.0,
-    inactive_opacity = 1.0,
-    fullscreen_opacity = 1.0,
     blur = {
-      enabled = true,
-      brightness = 1,
       contrast = 1.3,
-      ignore_opacity = true,
-      new_optimizations = true,
-      noise = 0.0117,
       passes = 2,
       size = 2,
+      variant = "frost",
       xray = true,
     },
     shadow = {
-      enabled = true,
       color = "rgb(11111B)",
       color_inactive = "rgba(11111B00)",
     },
@@ -44,29 +34,22 @@ hl.config({
   },
 
   group = {
-    focus_removed_window = true,
-    insert_after_current = true,
     col = {
       border_active = colors.rosewater,
       border_inactive = colors.surface1,
     },
     groupbar = {
       font_size = 12,
-      gradients = false,
       render_titles = false,
-      scrolling = true,
     },
   },
 
   input = {
     kb_layout = kb,
-    follow_mouse = 1,
     numlock_by_default = true,
     sensitivity = (kb == "us") and -0.8 or 0,
     touchpad = {
       disable_while_typing = false,
-      natural_scroll = false,
-      tap_to_click = true,
     },
   },
 
@@ -75,23 +58,13 @@ hl.config({
     disable_hyprland_logo = true,
     disable_splash_rendering = true,
     enable_anr_dialog = false,
-    enable_swallow = false,
     force_default_wallpaper = 0,
     key_press_enables_dpms = true,
     mouse_move_enables_dpms = true,
-    swallow_regex = "wezterm|foot|cosmic-files|nemo|com.mitchellh.ghostty",
-  },
-
-  cursor = {
-    no_hardware_cursors = true,
-  },
-
-  animations = {
-    enabled = true,
   },
 })
 
--- Monitors; data is taken from the nix config
+-- Monitors
 for _, m in ipairs(monitors) do
   hl.monitor({
     output = m.output,
@@ -101,9 +74,7 @@ for _, m in ipairs(monitors) do
   })
 end
 
--- Spread the 10 workspaces across monitors in contiguous blocks; the last
--- monitor takes any remainder.
--- PERF: don't run on a single monitor; its pointless
+-- Split workspaces 1-10 into contiguous blocks per monitor; the last takes the remainder
 if #monitors > 1 then
   local per_mon = math.floor(10 / #monitors)
   for ws = 1, 10 do
@@ -111,25 +82,22 @@ if #monitors > 1 then
     hl.workspace_rule({
       workspace = ws,
       monitor = monitors[idx + 1].output,
-      default = ws == 1 or nil,
+      default = ws == idx * per_mon + 1 or nil,
     })
   end
 end
 
--- Bezier curves
+-- Animations
 hl.curve("wind", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
 hl.curve("winIn", { type = "bezier", points = { { 0.1, 1.1 }, { 0.1, 1.1 } } })
 hl.curve("winOut", { type = "bezier", points = { { 0.3, -0.3 }, { 0, 1 } } })
 hl.curve("liner", { type = "bezier", points = { { 1, 1 }, { 1, 1 } } })
 hl.curve("easeOut", { type = "bezier", points = { { 0.16, 1 }, { 0.3, 1 } } })
 
--- Animations
-hl.animation({ leaf = "windows", enabled = true, speed = 6, bezier = "wind", style = "slide" })
 hl.animation({ leaf = "windowsIn", enabled = true, speed = 6, bezier = "winIn", style = "slide" })
 hl.animation({ leaf = "windowsOut", enabled = true, speed = 5, bezier = "winOut", style = "slide" })
 hl.animation({ leaf = "windowsMove", enabled = true, speed = 5, bezier = "wind", style = "slide" })
 hl.animation({ leaf = "border", enabled = true, speed = 1, bezier = "liner" })
-hl.animation({ leaf = "borderangle", enabled = true, speed = 30, bezier = "liner", style = "loop" })
 hl.animation({ leaf = "fade", enabled = true, speed = 10, bezier = "default" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 5, bezier = "easeOut" })
 
@@ -138,54 +106,49 @@ hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
 hl.gesture({ fingers = 4, direction = "horizontal", action = "workspace" })
 
 -- Layer rules
-hl.layer_rule({ match = { namespace = "vicinae" }, blur = true, ignore_alpha = 0 })
-hl.layer_rule({ match = { namespace = "vicinae" }, no_anim = true })
-hl.layer_rule({ match = { namespace = "^(quicksettings|settings)$" }, no_anim = true })
+hl.layer_rule({ match = { namespace = "vicinae" }, blur = true, ignore_alpha = 0, no_anim = true })
+hl.layer_rule({ match = { namespace = "quicksettings|notificationcenter|settings" }, no_anim = true })
 
--- Window rules
-hl.window_rule({ match = { title = "^(nm-connection-editor)$" }, float = true })
-hl.window_rule({ match = { title = "^(Network)$" }, float = true })
-hl.window_rule({ match = { title = "^(xdg-desktop-portal-gtk)$" }, float = true })
-hl.window_rule({ match = { class = "gay.vaskel.soteria" }, float = true })
-hl.window_rule({ match = { title = "^(Picture-in-Picture)$" }, float = true })
-hl.window_rule({ match = { class = "^(download)$" }, float = true })
-
-hl.window_rule({
-  match = { initial_title = "(Open Files)" },
-  center = true,
-  float = true,
-  size = "(monitor_w*0.4) (monitor_h*0.6)",
-})
-hl.window_rule({
-  match = { class = ".blueman-manager-wrapped" },
-  center = true,
-  float = true,
-  size = "(monitor_w*0.4) (monitor_h*0.6)",
-})
-hl.window_rule({
-  match = { class = "com.saivert.pwvucontrol" },
-  center = true,
-  float = true,
-  size = "(monitor_w*0.4) (monitor_h*0.6)",
-})
-
-hl.window_rule({ match = { title = "(?i)bitwarden" }, float = true, size = "800 600" })
-
--- Assign apps to workspaces; the layout depends on how many monitors exist
-local app_workspaces
-if #monitors == 2 then
-  app_workspaces = { chromium = 1, discord = 2, ghostty = 6, spotify = 7, signal = 8 }
-else
-  app_workspaces = { chromium = 2, discord = 6, ghostty = 1, spotify = 7, signal = 8 }
-end
-for class, ws in pairs(app_workspaces) do
-  hl.window_rule({ match = { class = "(?i)" .. class }, workspace = tostring(ws) })
+-- Window rules (patterns must match the whole string)
+local floating = {
+  { title = "nm-connection-editor" },
+  { title = "Network" },
+  { title = "xdg-desktop-portal-gtk" },
+  { title = "Picture-in-Picture" },
+  { title = "(?i).*bitwarden.*", size = "800 600" },
+  { class = "gay\\.vaskel\\.soteria" },
+  { class = "download" },
+  { initial_title = "Open Files", dialog = true },
+  { class = "\\.blueman-manager-wrapped", dialog = true },
+  { class = "com\\.saivert\\.pwvucontrol", dialog = true },
+}
+for _, w in ipairs(floating) do
+  hl.window_rule({
+    match = { title = w.title, class = w.class, initial_title = w.initial_title },
+    float = true,
+    center = w.dialog or nil,
+    size = w.dialog and "(monitor_w*0.4) (monitor_h*0.6)" or w.size,
+  })
 end
 
-hl.window_rule({ match = { title = "^(Firefox — Sharing Indicator)$" }, workspace = "special silent" })
-hl.window_rule({ match = { title = "^(.*is sharing (your screen|a window).)$" }, workspace = "special silent" })
+local app_workspaces = {
+  -- class,                      2 monitors, otherwise
+  { "(?i)chromium(-browser)?",   1, 2 },
+  { "(?i)discord",               2, 6 },
+  { "com\\.mitchellh\\.ghostty", 6, 1 },
+  { "(?i)spotify",               7, 7 },
+  { "(?i)signal",                8, 8 },
+}
+for _, app in ipairs(app_workspaces) do
+  local ws = #monitors == 2 and app[2] or app[3]
+  hl.window_rule({ match = { class = app[1] }, workspace = tostring(ws) })
+end
 
--- Keybindings
+-- Screen-share indicators
+hl.window_rule({ match = { title = "Firefox — Sharing Indicator" }, workspace = "special silent" })
+hl.window_rule({ match = { title = ".*is sharing (your screen|a window)\\." }, workspace = "special silent" })
+
+-- Apps
 hl.bind(mod .. " + D", hl.dsp.exec_cmd("vicinae toggle"))
 hl.bind(mod .. " + B", hl.dsp.exec_cmd("chromium"))
 hl.bind(mod .. " + E", hl.dsp.exec_cmd("cosmic-files"))
@@ -194,74 +157,71 @@ hl.bind(mod .. " + L", hl.dsp.exec_cmd("qs ipc call shell lock"))
 hl.bind(mod .. " + O", hl.dsp.exec_cmd("obsidian"))
 hl.bind(mod .. " + SHIFT + V", hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"))
 
+-- Windows
 hl.bind(mod .. " + Q", hl.dsp.window.close())
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mod .. " + Space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mod .. " + P", hl.dsp.window.pseudo())
-
-hl.bind(mod .. " + grave", hl.dsp.workspace.toggle_special())
-hl.bind(mod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special" }))
-
--- Screenshots
-hl.bind("Print", hl.dsp.exec_cmd("qs ipc call screenshot menu"))
-hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("qs ipc call screenshot region"))
-hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("qs ipc call screenshot menu"))
-
--- Audio / media keys
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"))
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"))
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"))
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"))
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
-
--- Repeating volume / brightness
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl --class=backlight set 5%+ -q"), { repeating = true })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl --class=backlight set 5%- -q"), { repeating = true })
-
--- Workspaces 1..10
-for i = 1, 10 do
-  local key = i % 10 -- 10 -> 0
-  hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-  hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
-end
-
--- Workspace scroll
-hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
-
--- Mouse drag / resize
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
--- Submap: move
+-- Screenshots
+hl.bind("Print", hl.dsp.exec_cmd("qs ipc call screenshot menu"))
+hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("qs ipc call screenshot menu"))
+hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("qs ipc call screenshot region"))
+
+-- Media keys, usable on the lock screen
+local media = {
+  { "XF86AudioMute", "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle" },
+  { "XF86AudioMicMute", "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle" },
+  { "XF86AudioPlay", "playerctl play-pause" },
+  { "XF86AudioPause", "playerctl play-pause" },
+  { "XF86AudioNext", "playerctl next" },
+  { "XF86AudioPrev", "playerctl previous" },
+  { "XF86AudioRaiseVolume", "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+", true },
+  { "XF86AudioLowerVolume", "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-", true },
+  { "XF86MonBrightnessUp", "qs ipc call brightness up", true },
+  { "XF86MonBrightnessDown", "qs ipc call brightness down", true },
+}
+for _, k in ipairs(media) do
+  hl.bind(k[1], hl.dsp.exec_cmd(k[2]), { locked = true, repeating = k[3] })
+end
+
+-- Workspaces
+for i = 1, 10 do
+  local key = i % 10
+  hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+  hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+end
+hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mod .. " + grave", hl.dsp.workspace.toggle_special())
+hl.bind(mod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special" }))
+
+-- Move / resize submaps; arrows or ijkl
+local directions = {
+  { keys = { "left", "j" }, dir = "l", x = -20, y = 0 },
+  { keys = { "right", "l" }, dir = "r", x = 20, y = 0 },
+  { keys = { "up", "i" }, dir = "u", x = 0, y = -20 },
+  { keys = { "down", "k" }, dir = "d", x = 0, y = 20 },
+}
+
 hl.bind(mod .. " + M", hl.dsp.submap("move"))
 hl.define_submap("move", function()
-  hl.bind("left", hl.dsp.window.move({ direction = "l" }), { repeating = true })
-  hl.bind("right", hl.dsp.window.move({ direction = "r" }), { repeating = true })
-  hl.bind("up", hl.dsp.window.move({ direction = "u" }), { repeating = true })
-  hl.bind("down", hl.dsp.window.move({ direction = "d" }), { repeating = true })
-  hl.bind("j", hl.dsp.window.move({ direction = "l" }), { repeating = true })
-  hl.bind("l", hl.dsp.window.move({ direction = "r" }), { repeating = true })
-  hl.bind("i", hl.dsp.window.move({ direction = "u" }), { repeating = true })
-  hl.bind("k", hl.dsp.window.move({ direction = "d" }), { repeating = true })
-
+  for _, d in ipairs(directions) do
+    for _, key in ipairs(d.keys) do
+      hl.bind(key, hl.dsp.window.move({ direction = d.dir }), { repeating = true })
+    end
+  end
   hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
--- Submap: resize
 hl.bind(mod .. " + R", hl.dsp.submap("resize"))
 hl.define_submap("resize", function()
-  hl.bind("left", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
-  hl.bind("right", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
-  hl.bind("up", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
-  hl.bind("down", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
-  hl.bind("h", hl.dsp.window.resize({ x = -20, y = 0, relative = true }), { repeating = true })
-  hl.bind("j", hl.dsp.window.resize({ x = 20, y = 0, relative = true }), { repeating = true })
-  hl.bind("i", hl.dsp.window.resize({ x = 0, y = -20, relative = true }), { repeating = true })
-  hl.bind("k", hl.dsp.window.resize({ x = 0, y = 20, relative = true }), { repeating = true })
-
+  for _, d in ipairs(directions) do
+    for _, key in ipairs(d.keys) do
+      hl.bind(key, hl.dsp.window.resize({ x = d.x, y = d.y, relative = true }), { repeating = true })
+    end
+  end
   hl.bind("escape", hl.dsp.submap("reset"))
 end)
