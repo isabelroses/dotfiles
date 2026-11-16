@@ -133,11 +133,11 @@ end
 
 local app_workspaces = {
   -- class,                      2 monitors, otherwise
-  { "(?i)chromium(-browser)?",   1, 2 },
-  { "(?i)discord",               2, 6 },
+  { "(?i)chromium(-browser)?", 1, 2 },
+  { "(?i)discord", 2, 6 },
   { "com\\.mitchellh\\.ghostty", 6, 1 },
-  { "(?i)spotify",               7, 7 },
-  { "(?i)signal",                8, 8 },
+  { "(?i)spotify", 7, 7 },
+  { "(?i)signal", 8, 8 },
 }
 for _, app in ipairs(app_workspaces) do
   local ws = #monitors == 2 and app[2] or app[3]
