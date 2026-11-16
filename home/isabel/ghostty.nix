@@ -16,7 +16,8 @@ in
     settings = {
       command = "/run/current-system/sw/bin/fish";
 
-      background-opacity = 0.90;
+      # transparency is handled by hyprland's opacity + blur on linux
+      background-opacity = mkIf isDarwin 0.90;
       cursor-style = "bar";
       window-padding-x = "4,4";
 
