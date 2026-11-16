@@ -50,7 +50,7 @@ in
         enable = true;
         environmentFile = config.sops.secrets.vaultwarden-env.path;
 
-        # https://github.com/dani-garcia/vaultwarden/blob/1.34.1/.env.template
+        # https://github.com/dani-garcia/vaultwarden/blob/1.37.5/.env.template
         config = {
           DOMAIN = "https://${cfg.domain}";
           ROCKET_ADDRESS = cfg.host;
