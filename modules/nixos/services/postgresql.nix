@@ -6,15 +6,17 @@
   ...
 }:
 let
+  inherit (self.lib) mkService;
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services;
   # dump right before borg runs, only on hosts that back postgres up
-  dumped = cfg.borgbackup.enable && cfg.borgbackup.jobs.postgresql.enable;
+  dumped = cfg.borgbackup.enable && config.garden.backups.jobs.postgresql.enable;
 in
 {
-  options.garden.services.postgresql = mkServiceOption "postgresql" { };
+  imports = [
+    (mkService "postgresql" { })
+  ];
 
   config = mkIf cfg.postgresql.enable {
     systemd.tmpfiles.settings."postgresql"."/srv/storage/postgresql".d = {
@@ -23,7 +25,7 @@ in
       group = "postgres";
     };
 
-    garden.services.borgbackup.jobs.postgresql = {
+    garden.backups.jobs.postgresql = {
       paths = [ config.services.postgresqlBackup.location ];
     };
 

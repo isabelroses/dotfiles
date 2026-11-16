@@ -21,6 +21,7 @@ in
     ./networkmanager.nix
     ./openssh.nix
     ./optimise.nix
+    ./relay.nix
     ./systemd.nix
     ./tailscale.nix
     ./vpn.nix

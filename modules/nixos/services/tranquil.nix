@@ -8,13 +8,15 @@ let
   cfg = config.garden.services.tranquil;
 
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkSecret mkService;
 in
 {
-  options.garden.services.tranquil = mkServiceOption "tranquil" {
-    port = 3032;
-    domain = "pds.isabelroses.com";
-  };
+  imports = [
+    (mkService "tranquil" {
+      port = 3032;
+      domain = "pds.isabelroses.com";
+    })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets.tranquil-env = mkSecret {

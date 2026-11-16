@@ -5,8 +5,7 @@
 callPackage ./mk-test-check.nix { } "nix-flake-tests" {
   # fail2ban only reads extra regexes from indented continuation lines
   testJournalJailRegexes = {
-    expr =
-      (self.lib.fail2ban.journalJail "forgejo" [ "a <ADDR>" "b <ADDR>" ] { }).filter.Definition.failregex;
+    expr = (self.lib.journalJail "forgejo" [ "a <ADDR>" "b <ADDR>" ] { }).filter.Definition.failregex;
     expected = "a <ADDR>\n    b <ADDR>";
   };
 

@@ -5,16 +5,18 @@
   ...
 }:
 let
+  inherit (self.lib) mkService;
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.prowlarr;
 in
 {
-  options.garden.services.prowlarr = mkServiceOption "prowlarr" {
-    port = 3022;
-    host = "0.0.0.0";
-  };
+  imports = [
+    (mkService "prowlarr" {
+      port = 3022;
+      host = "0.0.0.0";
+    })
+  ];
 
   config = mkIf config.garden.services.prowlarr.enable {
     services.prowlarr = {

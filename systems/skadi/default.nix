@@ -18,12 +18,5 @@
         initrd.tweaks.enable = false;
       };
     };
-
-    services = {
-      nginx.enable = true;
-      gatus.enable = true;
-      pds.enable = true;
-      piper.enable = true;
-    };
   };
 }

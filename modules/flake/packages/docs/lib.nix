@@ -12,12 +12,8 @@
       description = "helpers";
     }
     {
-      name = "secrets";
-      description = "secrets";
-    }
-    {
-      name = "services";
-      description = "services";
+      name = "modules";
+      description = "what service modules use";
     }
     {
       name = "validators";

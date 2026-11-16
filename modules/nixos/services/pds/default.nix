@@ -12,23 +12,17 @@ let
 
   inherit (lib.modules) mkIf;
   inherit (lib.strings) concatStringsSep;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkSecret mkService;
 in
 {
-  options.garden.services = {
-    pds = mkServiceOption "pds" {
+  imports = [
+    (mkService "pds" {
       port = 3001;
       domain = "pds.tgirl.cloud";
-    };
-
-    pds-gatekeeper = mkServiceOption "pds-gatekeeper" {
-      port = 3002;
-    };
-
-    pds-dash = mkServiceOption "pds-dash" {
-      port = 3014;
-    };
-  };
+    })
+    (mkService "pds-gatekeeper" { port = 3002; })
+    (mkService "pds-dash" { port = 3014; })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets = {

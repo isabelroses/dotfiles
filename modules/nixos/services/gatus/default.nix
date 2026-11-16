@@ -8,9 +8,7 @@ let
   inherit (lib.modules) mkIf;
   inherit (lib.lists) map;
   inherit (lib.strings) optionalString;
-  inherit (lib.options) mkOption;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (self.lib) mkSecret mkService;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.gatus;
@@ -36,18 +34,13 @@ let
   );
 in
 {
-  options.garden.services.gatus =
-    mkServiceOption "gatus" {
+  imports = [
+    (mkService "gatus" {
       port = 3008;
       domain = "status.${rdomain}";
-    }
-    // {
-      isPersonal = mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Whether this is a personal deployment of gatus";
-      };
-    };
+      isPersonal = true;
+    })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets = {

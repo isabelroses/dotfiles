@@ -1,15 +1,28 @@
-{ lib, config, ... }:
+# the fleet is systems/fleet.toml: facts about every host and the garden.services
+# each one runs. every host reads all of it, so no host has to evaluate another
+{
+  lib,
+  self,
+  config,
+  options,
+  ...
+}:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption;
   inherit (lib.types)
     attrsOf
+    listOf
     nullOr
     str
     submodule
     ;
 
-  wakeOnLan = config.garden.fleet.${config.networking.hostName}.wakeOnLan or null;
+  data = lib.trivial.importTOML "${self}/systems/fleet.toml";
+
+  # not every host has an entry
+  fleet = config.garden.fleet.${config.networking.hostName} or { };
+  wakeOnLan = fleet.wakeOnLan or null;
 
   address =
     description: example:
@@ -27,34 +40,52 @@ in
           ipv4 = address "The IPv4 address on the host's primary interface" "203.0.113.10";
           ipv6 = address "The IPv6 address on the host's primary interface" "2001:db8::1";
           wakeOnLan = address "The interface on which to enable Wake-on-LAN" "enp1s0";
+
+          services = mkOption {
+            # the same type as garden.services, so the relay sees typed values
+            inherit (options.garden.services) type;
+            default = { };
+            example = {
+              immich = {
+                enable = true;
+                host = "0.0.0.0";
+              };
+            };
+            description = "The host's garden.services settings, which it takes as its own";
+          };
+
+          relay = mkOption {
+            type = nullOr (submodule {
+              options = {
+                via = mkOption {
+                  type = str;
+                  example = "minerva";
+                  description = "The host that serves this host's public services and proxies them to it over tailscale";
+                };
+
+                services = mkOption {
+                  type = listOf str;
+                  example = [ "immich" ];
+                  description = "The garden.services the relay serves, at the port and domain this host gives them";
+                };
+              };
+            });
+            default = null;
+            description = "Public services this host can't serve itself, usually because it sits behind NAT";
+          };
         };
       });
       default = { };
       description = "Facts about every host, identical on all of them, so no host has to evaluate another to learn about it";
     };
-
   };
 
   config = {
-    garden.fleet = {
-      amaterasu = {
-        wakeOnLan = "enp4s0";
-      };
+    garden = {
+      fleet = data;
 
-      freyja = {
-        wakeOnLan = "enp6s0";
-      };
-
-      minerva = {
-        ipv4 = "91.107.198.173";
-        ipv6 = "2a01:4f8:c012:2f67::1";
-      };
-
-      skadi = {
-        # oracle NATs the public address to this private one
-        ipv4 = "10.0.0.11";
-        ipv6 = "2603:c020:c011:9c00:0:c069:1ff7:1ff3";
-      };
+      # raw, so the typed defaults (enable = false and the fallbacks) stay out
+      services = data.${config.networking.hostName}.services or { };
     };
 
     networking = mkIf (wakeOnLan != null) {

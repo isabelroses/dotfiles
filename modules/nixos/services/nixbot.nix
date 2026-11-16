@@ -7,16 +7,17 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkSecret mkService;
 
   inherit (config.sops) secrets;
   rdomain = config.networking.domain;
   cfg = config.garden.services.nixbot;
 in
 {
-  options.garden.services.nixbot = mkServiceOption "nixbot" { domain = "ci.${rdomain}"; };
-
-  imports = [ inputs.nixbot.nixosModules.default ];
+  imports = [
+    inputs.nixbot.nixosModules.default
+    (mkService "nixbot" { domain = "ci.${rdomain}"; })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets = {

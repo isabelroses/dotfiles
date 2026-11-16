@@ -10,34 +10,24 @@ let
   rdomain = config.networking.domain;
 
   inherit (lib.modules) mkIf;
-  inherit (lib.options) mkOption;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkSecret mkService;
 in
 {
-  options.garden.services.immich =
-    mkServiceOption "immich" {
+  imports = [
+    (mkService "immich" {
       port = 3007;
       domain = "photos.${rdomain}";
-    }
-    // {
-      machineLearningPort = mkOption {
-        type = lib.types.port;
-        default = 3003;
-        readOnly = true;
-        description = "The port immich's machine learning listens on, which nixpkgs fixes";
-      };
-    };
+      # nixpkgs fixes the machine learning port
+      machineLearningPort = 3003;
+    })
+  ];
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ cfg.port ];
 
-    garden.services = {
-      postgresql.enable = true;
-
-      borgbackup.jobs.immich = {
-        paths = [ config.services.immich.mediaLocation ];
-        exclude = [ "**/thumbs/**" ];
-      };
+    garden.backups.jobs.immich = {
+      paths = [ config.services.immich.mediaLocation ];
+      exclude = [ "**/thumbs/**" ];
     };
 
     sops.secrets = {

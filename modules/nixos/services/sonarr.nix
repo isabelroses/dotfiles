@@ -5,16 +5,18 @@
   ...
 }:
 let
+  inherit (self.lib) mkService;
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.sonarr;
 in
 {
-  options.garden.services.sonarr = mkServiceOption "sonarr" {
-    port = 3020;
-    host = "0.0.0.0";
-  };
+  imports = [
+    (mkService "sonarr" {
+      port = 3020;
+      host = "0.0.0.0";
+    })
+  ];
 
   config = mkIf config.garden.services.sonarr.enable {
     services.sonarr = {

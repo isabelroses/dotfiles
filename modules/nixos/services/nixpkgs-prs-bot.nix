@@ -6,16 +6,17 @@
 }:
 let
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.options) mkEnableOption;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkSecret mkService;
 
   cfg = config.garden.services.nixpkgs-prs-bot;
 in
 {
-  options.garden.services.nixpkgs-prs-bot = mkServiceOption "nixpkgs-prs-bot" { } // {
-    fedi.enable = mkEnableOption "fedi";
-    bsky.enable = mkEnableOption "bsky";
-  };
+  imports = [
+    (mkService "nixpkgs-prs-bot" {
+      fedi.enable = false;
+      bsky.enable = false;
+    })
+  ];
 
   config = mkIf cfg.enable (mkMerge [
     {
