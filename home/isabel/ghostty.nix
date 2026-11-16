@@ -24,7 +24,6 @@ in
       # full-screen apps like nvim reach the window borders. Ghostty skips extending
       # for prompt rows and default-bg rows, so the shell keeps the plain padding
       window-padding-color = mkIf isLinux "extend";
-      window-padding-balance = mkIf isLinux true;
 
       gtk-titlebar = false;
 
