@@ -6,16 +6,18 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkSecret mkService;
 
   cfg = config.garden.services.blahaj;
 in
 {
-  options.garden.services.blahaj = mkServiceOption "blahaj" {
-    # blahaj's module has no port option, it always listens on 3000
-    port = 3000;
-    domain = "blahaj.isabelroses.com";
-  };
+  imports = [
+    (mkService "blahaj" {
+      # blahaj's module has no port option, it always listens on 3000
+      port = 3000;
+      domain = "blahaj.isabelroses.com";
+    })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets.blahaj-env = mkSecret {

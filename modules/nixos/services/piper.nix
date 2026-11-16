@@ -6,15 +6,17 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkSecret mkService;
 
   cfg = config.garden.services.piper;
 in
 {
-  options.garden.services.piper = mkServiceOption "piper" {
-    port = 3015;
-    domain = "piper.kittysay.xyz";
-  };
+  imports = [
+    (mkService "piper" {
+      port = 3015;
+      domain = "piper.kittysay.xyz";
+    })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets = {

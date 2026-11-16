@@ -6,7 +6,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption mkSecret journalJail;
+  inherit (self.lib) mkSecret journalJail mkService;
 
   # https://github.com/dani-garcia/vaultwarden/wiki/Fail2Ban-Setup
   jail =
@@ -21,10 +21,12 @@ let
   cfg = config.garden.services.vaultwarden;
 in
 {
-  options.garden.services.vaultwarden = mkServiceOption "vaultwarden" {
-    port = 3013;
-    domain = "vault.${rdomain}";
-  };
+  imports = [
+    (mkService "vaultwarden" {
+      port = 3013;
+      domain = "vault.${rdomain}";
+    })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets = {
@@ -36,7 +38,7 @@ in
       };
     };
 
-    garden.services.borgbackup.jobs.vaultwarden = {
+    garden.backups.jobs.vaultwarden = {
       paths = [ config.services.vaultwarden.config.DATA_DIR ];
     };
 

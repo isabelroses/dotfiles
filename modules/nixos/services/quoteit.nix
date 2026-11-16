@@ -5,16 +5,18 @@
   ...
 }:
 let
+  inherit (self.lib) mkService;
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.quoteit;
 in
 {
-  options.garden.services.quoteit = mkServiceOption "quoteit" {
-    port = 3018;
-    domain = "evilbel.org";
-  };
+  imports = [
+    (mkService "quoteit" {
+      port = 3018;
+      domain = "evilbel.org";
+    })
+  ];
 
   config = mkIf cfg.enable {
     services = {

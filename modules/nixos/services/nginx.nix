@@ -5,10 +5,14 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkDefault mkMerge;
+  inherit (self.lib) mkService;
+  inherit (lib.modules)
+    mkIf
+    mkDefault
+    mkMerge
+    ;
   inherit (lib.options) mkOption;
   inherit (lib) types;
-  inherit (self.lib) mkServiceOption;
   f2bweb = self.lib.fail2ban.web;
 
   cfg = config.garden.services.nginx;
@@ -31,11 +35,11 @@ in
         })
       );
     };
-
-    garden.services.nginx = mkServiceOption "nginx" {
-      domain = "isabelroses.com";
-    };
   };
+
+  imports = [
+    (mkService "nginx" { domain = "isabelroses.com"; })
+  ];
 
   config = mkMerge [
     { networking = { inherit (cfg) domain; }; }

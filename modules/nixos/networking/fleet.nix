@@ -4,19 +4,21 @@
   lib,
   self,
   config,
+  options,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
   inherit (lib.options) mkOption;
   inherit (lib.types)
-    anything
     attrsOf
     listOf
     nullOr
     str
     submodule
     ;
+
+  data = lib.trivial.importTOML "${self}/systems/fleet.toml";
 
   # not every host has an entry
   fleet = config.garden.fleet.${config.networking.hostName} or { };
@@ -40,7 +42,8 @@ in
           wakeOnLan = address "The interface on which to enable Wake-on-LAN" "enp1s0";
 
           services = mkOption {
-            type = attrsOf (attrsOf anything);
+            # the same type as garden.services, so the relay sees typed values
+            inherit (options.garden.services) type;
             default = { };
             example = {
               immich = {
@@ -79,9 +82,10 @@ in
 
   config = {
     garden = {
-      fleet = lib.trivial.importTOML "${self}/systems/fleet.toml";
+      fleet = data;
 
-      services = fleet.services or { };
+      # raw, so the typed defaults (enable = false and the fallbacks) stay out
+      services = data.${config.networking.hostName}.services or { };
     };
 
     networking = mkIf (wakeOnLan != null) {

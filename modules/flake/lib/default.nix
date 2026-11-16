@@ -23,6 +23,6 @@ lib.fixedPoints.makeExtensible (final: {
   inherit (final.fail2ban) journalJail;
   inherit (final.helpers) mkPubs giturl;
   inherit (final.secrets) mkSecret;
-  inherit (final.services) mkServiceOption;
+  inherit (final.services) mkService;
   inherit (final.validators) anyHome;
 })

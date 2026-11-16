@@ -5,16 +5,18 @@
   ...
 }:
 let
+  inherit (self.lib) mkService;
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.radarr;
 in
 {
-  options.garden.services.radarr = mkServiceOption "radarr" {
-    port = 3021;
-    host = "0.0.0.0";
-  };
+  imports = [
+    (mkService "radarr" {
+      port = 3021;
+      host = "0.0.0.0";
+    })
+  ];
 
   config = mkIf config.garden.services.radarr.enable {
     services.radarr = {

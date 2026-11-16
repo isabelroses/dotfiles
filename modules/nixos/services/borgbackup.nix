@@ -9,12 +9,13 @@ let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib) types;
-  inherit (self.lib) mkServiceOption mkSecret mkPubs;
+  inherit (self.lib) mkSecret mkPubs mkService;
 
   cfg = config.garden.services.borgbackup;
+  inherit (config.garden.backups) jobs;
 in
 {
-  options.garden.services.borgbackup = mkServiceOption "borgbackup" { } // {
+  options.garden.backups = {
     jobs = mkOption {
       type = types.attrsOf (
         types.submodule (
@@ -67,7 +68,10 @@ in
     };
   };
 
-  config = lib.modules.mkIf cfg.enable {
+  # nothing to default, but the entry has to exist for others to read
+  imports = [ (mkService "borgbackup" { }) ];
+
+  config = mkIf cfg.enable {
     sops.secrets = mkMerge [
       {
         borg-sshkey = mkSecret {
@@ -81,7 +85,7 @@ in
           file = "borg";
           key = "${name}-passphrase";
         };
-      }) (filterAttrs (_: job: job.enable) cfg.jobs))
+      }) (filterAttrs (_: job: job.enable) jobs))
     ];
 
     services = {
@@ -134,7 +138,7 @@ in
           persistentTimer = true;
           doInit = false;
         }
-      ) cfg.jobs;
+      ) jobs;
     };
   };
 }

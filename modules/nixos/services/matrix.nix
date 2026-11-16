@@ -7,7 +7,7 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkSecret mkService;
 
   rdomain = config.networking.domain;
 
@@ -29,20 +29,18 @@ let
   '';
 in
 {
-  options.garden.services.matrix = mkServiceOption "matrix" {
-    port = 3012;
-    host = "::1";
-    domain = "matrix.${rdomain}";
-  };
+  imports = [
+    (mkService "matrix" {
+      port = 3012;
+      host = "::1";
+      domain = "matrix.${rdomain}";
+    })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets.matrix = mkSecret {
       file = "matrix";
       owner = "matrix-synapse";
-    };
-
-    garden.services = {
-      postgresql.enable = true;
     };
 
     services = {

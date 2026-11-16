@@ -7,16 +7,20 @@
   ...
 }:
 let
-  inherit (lib.modules) mkIf mkForce;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (lib.modules)
+    mkIf
+    mkForce
+    ;
+  inherit (self.lib) mkSecret mkService;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.mailserver;
 in
 {
-  imports = [ inputs.simple-nixos-mailserver.nixosModules.default ];
-
-  options.garden.services.mailserver = mkServiceOption "mailserver" { domain = "mail.${rdomain}"; };
+  imports = [
+    inputs.simple-nixos-mailserver.nixosModules.default
+    (mkService "mailserver" { domain = "mail.${rdomain}"; })
+  ];
 
   config = lib.modules.mkMerge [
     {
@@ -27,11 +31,6 @@ in
     }
 
     (mkIf cfg.enable {
-      garden.services = {
-        redis.enable = true;
-        postgresql.enable = true;
-      };
-
       sops.secrets = {
         mailserver-isabel = mkSecret {
           file = "mailserver";

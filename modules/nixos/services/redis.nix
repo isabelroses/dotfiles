@@ -1,19 +1,21 @@
 {
   lib,
-  pkgs,
   self,
+  pkgs,
   config,
   ...
 }:
 let
+  inherit (self.lib) mkService;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (self.lib.services) mkServiceOption;
 
   cfg = config.garden.services;
 in
 {
   # only forgejo's server for now, so it gets the port
-  options.garden.services.redis = mkServiceOption "redis" { port = 6371; };
+  imports = [
+    (mkService "redis" { port = 6371; })
+  ];
 
   config = mkIf cfg.redis.enable {
     services.redis = {

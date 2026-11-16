@@ -6,14 +6,14 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkSecret mkService;
 
   cfg = config.garden.services.lethe;
 in
 {
-  options.garden.services.lethe = mkServiceOption "lethe" {
-    port = 7374;
-  };
+  imports = [
+    (mkService "lethe" { port = 7374; })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets.lethe-token = mkSecret {

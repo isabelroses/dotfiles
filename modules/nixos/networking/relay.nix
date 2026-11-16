@@ -10,6 +10,7 @@ let
     ;
   inherit (lib.lists) concatLists;
   inherit (lib.modules) mkIf;
+  inherit (lib.trivial) defaultTo;
 
   inherit (config.networking) hostName;
 
@@ -29,8 +30,8 @@ let
         {
           inherit host name;
           enable = set.enable or false;
-          port = set.port or defaults.port;
-          domain = set.domain or defaults.domain;
+          port = defaultTo defaults.port (set.port or null);
+          domain = defaultTo defaults.domain (set.domain or null);
         }
       ) fleet.relay.services
     ) relayed

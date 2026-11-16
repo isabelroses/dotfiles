@@ -1,44 +1,31 @@
 {
   lib,
-  pkgs,
   self,
+  pkgs,
   self',
   config,
   ...
 }:
 let
+  inherit (self.lib) mkService;
   inherit (lib.modules) mkIf;
-  inherit (lib.options) mkOption;
-  inherit (lib.types) nullOr path;
-  inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.home-assistant;
   hassDir = config.services.home-assistant.configDir;
   thread = cfg.radio != null;
 in
 {
-  options.garden.services.home-assistant =
-    mkServiceOption "home-assistant" {
+  imports = [
+    (mkService "home-assistant" {
       port = 8123;
       host = "0.0.0.0";
       domain = "home.${config.networking.domain}";
-    }
-    // {
-      radio = mkOption {
-        type = nullOr path;
-        default = null;
-        example = "/dev/serial/by-id/usb-SONOFF_SONOFF_Dongle_Plus_MG24_...-if00-port0";
-        description = ''
-          Serial path of a Thread RCP radio, e.g. the Sonoff Dongle Plus MG24
-          flashed with Thread (RCP) firmware. Setting this enables the
-          OpenThread border router.
-        '';
-      };
-    };
+      # serial path of a thread rcp radio, setting it enables the openthread border router
+      radio = null;
+    })
+  ];
 
   config = mkIf cfg.enable {
-    garden.services.postgresql.enable = true;
-
     networking.firewall = {
       allowedTCPPorts = [ cfg.port ];
       allowedUDPPorts = [

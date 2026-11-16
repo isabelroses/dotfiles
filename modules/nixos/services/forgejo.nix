@@ -10,14 +10,19 @@ let
   socket = "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}";
   rdomain = config.networking.domain;
 
-  inherit (lib.modules) mkIf mkForce;
-  inherit (self.lib) mkServiceOption mkSecret journalJail;
+  inherit (lib.modules)
+    mkIf
+    mkForce
+    ;
+  inherit (self.lib) mkSecret journalJail mkService;
 in
 {
-  options.garden.services.forgejo = mkServiceOption "forgejo" {
-    port = 3011;
-    domain = "git.${rdomain}";
-  };
+  imports = [
+    (mkService "forgejo" {
+      port = 3011;
+      domain = "git.${rdomain}";
+    })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets = {
@@ -29,14 +34,7 @@ in
       };
     };
 
-    garden.services = {
-      redis.enable = true;
-      postgresql.enable = true;
-
-      borgbackup.jobs.forgejo = {
-        paths = [ config.services.forgejo.stateDir ];
-      };
-    };
+    garden.backups.jobs.forgejo.paths = [ config.services.forgejo.stateDir ];
 
     networking.firewall.allowedTCPPorts = [
       config.services.forgejo.settings.server.SSH_PORT

@@ -9,13 +9,15 @@ let
   rdomain = config.networking.domain;
 
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption mkSecret;
+  inherit (self.lib) mkSecret mkService;
 in
 {
-  options.garden.services.snot = mkServiceOption "snot" {
-    port = 3033;
-    domain = "knot.${rdomain}";
-  };
+  imports = [
+    (mkService "snot" {
+      port = 3033;
+      domain = "knot.${rdomain}";
+    })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets.snot-webhook = mkSecret {

@@ -5,23 +5,21 @@
   ...
 }:
 let
+  inherit (self.lib) mkService;
   inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.atuin;
 in
 {
-  options.garden.services.atuin = mkServiceOption "atuin" {
-    port = 3004;
-    domain = "atuin.${rdomain}";
-  };
+  imports = [
+    (mkService "atuin" {
+      port = 3004;
+      domain = "atuin.${rdomain}";
+    })
+  ];
 
   config = mkIf cfg.enable {
-    garden.services = {
-      postgresql.enable = true;
-    };
-
     services = {
       atuin = {
         enable = true;

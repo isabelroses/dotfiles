@@ -5,17 +5,19 @@
   ...
 }:
 let
+  inherit (self.lib) mkService;
   inherit (lib.modules) mkIf;
-  inherit (self.lib) mkServiceOption;
 
   cfg = config.garden.services.jellyfin;
 in
 {
-  options.garden.services.jellyfin = mkServiceOption "jellyfin" {
-    port = 8096;
-    host = null;
-    domain = "tv.${config.networking.domain}";
-  };
+  imports = [
+    (mkService "jellyfin" {
+      port = 8096;
+      host = null;
+      domain = "tv.${config.networking.domain}";
+    })
+  ];
 
   config = mkIf config.garden.services.jellyfin.enable {
     # the web port plus jellyfin's client discovery ports

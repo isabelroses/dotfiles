@@ -1,50 +1,39 @@
-{ lib, config, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
+  inherit (self.lib) mkService;
   inherit (lib.attrsets) genAttrs;
-  inherit (lib.options) mkEnableOption mkOption;
-  inherit (lib) types;
+  inherit (lib.modules) mkIf;
 
   cfg = config.garden.services.arr;
 in
 {
-  options.garden.services.arr = {
-    enable = mkEnableOption "arr services";
-
-    mediaDir = mkOption {
-      type = types.str;
-      default = "/media";
-      description = "Directory for storing media files managed by arr services";
-    };
-
-    contentDir = mkOption {
-      type = types.str;
-      default = "${cfg.mediaDir}/content";
-      defaultText = "\${cfg.mediaDir}/content";
-      description = "Directory for storing application data for arr services";
-    };
-
-    mediaOwner = mkOption {
-      type = types.str;
-      default = "root";
-      description = "User that owns the media and content directories";
-    };
-
-    mediaGroup = mkOption {
-      type = types.str;
-      default = "media";
-      description = "Group that owns the media and content directories";
-    };
-  };
+  # garden.services is one attrsOf, so these can't be typed options here
+  imports = [
+    (mkService "arr" {
+      # directory for storing media files managed by arr services
+      mediaDir = "/media";
+      # user and group that own the media and content directories
+      mediaOwner = "root";
+      mediaGroup = "media";
+    })
+    # inside its own mkIf, turning these on would recurse
+    {
+      garden.services = {
+        jellyfin.enable = mkIf cfg.enable true;
+        sonarr.enable = mkIf cfg.enable true;
+        radarr.enable = mkIf cfg.enable true;
+        prowlarr.enable = mkIf cfg.enable true;
+        qbittorrent.enable = mkIf cfg.enable true;
+      };
+    }
+  ];
 
   config = lib.modules.mkIf cfg.enable {
-    garden.services = {
-      jellyfin.enable = true;
-      sonarr.enable = true;
-      radarr.enable = true;
-      prowlarr.enable = true;
-      qbittorrent.enable = true;
-    };
-
     users.groups.media = { };
 
     systemd.tmpfiles.settings."media-content-dirs" =

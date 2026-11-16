@@ -6,17 +6,18 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (self.lib.services) mkServiceOption;
-  inherit (self.lib) mkSecret;
+  inherit (self.lib) mkSecret mkService;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.wakapi;
 in
 {
-  options.garden.services.wakapi = mkServiceOption "wakapi" {
-    port = 3006;
-    domain = "wakapi.${rdomain}";
-  };
+  imports = [
+    (mkService "wakapi" {
+      port = 3006;
+      domain = "wakapi.${rdomain}";
+    })
+  ];
 
   config = mkIf cfg.enable {
     sops.secrets.wakapi-env = mkSecret {
@@ -24,10 +25,6 @@ in
       owner = "wakapi";
       group = "wakapi";
       key = "env";
-    };
-
-    garden.services = {
-      postgresql.enable = true;
     };
 
     services = {
