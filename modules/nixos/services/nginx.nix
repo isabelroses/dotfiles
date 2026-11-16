@@ -13,7 +13,7 @@ let
     ;
   inherit (lib.options) mkOption;
   inherit (lib) types;
-  f2bweb = self.lib.fail2ban.web;
+  f2bweb = self.lib.modules.web;
 
   cfg = config.garden.services.nginx;
 in

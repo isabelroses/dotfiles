@@ -5,11 +5,10 @@
   ...
 }:
 let
-  inherit (self.lib) mkService;
   inherit (lib.modules) mkIf;
   inherit (lib.lists) map;
   inherit (lib.strings) optionalString;
-  inherit (self.lib.secrets) mkSecret;
+  inherit (self.lib) mkSecret mkService;
 
   rdomain = config.networking.domain;
   cfg = config.garden.services.gatus;
