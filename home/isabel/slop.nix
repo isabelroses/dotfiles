@@ -30,6 +30,7 @@ in
       T3CODE_HOME = "${basedir}/t3";
       CLAUDE_CONFIG_DIR = "${basedir}/claude";
       CODEX_HOME = "${basedir}/codex";
+      COPILOT_HOME = "${basedir}/copilot";
       GROK_HOME = "${basedir}/grok";
     };
 
