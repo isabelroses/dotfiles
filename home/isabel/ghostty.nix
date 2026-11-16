@@ -5,6 +5,7 @@
   ...
 }:
 let
+  inherit (lib.modules) mkIf;
   inherit (pkgs.stdenv.hostPlatform) isLinux isDarwin;
 in
 {
@@ -18,13 +19,20 @@ in
       background-opacity = 0.90;
       cursor-style = "bar";
       window-padding-x = "4,4";
+
+      # keep the text inset, but paint the padding with the edge cell's colour so
+      # full-screen apps like nvim reach the window borders. Ghostty skips extending
+      # for prompt rows and default-bg rows, so the shell keeps the plain padding
+      window-padding-color = mkIf isLinux "extend";
+      window-padding-balance = mkIf isLinux true;
+
       gtk-titlebar = false;
 
       window-save-state = "always";
 
       # let fontconfig handle this on linux
-      font-family = lib.modules.mkIf isDarwin config.garden.style.fonts.name;
-      font-size = lib.modules.mkIf isDarwin 13;
+      font-family = mkIf isDarwin config.garden.style.fonts.name;
+      font-size = mkIf isDarwin 13;
 
       # home-manager does this for us
       shell-integration = "none";
