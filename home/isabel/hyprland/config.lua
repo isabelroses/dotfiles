@@ -116,6 +116,11 @@ local floating = {
   { title = "xdg-desktop-portal-gtk" },
   { title = "Picture-in-Picture" },
   { title = "(?i).*bitwarden.*", size = "800 600" },
+  {
+    class = "chrome-nngceckbapebfimnlniiiahkandclblb-.*",
+    size = "400 600",
+    move = "(monitor_w-window_w-8) 8",
+  },
   { class = "gay\\.vaskel\\.soteria" },
   { class = "download" },
   { initial_title = "Open Files", dialog = true },
@@ -128,6 +133,7 @@ for _, w in ipairs(floating) do
     float = true,
     center = w.dialog or nil,
     size = w.dialog and "(monitor_w*0.4) (monitor_h*0.6)" or w.size,
+    move = w.move,
   })
 end
 
