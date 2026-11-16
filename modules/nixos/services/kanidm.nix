@@ -82,6 +82,13 @@ in
         group = "kanidm";
         mode = "440";
       };
+      kanidm-oauth2-vaultwarden = mkSecret {
+        file = "kanidm";
+        key = "oauth2-vaultwarden";
+        owner = "kanidm";
+        group = "kanidm";
+        mode = "440";
+      };
     };
 
     services = {
@@ -120,6 +127,7 @@ in
               "wakapi.access"
               "immich.access"
               "immich.admins"
+              "vaultwarden.access"
             ];
           };
 
@@ -133,6 +141,8 @@ in
 
             "immich.access" = { };
             "immich.admins" = { };
+
+            "vaultwarden.access" = { };
           };
 
           systems.oauth2 = {
@@ -205,6 +215,19 @@ in
                   "immich.admins" = [ "admin" ];
                 };
               };
+            };
+
+            vaultwarden = {
+              displayName = "Vaultwarden";
+              originUrl = "https://${cfg'.vaultwarden.domain}/identity/connect/oidc-signin";
+              originLanding = "https://${cfg'.vaultwarden.domain}/";
+              basicSecretFile = config.sops.secrets.kanidm-oauth2-vaultwarden.path;
+              preferShortUsername = true;
+              scopeMaps."vaultwarden.access" = [
+                "openid"
+                "email"
+                "profile"
+              ];
             };
           };
         };

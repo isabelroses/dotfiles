@@ -59,6 +59,11 @@ in
           SIGNUPS_ALLOWED = false;
           # SIGNUPS_DOMAINS_WHITELIST = "${rdomain}";
           SIGNUPS_VERIFY = true;
+
+          # the client secret is SSO_CLIENT_SECRET in the env file
+          SSO_ENABLED = true;
+          SSO_AUTHORITY = "https://${config.garden.services.kanidm.domain}/oauth2/openid/vaultwarden";
+          SSO_CLIENT_ID = "vaultwarden";
           INVITATIONS_ALLOWED = true;
 
           SMTP_AUTH_MECHANISM = "Login";
