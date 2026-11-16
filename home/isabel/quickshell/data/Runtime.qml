@@ -9,8 +9,11 @@ Singleton {
   id: root
 
   property bool quickSettingsOpen: false
+  // notifications live in the quick settings sheet
+  readonly property bool notificationsOpen: quickSettingsOpen
   property bool settingsOpen: false
   property bool powerMenuOpen: false
+  property bool keepAwake: false
   property bool locked: lockState.text().trim() === "1"
   onLockedChanged: lockState.setText(locked ? "1" : "0")
 
@@ -29,14 +32,14 @@ Singleton {
   }
 
   function lock(): void {
-    quickSettingsOpen = false;
+    closePanels();
     powerMenuOpen = false;
     settingsOpen = false;
     locked = true;
   }
 
   function openPowerMenu(): void {
-    quickSettingsOpen = false;
+    closePanels();
     powerMenuOpen = true;
   }
 
@@ -44,8 +47,16 @@ Singleton {
     quickSettingsOpen = !quickSettingsOpen;
   }
 
-  function openSettings(): void {
+  function toggleNotifications(): void {
+    toggleQuickSettings();
+  }
+
+  function closePanels(): void {
     quickSettingsOpen = false;
+  }
+
+  function openSettings(): void {
+    closePanels();
     settingsOpen = true;
   }
 
@@ -66,6 +77,11 @@ Singleton {
     target: "shell"
 
     function quickSettings(): void { root.toggleQuickSettings(); }
+    function notifications(): void { root.toggleNotifications(); }
+    function keepAwake(): string {
+      root.keepAwake = !root.keepAwake;
+      return root.keepAwake ? "on" : "off";
+    }
     function lock(): void { root.lock(); }
     function powerMenu(): void {
       if (root.powerMenuOpen) root.powerMenuOpen = false;

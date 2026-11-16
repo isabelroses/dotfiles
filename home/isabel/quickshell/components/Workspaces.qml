@@ -4,10 +4,10 @@ import Quickshell
 import Quickshell.Hyprland
 import qs.data
 
-ColumnLayout {
+BarGroup {
     id: root
 
-    Layout.alignment: Qt.AlignHCenter
+    Layout.alignment: Qt.AlignCenter
     spacing: 4
 
     WheelHandler {
@@ -27,13 +27,13 @@ ColumnLayout {
               : Settings.colors.accent
 
             visible: modelData.id > 0
-            Layout.alignment: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignCenter
             implicitWidth: 28
             implicitHeight: 28
             radius: Settings.radiusSm
-            color: focused ? tint : Utils.withAlpha(tint, hovered ? 0.22 : 0.08)
+            color: focused ? tint : hovered ? Settings.colors.surfaceRaised : "transparent"
             border.width: 1
-            border.color: focused || hovered ? tint : Utils.withAlpha(tint, 0.55)
+            border.color: focused ? tint : hovered ? Settings.colors.borderStrong : Settings.colors.border
             onClicked: modelData.activate()
 
             Behavior on color { ColorAnimation { duration: Settings.animFast } }
@@ -43,7 +43,7 @@ ColumnLayout {
                 anchors.centerIn: parent
                 text: ws.modelData.id
                 mono: true
-                color: ws.focused ? Settings.colors.textOnAccent : ws.tint
+                color: ws.focused ? Settings.colors.textOnAccent : ws.hovered ? Settings.colors.text : Settings.colors.textMuted
                 font.pixelSize: 12
                 font.weight: Font.Bold
             }

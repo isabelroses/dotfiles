@@ -27,12 +27,13 @@ Clickable {
 
 
     readonly property QsNotifications.NotificationAction defaultAction: notification?.actions.find(a => a.identifier === "default") ?? null
-    readonly property var chips: [
-        { kind: "view", text: defaultAction?.text || "View" },
-        ...(notification?.actions ?? [])
-            .filter(a => a.identifier !== "default" && a.text !== "")
-            .map(a => ({ kind: "action", text: a.text, action: a })),
-    ]
+    readonly property var extraActions: (notification?.actions ?? [])
+        .filter(a => a.identifier !== "default" && a.text !== "")
+        .map(a => ({ kind: "action", text: a.text, action: a }))
+    // clicking the card already views it, so the chip is only worth showing beside other actions
+    readonly property var chips: extraActions.length > 0
+        ? [{ kind: "view", text: defaultAction?.text || "View" }, ...extraActions]
+        : []
 
     HoverHandler { id: hover }
 
@@ -45,7 +46,7 @@ Clickable {
         const entry = DesktopEntries.heuristicLookup(n.desktopEntry || n.appName);
         const ids = [n.desktopEntry, n.appName, entry?.id, entry?.startupClass].filter(s => s).map(s => s.toLowerCase());
         ToplevelManager.toplevels.values.find(t => ids.includes(t.appId.toLowerCase()))?.activate();
-        Runtime.quickSettingsOpen = false;
+        Runtime.closePanels();
         n.dismiss();
         root.actionInvoked();
     }
@@ -71,7 +72,7 @@ Clickable {
                 implicitWidth: 36
                 implicitHeight: 36
                 radius: Settings.radiusSm
-                color: Settings.colors.overlay
+                color: "transparent"
 
                 Item {
                     implicitWidth: 36
@@ -92,9 +93,7 @@ Clickable {
                         anchors.centerIn: parent
                         visible: !image.visible
                         implicitSize: 22
-                        source: Quickshell.iconPath(root.notification?.appIcon
-                            ? Utils.getIcon(root.notification.appIcon)
-                            : "application-x-executable")
+                        source: Quickshell.iconPath(Utils.getIcon(root.notification?.appIcon ?? ""), "application-x-executable")
                     }
                 }
             }
@@ -150,6 +149,7 @@ Clickable {
         }
 
         Flow {
+            visible: root.chips.length > 0
             Layout.fillWidth: true
             spacing: 6
 

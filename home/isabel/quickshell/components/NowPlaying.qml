@@ -11,7 +11,7 @@ Clickable {
   readonly property bool playing: player?.isPlaying ?? false
 
   visible: player !== null
-  Layout.alignment: Qt.AlignHCenter
+  Layout.alignment: Qt.AlignCenter
   implicitWidth: 30
   implicitHeight: 30
   radius: Settings.radiusSm
@@ -20,7 +20,7 @@ Clickable {
   border.color: root.hovered ? Settings.colors.borderStrong : "transparent"
   acceptedButtons: Qt.LeftButton | Qt.RightButton
   onClicked: (e) => {
-    if (e.button === Qt.RightButton) Runtime.toggleQuickSettings();
+    if (e.button === Qt.RightButton) Runtime.toggleNotifications();
     else if (root.player?.canTogglePlaying) root.player.togglePlaying();
   }
   onScrolled: (e) => {

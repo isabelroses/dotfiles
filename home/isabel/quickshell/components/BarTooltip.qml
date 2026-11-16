@@ -18,8 +18,8 @@ Item {
     onHoveredChanged: {
       root.shown = false;
       if (!hovered || root.text === "") return timer.stop();
-      const x = root.mapToItem(null, 0, 0).x;
-      root.offset = -x;
+      const p = root.mapToItem(null, 0, 0);
+      root.offset = Settings.barVertical ? -p.x : -p.y;
       timer.restart();
     }
   }
@@ -40,11 +40,12 @@ Item {
       color: "transparent"
 
       anchor.item: root
-      anchor.rect.x: root.offset
-      anchor.rect.width: Settings.barWidth
-      anchor.rect.height: root.height
-      anchor.edges: Settings.barOnRight ? Edges.Left : Edges.Right
-      anchor.gravity: Settings.barOnRight ? Edges.Left : Edges.Right
+      anchor.rect.x: Settings.barVertical ? root.offset : 0
+      anchor.rect.y: Settings.barVertical ? 0 : root.offset
+      anchor.rect.width: Settings.barVertical ? Settings.barWidth : root.width
+      anchor.rect.height: Settings.barVertical ? root.height : Settings.barWidth
+      anchor.edges: Settings.barAwayEdge
+      anchor.gravity: Settings.barAwayEdge
 
       implicitWidth: Math.min(label.implicitWidth + 20, 320)
       implicitHeight: label.implicitHeight + 12
@@ -55,11 +56,13 @@ Item {
         border.color: Settings.colors.borderStrong
         border.width: 1
 
+        // accent stripe on the side touching the bar
         Rectangle {
-          anchors { top: parent.top; bottom: parent.bottom }
-          x: Settings.barOnRight ? parent.width - width : 0
-          width: 2
           color: Settings.colors.accent
+          x: Settings.barSide === "right" ? parent.width - width : 0
+          y: Settings.barOnBottom ? parent.height - height : 0
+          width: Settings.barVertical ? 2 : parent.width
+          height: Settings.barVertical ? parent.height : 2
         }
 
         StyledText {

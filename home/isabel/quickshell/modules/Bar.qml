@@ -15,13 +15,14 @@ Scope {
       required property ShellScreen modelData
       screen: modelData
       implicitWidth: Settings.barWidth
+      implicitHeight: Settings.barWidth
       color: "transparent"
 
       anchors {
-        top: true
-        bottom: true
-        left: !Settings.barOnRight
-        right: Settings.barOnRight
+        top: Settings.barSide !== "bottom"
+        bottom: Settings.barSide !== "top"
+        left: Settings.barSide !== "right"
+        right: Settings.barSide !== "left"
       }
 
       Rectangle {
@@ -29,20 +30,19 @@ Scope {
         anchors.fill: parent
         color: Settings.colors.base
 
+        // edge facing the screen
         Rectangle {
-          anchors { top: parent.top; bottom: parent.bottom }
-          x: Settings.barOnRight ? 0 : parent.width - width
-          width: 1
           color: Settings.colors.border
+          x: Settings.barVertical ? (Settings.barOnRight ? 0 : parent.width - width) : 0
+          y: Settings.barVertical ? 0 : (Settings.barOnBottom ? 0 : parent.height - height)
+          width: Settings.barVertical ? 1 : parent.width
+          height: Settings.barVertical ? parent.height : 1
         }
 
-        ColumnLayout {
-          anchors {
-            horizontalCenter: parent.horizontalCenter
-            top: parent.top
-            topMargin: 9
-          }
+        BarGroup {
           spacing: 12
+          x: Settings.barVertical ? (parent.width - width) / 2 : 9
+          y: Settings.barVertical ? 9 : (parent.height - height) / 2
 
           Launcher {}
           BarDivider {}
@@ -53,13 +53,10 @@ Scope {
           anchors.centerIn: parent
         }
 
-        ColumnLayout {
-          anchors {
-            horizontalCenter: parent.horizontalCenter
-            bottom: parent.bottom
-            bottomMargin: 9
-          }
+        BarGroup {
           spacing: 10
+          x: Settings.barVertical ? (parent.width - width) / 2 : parent.width - width - 9
+          y: Settings.barVertical ? parent.height - height - 9 : (parent.height - height) / 2
 
           RecordingDot {}
           NowPlaying {}
@@ -69,9 +66,9 @@ Scope {
             id: capsule
             onClicked: Runtime.toggleQuickSettings()
             onScrolled: (e) => Pipewire.setSinkVolume(Pipewire.sinkVolume + (e.angleDelta.y > 0 ? 0.05 : -0.05))
-            Layout.alignment: Qt.AlignHCenter
-            implicitWidth: 34
-            implicitHeight: statusColumn.implicitHeight + 22
+            Layout.alignment: Qt.AlignCenter
+            implicitWidth: Settings.barVertical ? 34 : statusGroup.implicitWidth + 22
+            implicitHeight: Settings.barVertical ? statusGroup.implicitHeight + 22 : 34
             radius: Settings.radiusSm
             color: Runtime.quickSettingsOpen ? Settings.colors.accentSoft
                  : capsule.hovered ? Settings.colors.surfaceRaised
@@ -82,8 +79,8 @@ Scope {
             Behavior on color { ColorAnimation { duration: Settings.animFast } }
             Behavior on border.color { ColorAnimation { duration: Settings.animFast } }
 
-            ColumnLayout {
-              id: statusColumn
+            BarGroup {
+              id: statusGroup
               anchors.centerIn: parent
               spacing: 12
 

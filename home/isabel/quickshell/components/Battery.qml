@@ -9,11 +9,11 @@ ColumnLayout {
     readonly property bool low: UPower.percentage < 20 && !UPower.charging
 
     visible: UPower.isPresent
-    Layout.alignment: Qt.AlignHCenter
+    Layout.alignment: Qt.AlignCenter
     spacing: 2
 
     MyIcon {
-        Layout.alignment: Qt.AlignHCenter
+        Layout.alignment: Qt.AlignCenter
         icon: UPower.icon
 
         BarTooltip {
@@ -26,7 +26,7 @@ ColumnLayout {
     }
 
     StyledText {
-        Layout.alignment: Qt.AlignHCenter
+        Layout.alignment: Qt.AlignCenter
         visible: Config.get("bar.battery_percent")
         text: Math.round(UPower.percentage)
         mono: true

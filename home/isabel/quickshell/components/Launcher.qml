@@ -6,7 +6,7 @@ import qs.data
 Clickable {
     id: root
 
-    Layout.alignment: Qt.AlignHCenter
+    Layout.alignment: Qt.AlignCenter
     implicitWidth: 34
     implicitHeight: 34
     radius: Settings.radiusSm

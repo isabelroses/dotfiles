@@ -9,7 +9,7 @@ Item {
   id: trayItem
   required property SystemTrayItem modelData
 
-  Layout.alignment: Qt.AlignHCenter
+  Layout.alignment: Qt.AlignCenter
   implicitWidth: 30
   implicitHeight: 30
 
@@ -73,11 +73,12 @@ Item {
     color: "transparent"
 
     anchor.item: trayItem
-    anchor.rect.x: -(Settings.barWidth - trayItem.width) / 2
-    anchor.rect.width: Settings.barWidth
-    anchor.rect.height: trayItem.height
-    anchor.edges: (Settings.barOnRight ? Edges.Left : Edges.Right) | Edges.Top
-    anchor.gravity: (Settings.barOnRight ? Edges.Left : Edges.Right) | Edges.Bottom
+    anchor.rect.x: Settings.barVertical ? -(Settings.barWidth - trayItem.width) / 2 : 0
+    anchor.rect.y: Settings.barVertical ? 0 : -(Settings.barWidth - trayItem.height) / 2
+    anchor.rect.width: Settings.barVertical ? Settings.barWidth : trayItem.width
+    anchor.rect.height: Settings.barVertical ? trayItem.height : Settings.barWidth
+    anchor.edges: Settings.barAwayEdge | (Settings.barVertical ? Edges.Top : Edges.Left)
+    anchor.gravity: Settings.barAwayEdge | (Settings.barVertical ? Edges.Bottom : Edges.Right)
 
     implicitWidth: 240
     implicitHeight: menuColumn.implicitHeight + 12

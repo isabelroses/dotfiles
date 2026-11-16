@@ -20,12 +20,15 @@ Singleton {
     readonly property string sourceIcon: levelIcon("microphone-sensitivity", sourceMuted, sourceVolume)
 
     readonly property var groups: {
-        const g = { sinks: [], streams: [], micUsers: [], screenShares: [] };
+        const g = { sinks: [], sources: [], streams: [], micUsers: [], screenShares: [] };
         for (const n of QsPipewire.Pipewire.nodes.values) {
             const name = n.name ?? "";
             switch (n.type) {
             case QsPipewire.PwNodeType.AudioSink:
                 g.sinks.push(n);
+                break;
+            case QsPipewire.PwNodeType.AudioSource:
+                if (!name.endsWith(".monitor")) g.sources.push(n);
                 break;
             case QsPipewire.PwNodeType.AudioOutStream:
                 g.streams.push(n);
@@ -40,10 +43,11 @@ Singleton {
         }
         return g;
     }
-    readonly property var sinks: groups.sinks
-    readonly property var streams: groups.streams
-    readonly property var micUsers: groups.micUsers
-    readonly property var screenShares: groups.screenShares
+    readonly property list<QsPipewire.PwNode> sinks: groups.sinks
+    readonly property list<QsPipewire.PwNode> sources: groups.sources
+    readonly property list<QsPipewire.PwNode> streams: groups.streams
+    readonly property list<QsPipewire.PwNode> micUsers: groups.micUsers
+    readonly property list<QsPipewire.PwNode> screenShares: groups.screenShares
 
     QsPipewire.PwObjectTracker {
         objects: [root.sink, root.source, ...root.streams, ...root.micUsers]
@@ -64,8 +68,16 @@ Singleton {
         if (sink?.audio) sink.audio.muted = !sink.audio.muted;
     }
 
+    function setSourceVolume(volume: real): void {
+        if (source?.audio) source.audio.volume = Math.max(0, Math.min(1, volume));
+    }
+
     function toggleSourceMute(): void {
         if (source?.audio) source.audio.muted = !source.audio.muted;
+    }
+
+    function setDefaultSource(node: QsPipewire.PwNode): void {
+        QsPipewire.Pipewire.preferredDefaultAudioSource = node;
     }
 
     function setDefaultSink(node: QsPipewire.PwNode): void {
@@ -82,6 +94,13 @@ Singleton {
         if (n.includes("hdmi")) return "video-display-symbolic";
         if (n.includes("usb")) return "audio-headset-symbolic";
         return "audio-speakers-symbolic";
+    }
+
+    function inputIcon(node: QsPipewire.PwNode): string {
+        const n = (node?.name ?? "").toLowerCase();
+        if (n.includes("bluez")) return "audio-headset-symbolic";
+        if (n.includes("webcam") || n.includes("camera")) return "camera-web-symbolic";
+        return "audio-card-symbolic";
     }
 
     function streamName(node: QsPipewire.PwNode): string {

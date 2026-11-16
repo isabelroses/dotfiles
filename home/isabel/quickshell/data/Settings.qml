@@ -65,6 +65,10 @@ Singleton {
   property int barWidth: 52
   readonly property string barSide: Config.get("bar.side")
   readonly property bool barOnRight: barSide === "right"
+  readonly property bool barOnBottom: barSide === "bottom"
+  readonly property bool barVertical: barSide === "left" || barSide === "right"
+  // the edge popups should open towards, away from the bar
+  readonly property int barAwayEdge: ({ left: Edges.Right, right: Edges.Left, top: Edges.Bottom, bottom: Edges.Top })[barSide] ?? Edges.Right
 
   readonly property real _speed: Config.get("appearance.animations") ? Config.get("appearance.animation_speed") : 0
   property int animFast: 120 * _speed

@@ -11,10 +11,19 @@ Scope {
   id: root
 
   property bool osdShown: false
-  property bool osdMic: false
-  readonly property bool osdMuted: osdMic ? Pipewire.sourceMuted : Pipewire.sinkMuted
-  readonly property real osdVolume: osdMic ? Pipewire.sourceVolume : Pipewire.sinkVolume
-  readonly property string osdIcon: osdMic ? Pipewire.sourceIcon : Pipewire.sinkIcon
+  property string osdKind: "sink" // sink | source | brightness
+  readonly property bool osdMuted: osdKind === "sink" ? Pipewire.sinkMuted
+    : osdKind === "source" ? Pipewire.sourceMuted
+    : false
+  readonly property real osdVolume: osdKind === "sink" ? Pipewire.sinkVolume
+    : osdKind === "source" ? Pipewire.sourceVolume
+    : Brightness.brightness
+  readonly property string osdIcon: osdKind === "sink" ? Pipewire.sinkIcon
+    : osdKind === "source" ? Pipewire.sourceIcon
+    : Brightness.icon
+  readonly property color osdTint: osdKind === "source" ? Settings.colors.green
+    : osdKind === "brightness" ? Settings.colors.yellow
+    : Settings.colors.accent
 
   property QsNotifications.Notification currentNotification: null
   property bool toastShown: false
@@ -22,9 +31,16 @@ Scope {
 
   Connections {
     target: Pipewire
-    function onSinkVolumeChanged() { if (Config.get("osd.volume")) root.showVolumeOsd(); }
-    function onSinkMutedChanged() { if (Config.get("osd.volume")) root.showVolumeOsd(); }
-    function onSourceMutedChanged() { if (Config.get("osd.volume")) root.showVolumeOsd(true); }
+    function onSinkVolumeChanged() { if (Config.get("osd.volume")) root.showOsd("sink"); }
+    function onSinkMutedChanged() { if (Config.get("osd.volume")) root.showOsd("sink"); }
+    function onSourceVolumeChanged() { if (Config.get("osd.mic")) root.showOsd("source"); }
+    function onSourceMutedChanged() { if (Config.get("osd.mic")) root.showOsd("source"); }
+  }
+
+  Connections {
+    target: Brightness
+    // `available` flips true after the startup read, so that read doesn't pop the OSD
+    function onBrightnessChanged() { if (Brightness.available && Config.get("osd.brightness")) root.showOsd("brightness"); }
   }
 
   Connections {
@@ -37,8 +53,8 @@ Scope {
     }
   }
 
-  function showVolumeOsd(mic = false): void {
-    root.osdMic = mic;
+  function showOsd(kind: string): void {
+    root.osdKind = kind;
     root.osdShown = true;
     osdHideTimer.restart();
   }
@@ -57,7 +73,7 @@ Scope {
 
     WlrLayershell.namespace: "osd"
     WlrLayershell.layer: WlrLayer.Overlay
-    exclusionMode: ExclusionMode.Ignore
+    exclusionMode: ExclusionMode.Normal
 
     anchors.bottom: true
     margins.bottom: 72
@@ -85,10 +101,10 @@ Scope {
 
         IconChip {
           size: 36
-          color: root.osdMuted ? Settings.colors.overlay : Settings.colors.accentSoft
+          color: root.osdMuted ? Settings.colors.overlay : Utils.withAlpha(root.osdTint, 0.14)
           icon: root.osdIcon
           iconSize: 18
-          iconColor: root.osdMuted ? Settings.colors.textMuted : Settings.colors.accent
+          iconColor: root.osdMuted ? Settings.colors.textMuted : root.osdTint
         }
 
         Rectangle {
@@ -101,7 +117,7 @@ Scope {
             width: parent.width * Math.min(root.osdVolume, 1.0)
             height: parent.height
             radius: 0
-            color: root.osdMuted ? Settings.colors.textSubtle : Settings.colors.accent
+            color: root.osdMuted ? Settings.colors.textSubtle : root.osdTint
 
             Behavior on width { SmoothedAnimation { velocity: 600 } }
           }
@@ -128,7 +144,7 @@ Scope {
     WlrLayershell.namespace: "notification"
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: root.currentNotification?.hasInlineReply ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
-    exclusionMode: ExclusionMode.Ignore
+    exclusionMode: ExclusionMode.Normal
 
     anchors.top: true
     margins.top: 12

@@ -23,6 +23,10 @@ Singleton {
         setBrightnessProc.running = true;
     }
 
+    function adjust(delta: real): void {
+        if (available) setBrightness(Math.round((brightness + delta) * 20) / 20);
+    }
+
     Component.onCompleted: getBrightnessProc.running = true
 
     Process {
@@ -41,6 +45,14 @@ Singleton {
 
     Process {
         id: setBrightnessProc
+    }
+
+    IpcHandler {
+        target: "brightness"
+
+        function up(): void { root.adjust(0.05); }
+        function down(): void { root.adjust(-0.05); }
+        function get(): string { return root.available ? `${Math.round(root.brightness * 100)}%` : "unavailable"; }
     }
 
     reloadableId: "brightness"

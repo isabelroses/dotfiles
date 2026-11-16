@@ -3,13 +3,14 @@ import QtQuick.Layouts
 import qs.data
 import qs.services
 
+// Status indicator inside the bar capsule; the capsule itself opens the panel.
 Item {
     id: root
 
     readonly property int count: Notifications.list.length
 
     visible: count > 0 || Notifications.dndEnabled
-    Layout.alignment: Qt.AlignHCenter
+    Layout.alignment: Qt.AlignCenter
     implicitWidth: 16
     implicitHeight: 16
 
@@ -25,7 +26,6 @@ Item {
         anchors { top: parent.top; right: parent.right; topMargin: -2; rightMargin: -2 }
         width: 7
         height: 7
-        radius: 0
         color: Settings.colors.accent
         border.color: Settings.colors.surface
         border.width: 1.5

@@ -23,7 +23,7 @@ ColumnLayout {
   Binding {
     target: Networking
     property: "scanning"
-    value: root.openPanel === "network"
+    value: root.openPanel === "network" && !Networking.ethernetConnected
   }
 
   GridLayout {
@@ -38,8 +38,8 @@ ColumnLayout {
       label: Networking.ethernetConnected ? "Ethernet" : "Wi-Fi"
       status: Networking.statusText
       active: Networking.connected || Networking.wifiEnabled
-      expandable: true
-      expanded: root.openPanel === "network"
+      expandable: !Networking.ethernetConnected
+      expanded: root.openPanel === "network" && expandable
       onToggled: if (!Networking.ethernetConnected) Networking.toggleWifi()
       onExpandRequested: root.togglePanel("network")
     }
@@ -48,7 +48,7 @@ ColumnLayout {
       tint: Settings.colors.blue
       icon: Bluetooth.icon
       label: "Bluetooth"
-      status: Bluetooth.statusText
+      status: ["Bluetooth Off", "Not Connected"].includes(Bluetooth.statusText) ? "" : Bluetooth.statusText
       active: Bluetooth.powered
       expandable: true
       expanded: root.openPanel === "bluetooth"
@@ -60,23 +60,21 @@ ColumnLayout {
       tint: Settings.colors.peach
       icon: Notifications.dndEnabled ? "notifications-disabled-symbolic" : "preferences-system-notifications-symbolic"
       label: "Do not disturb"
-      status: Notifications.dndEnabled ? "On" : "Off"
       active: Notifications.dndEnabled
       onToggled: Notifications.setDnd(!Notifications.dndEnabled)
     }
 
     ToggleTile {
-      tint: Settings.colors.green
-      icon: Pipewire.sourceIcon
-      label: "Microphone"
-      status: Pipewire.sourceMuted ? "Muted" : Pipewire.sourceVolumeText
-      active: !Pipewire.sourceMuted
-      onToggled: Pipewire.toggleSourceMute()
+      tint: Settings.colors.mauve
+      icon: "view-reveal-symbolic"
+      label: "Keep awake"
+      active: Runtime.keepAwake
+      onToggled: Runtime.keepAwake = !Runtime.keepAwake
     }
   }
 
   DetailPanel {
-    open: root.openPanel === "network"
+    open: root.openPanel === "network" && !Networking.ethernetConnected
     title: "Networks"
     tint: Settings.colors.sky
     actionIcon: "view-refresh-symbolic"
@@ -155,29 +153,21 @@ ColumnLayout {
       onMoved: Pipewire.setSinkVolume(value)
     }
 
-    Clickable {
-      onClicked: root.togglePanel("audio")
-      readonly property bool expanded: root.openPanel === "audio"
-      implicitWidth: 40
-      implicitHeight: 40
-      radius: Settings.radiusSm
-      color: hovered ? Settings.colors.overlay : Settings.colors.surfaceRaised
-      border.width: 1
-      border.color: expanded ? Settings.colors.borderStrong : Settings.colors.border
+    SquareButton {
+      icon: Pipewire.nodeIcon(Pipewire.sink)
+      expanded: root.openPanel === "output"
+      onClicked: root.togglePanel("output")
+    }
 
-      MyIcon {
-        anchors.centerIn: parent
-        icon: "go-next-symbolic"
-        size: 12
-        color: Settings.colors.textMuted
-        rotation: parent.expanded ? 90 : 0
-        Behavior on rotation { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.OutCubic } }
-      }
+    SquareButton {
+      icon: "view-app-grid-symbolic"
+      expanded: root.openPanel === "audio"
+      onClicked: root.togglePanel("audio")
     }
   }
 
   DetailPanel {
-    open: root.openPanel === "audio"
+    open: root.openPanel === "output"
     title: "Output"
     tint: Settings.colors.pink
     emptyText: Pipewire.sinks.length === 0 ? "No outputs" : ""
@@ -206,6 +196,53 @@ ColumnLayout {
       required property Pw.PwNode modelData
       width: ListView.view.width
       node: modelData
+    }
+  }
+
+  RowLayout {
+    Layout.fillWidth: true
+    spacing: 6
+
+    StyledSlider {
+      icon: Pipewire.sourceIcon
+      value: Pipewire.sourceVolume
+      dimmed: Pipewire.sourceMuted
+      accentColor: Settings.colors.green
+      iconClickable: true
+      onIconClicked: Pipewire.toggleSourceMute()
+      onMoved: Pipewire.setSourceVolume(value)
+    }
+
+    SquareButton {
+      icon: "microphone-sensitivity-muted-symbolic"
+      tint: Settings.colors.error
+      expanded: Pipewire.sourceMuted
+      onClicked: Pipewire.toggleSourceMute()
+    }
+
+    SquareButton {
+      icon: Pipewire.inputIcon(Pipewire.source)
+      expanded: root.openPanel === "input"
+      onClicked: root.togglePanel("input")
+    }
+  }
+
+  DetailPanel {
+    open: root.openPanel === "input"
+    title: "Input"
+    tint: Settings.colors.green
+    emptyText: Pipewire.sources.length === 0 ? "No inputs" : ""
+    model: Pipewire.sources
+
+    delegate: PanelListItem {
+      tint: Settings.colors.green
+      required property Pw.PwNode modelData
+      width: ListView.view.width
+      icon: Pipewire.inputIcon(modelData)
+      text: Pipewire.nodeName(modelData)
+      active: modelData === Pipewire.source
+      badge: active ? "default" : ""
+      onClicked: if (!active) Pipewire.setDefaultSource(modelData)
     }
   }
 
@@ -278,6 +315,7 @@ ColumnLayout {
 
         StyledText {
           Layout.fillWidth: true
+          visible: text !== ""
           text: tile.status
           font.pixelSize: 11
           font.weight: tile.active ? Font.Medium : Font.Normal

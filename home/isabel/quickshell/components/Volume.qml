@@ -4,7 +4,7 @@ import qs.data
 import qs.services
 
 MyIcon {
-    Layout.alignment: Qt.AlignHCenter
+    Layout.alignment: Qt.AlignCenter
     icon: Pipewire.sinkIcon
     size: 16
     color: Pipewire.sinkMuted ? Settings.colors.textSubtle : Settings.colors.pink

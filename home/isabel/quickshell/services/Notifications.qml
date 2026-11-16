@@ -117,7 +117,7 @@ Singleton {
 
     function clear(): void {
       for (const notification of notifactionServer.trackedNotifications.values) {
-        notification.tracked = false;
+        notification.dismiss();
       }
     }
 

@@ -4,15 +4,24 @@ import Quickshell
 import Quickshell.Services.SystemTray
 import qs.data
 
-ColumnLayout {
+BarGroup {
   id: root
 
-  Layout.alignment: Qt.AlignHCenter
+  Layout.alignment: Qt.AlignCenter
   spacing: 2
-  visible: Config.get("bar.show_tray") && SystemTray.items.values.length > 0
+  visible: Config.get("bar.show_tray") && items.values.length > 0
+
+  // case-insensitive match on the item's id (e.g. "spotify-client") or title (e.g. "spotify")
+  readonly property list<string> hidden: Config.get("bar.tray_hidden").map(s => s.toLowerCase())
+
+  ScriptModel {
+    id: items
+    values: SystemTray.items.values.filter(item =>
+      !root.hidden.includes(item.id.toLowerCase()) && !root.hidden.includes(item.title.toLowerCase()))
+  }
 
   Repeater {
-    model: SystemTray.items
+    model: items
 
     delegate: SystrayItem {}
   }

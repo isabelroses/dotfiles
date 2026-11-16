@@ -72,7 +72,7 @@ Scope {
   }
 
   IdleMonitor {
-    enabled: Config.get("lock.idle_minutes") > 0 && !Runtime.locked
+    enabled: Config.get("lock.idle_minutes") > 0 && !Runtime.locked && !Runtime.keepAwake
     timeout: Config.get("lock.idle_minutes") * 60
     respectInhibitors: true
     onIsIdleChanged: if (isIdle) Runtime.lock()

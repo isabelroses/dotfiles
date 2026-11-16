@@ -12,6 +12,16 @@ Singleton {
 
   readonly property var schema: [
     {
+      name: "general", title: "General", icon: "avatar-default-symbolic",
+      entries: [
+        { key: "username", label: "Name", type: "string", default: "isabel" },
+        { key: "profile_picture", label: "Profile picture", type: "path",
+          default: "/home/isabel/media/pictures/pfps/_current.png" },
+        { key: "wallpaper", label: "Wallpaper", type: "wallpaper",
+          default: "/home/isabel/media/pictures/wallpapers/rn.jpg" },
+      ]
+    },
+    {
       name: "appearance", title: "Appearance", icon: "applications-graphics-symbolic",
       entries: [
         { key: "accent", label: "Accent colour", type: "color", default: "pink",
@@ -27,19 +37,14 @@ Singleton {
     {
       name: "bar", title: "Bar", icon: "view-dual-symbolic",
       entries: [
-        { key: "side", label: "Screen edge", type: "choice", default: "left", options: ["left", "right"] },
+        { key: "side", label: "Screen edge", type: "choice", default: "left", options: ["left", "right", "top", "bottom"] },
         { key: "clock_24h", label: "24-hour clock", type: "bool", default: false },
         { key: "show_tray", label: "System tray", type: "bool", default: true },
+        { key: "tray_hidden", label: "Hidden tray icons", type: "list", default: ["Spotify"],
+          hint: "Tray icons from these apps are never shown. Matches the icon's id or title." },
         { key: "battery_percent", label: "Battery percentage", type: "bool", default: true },
         { key: "workspace_colours", label: "Colour-coded workspaces", type: "bool", default: true,
           hint: "Off uses the accent colour for every workspace." },
-      ]
-    },
-    {
-      name: "quick_settings", title: "Quick settings", icon: "preferences-system-symbolic",
-      entries: [
-        { key: "show_media", label: "Media player", type: "bool", default: true },
-        { key: "show_notifications", label: "Notification list", type: "bool", default: true },
       ]
     },
     {
@@ -48,6 +53,8 @@ Singleton {
         { key: "dnd", label: "Do not disturb", type: "bool", default: false },
         { key: "toasts", label: "Pop-up toasts", type: "bool", default: true },
         { key: "toast_timeout", label: "Toast duration (s)", type: "int", default: 5, min: 1, max: 30 },
+        { key: "media_timeout", label: "Hide paused media after (minutes)", type: "int", default: 5, min: 0, max: 120,
+          hint: "0 keeps a paused player visible until it closes." },
         { key: "blacklist", label: "Muted apps", type: "list", default: ["Spotify"],
           hint: "Notifications from these apps are dropped entirely." },
       ]
@@ -65,16 +72,8 @@ Singleton {
       name: "osd", title: "On-screen display", icon: "audio-volume-high-symbolic",
       entries: [
         { key: "volume", label: "Volume OSD", type: "bool", default: true },
-      ]
-    },
-    {
-      name: "general", title: "General", icon: "avatar-default-symbolic",
-      entries: [
-        { key: "username", label: "Name", type: "string", default: "isabel" },
-        { key: "profile_picture", label: "Profile picture", type: "path",
-          default: "/home/isabel/media/pictures/pfps/_current.png" },
-        { key: "wallpaper", label: "Wallpaper", type: "wallpaper",
-          default: "/home/isabel/media/pictures/wallpapers/rn.jpg" },
+        { key: "mic", label: "Microphone OSD", type: "bool", default: true },
+        { key: "brightness", label: "Brightness OSD", type: "bool", default: true },
       ]
     },
   ]

@@ -14,13 +14,13 @@ Slider {
     signal iconClicked()
 
     Layout.fillWidth: true
-    implicitHeight: 40
+    implicitHeight: 34
     padding: 0
 
     readonly property real fillWidth: height + visualPosition * (width - height)
 
     background: Rectangle {
-        implicitHeight: 40
+        implicitHeight: 34
         radius: Settings.radiusSm
         color: Settings.colors.surfaceRaised
         border.color: Settings.colors.border
@@ -50,7 +50,7 @@ Slider {
     IconButton {
         anchors { left: parent.left; verticalCenter: parent.verticalCenter; leftMargin: (root.height - width) / 2 }
         icon: root.icon
-        size: 16
+        size: 15
         padding: 6
         color: root.dimmed ? Settings.colors.textMuted : Settings.colors.textOnAccent
         hoverColor: Qt.rgba(0, 0, 0, 0.15)

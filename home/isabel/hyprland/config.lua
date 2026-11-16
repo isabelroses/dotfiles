@@ -107,7 +107,7 @@ hl.gesture({ fingers = 4, direction = "horizontal", action = "workspace" })
 
 -- Layer rules
 hl.layer_rule({ match = { namespace = "vicinae" }, blur = true, ignore_alpha = 0, no_anim = true })
-hl.layer_rule({ match = { namespace = "quicksettings|notificationcenter|settings" }, no_anim = true })
+hl.layer_rule({ match = { namespace = "quicksettings|settings" }, no_anim = true })
 
 -- Window rules (patterns must match the whole string)
 local floating = {
