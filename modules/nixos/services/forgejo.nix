@@ -130,6 +130,8 @@ in
             ALLOW_ONLY_INTERNAL_REGISTRATION = true;
             EMAIL_DOMAIN_ALLOWLIST = "isabelroses.com";
             ALLOW_ONLY_EXTERNAL_REGISTRATION = false;
+            ENABLE_INTERNAL_SIGNIN = false;
+            ENABLE_BASIC_AUTHENTICATION = false;
           };
 
           session = {

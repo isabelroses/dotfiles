@@ -54,6 +54,7 @@ in
           security = {
             allow_signup = false;
             disable_frontpage = true;
+            disable_local_auth = true;
           };
 
           mail =

@@ -79,6 +79,13 @@ in
         group = "kanidm";
         mode = "440";
       };
+      kanidm-oauth2-matrix = mkSecret {
+        file = "kanidm";
+        key = "oauth2-matrix";
+        owner = "kanidm";
+        group = "kanidm";
+        mode = "440";
+      };
     };
 
     services = {
@@ -118,6 +125,7 @@ in
               "immich.access"
               "immich.admins"
               "vaultwarden.access"
+              "matrix.access"
             ];
           };
 
@@ -133,6 +141,8 @@ in
             "immich.admins" = { };
 
             "vaultwarden.access" = { };
+
+            "matrix.access" = { };
           };
 
           systems.oauth2 = {
@@ -214,6 +224,19 @@ in
               basicSecretFile = config.sops.secrets.kanidm-oauth2-vaultwarden.path;
               preferShortUsername = true;
               scopeMaps."vaultwarden.access" = [
+                "openid"
+                "email"
+                "profile"
+              ];
+            };
+
+            matrix = {
+              displayName = "Matrix";
+              originUrl = "${config.services.matrix-synapse.settings.public_baseurl}/_synapse/client/oidc/callback";
+              originLanding = "https://${cfg'.matrix.domain}/";
+              basicSecretFile = config.sops.secrets.kanidm-oauth2-matrix.path;
+              preferShortUsername = true;
+              scopeMaps."matrix.access" = [
                 "openid"
                 "email"
                 "profile"

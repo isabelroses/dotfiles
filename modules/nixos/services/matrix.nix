@@ -38,9 +38,17 @@ in
   ];
 
   config = mkIf cfg.enable {
-    sops.secrets.matrix = mkSecret {
-      file = "matrix";
-      owner = "matrix-synapse";
+    sops.secrets = {
+      matrix = mkSecret {
+        file = "matrix";
+        owner = "matrix-synapse";
+      };
+
+      matrix-oidc-secret = mkSecret {
+        file = "kanidm";
+        key = "oauth2-matrix";
+        owner = "matrix-synapse";
+      };
     };
 
     services = {
@@ -50,10 +58,29 @@ in
         extraConfigFiles = [ config.sops.secrets.matrix.path ];
         settings = {
           withJemalloc = true;
-          enable_registration = true;
-          registration_requires_token = true;
+          enable_registration = false;
 
           bcrypt_rounds = 14;
+
+          password_config.enabled = false;
+          oidc_providers = lib.lists.singleton {
+            idp_id = "kanidm";
+            idp_name = "Isabel's SSO";
+            issuer = "https://${config.garden.services.kanidm.domain}/oauth2/openid/matrix";
+            client_id = "matrix";
+            client_secret_path = config.sops.secrets.matrix-oidc-secret.path;
+            scopes = [
+              "openid"
+              "email"
+              "profile"
+            ];
+            pkce_method = "always";
+            user_mapping_provider.config = {
+              localpart_template = "{{ user.preferred_username }}";
+              display_name_template = "{{ user.name }}";
+              email_template = "{{ user.email }}";
+            };
+          };
 
           # Don't report usage statistics, i really don't care
           report_stats = false;

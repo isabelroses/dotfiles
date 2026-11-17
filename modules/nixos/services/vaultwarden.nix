@@ -66,6 +66,7 @@ in
           SSO_ENABLED = true;
           SSO_AUTHORITY = "https://${config.garden.services.kanidm.domain}/oauth2/openid/vaultwarden";
           SSO_CLIENT_ID = "vaultwarden";
+          SSO_ONLY = true;
           INVITATIONS_ALLOWED = true;
 
           SMTP_AUTH_MECHANISM = "Login";
