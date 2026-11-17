@@ -36,6 +36,10 @@ in
         };
     };
 
+    # gtk4 on wayland takes the decoration layout from the settings portal,
+    # which reads this, rather than gtk-decoration-layout in settings.ini
+    dconf.settings."org/gnome/desktop/wm/preferences".button-layout = "appmenu:";
+
     home = {
       packages = [
         pkgs.glib # gsettings
