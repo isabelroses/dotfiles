@@ -28,18 +28,11 @@ in
       configFile =
         let
           gtk4Dir = "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0";
-
-          withSquareWindows =
-            file:
-            pkgs.runCommand "gtk4-${file}" { } ''
-              cat ${gtk4Dir}/${file} > $out
-              echo ${lib.strings.escapeShellArg squareWindowsCss} >> $out
-            '';
         in
         {
           "gtk-4.0/assets".source = "${gtk4Dir}/assets";
-          "gtk-4.0/gtk.css".source = withSquareWindows "gtk.css";
-          "gtk-4.0/gtk-dark.css".source = withSquareWindows "gtk-dark.css";
+          "gtk-4.0/gtk.css".source = "${gtk4Dir}/gtk.css";
+          "gtk-4.0/gtk-dark.css".source = "${gtk4Dir}/gtk-dark.css";
         };
     };
 
@@ -66,13 +59,19 @@ in
             (oa: {
               nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [
                 config.catppuccin.sources.whiskers
-                pkgs.which
               ];
 
               preInstall = ''
                 cd sources/patches/colloid
                 whiskers palette.tera
                 cd -
+              '';
+
+              # square off windows for both gtk3 and gtk4
+              postInstall = oa.postInstall or "" + ''
+                for css in $out/share/themes/*/gtk-{3,4}.0/gtk{,-dark}.css; do
+                  echo ${lib.strings.escapeShellArg squareWindowsCss} >> "$css"
+                done
               '';
             });
       };
@@ -81,12 +80,9 @@ in
         inherit (cfg.fonts) name size;
       };
 
-      gtk3.extraCss = squareWindowsCss;
+      colorScheme = "dark";
 
       gtk3.extraConfig = {
-        # make things look nice
-        gtk-application-prefer-dark-theme = true;
-
         gtk-decoration-layout = "appmenu:none";
 
         gtk-xft-antialias = 1;
@@ -110,9 +106,6 @@ in
         inherit (config.gtk) theme;
 
         extraConfig = {
-          # make things look nice
-          gtk-application-prefer-dark-theme = true;
-
           gtk-decoration-layout = "appmenu:none";
 
           gtk-xft-antialias = 1;
