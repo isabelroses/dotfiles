@@ -43,7 +43,7 @@ jobs:
       - name: Build Lilith Iso
         continue-on-error: false
         run: |
-          nix develop -c just iso lilith
+          nix-shell --run 'just iso lilith'
           cp result/iso/*.iso ./lilith.iso
 
       - name: Upload Release Artifacts

@@ -1,5 +1,5 @@
 # noisy diffs
-flake.lock -diff
+npins/sources.json -diff
 
 # treat age files as binarys
 *.age -text -diff

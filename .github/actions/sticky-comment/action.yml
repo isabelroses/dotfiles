@@ -1,0 +1,43 @@
+name: Sticky Comment
+description: Create or update the pull request comment that carries a marker
+
+inputs:
+  marker:
+    description: HTML comment that identifies the comment, it must be in the body
+    required: true
+  body-file:
+    description: File holding the comment body
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+      env:
+        MARKER: ${{ inputs.marker }}
+        BODY_FILE: ${{ inputs.body-file }}
+      with:
+        script: |
+          const fs = require('fs');
+          const body = fs.readFileSync(process.env.BODY_FILE, 'utf8');
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          const existing = comments.find(c => c.body.includes(process.env.MARKER));
+          if (existing) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: existing.id,
+              body,
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+          }
