@@ -115,8 +115,7 @@ vicinae_exts() { # -> lines of "<extName> <type>" for each active extension
 raycast_fetch_expr() { # <rev> <extName> <hash> -> nix expr on stdout
   cat <<EOF
 let
-  flake = builtins.getFlake "$FLAKE_ROOT";
-  pkgs = flake.inputs.nixpkgs.legacyPackages.\${builtins.currentSystem};
+  pkgs = (import "$FLAKE_ROOT" { }).input.pkgs;
 in
 pkgs.fetchFromGitHub {
   owner = "raycast";
