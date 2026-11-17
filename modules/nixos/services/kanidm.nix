@@ -86,6 +86,13 @@ in
         group = "kanidm";
         mode = "440";
       };
+      kanidm-oauth2-jellyfin = mkSecret {
+        file = "kanidm";
+        key = "oauth2-jellyfin";
+        owner = "kanidm";
+        group = "kanidm";
+        mode = "440";
+      };
     };
 
     services = {
@@ -126,6 +133,8 @@ in
               "immich.admins"
               "vaultwarden.access"
               "matrix.access"
+              "jellyfin.access"
+              "jellyfin.admins"
             ];
           };
 
@@ -143,6 +152,9 @@ in
             "vaultwarden.access" = { };
 
             "matrix.access" = { };
+
+            "jellyfin.access" = { };
+            "jellyfin.admins" = { };
           };
 
           systems.oauth2 = {
@@ -241,6 +253,35 @@ in
                 "email"
                 "profile"
               ];
+            };
+
+            jellyfin = {
+              displayName = "Jellyfin";
+              originUrl = [
+                "https://${cfg'.jellyfin.domain}/sso/OID/start/kanidm"
+                "https://${cfg'.jellyfin.domain}/sso/OID/redirect/kanidm"
+              ];
+              originLanding = "https://${cfg'.jellyfin.domain}/sso/OID/start/kanidm";
+              basicSecretFile = config.sops.secrets.kanidm-oauth2-jellyfin.path;
+              preferShortUsername = true;
+              scopeMaps."jellyfin.access" = [
+                "openid"
+                "email"
+                "profile"
+              ];
+              claimMaps.jellyfin_role = {
+                joinType = "array";
+                valuesByGroup = {
+                  "jellyfin.access" = [
+                    "user"
+                    "tvuser"
+                  ];
+                  "jellyfin.admins" = [
+                    "admin"
+                    "tvadmin"
+                  ];
+                };
+              };
             };
           };
         };
