@@ -1,6 +1,6 @@
 ---
 title: Adding users
-description: How to declare a new user in this flake.
+description: How to declare a new user in this repo.
 ---
 
 The user side is configured in `/home/<user>`.

@@ -14,7 +14,7 @@ If you opted to use the lilith ISO image, you can use the `iztaller` script to p
 
 1. Install [NixOS](https://nixos.org/download); you might need to follow the [manual](https://nixos.org/manual/nixos/stable/index.html#sec-installation).
 2. Clone this repository to `~/.config/flake`.
-3. Run `sudo nixos-rebuild switch --flake ~/.config/flake#<host>`.
+3. Run `sudo nixos-rebuild switch --file ~/.config/flake/default.nix --attr hosts.<host>`.
 
 ### Dual boot
 
@@ -54,10 +54,10 @@ If you'd like to set up dual boot with Windows, you should consider enabling sec
    curl -sSf -L https://install.lix.systems/lix | sh -s -- install
    ```
 
-2. Enter a Nix development shell in order to use git and other required tools:
+2. Enter the development shell (run from the repo root) in order to use git and other required tools:
 
    ```sh
-   nix develop
+   nix-shell
    ```
 
 3. Switch to the configuration. Replace `<host>` with the system you are configuring:

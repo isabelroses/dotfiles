@@ -1,6 +1,6 @@
 ---
 title: Style
-description: Code style and conventions for this flake.
+description: Code style and conventions for this repo.
 ---
 
 ## Introduction
@@ -31,7 +31,7 @@ helps achieve that.
 
 ### Options
 
-All options this flake defines live under the `garden` namespace, grouped by
+All options this repo defines live under the `garden` namespace, grouped by
 subcategories (e.g. `garden.services.*`, `garden.system.*` and
 `garden.profiles.*`). This keeps what we define cleanly separated from upstream
 module options.
@@ -73,7 +73,7 @@ Just run `nix fmt` or `treefmt` thanks.
 ### Documenting lib
 
 Reusable functions in `lib` carry a nixdoc comment with their arguments and
-type signature. Match the existing entries in `modules/flake/lib/` when adding
+type signature. Match the existing entries in `modules/output/lib/` when adding
 one.
 
 This form is the doc-comment standard from [RFC

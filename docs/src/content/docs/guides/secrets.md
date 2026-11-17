@@ -56,7 +56,7 @@ and run `sops updatekeys`. Otherwise `sops-install-secrets` fails during
 activation. To see which files a host uses:
 
 ```bash
-nix eval --json .#nixosConfigurations.<host>.config.sops.secrets \
+nix eval --json --file default.nix hosts.<host>.config.sops.secrets \
   --apply 's: map (v: baseNameOf (toString v.sopsFile)) (builtins.attrValues s)'
 ```
 
