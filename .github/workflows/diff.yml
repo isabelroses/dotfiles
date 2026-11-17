@@ -3,7 +3,8 @@ name: Diff Changes
 on:
   pull_request:
     paths:
-      - "flake.lock"
+      - "*.nix"
+      - "npins/sources.json"
       - "modules/**/*"
       - "systems/**/*"
       - "home/**/*"
@@ -18,7 +19,7 @@ jobs:
       pull-requests: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout PR
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -26,33 +27,65 @@ jobs:
       - name: Install Lix
         uses: $/.github/actions/install-lix
 
-      - name: Get Hosts
-        id: hosts
+      - name: Checkout base
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+          persist-credentials: false
+
+      # nix-diff-action only understands flakes, so compare the derivations
+      # with dix ourselves
+      - name: Diff hosts
+        id: diff
         run: |
           set -euo pipefail
-          {
-            echo "attributes<<EOF"
-            # shellcheck disable=SC2016
-            nix eval --impure --json --expr '
-              let
-                flake = (builtins.getFlake (toString ./.)).outputs;
-                mk = attr: toplevel:
-                  map (name: {
-                    displayName = name;
-                    attribute = "${attr}.${name}.${toplevel}";
-                  }) (builtins.attrNames (flake.${attr} or {}));
-              in
-                mk "nixosConfigurations" "config.system.build.toplevel"
-                ++ mk "darwinConfigurations" "system"
-              '
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+          dix="$(nix build --file default.nix inputs.pkgs.dix --no-link --print-out-paths)/bin/dix"
 
-      - name: Run lix diff
-        uses: natsukium/nix-diff-action@98f606826342376a063160500a3ebf8664d933e9 # v1.2.1
+          # shellcheck disable=SC2016
+          nix eval --impure --json --expr '
+            let
+              inherit (import ./. { }) hosts;
+              # nix-darwin hands us the system under a shorter name
+              toplevel = name:
+                if hosts.${name}.class == "darwin" then "system" else "config.system.build.toplevel";
+            in
+              map (name: {
+                inherit name;
+                attribute = "hosts.${name}.${toplevel name}";
+              }) (builtins.attrNames hosts)
+            ' > hosts.json
+
+          changed=false
+          {
+            echo "<!-- lix-diff -->"
+            echo "## Lix Diff"
+            while IFS=$'\t' read -r name attr; do
+              after="$(nix eval --raw --file default.nix "${attr}.drvPath")"
+              echo
+              echo "### ${name}"
+              echo
+              if ! before="$(cd base && nix eval --raw --file default.nix "${attr}.drvPath" 2>/dev/null)"; then
+                echo "_could not be evaluated on the base branch_"
+                changed=true
+              elif [ "$before" = "$after" ]; then
+                echo "_no change_"
+              else
+                echo '```'
+                "$dix" --color=never diff "$before" "$after"
+                echo '```'
+                changed=true
+              fi
+            done < <(jq -r '.[] | "\(.name)\t\(.attribute)"' hosts.json)
+          } > diff.md
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+
+      - name: Post comment
+        if: steps.diff.outputs.changed == 'true'
+        uses: $/.github/actions/sticky-comment
         with:
-          attributes: ${{ steps.hosts.outputs.attributes }}
-          comment-strategy: update
+          marker: "<!-- lix-diff -->"
+          body-file: diff.md
 
   nix-eval-stats:
     runs-on: ubuntu-latest
@@ -83,17 +116,17 @@ jobs:
           # shellcheck disable=SC2016
           nix eval --impure --json --expr '
             let
-              flake = (builtins.getFlake (toString ./.)).outputs;
-              mk = attr: toplevel:
-                map (name: {
-                  inherit name;
-                  attribute = "${attr}.${name}.${toplevel}";
-                }) (builtins.attrNames (flake.${attr} or {}));
+              inherit (import ./. { }) hosts;
             in
-              mk "nixosConfigurations" "config.system.build.toplevel"
+              map (name: {
+                inherit name;
+                attribute = "hosts.${name}.config.system.build.toplevel";
+              }) (builtins.filter (name: hosts.${name}.class != "darwin") (builtins.attrNames hosts))
             ' > hosts.json
           jq -r '.[] | .name' hosts.json
 
+      # a failed eval still writes stats, of nothing. drop them so cmp-stats only
+      # pairs hosts that evaluated on both sides
       - name: Eval stats (before)
         working-directory: base
         run: |
@@ -101,9 +134,12 @@ jobs:
           mkdir -p ../stats-before/all
           while IFS=$'\t' read -r name attr; do
             echo "::group::eval before: $name"
-            NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH="../stats-before/all/${name}.json" \
-              nix eval --no-eval-cache ".#${attr}" > /dev/null || \
+            out="../stats-before/all/${name}.json"
+            if ! NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH="$out" \
+              nix eval --no-eval-cache --file default.nix "${attr}" > /dev/null; then
               echo "warning: eval failed for $name (before)"
+              rm -f "$out"
+            fi
             echo "::endgroup::"
           done < <(jq -r '.[] | "\(.name)\t\(.attribute)"' ../hosts.json)
 
@@ -113,49 +149,35 @@ jobs:
           mkdir -p stats-after/all
           while IFS=$'\t' read -r name attr; do
             echo "::group::eval after: $name"
-            NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH="stats-after/all/${name}.json" \
-              nix eval --no-eval-cache ".#${attr}" > /dev/null || \
+            out="stats-after/all/${name}.json"
+            if ! NIX_SHOW_STATS=1 NIX_SHOW_STATS_PATH="$out" \
+              nix eval --no-eval-cache --file default.nix "${attr}" > /dev/null; then
               echo "warning: eval failed for $name (after)"
+              rm -f "$out"
+            fi
             echo "::endgroup::"
           done < <(jq -r '.[] | "\(.name)\t\(.attribute)"' hosts.json)
 
       - name: Compare stats
         run: |
           set -euo pipefail
+          paired="$(comm -12 <(ls stats-before/all) <(ls stats-after/all) | wc -l)"
           {
             echo "<!-- nix-eval-stats -->"
             echo "## Nix Eval Stats"
             echo
-            echo "Paired comparison across $(jq 'length' hosts.json) host(s). Metrics with identical values across all hosts are listed under _Unchanged_; the rest get a paired t-test (p-value, t-stat)."
-            echo
-            nix run .#cmp-stats -- --explain stats-before stats-after
+            if [ "$paired" -eq 0 ]; then
+              echo "No host evaluated on both the base branch and this one, so there is nothing to compare."
+            else
+              cmp_stats="$(nix build --file default.nix packages.cmp-stats --no-link --print-out-paths)/bin/cmp-stats"
+              echo "Paired comparison across ${paired} host(s). Metrics with identical values across all hosts are listed under _Unchanged_; the rest get a paired t-test (p-value, t-stat)."
+              echo
+              "$cmp_stats" --explain stats-before stats-after
+            fi
           } > stats-table.md
 
       - name: Post comment
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        uses: $/.github/actions/sticky-comment
         with:
-          script: |
-            const fs = require('fs');
-            const body = fs.readFileSync('stats-table.md', 'utf8');
-            const marker = '<!-- nix-eval-stats -->';
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            });
-            const existing = comments.find(c => c.body.includes(marker));
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body,
-              });
-            }
+          marker: "<!-- nix-eval-stats -->"
+          body-file: stats-table.md

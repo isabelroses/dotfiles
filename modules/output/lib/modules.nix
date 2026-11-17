@@ -1,8 +1,7 @@
 # what service modules call: their garden.services entry, sops secrets and
 # fail2ban jails
-{ lib, inputs }:
+{ lib, root }:
 let
-  inherit (inputs) self;
   inherit (lib.attrsets) mapAttrs;
   inherit (lib.modules) mkOptionDefault;
   inherit (lib.strings) concatStringsSep;
@@ -47,7 +46,7 @@ let
     ```nix
     mkSecret { file = "borg"; key = "forgejo-passphrase"; }
     => {
-      sopsFile = "${self}/secrets/services/borg.yaml";
+      sopsFile = root + /secrets/services/borg.yaml;
       key = "forgejo-passphrase";
     }
     ```
@@ -61,7 +60,7 @@ let
       args' = removeAttrs args [ "file" ];
     in
     {
-      sopsFile = "${self}/secrets/services/${file}.yaml";
+      sopsFile = root + /secrets/services/${file}.yaml;
     }
     // args';
 

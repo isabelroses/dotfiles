@@ -3,8 +3,7 @@
   lib,
   nixdoc,
 
-  inputs,
-  self ? inputs.self,
+  self,
 
   libset ? [
     {
@@ -24,7 +23,7 @@
 stdenvNoCC.mkDerivation {
   name = "lib-docs";
 
-  src = self + /modules/flake/lib;
+  src = self + /modules/output/lib;
 
   nativeBuildInputs = [
     nixdoc

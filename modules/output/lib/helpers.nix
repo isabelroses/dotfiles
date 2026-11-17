@@ -123,11 +123,48 @@ let
     ```
   */
   mkPubs = host: keys: lib.attrsets.mergeAttrsList (map (mkPub host) keys);
+
+  /**
+    The system a host runs on, from its arch and class
+
+    # Arguments
+
+    - [arch] the cpu architecture, this defaults to "x86_64"
+    - [class] the class of the host, this defaults to "nixos"
+
+    # Type
+
+    ```
+    hostSystem :: { arch ? String, class ? String } -> String
+    ```
+
+    # Example
+
+    ```nix
+    hostSystem { arch = "aarch64"; class = "iso"; }
+    => "aarch64-linux"
+    ```
+  */
+  hostSystem =
+    {
+      arch ? "x86_64",
+      class ? "nixos",
+    }:
+    let
+      os =
+        {
+          iso = "linux";
+          nixos = "linux";
+        }
+        .${class} or class;
+    in
+    "${arch}-${os}";
 in
 {
   inherit
     mkPub
     mkPubs
     giturl
+    hostSystem
     ;
 }

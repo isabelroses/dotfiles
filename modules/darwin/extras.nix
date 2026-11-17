@@ -2,9 +2,9 @@
 {
   imports = [
     # keep-sorted start
-    inputs.catppuccin.darwinModules.catppuccin
+    inputs.catppuccin.darwin
     inputs.extersia.darwinModules.default
-    inputs.home-manager.darwinModules.home-manager
+    inputs.home-manager.darwin
     # keep-sorted end
   ];
 }

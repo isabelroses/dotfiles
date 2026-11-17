@@ -3,7 +3,7 @@
   imports = [
     # keep-sorted start
     inputs.extersia.nixosModules.default
-    inputs.home-manager.nixosModules.home-manager
+    inputs.home-manager.nixos
     # keep-sorted end
   ];
 }

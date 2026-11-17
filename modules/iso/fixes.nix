@@ -15,7 +15,7 @@
 
   # fix annoying warnings
   environment.etc = {
-    "nix/flake-channels/nixpkgs".source = inputs.nixpkgs;
+    "nix/flake-channels/nixpkgs".source = inputs.nixpkgs.outPath;
 
     "mdadm.conf".text = ''
       MAILADDR root

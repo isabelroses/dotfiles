@@ -1,15 +1,14 @@
 ---
 title: Adding systems
-description: How to declare a new system configuration in this flake.
+description: How to declare a new system configuration in this repo.
 ---
 
 The per-system configuration lives in `/systems/<hostname>/`. To wire a host
-into the flake it must be declared in `nixosConfigurations` (or
-`darwinConfigurations`) inside
-[`modules/flake/default.nix`](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/default.nix).
+into the config it must be declared in `hosts` at the top of
+[`default.nix`](https://github.com/isabelroses/dotfiles/blob/main/default.nix).
 
 Each entry is passed through the `mkHost` helper at
-[`modules/flake/lib/mkhost.nix`](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/lib/mkhost.nix).
+[`modules/output/lib/mkhost.nix`](https://github.com/isabelroses/dotfiles/blob/main/modules/output/lib/mkhost.nix).
 It accepts the following options:
 
 - **arch**
@@ -18,17 +17,15 @@ It accepts the following options:
 - **class**
   - default: `"nixos"`
   - options: `"nixos"`, `"darwin"`, `"iso"`
-- **modules**
-  - default: `[ ]`
-  - extra NixOS / nix-darwin modules to import on top of the host's `systems/<hostname>/default.nix`
-- **specialArgs**
-  - default: `{ }`
-  - merged on top of the default `specialArgs` (which already includes `inputs` and `self`)
+
+Every host's modules receive `inputs` (what we take from each pin, each with the
+`outPath` of its source), `self` (this repo's outputs) and `root` (the repo as a path) as
+arguments.
 
 For example, an aarch64 NixOS server:
 
 ```nix
-nixosConfigurations = mkHosts {
+hosts = {
   skadi = {
     arch = "aarch64";
   };
@@ -38,7 +35,7 @@ nixosConfigurations = mkHosts {
 A macOS host:
 
 ```nix
-darwinConfigurations = mkHosts {
+hosts = {
   tatsumaki = {
     arch = "aarch64";
     class = "darwin";

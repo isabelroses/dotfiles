@@ -1,5 +1,13 @@
 flake := env('FLAKE', justfile_directory())
 
+# without flakes we address a host by attribute path into ./default.nix
+hostname := `hostname`
+
+# common build invocation from ./default.nix. pure-eval is kept for the day
+# `--file` honours it, today Lix evaluates impurely regardless
+build := "nix build"
+build-args := "--file " + flake + "/default.nix --option pure-eval true"
+
 # rebuild is also set as a var so you can add --set to change it if you need to
 rebuild := if os() == "macos" { "sudo darwin-rebuild" } else { "nixos-rebuild" }
 system-args := if os() == "macos" { "" } else { "--elevate run0 --no-reexec" }
@@ -13,11 +21,12 @@ default:
 [group('rebuild')]
 [no-exit-message]
 [private]
-builder goal *args:
+builder host goal *args:
     #!/usr/bin/env bash
     set -euo pipefail
     {{ rebuild }} {{ goal }} \
-      --flake {{ flake }} \
+      --file {{ flake }}/default.nix \
+      --attr hosts.{{ host }} \
       {{ system-args }} \
       {{ args }}
 
@@ -27,7 +36,7 @@ builder goal *args:
 deployer host goal *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    just builder {{ goal }} --target-host ssh-ng://{{ host }} --use-substitutes {{ args }}
+    just builder {{ host }} {{ goal }} --target-host ssh-ng://{{ host }} --use-substitutes {{ args }}
     lethe record {{ host }}
 
 # deploy by switching the new system configuration
@@ -40,7 +49,7 @@ deploy host *args: (deployer host "switch" args)
 [group('rebuild')]
 [no-exit-message]
 deploy-dry host *args:
-    just builder dry-activate --target-host ssh-ng://{{ host }} --use-substitutes {{ args }}
+    just builder {{ host }} dry-activate --target-host ssh-ng://{{ host }} --use-substitutes {{ args }}
 
 # deploy by setting the boot configuration
 [group('rebuild')]
@@ -79,13 +88,13 @@ deploy-all-boot: (deployer-all "boot")
 # rebuild the boot
 [group('rebuild')]
 [no-exit-message]
-boot *args: (builder "boot" args)
+boot *args: (builder hostname "boot" args)
   lethe diff $(hostname)
 
 # test what happens when you switch
 [group('rebuild')]
 [no-exit-message]
-test *args: (builder "test" args)
+test *args: (builder hostname "test" args)
 
 # switch the new system configuration
 [group('rebuild')]
@@ -93,7 +102,7 @@ test *args: (builder "test" args)
 switch *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    just builder switch {{ args }}
+    just builder {{ hostname }} switch {{ args }}
     lethe record
     lethe diff $(hostname)
 
@@ -101,7 +110,7 @@ switch *args:
 [macos]
 [no-exit-message]
 provision host:
-    sudo nix run github:LnL7/nix-darwin -- switch --flake {{ flake }}#{{ host }}
+    sudo nix run github:LnL7/nix-darwin -- switch --file {{ flake }}/default.nix --attr hosts.{{ host }}
     sudo -i nix-env --uninstall lix # we need to remove the none declarative install of lix
 
 # package group
@@ -111,48 +120,66 @@ provision host:
 [group('package')]
 [no-exit-message]
 iso image:
-    nix build {{ flake }}#nixosConfigurations.{{ image }}.config.system.build.isoImage
+    {{ build }} {{ build-args }} hosts.{{ image }}.config.system.build.isoImage
+
+# build the documentation site
+[group('package')]
+[no-exit-message]
+docs:
+    {{ build }} {{ build-args }} packages.docs
 
 # build the tarball, you must specify the host you want to build
 [group('package')]
 [no-exit-message]
 tar host:
-    sudo nix run {{ flake }}#nixosConfigurations.{{ host }}.config.system.build.tarballBuilder
+    #!/usr/bin/env bash
+    set -euo pipefail
+    out=$({{ build }} {{ build-args }} hosts.{{ host }}.config.system.build.tarballBuilder --no-link --print-out-paths)
+    sudo "$out"/bin/*
 
 # dev group
 
-# check the flake for errors
+# check the config for errors
 [group('dev')]
 [no-exit-message]
 check *args:
-    nix flake check --option allow-import-from-derivation false {{ args }}
+    #!/usr/bin/env bash
+    set -euo pipefail
+    {{ build }} {{ build-args }} checks \
+      --option allow-import-from-derivation false {{ args }}
 
 [group('dev')]
 [no-exit-message]
-repl-host host=`hostname`:
-    nix repl .#nixosConfigurations.{{ host }}
+repl-host host=hostname:
+    nix repl --expr '(import {{ flake }}/default.nix { }).hosts.{{ host }}'
 
-# update a set of given inputs
+# update a set of given pins (npins), defaulting to all of them
 [group('dev')]
 [no-exit-message]
 update *input:
-    nix flake update {{ input }} \
-      --refresh \
-      --commit-lock-file \
-      --commit-lockfile-summary "flake.lock: update {{ if input == "" { "all inputs" } else { input } }}" \
-      --flake {{ flake }}
+    #!/usr/bin/env bash
+    set -euo pipefail
+    npins --directory {{ flake }}/npins update {{ input }}
+    git -C {{ flake }} add npins/sources.json
+    git -C {{ flake }} commit -m "npins: update {{ if input == "" { "all sources" } else { input } }}"
 
 # update the pinned brew and vicinae sources
 [group('dev')]
 [no-exit-message]
 update-pins *targets:
-    nix run {{ flake }}#update-pins -- {{ targets }}
+    #!/usr/bin/env bash
+    set -euo pipefail
+    out=$({{ build }} {{ build-args }} packages.update-pins --no-link --print-out-paths)
+    "$out"/bin/update-pins {{ targets }}
 
 # build & serve the docs locally
 [group('dev')]
 [no-exit-message]
 serve:
-    nix run {{ flake }}#docs.serve
+    #!/usr/bin/env bash
+    set -euo pipefail
+    out=$({{ build }} {{ build-args }} packages.docs.serve --no-link --print-out-paths)
+    "$out"/bin/serve
 
 # push to the mirrors
 [group('dev')]
@@ -172,6 +199,12 @@ roate-secrets:
 [no-exit-message]
 update-secrets:
     find secrets/ -name "*.yaml" | xargs -I {} sops updatekeys -y {}
+
+# format the config
+[group('dev')]
+[no-exit-message]
+fmt:
+    treefmt
 
 # utils group
 

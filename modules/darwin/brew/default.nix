@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    inputs.homebrew.darwinModules.nix-homebrew
+    inputs.homebrew.darwin
     ./environment.nix
   ];
 

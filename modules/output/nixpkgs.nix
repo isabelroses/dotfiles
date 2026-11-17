@@ -1,4 +1,4 @@
-# the config every nixpkgs in this flake is instantiated with. hosts take the
+# the config every nixpkgs in this repo is instantiated with. hosts take the
 # result read-only, so no module can change it afterwards
 {
   # I want to install packages that are not FOSS sometimes

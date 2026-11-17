@@ -2,7 +2,7 @@
 # each one runs. every host reads all of it, so no host has to evaluate another
 {
   lib,
-  self,
+  root,
   config,
   options,
   ...
@@ -18,7 +18,7 @@ let
     submodule
     ;
 
-  data = lib.trivial.importTOML "${self}/systems/fleet.toml";
+  data = lib.trivial.importTOML (root + /systems/fleet.toml);
 
   # not every host has an entry
   fleet = config.garden.fleet.${config.networking.hostName} or { };

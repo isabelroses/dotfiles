@@ -1,11 +1,11 @@
-name: Validate Nix Flake
+name: Validate Nix Config
 
 on:
   workflow_dispatch:
   push:
     paths:
       - "**.nix"
-      - "flake.lock"
+      - "npins/sources.json"
       - ".github/workflows/check.yml"
       - ".github/actions/**/*"
 
@@ -33,5 +33,5 @@ jobs:
       - name: Install Lix
         uses: $/.github/actions/install-lix
 
-      - name: Check Flake
-        run: nix develop -c just check --show-trace
+      - name: Check
+        run: nix-shell --run 'just check --show-trace'

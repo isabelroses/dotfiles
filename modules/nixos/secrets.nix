@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  imports = [ inputs.sops.nixosModules.sops ];
+  imports = [ inputs.sops.nixos ];
 
   sops = {
     # do muh stuff

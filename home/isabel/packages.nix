@@ -2,8 +2,8 @@
   lib,
   pkgs,
   config,
-  self',
-  inputs',
+  self,
+  inputs,
   extpkgs,
   ...
 }:
@@ -31,8 +31,8 @@ in
 
       inherit (extpkgs) quoteit; # the cli for my quote's service
 
-      izvim = inputs'.izvim.packages.izvim.override {
-        inherit (inputs'.izlix.packages) nil;
+      izvim = inputs.izvim.izvim.override {
+        inherit (inputs.izlix) nil;
       };
     })
 
@@ -77,7 +77,7 @@ in
 
     (optionalAttrs cfg.media.watching.enable {
       inherit (pkgs) ff2mpv-rust;
-      inherit (self'.legacyPackages) gup;
+      inherit (self.packages) gup;
     })
 
     (optionalAttrs (cfg.media.watching.enable && isLinux) {

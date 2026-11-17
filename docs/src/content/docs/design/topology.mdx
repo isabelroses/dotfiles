@@ -1,6 +1,6 @@
 ---
 title: Topology
-description: An overview of the systems and module layout used in this flake.
+description: An overview of the systems and module layout used in this repo.
 ---
 
 import { Image } from "astro:assets";
@@ -17,9 +17,16 @@ import topology from "../../../assets/topology.webp";
 | skadi     | Server  | NixOS | Oracle free server, mostly used for the PDS and aarch64 builds             |
 | tatsumaki | Laptop  | macOS | A MacBook Air, given to me by uni, almost exclusively used at uni          |
 
+## Layout
+
+- [default.nix](https://github.com/isabelroses/dotfiles/tree/main/default.nix) - ties the sources, inputs and outputs together for each system
+- [modules/output/lib/inputs.nix](https://github.com/isabelroses/dotfiles/tree/main/modules/output/lib/inputs.nix) - what we take from each source, for one system
+- [modules/output/lib/mkhost.nix](https://github.com/isabelroses/dotfiles/tree/main/modules/output/lib/mkhost.nix) - evaluates one host, on NixOS or nix-darwin
+- [npins](https://github.com/isabelroses/dotfiles/tree/main/npins/) - the pinned sources everything is built from
+
 ## Modules
 
-- [flake](https://github.com/isabelroses/dotfiles/tree/main/modules/flake/) - modules used to build the flake outputs
+- [output](https://github.com/isabelroses/dotfiles/tree/main/modules/output/) - what builds the outputs: lib, packages, checks and the shell
 - [generic](https://github.com/isabelroses/dotfiles/tree/main/modules/generic/) - modules intended to work with any module system (e.g. home-manager, nix-darwin, etc.)
 - [nixos](https://github.com/isabelroses/dotfiles/tree/main/modules/nixos/) - modules that work on NixOS
 - [base](https://github.com/isabelroses/dotfiles/tree/main/modules/base/) - modules that work on either NixOS or macOS
@@ -29,4 +36,4 @@ import topology from "../../../assets/topology.webp";
 
 ## Rendition
 
-<Image src={topology} alt="A topology diagram of the flake" />
+<Image src={topology} alt="A topology diagram of this config" />
