@@ -1,6 +1,6 @@
 {
   lib,
-  self,
+  root,
   config,
   extpkgs,
   ...
@@ -11,7 +11,7 @@ in
 {
   config = mkIf config.garden.profiles.workstation.enable {
     sops.secrets.lethe-token = {
-      sopsFile = "${self}/secrets/services/lethe.yaml";
+      sopsFile = root + /secrets/services/lethe.yaml;
       key = "token";
     };
 

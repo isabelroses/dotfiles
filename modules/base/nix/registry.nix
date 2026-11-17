@@ -5,11 +5,15 @@
   ...
 }:
 let
-  inherit (lib.attrsets) filterAttrs attrValues mapAttrs;
+  inherit (lib.attrsets) attrValues mapAttrs;
   inherit (lib.modules) mkForce mkIf;
-  inherit (lib.types) isType;
 
-  flakeInputs = filterAttrs (name: value: (isType "flake" value) && (name != "self")) inputs;
+  pinnedSources = mapAttrs (_: input: { inherit (input) outPath; }) (
+    removeAttrs inputs [
+      "lib"
+      "pkgs"
+    ]
+  );
 in
 {
   # The path to the nixpkgs sources used to build the system. This is
@@ -23,14 +27,14 @@ in
   # https://github.com/NixOS/nixpkgs/pull/388090
   nixpkgs.flake.source = mkForce null;
 
-  # now the explanation is done above we can pin our nixpkgs and inputs
+  # now the explanation is done above we can pin our nixpkgs and sources
   # however we like
   #
-  # a pin keeps the input's source in the closure, and nixpkgs alone is over
+  # a pin keeps the source in the closure, and nixpkgs alone is over
   # 200MiB, so headless hosts go without; nothing is evaluated on them
   nix = mkIf (!config.garden.profiles.headless.enable) {
-    # pin to avoid downloading and evaluating a new inputs everytime
-    registry = mapAttrs (_: flake: { inherit flake; }) flakeInputs;
-    nixPath = attrValues (mapAttrs (k: v: "${k}=flake:${v.outPath}") flakeInputs);
+    # pin to avoid downloading and evaluating a new source everytime
+    registry = mapAttrs (_: flake: { inherit flake; }) pinnedSources;
+    nixPath = attrValues (mapAttrs (k: v: "${k}=flake:${v.outPath}") pinnedSources);
   };
 }

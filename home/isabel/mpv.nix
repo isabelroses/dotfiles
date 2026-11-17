@@ -1,14 +1,14 @@
 {
   lib,
   pkgs,
-  self',
+  self,
   config,
   ...
 }:
 let
   inherit (lib.modules) mkIf;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
-  inherit (self'.legacyPackages) yt-dlp;
+  inherit (self.packages) yt-dlp;
 in
 {
   config = mkIf config.garden.profiles.media.watching.enable {

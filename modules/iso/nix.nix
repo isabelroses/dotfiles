@@ -1,10 +1,10 @@
-{ inputs', ... }:
+{ inputs, ... }:
 {
   nix = {
     # setting nix to be our preferred fork
-    package = inputs'.izlix.packages.lix;
+    package = inputs.izlix.lix;
 
-    # we can disable channels since we can just use the flake
+    # we can disable channels since we can just use the config
     channel.enable = false;
 
     settings = {

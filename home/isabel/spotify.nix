@@ -1,11 +1,10 @@
 {
   config,
   inputs,
-  inputs',
   ...
 }:
 let
-  spicePkgs = inputs'.spicetify.legacyPackages;
+  spicePkgs = inputs.spicetify.packages;
 in
 {
   imports = [ inputs.spicetify.homeManagerModules.spicetify ];

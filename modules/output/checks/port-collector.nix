@@ -46,8 +46,8 @@ let
       )
     );
 
-  # the installer doesn't import the garden modules
-  hosts = filterAttrs (_: nixos: nixos.config ? garden) self.nixosConfigurations;
+  # the installer does not import the garden modules, and darwin has no services
+  hosts = filterAttrs (_: host: host.config ? garden.services) self.hosts;
 
   collisions = concatLists (mapAttrsToList collisionsOn hosts);
 in

@@ -2,7 +2,6 @@
   lib,
   self,
   pkgs,
-  self',
   config,
   ...
 }:
@@ -85,7 +84,7 @@ in
         customLovelaceModules = [
           pkgs.home-assistant-custom-lovelace-modules.mushroom
           pkgs.home-assistant-custom-lovelace-modules.mini-graph-card
-          self'.legacyPackages.mushroom-strategy
+          self.packages.mushroom-strategy
         ];
 
         config = {

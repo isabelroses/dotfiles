@@ -1,10 +1,9 @@
 {
   lib,
   self,
-  self',
+  root,
   config,
   inputs,
-  inputs',
   ...
 }:
 let
@@ -24,13 +23,12 @@ in
     extraSpecialArgs = {
       inherit
         self
-        self'
         inputs
-        inputs'
+        root
         ;
     };
 
     # we should define grauntied common modules here
-    sharedModules = [ (self + /modules/home/default.nix) ];
+    sharedModules = [ (root + /modules/home/default.nix) ];
   };
 }

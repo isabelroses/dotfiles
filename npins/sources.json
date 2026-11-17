@@ -1,0 +1,154 @@
+{
+  "pins": {
+    "catppuccin": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "catppuccin",
+        "repo": "nix"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "aa70e775fdb4e998314dd64fb4cf66aeaa87f6dd",
+      "url": "https://github.com/catppuccin/nix/archive/aa70e775fdb4e998314dd64fb4cf66aeaa87f6dd.tar.gz",
+      "hash": "sha256-ne61lharrApQ3QVpm6sjd6k5AgD0xandc69h4QbopIY="
+    },
+    "darwin": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-darwin",
+        "repo": "nix-darwin"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "ff0e21a414d4547183396da1b44a66f2577b65e9",
+      "url": "https://github.com/nix-darwin/nix-darwin/archive/ff0e21a414d4547183396da1b44a66f2577b65e9.tar.gz",
+      "hash": "sha256-+RpTlcdh9KqZ+ZiLkNSTvibQWm935EcIdBzRPCTFsrQ="
+    },
+    "extersia": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "extersia-org",
+        "repo": "pkgs"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "b91fa66ac9bffdaf64df5916399af833061ba088",
+      "url": "https://github.com/extersia-org/pkgs/archive/b91fa66ac9bffdaf64df5916399af833061ba088.tar.gz",
+      "hash": "sha256-SkoFwyuLchVp0QrO1THYpCp89kZ7644pRSbkqWkrNAA="
+    },
+    "home-manager": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "home-manager"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "a1293da7dd8e497e08d26173f97e2976b36a31ea",
+      "url": "https://github.com/nix-community/home-manager/archive/a1293da7dd8e497e08d26173f97e2976b36a31ea.tar.gz",
+      "hash": "sha256-awkBBs5ctFKgEYjpNGpi3t/VqF589n5EWfdinRb2gNI="
+    },
+    "homebrew": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "zhaofengli",
+        "repo": "nix-homebrew"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "52bc87da3f30c2261a6d1cfef3c892097b53daeb",
+      "url": "https://github.com/zhaofengli/nix-homebrew/archive/52bc87da3f30c2261a6d1cfef3c892097b53daeb.tar.gz",
+      "hash": "sha256-oDYLVD8KGT/M57c8HziYSSj0le4wCyA+jZ7+/qUS91M="
+    },
+    "izlix": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "isabelroses",
+        "repo": "izlix"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "66bf1cf42fef72c6b95ab354baf0b84e1df2574e",
+      "url": "https://github.com/isabelroses/izlix/archive/66bf1cf42fef72c6b95ab354baf0b84e1df2574e.tar.gz",
+      "hash": "sha256-k4gqtJhOBkeEnZUorN/jnvnPKF6UXZtyieEAVbJ7btY="
+    },
+    "izvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "isabelroses",
+        "repo": "nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "016f2cbc87693c5d5f0c2c67be6697b0ff648904",
+      "url": "https://github.com/isabelroses/nvim/archive/016f2cbc87693c5d5f0c2c67be6697b0ff648904.tar.gz",
+      "hash": "sha256-KpB0iM/EevTZfZHekTlkCa0cf5OpK3u8m8CmtXoN2eQ="
+    },
+    "lanzaboote": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "lanzaboote"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "69c7f74b872aae4f360bdd0050106e0fddfed7aa",
+      "url": "https://github.com/nix-community/lanzaboote/archive/69c7f74b872aae4f360bdd0050106e0fddfed7aa.tar.gz",
+      "hash": "sha256-Yb47Gb1KlSGsedQuAqdDz/NNr9goz9PI+uCBDybN9Cs="
+    },
+    "nixpkgs": {
+      "type": "Channel",
+      "name": "nixpkgs-unstable",
+      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1120695.5d2b81a7a3be/nixexprs.tar.zst",
+      "hash": "sha256-Qiji3lsueSxl/ngykvc6AEQJnqXRhOMDtUp66DPCxfw="
+    },
+    "simple-nixos-mailserver": {
+      "type": "Git",
+      "repository": {
+        "type": "GitLab",
+        "repo_path": "simple-nixos-mailserver/nixos-mailserver",
+        "server": "https://gitlab.com/"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "9004c7d9b0986719a76ca6945a718434508d7b2e",
+      "url": "https://gitlab.com/api/v4/projects/simple-nixos-mailserver%2Fnixos-mailserver/repository/archive.tar.gz?sha=9004c7d9b0986719a76ca6945a718434508d7b2e",
+      "hash": "sha256-K6tvVoF+DSoMpgddGk6Xhern6pcBm3KktHV4c9MWrxM="
+    },
+    "sops": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Mic92",
+        "repo": "sops-nix"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "11e5885d241743ff0193465d533b20e754bc3ce0",
+      "url": "https://github.com/Mic92/sops-nix/archive/11e5885d241743ff0193465d533b20e754bc3ce0.tar.gz",
+      "hash": "sha256-3q/hxp/flW1PnV3Dx+H3p8kHGEHJ7251BqVMNsAAB9E="
+    },
+    "spicetify": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Gerg-L",
+        "repo": "spicetify-nix"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "13e6fed4eb99f809d390fb50f591bed6cb716dc0",
+      "url": "https://github.com/Gerg-L/spicetify-nix/archive/13e6fed4eb99f809d390fb50f591bed6cb716dc0.tar.gz",
+      "hash": "sha256-a+za5QCDlOe/PsuMlZiBcQ13cyiyOscK17BAJFu1/dE="
+    }
+  },
+  "version": 8
+}

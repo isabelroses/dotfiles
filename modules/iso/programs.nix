@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  self',
+  self,
   ...
 }:
 {
@@ -26,7 +26,7 @@
 
   # needed packages for the installer
   environment.systemPackages = [
-    self'.legacyPackages.iztaller
+    self.packages.iztaller
   ];
 
   # the upstream installer profile adds one overlay to trim mbrola voices for

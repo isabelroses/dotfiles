@@ -3,6 +3,7 @@
   just,
   gitMinimal,
   sops,
+  npins,
   treefmt-wrapped,
 }:
 mkShellNoCC {
@@ -13,6 +14,7 @@ mkShellNoCC {
     gitMinimal # we need git
     sops # secrets management
     treefmt-wrapped # nix formatter
+    npins # pin our sources
   ]
   ++ treefmt-wrapped.runtimeInputs; # collect all our formatters
 

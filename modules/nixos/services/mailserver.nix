@@ -18,7 +18,7 @@ let
 in
 {
   imports = [
-    inputs.simple-nixos-mailserver.nixosModules.default
+    inputs.simple-nixos-mailserver.nixos
     (mkService "mailserver" { domain = "mail.${rdomain}"; })
   ];
 

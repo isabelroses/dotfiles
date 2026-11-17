@@ -1,16 +1,16 @@
 {
-  self,
+  root,
   name,
   config,
   inputs,
   ...
 }:
 {
-  imports = [ inputs.sops.homeManagerModules.sops ];
+  imports = [ inputs.sops.home ];
 
   config = {
     sops = {
-      defaultSopsFile = "${self}/secrets/${name}.yaml";
+      defaultSopsFile = root + /secrets/${name}.yaml;
       age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
     };
   };

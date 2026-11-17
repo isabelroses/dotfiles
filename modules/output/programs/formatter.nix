@@ -7,7 +7,6 @@
   # actionlint,
   deadnix,
   keep-sorted,
-  locker,
   nixfmt,
   shellcheck,
   shfmt,
@@ -25,7 +24,6 @@ treefmt.withConfig {
     # actionlint
     deadnix
     keep-sorted
-    locker
     nixfmt
     shellcheck
     shfmt
@@ -46,7 +44,7 @@ treefmt.withConfig {
 
   settings = {
     on-unmatched = "info";
-    tree-root-file = "flake.nix";
+    tree-root-file = "justfile";
 
     excludes = [ "secrets/*" ];
 
@@ -61,11 +59,6 @@ treefmt.withConfig {
       keep-sorted = {
         command = "keep-sorted";
         includes = [ "*" ];
-      };
-
-      locker = {
-        command = "locker";
-        includes = [ "flake.lock" ];
       };
 
       nixfmt = {

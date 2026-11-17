@@ -9,7 +9,7 @@ let
   isGui = osClass == "nixos" && config.garden.profiles.graphical.enable;
 in
 {
-  imports = [ inputs.catppuccin.homeModules.catppuccin ];
+  imports = [ inputs.catppuccin.home ];
 
   config = {
     catppuccin = {

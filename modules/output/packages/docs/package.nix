@@ -8,8 +8,8 @@
   libdoc,
   optiondoc,
 
-  inputs,
-  self ? inputs.self,
+  self,
+  root,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "docs";
@@ -17,7 +17,7 @@ buildNpmPackage (finalAttrs: {
 
   src = self + /docs;
 
-  npmDeps = importNpmLock { npmRoot = self + /docs; };
+  npmDeps = importNpmLock { npmRoot = root + /docs; };
   inherit (importNpmLock) npmConfigHook;
 
   nativeBuildInputs = [ nodejs ];

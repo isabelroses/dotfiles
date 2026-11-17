@@ -5,7 +5,7 @@
   ...
 }:
 {
-  imports = [ inputs.catppuccin.nixosModules.catppuccin ];
+  imports = [ inputs.catppuccin.nixos ];
 
   config = {
     # pick our ports

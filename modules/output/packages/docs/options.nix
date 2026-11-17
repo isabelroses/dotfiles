@@ -2,8 +2,9 @@
   lib,
   pkgs,
 
+  self,
+  root,
   inputs,
-  self ? inputs.self,
 
   nixosOptionsDoc,
   runCommand,
@@ -15,7 +16,7 @@ let
   inherit (lib.strings) removePrefix;
 
   # hoist to prevent recomputation
-  selfStr = toString self;
+  rootStr = toString root;
 
   gitHubDeclaration = user: repo: subpath: {
     url = "https://github.com/${user}/${repo}/blob/main/${subpath}";
@@ -26,7 +27,7 @@ let
     module: extraModules:
     evalModules {
       modules = [
-        (self + /modules/${module})
+        (root + /modules/${module})
         {
           _module = {
             check = false;
@@ -37,7 +38,11 @@ let
       ++ extraModules;
 
       specialArgs = {
-        inherit self inputs;
+        inherit
+          self
+          inputs
+          root
+          ;
       };
     };
 
@@ -56,8 +61,8 @@ let
               let
                 declStr = toString decl;
               in
-              if lib.strings.hasPrefix selfStr declStr then
-                gitHubDeclaration "isabelroses" "dotfiles" (removePrefix "/" (removePrefix selfStr declStr))
+              if lib.strings.hasPrefix rootStr declStr then
+                gitHubDeclaration "isabelroses" "dotfiles" (removePrefix "/" (removePrefix rootStr declStr))
               else
                 decl
             ) opt.declarations;
