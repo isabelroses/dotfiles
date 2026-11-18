@@ -53,7 +53,7 @@ in
         discord
         grim # screenshots
         libnotify # needed for some notifications
-        pwvucontrol
+        # pwvucontrol
         signal-desktop
         slurp # used for screenshot area selection
         # bitwarden-desktop # password manager

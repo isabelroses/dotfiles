@@ -1,0 +1,146 @@
+pragma Singleton
+
+import QtQuick
+import Quickshell
+import Quickshell.Io
+import Quickshell.Networking as Net
+
+Singleton {
+  id: root
+
+  property bool quickSettingsOpen: false
+  // notifications live in the quick settings sheet
+  readonly property bool notificationsOpen: quickSettingsOpen
+  // detail card to stack on the quick settings sheet ("network", "bluetooth",
+  // "output", "audio", "input"), or ""
+  property string quickPanel: ""
+  onQuickSettingsOpenChanged: if (!quickSettingsOpen) quickPanel = ""
+  property bool calendarOpen: false
+  // when the calendar last closed; a click on the clock that also dismissed
+  // it must not reopen it straight away
+  property real calendarClosedAt: 0
+  property bool settingsOpen: false
+  property bool powerMenuOpen: false
+  property bool keepAwake: false
+  property bool locked: lockState.text().trim() === "1"
+  onLockedChanged: lockState.setText(locked ? "1" : "0")
+
+  FileView {
+    id: lockState
+    path: Quickshell.statePath("locked")
+    blockLoading: true
+    blockWrites: true
+    printErrors: false
+  }
+
+  Binding {
+    target: Quickshell
+    property: "watchFiles"
+    value: !root.locked
+  }
+
+  function lock(): void {
+    closePanels();
+    powerMenuOpen = false;
+    settingsOpen = false;
+    locked = true;
+  }
+
+  // action the power menu opens with selected ("lock", "reboot", ...), or "" for the first
+  property string powerMenuAction: ""
+
+  function openPowerMenu(action: string): void {
+    powerMenuAction = action;
+    closePanels();
+    powerMenuOpen = true;
+  }
+
+  function toggleCalendar(): void {
+    if (!calendarOpen && Date.now() - calendarClosedAt < 300) return;
+    const open = !calendarOpen;
+    closePanels();
+    calendarOpen = open;
+  }
+
+  function toggleQuickSettings(): void {
+    calendarOpen = false;
+    quickSettingsOpen = !quickSettingsOpen;
+  }
+
+  function toggleNotifications(): void {
+    toggleQuickSettings();
+  }
+
+  function closePanels(): void {
+    quickPanel = "";
+    quickSettingsOpen = false;
+    calendarOpen = false;
+  }
+
+  // page the settings window opens on: "home", "system" or a config section
+  property string settingsPage: "home"
+
+  function openSettings(page: string): void {
+    settingsPage = page || "home";
+    closePanels();
+    settingsOpen = true;
+  }
+
+  property Net.WifiNetwork wifiPasswordTarget: null
+  property string wifiPasswordError: ""
+
+  function openWifiPassword(net: Net.WifiNetwork): void {
+    wifiPasswordError = "";
+    wifiPasswordTarget = net;
+  }
+
+  function closeWifiPassword(): void {
+    wifiPasswordTarget = null;
+    wifiPasswordError = "";
+  }
+
+  IpcHandler {
+    target: "shell"
+
+    function quickSettings(): void { root.toggleQuickSettings(); }
+    function calendar(): void { root.toggleCalendar(); }
+    function panel(name: string): void {
+      root.quickSettingsOpen = true;
+      root.quickPanel = name;
+    }
+    function notifications(): void { root.toggleNotifications(); }
+    function keepAwake(): string {
+      root.keepAwake = !root.keepAwake;
+      return root.keepAwake ? "on" : "off";
+    }
+    function lock(): void { root.lock(); }
+    function powerMenu(): void {
+      if (root.powerMenuOpen) root.powerMenuOpen = false;
+      else root.openPowerMenu("");
+    }
+    function settingsPage(page: string): void { root.openSettings(page); }
+    function settings(): void {
+      if (root.settingsOpen) root.settingsOpen = false;
+      else root.openSettings("home");
+    }
+    function dnd(): string {
+      const on = !Config.get("notifications.dnd");
+      Config.set("notifications.dnd", on);
+      return on ? "on" : "off";
+    }
+    function set(path: string, value: string): string {
+      const e = Config.entry(path);
+      if (!e) return `unknown setting ${path}`;
+      let raw = value;
+      if (value === "true" || value === "false") raw = value === "true";
+      else if (value !== "" && !isNaN(Number(value))) raw = Number(value);
+      const v = Config.coerce(e, raw);
+      if (v === undefined) return `${path} should be ${Config.expected(e)}`;
+      Config.set(path, v);
+      return "ok";
+    }
+    function get(path: string): string {
+      return JSON.stringify(Config.get(path));
+    }
+  }
+}

@@ -194,3 +194,13 @@ repair: (verify "--check-contents --repair")
 clean:
     nix-collect-garbage --delete-older-than 3d
     nix store optimise
+
+# run izshell from the repo with hot reload, in place of the packaged one
+[group('utils')]
+[no-exit-message]
+shell-dev:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    systemctl --user stop izshell
+    trap 'systemctl --user start izshell' EXIT
+    IZSHELL_DIR={{ flake }}/modules/flake/packages/izshell/shell izshell

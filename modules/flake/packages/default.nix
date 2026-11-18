@@ -11,6 +11,8 @@ removeAttrs (pkgs.lib.customisation.makeScope pkgs.newScope (self: {
 
   gup = self.callPackage ./gup/package.nix { };
 
+  izshell = self.callPackage ./izshell/package.nix { };
+
   iztaller = self.callPackage ./iztaller/package.nix {
     nix = inputs.izlix.packages.${pkgs.stdenv.hostPlatform.system}.lix;
   };

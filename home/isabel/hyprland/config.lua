@@ -1,5 +1,9 @@
 local mod = "SUPER"
 
+-- gaps_in, gaps_out and decoration.rounding are the attached-bar defaults;
+-- izshell (modules/flake/packages/izshell/shell/modules/HyprlandSync.qml)
+-- overrides them at runtime to match
+-- its bar style and rounding
 hl.config({
   general = {
     gaps_in = 0,
@@ -161,7 +165,8 @@ hl.bind(mod .. " + D", hl.dsp.exec_cmd("vicinae toggle"))
 hl.bind(mod .. " + B", hl.dsp.exec_cmd("chromium"))
 hl.bind(mod .. " + E", hl.dsp.exec_cmd("cosmic-files"))
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
-hl.bind(mod .. " + L", hl.dsp.exec_cmd("qs ipc call shell lock"))
+hl.bind(mod .. " + L", hl.dsp.exec_cmd("izshell ipc call shell lock"))
+hl.bind(mod .. " + Escape", hl.dsp.exec_cmd("izshell ipc call shell powerMenu"))
 hl.bind(mod .. " + O", hl.dsp.exec_cmd("obsidian"))
 hl.bind(mod .. " + SHIFT + V", hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"))
 
@@ -174,9 +179,9 @@ hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Screenshots
-hl.bind("Print", hl.dsp.exec_cmd("qs ipc call screenshot menu"))
-hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("qs ipc call screenshot menu"))
-hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("qs ipc call screenshot region"))
+hl.bind("Print", hl.dsp.exec_cmd("izshell ipc call screenshot menu"))
+hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("izshell ipc call screenshot menu"))
+hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("izshell ipc call screenshot region"))
 
 -- Media keys, usable on the lock screen
 local media = {
@@ -188,8 +193,8 @@ local media = {
   { "XF86AudioPrev", "playerctl previous" },
   { "XF86AudioRaiseVolume", "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+", true },
   { "XF86AudioLowerVolume", "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-", true },
-  { "XF86MonBrightnessUp", "qs ipc call brightness up", true },
-  { "XF86MonBrightnessDown", "qs ipc call brightness down", true },
+  { "XF86MonBrightnessUp", "izshell ipc call brightness up", true },
+  { "XF86MonBrightnessDown", "izshell ipc call brightness down", true },
 }
 for _, k in ipairs(media) do
   hl.bind(k[1], hl.dsp.exec_cmd(k[2]), { locked = true, repeating = k[3] })

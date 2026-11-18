@@ -1,17 +1,5 @@
+{ config, ... }:
 {
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-let
-  inherit (lib.attrsets) optionalAttrs;
-in
-{
-  garden.packages = optionalAttrs config.garden.profiles.graphical.enable {
-    inherit (pkgs) networkmanagerapplet; # provides nm-connection-editor
-  };
-
   networking.networkmanager = {
     enable = true;
     dns = "systemd-resolved";

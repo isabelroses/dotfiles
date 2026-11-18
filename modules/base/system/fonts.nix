@@ -10,6 +10,7 @@
 
       source-sans
       source-serif
+      fraunces # display serif for the quickshell bar
 
       dejavu_fonts
       inter

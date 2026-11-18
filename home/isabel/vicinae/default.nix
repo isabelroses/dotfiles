@@ -33,7 +33,9 @@ in
 
     settings = {
       window.opacity = 1;
-      launcher_window.rounding = 0;
+      # corner radius comes from quickshell, which writes it to quickshell.json
+      # to match its own rounding setting
+      imports = [ "quickshell.json" ];
       telemetry.system_info = false;
       tray.enabled = false;
       compact_mode.enabled = true;
