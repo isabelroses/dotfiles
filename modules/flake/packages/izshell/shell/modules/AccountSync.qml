@@ -2,8 +2,8 @@ import QtQuick
 import Quickshell
 import qs.data
 
-// Copies the profile picture into AccountsService, the system-wide account
-// picture the greeter can read (it runs as its own user and can't see ~).
+// Copies the profile picture into AccountsService, so the account picture is
+// available system-wide instead of only in this user's config.
 Scope {
   readonly property string picture: Config.get("general.profile_picture")
 

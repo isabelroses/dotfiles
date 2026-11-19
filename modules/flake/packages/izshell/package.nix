@@ -52,20 +52,13 @@ stdenvNoCC.mkDerivation {
     exec $out/libexec/quickshell -p "\$config" "\$@"
     EOF
 
-    # runs as the greetd user, with no settings of its own: the defaults
-    cat > $out/bin/izshell-greeter <<EOF
-    #!${stdenvNoCC.shell}
-    export IZSHELL_SETTINGS=/dev/null
-    exec $out/libexec/quickshell -p $out/share/izshell/greeter.qml "\$@"
-    EOF
-
     chmod +x $out/bin/*
 
     runHook postInstall
   '';
 
   meta = {
-    description = "isabel's quickshell desktop shell and greeter";
+    description = "isabel's quickshell desktop shell";
     mainProgram = "izshell";
     platforms = lib.platforms.linux;
   };

@@ -6,7 +6,7 @@ let
   services = [
     "login"
     "greetd"
-    # "tuigreet"
+    "tuigreet"
   ];
 
   mkService = {

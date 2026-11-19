@@ -121,7 +121,7 @@ Singleton {
   readonly property list<real> curve: [0.2, 0, 0, 1, 1, 1]
 
   readonly property string username: Config.get("general.username")
-  // unset uses the account picture, which is also what the greeter shows
+  // unset uses the account picture
   readonly property string profilePicture: Config.get("general.profile_picture") || `/var/lib/AccountsService/icons/${username}`
   readonly property string wallpaper: Config.get("general.wallpaper")
 
