@@ -87,6 +87,9 @@ in
 
       # https://github.com/dani-garcia/vaultwarden/wiki/Proxy-examples
       nginx.virtualHosts.${cfg.domain} = {
+        # Vaultwarden sets its own security headers and its 2FA connector pages
+        # must not get a CSP.
+        securityHeaders = false;
         locations."/" = {
           proxyPass = "http://${cfg.host}:${toString cfg.port}";
           extraConfig = "proxy_pass_header Authorization;";
