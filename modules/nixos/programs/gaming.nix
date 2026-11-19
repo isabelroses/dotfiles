@@ -9,7 +9,7 @@ let
 in
 {
   config = mkIf config.garden.profiles.gaming.enable {
-    garden.packages = { inherit (pkgs) prismlauncher; };
+    garden.packages = { inherit (pkgs) prismlauncher amethyst-mod-manager; };
 
     programs = {
       steam = {
@@ -21,6 +21,34 @@ in
         extraCompatPackages = [ pkgs.proton-ge-bin ];
 
         gamescopeSession.enable = true;
+
+        extraPackages = with pkgs; [
+          at-spi2-atk
+          fmodex
+          fontconfig
+          gtk3
+          gtk3-x11
+          harfbuzz
+          icu
+          inetutils
+          keyutils
+          libgdiplus
+          libkrb5
+          libpng
+          libpulseaudio
+          libthai
+          libunwind
+          libvorbis
+          libxcursor
+          libxi
+          libxinerama
+          libxscrnsaver
+          mono
+          pango
+          strace
+          stdenv.cc.cc.lib
+          zlib
+        ];
       };
 
       gamescope = {
