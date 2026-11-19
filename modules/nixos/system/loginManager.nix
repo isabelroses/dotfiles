@@ -1,7 +1,7 @@
 {
   lib,
+  pkgs,
   config,
-  extpkgs,
   ...
 }:
 let
@@ -19,7 +19,7 @@ in
     settings.default_session = {
       user = "greeter";
       command = concatStringsSep " " [
-        (getExe extpkgs.tuigreet)
+        (getExe pkgs.tuigreet)
         "--time"
         "--remember"
         "--remember-user-session"
@@ -33,7 +33,4 @@ in
       ];
     };
   };
-
-  # the shell syncs the account picture into AccountsService
-  services.accounts-daemon.enable = config.services.greetd.enable;
 }
