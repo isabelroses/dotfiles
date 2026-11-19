@@ -1,9 +1,5 @@
-{ lib, config, ... }:
-let
-  inherit (lib.modules) mkDefault;
-in
+{ config, ... }:
 {
-  hardware.graphics.enable = mkDefault (
-    config.garden.profiles.graphical.enable || config.garden.device.gpu != null
-  );
+  hardware.graphics.enable =
+    config.garden.profiles.graphical.enable || config.garden.device.gpu != null;
 }
