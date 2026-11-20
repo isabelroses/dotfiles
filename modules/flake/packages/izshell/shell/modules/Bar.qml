@@ -117,9 +117,9 @@ Scope {
     }
   }
 
-  // one end (or the middle) of the bar: runs of items share a card, and media
-  // gets a card of its own that only shows while something is happening
-  // (music, mic in use, screen share)
+  // one end (or the middle) of the bar: runs of items share a card, while media
+  // and mic get cards of their own that only show while something is happening
+  // (a player, mic in use or screen share)
   component BarSection: Grid {
     id: section
 
@@ -128,7 +128,8 @@ Scope {
       const out = [];
       for (const id of items) {
         const last = out[out.length - 1];
-        if (id !== "media" && last && last[0] !== "media") last.push(id);
+        const lone = id === "media" || id === "mic";
+        if (!lone && last && last[0] !== "media" && last[0] !== "mic") last.push(id);
         else out.push([id]);
       }
       return out;
@@ -144,11 +145,13 @@ Scope {
         id: card
         required property var modelData
         readonly property bool isMedia: modelData[0] === "media"
+        readonly property bool isMic: modelData[0] === "mic"
         // from the data, not the children: a hidden card hides its children too
-        readonly property bool active: !isMedia || Media.selectedPlayer !== null
-          || Pipewire.micUsers.length > 0 || Pipewire.screenShares.length > 0
+        readonly property bool active: isMedia ? Media.selectedPlayer !== null
+          : isMic ? Pipewire.micUsers.length > 0 || Pipewire.screenShares.length > 0
+          : true
 
-        spacing: isMedia ? 6 : 10
+        spacing: isMedia || isMic ? 6 : 10
         opacity: active ? 1 : 0
         scale: active ? 1 : 0.85
         visible: opacity > 0
@@ -165,7 +168,8 @@ Scope {
             DelegateChoice { roleValue: "workspaces"; Workspaces {} }
             DelegateChoice { roleValue: "clock"; Clock {} }
             DelegateChoice { roleValue: "tray"; SysTray {} }
-            DelegateChoice { roleValue: "media"; BarGroup { spacing: 6; RecordingDot {} NowPlaying {} } }
+            DelegateChoice { roleValue: "media"; BarGroup { spacing: 6; NowPlaying {} } }
+            DelegateChoice { roleValue: "mic"; BarGroup { spacing: 6; RecordingDot {} } }
             DelegateChoice { roleValue: "status"; StatusCapsule {} }
           }
         }
@@ -201,6 +205,7 @@ Scope {
 
           DelegateChoice { roleValue: "notifications"; Noti {} }
           DelegateChoice { roleValue: "volume"; Volume {} }
+          DelegateChoice { roleValue: "mic"; RecordingDot { compact: true } }
           DelegateChoice { roleValue: "network"; Network {} }
           DelegateChoice { roleValue: "battery"; Battery {} }
         }

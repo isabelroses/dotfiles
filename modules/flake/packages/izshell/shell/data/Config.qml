@@ -12,9 +12,9 @@ Singleton {
   readonly property string path: Quickshell.env("IZSHELL_SETTINGS")
     || `${Quickshell.env("XDG_CONFIG_HOME") || Quickshell.env("HOME") + "/.config"}/izshell/settings.toml`
 
-  readonly property var barItems: ["launcher", "workspaces", "clock", "media", "tray", "status"]
+  readonly property var barItems: ["launcher", "workspaces", "clock", "media", "mic", "tray", "status"]
   readonly property var itemNames: ({
-    launcher: "Launcher", workspaces: "Workspaces", clock: "Clock", media: "Media", tray: "Tray",
+    launcher: "Launcher", workspaces: "Workspaces", clock: "Clock", media: "Media", mic: "Microphone", tray: "Tray",
     status: "Status capsule", notifications: "Notifications", volume: "Volume", network: "Network", battery: "Battery",
   })
 
@@ -60,9 +60,10 @@ Singleton {
           hint: "Top of a side bar, left of a top or bottom one." },
         { key: "middle", group: "Layout", label: "Middle", type: "items", pool: "bar", options: root.barItems, default: ["clock"] },
         { key: "end", group: "Layout", label: "End", type: "items", pool: "bar", options: root.barItems, default: ["media", "tray", "status"],
-          hint: "Media only shows while something plays, records or shares the screen." },
-        { key: "status", group: "Layout", label: "Status capsule", type: "items", options: ["notifications", "volume", "network", "battery"],
-          default: ["notifications", "volume", "network", "battery"], hint: "Icons in the button that opens quick settings." },
+          hint: "Media only shows while something plays. The mic can sit here too, but starts in the status capsule." },
+        { key: "status", group: "Layout", label: "Status capsule", type: "items", options: ["notifications", "volume", "mic", "network", "battery"],
+          default: ["notifications", "volume", "mic", "network", "battery"],
+          hint: "Icons in the button that opens quick settings. The mic only shows while an app records or shares the screen." },
         { key: "workspace_colours", group: "Items", label: "Colour-coded workspaces", type: "bool", default: true,
           hint: "Off uses the accent colour for every workspace." },
         { key: "clock_24h", group: "Items", label: "24-hour clock", type: "bool", default: false },
