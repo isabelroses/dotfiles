@@ -40,7 +40,8 @@ in
             enableACME = mkDefault true;
             extraConfig = ''
               if ($ai_crawler) { return 403; }
-            '' + lib.optionalString vhost.config.securityHeaders ''
+            ''
+            + lib.optionalString vhost.config.securityHeaders ''
               add_header 'Referrer-Policy' 'origin-when-cross-origin';
               add_header Content-Security-Policy "frame-ancestors 'self'" always;
               add_header X-Content-Type-Options nosniff;
