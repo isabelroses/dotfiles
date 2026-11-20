@@ -18,8 +18,8 @@
       package = pkgs.fetchFromGitHub {
         owner = "homebrew";
         repo = "brew";
-        tag = "7.0.13";
-        hash = "sha256-8G9+iCYTK2F5vSJplKPcq6dUSM6ioFtopg8nMTKS3p4=";
+        tag = "7.0.15";
+        hash = "sha256-8qp8StbMuOtXNqnfLa2ABjB+pIdHJBax5LJCs2eMhKQ=";
       };
 
       # I want to force us to only use declarative taps
@@ -36,14 +36,14 @@
         "homebrew/homebrew-core" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-core";
-          rev = "ce88df6ffd5568842fb6e167d238625c6759a835";
-          hash = "sha256-/Ty9p3HuBv9eIZPx5yDjuBce77XmCOpa6B/seUhKm+4=";
+          rev = "4d644acfd789b75635c426cd8c0c768e4bf7368f";
+          hash = "sha256-uLkXrcbP+nEaO9ttzwLoFrEfaBl7E0tm72jhh8OxCQI=";
         };
         "homebrew/homebrew-cask" = pkgs.fetchFromGitHub {
           owner = "homebrew";
           repo = "homebrew-cask";
-          rev = "75b4c981867552418c0e97f410e203fcf7b324b8";
-          hash = "sha256-MSUFrCQqfxDZ6RQxWQguAMY75YtNMHlMUP/pTVLPjKA=";
+          rev = "0c7a2a2986eaa6a9bbaa2e08505d52b604870ed9";
+          hash = "sha256-3Xg/3mOcIB9WznM07XWJ+zcb3bd4AnJsTArdSZIAzD0=";
         };
       };
     };
