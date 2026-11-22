@@ -9,7 +9,8 @@ import qs.data
 Clickable {
     id: root
 
-    required property QsNotifications.Notification notification
+    // a Quickshell Notification, or one of the shell's own from Notifications.notify
+    required property var notification
     property bool elevated: false
     readonly property bool critical: notification?.urgency === QsNotifications.NotificationUrgency.Critical
     readonly property bool replyFocused: replyField.input.activeFocus
@@ -26,7 +27,7 @@ Clickable {
     border.width: elevated && !critical ? 0 : 1
 
 
-    readonly property QsNotifications.NotificationAction defaultAction: notification?.actions.find(a => a.identifier === "default") ?? null
+    readonly property var defaultAction: notification?.actions.find(a => a.identifier === "default") ?? null
     readonly property var extraActions: (notification?.actions ?? [])
         .filter(a => a.identifier !== "default" && a.text !== "")
         .map(a => ({ kind: "action", text: a.text, action: a }))
@@ -36,12 +37,7 @@ Clickable {
         : []
 
     // as a toast it floats like the other popups
-    CardSurface {
-        visible: root.elevated
-        radius: root.radius
-        raised: true
-        z: -1
-    }
+    CardSurface { visible: root.elevated; radius: root.radius; raised: true; z: -1 }
 
     HoverHandler { id: hover }
 
@@ -116,7 +112,6 @@ Clickable {
                     color: root.critical ? Settings.colors.error : Settings.colors.textMuted
                     font.pixelSize: 11
                     font.weight: Font.Medium
-                    elide: Text.ElideRight
                 }
 
                 StyledText {
@@ -124,7 +119,6 @@ Clickable {
                     text: root.notification?.summary ?? ""
                     font.pixelSize: 13
                     font.weight: Font.DemiBold
-                    elide: Text.ElideRight
                     visible: text !== ""
                 }
 
@@ -136,7 +130,6 @@ Clickable {
                     textFormat: Text.PlainText
                     wrapMode: Text.WordWrap
                     maximumLineCount: 3
-                    elide: Text.ElideRight
                     visible: text !== ""
                 }
             }
@@ -147,7 +140,7 @@ Clickable {
                 size: 12
                 color: Settings.colors.textMuted
                 opacity: hover.hovered || root.elevated ? 1 : 0
-                Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
+                Behavior on opacity { Anim { duration: Settings.animFast } }
                 onClicked: {
                     root.notification?.dismiss();
                     root.dismissed();

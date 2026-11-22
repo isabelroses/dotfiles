@@ -18,7 +18,7 @@ Item {
     radius: Settings.radiusSm
     color: popup.visible ? Settings.colors.accentSoft : Settings.colors.surfaceRaised
     opacity: popup.visible || mouseArea.containsMouse ? 1 : 0
-    Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
+    Behavior on opacity { Anim { duration: Settings.animFast } }
   }
 
   IconImage {
@@ -95,12 +95,7 @@ Item {
 
     ColumnLayout {
       id: menuColumn
-      anchors {
-        left: parent.left
-        right: parent.right
-        top: parent.top
-        margins: 6
-      }
+      anchors { left: parent.left; right: parent.right; top: parent.top; margins: 6 }
       spacing: 1
 
       Clickable {
@@ -122,15 +117,12 @@ Item {
             color: Settings.colors.textMuted
           }
 
-          StyledText {
+          Caption {
             Layout.fillWidth: true
             text: trayItem.menuStack.length > 0
               ? trayItem.menuStack[trayItem.menuStack.length - 1].text.replace("_", "")
               : (trayItem.modelData.title || trayItem.modelData.id)
-            color: Settings.colors.textMuted
-            font.pixelSize: 11
             font.weight: Font.DemiBold
-            elide: Text.ElideRight
           }
         }
       }
@@ -219,11 +211,7 @@ Item {
                   implicitSize: 16
                 }
 
-                StyledText {
-                  Layout.fillWidth: true
-                  text: entry.text.replace("_", "")
-                  elide: Text.ElideRight
-                }
+                StyledText { Layout.fillWidth: true; text: entry.text.replace("_", "") }
 
                 MyIcon {
                   visible: entry.hasChildren

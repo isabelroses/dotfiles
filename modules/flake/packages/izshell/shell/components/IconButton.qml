@@ -23,15 +23,10 @@ Item {
         color: mouseArea.pressed ? Settings.colors.overlay : root.hoverColor
         opacity: mouseArea.containsMouse && root.enabled ? 1 : 0
 
-        Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
+        Behavior on opacity { Anim { duration: Settings.animFast } }
     }
 
-    MyIcon {
-        anchors.centerIn: parent
-        icon: root.icon
-        size: root.size
-        color: root.color
-    }
+    MyIcon { anchors.centerIn: parent; icon: root.icon; size: root.size; color: root.color }
 
     MouseArea {
         id: mouseArea

@@ -24,10 +24,7 @@ PanelWindow {
     color: Settings.colors.scrim
     opacity: holder.opacity
 
-    MouseArea {
-      anchors.fill: parent
-      onClicked: root.dismissed()
-    }
+    MouseArea { anchors.fill: parent; onClicked: root.dismissed() }
   }
 
   FocusScope {
@@ -43,8 +40,8 @@ PanelWindow {
     opacity: 0
     scale: 0.96
     Component.onCompleted: { opacity = 1; scale = 1; }
-    Behavior on opacity { NumberAnimation { duration: Settings.animNormal } }
-    Behavior on scale { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+    Behavior on opacity { Anim {} }
+    Behavior on scale { Anim {} }
 
     WrapperMouseArea {
       id: wrapper

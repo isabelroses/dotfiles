@@ -10,9 +10,12 @@ Scope {
     QuickSettingsPopup {}
     Calendar {}
     ScreenshotOverlay {}
+    ScreenshotGrabber {}
+    ScreenshotEditor {}
     NetworkPasswordDialog {}
     PolkitDialog {}
     PowerMenu {}
+    Cheatsheet {}
     IdleFade {}
     LockScreen {}
     SettingsWindow {}

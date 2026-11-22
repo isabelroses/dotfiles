@@ -1,25 +1,52 @@
 {
   lib,
+  stdenv,
   stdenvNoCC,
   makeWrapper,
+  cmake,
+  ninja,
+  pkg-config,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
   quickshell,
   kdePackages,
   adwaita-icon-theme,
   networkmanager,
-  glib,
-  systemd,
   wireplumber,
   pipewire,
+  tesseract,
 }:
 let
-  # tools the shell runs itself; the rest (hyprctl, grim, ...) come from the session
+  # tools the shell runs itself; the rest (vicinae, ...) come from the session
   runtimePath = lib.makeBinPath [
-    networkmanager
-    glib # gdbus
-    systemd # busctl, systemctl
-    wireplumber
-    pipewire
+    networkmanager # nmcli
+    wireplumber # wpctl
+    pipewire # pw-dump, pw-metadata
+    (tesseract.override { enableLanguages = [ "eng" ]; }) # screenshot text recognition
   ];
+
+  # the `Izshell` QML module: what neither Quickshell nor Qt's QML types can do
+  # (image clipboard, D-Bus calls, file removal). Built against the same Qt as
+  # quickshell, which it is loaded into.
+  plugin = stdenv.mkDerivation {
+    pname = "izshell-plugin";
+    version = "0";
+    src = ./plugin;
+    nativeBuildInputs = [
+      cmake
+      ninja
+      pkg-config
+      wayland-scanner
+    ];
+    buildInputs = [
+      kdePackages.qtbase
+      kdePackages.qtdeclarative
+      wayland
+      wayland-protocols
+    ];
+    dontWrapQtApps = true;
+  };
 in
 stdenvNoCC.mkDerivation {
   pname = "izshell";
@@ -41,7 +68,8 @@ stdenvNoCC.mkDerivation {
     makeWrapper ${lib.getExe quickshell} $out/libexec/quickshell \
       --suffix PATH : ${runtimePath} \
       --prefix QT_PLUGIN_PATH : ${kdePackages.qtimageformats}/${kdePackages.qtbase.qtPluginPrefix} \
-      --prefix XDG_DATA_DIRS : ${adwaita-icon-theme}/share
+      --prefix XDG_DATA_DIRS : ${adwaita-icon-theme}/share \
+      --prefix QML_IMPORT_PATH : ${plugin}/lib/qt-6/qml
 
     # `izshell ipc ...` talks to the running shell; IZSHELL_DIR runs a checkout instead
     cat > $out/bin/izshell <<EOF
@@ -56,6 +84,8 @@ stdenvNoCC.mkDerivation {
 
     runHook postInstall
   '';
+
+  passthru = { inherit plugin; };
 
   meta = {
     description = "isabel's quickshell desktop shell";

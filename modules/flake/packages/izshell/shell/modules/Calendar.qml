@@ -99,8 +99,8 @@ LazyLoader {
       transformOrigin: Settings.barVertical ? (Settings.barOnRight ? Item.Right : Item.Left)
                                             : (Settings.barOnBottom ? Item.Bottom : Item.Top)
       Component.onCompleted: { opacity = 1; scale = 1; }
-      Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
-      Behavior on scale { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+      Behavior on opacity { Anim { duration: Settings.animFast } }
+      Behavior on scale { Anim {} }
 
       CardSurface {
         attached: !Settings.barFloating
@@ -182,14 +182,12 @@ LazyLoader {
         Row {
           Repeater {
             model: 7
-            StyledText {
+            Caption {
               required property int index
               width: card.cell
               horizontalAlignment: Text.AlignHCenter
               text: Qt.locale().dayName((index + 1) % 7, Locale.ShortFormat).slice(0, 2)
               font.weight: Font.Medium
-              color: Settings.colors.textMuted
-              font.pixelSize: 11
             }
           }
         }

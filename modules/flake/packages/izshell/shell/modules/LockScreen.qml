@@ -3,7 +3,6 @@ import QtQuick.Layouts
 import QtQuick.Effects
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Widgets
 import Quickshell.Services.Pam
 import Quickshell.Io
 import qs.data
@@ -106,10 +105,7 @@ Scope {
         saturation: -0.2
       }
 
-      Rectangle {
-        anchors.fill: parent
-        color: Qt.rgba(0, 0, 0, 0.35)
-      }
+      Rectangle { anchors.fill: parent; color: Qt.rgba(0, 0, 0, 0.35) }
 
       LoginPrompt {
         anchors.centerIn: parent
@@ -170,7 +166,6 @@ Scope {
             Layout.maximumWidth: 320
             text: `${Media.selectedPlayer?.trackTitle ?? ""}${Media.selectedPlayer?.trackArtist ? " — " + Media.selectedPlayer.trackArtist : ""}`
             font.pixelSize: 12
-            elide: Text.ElideRight
           }
 
           IconButton {

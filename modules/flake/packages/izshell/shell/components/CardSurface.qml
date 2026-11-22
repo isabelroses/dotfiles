@@ -36,11 +36,7 @@ Item {
     }
   }
 
-  Rectangle {
-    anchors.fill: parent
-    radius: root.radius
-    color: Settings.colors.base
-  }
+  Rectangle { anchors.fill: parent; radius: root.radius; color: Settings.colors.base }
 
   Shape {
     visible: !root.attached

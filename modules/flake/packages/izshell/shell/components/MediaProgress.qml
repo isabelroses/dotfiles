@@ -30,20 +30,10 @@ ColumnLayout {
     RowLayout {
         Layout.fillWidth: true
 
-        StyledText {
-            text: Utils.formatDuration(root.player?.position ?? 0)
-            mono: true
-            color: Settings.colors.textMuted
-            font.pixelSize: 11
-        }
+        Caption { text: Utils.formatDuration(root.player?.position ?? 0); mono: true }
 
         Item { Layout.fillWidth: true }
 
-        StyledText {
-            text: Utils.formatDuration(root.player?.length ?? 0)
-            mono: true
-            color: Settings.colors.textMuted
-            font.pixelSize: 11
-        }
+        Caption { text: Utils.formatDuration(root.player?.length ?? 0); mono: true }
     }
 }

@@ -39,7 +39,7 @@ Scope {
       // windows don't reflow when it returns
       readonly property bool fullscreen: Hyprland.monitorFor(modelData)?.activeWorkspace?.hasFullscreen ?? false
       property real hidden: fullscreen ? 1 : 0
-      Behavior on hidden { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+      Behavior on hidden { Anim {} }
       WlrLayershell.layer: fullscreen && hidden < 1 ? WlrLayer.Overlay : WlrLayer.Top
 
       implicitWidth: Settings.barWidth + shadowRoom
@@ -155,8 +155,8 @@ Scope {
         opacity: active ? 1 : 0
         scale: active ? 1 : 0.85
         visible: opacity > 0
-        Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
-        Behavior on scale { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+        Behavior on opacity { Anim { duration: Settings.animFast } }
+        Behavior on scale { Anim {} }
 
         Repeater {
           model: card.modelData
@@ -190,7 +190,6 @@ Scope {
          : capsule.hovered ? Utils.withAlpha(Settings.colors.text, 0.08)
          : "transparent"
 
-    Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
     BarGroup {
       id: statusGroup

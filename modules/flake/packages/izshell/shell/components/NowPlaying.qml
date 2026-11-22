@@ -34,9 +34,7 @@ Clickable {
     Behavior on color { ColorAnimation { duration: Settings.animNormal } }
   }
 
-  BarTooltip {
-    content: root.player ? card : null
-  }
+  BarTooltip { content: root.player ? card : null }
 
   Component {
     id: card
@@ -62,7 +60,6 @@ Clickable {
           text: root.player?.trackTitle ?? ""
           font.pixelSize: 13
           font.weight: Font.DemiBold
-          elide: Text.ElideRight
         }
 
         StyledText {
@@ -71,7 +68,6 @@ Clickable {
           text: root.player?.trackArtist ?? ""
           font.pixelSize: 12
           color: Settings.colors.textMuted
-          elide: Text.ElideRight
         }
 
         ThinSlider {

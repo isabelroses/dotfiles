@@ -1,5 +1,7 @@
 import QtQuick
+import qs.data
 
+// A rectangle that reacts to the pointer; colour changes fade.
 Rectangle {
   id: root
 
@@ -11,6 +13,7 @@ Rectangle {
   signal scrolled(wheel: WheelEvent)
 
   color: "transparent"
+  Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
   MouseArea {
     id: area

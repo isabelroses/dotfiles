@@ -18,7 +18,7 @@ Item {
         radius: Settings.innerRadius
         color: Runtime.calendarOpen ? Settings.colors.accentSoft : Utils.withAlpha(Settings.colors.text, 0.08)
         opacity: Runtime.calendarOpen || hover.hovered ? 1 : 0
-        Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
+        Behavior on opacity { Anim { duration: Settings.animFast } }
     }
 
     // side bar: stacked hours / minutes / period
@@ -63,11 +63,7 @@ Item {
         anchors.centerIn: parent
         spacing: 3
 
-        StyledText {
-            text: Time.hours
-            serif: true
-            font.pixelSize: 19
-        }
+        StyledText { text: Time.hours; serif: true; font.pixelSize: 19 }
 
         StyledText {
             text: Time.minutes
@@ -88,7 +84,5 @@ Item {
         }
     }
 
-    BarTooltip {
-        text: Time.longDate
-    }
+    BarTooltip { text: Time.longDate }
 }

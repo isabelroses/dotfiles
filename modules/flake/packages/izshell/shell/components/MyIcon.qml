@@ -29,6 +29,6 @@ Item {
             colorizationColor: root.color
         }
 
-        Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
+        Behavior on opacity { Anim { duration: Settings.animFast } }
     }
 }

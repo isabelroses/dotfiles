@@ -83,7 +83,6 @@ ColumnLayout {
           text: line.modelData[1] ?? ""
           color: Settings.colors.text
           font.pixelSize: 13
-          elide: Text.ElideRight
         }
       }
 

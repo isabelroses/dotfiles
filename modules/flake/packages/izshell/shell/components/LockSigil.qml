@@ -27,7 +27,7 @@ Item {
 
   implicitWidth: (reach * 2 + 1) * pitch - gap
   implicitHeight: count > 0 ? implicitWidth : 0
-  Behavior on implicitWidth { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+  Behavior on implicitWidth { Anim {} }
 
   Repeater {
     model: root.count

@@ -9,8 +9,9 @@ Singleton {
   id: root
 
   // settings are edited at runtime, so they live outside the (read-only) shell
+  readonly property string configHome: Quickshell.env("XDG_CONFIG_HOME") || Quickshell.env("HOME") + "/.config"
   readonly property string path: Quickshell.env("IZSHELL_SETTINGS")
-    || `${Quickshell.env("XDG_CONFIG_HOME") || Quickshell.env("HOME") + "/.config"}/izshell/settings.toml`
+    || `${configHome}/izshell/settings.toml`
 
   readonly property var barItems: ["launcher", "workspaces", "clock", "media", "mic", "tray", "status"]
   readonly property var itemNames: ({
@@ -109,7 +110,7 @@ Singleton {
         { key: "folder", group: "Saving", label: "Folder", type: "path", folder: true, default: "", placeholder: "~/Pictures/Screenshots",
           hint: "Empty uses your XDG screenshots folder." },
         { key: "editor", group: "After a capture", label: "Open in the editor", type: "choice", default: "picker",
-          options: ["never", "picker", "always"], hint: "Picker opens swappy only for captures taken from the picker." },
+          options: ["never", "picker", "always"], hint: "Picker opens the editor only for captures taken from the picker." },
         { key: "notify", group: "After a capture", label: "Notification", type: "bool", default: true,
           hint: "A preview of the capture and where it went." },
       ]

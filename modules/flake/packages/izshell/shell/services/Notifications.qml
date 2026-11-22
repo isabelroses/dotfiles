@@ -11,18 +11,73 @@ Singleton {
 
   readonly property bool dndEnabled: Config.get("notifications.dnd")
   function setDnd(on: bool): void { Config.set("notifications.dnd", on); }
-  property list<Notification> list: notifactionServer.trackedNotifications.values.filter(
+  // D-Bus notifications plus the shell's own (`notify`), which look the same to the UI
+  readonly property var all: [...notifactionServer.trackedNotifications.values, ...root.local]
+  readonly property var list: all.filter(
     notification => notification.tracked && !root.dndEnabled && !Settings.notificationBlacklist.includes(notification.appName)
   )
+  property var local: []
+  property int nextLocalId: -1
 
   readonly property var times: ({})
   property var history: []
   readonly property int historyLimit: 100
 
-  signal newNotification(Notification notification)
+  signal newNotification(var notification)
 
-  function timeOf(n: Notification): real {
+  function timeOf(n: var): real {
     return times[n.id] ?? Date.now();
+  }
+
+  // A notification from the shell itself, not over D-Bus. `props`: summary, body,
+  // appName, appIcon, image, urgency, actions ([{ identifier, text, invoke }]);
+  // `onClosed` runs on dismissal. A plain object, since a QML object can't have
+  // the `id` timestamps are keyed by; only `tracked` changes, and dismissing also
+  // reassigns `local`, so bindings over `list` see it go.
+  function notify(props: var, onClosed: var): var {
+    const listeners = [];
+    const n = Object.assign({
+      id: root.nextLocalId--,
+      appName: "izshell", appIcon: "", image: "", summary: "", body: "", desktopEntry: "",
+      urgency: NotificationUrgency.Normal, actions: [],
+      hasInlineReply: false, inlineReplyPlaceholder: "",
+      tracked: true,
+      closed: { connect: f => listeners.push(f) },
+      dismiss() {
+        if (!n.tracked) return;
+        n.tracked = false;
+        root.local = root.local.filter(l => l !== n);
+        listeners.forEach(f => f());
+        onClosed?.();
+      },
+      expire() { n.dismiss(); },
+    }, props);
+    root.local = root.local.concat([n]);
+    root.track(n);
+    return n;
+  }
+
+  // shared by D-Bus and local notifications: timestamps, history on close, the toast
+  function track(notification: var): void {
+    const t = Date.now();
+    root.times[notification.id] = t;
+    const blocked = Settings.notificationBlacklist.includes(notification.appName);
+    const snapshot = {
+      appName: notification.appName,
+      appIcon: notification.appIcon,
+      summary: notification.summary,
+      body: notification.body,
+      time: t,
+    };
+    const id = notification.id;
+    notification.closed.connect(() => {
+      delete root.times[id];
+      if (!blocked) {
+        root.history = [snapshot, ...root.history].slice(0, root.historyLimit);
+        saveTimer.restart();
+      }
+    });
+    if (!root.dndEnabled && !blocked) root.newNotification(notification);
   }
 
   function ageGroup(time: real): string {
@@ -62,30 +117,8 @@ Singleton {
   NotificationServer {
     id: notifactionServer
     onNotification: (notification) => {
-      const t = Date.now();
-      root.times[notification.id] = t;
       notification.tracked = true;
-
-      const blocked = Settings.notificationBlacklist.includes(notification.appName);
-      const snapshot = {
-        appName: notification.appName,
-        appIcon: notification.appIcon,
-        summary: notification.summary,
-        body: notification.body,
-        time: t,
-      };
-      const id = notification.id;
-      notification.closed.connect(() => {
-        delete root.times[id];
-        if (!blocked) {
-          root.history = [snapshot, ...root.history].slice(0, root.historyLimit);
-          saveTimer.restart();
-        }
-      });
-
-      if (!root.dndEnabled && !blocked) {
-        root.newNotification(notification);
-      }
+      root.track(notification);
     }
 
     actionsSupported: true
@@ -116,10 +149,13 @@ Singleton {
     target: "notifications"
 
     function clear(): void {
-      for (const notification of notifactionServer.trackedNotifications.values) {
+      for (const notification of root.all) {
         notification.dismiss();
       }
     }
+
+    // notify-send for scripts, minus the D-Bus round trip
+    function send(summary: string, body: string): void { root.notify({ summary: summary, body: body }); }
 
     function clearHistory(): void { root.clearHistory(); }
   }

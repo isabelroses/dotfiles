@@ -185,33 +185,18 @@ ColumnLayout {
         anchors { fill: parent; leftMargin: 18; rightMargin: 14 }
         spacing: 12
 
-        MyIcon {
-          icon: "view-app-grid-symbolic"
-          size: 14
-          color: Settings.colors.textMuted
-        }
+        MyIcon { icon: "view-app-grid-symbolic"; size: 14; color: Settings.colors.textMuted }
 
-        StyledText {
-          Layout.fillWidth: true
-          text: "Apps"
-          font.pixelSize: 12
-        }
+        StyledText { Layout.fillWidth: true; text: "Apps"; font.pixelSize: 12 }
 
-        StyledText {
+        Caption {
           Layout.maximumWidth: 170
           text: Pipewire.streams.length === 0 ? "Nothing playing"
             : Pipewire.streams.length === 1 ? Pipewire.streamName(Pipewire.streams[0])
             : `${Pipewire.streams.length} playing`
-          font.pixelSize: 11
-          color: Settings.colors.textMuted
-          elide: Text.ElideRight
         }
 
-        MyIcon {
-          icon: "go-next-symbolic"
-          size: 10
-          color: Settings.colors.textMuted
-        }
+        MyIcon { icon: "go-next-symbolic"; size: 10; color: Settings.colors.textMuted }
       }
     }
   }
@@ -294,7 +279,6 @@ ColumnLayout {
     border.color: active ? Utils.withAlpha(Settings.colors.accent, 0.35)
                 : expanded ? Settings.colors.borderStrong : Settings.colors.border
 
-    Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
     RowLayout {
       anchors { fill: parent; leftMargin: 14; rightMargin: tile.expandable ? 0 : 14 }
@@ -315,7 +299,6 @@ ColumnLayout {
           text: tile.label
           font.pixelSize: 12
           font.weight: Font.DemiBold
-          elide: Text.ElideRight
         }
 
         StyledText {
@@ -324,7 +307,6 @@ ColumnLayout {
           text: tile.status
           font.pixelSize: 11
           color: tile.active ? Settings.colors.accent : Settings.colors.textMuted
-          elide: Text.ElideRight
         }
       }
 
@@ -347,7 +329,7 @@ ColumnLayout {
           size: 10
           color: tile.active ? Settings.colors.accent : Settings.colors.textMuted
           rotation: tile.expanded ? 90 : 0
-          Behavior on rotation { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+          Behavior on rotation { Anim {} }
         }
       }
     }
@@ -401,7 +383,6 @@ ColumnLayout {
             text: row.title
             font.pixelSize: 12
             color: row.muted ? Settings.colors.textMuted : Settings.colors.text
-            elide: Text.ElideRight
           }
 
           StyledText {
@@ -461,13 +442,10 @@ ColumnLayout {
     opacity: open ? 1 : 0
     visible: opacity > 0
 
-    Behavior on y { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
-    Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
+    Behavior on y { Anim {} }
+    Behavior on opacity { Anim { duration: Settings.animFast } }
 
-    CardSurface {
-      raised: true
-      radius: Settings.cardRadius
-    }
+    CardSurface { raised: true; radius: Settings.cardRadius }
 
     ColumnLayout {
       id: panelColumn
@@ -500,14 +478,11 @@ ColumnLayout {
 
       Rule {}
 
-      ListView {
+      ScrollList {
         id: list
         Layout.fillWidth: true
         Layout.preferredHeight: Math.min(contentHeight, (root.stackHost?.height ?? 400) - 130)
         spacing: 2
-        clip: true
-        boundsBehavior: Flickable.StopAtBounds
-        ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
       }
 
       StyledText {

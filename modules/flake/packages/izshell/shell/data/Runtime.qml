@@ -9,8 +9,6 @@ Singleton {
   id: root
 
   property bool quickSettingsOpen: false
-  // notifications live in the quick settings sheet
-  readonly property bool notificationsOpen: quickSettingsOpen
   // detail card to stack on the quick settings sheet ("network", "bluetooth",
   // "output", "audio", "input"), or ""
   property string quickPanel: ""
@@ -21,9 +19,15 @@ Singleton {
   property real calendarClosedAt: 0
   property bool settingsOpen: false
   property bool powerMenuOpen: false
+  property bool cheatsheetOpen: false
   property bool keepAwake: false
-  property bool locked: lockState.text().trim() === "1"
-  onLockedChanged: lockState.setText(locked ? "1" : "0")
+  // The lock outlives a shell restart (a crash mid-lock must come back locked),
+  // but not the compositor: the file holds the Hyprland instance that was
+  // locked, so a fresh login never inherits a lock from a session that ended
+  // locked (reboot/shutdown from the lock screen).
+  readonly property string lockKey: Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") || "1"
+  property bool locked: lockState.text().trim() === lockKey
+  onLockedChanged: lockState.setText(locked ? lockKey : "")
 
   FileView {
     id: lockState
@@ -43,6 +47,7 @@ Singleton {
     closePanels();
     powerMenuOpen = false;
     settingsOpen = false;
+    cheatsheetOpen = false;
     locked = true;
   }
 
@@ -114,6 +119,7 @@ Singleton {
       return root.keepAwake ? "on" : "off";
     }
     function lock(): void { root.lock(); }
+    function cheatsheet(): void { root.cheatsheetOpen = !root.cheatsheetOpen; }
     function powerMenu(): void {
       if (root.powerMenuOpen) root.powerMenuOpen = false;
       else root.openPowerMenu("");

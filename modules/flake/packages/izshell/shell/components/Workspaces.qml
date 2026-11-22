@@ -47,7 +47,6 @@ BarGroup {
                         : Utils.withAlpha(Settings.colors.text, ws.focused ? 0.18 : 0.10)
             onClicked: modelData.activate()
 
-            Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
             Rectangle {
                 property real size: ws.focused ? 8 : ws.visibleElsewhere || ws.hot ? 6 : 4
@@ -58,9 +57,9 @@ BarGroup {
                 color: ws.focused || ws.visibleElsewhere ? ws.tint : Settings.colors.text
                 opacity: ws.focused ? 1 : ws.visibleElsewhere ? 0.8 : ws.hot ? 0.7 : 0.35
 
-                Behavior on size { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+                Behavior on size { Anim {} }
                 Behavior on color { ColorAnimation { duration: Settings.animFast } }
-                Behavior on opacity { NumberAnimation { duration: Settings.animFast } }
+                Behavior on opacity { Anim { duration: Settings.animFast } }
             }
 
             BarTooltip {

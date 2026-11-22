@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import Quickshell
 import qs.data
 
 ColumnLayout {
@@ -65,7 +64,6 @@ ColumnLayout {
               color: hovered ? Settings.colors.surfaceRaised : "transparent"
               onClicked: root.opened(modelData.name)
 
-              Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
               Hairline { visible: row.index > 0 }
 
@@ -89,23 +87,12 @@ ColumnLayout {
                     text: row.modelData.title
                     font.pixelSize: 13
                     font.weight: Font.Medium
-                    elide: Text.ElideRight
                   }
 
-                  StyledText {
-                    Layout.fillWidth: true
-                    text: root.blurb(row.modelData.name)
-                    font.pixelSize: 11
-                    color: Settings.colors.textMuted
-                    elide: Text.ElideRight
-                  }
+                  Caption { Layout.fillWidth: true; text: root.blurb(row.modelData.name) }
                 }
 
-                MyIcon {
-                  icon: "go-next-symbolic"
-                  size: 10
-                  color: Settings.colors.textSubtle
-                }
+                MyIcon { icon: "go-next-symbolic"; size: 10; color: Settings.colors.textSubtle }
               }
             }
           }
@@ -147,7 +134,6 @@ ColumnLayout {
             Runtime.openPowerMenu(modelData.id);
           }
 
-          Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
           Hairline { visible: session.index > 0; vertical: true }
 

@@ -6,7 +6,7 @@ import qs.data
 // A small live mock of the shell for the Appearance page: the bar and the
 // quick settings sheet in the current theme, accent, rounding and bar style,
 // drawn the way the real ones are (floating cards or one attached strip).
-Rectangle {
+Box {
   id: root
 
   // the preview is roughly half scale, so corners shrink with it
@@ -16,10 +16,6 @@ Rectangle {
   readonly property real gap: Settings.barFloating ? 6 : 0
 
   implicitHeight: 196
-  radius: Settings.radiusMd
-  color: Settings.colors.surface
-  border.width: 1
-  border.color: Settings.colors.border
   clip: true
 
   // a mock card: the base fill with the soft outline floating cards get, or
@@ -42,10 +38,7 @@ Rectangle {
       Layout.fillHeight: true
       implicitWidth: 30
 
-      MockCard {
-        visible: !Settings.barFloating
-        anchors.fill: parent
-      }
+      MockCard { visible: !Settings.barFloating; anchors.fill: parent }
 
       Column {
         anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
@@ -159,11 +152,7 @@ Rectangle {
         anchors { fill: parent; margins: 12 }
         spacing: 8
 
-        StyledText {
-          text: "Notifications"
-          serif: true
-          font.pixelSize: 15
-        }
+        StyledText { text: "Notifications"; serif: true; font.pixelSize: 15 }
 
         Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Settings.colors.border }
 

@@ -19,7 +19,6 @@ Clickable {
          : root.hovered ? Settings.colors.surfaceRaised
          : "transparent"
 
-    Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
     RowLayout {
         anchors { fill: parent; leftMargin: 12; rightMargin: 12 }
@@ -36,7 +35,6 @@ Clickable {
             text: root.text
             color: root.active ? root.tint : Settings.colors.text
             font.weight: root.active ? Font.DemiBold : Font.Normal
-            elide: Text.ElideRight
         }
 
         StyledText {

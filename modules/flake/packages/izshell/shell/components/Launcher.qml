@@ -13,7 +13,6 @@ Clickable {
     color: root.hovered ? Settings.colors.accent : Settings.colors.accentSoft
     onClicked: Quickshell.execDetached(["vicinae", "toggle"])
 
-    Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
     MyIcon {
         anchors.centerIn: parent

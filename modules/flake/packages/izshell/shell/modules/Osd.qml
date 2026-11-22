@@ -23,7 +23,7 @@ Scope {
     : Brightness.icon
   readonly property color osdTint: Settings.colors.accent
 
-  property QsNotifications.Notification currentNotification: null
+  property var currentNotification: null
   property bool toastShown: false
   readonly property int toastTimeout: Config.get("notifications.toast_timeout") * 1000
 
@@ -43,7 +43,7 @@ Scope {
 
   Connections {
     target: Notifications
-    function onNewNotification(notification: QsNotifications.Notification): void {
+    function onNewNotification(notification: var): void {
       if (!Config.get("notifications.toasts")) return;
       root.currentNotification = notification;
       root.toastShown = true;
@@ -86,13 +86,10 @@ Scope {
       height: 52
       opacity: root.osdShown ? 1 : 0
 
-      Behavior on opacity { NumberAnimation { duration: Settings.animNormal } }
-      Behavior on y { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+      Behavior on opacity { Anim {} }
+      Behavior on y { Anim {} }
 
-      CardSurface {
-        radius: Math.min(Settings.sheetRadius, height / 2)
-        raised: true
-      }
+      CardSurface { radius: Math.min(Settings.sheetRadius, height / 2); raised: true }
 
       RowLayout {
         anchors { fill: parent; leftMargin: 8; rightMargin: 18 }
@@ -169,8 +166,8 @@ Scope {
       y: root.toastShown ? 16 : 0
       opacity: root.toastShown ? 1 : 0
 
-      Behavior on opacity { NumberAnimation { duration: Settings.animNormal } }
-      Behavior on y { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+      Behavior on opacity { Anim {} }
+      Behavior on y { Anim {} }
 
       NotificationCard {
         id: card

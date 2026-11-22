@@ -46,7 +46,6 @@ Item {
       color: mic.hovered ? Utils.withAlpha(root.micTint, 0.18) : "transparent"
       onClicked: Pipewire.toggleSourceMute()
 
-      Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
       MyIcon {
         anchors.centerIn: parent

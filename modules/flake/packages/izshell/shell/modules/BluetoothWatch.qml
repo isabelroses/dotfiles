@@ -1,19 +1,21 @@
 import QtQuick
 import Quickshell
-import Quickshell.Io
 import qs.services
 
 // Quickshell only looks for BlueZ once, at startup. If the shell came up while
-// bluetoothd was down (a rebuild restarts it), wait for it and restart the
-// shell's service so Bluetooth isn't missing for the rest of the session.
-// Only the systemd service does this, never a test instance run by hand.
+// bluetoothd was down (a rebuild restarts it), restart the shell's service once
+// BlueZ is back, so Bluetooth isn't missing for the rest of the session. Only
+// the systemd service does this, never a test instance run by hand.
 Scope {
-  Process {
-    running: Bluetooth.adapter === null && Quickshell.env("INVOCATION_ID") !== null
-    command: ["sh", "-c", "gdbus wait --system org.bluez && sleep 2 && busctl --system --list tree org.bluez | grep -q /org/bluez/hci"]
-    onExited: (code) => {
-      if (code === 0 && Bluetooth.adapter === null)
-        Quickshell.execDetached(["systemctl", "--user", "restart", "izshell.service"]);
-    }
+  Connections {
+    target: System
+    function onBluezRunningChanged() { if (System.bluezRunning) settle.restart(); }
+  }
+
+  // BlueZ registers its name before its adapters
+  Timer {
+    id: settle
+    interval: 2000
+    onTriggered: if (Bluetooth.adapter === null && Quickshell.env("INVOCATION_ID") !== null) System.restartUnit("izshell.service", false)
   }
 }

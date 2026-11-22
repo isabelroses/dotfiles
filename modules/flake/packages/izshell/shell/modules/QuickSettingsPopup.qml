@@ -39,8 +39,8 @@ LazyLoader {
       opacity: covered ? 0.35 : 1
       scale: covered ? 0.97 : 1
       transformOrigin: Item.Top
-      Behavior on opacity { NumberAnimation { duration: Settings.animNormal } }
-      Behavior on scale { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+      Behavior on opacity { Anim {} }
+      Behavior on scale { Anim {} }
 
       RowLayout {
         Layout.row: layout.indexOf("controls") * 2
@@ -81,7 +81,6 @@ LazyLoader {
             text: Settings.username
             serif: true
             font.pixelSize: 24
-            elide: Text.ElideRight
           }
 
           StyledText {
@@ -191,16 +190,13 @@ LazyLoader {
 
           Rule {}
 
-          ListView {
+          ScrollList {
             id: notiList
             model: feedArea.liveFeed
             Layout.fillWidth: true
             visible: Notifications.list.length > 0
             Layout.preferredHeight: Math.min(contentHeight, maxListHeight)
             spacing: 6
-            clip: true
-            boundsBehavior: Flickable.StopAtBounds
-            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
 
             delegate: DelegateChooser {
               role: "kind"
@@ -209,16 +205,13 @@ LazyLoader {
             }
           }
 
-          ListView {
+          ScrollList {
             id: histList
             visible: feedArea.historyOpen
             Layout.fillWidth: true
             Layout.preferredHeight: Math.min(contentHeight, maxListHeight * 0.6)
             model: feedArea.historyFeed
             spacing: 6
-            clip: true
-            boundsBehavior: Flickable.StopAtBounds
-            ScrollBar.vertical: ScrollBar { policy: ScrollBar.AsNeeded }
 
             delegate: DelegateChooser {
               role: "kind"
@@ -246,14 +239,12 @@ LazyLoader {
                 size: 10
                 color: Settings.colors.textMuted
                 rotation: feedArea.historyOpen ? -90 : 0
-                Behavior on rotation { NumberAnimation { duration: Settings.animFast } }
+                Behavior on rotation { Anim { duration: Settings.animFast } }
               }
 
-              StyledText {
+              Caption {
                 Layout.fillWidth: true
                 text: `History · ${Notifications.history.length}`
-                color: Settings.colors.textMuted
-                font.pixelSize: 11
                 font.weight: Font.DemiBold
               }
 
@@ -312,17 +303,13 @@ LazyLoader {
       notification: modelData.item
     }
 
-    component HistoryCard: Rectangle {
+    component HistoryCard: Box {
       id: histCard
       required property var modelData
       readonly property var entry: modelData.item
       readonly property int entryIndex: modelData.index
       width: ListView.view.width
       implicitHeight: histRow.implicitHeight + 16
-      radius: Settings.radiusMd
-      color: Settings.colors.surface
-      border.width: 1
-      border.color: Settings.colors.border
       opacity: 0.85
 
       RowLayout {
@@ -353,24 +340,18 @@ LazyLoader {
               text: histCard.entry.summary || histCard.entry.appName || ""
               font.pixelSize: 12
               font.weight: Font.DemiBold
-              elide: Text.ElideRight
             }
-            StyledText {
+            Caption {
               text: histCard.entry.time ? Notifications.relativeTime(histCard.entry.time) : ""
               mono: true
-              font.pixelSize: 11
-              color: Settings.colors.textMuted
             }
           }
 
-          StyledText {
+          Caption {
             Layout.fillWidth: true
             visible: text !== ""
             text: histCard.entry.body ?? ""
             textFormat: Text.PlainText
-            font.pixelSize: 11
-            color: Settings.colors.textMuted
-            elide: Text.ElideRight
             maximumLineCount: 1
           }
         }

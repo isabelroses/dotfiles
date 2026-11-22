@@ -16,9 +16,7 @@ ColumnLayout {
   Component.onCompleted: AudioCards.watching = true
   Component.onDestruction: AudioCards.watching = false
 
-  Pw.PwObjectTracker {
-    objects: [...Pipewire.sinks, ...Pipewire.sources]
-  }
+  Pw.PwObjectTracker { objects: [...Pipewire.sinks, ...Pipewire.sources] }
 
   readonly property var sinkOptions: Pipewire.sinks.map(n => ({ value: n, label: Pipewire.nodeName(n) }))
   readonly property var sourceOptions: Pipewire.sources.map(n => ({ value: n, label: Pipewire.nodeName(n) }))
@@ -37,17 +35,11 @@ ColumnLayout {
 
   SectionLabel { text: "Playback"; size: 16; Layout.topMargin: 10 }
   Empty { visible: Pipewire.streams.length === 0; text: "No apps are playing sound" }
-  Repeater {
-    model: Pipewire.streams
-    StreamRow { options: root.sinkOptions; outgoing: true }
-  }
+  Repeater { model: Pipewire.streams; StreamRow { options: root.sinkOptions; outgoing: true } }
 
   SectionLabel { text: "Recording"; size: 16; Layout.topMargin: 10 }
   Empty { visible: Pipewire.micUsers.length === 0; text: "No apps are recording" }
-  Repeater {
-    model: Pipewire.micUsers
-    StreamRow { options: root.sourceOptions; outgoing: false }
-  }
+  Repeater { model: Pipewire.micUsers; StreamRow { options: root.sourceOptions; outgoing: false } }
 
   SectionLabel { text: "Cards"; size: 16; Layout.topMargin: 10 }
   Repeater {
@@ -65,7 +57,6 @@ ColumnLayout {
           text: modelData.name
           font.pixelSize: 13
           font.weight: Font.Medium
-          elide: Text.ElideRight
         }
 
         Dropdown {
@@ -108,7 +99,6 @@ ColumnLayout {
         text: Pipewire.nodeName(dev.modelData)
         font.pixelSize: 13
         font.weight: Font.Medium
-        elide: Text.ElideRight
       }
 
       StyledText {
@@ -144,13 +134,11 @@ ColumnLayout {
         }
       }
 
-      StyledText {
+      Caption {
         Layout.preferredWidth: 36
         horizontalAlignment: Text.AlignRight
         text: dev.muted ? "—" : Math.round((dev.modelData?.audio?.volume ?? 0) * 100) + "%"
         mono: true
-        font.pixelSize: 11
-        color: Settings.colors.textMuted
       }
 
       IconButton {
@@ -219,7 +207,6 @@ ColumnLayout {
         Layout.fillWidth: true
         text: Pipewire.streamName(stream.modelData)
         font.pixelSize: 12
-        elide: Text.ElideRight
       }
 
       Dropdown {

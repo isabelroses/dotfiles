@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Wayland
 import qs.data
+import qs.components
 
 Variants {
   model: Quickshell.screens
@@ -25,7 +26,10 @@ Variants {
       if (path === "") return;
       const url = Qt.resolvedUrl(path);
       if (front.source.toString() === url.toString()) return;
-      (front.source.toString() === "" ? front : back).source = url;
+      const layer = front.source.toString() === "" ? front : back;
+      layer.capped = false;
+      layer.sourceSize = undefined;
+      layer.source = url;
     }
 
     Component.onCompleted: show(Settings.wallpaper)
@@ -41,13 +45,24 @@ Variants {
       fillMode: Image.PreserveAspectCrop
       asynchronous: true
       cache: false
-      sourceSize: Qt.size(win.modelData.width * win.modelData.devicePixelRatio, win.modelData.height * win.modelData.devicePixelRatio)
       opacity: 0
       Behavior on opacity { NumberAnimation { duration: Settings.animNormal * 3; easing.type: Easing.InOutQuad } }
+
+      // Decoded at its own size and scaled by the GPU: asking the decoder to
+      // upscale a small wallpaper to the screen cost ~50 MB. Only an image
+      // bigger than the screen is decoded again, down to cover it.
+      property bool capped: false
+      readonly property size screenPx: Qt.size(win.modelData.width * win.modelData.devicePixelRatio,
+                                               win.modelData.height * win.modelData.devicePixelRatio)
 
       onStatusChanged: {
         if (status === Image.Error) return console.error("Failed to load wallpaper:", source);
         if (status !== Image.Ready) return;
+        if (!capped && implicitWidth > screenPx.width && implicitHeight > screenPx.height) {
+          capped = true;
+          sourceSize = screenPx;
+          return;
+        }
         if (layer !== win.front) {
           win.front.z = 0;
           z = 1;

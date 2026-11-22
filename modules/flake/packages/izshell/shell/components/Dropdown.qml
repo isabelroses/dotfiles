@@ -39,7 +39,6 @@ ComboBox {
     text: root.displayText
     font.pixelSize: root.fontSize
     verticalAlignment: Text.AlignVCenter
-    elide: Text.ElideRight
   }
 
   indicator: MyIcon {
@@ -70,7 +69,6 @@ ComboBox {
       color: item.index === root.currentIndex ? Settings.colors.accent : Settings.colors.text
       font.weight: item.index === root.currentIndex ? Font.DemiBold : Font.Normal
       verticalAlignment: Text.AlignVCenter
-      elide: Text.ElideRight
     }
   }
 

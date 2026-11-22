@@ -29,24 +29,7 @@ ColumnLayout {
       }));
   }
 
-  Rectangle {
-    visible: NetworkConnections.error !== ""
-    Layout.fillWidth: true
-    implicitHeight: errText.implicitHeight + 16
-    radius: Settings.radiusSm
-    color: Utils.withAlpha(Settings.colors.error, 0.12)
-    border.color: Settings.colors.error
-    border.width: 1
-
-    StyledText {
-      id: errText
-      anchors { fill: parent; margins: 8 }
-      text: NetworkConnections.error
-      color: Settings.colors.error
-      font.pixelSize: 11
-      wrapMode: Text.Wrap
-    }
-  }
+  ErrorBanner { text: NetworkConnections.error; Layout.fillWidth: true }
 
   Repeater {
     model: root.groups
@@ -183,19 +166,9 @@ ColumnLayout {
     Layout.fillWidth: true
     spacing: 10
 
-    StyledText {
-      text: header.title
-      font.pixelSize: 13
-      font.weight: Font.Medium
-    }
+    StyledText { text: header.title; font.pixelSize: 13; font.weight: Font.Medium }
 
-    StyledText {
-      Layout.fillWidth: true
-      text: header.status
-      font.pixelSize: 11
-      color: Settings.colors.textMuted
-      elide: Text.ElideRight
-    }
+    Caption { Layout.fillWidth: true; text: header.status }
 
     BoxButton {
       visible: header.buttonVisible
@@ -217,25 +190,11 @@ ColumnLayout {
     Layout.fillWidth: true
     spacing: 12
 
-    MyIcon {
-      icon: found.icon
-      size: 14
-      color: Settings.colors.textMuted
-    }
+    MyIcon { icon: found.icon; size: 14; color: Settings.colors.textMuted }
 
-    StyledText {
-      text: found.text
-      font.pixelSize: 12
-    }
+    StyledText { text: found.text; font.pixelSize: 12 }
 
-    StyledText {
-      Layout.fillWidth: true
-      text: found.detail
-      mono: true
-      font.pixelSize: 11
-      color: Settings.colors.textMuted
-      elide: Text.ElideMiddle
-    }
+    Caption { Layout.fillWidth: true; text: found.detail; mono: true; elide: Text.ElideMiddle }
 
     BoxButton {
       implicitHeight: 28
@@ -284,12 +243,7 @@ ColumnLayout {
         color: Settings.colors.textMuted
       }
 
-      StyledText {
-        Layout.fillWidth: true
-        text: net.modelData.name
-        font.pixelSize: 12
-        elide: Text.ElideRight
-      }
+      StyledText { Layout.fillWidth: true; text: net.modelData.name; font.pixelSize: 12 }
 
       MyIcon {
         visible: net.locked
@@ -433,7 +387,6 @@ ColumnLayout {
           text: conn.modelData.name
           font.pixelSize: 13
           font.weight: Font.Medium
-          elide: Text.ElideRight
         }
 
         StyledText {
@@ -560,12 +513,7 @@ ColumnLayout {
 
       Item { Layout.fillWidth: true }
 
-      StyledText {
-        visible: ed.active
-        text: "Saving reconnects"
-        color: Settings.colors.textMuted
-        font.pixelSize: 11
-      }
+      Caption { visible: ed.active; text: "Saving reconnects" }
 
       BoxButton {
         implicitHeight: 30

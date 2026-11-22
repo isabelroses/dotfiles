@@ -20,7 +20,6 @@ Clickable {
        : "transparent"
   border.width: 1
   border.color: filled ? fillColor : Settings.colors.borderStrong
-  Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
   RowLayout {
     id: row

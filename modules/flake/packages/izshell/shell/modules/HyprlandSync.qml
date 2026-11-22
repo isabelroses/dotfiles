@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Hyprland
 import qs.data
+import Izshell
 
 // Keeps Hyprland's window gaps and corners in step with the shell. Floating:
 // windows get the cards' rounding and an 8px breathing gap all round (the bar
@@ -37,6 +38,8 @@ Scope {
   Timer {
     id: apply
     interval: 300
-    onTriggered: Quickshell.execDetached(["hyprctl", "eval", root.lua])
+    onTriggered: Hyprctl.request("eval " + root.lua, reply => {
+      if (reply.trim() !== "ok") console.warn("HyprlandSync: eval failed:", reply);
+    })
   }
 }

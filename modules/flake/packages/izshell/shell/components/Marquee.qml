@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Effects
-import qs.data
 
 // A single line of text that drifts sideways when it's too long to fit, but
 // only while `playing` is true; otherwise it sits still. Text that doesn't fit

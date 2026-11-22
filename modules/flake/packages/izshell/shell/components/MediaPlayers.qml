@@ -6,7 +6,7 @@ import Quickshell.Services.Mpris
 import qs.data
 import qs.services
 
-Rectangle {
+Box {
     id: root
 
     readonly property MprisPlayer player: Media.selectedPlayer
@@ -14,11 +14,7 @@ Rectangle {
     Layout.fillWidth: true
     implicitHeight: content.implicitHeight + 24
     visible: Media.recent
-    radius: Settings.radiusMd
-    color: Settings.colors.surface
     clip: true
-    border.width: 1
-    border.color: Settings.colors.border
 
     WheelHandler {
         enabled: Media.players.length > 1
@@ -101,7 +97,6 @@ Rectangle {
                     border.color: selected ? Utils.withAlpha(Settings.colors.accent, 0.5) : Settings.colors.border
                     onClicked: Media.selectedPlayer = modelData
 
-                    Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
                     StyledText {
                         id: tabLabel
@@ -119,10 +114,7 @@ Rectangle {
             Layout.fillWidth: true
             spacing: 12
 
-            MediaArt {
-                Layout.alignment: Qt.AlignTop
-                size: details.implicitHeight
-            }
+            MediaArt { Layout.alignment: Qt.AlignTop; size: details.implicitHeight }
 
             ColumnLayout {
                 id: details

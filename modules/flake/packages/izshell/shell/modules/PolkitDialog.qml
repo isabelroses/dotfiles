@@ -1,7 +1,6 @@
 import QtQuick
 import Quickshell
 import Quickshell.Services.Polkit
-import qs.data
 import qs.components
 
 Scope {

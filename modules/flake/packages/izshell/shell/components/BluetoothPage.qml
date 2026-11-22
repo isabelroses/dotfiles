@@ -102,13 +102,11 @@ ColumnLayout {
 
     SectionLabel { text: "Nearby"; size: 16 }
 
-    StyledText {
+    Caption {
       Layout.fillWidth: true
       text: !Bluetooth.powered ? "Bluetooth is off"
         : root.adapter?.discovering ? (root.nearby.length === 0 ? "Searching…" : "Scanning")
         : `${root.nearby.length} found`
-      font.pixelSize: 11
-      color: Settings.colors.textMuted
     }
 
     BoxButton {
@@ -166,20 +164,10 @@ ColumnLayout {
 
         StyledText { text: sw.label; font.pixelSize: 13 }
 
-        StyledText {
-          Layout.fillWidth: true
-          visible: text !== ""
-          text: sw.hint
-          font.pixelSize: 11
-          color: Settings.colors.textMuted
-          elide: Text.ElideRight
-        }
+        Caption { Layout.fillWidth: true; visible: text !== ""; text: sw.hint }
       }
 
-      ToggleSwitch {
-        on: sw.on
-        onToggled: if (sw.enabled) sw.toggled()
-      }
+      ToggleSwitch { on: sw.on; onToggled: if (sw.enabled) sw.toggled() }
     }
   }
 
@@ -215,7 +203,6 @@ ColumnLayout {
           Layout.fillWidth: true
           text: dev.modelData.name || dev.modelData.address
           font.pixelSize: 13
-          elide: Text.ElideRight
         }
 
         StyledText {
@@ -223,7 +210,6 @@ ColumnLayout {
           text: dev.detail
           font.pixelSize: 11
           color: dev.active ? Settings.colors.accent : Settings.colors.textMuted
-          elide: Text.ElideRight
         }
       }
 

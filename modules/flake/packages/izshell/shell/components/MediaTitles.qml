@@ -14,7 +14,6 @@ ColumnLayout {
         color: Settings.colors.accent
         font.pixelSize: 11
         font.weight: Font.Medium
-        elide: Text.ElideRight
     }
 
     Marquee {

@@ -12,11 +12,7 @@ RowLayout {
 
   spacing: 8
 
-  StyledText {
-    text: root.text
-    serif: true
-    font.pixelSize: root.size
-  }
+  StyledText { text: root.text; serif: true; font.pixelSize: root.size }
 
   Rectangle {
     visible: root.tint.a > 0

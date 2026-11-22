@@ -52,10 +52,7 @@ LazyLoader {
       // the home page is only as tall as its content; the rest get the full height
       implicitHeight: Math.min(win.section === "home" && win.query === "" ? main.implicitHeight + 2 : 680, win.height - 80)
 
-      CardSurface {
-        raised: true
-        radius: Settings.sheetRadius
-      }
+      CardSurface { raised: true; radius: Settings.sheetRadius }
 
       RowLayout {
         anchors { fill: parent; margins: 1 }
@@ -93,11 +90,7 @@ LazyLoader {
                 anchors { fill: parent; leftMargin: 8; rightMargin: 8 }
                 spacing: 8
 
-                MyIcon {
-                  icon: "go-previous-symbolic"
-                  size: 12
-                  color: Settings.colors.textMuted
-                }
+                MyIcon { icon: "go-previous-symbolic"; size: 12; color: Settings.colors.textMuted }
 
                 StyledText {
                   Layout.fillWidth: true
@@ -202,32 +195,14 @@ LazyLoader {
             }
           }
 
-          Rule {
-            Layout.leftMargin: 20
-            Layout.rightMargin: 20
-            Layout.bottomMargin: 12
-          }
+          Rule { Layout.leftMargin: 20; Layout.rightMargin: 20; Layout.bottomMargin: 12 }
 
-          Rectangle {
-            visible: Config.error !== ""
+          ErrorBanner {
+            text: Config.error
             Layout.fillWidth: true
             Layout.leftMargin: 20
             Layout.rightMargin: 20
             Layout.bottomMargin: 8
-            implicitHeight: errText.implicitHeight + 16
-            radius: Settings.radiusSm
-            color: Utils.withAlpha(Settings.colors.error, 0.12)
-            border.color: Settings.colors.error
-            border.width: 1
-
-            StyledText {
-              id: errText
-              anchors { fill: parent; margins: 8 }
-              text: Config.error
-              color: Settings.colors.error
-              font.pixelSize: 11
-              wrapMode: Text.Wrap
-            }
           }
 
           Flickable {
@@ -255,10 +230,7 @@ LazyLoader {
 
             Component {
               id: homePage
-              SettingsHome {
-                sections: win.pages
-                onOpened: (name) => win.section = name
-              }
+              SettingsHome { sections: win.pages; onOpened: (name) => win.section = name }
             }
 
             Component {
@@ -274,12 +246,10 @@ LazyLoader {
                   Layout.fillWidth: true
                   spacing: 8
 
-                  StyledText {
+                  Caption {
                     Layout.fillWidth: true
                     text: Config.path
                     mono: true
-                    font.pixelSize: 11
-                    color: Settings.colors.textMuted
                     elide: Text.ElideMiddle
                   }
 
@@ -287,7 +257,7 @@ LazyLoader {
                     implicitHeight: 28
                     fontSize: 11
                     text: "Open file"
-                    onClicked: Quickshell.execDetached(["xdg-open", Config.path])
+                    onClicked: Qt.openUrlExternally("file://" + Config.path)
                   }
 
                   BoxButton {
@@ -370,6 +340,20 @@ LazyLoader {
       }
     }
 
+    // a list entry in a setting: its contents in a row, in a small raised box
+    component Chip: Rectangle {
+      default property alias content: chipRow.data
+      width: chipRow.implicitWidth + 8
+      height: 28
+      radius: Settings.radiusSm
+      color: Settings.colors.surfaceRaised
+      border.width: 1
+      border.color: Settings.colors.borderStrong
+      RowLayout { id: chipRow; anchors.centerIn: parent; spacing: 4 }
+    }
+
+    component ChipButton: IconButton { size: 10; padding: 3; color: Settings.colors.textMuted }
+
     component SettingRow: Item {
       id: row
       required property var modelData
@@ -409,12 +393,10 @@ LazyLoader {
               font.weight: Font.Medium
             }
 
-            StyledText {
+            Caption {
               visible: text !== ""
               Layout.fillWidth: true
               text: row.entry.hint ?? ""
-              font.pixelSize: 11
-              color: Settings.colors.textMuted
               wrapMode: Text.Wrap
             }
           }
@@ -456,10 +438,7 @@ LazyLoader {
       Component {
         id: toggleControl
 
-        ToggleSwitch {
-          on: row.value === true
-          onToggled: Config.set(row.path, !on)
-        }
+        ToggleSwitch { on: row.value === true; onToggled: Config.set(row.path, !on) }
       }
 
       Component {
@@ -571,10 +550,7 @@ LazyLoader {
 
           readonly property string folder: row.value ? row.value.slice(0, row.value.lastIndexOf("/")) : ""
 
-          Loader {
-            Layout.fillWidth: true
-            sourceComponent: textControl
-          }
+          Loader { Layout.fillWidth: true; sourceComponent: textControl }
 
           GridView {
             id: grid
@@ -649,54 +625,21 @@ LazyLoader {
           Repeater {
             model: row.value
 
-            Rectangle {
+            Chip {
               id: chip
               required property string modelData
               required property int index
-              width: chipItems.implicitWidth + 8
-              height: 28
-              radius: Settings.radiusSm
-              color: Settings.colors.surfaceRaised
-              border.width: 1
-              border.color: Settings.colors.borderStrong
 
-              RowLayout {
-                id: chipItems
-                anchors.centerIn: parent
-                spacing: 2
-
-                IconButton {
-                  icon: "go-previous-symbolic"
-                  size: 10
-                  padding: 3
-                  color: Settings.colors.textMuted
-                  enabled: chip.index > 0
-                  onClicked: items.move(chip.index, chip.index - 1)
-                }
-
-                StyledText {
-                  text: Config.itemNames[chip.modelData] ?? chip.modelData
-                  font.pixelSize: 12
-                  Layout.leftMargin: 2
-                  Layout.rightMargin: 2
-                }
-
-                IconButton {
-                  icon: "go-next-symbolic"
-                  size: 10
-                  padding: 3
-                  color: Settings.colors.textMuted
-                  enabled: chip.index < row.value.length - 1
-                  onClicked: items.move(chip.index, chip.index + 1)
-                }
-
-                IconButton {
-                  icon: "window-close-symbolic"
-                  size: 10
-                  padding: 3
-                  color: Settings.colors.textMuted
-                  onClicked: Config.set(row.path, row.value.filter(v => v !== chip.modelData))
-                }
+              ChipButton { icon: "go-previous-symbolic"; enabled: chip.index > 0; onClicked: items.move(chip.index, chip.index - 1) }
+              StyledText { text: Config.itemNames[chip.modelData] ?? chip.modelData; font.pixelSize: 12 }
+              ChipButton {
+                icon: "go-next-symbolic"
+                enabled: chip.index < row.value.length - 1
+                onClicked: items.move(chip.index, chip.index + 1)
+              }
+              ChipButton {
+                icon: "window-close-symbolic"
+                onClicked: Config.set(row.path, row.value.filter(v => v !== chip.modelData))
               }
             }
           }
@@ -731,29 +674,15 @@ LazyLoader {
           Repeater {
             model: row.value
 
-            Rectangle {
+            Chip {
               id: listChip
               required property string modelData
               required property int index
-              width: chipRow.implicitWidth + 16
-              height: 28
-              radius: Settings.radiusSm
-              color: Settings.colors.surfaceRaised
-              border.width: 1
-              border.color: Settings.colors.borderStrong
 
-              RowLayout {
-                id: chipRow
-                anchors.centerIn: parent
-                spacing: 6
-                StyledText { text: listChip.modelData; font.pixelSize: 12 }
-                IconButton {
-                  icon: "window-close-symbolic"
-                  size: 10
-                  padding: 3
-                  color: Settings.colors.textMuted
-                  onClicked: Config.set(row.path, row.value.filter((_, i) => i !== listChip.index))
-                }
+              StyledText { text: listChip.modelData; font.pixelSize: 12; Layout.leftMargin: 4 }
+              ChipButton {
+                icon: "window-close-symbolic"
+                onClicked: Config.set(row.path, row.value.filter((_, i) => i !== listChip.index))
               }
             }
           }

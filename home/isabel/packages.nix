@@ -51,7 +51,6 @@ in
         # keep-sorted start
         brightnessctl # brightness managed via cli
         discord
-        grim # screenshots
         libnotify # needed for some notifications
         # pwvucontrol
         signal-desktop
@@ -59,7 +58,6 @@ in
         # bitwarden-desktop # password manager
         # jellyfin-media-player
         # insomnia # rest client
-        swappy # used for post screenshot editing
         wl-clipboard-rs
         wl-gammactl
         # keep-sorted end

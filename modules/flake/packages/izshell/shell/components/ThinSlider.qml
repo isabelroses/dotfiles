@@ -18,11 +18,7 @@ Slider {
     height: 4
     color: Settings.colors.overlay
 
-    Rectangle {
-      width: root.visualPosition * parent.width
-      height: parent.height
-      color: root.tint
-    }
+    Rectangle { width: root.visualPosition * parent.width; height: parent.height; color: root.tint }
   }
 
   handle: Rectangle {

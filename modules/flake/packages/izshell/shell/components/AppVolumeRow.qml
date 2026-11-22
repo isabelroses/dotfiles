@@ -36,15 +36,9 @@ RowLayout {
         text: Pipewire.streamName(root.node)
         font.pixelSize: 12
         color: root.muted ? Settings.colors.textSubtle : Settings.colors.text
-        elide: Text.ElideRight
       }
 
-      StyledText {
-        text: Math.round((root.node?.audio?.volume ?? 0) * 100) + "%"
-        mono: true
-        font.pixelSize: 11
-        color: Settings.colors.textMuted
-      }
+      Caption { text: Math.round((root.node?.audio?.volume ?? 0) * 100) + "%"; mono: true }
     }
 
     ThinSlider {

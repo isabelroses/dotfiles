@@ -2,6 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 import qs.data
+import qs.services
 
 // Keeps the vicinae launcher's corners in step with the shell. vicinae's
 // declarative settings import ~/.config/vicinae/quickshell.json (see
@@ -29,7 +30,7 @@ Scope {
     onTriggered: {
       if (file.text() === root.wanted) return;
       file.setText(root.wanted);
-      Quickshell.execDetached(["systemctl", "--user", "try-restart", "vicinae.service"]);
+      System.restartUnit("vicinae.service", true);
     }
   }
 }

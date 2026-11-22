@@ -47,10 +47,7 @@ PanelWindow {
   WlrLayershell.layer: WlrLayer.Overlay
   WlrLayershell.namespace: namespace
   WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
-  mask: Region {
-    item: sheet
-    Region { item: close }
-  }
+  mask: Region { item: sheet; Region { item: close } }
 
   Item {
     id: sheet
@@ -68,8 +65,8 @@ PanelWindow {
       id: slide
       x: Settings.barVertical ? (Settings.barOnRight ? 16 : -16) : 0
       y: Settings.barVertical ? 0 : (root.fromTop ? -16 : 16)
-      Behavior on x { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
-      Behavior on y { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.BezierSpline; easing.bezierCurve: Settings.curve } }
+      Behavior on x { Anim {} }
+      Behavior on y { Anim {} }
     }
     opacity: 0
     Component.onCompleted: {
@@ -77,7 +74,7 @@ PanelWindow {
       slide.y = 0;
       opacity = 1;
     }
-    Behavior on opacity { NumberAnimation { duration: Settings.animNormal } }
+    Behavior on opacity { Anim {} }
 
     CardSurface {
       attached: !Settings.barFloating
@@ -114,7 +111,6 @@ PanelWindow {
       border.color: hovered ? Settings.colors.accent : Settings.colors.borderStrong
       onClicked: root.closeRequested()
 
-      Behavior on color { ColorAnimation { duration: Settings.animFast } }
 
       MyIcon {
         anchors.centerIn: parent

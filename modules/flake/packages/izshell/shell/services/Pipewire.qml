@@ -17,7 +17,6 @@ Singleton {
     readonly property QsPipewire.PwNode source: QsPipewire.Pipewire.defaultAudioSource
     readonly property real sourceVolume: source?.audio?.volume ?? 0
     readonly property bool sourceMuted: source?.audio?.muted ?? false
-    readonly property string sourceVolumeText: Math.round(sourceVolume * 100) + "%"
     readonly property string sourceIcon: levelIcon("microphone-sensitivity", sourceMuted, sourceVolume)
 
     readonly property var groups: {

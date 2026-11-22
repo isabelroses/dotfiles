@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell.Widgets
 import qs.data
-import qs.services
 
 // The lock screen and greeter's centre: clock, avatar, name and the password
 // sigil. The owner keeps the typed text: `edited` reports each change, to be
@@ -21,7 +20,6 @@ ColumnLayout {
   signal edited(text: string)
   signal submitted()
 
-  function focusInput(): void { field.takeFocus(); }
 
   spacing: 18
 

@@ -161,27 +161,29 @@ hl.window_rule({ match = { title = "Firefox — Sharing Indicator" }, workspace 
 hl.window_rule({ match = { title = ".*is sharing (your screen|a window)\\." }, workspace = "special silent" })
 
 -- Apps
-hl.bind(mod .. " + D", hl.dsp.exec_cmd("vicinae toggle"))
-hl.bind(mod .. " + B", hl.dsp.exec_cmd("chromium"))
-hl.bind(mod .. " + E", hl.dsp.exec_cmd("cosmic-files"))
-hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
-hl.bind(mod .. " + L", hl.dsp.exec_cmd("izshell ipc call shell lock"))
-hl.bind(mod .. " + Escape", hl.dsp.exec_cmd("izshell ipc call shell powerMenu"))
-hl.bind(mod .. " + O", hl.dsp.exec_cmd("obsidian"))
-hl.bind(mod .. " + SHIFT + V", hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"))
+hl.bind(mod .. " + D", hl.dsp.exec_cmd("vicinae toggle"), { description = "Apps: Launcher" })
+hl.bind(mod .. " + B", hl.dsp.exec_cmd("chromium"), { description = "Apps: Browser" })
+hl.bind(mod .. " + E", hl.dsp.exec_cmd("cosmic-files"), { description = "Apps: Files" })
+hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal), { description = "Apps: Terminal" })
+hl.bind(mod .. " + L", hl.dsp.exec_cmd("izshell ipc call shell lock"), { description = "Shell: Lock" })
+hl.bind(mod .. " + Escape", hl.dsp.exec_cmd("izshell ipc call shell powerMenu"), { description = "Shell: Power menu" })
+hl.bind(mod .. " + O", hl.dsp.exec_cmd("obsidian"), { description = "Apps: Notes" })
+hl.bind(mod .. " + SHIFT + V", hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"), { description = "Shell: Clipboard history" })
+hl.bind(mod .. " + slash", hl.dsp.exec_cmd("izshell ipc call shell cheatsheet"), { description = "Shell: Keybinds" })
 
 -- Windows
-hl.bind(mod .. " + Q", hl.dsp.window.close())
-hl.bind(mod .. " + F", hl.dsp.window.fullscreen())
-hl.bind(mod .. " + Space", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind(mod .. " + Q", hl.dsp.window.close(), { description = "Windows: Close" })
+hl.bind(mod .. " + F", hl.dsp.window.fullscreen(), { description = "Windows: Fullscreen" })
+hl.bind(mod .. " + Space", hl.dsp.window.float({ action = "toggle" }), { description = "Windows: Float" })
+hl.bind(mod .. " + P", hl.dsp.window.pseudo(), { description = "Windows: Pseudotile" })
+hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true, description = "Windows: Move" })
+hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true, description = "Windows: Resize" })
 
 -- Screenshots
-hl.bind("Print", hl.dsp.exec_cmd("izshell ipc call screenshot menu"))
-hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("izshell ipc call screenshot menu"))
-hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("izshell ipc call screenshot region"))
+hl.bind("Print", hl.dsp.exec_cmd("izshell ipc call screenshot menu"), { description = "Screenshots: Picker" })
+hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("izshell ipc call screenshot menu"), { description = "Screenshots: Picker" })
+hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("izshell ipc call screenshot region"), { description = "Screenshots: Region" })
+hl.bind(mod .. " + SHIFT + T", hl.dsp.exec_cmd("izshell ipc call screenshot text"), { description = "Screenshots: Copy text" })
 
 -- Media keys, usable on the lock screen
 local media = {
@@ -203,13 +205,13 @@ end
 -- Workspaces
 for i = 1, 10 do
   local key = i % 10
-  hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-  hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+  hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = i }), { description = "Workspaces: Go to" })
+  hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }), { description = "Workspaces: Move window to" })
 end
-hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
-hl.bind(mod .. " + grave", hl.dsp.workspace.toggle_special())
-hl.bind(mod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special" }))
+hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }), { description = "Workspaces: Next / previous" })
+hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }), { description = "Workspaces: Next / previous" })
+hl.bind(mod .. " + grave", hl.dsp.workspace.toggle_special(), { description = "Workspaces: Scratchpad" })
+hl.bind(mod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special" }), { description = "Workspaces: Move window to scratchpad" })
 
 -- Move / resize submaps; arrows or ijkl
 local directions = {
@@ -219,7 +221,7 @@ local directions = {
   { keys = { "down", "k" }, dir = "d", x = 0, y = 20 },
 }
 
-hl.bind(mod .. " + M", hl.dsp.submap("move"))
+hl.bind(mod .. " + M", hl.dsp.submap("move"), { description = "Windows: Move mode (arrows, Esc)" })
 hl.define_submap("move", function()
   for _, d in ipairs(directions) do
     for _, key in ipairs(d.keys) do
@@ -229,7 +231,7 @@ hl.define_submap("move", function()
   hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
-hl.bind(mod .. " + R", hl.dsp.submap("resize"))
+hl.bind(mod .. " + R", hl.dsp.submap("resize"), { description = "Windows: Resize mode (arrows, Esc)" })
 hl.define_submap("resize", function()
   for _, d in ipairs(directions) do
     for _, key in ipairs(d.keys) do

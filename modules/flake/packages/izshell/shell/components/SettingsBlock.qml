@@ -4,7 +4,7 @@ import qs.data
 
 // One boxed row on a settings page, matching the schema rows' look. Children
 // stack in a column inside its padding.
-Rectangle {
+Box {
   id: root
 
   default property alias content: column.data
@@ -12,10 +12,6 @@ Rectangle {
 
   Layout.fillWidth: true
   implicitHeight: column.implicitHeight + 24
-  radius: Settings.radiusMd
-  color: Settings.colors.surface
-  border.width: 1
-  border.color: Settings.colors.border
 
   ColumnLayout {
     id: column

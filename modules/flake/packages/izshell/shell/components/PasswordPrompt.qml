@@ -64,7 +64,6 @@ Rectangle {
           text: root.title
           font.pixelSize: 15
           font.weight: Font.DemiBold
-          elide: Text.ElideRight
         }
 
         StyledText {
@@ -76,13 +75,11 @@ Rectangle {
           wrapMode: Text.Wrap
         }
 
-        StyledText {
+        Caption {
           Layout.fillWidth: true
           visible: text !== ""
           text: root.detail
           mono: true
-          color: Settings.colors.textMuted
-          font.pixelSize: 11
           elide: Text.ElideMiddle
         }
       }
@@ -115,10 +112,7 @@ Rectangle {
 
       Item { Layout.fillWidth: true }
 
-      BoxButton {
-        text: "Cancel"
-        onClicked: root.cancelled()
-      }
+      BoxButton { text: "Cancel"; onClicked: root.cancelled() }
 
       BoxButton {
         text: root.busy ? root.busyText : root.confirmText

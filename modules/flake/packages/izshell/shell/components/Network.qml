@@ -9,7 +9,5 @@ MyIcon {
     size: 16
     color: Networking.connected ? Settings.colors.text : Settings.colors.textSubtle
 
-    BarTooltip {
-        text: Networking.statusText
-    }
+    BarTooltip { text: Networking.statusText }
 }
