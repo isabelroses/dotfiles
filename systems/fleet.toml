@@ -5,30 +5,89 @@
 [amaterasu]
 wakeOnLan = "enp4s0"
 
+[amaterasu.profiles]
+graphical.enable = true
+workstation.enable = true
+gaming.enable = true
+
+[amaterasu.device]
+cpu = "intel"
+gpu = "nvidia"
+keyboard = "us"
+capabilities = { tpm = true, bluetooth = true, yubikey = true }
+monitors.DP-1 = { hz = 144, position = "1920x0" }
+monitors.DP-2 = { hz = 144, position = "0x0" }
+
+[amaterasu.system]
+# boot.secureBoot = true
+boot.loader = "systemd-boot"
+bluetooth.enable = true
+printing.enable = false
+emulation.enable = true
+networking.useRouterDns = true
+security.auditd.enable = true
+
 [freyja]
 wakeOnLan = "enp6s0"
 # behind a home NAT
-relay = { via = "minerva", services = ["immich", "jellyfin"] }
+relay = { via = "minerva", services = ["grafana", "immich", "jellyfin"] }
+
+[freyja.profiles]
+server.enable = true
+headless.enable = true
+
+[freyja.device]
+cpu = "amd"
+gpu = "nvidia"
+capabilities.tpm = true
+
+[freyja.system]
+boot.loader = "systemd-boot"
+networking.useRouterDns = true
 
 [freyja.services]
 arr.enable = true
 borgbackup.enable = true
+grafana = { enable = true, host = "0.0.0.0" }
 immich = { enable = true, host = "0.0.0.0" }
 jellyfin.enable = true
 lethe = { enable = true, host = "0.0.0.0" }
+loki = { enable = true, host = "0.0.0.0" }
 postgresql.enable = true
+prometheus = { enable = true, host = "0.0.0.0" }
 
 [freyja.services.home-assistant]
 enable = true
 radio = "/dev/serial/by-id/usb-SONOFF_SONOFF_Dongle_Plus_MG24_a8ad9d6a37a1ef11b4e1976661ce3355-if00-port0"
 
+[isis.profiles]
+headless.enable = true
+server.enable = true
+upcloud.enable = true
+
+[isis.device]
+# AMD EPYC 9575F, no gpu
+cpu = "vm-amd"
+
 [isis.services]
 gatus = { enable = true, isPersonal = false }
 nginx = { enable = true, domain = "tgirl.cloud" }
 
+[lilith]
+class = "iso"
+
 [minerva]
 ipv4 = "91.107.198.173"
 ipv6 = "2a01:4f8:c012:2f67::1"
+
+[minerva.profiles]
+headless.enable = true
+server.enable = true
+hetzner.enable = true
+
+[minerva.device]
+# AMD EPYC-Rome, no gpu
+cpu = "vm-amd"
 
 [minerva.services]
 blahaj.enable = true
@@ -54,11 +113,30 @@ postgresql.enable = true
 redis.enable = true
 
 [skadi]
+# ampere altra, aarch64
+arch = "aarch64"
 ipv4 = "10.0.0.11"
 ipv6 = "2603:c020:c011:9c00:0:c069:1ff7:1ff3"
+
+[skadi.profiles]
+headless.enable = true
+server.enable = true
+oracle.enable = true
+
+[skadi.system]
+boot = { loader = "systemd-boot", initrd.tweaks.enable = false }
 
 [skadi.services]
 gatus.enable = true
 nginx.enable = true
 pds.enable = true
 piper.enable = true
+
+[tatsumaki]
+arch = "aarch64"
+class = "darwin"
+
+[tatsumaki.profiles]
+laptop.enable = true
+graphical.enable = true
+workstation.enable = true

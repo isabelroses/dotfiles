@@ -25,6 +25,19 @@ let
   forAllSystems = fn: lib.attrsets.mapAttrs (_: fn) pkgsFor;
 
   mkHosts = lib.attrsets.mapAttrs self.lib.mkHost;
+
+  fleet =
+    (lib.modules.evalModules {
+      modules = [
+        {
+          options.hosts = lib.options.mkOption {
+            type = lib.types.attrsOf (lib.types.submodule "${self}/systems/fleet.nix");
+          };
+          config.hosts = lib.trivial.importTOML "${self}/systems/fleet.toml";
+        }
+      ];
+    }).config.hosts;
+  hosts = lib.lists.partition (host: host.value.class == "darwin") (lib.attrsets.attrsToList fleet);
 in
 
 {
@@ -43,37 +56,6 @@ in
 
   formatter = forAllSystems (pkgs: pkgs.callPackage ./programs/formatter.nix { });
 
-  # This is the list of system configuration
-  #
-  # the defaults consists of the following:
-  #  arch = "x86_64";
-  #  class = "nixos";
-  nixosConfigurations = mkHosts {
-    # keep-sorted start block=yes newline_separated=yes
-    amaterasu = { };
-
-    freyja = { };
-
-    isis = { };
-
-    lilith = {
-      class = "iso";
-    };
-
-    minerva = { };
-
-    skadi = {
-      arch = "aarch64";
-    };
-    # keep-sorted end
-  };
-
-  darwinConfigurations = mkHosts {
-    # keep-sorted start block=yes newline_separated=yes
-    tatsumaki = {
-      arch = "aarch64";
-      class = "darwin";
-    };
-    #keep-sorted end
-  };
+  nixosConfigurations = mkHosts (lib.attrsets.listToAttrs hosts.wrong);
+  darwinConfigurations = mkHosts (lib.attrsets.listToAttrs hosts.right);
 }

@@ -60,13 +60,17 @@ in
     ./atuin.nix
     ./blahaj.nix
     ./borgbackup.nix
+    ./exporters
+    ./fluent-bit.nix
     ./forgejo.nix
     ./gatus
+    ./grafana
     ./home-assistant
     ./immich.nix
     ./jellyfin.nix
     ./kanidm.nix
     ./lethe.nix
+    ./loki.nix
     ./mailserver.nix
     ./matrix.nix
     ./nginx.nix
@@ -75,6 +79,7 @@ in
     ./pds
     ./piper.nix
     ./postgresql.nix
+    ./prometheus.nix
     ./prowlarr.nix
     ./qbittorent.nix
     ./quoteit.nix

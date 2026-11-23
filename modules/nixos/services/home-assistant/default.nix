@@ -73,6 +73,8 @@ in
           # misc
           "pi_hole"
           "gatus"
+
+          "prometheus"
         ];
 
         # the recorder needs a driver to talk to postgres
@@ -90,6 +92,8 @@ in
 
         config = {
           default_config = { };
+
+          prometheus = { };
 
           # no host means the unix socket, where peer auth lets hass in
           recorder.db_url = "postgresql://@/hass";

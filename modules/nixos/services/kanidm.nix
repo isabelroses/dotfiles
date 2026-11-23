@@ -93,6 +93,13 @@ in
         group = "kanidm";
         mode = "440";
       };
+      kanidm-oauth2-grafana = mkSecret {
+        file = "kanidm";
+        key = "oauth2-grafana";
+        owner = "kanidm";
+        group = "kanidm";
+        mode = "440";
+      };
     };
 
     services = {
@@ -135,6 +142,8 @@ in
               "matrix.access"
               "jellyfin.access"
               "jellyfin.admins"
+              "grafana.access"
+              "grafana.admins"
             ];
           };
 
@@ -155,6 +164,9 @@ in
 
             "jellyfin.access" = { };
             "jellyfin.admins" = { };
+
+            "grafana.access" = { };
+            "grafana.admins" = { };
           };
 
           systems.oauth2 = {
@@ -281,6 +293,23 @@ in
                     "tvadmin"
                   ];
                 };
+              };
+            };
+
+            grafana = {
+              displayName = "Grafana";
+              originUrl = "https://${cfg'.grafana.domain}/login/generic_oauth";
+              originLanding = "https://${cfg'.grafana.domain}/";
+              basicSecretFile = config.sops.secrets.kanidm-oauth2-grafana.path;
+              preferShortUsername = true;
+              scopeMaps."grafana.access" = [
+                "openid"
+                "email"
+                "profile"
+              ];
+              claimMaps.grafana_role = {
+                joinType = "array";
+                valuesByGroup."grafana.admins" = [ "Admin" ];
               };
             };
           };

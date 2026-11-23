@@ -15,8 +15,12 @@ in
   # Type
 
   ```
-  mkHost :: String -> { arch ? String, class ? String } -> AttrSet
+  mkHost :: String -> { arch :: String, class :: String, modules :: [Module], ... } -> AttrSet
   ```
+
+  the second argument is the host's entry in systems/fleet.toml, typed by
+  systems/fleet.nix, whose modules carry the host's garden config and its
+  systems/<host>/default.nix
 
   # Example
 
@@ -24,13 +28,16 @@ in
     mkHost "myhost" {
       arch = "x86_64";
       class = "nixos";
+      modules = [ { garden.profiles.server.enable = true; } ];
     }
   ```
 */
 name:
 {
-  arch ? "x86_64",
-  class ? "nixos",
+  arch,
+  class,
+  modules,
+  ...
 }:
 let
   inherit (inputs) darwin nixpkgs;
@@ -59,57 +66,56 @@ evalHost {
     inherit inputs self;
   };
 
-  modules = [
-    # import our host system paths
-    "${self}/systems/${name}/default.nix"
+  modules =
+    modules
+    ++ [
+      # import the files required for the class
+      "${self}/modules/${class}/default.nix"
 
-    # import the files required for the class
-    "${self}/modules/${class}/default.nix"
+      # recall `specialArgs` would take be preferred when resolving module structure
+      # well this is how we do it use it for all args that don't need to rosolve module structure
+      {
+        key = "dotfiles#specialArgs";
+        _file = "${__curPos.file}";
 
-    # recall `specialArgs` would take be preferred when resolving module structure
-    # well this is how we do it use it for all args that don't need to rosolve module structure
-    {
-      key = "dotfiles#specialArgs";
+        _module.args = {
+          inherit inputs';
+          self' = inputs'.self;
+        };
+      }
+
+      # here we make some basic assumptions about the system the person is using
+      # like the system type and the hostname
+      {
+        key = "dotfiles#hostname";
+        _file = "${__curPos.file}";
+
+        # we set the systems hostname based on the host value
+        # which should be a string that is the hostname of the system
+        networking.hostName = name;
+      }
+
+      {
+        key = "dotfiles#nixpkgs";
+        _file = "${__curPos.file}";
+
+        # every host takes the nixpkgs the flake already instantiated for its
+        # system, rather than creating its own. this is also what puts
+        # `self'.legacyPackages` on the same package set as `pkgs`
+        nixpkgs.pkgs = pkgsFor.${system};
+      }
+    ]
+    # nixos needs to be told that nothing else may configure nixpkgs, nix-darwin
+    # has no such module and only asserts that `nixpkgs.config` was left alone
+    ++ lib.lists.optional (class != "darwin") nixpkgs.nixosModules.readOnlyPkgs
+    # if we are on darwin we need to import the nixpkgs source, its used in some
+    # modules, if this is not set then you will get an error
+    ++ lib.lists.optional (class == "darwin") {
+      key = "dotfiles#nixpkgs-darwin";
       _file = "${__curPos.file}";
 
-      _module.args = {
-        inherit inputs';
-        self' = inputs'.self;
-      };
-    }
-
-    # here we make some basic assumptions about the system the person is using
-    # like the system type and the hostname
-    {
-      key = "dotfiles#hostname";
-      _file = "${__curPos.file}";
-
-      # we set the systems hostname based on the host value
-      # which should be a string that is the hostname of the system
-      networking.hostName = name;
-    }
-
-    {
-      key = "dotfiles#nixpkgs";
-      _file = "${__curPos.file}";
-
-      # every host takes the nixpkgs the flake already instantiated for its
-      # system, rather than creating its own. this is also what puts
-      # `self'.legacyPackages` on the same package set as `pkgs`
-      nixpkgs.pkgs = pkgsFor.${system};
-    }
-  ]
-  # nixos needs to be told that nothing else may configure nixpkgs, nix-darwin
-  # has no such module and only asserts that `nixpkgs.config` was left alone
-  ++ lib.lists.optional (class != "darwin") nixpkgs.nixosModules.readOnlyPkgs
-  # if we are on darwin we need to import the nixpkgs source, its used in some
-  # modules, if this is not set then you will get an error
-  ++ lib.lists.optional (class == "darwin") {
-    key = "dotfiles#nixpkgs-darwin";
-    _file = "${__curPos.file}";
-
-    # without supplying an upstream nixpkgs source, nix-darwin will not be able to build
-    # and will complain and log an error demanding that you must set this value
-    nixpkgs.source = nixpkgs;
-  };
+      # without supplying an upstream nixpkgs source, nix-darwin will not be able to build
+      # and will complain and log an error demanding that you must set this value
+      nixpkgs.source = nixpkgs;
+    };
 }
