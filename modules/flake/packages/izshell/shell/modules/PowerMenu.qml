@@ -37,8 +37,8 @@ LazyLoader {
       }
       close();
       switch (action.id) {
-      case "lock": Runtime.lock(); break;
-      case "suspend": System.power("Suspend"); break;
+      case "lock": Session.lock(); break;
+      case "suspend": Session.suspend(); break;
       case "logout": Hyprland.dispatch("hl.dsp.exit()"); break;
       case "reboot": System.power("Reboot"); break;
       case "poweroff": System.power("PowerOff"); break;

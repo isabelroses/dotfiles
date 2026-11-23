@@ -14,10 +14,10 @@ Scope {
     function panel(name: string): void { Surfaces.openCard(name); }
     function notifications(): void { Surfaces.toggle("quickSettings"); }
     function keepAwake(): string {
-      Runtime.keepAwake = !Runtime.keepAwake;
-      return Runtime.keepAwake ? "on" : "off";
+      Session.keepAwake = !Session.keepAwake;
+      return Session.keepAwake ? "on" : "off";
     }
-    function lock(): void { Runtime.lock(); }
+    function lock(): void { Session.lock(); }
     function cheatsheet(): void { Surfaces.toggle("cheatsheet"); }
     function powerMenu(): void {
       if (Surfaces.powerMenuOpen) Surfaces.close("powerMenu");

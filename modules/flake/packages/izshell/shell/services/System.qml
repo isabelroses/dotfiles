@@ -15,12 +15,10 @@ Singleton {
   readonly property bool bluezRunning: bluez.registered
 
   // "Suspend", "Reboot" or "PowerOff" through logind, interactive so polkit can
-  // ask (through PolkitDialog) if it wants to. Suspend locks first and gives the
-  // lock screen a moment to come up, so the machine never wakes unlocked.
+  // ask (through PolkitDialog) if it wants to. To suspend with the screen locked
+  // use Session.suspend().
   function power(action: string): void {
-    if (action !== "Suspend") return login1(action);
-    Runtime.lock();
-    suspendTimer.restart();
+    login1(action);
   }
 
   // a unit of the user's systemd; `onlyIfRunning` leaves a stopped one stopped
@@ -49,8 +47,6 @@ Singleton {
     DBus.call("system", "org.freedesktop.login1", "/org/freedesktop/login1", "org.freedesktop.login1.Manager",
       method, "b", [true]);
   }
-
-  Timer { id: suspendTimer; interval: 500; onTriggered: root.login1("Suspend") }
 
   DBusWatcher { id: bluez; bus: "system"; service: "org.bluez" }
 }

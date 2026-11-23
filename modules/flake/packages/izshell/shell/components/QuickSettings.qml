@@ -70,9 +70,9 @@ ColumnLayout {
     ToggleTile {
       icon: "view-reveal-symbolic"
       label: "Keep awake"
-      status: Runtime.keepAwake ? "On" : "Off"
-      active: Runtime.keepAwake
-      onToggled: Runtime.keepAwake = !Runtime.keepAwake
+      status: Session.keepAwake ? "On" : "Off"
+      active: Session.keepAwake
+      onToggled: Session.keepAwake = !Session.keepAwake
     }
   }
 

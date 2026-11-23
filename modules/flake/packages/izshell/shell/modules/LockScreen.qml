@@ -33,9 +33,9 @@ Scope {
   }
 
   Connections {
-    target: Runtime
-    function onLockedChanged() {
-      if (Runtime.locked) {
+    target: Session
+    function onLockedChanged(): void {
+      if (Session.locked) {
         root.buffer = "";
         root.message = "";
         root.failed = false;
@@ -55,7 +55,7 @@ Scope {
     onCompleted: (result) => {
       if (result === PamResult.Success) {
         root.buffer = "";
-        Runtime.locked = false;
+        Session.unlock();
       } else {
         root.buffer = "";
         root.failed = true;
@@ -70,16 +70,17 @@ Scope {
     }
   }
 
-  IdleMonitor {
-    enabled: Settings.lock.idle_minutes > 0 && !Runtime.locked && !Runtime.keepAwake
-    timeout: Settings.lock.idle_minutes * 60
-    respectInhibitors: true
-    onIsIdleChanged: if (isIdle) Runtime.lock()
+
+  // suspend waits for this: the compositor says the lock is up
+  Binding {
+    target: Session
+    property: "lockConfirmed"
+    value: lock.secure
   }
 
   WlSessionLock {
     id: lock
-    locked: Runtime.locked
+    locked: Session.locked
 
     WlSessionLockSurface {
       id: surface
