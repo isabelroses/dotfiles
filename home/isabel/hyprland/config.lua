@@ -168,7 +168,11 @@ hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal), { description = "Apps: Te
 hl.bind(mod .. " + L", hl.dsp.exec_cmd("izshell ipc call shell lock"), { description = "Shell: Lock" })
 hl.bind(mod .. " + Escape", hl.dsp.exec_cmd("izshell ipc call shell powerMenu"), { description = "Shell: Power menu" })
 hl.bind(mod .. " + O", hl.dsp.exec_cmd("obsidian"), { description = "Apps: Notes" })
-hl.bind(mod .. " + SHIFT + V", hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"), { description = "Shell: Clipboard history" })
+hl.bind(
+  mod .. " + SHIFT + V",
+  hl.dsp.exec_cmd("vicinae deeplink vicinae://launch/clipboard/history"),
+  { description = "Shell: Clipboard history" }
+)
 hl.bind(mod .. " + slash", hl.dsp.exec_cmd("izshell ipc call shell cheatsheet"), { description = "Shell: Keybinds" })
 
 -- Windows
@@ -182,8 +186,16 @@ hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true, descripti
 -- Screenshots
 hl.bind("Print", hl.dsp.exec_cmd("izshell ipc call screenshot menu"), { description = "Screenshots: Picker" })
 hl.bind("ALT + SHIFT + S", hl.dsp.exec_cmd("izshell ipc call screenshot menu"), { description = "Screenshots: Picker" })
-hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd("izshell ipc call screenshot region"), { description = "Screenshots: Region" })
-hl.bind(mod .. " + SHIFT + T", hl.dsp.exec_cmd("izshell ipc call screenshot text"), { description = "Screenshots: Copy text" })
+hl.bind(
+  mod .. " + SHIFT + S",
+  hl.dsp.exec_cmd("izshell ipc call screenshot region"),
+  { description = "Screenshots: Region" }
+)
+hl.bind(
+  mod .. " + SHIFT + T",
+  hl.dsp.exec_cmd("izshell ipc call screenshot text"),
+  { description = "Screenshots: Copy text" }
+)
 
 -- Media keys, usable on the lock screen
 local media = {
@@ -206,12 +218,20 @@ end
 for i = 1, 10 do
   local key = i % 10
   hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = i }), { description = "Workspaces: Go to" })
-  hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }), { description = "Workspaces: Move window to" })
+  hl.bind(
+    mod .. " + SHIFT + " .. key,
+    hl.dsp.window.move({ workspace = i }),
+    { description = "Workspaces: Move window to" }
+  )
 end
 hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }), { description = "Workspaces: Next / previous" })
 hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }), { description = "Workspaces: Next / previous" })
 hl.bind(mod .. " + grave", hl.dsp.workspace.toggle_special(), { description = "Workspaces: Scratchpad" })
-hl.bind(mod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special" }), { description = "Workspaces: Move window to scratchpad" })
+hl.bind(
+  mod .. " + SHIFT + grave",
+  hl.dsp.window.move({ workspace = "special" }),
+  { description = "Workspaces: Move window to scratchpad" }
+)
 
 -- Move / resize submaps; arrows or ijkl
 local directions = {
