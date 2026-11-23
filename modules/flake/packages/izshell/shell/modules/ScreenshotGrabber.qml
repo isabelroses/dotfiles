@@ -35,12 +35,12 @@ PanelWindow {
 
     ScreencopyView {
       id: screenView
-      readonly property ShellScreen target: win.job.screen
+      readonly property ShellScreen target: Quickshell.screens.find(s => s.name === win.job.screen) ?? Quickshell.screens[0]
       captureSource: target
       live: false
       width: target.width
       height: target.height
-      onHasContentChanged: if (hasContent) Screenshot.saveGrab(screenView, sourceSize)
+      onHasContentChanged: if (hasContent) Screenshot.grabbed(screenView, sourceSize)
     }
   }
 
@@ -54,7 +54,7 @@ PanelWindow {
       live: false
       width: sourceSize.width
       height: sourceSize.height
-      onHasContentChanged: if (hasContent) Screenshot.saveGrab(windowView, sourceSize)
+      onHasContentChanged: if (hasContent) Screenshot.grabbed(windowView, sourceSize)
       Component.onCompleted: if (!ToplevelManager.activeToplevel) Screenshot.fail("No active window")
     }
   }
@@ -87,7 +87,7 @@ PanelWindow {
           height: modelData.height
           onHasContentChanged: {
             if (hasContent && ++layout.ready === layout.screens.length)
-              Screenshot.saveGrab(layout, Qt.size(Math.round(layout.width * layout.pixelScale), Math.round(layout.height * layout.pixelScale)));
+              Screenshot.grabbed(layout, Qt.size(Math.round(layout.width * layout.pixelScale), Math.round(layout.height * layout.pixelScale)));
           }
         }
       }

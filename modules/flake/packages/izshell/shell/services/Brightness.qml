@@ -44,13 +44,6 @@ Singleton {
         }
     }
 
-    IpcHandler {
-        target: "brightness"
-
-        function up(): void { root.adjust(0.05); }
-        function down(): void { root.adjust(-0.05); }
-        function get(): string { return root.available ? `${Math.round(root.brightness * 100)}%` : "unavailable"; }
-    }
 
     reloadableId: "brightness"
 }

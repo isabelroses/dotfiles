@@ -32,7 +32,7 @@ Variants {
     // windows on this screen's visible workspace as screen-local rects, floating
     // and pinned ones first since they sit on top
     readonly property var windows: {
-      if (!Screenshot.active || Screenshot.mode !== "region") return [];
+      if (Screenshot.phase !== "region") return [];
       const ws = Hyprland.monitorFor(modelData)?.activeWorkspace;
       return Hyprland.toplevels.values
         .filter(t => t.workspace === ws && t.lastIpcObject?.at)
@@ -75,15 +75,15 @@ Variants {
 
     function confirmRegion(): void {
       if (selPx.width < 1 || selPx.height < 1) return Screenshot.cancel();
-      Screenshot.saveGrab(cutout, selPx);
+      Screenshot.grabbed(cutout, selPx);
     }
 
     onVisibleChanged: if (visible) resetSelection()
 
     Connections {
       target: Screenshot
-      function onAutoGrabChanged() {
-        const g = Screenshot.autoGrab;
+      function onCropChanged() {
+        const g = Screenshot.crop;
         if (!g || g.output !== win.modelData.name) return;
         win.select(g);
         Qt.callLater(win.confirmRegion);
@@ -110,7 +110,7 @@ Variants {
       anchors.fill: parent
       visible: win.frozenReady
       color: "#000000"
-      opacity: (Screenshot.mode === "region" && win.hasSelection) ? 0.45 : 0.30
+      opacity: (Screenshot.phase === "region" && win.hasSelection) ? 0.45 : 0.30
     }
 
     // grabToImage source: must contain ONLY the frozen image (border/label are
@@ -163,7 +163,7 @@ Variants {
 
     MouseArea {
       anchors.fill: parent
-      visible: win.frozenReady && Screenshot.mode === "region"
+      visible: win.frozenReady && Screenshot.phase === "region"
       enabled: visible
       cursorShape: Qt.CrossCursor
       acceptedButtons: Qt.LeftButton | Qt.RightButton
@@ -203,13 +203,11 @@ Variants {
     ]
 
     function pick(key: string): void {
-      if (key === "region") Screenshot.mode = "region";
-      else if (key === "text") Screenshot.text();
-      else Screenshot.capture(key);
+      Screenshot.choose(key);
     }
 
     FloatingToolbar {
-      visible: win.frozenReady && Screenshot.mode === "picker" && win.isPrimary
+      visible: win.frozenReady && Screenshot.phase === "picking" && win.isPrimary
       anchors.bottomMargin: 80
 
       Repeater {
@@ -231,7 +229,7 @@ Variants {
         label: "Edit"
         hint: "E"
         active: Screenshot.edit
-        onClicked: Screenshot.edit = !Screenshot.edit
+        onClicked: Screenshot.toggleEdit()
       }
 
       FloatingToolbar.Close { onClicked: Screenshot.cancel() }
@@ -242,13 +240,13 @@ Variants {
       focus: win.frozenReady
 
       Keys.onEscapePressed: Screenshot.cancel()
-      Keys.onReturnPressed: if (Screenshot.mode === "region" && win.hasSelection) win.confirmRegion()
+      Keys.onReturnPressed: if (Screenshot.phase === "region" && win.hasSelection) win.confirmRegion()
       Keys.onPressed: event => {
-        if (Screenshot.mode !== "picker") return;
+        if (Screenshot.phase !== "picking") return;
         const key = event.text.toUpperCase();
         const mode = win.modes.find(m => m.hint === key);
         if (mode) win.pick(mode.key);
-        else if (key === "E") Screenshot.edit = !Screenshot.edit;
+        else if (key === "E") Screenshot.toggleEdit();
         else return;
         event.accepted = true;
       }

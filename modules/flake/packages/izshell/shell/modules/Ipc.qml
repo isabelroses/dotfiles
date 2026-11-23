@@ -8,6 +8,25 @@ import qs.services
 // the behaviour; the names are what config.lua uses, so they don't change.
 Scope {
   IpcHandler {
+    target: "screenshot"
+
+    function menu(): void { Screenshot.request("menu"); }
+    function region(): void { Screenshot.request("region"); }
+    function window(): void { Screenshot.request("window"); }
+    function output(): void { Screenshot.request("output"); }
+    function all(): void { Screenshot.request("all"); }
+    function text(): void { Screenshot.request("text"); }
+  }
+
+  IpcHandler {
+    target: "brightness"
+
+    function up(): void { Brightness.adjust(0.05); }
+    function down(): void { Brightness.adjust(-0.05); }
+    function get(): string { return Brightness.available ? `${Math.round(Brightness.brightness * 100)}%` : "unavailable"; }
+  }
+
+  IpcHandler {
     target: "notifications"
 
     function clear(): void { Notifications.dismissAll(); }
