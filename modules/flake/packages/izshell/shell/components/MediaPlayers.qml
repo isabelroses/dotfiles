@@ -26,11 +26,10 @@ Box {
         }
     }
 
-    Timer {
-        running: root.visible && Media.playing && Media.hasProgress
-        interval: 1000
-        repeat: true
-        onTriggered: root.player.positionChanged()
+    Lease {
+        active: root.visible
+        onAcquire: Media.acquirePosition()
+        onRelease: Media.releasePosition()
     }
 
     ClippingRectangle {
@@ -121,21 +120,21 @@ Box {
                 Layout.fillWidth: true
                 spacing: 6
 
-                MediaTitles { Layout.fillWidth: true }
+                Titles { Layout.fillWidth: true }
 
                 RowLayout {
                     Layout.alignment: Qt.AlignHCenter
                     spacing: 28
 
-                    MediaControl {
+                    Control {
                         icon: "media-skip-backward-symbolic"
                         enabled: root.player?.canGoPrevious ?? false
                         onClicked: root.player.previous()
                     }
 
-                    MediaPlayButton { diameter: 32 }
+                    PlayButton { diameter: 32 }
 
-                    MediaControl {
+                    Control {
                         icon: "media-skip-forward-symbolic"
                         enabled: root.player?.canGoNext ?? false
                         onClicked: root.player.next()
@@ -145,6 +144,95 @@ Box {
 
         }
 
-        MediaProgress { Layout.fillWidth: true }
+        Progress { Layout.fillWidth: true }
+    }
+
+    // skip buttons
+    component Control: IconButton {
+        size: 16
+        padding: 7
+        color: Theme.colors.text
+        hoverColor: Utils.withAlpha(Theme.colors.text, 0.1)
+    }
+
+    component PlayButton: Clickable {
+        id: play
+
+        property int diameter: 34
+        onClicked: Media.selectedPlayer?.togglePlaying()
+        implicitWidth: diameter
+        implicitHeight: diameter
+        radius: diameter / 2
+        color: hovered ? Qt.lighter(Theme.colors.accent, 1.08) : Theme.colors.accent
+        scale: pressed ? 0.92 : 1
+        Behavior on scale { NumberAnimation { duration: 90 } }
+
+        MyIcon {
+            anchors.centerIn: parent
+            icon: Media.playing ? "media-playback-pause-symbolic" : "media-playback-start-symbolic"
+            size: play.diameter * 0.45
+            color: Theme.colors.textOnAccent
+        }
+    }
+
+    component Titles: ColumnLayout {
+        spacing: 2
+
+        StyledText {
+            Layout.fillWidth: true
+            // the tabs above name the players when there are several
+            visible: Media.players.length <= 1
+            text: Media.selectedPlayer?.identity ?? ""
+            color: Theme.colors.accent
+            font.pixelSize: 11
+            font.weight: Font.Medium
+        }
+
+        Marquee {
+            Layout.fillWidth: true
+            text: Media.selectedPlayer?.trackTitle || "Unknown track"
+            playing: Media.playing
+            font.pixelSize: 14
+            font.weight: Font.DemiBold
+        }
+
+        Marquee {
+            Layout.fillWidth: true
+            visible: text !== ""
+            text: Media.selectedPlayer?.trackArtist ?? ""
+            playing: Media.playing
+            color: Theme.colors.textMuted
+            font.pixelSize: 12
+        }
+    }
+
+    // full-width bar with the elapsed and total times underneath
+    component Progress: ColumnLayout {
+        visible: Media.hasProgress
+        spacing: 3
+
+        Rectangle {
+            Layout.fillWidth: true
+            implicitHeight: 4
+            radius: Theme.pill(height)
+            color: Utils.withAlpha(Theme.colors.text, 0.15)
+
+            Rectangle {
+                width: parent.width * Media.progress
+                height: parent.height
+                radius: Theme.pill(height)
+                color: Theme.colors.accent
+            }
+        }
+
+        RowLayout {
+            Layout.fillWidth: true
+
+            Caption { text: Utils.formatDuration(Media.position); mono: true }
+
+            Item { Layout.fillWidth: true }
+
+            Caption { text: Utils.formatDuration(Media.length); mono: true }
+        }
     }
 }

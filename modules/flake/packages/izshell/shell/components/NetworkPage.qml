@@ -43,7 +43,11 @@ ColumnLayout {
     .sort((a, b) => b.signalStrength - a.signalStrength)
     .slice(0, 8)
 
-  ScanLease { active: true }
+  Lease {
+    active: true
+    onAcquire: Networking.acquireScan()
+    onRelease: Networking.releaseScan()
+  }
 
   Component.onCompleted: {
     NetworkConnections.watching = true;

@@ -23,4 +23,22 @@ Singleton {
     const minutes = Settings.notifications.media_timeout;
     return playing || minutes === 0 || Time.date - lastActive < minutes * 60000;
   }
+
+  // where the selected player is, in seconds, and how far through (0 to 1).
+  // MPRIS doesn't announce position, so it is polled once a second while a view
+  // that shows it holds the poll (acquirePosition / releasePosition).
+  readonly property real position: selectedPlayer?.position ?? 0
+  readonly property real length: selectedPlayer?.length ?? 0
+  readonly property real progress: hasProgress ? Math.min(1, position / Math.max(1, length)) : 0
+
+  property int positionWatchers: 0
+  function acquirePosition(): void { positionWatchers++; }
+  function releasePosition(): void { positionWatchers = Math.max(0, positionWatchers - 1); }
+
+  Timer {
+    running: root.positionWatchers > 0 && root.playing && root.hasProgress
+    interval: 1000
+    repeat: true
+    onTriggered: root.selectedPlayer.positionChanged()
+  }
 }

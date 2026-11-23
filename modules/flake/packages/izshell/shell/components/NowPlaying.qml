@@ -42,11 +42,10 @@ Clickable {
     RowLayout {
       spacing: 12
 
-      Timer {
-        running: root.playing && Media.hasProgress
-        interval: 1000
-        repeat: true
-        onTriggered: root.player.positionChanged()
+      Lease {
+        active: true
+        onAcquire: Media.acquirePosition()
+        onRelease: Media.releasePosition()
       }
 
       MediaArt { size: 56 }
@@ -76,7 +75,7 @@ Clickable {
           visible: Media.hasProgress
           enabled: false
           handleWidth: 0
-          value: Media.hasProgress ? root.player.position / root.player.length : 0
+          value: Media.progress
           tint: root.playing ? Theme.colors.accent : Theme.colors.textSubtle
         }
 

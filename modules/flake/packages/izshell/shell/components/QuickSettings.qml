@@ -25,7 +25,11 @@ ColumnLayout {
     Surfaces.toggleCard(name);
   }
 
-  ScanLease { active: root.openPanel === "network" && !Networking.ethernetConnected }
+  Lease {
+    active: root.openPanel === "network" && !Networking.ethernetConnected
+    onAcquire: Networking.acquireScan()
+    onRelease: Networking.releaseScan()
+  }
 
   GridLayout {
     Layout.fillWidth: true
