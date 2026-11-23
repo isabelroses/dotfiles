@@ -10,7 +10,17 @@ PanelWindow {
   property string namespace: "modal"
   default property alias content: wrapper.data
 
+  // the Surface this is the window of: dismissing the modal closes it
+  property string surface: ""
+
   signal dismissed()
+
+  Connections {
+    target: root
+    function onDismissed(): void {
+      if (root.surface !== "") Surfaces.close(root.surface);
+    }
+  }
 
   color: "transparent"
   anchors { top: true; bottom: true; left: true; right: true }

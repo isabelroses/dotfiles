@@ -171,13 +171,13 @@ Scope {
   // opens quick settings; scrolling it changes the volume
   component StatusCapsule: Clickable {
     id: capsule
-    onClicked: Runtime.toggleQuickSettings()
+    onClicked: Surfaces.toggle("quickSettings")
     onScrolled: (e) => Pipewire.setSinkVolume(Pipewire.sinkVolume + (e.angleDelta.y > 0 ? 0.05 : -0.05))
     Layout.alignment: Qt.AlignCenter
     implicitWidth: Theme.barVertical ? 34 : statusGroup.implicitWidth + 22
     implicitHeight: Theme.barVertical ? statusGroup.implicitHeight + 22 : 34
     radius: Theme.innerRadius
-    color: Runtime.quickSettingsOpen ? Theme.colors.accentSoft
+    color: Surfaces.quickSettingsOpen ? Theme.colors.accentSoft
          : capsule.hovered ? Utils.withAlpha(Theme.colors.text, 0.08)
          : "transparent"
 

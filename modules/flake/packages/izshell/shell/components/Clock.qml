@@ -11,13 +11,13 @@ Item {
     implicitHeight: Theme.barVertical ? column.implicitHeight + 8 : 34
 
     HoverHandler { id: hover; cursorShape: Qt.PointingHandCursor }
-    TapHandler { onTapped: Runtime.toggleCalendar() }
+    TapHandler { onTapped: Surfaces.toggle("calendar") }
 
     Rectangle {
         anchors.fill: parent
         radius: Theme.innerRadius
-        color: Runtime.calendarOpen ? Theme.colors.accentSoft : Utils.withAlpha(Theme.colors.text, 0.08)
-        opacity: Runtime.calendarOpen || hover.hovered ? 1 : 0
+        color: Surfaces.calendarOpen ? Theme.colors.accentSoft : Utils.withAlpha(Theme.colors.text, 0.08)
+        opacity: Surfaces.calendarOpen || hover.hovered ? 1 : 0
         Behavior on opacity { Anim { duration: Theme.animFast } }
     }
 

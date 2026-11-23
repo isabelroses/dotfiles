@@ -15,14 +15,14 @@ ColumnLayout {
   spacing: 10
 
   // which detail card is stacked on the sheet; lives in Runtime so ipc can open one
-  readonly property string openPanel: Runtime.quickPanel
+  readonly property string openPanel: Surfaces.quickPanel
   // whether a card is really showing: the wi-fi list stays shut on ethernet
   readonly property bool cardOpen: openPanel !== "" && !(openPanel === "network" && Networking.ethernetConnected)
   // where detail cards stack; set by the sheet so they can cover all of it
   property Item stackHost: null
 
   function togglePanel(name: string): void {
-    Runtime.quickPanel = openPanel === name ? "" : name;
+    Surfaces.toggleCard(name);
   }
 
   Binding {
@@ -472,7 +472,7 @@ ColumnLayout {
           icon: "window-close-symbolic"
           size: 12
           color: Theme.colors.textMuted
-          onClicked: Runtime.quickPanel = ""
+          onClicked: Surfaces.setCard("")
         }
       }
 

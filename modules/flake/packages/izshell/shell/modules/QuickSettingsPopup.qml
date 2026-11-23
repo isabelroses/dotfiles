@@ -11,7 +11,7 @@ import qs.services
 // Quick settings, media and notifications in one sheet. Quick settings sit
 // nearest the bar's far end: at the bottom, or at the top when the bar is on top.
 LazyLoader {
-  active: Runtime.quickSettingsOpen
+  active: Surfaces.quickSettingsOpen
 
   SidePanel {
     namespace: "quicksettings"
@@ -20,9 +20,8 @@ LazyLoader {
     fill: false
     // escape and the close button take the top stacked card off first
     onCloseRequested: {
-      if (Runtime.wifiPasswordTarget !== null) Runtime.closeWifiPassword();
-      else if (qs.cardOpen) Runtime.quickPanel = "";
-      else Runtime.quickSettingsOpen = false;
+      if (qs.cardOpen || Surfaces.wifiPasswordOpen) Surfaces.dismiss();
+      else Surfaces.close("quickSettings");
     }
 
     readonly property list<string> layout: Theme.barSide === "top"
@@ -35,7 +34,7 @@ LazyLoader {
       columns: 1
       rowSpacing: 12
 
-      readonly property bool covered: qs.cardOpen || Runtime.wifiPasswordTarget !== null
+      readonly property bool covered: qs.cardOpen || Surfaces.wifiPasswordOpen
       opacity: covered ? 0.35 : 1
       scale: covered ? 0.97 : 1
       transformOrigin: Item.Top
@@ -96,7 +95,7 @@ LazyLoader {
           size: 16
           padding: 9
           color: Theme.colors.textMuted
-          onClicked: Runtime.openSettings("home")
+          onClicked: Surfaces.openSettings("home")
         }
 
         IconButton {
@@ -104,7 +103,7 @@ LazyLoader {
           size: 16
           padding: 9
           color: Theme.colors.textMuted
-          onClicked: Runtime.openPowerMenu("")
+          onClicked: Surfaces.openPowerMenu("")
         }
       }
 
@@ -267,16 +266,13 @@ LazyLoader {
 
       MouseArea {
         anchors.fill: parent
-        enabled: qs.cardOpen || Runtime.wifiPasswordTarget !== null
-        onClicked: {
-          if (Runtime.wifiPasswordTarget !== null) Runtime.closeWifiPassword();
-          else Runtime.quickPanel = "";
-        }
+        enabled: qs.cardOpen || Surfaces.wifiPasswordOpen
+        onClicked: Surfaces.dismiss()
       }
 
       Loader {
         z: 3
-        active: Runtime.wifiPasswordTarget !== null
+        active: Surfaces.wifiPasswordOpen
         width: parent.width
         y: Theme.barSide === "top" ? 0 : parent.height - height
         sourceComponent: WifiPasswordPrompt {

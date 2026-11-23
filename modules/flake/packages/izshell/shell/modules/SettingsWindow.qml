@@ -7,15 +7,15 @@ import qs.data
 import qs.components
 
 LazyLoader {
-  active: Runtime.settingsOpen
+  active: Surfaces.settingsOpen
 
   Modal {
     id: win
     namespace: "settings"
-    onDismissed: Runtime.settingsOpen = false
+    surface: "settings"
 
     // "home" and the custom pages are built by hand; the rest are lists of Settings
-    property string section: Runtime.settingsPage
+    property string section: Surfaces.settingsPage
     readonly property var sectionInfo: Settings.schema.find(s => s.name === section)
     readonly property bool inSchema: sectionInfo !== undefined && !sectionInfo.custom
     readonly property bool customPage: section === "home" || sectionInfo?.custom === true
@@ -186,7 +186,7 @@ LazyLoader {
               icon: "window-close-symbolic"
               size: 14
               color: Theme.colors.textMuted
-              onClicked: Runtime.settingsOpen = false
+              onClicked: Surfaces.close("settings")
             }
           }
 

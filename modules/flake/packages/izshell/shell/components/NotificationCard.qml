@@ -50,7 +50,7 @@ Clickable {
         const entry = DesktopEntries.heuristicLookup(n.desktopEntry || n.appName);
         const ids = [n.desktopEntry, n.appName, entry?.id, entry?.startupClass].filter(s => s).map(s => s.toLowerCase());
         ToplevelManager.toplevels.values.find(t => ids.includes(t.appId.toLowerCase()))?.activate();
-        Runtime.closePanels();
+        Surfaces.closePopups();
         n.dismiss();
         root.actionInvoked();
     }

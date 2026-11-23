@@ -7,12 +7,12 @@ import qs.components
 import qs.services
 
 LazyLoader {
-  active: Runtime.powerMenuOpen
+  active: Surfaces.powerMenuOpen
 
   Modal {
     id: win
     namespace: "powermenu"
-    onDismissed: close()
+    surface: "powerMenu"
 
     readonly property var actions: [
       { id: "lock",     label: "Lock",      key: "L", icon: "system-lock-screen-symbolic",    confirm: false },
@@ -23,11 +23,11 @@ LazyLoader {
     ]
 
     // starts on the action it was opened for, e.g. from the settings tiles
-    property int current: Math.max(0, actions.findIndex(a => a.id === Runtime.powerMenuAction))
+    property int current: Math.max(0, actions.findIndex(a => a.id === Surfaces.powerMenuAction))
     property string armed: ""
 
     function close(): void {
-      Runtime.powerMenuOpen = false;
+      Surfaces.close("powerMenu");
     }
 
     function run(action: var): void {

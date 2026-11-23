@@ -11,7 +11,7 @@ import qs.components
 // Arrows, the scroll wheel or the left/right keys browse months; clicking the
 // title jumps back to today. Clicking anywhere else or Escape closes it.
 LazyLoader {
-  active: Runtime.calendarOpen
+  active: Surfaces.calendarOpen
 
   PanelWindow {
     id: win
@@ -48,8 +48,7 @@ LazyLoader {
       active: true
       windows: [win]
       onCleared: {
-        Runtime.calendarClosedAt = Date.now();
-        Runtime.calendarOpen = false;
+        Surfaces.dismissedByFocusLoss("calendar");
       }
     }
 
@@ -73,7 +72,7 @@ LazyLoader {
       height: column.implicitHeight + padding * 2
       focus: true
 
-      Keys.onEscapePressed: Runtime.calendarOpen = false
+      Keys.onEscapePressed: Surfaces.close("calendar")
       Keys.onLeftPressed: shift(-1)
       Keys.onRightPressed: shift(1)
 

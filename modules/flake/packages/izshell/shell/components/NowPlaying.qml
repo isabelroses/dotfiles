@@ -18,7 +18,7 @@ Clickable {
   color: root.hovered ? Theme.colors.surfaceRaised : "transparent"
   acceptedButtons: Qt.LeftButton | Qt.RightButton
   onClicked: (e) => {
-    if (e.button === Qt.RightButton) Runtime.toggleNotifications();
+    if (e.button === Qt.RightButton) Surfaces.toggle("quickSettings");
     else if (root.player?.canTogglePlaying) root.player.togglePlaying();
   }
   onScrolled: (e) => {

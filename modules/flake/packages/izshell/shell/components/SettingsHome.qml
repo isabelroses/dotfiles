@@ -114,8 +114,8 @@ ColumnLayout {
           radius: sessionBox.rowRadius
           color: hovered ? Theme.colors.surfaceRaised : "transparent"
           onClicked: {
-            Runtime.settingsOpen = false;
-            Runtime.openPowerMenu(modelData.id);
+            Surfaces.close("settings");
+            Surfaces.openPowerMenu(modelData.id);
           }
 
 

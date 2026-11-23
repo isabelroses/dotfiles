@@ -10,12 +10,12 @@ import qs.components
 // workspace on each number key) collapse into a single row. Undescribed binds
 // and those inside submaps are left out.
 LazyLoader {
-  active: Runtime.cheatsheetOpen
+  active: Surfaces.cheatsheetOpen
 
   Modal {
     id: win
     namespace: "cheatsheet"
-    onDismissed: Runtime.cheatsheetOpen = false
+    surface: "cheatsheet"
     Component.onCompleted: Hyprctl.request("j/binds", reply => groups = parse(reply))
 
     // [{ title, rows: [{ label, keys: [string] }] }]

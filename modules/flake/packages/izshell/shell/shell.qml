@@ -4,6 +4,7 @@ import Quickshell
 import qs.modules
 
 Scope {
+    Ipc {}
     Bar {}
     Desktop {}
     Osd {}
