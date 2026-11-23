@@ -45,8 +45,8 @@ ColumnLayout {
       enabled: Bluetooth.powered
       label: "Visible to other devices"
       hint: "So a phone or another computer can find this one to pair."
-      on: root.adapter?.discoverable ?? false
-      onToggled: root.adapter.discoverable = !root.adapter.discoverable
+      on: Bluetooth.discoverable
+      onToggled: Bluetooth.setDiscoverable(!Bluetooth.discoverable)
     }
   }
 
@@ -69,11 +69,7 @@ ColumnLayout {
       DeviceRow {
         required property int index
         divided: index > 0
-        detail: modelData.pairing ? "Pairing…"
-          : modelData.state === QsBluetooth.BluetoothDeviceState.Connecting ? "Connecting…"
-          : modelData.state === QsBluetooth.BluetoothDeviceState.Disconnecting ? "Disconnecting…"
-          : modelData.connected ? "Connected" + (modelData.batteryAvailable ? ` · ${Math.round(modelData.battery * 100)}%` : "")
-          : "Not connected"
+        detail: Bluetooth.deviceDetail(modelData)
         active: modelData.connected
 
         BoxButton {
@@ -81,7 +77,7 @@ ColumnLayout {
           fontSize: 11
           text: modelData.connected ? "Disconnect" : "Connect"
           enabled: Bluetooth.powered && modelData.state !== QsBluetooth.BluetoothDeviceState.Connecting
-          onClicked: modelData.connected = !modelData.connected
+          onClicked: Bluetooth.setConnected(modelData, !modelData.connected)
         }
 
         BoxButton {
@@ -105,7 +101,7 @@ ColumnLayout {
     Caption {
       Layout.fillWidth: true
       text: !Bluetooth.powered ? "Bluetooth is off"
-        : root.adapter?.discovering ? (root.nearby.length === 0 ? "Searching…" : "Scanning")
+        : Bluetooth.discovering ? (root.nearby.length === 0 ? "Searching…" : "Scanning")
         : `${root.nearby.length} found`
     }
 
@@ -113,8 +109,8 @@ ColumnLayout {
       visible: Bluetooth.powered
       implicitHeight: 26
       fontSize: 11
-      text: root.adapter?.discovering ? "Stop" : "Scan"
-      onClicked: root.adapter.discovering ? Bluetooth.stopDiscovery() : Bluetooth.startDiscovery()
+      text: Bluetooth.discovering ? "Stop" : "Scan"
+      onClicked: Bluetooth.discovering ? Bluetooth.stopDiscovery() : Bluetooth.startDiscovery()
     }
   }
 

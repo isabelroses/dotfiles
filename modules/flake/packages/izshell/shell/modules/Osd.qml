@@ -43,8 +43,7 @@ Scope {
 
   Connections {
     target: Notifications
-    function onNewNotification(notification: var): void {
-      if (!Settings.notifications.toasts) return;
+    function onToast(notification: var): void {
       root.currentNotification = notification;
       root.toastShown = true;
       toastProgress.restart();

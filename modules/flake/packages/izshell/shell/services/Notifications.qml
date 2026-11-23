@@ -5,14 +5,16 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Services.Notifications
 import qs.data
+import "NotificationFeed.js" as Feed
 
 Singleton {
   id: root
 
   readonly property bool dndEnabled: Settings.notifications.dnd
   function setDnd(on: bool): void { Settings.set("notifications.dnd", on); }
+  readonly property string dndIcon: dndEnabled ? "notifications-disabled-symbolic" : "preferences-system-notifications-symbolic"
   // D-Bus notifications plus the shell's own (`notify`), which look the same to the UI
-  readonly property var all: [...notifactionServer.trackedNotifications.values, ...root.local]
+  readonly property var all: [...notificationServer.trackedNotifications.values, ...root.local]
   readonly property var list: all.filter(
     notification => notification.tracked && !root.dndEnabled && !Settings.notifications.blacklist.includes(notification.appName)
   )
@@ -23,7 +25,8 @@ Singleton {
   property var history: []
   readonly property int historyLimit: 100
 
-  signal newNotification(var notification)
+  // a notification that should pop up: not muted, not on do-not-disturb, and toasts are on
+  signal toast(var notification)
 
   function timeOf(n: var): real {
     return times[n.id] ?? Date.now();
@@ -77,29 +80,25 @@ Singleton {
         saveTimer.restart();
       }
     });
-    if (!root.dndEnabled && !blocked) root.newNotification(notification);
+    if (!root.dndEnabled && !blocked && Settings.notifications.toasts) root.toast(notification);
   }
 
-  function ageGroup(time: real): string {
-    Time.date;
-    const now = new Date();
-    const d = new Date(time);
-    const mins = (now.getTime() - time) / 60000;
-    if (mins < 10) return "Just now";
-    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-    if (time >= startOfToday) return "Earlier today";
-    if (time >= startOfToday - 86400000) return "Yesterday";
-    if (time >= startOfToday - 6 * 86400000) return Qt.formatDate(d, "dddd");
-    return "Older";
-  }
-
+  // "5m", "3h", a date (re-read each minute by whatever binds to it)
   function relativeTime(time: real): string {
-    Time.date;
-    const mins = Math.floor((Date.now() - time) / 60000);
-    if (mins < 1) return "now";
-    if (mins < 60) return `${mins}m`;
-    if (mins < 1440) return `${Math.floor(mins / 60)}h`;
-    return Qt.formatDate(new Date(time), "MMM d");
+    return Feed.relativeTime(time, Time.date);
+  }
+
+  // the sheet's feeds: rows of age headers and items, newest first
+  // ({ kind: "header", label } or { kind: "item", item, index })
+  readonly property var liveFeed: Feed.groupFeed([...list].reverse(), n => timeOf(n), Time.date)
+
+  function historyFeed(): var {
+    return Feed.groupFeed(history, h => h.time, Time.date);
+  }
+
+  // dismiss everything tracked, including what do-not-disturb or a muted app hides
+  function dismissAll(): void {
+    for (const notification of all) notification.dismiss();
   }
 
   function clearHistory(): void {
@@ -115,7 +114,7 @@ Singleton {
   }
 
   NotificationServer {
-    id: notifactionServer
+    id: notificationServer
     onNotification: (notification) => {
       notification.tracked = true;
       root.track(notification);
@@ -143,20 +142,5 @@ Singleton {
         console.warn("notification history unreadable, starting fresh:", e);
       }
     }
-  }
-
-  IpcHandler {
-    target: "notifications"
-
-    function clear(): void {
-      for (const notification of root.all) {
-        notification.dismiss();
-      }
-    }
-
-    // notify-send for scripts, minus the D-Bus round trip
-    function send(summary: string, body: string): void { root.notify({ summary: summary, body: body }); }
-
-    function clearHistory(): void { root.clearHistory(); }
   }
 }

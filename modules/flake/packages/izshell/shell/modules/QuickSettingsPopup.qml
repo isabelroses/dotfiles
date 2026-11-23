@@ -153,7 +153,7 @@ LazyLoader {
           fontSize: 11
           border.width: 0
           text: "Clear all"
-          onClicked: [...Notifications.list].forEach(n => n.dismiss())
+          onClicked: Notifications.dismissAll()
         }
       }
 
@@ -168,19 +168,8 @@ LazyLoader {
 
         property bool historyOpen: false
 
-        function grouped(items: var, timeOf: var): var {
-          const out = [];
-          let group = "";
-          items.forEach((item, index) => {
-            const g = Notifications.ageGroup(timeOf(item));
-            if (g !== group) { out.push({ kind: "header", label: g }); group = g; }
-            out.push({ kind: "item", item, index });
-          });
-          return out;
-        }
-
-        readonly property var liveFeed: grouped([...Notifications.list].reverse(), n => Notifications.timeOf(n))
-        readonly property var historyFeed: historyOpen ? grouped(Notifications.history, h => h.time) : []
+        readonly property var liveFeed: Notifications.liveFeed
+        readonly property var historyFeed: historyOpen ? Notifications.historyFeed() : []
 
         ColumnLayout {
           id: feedColumn

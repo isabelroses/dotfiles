@@ -1,11 +1,21 @@
 import Quickshell
 import Quickshell.Io
 import qs.data
+import qs.services
 
-// `izshell ipc call shell <method>`: the shell's command surface for the
+// `izshell ipc call <target> <method>`: the shell's command surface for the
 // Hyprland binds and scripts. Each method is one call into the module that owns
 // the behaviour; the names are what config.lua uses, so they don't change.
 Scope {
+  IpcHandler {
+    target: "notifications"
+
+    function clear(): void { Notifications.dismissAll(); }
+    // notify-send for scripts, minus the D-Bus round trip
+    function send(summary: string, body: string): void { Notifications.notify({ summary: summary, body: body }); }
+    function clearHistory(): void { Notifications.clearHistory(); }
+  }
+
   IpcHandler {
     target: "shell"
 

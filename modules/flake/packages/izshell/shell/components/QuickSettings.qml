@@ -47,7 +47,7 @@ ColumnLayout {
     ToggleTile {
       icon: Bluetooth.icon
       label: "Bluetooth"
-      status: Bluetooth.powered ? (Bluetooth.statusText === "Not Connected" ? "On" : Bluetooth.statusText) : "Off"
+      status: Bluetooth.tileStatus
       active: Bluetooth.powered
       expandable: true
       expanded: root.openPanel === "bluetooth"
@@ -56,7 +56,7 @@ ColumnLayout {
     }
 
     ToggleTile {
-      icon: Notifications.dndEnabled ? "notifications-disabled-symbolic" : "preferences-system-notifications-symbolic"
+      icon: Notifications.dndIcon
       label: "Do not disturb"
       status: Notifications.dndEnabled ? "On" : "Off"
       active: Notifications.dndEnabled
@@ -101,9 +101,9 @@ ColumnLayout {
   DetailPanel {
     open: root.openPanel === "bluetooth"
     title: "Devices"
-    actionIcon: Bluetooth.adapter?.discovering ? "process-stop-symbolic" : "view-refresh-symbolic"
+    actionIcon: Bluetooth.discovering ? "process-stop-symbolic" : "view-refresh-symbolic"
     onActionClicked: {
-      if (Bluetooth.adapter?.discovering) Bluetooth.stopDiscovery();
+      if (Bluetooth.discovering) Bluetooth.stopDiscovery();
       else Bluetooth.startDiscovery();
     }
     emptyText: !Bluetooth.adapter ? "No Bluetooth adapter"
@@ -116,14 +116,9 @@ ColumnLayout {
       width: ListView.view.width
       icon: modelData.icon || "bluetooth-symbolic"
       text: modelData.name
-      badge: (modelData.batteryAvailable ? Math.round(modelData.battery * 100) + "% · " : "")
-        + (modelData.connected ? "connected" : (modelData.paired ? "paired" : ""))
+      badge: Bluetooth.deviceBadge(modelData)
       active: modelData.connected
-      onClicked: {
-        if (modelData.connected) modelData.disconnect();
-        else if (modelData.paired) modelData.connect();
-        else modelData.pair();
-      }
+      onClicked: Bluetooth.activate(modelData)
     }
   }
 

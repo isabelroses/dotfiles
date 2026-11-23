@@ -16,7 +16,7 @@ Item {
 
     MyIcon {
         anchors.centerIn: parent
-        icon: Notifications.dndEnabled ? "notifications-disabled-symbolic" : "preferences-system-notifications-symbolic"
+        icon: Notifications.dndIcon
         size: 16
         color: Notifications.dndEnabled ? Theme.colors.textSubtle : Theme.colors.text
     }
