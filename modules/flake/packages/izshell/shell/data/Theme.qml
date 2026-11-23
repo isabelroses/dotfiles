@@ -90,10 +90,6 @@ Singleton {
   property int radiusXs: Math.ceil(_r / 2)
   property int radiusRound: _r
 
-  // floating: cards and sheets hover with gaps; attached: one strip flush to the edge
-  readonly property bool barFloating: Settings.bar.style === "floating"
-  // reserved strip. floating: an 8px margin, the 44px card, then a gap before windows
-  property int barWidth: barFloating ? 56 : 52
   readonly property int cardThickness: 44
   readonly property int cardGap: 4
   // cards are a step rounder than the controls inside them
@@ -107,12 +103,6 @@ Singleton {
   function pill(size: real): real {
     return Math.min(size / 2, _r);
   }
-  readonly property string barSide: Settings.bar.side
-  readonly property bool barOnRight: barSide === "right"
-  readonly property bool barOnBottom: barSide === "bottom"
-  readonly property bool barVertical: barSide === "left" || barSide === "right"
-  // the edge popups should open towards, away from the bar
-  readonly property int barAwayEdge: ({ left: Edges.Right, right: Edges.Left, top: Edges.Bottom, bottom: Edges.Top })[barSide] ?? Edges.Right
 
   readonly property real _speed: Settings.appearance.animations ? Settings.appearance.animation_speed : 0
   property int animFast: 120 * _speed

@@ -13,7 +13,7 @@ Box {
   readonly property real s: 0.6
   readonly property real cardR: Theme.cardRadius * s
   readonly property real ctrlR: Theme.radiusMd * s
-  readonly property real gap: Theme.barFloating ? 6 : 0
+  readonly property real gap: BarPlacement.floating ? 6 : 0
 
   implicitHeight: 196
   clip: true
@@ -21,7 +21,7 @@ Box {
   // a mock card: the base fill with the soft outline floating cards get, or
   // a single hairline on the side away from the bar when attached
   component MockCard: Rectangle {
-    property bool attached: !Theme.barFloating
+    property bool attached: !BarPlacement.floating
     color: Theme.colors.base
     radius: attached ? 0 : root.cardR
     border.width: attached ? 0 : 1
@@ -29,16 +29,16 @@ Box {
   }
 
   RowLayout {
-    anchors { fill: parent; margins: Theme.barFloating ? 10 : 1 }
+    anchors { fill: parent; margins: BarPlacement.floating ? 10 : 1 }
     spacing: root.gap
-    layoutDirection: Theme.barOnRight ? Qt.RightToLeft : Qt.LeftToRight
+    layoutDirection: BarPlacement.onRight ? Qt.RightToLeft : Qt.LeftToRight
 
     // the bar: three cards when floating, one strip when attached
     Item {
       Layout.fillHeight: true
       implicitWidth: 30
 
-      MockCard { visible: !Theme.barFloating; anchors.fill: parent }
+      MockCard { visible: !BarPlacement.floating; anchors.fill: parent }
 
       Column {
         anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
@@ -46,7 +46,7 @@ Box {
 
         MockCard {
           attached: false
-          visible: Theme.barFloating
+          visible: BarPlacement.floating
           width: 30
           height: head.implicitHeight + 10
           border.width: 1
@@ -89,7 +89,7 @@ Box {
 
         // attached: the same groups straight on the strip
         Column {
-          visible: !Theme.barFloating
+          visible: !BarPlacement.floating
           anchors.horizontalCenter: parent.horizontalCenter
           topPadding: 5
           spacing: 4
@@ -116,12 +116,12 @@ Box {
       }
 
       MockCard {
-        attached: !Theme.barFloating
-        anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; bottomMargin: Theme.barFloating ? 0 : 5 }
+        attached: !BarPlacement.floating
+        anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; bottomMargin: BarPlacement.floating ? 0 : 5 }
         width: 30
         height: clock.implicitHeight + 8
-        color: Theme.barFloating ? Theme.colors.base : "transparent"
-        border.width: Theme.barFloating ? 1 : 0
+        color: BarPlacement.floating ? Theme.colors.base : "transparent"
+        border.width: BarPlacement.floating ? 1 : 0
 
         Column {
           id: clock
@@ -136,13 +136,13 @@ Box {
     MockCard {
       Layout.fillWidth: true
       Layout.fillHeight: true
-      attached: !Theme.barFloating
-      border.width: Theme.barFloating ? 1 : 0
+      attached: !BarPlacement.floating
+      border.width: BarPlacement.floating ? 1 : 0
 
       // attached sheets keep the one hairline on their far edge
       Rectangle {
-        visible: !Theme.barFloating
-        x: Theme.barOnRight ? 0 : parent.width - 1
+        visible: !BarPlacement.floating
+        x: BarPlacement.onRight ? 0 : parent.width - 1
         width: 1
         height: parent.height
         color: Theme.colors.border

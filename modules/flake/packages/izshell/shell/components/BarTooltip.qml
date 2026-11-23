@@ -20,7 +20,7 @@ Item {
       root.shown = false;
       if (!hovered || (root.text === "" && !root.content)) return timer.stop();
       const p = root.mapToItem(null, 0, 0);
-      root.offset = Theme.barVertical ? -p.x : -p.y;
+      root.offset = BarPlacement.vertical ? -p.x : -p.y;
       timer.restart();
     }
   }
@@ -41,12 +41,13 @@ Item {
       color: "transparent"
 
       anchor.item: root
-      anchor.rect.x: Theme.barVertical ? root.offset : 0
-      anchor.rect.y: Theme.barVertical ? 0 : root.offset
-      anchor.rect.width: Theme.barVertical ? Theme.barWidth : root.width
-      anchor.rect.height: Theme.barVertical ? root.height : Theme.barWidth
-      anchor.edges: Theme.barAwayEdge
-      anchor.gravity: Theme.barAwayEdge
+      readonly property var place: BarPlacement.popupAnchor(root, root.offset, false)
+      anchor.rect.x: place.x
+      anchor.rect.y: place.y
+      anchor.rect.width: place.width
+      anchor.rect.height: place.height
+      anchor.edges: place.edges
+      anchor.gravity: place.gravity
 
       implicitWidth: root.content ? body.implicitWidth + 20 : Math.min(label.implicitWidth + 20, 320)
       implicitHeight: root.content ? body.implicitHeight + 20 : label.implicitHeight + 12
@@ -62,10 +63,11 @@ Item {
         Rectangle {
           visible: Theme.radiusSm <= 2
           color: Theme.colors.accent
-          x: Theme.barSide === "right" ? parent.width - width : 0
-          y: Theme.barOnBottom ? parent.height - height : 0
-          width: Theme.barVertical ? 2 : parent.width
-          height: Theme.barVertical ? parent.height : 2
+          readonly property var line: BarPlacement.edgeLine(parent.width, parent.height, 2, true)
+          x: line.x
+          y: line.y
+          width: line.width
+          height: line.height
         }
 
         Loader {

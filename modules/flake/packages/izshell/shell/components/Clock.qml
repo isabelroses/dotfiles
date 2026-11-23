@@ -7,8 +7,8 @@ import qs.data
 Item {
     id: root
 
-    implicitWidth: Theme.barVertical ? 34 : row.implicitWidth + 12
-    implicitHeight: Theme.barVertical ? column.implicitHeight + 8 : 34
+    implicitWidth: BarPlacement.vertical ? 34 : row.implicitWidth + 12
+    implicitHeight: BarPlacement.vertical ? column.implicitHeight + 8 : 34
 
     HoverHandler { id: hover; cursorShape: Qt.PointingHandCursor }
     TapHandler { onTapped: Surfaces.toggle("calendar") }
@@ -24,7 +24,7 @@ Item {
     // side bar: stacked hours / minutes / period
     ColumnLayout {
         id: column
-        visible: Theme.barVertical
+        visible: BarPlacement.vertical
         anchors.centerIn: parent
         spacing: -5
 
@@ -59,7 +59,7 @@ Item {
     // top/bottom bar: one line
     RowLayout {
         id: row
-        visible: !Theme.barVertical
+        visible: !BarPlacement.vertical
         anchors.centerIn: parent
         spacing: 3
 

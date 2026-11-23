@@ -73,12 +73,13 @@ Item {
     color: "transparent"
 
     anchor.item: trayItem
-    anchor.rect.x: Theme.barVertical ? -(Theme.barWidth - trayItem.width) / 2 : 0
-    anchor.rect.y: Theme.barVertical ? 0 : -(Theme.barWidth - trayItem.height) / 2
-    anchor.rect.width: Theme.barVertical ? Theme.barWidth : trayItem.width
-    anchor.rect.height: Theme.barVertical ? trayItem.height : Theme.barWidth
-    anchor.edges: Theme.barAwayEdge | (Theme.barVertical ? Edges.Top : Edges.Left)
-    anchor.gravity: Theme.barAwayEdge | (Theme.barVertical ? Edges.Bottom : Edges.Right)
+    readonly property var place: BarPlacement.popupAnchor(trayItem, undefined, true)
+    anchor.rect.x: place.x
+    anchor.rect.y: place.y
+    anchor.rect.width: place.width
+    anchor.rect.height: place.height
+    anchor.edges: place.edges
+    anchor.gravity: place.gravity
 
     implicitWidth: 240
     implicitHeight: menuColumn.implicitHeight + 12

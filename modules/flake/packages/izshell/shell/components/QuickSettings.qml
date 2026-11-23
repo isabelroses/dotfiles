@@ -431,7 +431,7 @@ ColumnLayout {
 
     signal actionClicked()
 
-    readonly property bool fromTop: Theme.barSide === "top"
+    readonly property bool fromTop: BarPlacement.side === "top"
 
     parent: root.stackHost
     z: 2

@@ -62,10 +62,11 @@ Item {
 
   Rectangle {
     visible: root.attached
-    x: Theme.barSide === "left" && Theme.barVertical ? parent.width - width : 0
-    y: Theme.barSide === "top" ? parent.height - height : 0
-    width: Theme.barVertical ? 1 : parent.width
-    height: Theme.barVertical ? parent.height : 1
+    readonly property var line: BarPlacement.edgeLine(parent.width, parent.height, 1, false)
+    x: line.x
+    y: line.y
+    width: line.width
+    height: line.height
     color: Theme.colors.border
   }
 }

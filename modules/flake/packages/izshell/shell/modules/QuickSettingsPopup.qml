@@ -24,7 +24,7 @@ LazyLoader {
       else Surfaces.close("quickSettings");
     }
 
-    readonly property list<string> layout: Theme.barSide === "top"
+    readonly property list<string> layout: BarPlacement.side === "top"
       ? ["controls", "media", "notifications"]
       : ["notifications", "media", "controls"]
     readonly property real maxListHeight: (screen?.height ?? 1080) * 0.55
@@ -274,7 +274,7 @@ LazyLoader {
         z: 3
         active: Surfaces.wifiPasswordOpen
         width: parent.width
-        y: Theme.barSide === "top" ? 0 : parent.height - height
+        y: BarPlacement.side === "top" ? 0 : parent.height - height
         sourceComponent: WifiPasswordPrompt {
           implicitWidth: stack.width
           radius: Theme.cardRadius

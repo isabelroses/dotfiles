@@ -25,13 +25,13 @@ Scope {
       screen: modelData
 
       // spare room past the reserved strip for shadows to fall into
-      readonly property int shadowRoom: Theme.barFloating ? 16 : 0
+      readonly property int shadowRoom: BarPlacement.floating ? 16 : 0
       // card offset from the screen edge, across the bar
-      readonly property int outer: Theme.barFloating
-        ? Theme.barWidth - Theme.cardThickness - Theme.cardGap
-        : (Theme.barWidth - Theme.cardThickness) / 2
+      readonly property int outer: BarPlacement.floating
+        ? BarPlacement.reserved - Theme.cardThickness - Theme.cardGap
+        : (BarPlacement.reserved - Theme.cardThickness) / 2
       // inset of the first and last card from the ends of the bar
-      readonly property int ends: Theme.barFloating ? outer : 4
+      readonly property int ends: BarPlacement.floating ? outer : 4
 
       // slides off the edge while this monitor shows a fullscreen window. The
       // window covers the top layer at once, so the bar rises to the overlay
@@ -42,13 +42,13 @@ Scope {
       Behavior on hidden { Anim {} }
       WlrLayershell.layer: fullscreen && hidden < 1 ? WlrLayer.Overlay : WlrLayer.Top
 
-      implicitWidth: Theme.barWidth + shadowRoom
-      implicitHeight: Theme.barWidth + shadowRoom
+      implicitWidth: BarPlacement.reserved + shadowRoom
+      implicitHeight: BarPlacement.reserved + shadowRoom
       color: "transparent"
       exclusionMode: ExclusionMode.Normal
-      exclusiveZone: Theme.barWidth
+      exclusiveZone: BarPlacement.reserved
       WlrLayershell.namespace: "bar"
-      mask: Theme.barFloating ? cardsMask : laneMask
+      mask: BarPlacement.floating ? cardsMask : laneMask
 
       property Region laneMask: Region { item: lane }
       property Region cardsMask: Region {
@@ -58,34 +58,34 @@ Scope {
       }
 
       anchors {
-        top: Theme.barSide !== "bottom"
-        bottom: Theme.barSide !== "top"
-        left: Theme.barSide !== "right"
-        right: Theme.barSide !== "left"
+        top: BarPlacement.side !== "bottom"
+        bottom: BarPlacement.side !== "top"
+        left: BarPlacement.side !== "right"
+        right: BarPlacement.side !== "left"
       }
 
       Item {
         id: lane
         opacity: 1 - win.hidden
         transform: Translate {
-          readonly property real d: (Theme.barWidth + win.shadowRoom) * win.hidden
-          x: !Theme.barVertical ? 0 : Theme.barOnRight ? d : -d
-          y: Theme.barVertical ? 0 : Theme.barOnBottom ? d : -d
+          readonly property real d: (BarPlacement.reserved + win.shadowRoom) * win.hidden
+          x: !BarPlacement.vertical ? 0 : BarPlacement.onRight ? d : -d
+          y: BarPlacement.vertical ? 0 : BarPlacement.onBottom ? d : -d
         }
-        x: Theme.barOnRight ? parent.width - width : 0
-        y: Theme.barOnBottom ? parent.height - height : 0
-        width: Theme.barVertical ? Theme.barWidth : parent.width
-        height: Theme.barVertical ? parent.height : Theme.barWidth
+        x: BarPlacement.onRight ? parent.width - width : 0
+        y: BarPlacement.onBottom ? parent.height - height : 0
+        width: BarPlacement.vertical ? BarPlacement.reserved : parent.width
+        height: BarPlacement.vertical ? parent.height : BarPlacement.reserved
 
         // distance of a card's near side from the lane's near edge
-        readonly property real across: (Theme.barOnRight || Theme.barOnBottom)
-          ? Theme.barWidth - win.outer - Theme.cardThickness
+        readonly property real across: (BarPlacement.onRight || BarPlacement.onBottom)
+          ? BarPlacement.reserved - win.outer - Theme.cardThickness
           : win.outer
 
         CardSurface {
-          visible: !Theme.barFloating
+          visible: !BarPlacement.floating
           attached: true
-          vertical: Theme.barVertical
+          vertical: BarPlacement.vertical
         }
 
         // bar.start / middle / end; an item listed twice only shows the first time
@@ -96,22 +96,22 @@ Scope {
         BarSection {
           id: head
           items: lane.startItems
-          x: Theme.barVertical ? lane.across : win.ends
-          y: Theme.barVertical ? win.ends : lane.across
+          x: BarPlacement.vertical ? lane.across : win.ends
+          y: BarPlacement.vertical ? win.ends : lane.across
         }
 
         BarSection {
           id: middle
           items: lane.middleItems
-          x: Theme.barVertical ? lane.across : (lane.width - width) / 2
-          y: Theme.barVertical ? (lane.height - height) / 2 : lane.across
+          x: BarPlacement.vertical ? lane.across : (lane.width - width) / 2
+          y: BarPlacement.vertical ? (lane.height - height) / 2 : lane.across
         }
 
         BarSection {
           id: tail
           items: lane.endItems
-          x: Theme.barVertical ? lane.across : lane.width - width - win.ends
-          y: Theme.barVertical ? lane.height - height - win.ends : lane.across
+          x: BarPlacement.vertical ? lane.across : lane.width - width - win.ends
+          y: BarPlacement.vertical ? lane.height - height - win.ends : lane.across
         }
       }
     }
@@ -126,7 +126,7 @@ Scope {
     property list<string> items: []
     readonly property var cards: Settings.barCards(items)
 
-    columns: Theme.barVertical ? 1 : Math.max(1, cards.length)
+    columns: BarPlacement.vertical ? 1 : Math.max(1, cards.length)
     spacing: 6
 
     Repeater {
@@ -174,8 +174,8 @@ Scope {
     onClicked: Surfaces.toggle("quickSettings")
     onScrolled: (e) => Pipewire.setSinkVolume(Pipewire.sinkVolume + (e.angleDelta.y > 0 ? 0.05 : -0.05))
     Layout.alignment: Qt.AlignCenter
-    implicitWidth: Theme.barVertical ? 34 : statusGroup.implicitWidth + 22
-    implicitHeight: Theme.barVertical ? statusGroup.implicitHeight + 22 : 34
+    implicitWidth: BarPlacement.vertical ? 34 : statusGroup.implicitWidth + 22
+    implicitHeight: BarPlacement.vertical ? statusGroup.implicitHeight + 22 : 34
     radius: Theme.innerRadius
     color: Surfaces.quickSettingsOpen ? Theme.colors.accentSoft
          : capsule.hovered ? Utils.withAlpha(Theme.colors.text, 0.08)

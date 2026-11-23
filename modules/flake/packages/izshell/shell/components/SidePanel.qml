@@ -20,29 +20,30 @@ PanelWindow {
 
   signal closeRequested()
 
-  readonly property bool fromTop: Theme.barSide === "top"
+  readonly property bool fromTop: BarPlacement.side === "top"
   // close button sits on the left corner unless the bar is on the left
-  readonly property bool closeOnLeft: Theme.barSide !== "left"
+  readonly property bool closeOnLeft: BarPlacement.side !== "left"
 
   // breathing room around the sheet; the top leaves space for the close button
-  readonly property int edge: Theme.barFloating ? 8 : 0
-  readonly property int buttonRoom: Theme.barFloating ? 12 : 0
+  readonly property int edge: BarPlacement.floating ? 8 : 0
+  readonly property int buttonRoom: BarPlacement.floating ? 12 : 0
 
   color: "transparent"
   anchors {
     top: true
     bottom: true
-    left: Theme.barSide === "left"
-    right: Theme.barSide !== "left"
+    left: BarPlacement.side === "left"
+    right: BarPlacement.side !== "left"
   }
+  readonly property var beside: BarPlacement.windowMargins(0)
   margins {
-    left: Theme.barSide === "left" ? Theme.barWidth : 0
-    right: Theme.barSide === "right" ? Theme.barWidth : 0
-    top: Theme.barSide === "top" ? Theme.barWidth : 0
-    bottom: Theme.barSide === "bottom" ? Theme.barWidth : 0
+    left: beside.left
+    right: beside.right
+    top: beside.top
+    bottom: beside.bottom
   }
 
-  implicitWidth: 380 + (Theme.barFloating ? Theme.cardGap : 0) + buttonRoom
+  implicitWidth: 380 + (BarPlacement.floating ? Theme.cardGap : 0) + buttonRoom
   exclusionMode: ExclusionMode.Ignore
   WlrLayershell.layer: WlrLayer.Overlay
   WlrLayershell.namespace: namespace
@@ -51,7 +52,7 @@ PanelWindow {
 
   Item {
     id: sheet
-    x: !Theme.barFloating ? 0 : root.closeOnLeft ? root.buttonRoom : Theme.cardGap
+    x: !BarPlacement.floating ? 0 : root.closeOnLeft ? root.buttonRoom : Theme.cardGap
     width: 380
     readonly property real topY: root.buttonRoom
     readonly property real room: parent.height - topY - root.edge
@@ -63,8 +64,9 @@ PanelWindow {
     // slide in from the bar
     transform: Translate {
       id: slide
-      x: Theme.barVertical ? (Theme.barOnRight ? 16 : -16) : 0
-      y: Theme.barVertical ? 0 : (root.fromTop ? -16 : 16)
+      readonly property var start: BarPlacement.slide(16)
+      x: start.x
+      y: start.y
       Behavior on x { Anim {} }
       Behavior on y { Anim {} }
     }
@@ -77,14 +79,14 @@ PanelWindow {
     Behavior on opacity { Anim {} }
 
     CardSurface {
-      attached: !Theme.barFloating
+      attached: !BarPlacement.floating
       radius: attached ? 0 : Theme.sheetRadius
       raised: true
     }
 
     // attached under a top/bottom bar: close off the side facing the screen
     Rectangle {
-      visible: !Theme.barFloating && !Theme.barVertical
+      visible: !BarPlacement.floating && !BarPlacement.vertical
       anchors { top: parent.top; bottom: parent.bottom; left: parent.left }
       width: 1
       color: Theme.colors.border
@@ -103,7 +105,7 @@ PanelWindow {
       radius: Theme.pill(width)
       // attached sheets have no corner to hang a close button off; escape or
       // the bar capsule closes them
-      visible: Theme.barFloating
+      visible: BarPlacement.floating
       x: root.closeOnLeft ? -root.buttonRoom + 2 : parent.width - width + root.buttonRoom - 2
       y: -root.buttonRoom + 2
       color: hovered ? Theme.colors.accent : Theme.colors.overlay

@@ -18,7 +18,7 @@ LazyLoader {
 
     // transparent margin around the card for its shadow to fall into
     readonly property int pad: 24
-    readonly property int gap: Theme.barFloating ? Theme.cardGap : 0
+    readonly property int gap: BarPlacement.floating ? Theme.cardGap : 0
 
     color: "transparent"
     implicitWidth: card.width + pad * 2
@@ -32,16 +32,17 @@ LazyLoader {
     // anchored only to the bar's edge, so the compositor centres it along the
     // bar, level with the clock
     anchors {
-      left: Theme.barSide === "left"
-      right: Theme.barSide === "right"
-      top: Theme.barSide === "top"
-      bottom: Theme.barSide === "bottom"
+      left: BarPlacement.side === "left"
+      right: BarPlacement.side === "right"
+      top: BarPlacement.side === "top"
+      bottom: BarPlacement.side === "bottom"
     }
+    readonly property var beside: BarPlacement.windowMargins(gap - pad)
     margins {
-      left: Theme.barSide === "left" ? Theme.barWidth + gap - pad : 0
-      right: Theme.barSide === "right" ? Theme.barWidth + gap - pad : 0
-      top: Theme.barSide === "top" ? Theme.barWidth + gap - pad : 0
-      bottom: Theme.barSide === "bottom" ? Theme.barWidth + gap - pad : 0
+      left: beside.left
+      right: beside.right
+      top: beside.top
+      bottom: beside.bottom
     }
 
     HyprlandFocusGrab {
@@ -95,21 +96,21 @@ LazyLoader {
 
       opacity: 0
       scale: 0.96
-      transformOrigin: Theme.barVertical ? (Theme.barOnRight ? Item.Right : Item.Left)
-                                            : (Theme.barOnBottom ? Item.Bottom : Item.Top)
+      transformOrigin: BarPlacement.vertical ? (BarPlacement.onRight ? Item.Right : Item.Left)
+                                            : (BarPlacement.onBottom ? Item.Bottom : Item.Top)
       Component.onCompleted: { opacity = 1; scale = 1; }
       Behavior on opacity { Anim { duration: Theme.animFast } }
       Behavior on scale { Anim {} }
 
       CardSurface {
-        attached: !Theme.barFloating
+        attached: !BarPlacement.floating
         radius: attached ? 0 : Theme.sheetRadius
         raised: true
       }
 
       // attached cards still need a full outline, since they float mid-edge
       Rectangle {
-        visible: !Theme.barFloating
+        visible: !BarPlacement.floating
         anchors.fill: parent
         color: "transparent"
         border.width: 1

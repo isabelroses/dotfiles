@@ -11,13 +11,13 @@ Item {
   property real spacing: 10
   readonly property real thickness: Theme.cardThickness
 
-  implicitWidth: Theme.barVertical ? thickness : group.implicitWidth + padding * 2
-  implicitHeight: Theme.barVertical ? group.implicitHeight + padding * 2 : thickness
+  implicitWidth: BarPlacement.vertical ? thickness : group.implicitWidth + padding * 2
+  implicitHeight: BarPlacement.vertical ? group.implicitHeight + padding * 2 : thickness
 
   CardSurface {
     // attached bars draw one strip behind all the cards instead
-    visible: Theme.barFloating
-    vertical: Theme.barVertical
+    visible: BarPlacement.floating
+    vertical: BarPlacement.vertical
   }
 
   BarGroup {
