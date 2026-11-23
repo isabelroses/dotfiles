@@ -2,16 +2,37 @@ import QtQuick
 import Quickshell
 import qs.data
 import qs.components
+import qs.services
 
-// Wi-Fi password as a modal, for when quick settings is closed. With the
-// sheet open the prompt stacks on top of it instead.
-LazyLoader {
-  active: Surfaces.wifiPasswordOpen && !Surfaces.quickSettingsOpen
+// The Wi-Fi password Surface: open while a join attempt asks for a password.
+// With the quick settings sheet open the prompt stacks on top of it; otherwise
+// it is a modal.
+Scope {
+  Connections {
+    target: Networking
+    function onJoinStateChanged(): void {
+      // the prompt stays up while its password is tried
+      if (Networking.joinState === "needsPassword") Surfaces.open("wifiPassword");
+      else if (Networking.joinState !== "connecting") Surfaces.close("wifiPassword");
+    }
+  }
 
-  Modal {
-    namespace: "network-password"
-    surface: "wifiPassword"
+  // dismissed some other way (escape, clicking out): the attempt is over
+  Connections {
+    target: Surfaces
+    function onWifiPasswordOpenChanged(): void {
+      if (!Surfaces.wifiPasswordOpen && ["needsPassword", "connecting"].includes(Networking.joinState)) Networking.cancel();
+    }
+  }
 
-    WifiPasswordPrompt {}
+  LazyLoader {
+    active: Surfaces.wifiPasswordOpen && !Surfaces.quickSettingsOpen
+
+    Modal {
+      namespace: "network-password"
+      surface: "wifiPassword"
+
+      WifiPasswordPrompt {}
+    }
   }
 }

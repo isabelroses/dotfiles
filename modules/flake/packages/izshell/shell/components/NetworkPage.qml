@@ -16,23 +16,10 @@ ColumnLayout {
   property string openUuid: ""
 
 
-  readonly property var groups: {
-    const by = {};
-    for (const c of NetworkConnections.connections) (by[c.type] = by[c.type] ?? []).push(c);
-    const order = ["802-3-ethernet", "802-11-wireless", "wireguard", "vpn"];
-    return Object.keys(by)
-      .sort((a, b) => ((order.indexOf(a) + 1) || 99) - ((order.indexOf(b) + 1) || 99))
-      .map(type => ({
-        title: NetworkConnections.typeNames[type] ?? type,
-        // the one in use first, then by name
-        items: by[type].sort((a, b) => (b.device !== "") - (a.device !== "") || a.name.localeCompare(b.name)),
-      }));
-  }
-
   ErrorBanner { text: NetworkConnections.error; Layout.fillWidth: true }
 
   Repeater {
-    model: root.groups
+    model: NetworkConnections.groups
 
     ColumnLayout {
       required property var modelData
@@ -56,15 +43,13 @@ ColumnLayout {
     .sort((a, b) => b.signalStrength - a.signalStrength)
     .slice(0, 8)
 
+  ScanLease { active: true }
+
   Component.onCompleted: {
     NetworkConnections.watching = true;
     NetworkConnections.findWireguardFiles();
-    Networking.scanning = true;
   }
-  Component.onDestruction: {
-    NetworkConnections.watching = false;
-    Networking.scanning = false;
-  }
+  Component.onDestruction: NetworkConnections.watching = false
 
   SectionLabel { text: "Add"; size: 16; Layout.topMargin: 10 }
 
@@ -79,7 +64,7 @@ ColumnLayout {
       buttonVisible: Networking.wifiDevice !== null
       onClicked: {
         if (!Networking.wifiEnabled) Networking.toggleWifi();
-        else Networking.scanning = !Networking.scanning;
+        else Networking.scanPaused = !Networking.scanPaused;
       }
     }
 
@@ -205,101 +190,48 @@ ColumnLayout {
     }
   }
 
-  // a network in range: open ones join on click, the rest ask for a password inline
-  component NearbyRow: ColumnLayout {
+  // a network in range; joining one that needs a password asks for it in the
+  // password prompt, like the quick settings list does
+  component NearbyRow: RowLayout {
     id: net
     required property Net.WifiNetwork modelData
     readonly property bool locked: Networking.needsPassword(modelData)
-    property bool asking: false
-    property bool connecting: false
-    property string failure: ""
+    readonly property bool mine: Networking.joinTarget === modelData
+    readonly property bool connecting: mine && Networking.joinState === "connecting"
+    readonly property string failure: mine && Networking.joinState === "failed" ? Networking.joinError : ""
 
     Layout.fillWidth: true
-    spacing: 8
+    spacing: 12
 
-    function join(password: string): void {
-      failure = "";
-      connecting = true;
-      if (password !== "") modelData.connectWithPsk(password);
-      else modelData.connect();
+    MyIcon {
+      icon: Networking.networkIcon(net.modelData)
+      size: 14
+      color: Theme.colors.textMuted
     }
 
-    Connections {
-      target: net.modelData
-      ignoreUnknownSignals: true
-      function onConnectionFailed(reason: int) {
-        net.connecting = false;
-        net.failure = Net.ConnectionFailReason.toString(reason);
-      }
+    StyledText { Layout.fillWidth: true; text: net.modelData.name; font.pixelSize: 12 }
+
+    MyIcon {
+      visible: net.locked
+      icon: "system-lock-screen-symbolic"
+      size: 11
+      color: Theme.colors.textSubtle
     }
 
-    RowLayout {
-      Layout.fillWidth: true
-      spacing: 12
-
-      MyIcon {
-        icon: Networking.networkIcon(net.modelData)
-        size: 14
-        color: Theme.colors.textMuted
-      }
-
-      StyledText { Layout.fillWidth: true; text: net.modelData.name; font.pixelSize: 12 }
-
-      MyIcon {
-        visible: net.locked
-        icon: "system-lock-screen-symbolic"
-        size: 11
-        color: Theme.colors.textSubtle
-      }
-
-      StyledText {
-        text: net.connecting ? "Connecting…" : net.failure !== "" ? net.failure : Math.round(net.modelData.signalStrength * 100) + "%"
-        mono: !net.connecting && net.failure === ""
-        font.pixelSize: 11
-        color: net.failure !== "" ? Theme.colors.error : Theme.colors.textMuted
-      }
-
-      BoxButton {
-        implicitHeight: 28
-        fontSize: 11
-        text: net.asking ? "Cancel" : "Connect"
-        enabled: !net.connecting
-        onClicked: {
-          if (!net.locked) net.join("");
-          else net.asking = !net.asking;
-        }
-      }
+    StyledText {
+      text: net.connecting ? "Connecting…" : net.failure !== "" ? net.failure : Math.round(net.modelData.signalStrength * 100) + "%"
+      mono: !net.connecting && net.failure === ""
+      font.pixelSize: 11
+      color: net.failure !== "" ? Theme.colors.error : Theme.colors.textMuted
     }
 
-    RowLayout {
-      visible: net.asking
-      Layout.fillWidth: true
-      Layout.leftMargin: 26
-      spacing: 8
-
-      InputField {
-        id: psk
-        Layout.fillWidth: true
-        implicitHeight: 30
-        fontSize: 12
-        placeholder: "Password"
-        password: true
-        error: net.failure !== ""
-        onAccepted: if (joinButton.enabled) joinButton.clicked(null)
-      }
-
-      BoxButton {
-        id: joinButton
-        implicitHeight: 30
-        fontSize: 11
-        filled: true
-        text: "Join"
-        enabled: !net.connecting && psk.text !== ""
-        onClicked: {
-          net.join(psk.text);
-          net.asking = false;
-        }
-      }
+    BoxButton {
+      implicitHeight: 28
+      fontSize: 11
+      // a stuck or unwanted attempt can be called off from here too
+      text: net.connecting ? "Cancel" : "Connect"
+      enabled: net.connecting || Networking.joinState !== "connecting"
+      onClicked: net.connecting ? Networking.cancel() : Networking.join(net.modelData)
     }
   }
 
@@ -372,12 +304,7 @@ ColumnLayout {
         spacing: 10
 
         MyIcon {
-          icon: ({
-            "802-3-ethernet": "network-wired-symbolic",
-            "802-11-wireless": "network-wireless-symbolic",
-            "wireguard": "network-vpn-symbolic",
-            "vpn": "network-vpn-symbolic",
-          })[conn.modelData.type] ?? "network-workgroup-symbolic"
+          icon: NetworkConnections.typeIcon(conn.modelData.type)
           size: 15
           color: conn.active ? Theme.colors.accent : Theme.colors.textMuted
         }
@@ -426,29 +353,23 @@ ColumnLayout {
     signal closed()
 
     readonly property var saved: NetworkConnections.details
-    readonly property string mtuKey: saved["connection.type"] === "802-11-wireless" ? "802-11-wireless.mtu" : "802-3-ethernet.mtu"
-    readonly property bool hasMtu: saved[mtuKey] !== undefined && saved[mtuKey] !== ""
 
     property bool autoconnect: saved["connection.autoconnect"] === "yes"
     property string v4method: saved["ipv4.method"] ?? "auto"
     property string v6method: saved["ipv6.method"] ?? "auto"
 
-    // nmcli only gets the keys that differ from what is saved
-    function changes(): var {
-      const want = {
-        "connection.autoconnect": autoconnect ? "yes" : "no",
-        "ipv4.method": v4method,
-        "ipv6.method": v6method,
+    // what the fields hold; one that isn't shown is null
+    function form(): var {
+      return {
+        autoconnect, v4method, v6method,
+        v4addr: v4addr.visible ? v4addr.text : null,
+        v4gw: v4gw.visible ? v4gw.text : null,
+        v4dns: v4dns.visible ? v4dns.text : null,
+        v6addr: v6addr.visible ? v6addr.text : null,
+        v6gw: v6gw.visible ? v6gw.text : null,
+        v6dns: v6dns.visible ? v6dns.text : null,
+        mtu: NetworkConnections.hasMtu ? mtu.text : null,
       };
-      for (const [k, field] of [["ipv4.addresses", v4addr], ["ipv4.gateway", v4gw], ["ipv4.dns", v4dns],
-                                ["ipv6.addresses", v6addr], ["ipv6.gateway", v6gw], ["ipv6.dns", v6dns]]) {
-        if (field.visible) want[k] = field.text.trim();
-      }
-      // custom DNS replaces what the network hands out rather than adding to it
-      want["ipv4.ignore-auto-dns"] = v4dns.text.trim() !== "" ? "yes" : "no";
-      want["ipv6.ignore-auto-dns"] = v6dns.text.trim() !== "" ? "yes" : "no";
-      if (hasMtu) want[mtuKey] = mtu.text.trim() || "auto";
-      return Object.fromEntries(Object.entries(want).filter(([k, v]) => (saved[k] ?? "") !== v));
     }
 
     spacing: 10
@@ -486,8 +407,8 @@ ColumnLayout {
 
     Field {
       label: "MTU"
-      visible: ed.hasMtu
-      Text4 { id: mtu; placeholder: "auto"; text: (ed.saved[ed.mtuKey] ?? "auto") === "auto" ? "" : ed.saved[ed.mtuKey] }
+      visible: NetworkConnections.hasMtu
+      Text4 { id: mtu; placeholder: "auto"; text: NetworkConnections.mtu === "auto" ? "" : NetworkConnections.mtu }
     }
 
     RowLayout {
@@ -520,7 +441,7 @@ ColumnLayout {
         fontSize: 11
         text: NetworkConnections.busy ? "Saving…" : "Save"
         filled: true
-        onClicked: if (!NetworkConnections.busy) NetworkConnections.save(ed.uuid, ed.changes(), ed.active)
+        onClicked: if (!NetworkConnections.busy) NetworkConnections.saveEdits(ed.uuid, ed.form(), ed.active)
       }
     }
   }

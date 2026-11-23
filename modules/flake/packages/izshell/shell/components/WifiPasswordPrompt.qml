@@ -1,38 +1,17 @@
 import QtQuick
-import Quickshell.Networking as Net
-import qs.data
+import qs.services
 
-// Password prompt for Runtime.wifiPasswordTarget, with the connect logic. Used
-// as a stacked card in quick settings, or inside a modal when that is closed.
+// Password prompt for the Wi-Fi join attempt in Networking. Used as a stacked
+// card in quick settings, or inside a modal when that is closed.
 PasswordPrompt {
-  id: root
-
-  property bool connecting: false
-
   icon: "network-wireless-encrypted-symbolic"
-  title: Runtime.wifiPasswordTarget?.name ?? ""
+  title: Networking.joinTarget?.name ?? ""
   subtitle: "Password required"
-  message: Runtime.wifiPasswordError
-  error: Runtime.wifiPasswordError !== ""
-  busy: root.connecting
+  message: Networking.joinError !== "" ? "Connection failed: " + Networking.joinError : ""
+  error: Networking.joinError !== ""
+  busy: Networking.joinState === "connecting"
   confirmText: "Connect"
   busyText: "Connecting…"
-  onCancelled: Runtime.closeWifiPassword()
-  onSubmitted: (password) => {
-    Runtime.wifiPasswordError = "";
-    root.connecting = true;
-    Runtime.wifiPasswordTarget.connectWithPsk(password);
-  }
-
-  Connections {
-    target: Runtime.wifiPasswordTarget
-    ignoreUnknownSignals: true
-    function onConnectedChanged() {
-      if (Runtime.wifiPasswordTarget?.connected) Runtime.closeWifiPassword();
-    }
-    function onConnectionFailed(reason: int) {
-      root.connecting = false;
-      Runtime.wifiPasswordError = "Connection failed: " + Net.ConnectionFailReason.toString(reason);
-    }
-  }
+  onCancelled: Networking.cancel()
+  onSubmitted: (password) => Networking.submit(password)
 }

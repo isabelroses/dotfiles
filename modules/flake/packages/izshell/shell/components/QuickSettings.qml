@@ -14,7 +14,7 @@ ColumnLayout {
   Layout.fillWidth: true
   spacing: 10
 
-  // which detail card is stacked on the sheet; lives in Runtime so ipc can open one
+  // which detail card is stacked on the sheet; Surfaces holds it so ipc can open one
   readonly property string openPanel: Surfaces.quickPanel
   // whether a card is really showing: the wi-fi list stays shut on ethernet
   readonly property bool cardOpen: openPanel !== "" && !(openPanel === "network" && Networking.ethernetConnected)
@@ -25,11 +25,7 @@ ColumnLayout {
     Surfaces.toggleCard(name);
   }
 
-  Binding {
-    target: Networking
-    property: "scanning"
-    value: root.openPanel === "network" && !Networking.ethernetConnected
-  }
+  ScanLease { active: root.openPanel === "network" && !Networking.ethernetConnected }
 
   GridLayout {
     Layout.fillWidth: true
@@ -81,10 +77,7 @@ ColumnLayout {
     title: "Networks"
     actionIcon: "view-refresh-symbolic"
 
-    onActionClicked: {
-      Networking.scanning = false;
-      Networking.scanning = true;
-    }
+    onActionClicked: Networking.rescan()
     emptyText: !Networking.wifiEnabled ? "Wi-Fi is off"
       : Networking.networks.length === 0 ? "Searching…" : ""
     model: Networking.networks
@@ -100,11 +93,7 @@ ColumnLayout {
       active: modelData.connected
       onClicked: {
         if (modelData.connected) return;
-        if (Networking.needsPassword(modelData)) {
-          Runtime.openWifiPassword(modelData);
-        } else {
-          modelData.connect();
-        }
+        Networking.join(modelData);
       }
     }
   }
