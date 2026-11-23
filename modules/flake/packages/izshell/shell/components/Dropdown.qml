@@ -23,14 +23,14 @@ ComboBox {
   implicitHeight: 32
   implicitWidth: 220
   font.pixelSize: fontSize
-  font.family: Settings.fonts.sans
+  font.family: Theme.fonts.sans
 
   background: Rectangle {
-    radius: Settings.radiusSm
-    color: root.hovered || root.popup.visible ? Settings.colors.surfaceRaised : Settings.colors.base
+    radius: Theme.radiusSm
+    color: root.hovered || root.popup.visible ? Theme.colors.surfaceRaised : Theme.colors.base
     border.width: 1
-    border.color: root.popup.visible ? Settings.colors.accent : Settings.colors.borderStrong
-    Behavior on color { ColorAnimation { duration: Settings.animFast } }
+    border.color: root.popup.visible ? Theme.colors.accent : Theme.colors.borderStrong
+    Behavior on color { ColorAnimation { duration: Theme.animFast } }
   }
 
   contentItem: StyledText {
@@ -46,7 +46,7 @@ ComboBox {
     y: (root.height - height) / 2
     icon: "pan-down-symbolic"
     size: 12
-    color: Settings.colors.textMuted
+    color: Theme.colors.textMuted
   }
 
   delegate: ItemDelegate {
@@ -58,15 +58,15 @@ ComboBox {
     highlighted: root.highlightedIndex === index
 
     background: Rectangle {
-      radius: Math.max(0, Settings.radiusSm - 2)
-      color: item.highlighted ? Settings.colors.surfaceRaised : "transparent"
+      radius: Math.max(0, Theme.radiusSm - 2)
+      color: item.highlighted ? Theme.colors.surfaceRaised : "transparent"
     }
 
     contentItem: StyledText {
       leftPadding: 4
       text: item.modelData.label
       font.pixelSize: root.fontSize
-      color: item.index === root.currentIndex ? Settings.colors.accent : Settings.colors.text
+      color: item.index === root.currentIndex ? Theme.colors.accent : Theme.colors.text
       font.weight: item.index === root.currentIndex ? Font.DemiBold : Font.Normal
       verticalAlignment: Text.AlignVCenter
     }
@@ -79,10 +79,10 @@ ComboBox {
     padding: 4
 
     background: Rectangle {
-      radius: Settings.radiusSm
-      color: Settings.colors.base
+      radius: Theme.radiusSm
+      color: Theme.colors.base
       border.width: 1
-      border.color: Settings.colors.borderStrong
+      border.color: Theme.colors.borderStrong
     }
 
     contentItem: ListView {

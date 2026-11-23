@@ -12,7 +12,7 @@ BarGroup {
   visible: items.values.length > 0
 
   // case-insensitive match on the item's id (e.g. "spotify-client") or title (e.g. "spotify")
-  readonly property list<string> hidden: Config.get("bar.tray_hidden").map(s => s.toLowerCase())
+  readonly property list<string> hidden: Settings.bar.tray_hidden.map(s => s.toLowerCase())
 
   ScriptModel {
     id: items

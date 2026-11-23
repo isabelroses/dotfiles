@@ -19,5 +19,5 @@ Rectangle {
   }
   width: 1
   height: 1
-  color: Settings.colors.border
+  color: Theme.colors.border
 }

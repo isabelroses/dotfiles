@@ -20,7 +20,7 @@ Singleton {
   // playing, or paused more recently than notifications.media_timeout
   readonly property bool recent: {
     if (!selectedPlayer) return false;
-    const minutes = Config.get("notifications.media_timeout");
+    const minutes = Settings.notifications.media_timeout;
     return playing || minutes === 0 || Time.date - lastActive < minutes * 60000;
   }
 }

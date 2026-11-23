@@ -11,7 +11,7 @@ Item {
   implicitWidth: row.implicitWidth + 12
   implicitHeight: 56
 
-  CardSurface { raised: true; radius: Settings.sheetRadius }
+  CardSurface { raised: true; radius: Theme.sheetRadius }
 
   Row {
     id: row
@@ -24,13 +24,13 @@ Item {
     icon: "window-close-symbolic"
     size: 12
     padding: 16
-    color: Settings.colors.textMuted
+    color: Theme.colors.textMuted
   }
 
   component Separator: Rectangle {
     anchors.verticalCenter: parent.verticalCenter
     width: 1
     height: 24
-    color: Settings.colors.border
+    color: Theme.colors.border
   }
 }

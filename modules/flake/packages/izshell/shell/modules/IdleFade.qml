@@ -10,7 +10,7 @@ import qs.data
 Scope {
   id: root
 
-  readonly property int lockAfter: Config.get("lock.idle_minutes") * 60
+  readonly property int lockAfter: Settings.lock.idle_minutes * 60
   // fade for 20s, or the last third of a very short timeout
   readonly property int fadeFor: Math.min(20, Math.floor(lockAfter / 3))
   readonly property bool fading: idle.isIdle && idle.enabled
@@ -27,7 +27,7 @@ Scope {
 
   Timer {
     id: hide
-    interval: Settings.animNormal + 50
+    interval: Theme.animNormal + 50
     onTriggered: root.shown = false
   }
 
@@ -65,7 +65,7 @@ Scope {
           Behavior on opacity {
             NumberAnimation {
               // creep in over the whole fade, snap back on activity
-              duration: root.fading ? root.fadeFor * 1000 : Settings.animNormal
+              duration: root.fading ? root.fadeFor * 1000 : Theme.animNormal
               easing.type: root.fading ? Easing.InQuad : Easing.OutQuad
             }
           }

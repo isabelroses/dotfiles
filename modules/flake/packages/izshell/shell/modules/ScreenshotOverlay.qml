@@ -137,16 +137,16 @@ Variants {
       width: win.selW
       height: win.selH
       color: "transparent"
-      border.color: Settings.colors.accent
+      border.color: Theme.colors.accent
       border.width: 2
     }
 
     Rectangle {
       visible: cutout.visible
-      color: Settings.colors.base
-      border.color: Settings.colors.borderStrong
+      color: Theme.colors.base
+      border.color: Theme.colors.borderStrong
       border.width: 1
-      radius: Settings.radiusSm
+      radius: Theme.radiusSm
       width: dimLabel.implicitWidth + 16
       height: dimLabel.implicitHeight + 8
       x: win.selX

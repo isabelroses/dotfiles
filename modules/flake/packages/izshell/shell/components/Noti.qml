@@ -18,17 +18,17 @@ Item {
         anchors.centerIn: parent
         icon: Notifications.dndEnabled ? "notifications-disabled-symbolic" : "preferences-system-notifications-symbolic"
         size: 16
-        color: Notifications.dndEnabled ? Settings.colors.textSubtle : Settings.colors.text
+        color: Notifications.dndEnabled ? Theme.colors.textSubtle : Theme.colors.text
     }
 
     Rectangle {
         visible: root.count > 0 && !Notifications.dndEnabled
         anchors { top: parent.top; right: parent.right; topMargin: -2; rightMargin: -2 }
         width: 7
-        radius: Settings.pill(width)
+        radius: Theme.pill(width)
         height: 7
-        color: Settings.colors.accent
-        border.color: Settings.colors.surface
+        color: Theme.colors.accent
+        border.color: Theme.colors.surface
         border.width: 1.5
     }
 

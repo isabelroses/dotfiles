@@ -11,7 +11,7 @@ ColumnLayout {
         // the tabs above name the players when there are several
         visible: Media.players.length <= 1
         text: Media.selectedPlayer?.identity ?? ""
-        color: Settings.colors.accent
+        color: Theme.colors.accent
         font.pixelSize: 11
         font.weight: Font.Medium
     }
@@ -29,7 +29,7 @@ ColumnLayout {
         visible: text !== ""
         text: Media.selectedPlayer?.trackArtist ?? ""
         playing: Media.playing
-        color: Settings.colors.textMuted
+        color: Theme.colors.textMuted
         font.pixelSize: 12
     }
 }

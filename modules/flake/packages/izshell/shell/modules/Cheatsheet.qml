@@ -66,7 +66,7 @@ LazyLoader {
       implicitWidth: layout.implicitWidth + 56
       implicitHeight: layout.implicitHeight + 48
 
-      CardSurface { raised: true; radius: Settings.sheetRadius }
+      CardSurface { raised: true; radius: Theme.sheetRadius }
 
       ColumnLayout {
         id: layout
@@ -110,10 +110,10 @@ LazyLoader {
                         required property string modelData
                         width: Math.max(height, cap.implicitWidth + 12)
                         height: 22
-                        radius: Settings.radiusXs
-                        color: Settings.colors.surfaceRaised
+                        radius: Theme.radiusXs
+                        color: Theme.colors.surfaceRaised
                         border.width: 1
-                        border.color: Settings.colors.borderStrong
+                        border.color: Theme.colors.borderStrong
                         StyledText { id: cap; anchors.centerIn: parent; text: parent.modelData; mono: true; font.pixelSize: 11 }
                       }
                     }

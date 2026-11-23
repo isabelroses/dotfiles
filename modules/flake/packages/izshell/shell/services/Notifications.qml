@@ -9,12 +9,12 @@ import qs.data
 Singleton {
   id: root
 
-  readonly property bool dndEnabled: Config.get("notifications.dnd")
-  function setDnd(on: bool): void { Config.set("notifications.dnd", on); }
+  readonly property bool dndEnabled: Settings.notifications.dnd
+  function setDnd(on: bool): void { Settings.set("notifications.dnd", on); }
   // D-Bus notifications plus the shell's own (`notify`), which look the same to the UI
   readonly property var all: [...notifactionServer.trackedNotifications.values, ...root.local]
   readonly property var list: all.filter(
-    notification => notification.tracked && !root.dndEnabled && !Settings.notificationBlacklist.includes(notification.appName)
+    notification => notification.tracked && !root.dndEnabled && !Settings.notifications.blacklist.includes(notification.appName)
   )
   property var local: []
   property int nextLocalId: -1
@@ -61,7 +61,7 @@ Singleton {
   function track(notification: var): void {
     const t = Date.now();
     root.times[notification.id] = t;
-    const blocked = Settings.notificationBlacklist.includes(notification.appName);
+    const blocked = Settings.notifications.blacklist.includes(notification.appName);
     const snapshot = {
       appName: notification.appName,
       appIcon: notification.appIcon,

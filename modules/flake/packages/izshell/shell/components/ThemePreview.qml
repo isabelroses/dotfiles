@@ -11,9 +11,9 @@ Box {
 
   // the preview is roughly half scale, so corners shrink with it
   readonly property real s: 0.6
-  readonly property real cardR: Settings.cardRadius * s
-  readonly property real ctrlR: Settings.radiusMd * s
-  readonly property real gap: Settings.barFloating ? 6 : 0
+  readonly property real cardR: Theme.cardRadius * s
+  readonly property real ctrlR: Theme.radiusMd * s
+  readonly property real gap: Theme.barFloating ? 6 : 0
 
   implicitHeight: 196
   clip: true
@@ -21,24 +21,24 @@ Box {
   // a mock card: the base fill with the soft outline floating cards get, or
   // a single hairline on the side away from the bar when attached
   component MockCard: Rectangle {
-    property bool attached: !Settings.barFloating
-    color: Settings.colors.base
+    property bool attached: !Theme.barFloating
+    color: Theme.colors.base
     radius: attached ? 0 : root.cardR
     border.width: attached ? 0 : 1
-    border.color: Settings.colors.border
+    border.color: Theme.colors.border
   }
 
   RowLayout {
-    anchors { fill: parent; margins: Settings.barFloating ? 10 : 1 }
+    anchors { fill: parent; margins: Theme.barFloating ? 10 : 1 }
     spacing: root.gap
-    layoutDirection: Settings.barOnRight ? Qt.RightToLeft : Qt.LeftToRight
+    layoutDirection: Theme.barOnRight ? Qt.RightToLeft : Qt.LeftToRight
 
     // the bar: three cards when floating, one strip when attached
     Item {
       Layout.fillHeight: true
       implicitWidth: 30
 
-      MockCard { visible: !Settings.barFloating; anchors.fill: parent }
+      MockCard { visible: !Theme.barFloating; anchors.fill: parent }
 
       Column {
         anchors { top: parent.top; horizontalCenter: parent.horizontalCenter }
@@ -46,7 +46,7 @@ Box {
 
         MockCard {
           attached: false
-          visible: Settings.barFloating
+          visible: Theme.barFloating
           width: 30
           height: head.implicitHeight + 10
           border.width: 1
@@ -59,27 +59,27 @@ Box {
             Rectangle {
               width: 16; height: 16
               radius: Math.max(0, root.cardR - 3)
-              color: Settings.colors.accentSoft
-              MyIcon { anchors.centerIn: parent; icon: "nix-snowflake"; size: 9; color: Settings.colors.accent }
+              color: Theme.colors.accentSoft
+              MyIcon { anchors.centerIn: parent; icon: "nix-snowflake"; size: 9; color: Theme.colors.accent }
             }
 
             Repeater {
               model: 2
               Rectangle {
                 required property int index
-                readonly property color tint: Config.get("bar.workspace_colours") ? Settings.colors.pops[index % Settings.colors.pops.length] : Settings.colors.accent
+                readonly property color tint: Settings.bar.workspace_colours ? Theme.colors.pops[index % Theme.colors.pops.length] : Theme.colors.accent
                 width: 16; height: 16
                 radius: Math.max(0, root.cardR - 3)
-                color: index === 0 ? Utils.withAlpha(Settings.colors.text, 0.10) : "transparent"
+                color: index === 0 ? Utils.withAlpha(Theme.colors.text, 0.10) : "transparent"
                 border.width: 1
-                border.color: Utils.withAlpha(Settings.colors.text, index === 0 ? 0.18 : 0.10)
+                border.color: Utils.withAlpha(Theme.colors.text, index === 0 ? 0.18 : 0.10)
 
                 Rectangle {
                   anchors.centerIn: parent
                   width: parent.index === 0 ? 6 : 3
                   height: width
-                  radius: Settings.pill(width)
-                  color: parent.index === 0 ? parent.tint : Settings.colors.text
+                  radius: Theme.pill(width)
+                  color: parent.index === 0 ? parent.tint : Theme.colors.text
                   opacity: parent.index === 0 ? 1 : 0.35
                 }
               }
@@ -89,7 +89,7 @@ Box {
 
         // attached: the same groups straight on the strip
         Column {
-          visible: !Settings.barFloating
+          visible: !Theme.barFloating
           anchors.horizontalCenter: parent.horizontalCenter
           topPadding: 5
           spacing: 4
@@ -97,8 +97,8 @@ Box {
           Rectangle {
             width: 16; height: 16
             radius: Math.max(0, root.cardR - 3)
-            color: Settings.colors.accentSoft
-            MyIcon { anchors.centerIn: parent; icon: "nix-snowflake"; size: 9; color: Settings.colors.accent }
+            color: Theme.colors.accentSoft
+            MyIcon { anchors.centerIn: parent; icon: "nix-snowflake"; size: 9; color: Theme.colors.accent }
           }
 
           Repeater {
@@ -107,28 +107,28 @@ Box {
               required property int index
               width: 16; height: 16
               radius: Math.max(0, root.cardR - 3)
-              color: index === 0 ? Utils.withAlpha(Settings.colors.text, 0.10) : "transparent"
+              color: index === 0 ? Utils.withAlpha(Theme.colors.text, 0.10) : "transparent"
               border.width: 1
-              border.color: Utils.withAlpha(Settings.colors.text, index === 0 ? 0.18 : 0.10)
+              border.color: Utils.withAlpha(Theme.colors.text, index === 0 ? 0.18 : 0.10)
             }
           }
         }
       }
 
       MockCard {
-        attached: !Settings.barFloating
-        anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; bottomMargin: Settings.barFloating ? 0 : 5 }
+        attached: !Theme.barFloating
+        anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; bottomMargin: Theme.barFloating ? 0 : 5 }
         width: 30
         height: clock.implicitHeight + 8
-        color: Settings.barFloating ? Settings.colors.base : "transparent"
-        border.width: Settings.barFloating ? 1 : 0
+        color: Theme.barFloating ? Theme.colors.base : "transparent"
+        border.width: Theme.barFloating ? 1 : 0
 
         Column {
           id: clock
           anchors.centerIn: parent
           spacing: -4
           StyledText { anchors.horizontalCenter: parent.horizontalCenter; text: Time.hours; serif: true; font.pixelSize: 13 }
-          StyledText { anchors.horizontalCenter: parent.horizontalCenter; text: Time.minutes; serif: true; font.italic: true; font.pixelSize: 13; color: Settings.colors.textMuted }
+          StyledText { anchors.horizontalCenter: parent.horizontalCenter; text: Time.minutes; serif: true; font.italic: true; font.pixelSize: 13; color: Theme.colors.textMuted }
         }
       }
     }
@@ -136,16 +136,16 @@ Box {
     MockCard {
       Layout.fillWidth: true
       Layout.fillHeight: true
-      attached: !Settings.barFloating
-      border.width: Settings.barFloating ? 1 : 0
+      attached: !Theme.barFloating
+      border.width: Theme.barFloating ? 1 : 0
 
       // attached sheets keep the one hairline on their far edge
       Rectangle {
-        visible: !Settings.barFloating
-        x: Settings.barOnRight ? 0 : parent.width - 1
+        visible: !Theme.barFloating
+        x: Theme.barOnRight ? 0 : parent.width - 1
         width: 1
         height: parent.height
-        color: Settings.colors.border
+        color: Theme.colors.border
       }
 
       ColumnLayout {
@@ -154,7 +154,7 @@ Box {
 
         StyledText { text: "Notifications"; serif: true; font.pixelSize: 15 }
 
-        Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Settings.colors.border }
+        Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: Theme.colors.border }
 
         Item { Layout.fillHeight: true }
 
@@ -165,9 +165,9 @@ Box {
             implicitWidth: 22
             implicitHeight: 22
             radius: root.ctrlR
-            color: Settings.colors.overlay
+            color: Theme.colors.overlay
             border.width: 1
-            border.color: Settings.colors.accent
+            border.color: Theme.colors.accent
 
             Image {
               source: Settings.profilePicture
@@ -179,7 +179,7 @@ Box {
           }
 
           StyledText {
-            text: `${Time.greeting}, ${Settings.username}`
+            text: `${Time.greeting}, ${Settings.general.username}`
             font.pixelSize: 11
             font.weight: Font.DemiBold
           }
@@ -198,9 +198,9 @@ Box {
               Layout.fillWidth: true
               implicitHeight: 30
               radius: root.ctrlR
-              color: modelData.on ? Utils.withAlpha(Settings.colors.accent, 0.14) : Settings.colors.surface
+              color: modelData.on ? Utils.withAlpha(Theme.colors.accent, 0.14) : Theme.colors.surface
               border.width: 1
-              border.color: modelData.on ? Utils.withAlpha(Settings.colors.accent, 0.5) : Settings.colors.border
+              border.color: modelData.on ? Utils.withAlpha(Theme.colors.accent, 0.5) : Theme.colors.border
 
               RowLayout {
                 anchors { left: parent.left; verticalCenter: parent.verticalCenter; leftMargin: 8 }
@@ -209,7 +209,7 @@ Box {
                 Rectangle {
                   implicitWidth: 16; implicitHeight: 16
                   radius: root.ctrlR
-                  color: chip.modelData.on ? Settings.colors.accent : Settings.colors.overlay
+                  color: chip.modelData.on ? Theme.colors.accent : Theme.colors.overlay
                 }
 
                 StyledText {
@@ -225,16 +225,16 @@ Box {
         Rectangle {
           Layout.fillWidth: true
           implicitHeight: 18
-          radius: Settings.pill(height) * root.s
-          color: Settings.colors.surfaceRaised
+          radius: Theme.pill(height) * root.s
+          color: Theme.colors.surfaceRaised
           border.width: 1
-          border.color: Settings.colors.border
+          border.color: Theme.colors.border
 
           Rectangle {
             width: parent.width * 0.55
             height: parent.height
             radius: parent.radius
-            color: Settings.colors.accent
+            color: Theme.colors.accent
           }
         }
       }

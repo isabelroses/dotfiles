@@ -6,9 +6,9 @@ import qs.data
 GridLayout {
   property real spacing: 10
 
-  flow: Settings.barVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
-  rows: Settings.barVertical ? 99 : 1
-  columns: Settings.barVertical ? 1 : 99
+  flow: Theme.barVertical ? GridLayout.TopToBottom : GridLayout.LeftToRight
+  rows: Theme.barVertical ? 99 : 1
+  columns: Theme.barVertical ? 1 : 99
   rowSpacing: spacing
   columnSpacing: spacing
 }

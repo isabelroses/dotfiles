@@ -14,17 +14,12 @@ LazyLoader {
     namespace: "settings"
     onDismissed: Runtime.settingsOpen = false
 
-    // "home" and a few pages are built by hand; the rest are config sections
+    // "home" and the custom pages are built by hand; the rest are lists of Settings
     property string section: Runtime.settingsPage
-    readonly property bool inSchema: Config.schema.some(s => s.name === section)
-    readonly property bool customPage: ["home", "sound", "network", "bluetooth", "system"].includes(section)
-    readonly property var pages: [
-      ...Config.schema.map(s => ({ name: s.name, title: s.title, icon: s.icon })),
-      { name: "sound", title: "Sound", icon: "audio-speakers-symbolic" },
-      { name: "network", title: "Network", icon: "network-workgroup-symbolic" },
-      { name: "bluetooth", title: "Bluetooth", icon: "bluetooth-symbolic" },
-      { name: "system", title: "System", icon: "computer-symbolic" },
-    ]
+    readonly property var sectionInfo: Settings.schema.find(s => s.name === section)
+    readonly property bool inSchema: sectionInfo !== undefined && !sectionInfo.custom
+    readonly property bool customPage: section === "home" || sectionInfo?.custom === true
+    readonly property var pages: Settings.schema.map(s => ({ name: s.name, title: s.title, icon: s.icon }))
     property string query: ""
 
     // rows in boxed groups: a page's own groups, or search results under the
@@ -32,7 +27,7 @@ LazyLoader {
     readonly property var groups: {
       const q = query.trim().toLowerCase();
       const out = [];
-      for (const sec of Config.schema) {
+      for (const sec of Settings.schema) {
         if (q === "" && sec.name !== section) continue;
         for (const e of sec.entries) {
           const hay = `${sec.title} ${e.label} ${e.key} ${e.hint ?? ""}`.toLowerCase();
@@ -52,7 +47,7 @@ LazyLoader {
       // the home page is only as tall as its content; the rest get the full height
       implicitHeight: Math.min(win.section === "home" && win.query === "" ? main.implicitHeight + 2 : 680, win.height - 80)
 
-      CardSurface { raised: true; radius: Settings.sheetRadius }
+      CardSurface { raised: true; radius: Theme.sheetRadius }
 
       RowLayout {
         anchors { fill: parent; margins: 1 }
@@ -67,7 +62,7 @@ LazyLoader {
           Rectangle {
             anchors { top: parent.top; bottom: parent.bottom; right: parent.right; topMargin: 16; bottomMargin: 16 }
             width: 1
-            color: Settings.colors.border
+            color: Theme.colors.border
           }
 
           ColumnLayout {
@@ -79,8 +74,8 @@ LazyLoader {
               Layout.fillWidth: true
               Layout.bottomMargin: 10
               implicitHeight: 32
-              radius: Settings.radiusSm
-              color: hovered ? Settings.colors.surfaceRaised : "transparent"
+              radius: Theme.radiusSm
+              color: hovered ? Theme.colors.surfaceRaised : "transparent"
               onClicked: {
                 search.text = "";
                 win.section = "home";
@@ -90,12 +85,12 @@ LazyLoader {
                 anchors { fill: parent; leftMargin: 8; rightMargin: 8 }
                 spacing: 8
 
-                MyIcon { icon: "go-previous-symbolic"; size: 12; color: Settings.colors.textMuted }
+                MyIcon { icon: "go-previous-symbolic"; size: 12; color: Theme.colors.textMuted }
 
                 StyledText {
                   Layout.fillWidth: true
                   text: "All settings"
-                  color: back.hovered ? Settings.colors.text : Settings.colors.textMuted
+                  color: back.hovered ? Theme.colors.text : Theme.colors.textMuted
                   font.pixelSize: 12
                 }
               }
@@ -114,7 +109,7 @@ LazyLoader {
             }
 
             Repeater {
-              model: Config.pageGroups
+              model: Settings.pageGroups
 
               ColumnLayout {
                 id: pageGroup
@@ -130,7 +125,7 @@ LazyLoader {
                   text: pageGroup.modelData.title
                   font.pixelSize: 11
                   font.weight: Font.DemiBold
-                  color: Settings.colors.textSubtle
+                  color: Theme.colors.textSubtle
                 }
 
                 Repeater {
@@ -190,7 +185,7 @@ LazyLoader {
             IconButton {
               icon: "window-close-symbolic"
               size: 14
-              color: Settings.colors.textMuted
+              color: Theme.colors.textMuted
               onClicked: Runtime.settingsOpen = false
             }
           }
@@ -198,7 +193,7 @@ LazyLoader {
           Rule { Layout.leftMargin: 20; Layout.rightMargin: 20; Layout.bottomMargin: 12 }
 
           ErrorBanner {
-            text: Config.error
+            text: Settings.error
             Layout.fillWidth: true
             Layout.leftMargin: 20
             Layout.rightMargin: 20
@@ -248,7 +243,7 @@ LazyLoader {
 
                   Caption {
                     Layout.fillWidth: true
-                    text: Config.path
+                    text: Settings.path
                     mono: true
                     elide: Text.ElideMiddle
                   }
@@ -257,7 +252,7 @@ LazyLoader {
                     implicitHeight: 28
                     fontSize: 11
                     text: "Open file"
-                    onClicked: Qt.openUrlExternally("file://" + Config.path)
+                    onClicked: Qt.openUrlExternally("file://" + Settings.path)
                   }
 
                   BoxButton {
@@ -267,9 +262,9 @@ LazyLoader {
                     fontSize: 11
                     text: armed ? "Sure?" : "Reset all"
                     filled: armed
-                    fillColor: Settings.colors.error
+                    fillColor: Theme.colors.error
                     onClicked: {
-                      if (armed) { Config.resetAll(); armed = false; }
+                      if (armed) { Settings.resetAll(); armed = false; }
                       else armed = true;
                     }
                     Timer { running: resetAll.armed; interval: 3000; onTriggered: resetAll.armed = false }
@@ -334,7 +329,7 @@ LazyLoader {
             Layout.alignment: Qt.AlignHCenter
             Layout.bottomMargin: 40
             text: "No settings match"
-            color: Settings.colors.textMuted
+            color: Theme.colors.textMuted
           }
         }
       }
@@ -345,14 +340,14 @@ LazyLoader {
       default property alias content: chipRow.data
       width: chipRow.implicitWidth + 8
       height: 28
-      radius: Settings.radiusSm
-      color: Settings.colors.surfaceRaised
+      radius: Theme.radiusSm
+      color: Theme.colors.surfaceRaised
       border.width: 1
-      border.color: Settings.colors.borderStrong
+      border.color: Theme.colors.borderStrong
       RowLayout { id: chipRow; anchors.centerIn: parent; spacing: 4 }
     }
 
-    component ChipButton: IconButton { size: 10; padding: 3; color: Settings.colors.textMuted }
+    component ChipButton: IconButton { size: 10; padding: 3; color: Theme.colors.textMuted }
 
     component SettingRow: Item {
       id: row
@@ -360,7 +355,7 @@ LazyLoader {
       required property int index
       readonly property var entry: modelData.entry
       readonly property string path: modelData.path
-      readonly property var value: Config.values[path]
+      readonly property var value: Settings.values[path]
       readonly property bool isDefault: JSON.stringify(value) === JSON.stringify(entry.default)
       readonly property bool isPath: entry.type === "path" || entry.type === "wallpaper"
       readonly property bool wide: entry.type === "list" || entry.type === "items" || entry.type === "path" || entry.type === "wallpaper" || entry.type === "string"
@@ -405,16 +400,16 @@ LazyLoader {
             visible: !row.isDefault && rowHover.hovered
             implicitWidth: resetText.implicitWidth + 14
             implicitHeight: 22
-            radius: Settings.radiusSm
-            color: hovered ? Settings.colors.surfaceRaised : "transparent"
-            onClicked: Config.reset(row.path)
+            radius: Theme.radiusSm
+            color: hovered ? Theme.colors.surfaceRaised : "transparent"
+            onClicked: Settings.reset(row.path)
 
             StyledText {
               id: resetText
               anchors.centerIn: parent
               text: "Reset"
               font.pixelSize: 11
-              color: parent.hovered ? Settings.colors.accent : Settings.colors.textMuted
+              color: parent.hovered ? Theme.colors.accent : Theme.colors.textMuted
             }
           }
         }
@@ -438,7 +433,7 @@ LazyLoader {
       Component {
         id: toggleControl
 
-        ToggleSwitch { on: row.value === true; onToggled: Config.set(row.path, !on) }
+        ToggleSwitch { on: row.value === true; onToggled: Settings.set(row.path, !on) }
       }
 
       Component {
@@ -456,7 +451,7 @@ LazyLoader {
             stepSize: row.entry.type === "int" ? 1 : (row.entry.step ?? 0.05)
             snapMode: Slider.SnapAlways
             value: row.value
-            onMoved: Config.set(row.path, row.entry.type === "int" ? Math.round(value) : Math.round(value * 100) / 100)
+            onMoved: Settings.set(row.path, row.entry.type === "int" ? Math.round(value) : Math.round(value * 100) / 100)
           }
 
           StyledText {
@@ -475,7 +470,7 @@ LazyLoader {
         ChoicePills {
           options: row.entry.options.map(o => ({ value: o, label: o.charAt(0).toUpperCase() + o.slice(1) }))
           value: row.value
-          onPicked: (v) => Config.set(row.path, v)
+          onPicked: (v) => Settings.set(row.path, v)
         }
       }
 
@@ -490,21 +485,21 @@ LazyLoader {
 
             Clickable {
               required property string modelData
-              onClicked: Config.set(row.path, modelData)
+              onClicked: Settings.set(row.path, modelData)
               readonly property bool selected: row.value === modelData
               width: 24
               height: 24
-              radius: Settings.radiusXs
-              color: Settings.colors[modelData]
+              radius: Theme.radiusXs
+              color: Theme.colors[modelData]
               border.width: selected ? 2 : 0
-              border.color: Settings.colors.text
+              border.color: Theme.colors.text
 
               Rectangle {
                 visible: parent.selected
                 anchors { fill: parent; margins: 2 }
                 color: "transparent"
                 border.width: 2
-                border.color: Settings.colors.base
+                border.color: Theme.colors.base
               }
 
               ToolTip.visible: hovered
@@ -527,7 +522,7 @@ LazyLoader {
             mono: row.isPath
             placeholder: row.entry.placeholder ?? ""
             text: row.value
-            onEditingFinished: if (text !== row.value) Config.set(row.path, text)
+            onEditingFinished: if (text !== row.value) Settings.set(row.path, text)
           }
 
           Thumbnail {
@@ -536,7 +531,7 @@ LazyLoader {
             implicitHeight: 32
             source: row.isPath && row.value ? "file://" + row.value : ""
             sourceSize: Qt.size(64, 64)
-            borderColor: status === Image.Error ? Settings.colors.error : Settings.colors.border
+            borderColor: status === Image.Error ? Theme.colors.error : Theme.colors.border
           }
         }
       }
@@ -580,8 +575,8 @@ LazyLoader {
               Clickable {
                 id: tileButton
                 anchors { fill: parent; margins: 3 }
-                onClicked: Config.set(row.path, tile.filePath)
-                radius: Settings.radiusSm
+                onClicked: Settings.set(row.path, tile.filePath)
+                radius: Theme.radiusSm
 
                 Thumbnail {
                   anchors.fill: parent
@@ -589,9 +584,9 @@ LazyLoader {
                   source: tile.fileUrl
                   sourceSize: Qt.size(240, 135)
                   borderWidth: tile.selected ? 2 : 1
-                  borderColor: tile.selected ? Settings.colors.accent
-                             : tileButton.hovered ? Settings.colors.borderStrong
-                             : Settings.colors.border
+                  borderColor: tile.selected ? Theme.colors.accent
+                             : tileButton.hovered ? Theme.colors.borderStrong
+                             : Theme.colors.border
                 }
               }
             }
@@ -610,16 +605,16 @@ LazyLoader {
           spacing: 6
 
           readonly property var taken: {
-            const sec = Config.schema.find(s => s.name === row.path.split(".")[0]);
+            const sec = Settings.schema.find(s => s.name === row.path.split(".")[0]);
             const pool = row.entry.pool;
             const siblings = pool ? sec.entries.filter(x => x.pool === pool).map(x => `${sec.name}.${x.key}`) : [row.path];
-            return siblings.reduce((all, p) => all.concat(p === row.path ? row.value : Config.get(p)), []);
+            return siblings.reduce((all, p) => all.concat(p === row.path ? row.value : Settings.get(p)), []);
           }
 
           function move(from: int, to: int): void {
             const next = row.value.slice();
             next.splice(to, 0, next.splice(from, 1)[0]);
-            Config.set(row.path, next);
+            Settings.set(row.path, next);
           }
 
           Repeater {
@@ -631,7 +626,7 @@ LazyLoader {
               required property int index
 
               ChipButton { icon: "go-previous-symbolic"; enabled: chip.index > 0; onClicked: items.move(chip.index, chip.index - 1) }
-              StyledText { text: Config.itemNames[chip.modelData] ?? chip.modelData; font.pixelSize: 12 }
+              StyledText { text: Settings.itemNames[chip.modelData] ?? chip.modelData; font.pixelSize: 12 }
               ChipButton {
                 icon: "go-next-symbolic"
                 enabled: chip.index < row.value.length - 1
@@ -639,7 +634,7 @@ LazyLoader {
               }
               ChipButton {
                 icon: "window-close-symbolic"
-                onClicked: Config.set(row.path, row.value.filter(v => v !== chip.modelData))
+                onClicked: Settings.set(row.path, row.value.filter(v => v !== chip.modelData))
               }
             }
           }
@@ -649,9 +644,9 @@ LazyLoader {
             visible: remaining.length > 0
             implicitWidth: 120
             implicitHeight: 28
-            options: remaining.map(o => ({ value: o, label: Config.itemNames[o] ?? o }))
+            options: remaining.map(o => ({ value: o, label: Settings.itemNames[o] ?? o }))
             displayText: "Add"
-            onPicked: (v) => Config.set(row.path, [...row.value, v])
+            onPicked: (v) => Settings.set(row.path, [...row.value, v])
           }
 
           StyledText {
@@ -660,7 +655,7 @@ LazyLoader {
             verticalAlignment: Text.AlignVCenter
             text: "Empty"
             font.pixelSize: 12
-            color: Settings.colors.textSubtle
+            color: Theme.colors.textSubtle
           }
         }
       }
@@ -682,7 +677,7 @@ LazyLoader {
               StyledText { text: listChip.modelData; font.pixelSize: 12; Layout.leftMargin: 4 }
               ChipButton {
                 icon: "window-close-symbolic"
-                onClicked: Config.set(row.path, row.value.filter((_, i) => i !== listChip.index))
+                onClicked: Settings.set(row.path, row.value.filter((_, i) => i !== listChip.index))
               }
             }
           }
@@ -694,7 +689,7 @@ LazyLoader {
             placeholder: "+ add"
             onAccepted: {
               const v = text.trim();
-              if (v !== "" && !row.value.includes(v)) Config.set(row.path, [...row.value, v]);
+              if (v !== "" && !row.value.includes(v)) Settings.set(row.path, [...row.value, v]);
               text = "";
             }
           }

@@ -21,7 +21,7 @@ PanelWindow {
 
   Rectangle {
     anchors.fill: parent
-    color: Settings.colors.scrim
+    color: Theme.colors.scrim
     opacity: holder.opacity
 
     MouseArea { anchors.fill: parent; onClicked: root.dismissed() }

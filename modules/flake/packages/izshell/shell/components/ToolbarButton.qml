@@ -10,13 +10,13 @@ Clickable {
   property string hint: ""
   property bool active: false
   property real iconRotation: 0
-  readonly property color tint: active ? Settings.colors.accent : Settings.colors.text
+  readonly property color tint: active ? Theme.colors.accent : Theme.colors.text
 
   anchors.verticalCenter: parent.verticalCenter
   implicitWidth: label === "" ? 44 : row.implicitWidth + 24
   implicitHeight: 44
-  radius: Settings.innerRadius
-  color: active ? Settings.colors.accentSoft : hovered ? Settings.colors.surfaceRaised : "transparent"
+  radius: Theme.innerRadius
+  color: active ? Theme.colors.accentSoft : hovered ? Theme.colors.surfaceRaised : "transparent"
 
   Row {
     id: row
@@ -28,7 +28,7 @@ Clickable {
       icon: root.icon
       rotation: root.iconRotation
       size: 16
-      color: root.hovered ? Settings.colors.accent : root.tint
+      color: root.hovered ? Theme.colors.accent : root.tint
     }
     StyledText {
       visible: root.label !== ""
@@ -43,7 +43,7 @@ Clickable {
       text: root.hint
       mono: true
       font.pixelSize: 10
-      color: Settings.colors.textSubtle
+      color: Theme.colors.textSubtle
     }
   }
 }

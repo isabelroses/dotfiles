@@ -33,7 +33,7 @@ Singleton {
   property bool edit: false
   // copy the text in the region (tesseract) rather than the image
   property bool ocr: false
-  readonly property bool alwaysEdit: Config.get("screenshot.editor") === "always"
+  readonly property bool alwaysEdit: Settings.screenshot.editor === "always"
 
   readonly property string home: Quickshell.env("HOME")
   // XDG_SCREENSHOTS_DIR is not in quickshell's launch environment (only
@@ -42,13 +42,13 @@ Singleton {
     const m = userDirs.text().match(/^XDG_SCREENSHOTS_DIR="(.*)"/m);
     return m ? m[1].replace(/^\$HOME/, home) : home + "/Pictures/Screenshots";
   }
-  readonly property string dir: Config.get("screenshot.folder").replace(/^~/, home) || xdgDir
+  readonly property string dir: Settings.screenshot.folder.replace(/^~/, home) || xdgDir
   onDirChanged: Files.mkdir(dir)
   Component.onCompleted: Files.mkdir(dir)
 
   FileView {
     id: userDirs
-    path: Config.configHome + "/user-dirs.dirs"
+    path: Settings.configHome + "/user-dirs.dirs"
     blockLoading: true
     printErrors: false
   }
@@ -57,7 +57,7 @@ Singleton {
 
   function newPath(): string {
     // unsaved captures still need a file for the editor or tesseract to read
-    const folder = Config.get("screenshot.save") && !root.ocr ? root.dir : (Quickshell.env("XDG_RUNTIME_DIR") || "/tmp");
+    const folder = Settings.screenshot.save && !root.ocr ? root.dir : (Quickshell.env("XDG_RUNTIME_DIR") || "/tmp");
     return folder + "/Screenshot_" + Qt.formatDateTime(new Date(), "yyyy-MM-dd_HH-mm-ss") + ".png";
   }
 
@@ -186,7 +186,7 @@ Singleton {
       }
       Files.remove(path);
       if (found !== "") Clipboard.setText(found);
-      if (!Config.get("screenshot.notify") && found !== "") return;
+      if (!Settings.screenshot.notify && found !== "") return;
       Notifications.notify({
         appName: "Screenshot", appIcon: "insert-text",
         summary: found !== "" ? "Text copied" : "No text found",
@@ -198,8 +198,8 @@ Singleton {
   // Copy to the clipboard and notify. An unsaved capture's temp file lives as
   // long as its notification, so the thumbnail and the Edit action keep working.
   function deliver(path: string): void {
-    const saved = Config.get("screenshot.save");
-    const notify = Config.get("screenshot.notify");
+    const saved = Settings.screenshot.save;
+    const notify = Settings.screenshot.notify;
     // the clipboard keeps its own copy, so the file is free to go once this returns
     if (!Clipboard.setImage(path)) return root.fail("Could not copy the capture");
     if (!saved && !notify) Files.remove(path);
@@ -232,7 +232,7 @@ Singleton {
     const p = root.editing;
     root.editing = "";
     if (copy) root.deliver(p);
-    else if (!Config.get("screenshot.save")) Files.remove(p);
+    else if (!Settings.screenshot.save) Files.remove(p);
   }
 
   function fail(msg: string): void {
@@ -252,7 +252,7 @@ Singleton {
   IpcHandler {
     target: "screenshot"
 
-    function menu(): void { root.startFromIpc(Config.get("screenshot.editor") !== "never", () => root.openOverlay("picker")); }
+    function menu(): void { root.startFromIpc(Settings.screenshot.editor !== "never", () => root.openOverlay("picker")); }
     function region(): void { root.startFromIpc(root.alwaysEdit, () => root.openOverlay("region")); }
     function window(): void { root.startFromIpc(root.alwaysEdit, () => root.capture("window")); }
     function output(): void { root.startFromIpc(root.alwaysEdit, () => root.capture("output")); }

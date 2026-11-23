@@ -176,7 +176,7 @@ ColumnLayout {
       Layout.fillWidth: true
       implicitHeight: 40
       radius: levels.rowRadius
-      color: hovered ? Settings.colors.surfaceRaised : "transparent"
+      color: hovered ? Theme.colors.surfaceRaised : "transparent"
       onClicked: root.togglePanel("audio")
 
       Hairline {}
@@ -185,7 +185,7 @@ ColumnLayout {
         anchors { fill: parent; leftMargin: 18; rightMargin: 14 }
         spacing: 12
 
-        MyIcon { icon: "view-app-grid-symbolic"; size: 14; color: Settings.colors.textMuted }
+        MyIcon { icon: "view-app-grid-symbolic"; size: 14; color: Theme.colors.textMuted }
 
         StyledText { Layout.fillWidth: true; text: "Apps"; font.pixelSize: 12 }
 
@@ -196,7 +196,7 @@ ColumnLayout {
             : `${Pipewire.streams.length} playing`
         }
 
-        MyIcon { icon: "go-next-symbolic"; size: 10; color: Settings.colors.textMuted }
+        MyIcon { icon: "go-next-symbolic"; size: 10; color: Theme.colors.textMuted }
       }
     }
   }
@@ -272,12 +272,12 @@ ColumnLayout {
     Layout.fillWidth: true
     Layout.preferredWidth: 1
     implicitHeight: 52
-    radius: Settings.radiusMd
-    color: active ? (hovered ? Utils.withAlpha(Settings.colors.accent, 0.2) : Settings.colors.accentSoft)
-         : hovered ? Settings.colors.surfaceRaised : Settings.colors.surface
+    radius: Theme.radiusMd
+    color: active ? (hovered ? Utils.withAlpha(Theme.colors.accent, 0.2) : Theme.colors.accentSoft)
+         : hovered ? Theme.colors.surfaceRaised : Theme.colors.surface
     border.width: 1
-    border.color: active ? Utils.withAlpha(Settings.colors.accent, 0.35)
-                : expanded ? Settings.colors.borderStrong : Settings.colors.border
+    border.color: active ? Utils.withAlpha(Theme.colors.accent, 0.35)
+                : expanded ? Theme.colors.borderStrong : Theme.colors.border
 
 
     RowLayout {
@@ -287,7 +287,7 @@ ColumnLayout {
       MyIcon {
         icon: tile.icon
         size: 16
-        color: tile.active ? Settings.colors.accent : Settings.colors.textMuted
+        color: tile.active ? Theme.colors.accent : Theme.colors.textMuted
       }
 
       ColumnLayout {
@@ -306,7 +306,7 @@ ColumnLayout {
           visible: text !== ""
           text: tile.status
           font.pixelSize: 11
-          color: tile.active ? Settings.colors.accent : Settings.colors.textMuted
+          color: tile.active ? Theme.colors.accent : Theme.colors.textMuted
         }
       }
 
@@ -314,20 +314,20 @@ ColumnLayout {
         visible: tile.expandable
         Layout.fillHeight: true
         implicitWidth: 34
-        radius: Settings.radiusMd
-        color: hovered ? Utils.withAlpha(Settings.colors.text, 0.06) : "transparent"
+        radius: Theme.radiusMd
+        color: hovered ? Utils.withAlpha(Theme.colors.text, 0.06) : "transparent"
         onClicked: tile.expandRequested()
 
         Hairline {
           vertical: true
-          color: tile.active ? Utils.withAlpha(Settings.colors.accent, 0.35) : Settings.colors.border
+          color: tile.active ? Utils.withAlpha(Theme.colors.accent, 0.35) : Theme.colors.border
         }
 
         MyIcon {
           anchors.centerIn: parent
           icon: "go-next-symbolic"
           size: 10
-          color: tile.active ? Settings.colors.accent : Settings.colors.textMuted
+          color: tile.active ? Theme.colors.accent : Theme.colors.textMuted
           rotation: tile.expanded ? 90 : 0
           Behavior on rotation { Anim {} }
         }
@@ -363,8 +363,8 @@ ColumnLayout {
         icon: row.icon
         size: 16
         padding: 8
-        color: row.muted ? Settings.colors.error : Settings.colors.text
-        hoverColor: Settings.colors.overlay
+        color: row.muted ? Theme.colors.error : Theme.colors.text
+        hoverColor: Theme.colors.overlay
         enabled: row.panel !== ""
         opacity: 1
         onClicked: row.iconClicked()
@@ -382,14 +382,14 @@ ColumnLayout {
             Layout.fillWidth: true
             text: row.title
             font.pixelSize: 12
-            color: row.muted ? Settings.colors.textMuted : Settings.colors.text
+            color: row.muted ? Theme.colors.textMuted : Theme.colors.text
           }
 
           StyledText {
             text: row.muted ? "muted" : Math.round(row.value * 100) + "%"
             mono: true
             font.pixelSize: 11
-            color: row.muted ? Settings.colors.error : Settings.colors.textMuted
+            color: row.muted ? Theme.colors.error : Theme.colors.textMuted
           }
         }
 
@@ -397,7 +397,7 @@ ColumnLayout {
           Layout.fillWidth: true
           from: row.from
           value: row.value
-          tint: row.muted ? Settings.colors.textSubtle : Settings.colors.accent
+          tint: row.muted ? Theme.colors.textSubtle : Theme.colors.accent
           onMoved: row.moved(value)
         }
       }
@@ -407,8 +407,8 @@ ColumnLayout {
         icon: "go-next-symbolic"
         size: 10
         padding: 9
-        color: root.openPanel === row.panel ? Settings.colors.accent : Settings.colors.textMuted
-        hoverColor: Settings.colors.overlay
+        color: root.openPanel === row.panel ? Theme.colors.accent : Theme.colors.textMuted
+        hoverColor: Theme.colors.overlay
         onClicked: root.togglePanel(row.panel)
       }
 
@@ -431,7 +431,7 @@ ColumnLayout {
 
     signal actionClicked()
 
-    readonly property bool fromTop: Settings.barSide === "top"
+    readonly property bool fromTop: Theme.barSide === "top"
 
     parent: root.stackHost
     z: 2
@@ -443,9 +443,9 @@ ColumnLayout {
     visible: opacity > 0
 
     Behavior on y { Anim {} }
-    Behavior on opacity { Anim { duration: Settings.animFast } }
+    Behavior on opacity { Anim { duration: Theme.animFast } }
 
-    CardSurface { raised: true; radius: Settings.cardRadius }
+    CardSurface { raised: true; radius: Theme.cardRadius }
 
     ColumnLayout {
       id: panelColumn
@@ -456,7 +456,7 @@ ColumnLayout {
         Layout.fillWidth: true
         Layout.leftMargin: 2
 
-        SectionLabel { text: panel.title; tint: Settings.colors.accent }
+        SectionLabel { text: panel.title; tint: Theme.colors.accent }
 
         Item { Layout.fillWidth: true }
 
@@ -464,14 +464,14 @@ ColumnLayout {
           visible: panel.actionIcon !== ""
           icon: panel.actionIcon
           size: 14
-          color: Settings.colors.textMuted
+          color: Theme.colors.textMuted
           onClicked: panel.actionClicked()
         }
 
         IconButton {
           icon: "window-close-symbolic"
           size: 12
-          color: Settings.colors.textMuted
+          color: Theme.colors.textMuted
           onClicked: Runtime.quickPanel = ""
         }
       }
@@ -491,7 +491,7 @@ ColumnLayout {
         Layout.topMargin: 6
         Layout.bottomMargin: 10
         text: panel.emptyText
-        color: Settings.colors.textMuted
+        color: Theme.colors.textMuted
         font.pixelSize: 12
       }
     }

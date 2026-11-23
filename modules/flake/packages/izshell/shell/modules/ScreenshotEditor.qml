@@ -25,8 +25,8 @@ LazyLoader {
     property string tool: "arrow"
     property int colourIndex: 0
     readonly property list<color> colours: [
-      Settings.colors.red, Settings.colors.yellow, Settings.colors.green,
-      Settings.colors.blue, Settings.colors.mauve, Settings.colors.text, Settings.colors.base,
+      Theme.colors.red, Theme.colors.yellow, Theme.colors.green,
+      Theme.colors.blue, Theme.colors.mauve, Theme.colors.text, Theme.colors.base,
     ]
     readonly property color colour: colours[colourIndex]
 
@@ -156,7 +156,7 @@ LazyLoader {
           y: win.typing?.y ?? 0
           focus: visible
           color: win.colour
-          font.family: Settings.fonts.sans
+          font.family: Theme.fonts.sans
           font.weight: Font.DemiBold
           font.pixelSize: win.textSize
           cursorVisible: visible
@@ -170,7 +170,7 @@ LazyLoader {
         anchors.fill: parent
         anchors.margins: -1
         color: "transparent"
-        border.color: Settings.colors.borderStrong
+        border.color: Theme.colors.borderStrong
         border.width: 1
       }
 
@@ -268,7 +268,7 @@ LazyLoader {
           y: a.shape.y
           text: a.shape.text
           color: a.shape.colour
-          font.family: Settings.fonts.sans
+          font.family: Theme.fonts.sans
           font.weight: Font.DemiBold
           font.pixelSize: a.shape.size
         }
@@ -309,11 +309,11 @@ LazyLoader {
             anchors.centerIn: parent
             width: swatch.current ? 20 : swatch.hovered ? 18 : 14
             height: width
-            radius: Settings.pill(width)
+            radius: Theme.pill(width)
             color: swatch.modelData
             border.width: swatch.current ? 2 : 1
-            border.color: swatch.current ? Settings.colors.text : Settings.colors.borderStrong
-            Behavior on width { Anim { duration: Settings.animFast } }
+            border.color: swatch.current ? Theme.colors.text : Theme.colors.borderStrong
+            Behavior on width { Anim { duration: Theme.animFast } }
           }
         }
       }

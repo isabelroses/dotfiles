@@ -14,8 +14,8 @@ Clickable {
   Layout.alignment: Qt.AlignCenter
   implicitWidth: 30
   implicitHeight: 30
-  radius: Settings.radiusSm
-  color: root.hovered ? Settings.colors.surfaceRaised : "transparent"
+  radius: Theme.radiusSm
+  color: root.hovered ? Theme.colors.surfaceRaised : "transparent"
   acceptedButtons: Qt.LeftButton | Qt.RightButton
   onClicked: (e) => {
     if (e.button === Qt.RightButton) Runtime.toggleNotifications();
@@ -30,8 +30,8 @@ Clickable {
     anchors.centerIn: parent
     icon: "audio-x-generic-symbolic"
     size: 16
-    color: root.playing ? Settings.colors.accent : Settings.colors.textSubtle
-    Behavior on color { ColorAnimation { duration: Settings.animNormal } }
+    color: root.playing ? Theme.colors.accent : Theme.colors.textSubtle
+    Behavior on color { ColorAnimation { duration: Theme.animNormal } }
   }
 
   BarTooltip { content: root.player ? card : null }
@@ -67,7 +67,7 @@ Clickable {
           visible: text !== ""
           text: root.player?.trackArtist ?? ""
           font.pixelSize: 12
-          color: Settings.colors.textMuted
+          color: Theme.colors.textMuted
         }
 
         ThinSlider {
@@ -77,14 +77,14 @@ Clickable {
           enabled: false
           handleWidth: 0
           value: Media.hasProgress ? root.player.position / root.player.length : 0
-          tint: root.playing ? Settings.colors.accent : Settings.colors.textSubtle
+          tint: root.playing ? Theme.colors.accent : Theme.colors.textSubtle
         }
 
         StyledText {
           Layout.topMargin: 4
           text: `${root.playing ? "Click to pause" : "Click to play"} · scroll to skip`
           font.pixelSize: 10
-          color: Settings.colors.textSubtle
+          color: Theme.colors.textSubtle
         }
       }
     }

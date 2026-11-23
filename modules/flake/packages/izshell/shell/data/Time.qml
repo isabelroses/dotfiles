@@ -7,7 +7,7 @@ Singleton {
   id: root
 
   readonly property date date: clock.date
-  readonly property bool use24h: Config.get("bar.clock_24h")
+  readonly property bool use24h: Settings.bar.clock_24h
   readonly property string hours: use24h ? Qt.formatTime(clock.date, "HH") : Qt.formatTime(clock.date, "hh AP").slice(0, 2)
   readonly property string minutes: Qt.formatTime(clock.date, "mm")
   readonly property string period: use24h ? "" : Qt.formatTime(clock.date, "AP")

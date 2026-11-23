@@ -5,8 +5,8 @@ Text {
     property bool mono: false
     property bool serif: false
 
-    color: Settings.colors.text
-    font.family: serif ? Settings.fonts.serif : mono ? Settings.fonts.mono : Settings.fonts.sans
+    color: Theme.colors.text
+    font.family: serif ? Theme.fonts.serif : mono ? Theme.fonts.mono : Theme.fonts.sans
     font.pixelSize: 13
     elide: Text.ElideRight
     // native hinting mangles large serif curves

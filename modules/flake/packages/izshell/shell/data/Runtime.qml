@@ -130,23 +130,11 @@ Singleton {
       else root.openSettings("home");
     }
     function dnd(): string {
-      const on = !Config.get("notifications.dnd");
-      Config.set("notifications.dnd", on);
+      const on = !Settings.notifications.dnd;
+      Settings.set("notifications.dnd", on);
       return on ? "on" : "off";
     }
-    function set(path: string, value: string): string {
-      const e = Config.entry(path);
-      if (!e) return `unknown setting ${path}`;
-      let raw = value;
-      if (value === "true" || value === "false") raw = value === "true";
-      else if (value !== "" && !isNaN(Number(value))) raw = Number(value);
-      const v = Config.coerce(e, raw);
-      if (v === undefined) return `${path} should be ${Config.expected(e)}`;
-      Config.set(path, v);
-      return "ok";
-    }
-    function get(path: string): string {
-      return JSON.stringify(Config.get(path));
-    }
+    function set(path: string, value: string): string { return Settings.setFromText(path, value); }
+    function get(path: string): string { return Settings.getAsText(path); }
   }
 }

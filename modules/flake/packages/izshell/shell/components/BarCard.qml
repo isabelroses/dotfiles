@@ -9,15 +9,15 @@ Item {
   default property alias content: group.data
   property real padding: 5
   property real spacing: 10
-  readonly property real thickness: Settings.cardThickness
+  readonly property real thickness: Theme.cardThickness
 
-  implicitWidth: Settings.barVertical ? thickness : group.implicitWidth + padding * 2
-  implicitHeight: Settings.barVertical ? group.implicitHeight + padding * 2 : thickness
+  implicitWidth: Theme.barVertical ? thickness : group.implicitWidth + padding * 2
+  implicitHeight: Theme.barVertical ? group.implicitHeight + padding * 2 : thickness
 
   CardSurface {
     // attached bars draw one strip behind all the cards instead
-    visible: Settings.barFloating
-    vertical: Settings.barVertical
+    visible: Theme.barFloating
+    vertical: Theme.barVertical
   }
 
   BarGroup {

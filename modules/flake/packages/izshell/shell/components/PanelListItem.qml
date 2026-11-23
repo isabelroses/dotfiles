@@ -11,12 +11,12 @@ Clickable {
     property string text: ""
     property string badge: ""
     property bool active: false
-    property color tint: Settings.colors.accent
+    property color tint: Theme.colors.accent
 
     implicitHeight: 40
-    radius: Settings.radiusSm
+    radius: Theme.radiusSm
     color: active ? Utils.withAlpha(tint, 0.12)
-         : root.hovered ? Settings.colors.surfaceRaised
+         : root.hovered ? Theme.colors.surfaceRaised
          : "transparent"
 
 
@@ -27,13 +27,13 @@ Clickable {
         MyIcon {
             icon: root.icon
             size: 16
-            color: root.active ? root.tint : Settings.colors.textMuted
+            color: root.active ? root.tint : Theme.colors.textMuted
         }
 
         StyledText {
             Layout.fillWidth: true
             text: root.text
-            color: root.active ? root.tint : Settings.colors.text
+            color: root.active ? root.tint : Theme.colors.text
             font.weight: root.active ? Font.DemiBold : Font.Normal
         }
 
@@ -41,7 +41,7 @@ Clickable {
             visible: root.badge !== ""
             text: root.badge
             mono: true
-            color: root.active ? root.tint : Settings.colors.textMuted
+            color: root.active ? root.tint : Theme.colors.textMuted
             font.pixelSize: 11
         }
     }

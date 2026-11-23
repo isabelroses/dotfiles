@@ -21,9 +21,9 @@ Clickable {
     signal actionInvoked()
 
     implicitHeight: column.implicitHeight + 24
-    radius: elevated ? Settings.sheetRadius : Settings.radiusMd
-    color: elevated ? "transparent" : Settings.colors.surface
-    border.color: critical ? Settings.colors.error : Settings.colors.border
+    radius: elevated ? Theme.sheetRadius : Theme.radiusMd
+    color: elevated ? "transparent" : Theme.colors.surface
+    border.color: critical ? Theme.colors.error : Theme.colors.border
     border.width: elevated && !critical ? 0 : 1
 
 
@@ -75,7 +75,7 @@ Clickable {
                 Layout.alignment: Qt.AlignTop
                 implicitWidth: 36
                 implicitHeight: 36
-                radius: Settings.radiusSm
+                radius: Theme.radiusSm
                 color: "transparent"
 
                 Item {
@@ -109,7 +109,7 @@ Clickable {
                 StyledText {
                     Layout.fillWidth: true
                     text: Utils.appName(root.notification?.appName ?? "")
-                    color: root.critical ? Settings.colors.error : Settings.colors.textMuted
+                    color: root.critical ? Theme.colors.error : Theme.colors.textMuted
                     font.pixelSize: 11
                     font.weight: Font.Medium
                 }
@@ -125,7 +125,7 @@ Clickable {
                 StyledText {
                     Layout.fillWidth: true
                     text: root.notification?.body ?? ""
-                    color: Settings.colors.textMuted
+                    color: Theme.colors.textMuted
                     font.pixelSize: 12
                     textFormat: Text.PlainText
                     wrapMode: Text.WordWrap
@@ -138,9 +138,9 @@ Clickable {
                 Layout.alignment: Qt.AlignTop
                 icon: "window-close-symbolic"
                 size: 12
-                color: Settings.colors.textMuted
+                color: Theme.colors.textMuted
                 opacity: hover.hovered || root.elevated ? 1 : 0
-                Behavior on opacity { Anim { duration: Settings.animFast } }
+                Behavior on opacity { Anim { duration: Theme.animFast } }
                 onClicked: {
                     root.notification?.dismiss();
                     root.dismissed();
@@ -183,7 +183,7 @@ Clickable {
             IconButton {
                 icon: "mail-send-symbolic"
                 size: 13
-                color: replyField.text.length > 0 ? Settings.colors.accent : Settings.colors.textSubtle
+                color: replyField.text.length > 0 ? Theme.colors.accent : Theme.colors.textSubtle
                 onClicked: root.sendReply()
             }
         }

@@ -10,7 +10,7 @@ RowLayout {
   id: root
 
   required property Pw.PwNode node
-  property color tint: Settings.colors.pink
+  property color tint: Theme.colors.pink
   readonly property bool muted: node?.audio?.muted ?? false
 
   spacing: 10
@@ -35,7 +35,7 @@ RowLayout {
         Layout.fillWidth: true
         text: Pipewire.streamName(root.node)
         font.pixelSize: 12
-        color: root.muted ? Settings.colors.textSubtle : Settings.colors.text
+        color: root.muted ? Theme.colors.textSubtle : Theme.colors.text
       }
 
       Caption { text: Math.round((root.node?.audio?.volume ?? 0) * 100) + "%"; mono: true }
@@ -43,7 +43,7 @@ RowLayout {
 
     ThinSlider {
       Layout.fillWidth: true
-      tint: root.muted ? Settings.colors.textSubtle : root.tint
+      tint: root.muted ? Theme.colors.textSubtle : root.tint
       value: root.node?.audio?.volume ?? 0
       onMoved: if (root.node?.audio) root.node.audio.volume = value
     }
@@ -52,7 +52,7 @@ RowLayout {
   IconButton {
     icon: root.muted ? "audio-volume-muted-symbolic" : "audio-volume-high-symbolic"
     size: 14
-    color: root.muted ? Settings.colors.error : Settings.colors.textMuted
+    color: root.muted ? Theme.colors.error : Theme.colors.textMuted
     onClicked: if (root.node?.audio) root.node.audio.muted = !root.node.audio.muted
   }
 }

@@ -7,7 +7,7 @@ MyIcon {
     Layout.alignment: Qt.AlignCenter
     icon: Networking.icon
     size: 16
-    color: Networking.connected ? Settings.colors.text : Settings.colors.textSubtle
+    color: Networking.connected ? Theme.colors.text : Theme.colors.textSubtle
 
     BarTooltip { text: Networking.statusText }
 }

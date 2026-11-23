@@ -30,21 +30,21 @@ BarGroup {
             readonly property bool focused: modelData.focused
             readonly property bool visibleElsewhere: modelData.active && !focused
             readonly property bool hot: root.hoveredId === modelData.id
-            readonly property color tint: Config.get("bar.workspace_colours")
-              ? Settings.colors.pops[(Math.max(1, modelData.id) - 1) % Settings.colors.pops.length]
-              : Settings.colors.accent
+            readonly property color tint: Settings.bar.workspace_colours
+              ? Theme.colors.pops[(Math.max(1, modelData.id) - 1) % Theme.colors.pops.length]
+              : Theme.colors.accent
 
             visible: modelData.id > 0
             Layout.alignment: Qt.AlignCenter
             implicitWidth: 30
             implicitHeight: 30
-            radius: Settings.innerRadius
-            color: ws.focused ? Utils.withAlpha(Settings.colors.text, 0.10)
-                 : ws.hot ? Utils.withAlpha(Settings.colors.text, 0.06)
+            radius: Theme.innerRadius
+            color: ws.focused ? Utils.withAlpha(Theme.colors.text, 0.10)
+                 : ws.hot ? Utils.withAlpha(Theme.colors.text, 0.06)
                  : "transparent"
             border.width: 1
             border.color: ws.visibleElsewhere ? Utils.withAlpha(ws.tint, 0.6)
-                        : Utils.withAlpha(Settings.colors.text, ws.focused ? 0.18 : 0.10)
+                        : Utils.withAlpha(Theme.colors.text, ws.focused ? 0.18 : 0.10)
             onClicked: modelData.activate()
 
 
@@ -54,12 +54,12 @@ BarGroup {
                 width: size
                 height: size
                 radius: size / 2
-                color: ws.focused || ws.visibleElsewhere ? ws.tint : Settings.colors.text
+                color: ws.focused || ws.visibleElsewhere ? ws.tint : Theme.colors.text
                 opacity: ws.focused ? 1 : ws.visibleElsewhere ? 0.8 : ws.hot ? 0.7 : 0.35
 
                 Behavior on size { Anim {} }
-                Behavior on color { ColorAnimation { duration: Settings.animFast } }
-                Behavior on opacity { Anim { duration: Settings.animFast } }
+                Behavior on color { ColorAnimation { duration: Theme.animFast } }
+                Behavior on opacity { Anim { duration: Theme.animFast } }
             }
 
             BarTooltip {

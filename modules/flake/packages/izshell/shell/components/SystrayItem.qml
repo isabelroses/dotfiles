@@ -15,10 +15,10 @@ Item {
 
   Rectangle {
     anchors.fill: parent
-    radius: Settings.radiusSm
-    color: popup.visible ? Settings.colors.accentSoft : Settings.colors.surfaceRaised
+    radius: Theme.radiusSm
+    color: popup.visible ? Theme.colors.accentSoft : Theme.colors.surfaceRaised
     opacity: popup.visible || mouseArea.containsMouse ? 1 : 0
-    Behavior on opacity { Anim { duration: Settings.animFast } }
+    Behavior on opacity { Anim { duration: Theme.animFast } }
   }
 
   IconImage {
@@ -73,12 +73,12 @@ Item {
     color: "transparent"
 
     anchor.item: trayItem
-    anchor.rect.x: Settings.barVertical ? -(Settings.barWidth - trayItem.width) / 2 : 0
-    anchor.rect.y: Settings.barVertical ? 0 : -(Settings.barWidth - trayItem.height) / 2
-    anchor.rect.width: Settings.barVertical ? Settings.barWidth : trayItem.width
-    anchor.rect.height: Settings.barVertical ? trayItem.height : Settings.barWidth
-    anchor.edges: Settings.barAwayEdge | (Settings.barVertical ? Edges.Top : Edges.Left)
-    anchor.gravity: Settings.barAwayEdge | (Settings.barVertical ? Edges.Bottom : Edges.Right)
+    anchor.rect.x: Theme.barVertical ? -(Theme.barWidth - trayItem.width) / 2 : 0
+    anchor.rect.y: Theme.barVertical ? 0 : -(Theme.barWidth - trayItem.height) / 2
+    anchor.rect.width: Theme.barVertical ? Theme.barWidth : trayItem.width
+    anchor.rect.height: Theme.barVertical ? trayItem.height : Theme.barWidth
+    anchor.edges: Theme.barAwayEdge | (Theme.barVertical ? Edges.Top : Edges.Left)
+    anchor.gravity: Theme.barAwayEdge | (Theme.barVertical ? Edges.Bottom : Edges.Right)
 
     implicitWidth: 240
     implicitHeight: menuColumn.implicitHeight + 12
@@ -87,9 +87,9 @@ Item {
 
     Rectangle {
       anchors.fill: parent
-      color: Settings.colors.base
-      radius: Settings.radiusMd
-      border.color: Settings.colors.borderStrong
+      color: Theme.colors.base
+      radius: Theme.radiusMd
+      border.color: Theme.colors.borderStrong
       border.width: 1
     }
 
@@ -102,9 +102,9 @@ Item {
         Layout.fillWidth: true
         onClicked: if (trayItem.menuStack.length > 0) trayItem.popMenu()
         implicitHeight: 30
-        radius: Settings.radiusXs
+        radius: Theme.radiusXs
         color: hovered && trayItem.menuStack.length > 0
-          ? Settings.colors.surfaceRaised : "transparent"
+          ? Theme.colors.surfaceRaised : "transparent"
 
         RowLayout {
           anchors { fill: parent; leftMargin: 8; rightMargin: 8 }
@@ -114,7 +114,7 @@ Item {
             visible: trayItem.menuStack.length > 0
             icon: "go-previous-symbolic"
             size: 12
-            color: Settings.colors.textMuted
+            color: Theme.colors.textMuted
           }
 
           Caption {
@@ -133,7 +133,7 @@ Item {
         Layout.rightMargin: 6
         Layout.bottomMargin: 3
         implicitHeight: 1
-        color: Settings.colors.border
+        color: Theme.colors.border
       }
 
       Repeater {
@@ -156,7 +156,7 @@ Item {
                 anchors.centerIn: parent
                 width: parent.width - 12
                 height: 1
-                color: Settings.colors.border
+                color: Theme.colors.border
               }
             }
           }
@@ -177,8 +177,8 @@ Item {
               readonly property bool checked: entry.checkState !== Qt.Unchecked
 
               implicitHeight: 32
-              radius: Settings.radiusXs
-              color: hovered && entry.enabled ? Settings.colors.surfaceRaised : "transparent"
+              radius: Theme.radiusXs
+              color: hovered && entry.enabled ? Theme.colors.surfaceRaised : "transparent"
               opacity: entry.enabled ? 1.0 : 0.4
 
               RowLayout {
@@ -189,10 +189,10 @@ Item {
                   visible: entry.buttonType !== QsMenuButtonType.None
                   implicitWidth: 14
                   implicitHeight: 14
-                  radius: entry.buttonType === QsMenuButtonType.RadioButton ? 7 : Settings.radiusXs
-                  color: checked ? Settings.colors.accent : "transparent"
+                  radius: entry.buttonType === QsMenuButtonType.RadioButton ? 7 : Theme.radiusXs
+                  color: checked ? Theme.colors.accent : "transparent"
                   border.width: checked ? 0 : 1.5
-                  border.color: Settings.colors.textSubtle
+                  border.color: Theme.colors.textSubtle
 
                   Rectangle {
                     anchors.centerIn: parent
@@ -200,7 +200,7 @@ Item {
                     width: 6
                     height: 6
                     radius: entry.buttonType === QsMenuButtonType.RadioButton ? 3 : 1
-                    color: Settings.colors.textOnAccent
+                    color: Theme.colors.textOnAccent
                   }
                 }
 
@@ -217,7 +217,7 @@ Item {
                   visible: entry.hasChildren
                   icon: "go-next-symbolic"
                   size: 12
-                  color: Settings.colors.textMuted
+                  color: Theme.colors.textMuted
                 }
               }
             }

@@ -9,8 +9,8 @@ Clickable {
     Layout.alignment: Qt.AlignCenter
     implicitWidth: 34
     implicitHeight: 34
-    radius: Settings.innerRadius
-    color: root.hovered ? Settings.colors.accent : Settings.colors.accentSoft
+    radius: Theme.innerRadius
+    color: root.hovered ? Theme.colors.accent : Theme.colors.accentSoft
     onClicked: Quickshell.execDetached(["vicinae", "toggle"])
 
 
@@ -18,7 +18,7 @@ Clickable {
         anchors.centerIn: parent
         icon: "nix-snowflake"
         size: 18
-        color: root.hovered ? Settings.colors.textOnAccent : Settings.colors.accent
+        color: root.hovered ? Theme.colors.textOnAccent : Theme.colors.accent
     }
 
     scale: root.pressed ? 0.92 : 1.0

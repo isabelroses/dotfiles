@@ -76,7 +76,7 @@ LazyLoader {
           spacing: 6
 
           StyledText { text: Time.hours; serif: true; font.pixelSize: 44 }
-          StyledText { text: Time.minutes; serif: true; font.italic: true; font.pixelSize: 44; color: Settings.colors.textMuted }
+          StyledText { text: Time.minutes; serif: true; font.italic: true; font.pixelSize: 44; color: Theme.colors.textMuted }
           StyledText {
             visible: text !== ""
             Layout.alignment: Qt.AlignBaseline
@@ -84,14 +84,14 @@ LazyLoader {
             serif: true
             font.italic: true
             font.pixelSize: 18
-            color: Settings.colors.accent
+            color: Theme.colors.accent
           }
         }
 
         StyledText {
           Layout.alignment: Qt.AlignHCenter
-          text: `${Settings.username} · ${Time.longDate}`
-          color: Settings.colors.textMuted
+          text: `${Settings.general.username} · ${Time.longDate}`
+          color: Theme.colors.textMuted
           font.pixelSize: 13
         }
       }
@@ -114,12 +114,12 @@ LazyLoader {
 
             implicitWidth: 112
             implicitHeight: 112
-            radius: Settings.radiusMd
-            color: isArmed ? Settings.colors.error
-                 : selected ? Settings.colors.accentSoft
-                 : Settings.colors.base
+            radius: Theme.radiusMd
+            color: isArmed ? Theme.colors.error
+                 : selected ? Theme.colors.accentSoft
+                 : Theme.colors.base
             border.width: selected || isArmed ? 2 : 1
-            border.color: isArmed ? Settings.colors.error : selected ? Settings.colors.accent : Settings.colors.borderStrong
+            border.color: isArmed ? Theme.colors.error : selected ? Theme.colors.accent : Theme.colors.borderStrong
 
 
             ColumnLayout {
@@ -130,7 +130,7 @@ LazyLoader {
                 Layout.alignment: Qt.AlignHCenter
                 icon: tile.modelData.icon
                 size: 28
-                color: tile.isArmed ? Settings.colors.textOnAccent : tile.selected ? Settings.colors.accent : Settings.colors.text
+                color: tile.isArmed ? Theme.colors.textOnAccent : tile.selected ? Theme.colors.accent : Theme.colors.text
               }
 
               StyledText {
@@ -138,7 +138,7 @@ LazyLoader {
                 text: tile.isArmed ? "Sure?" : tile.modelData.label
                 font.pixelSize: 12
                 font.weight: Font.DemiBold
-                color: tile.isArmed ? Settings.colors.textOnAccent : Settings.colors.text
+                color: tile.isArmed ? Theme.colors.textOnAccent : Theme.colors.text
               }
             }
 
@@ -147,7 +147,7 @@ LazyLoader {
               text: tile.modelData.key
               mono: true
               font.pixelSize: 11
-              color: tile.isArmed ? Settings.colors.textOnAccent : Settings.colors.textMuted
+              color: tile.isArmed ? Theme.colors.textOnAccent : Theme.colors.textMuted
             }
           }
         }

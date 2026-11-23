@@ -71,8 +71,8 @@ Scope {
   }
 
   IdleMonitor {
-    enabled: Config.get("lock.idle_minutes") > 0 && !Runtime.locked && !Runtime.keepAwake
-    timeout: Config.get("lock.idle_minutes") * 60
+    enabled: Settings.lock.idle_minutes > 0 && !Runtime.locked && !Runtime.keepAwake
+    timeout: Settings.lock.idle_minutes * 60
     respectInhibitors: true
     onIsIdleChanged: if (isIdle) Runtime.lock()
   }
@@ -83,12 +83,12 @@ Scope {
 
     WlSessionLockSurface {
       id: surface
-      color: Settings.colors.base
+      color: Theme.colors.base
 
       Image {
         id: wallpaper
         anchors.fill: parent
-        source: Settings.wallpaper
+        source: Settings.general.wallpaper
         fillMode: Image.PreserveAspectCrop
         asynchronous: true
         visible: false
@@ -120,13 +120,13 @@ Scope {
           id: notiCount
           readonly property int count: Notifications.list.length
           Layout.alignment: Qt.AlignHCenter
-          visible: Config.get("lock.notification_count") && count > 0
+          visible: Settings.lock.notification_count && count > 0
           implicitWidth: countRow.implicitWidth + 20
           implicitHeight: 28
-          radius: Settings.radiusSm
+          radius: Theme.radiusSm
           color: Qt.rgba(0, 0, 0, 0.5)
           border.width: 1
-          border.color: Settings.colors.border
+          border.color: Theme.colors.border
 
           RowLayout {
             id: countRow
@@ -136,7 +136,7 @@ Scope {
             MyIcon {
               icon: "preferences-system-notifications-symbolic"
               size: 13
-              color: Settings.colors.accent
+              color: Theme.colors.accent
             }
 
             StyledText {
@@ -152,10 +152,10 @@ Scope {
         visible: Media.selectedPlayer !== null
         implicitWidth: mediaRow.implicitWidth + 24
         implicitHeight: 44
-        radius: Settings.radiusSm
+        radius: Theme.radiusSm
         color: Qt.rgba(0, 0, 0, 0.5)
         border.width: 1
-        border.color: Settings.colors.border
+        border.color: Theme.colors.border
 
         RowLayout {
           id: mediaRow
@@ -178,7 +178,7 @@ Scope {
           IconButton {
             icon: Media.selectedPlayer?.isPlaying ? "media-playback-pause-symbolic" : "media-playback-start-symbolic"
             size: 14
-            color: Settings.colors.accent
+            color: Theme.colors.accent
             onClicked: Media.selectedPlayer.togglePlaying()
           }
 

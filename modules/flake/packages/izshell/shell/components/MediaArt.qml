@@ -7,10 +7,10 @@ ClippingWrapperRectangle {
     id: root
 
     property int size: 52
-    radius: Settings.radiusSm
+    radius: Theme.radiusSm
     implicitWidth: size
     implicitHeight: size
-    color: Settings.colors.overlay
+    color: Theme.colors.overlay
 
     Item {
         implicitWidth: root.size
@@ -21,7 +21,7 @@ ClippingWrapperRectangle {
             visible: art.status !== Image.Ready
             icon: "folder-music-symbolic"
             size: 20
-            color: Settings.colors.textSubtle
+            color: Theme.colors.textSubtle
         }
 
         Image {

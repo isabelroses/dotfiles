@@ -25,7 +25,7 @@ ColumnLayout {
 
   opacity: 0
   Component.onCompleted: opacity = 1
-  Behavior on opacity { NumberAnimation { duration: Settings.animNormal * 2 } }
+  Behavior on opacity { NumberAnimation { duration: Theme.animNormal * 2 } }
 
   ColumnLayout {
     Layout.alignment: Qt.AlignHCenter
@@ -36,13 +36,13 @@ ColumnLayout {
       spacing: 14
 
       StyledText { text: Time.hours; serif: true; font.pixelSize: 104 }
-      StyledText { text: Time.minutes; serif: true; font.italic: true; font.pixelSize: 104; color: Settings.colors.textMuted }
+      StyledText { text: Time.minutes; serif: true; font.italic: true; font.pixelSize: 104; color: Theme.colors.textMuted }
     }
 
     StyledText {
       Layout.alignment: Qt.AlignHCenter
       text: Time.longDate + (Time.period ? ` · ${Time.period}` : "")
-      color: Settings.colors.textMuted
+      color: Theme.colors.textMuted
       font.pixelSize: 16
     }
   }
@@ -53,9 +53,9 @@ ColumnLayout {
     Layout.alignment: Qt.AlignHCenter
     implicitWidth: 80
     implicitHeight: 80
-    radius: Settings.radiusRound
-    color: Settings.colors.overlay
-    border.color: root.failed ? Settings.colors.red : Settings.colors.accent
+    radius: Theme.radiusRound
+    color: Theme.colors.overlay
+    border.color: root.failed ? Theme.colors.red : Theme.colors.accent
     border.width: 2
 
     Image {
@@ -69,7 +69,7 @@ ColumnLayout {
 
   StyledText {
     Layout.alignment: Qt.AlignHCenter
-    text: Settings.username
+    text: Settings.general.username
     font.pixelSize: 15
     font.weight: Font.DemiBold
   }
@@ -87,7 +87,7 @@ ColumnLayout {
     Layout.alignment: Qt.AlignHCenter
     visible: root.buffer === "" || root.busy
     text: root.busy ? "Checking…" : root.hint
-    color: Settings.colors.textMuted
+    color: Theme.colors.textMuted
     font.pixelSize: 13
   }
 
@@ -132,7 +132,7 @@ ColumnLayout {
     Layout.alignment: Qt.AlignHCenter
     Layout.preferredHeight: 16
     text: root.message
-    color: root.failed ? Settings.colors.red : Settings.colors.textMuted
+    color: root.failed ? Theme.colors.red : Theme.colors.textMuted
     font.pixelSize: 12
   }
 }

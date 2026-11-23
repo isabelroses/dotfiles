@@ -7,24 +7,24 @@ import qs.data
 Item {
     id: root
 
-    implicitWidth: Settings.barVertical ? 34 : row.implicitWidth + 12
-    implicitHeight: Settings.barVertical ? column.implicitHeight + 8 : 34
+    implicitWidth: Theme.barVertical ? 34 : row.implicitWidth + 12
+    implicitHeight: Theme.barVertical ? column.implicitHeight + 8 : 34
 
     HoverHandler { id: hover; cursorShape: Qt.PointingHandCursor }
     TapHandler { onTapped: Runtime.toggleCalendar() }
 
     Rectangle {
         anchors.fill: parent
-        radius: Settings.innerRadius
-        color: Runtime.calendarOpen ? Settings.colors.accentSoft : Utils.withAlpha(Settings.colors.text, 0.08)
+        radius: Theme.innerRadius
+        color: Runtime.calendarOpen ? Theme.colors.accentSoft : Utils.withAlpha(Theme.colors.text, 0.08)
         opacity: Runtime.calendarOpen || hover.hovered ? 1 : 0
-        Behavior on opacity { Anim { duration: Settings.animFast } }
+        Behavior on opacity { Anim { duration: Theme.animFast } }
     }
 
     // side bar: stacked hours / minutes / period
     ColumnLayout {
         id: column
-        visible: Settings.barVertical
+        visible: Theme.barVertical
         anchors.centerIn: parent
         spacing: -5
 
@@ -40,7 +40,7 @@ Item {
             text: Time.minutes
             serif: true
             font.italic: true
-            color: Settings.colors.textMuted
+            color: Theme.colors.textMuted
             font.pixelSize: 21
         }
 
@@ -49,7 +49,7 @@ Item {
             Layout.topMargin: 6
             visible: text !== ""
             text: Time.period.toLowerCase()
-            color: Settings.colors.accent
+            color: Theme.colors.accent
             serif: true
             font.italic: true
             font.pixelSize: 12
@@ -59,7 +59,7 @@ Item {
     // top/bottom bar: one line
     RowLayout {
         id: row
-        visible: !Settings.barVertical
+        visible: !Theme.barVertical
         anchors.centerIn: parent
         spacing: 3
 
@@ -69,7 +69,7 @@ Item {
             text: Time.minutes
             serif: true
             font.italic: true
-            color: Settings.colors.textMuted
+            color: Theme.colors.textMuted
             font.pixelSize: 19
         }
 
@@ -77,7 +77,7 @@ Item {
             Layout.leftMargin: 3
             visible: text !== ""
             text: Time.period.toLowerCase()
-            color: Settings.colors.accent
+            color: Theme.colors.accent
             serif: true
             font.italic: true
             font.pixelSize: 12

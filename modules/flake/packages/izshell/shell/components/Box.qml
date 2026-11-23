@@ -3,8 +3,8 @@ import qs.data
 
 // The outlined surface the settings pages and panels group things in.
 Rectangle {
-  radius: Settings.radiusMd
-  color: Settings.colors.surface
+  radius: Theme.radiusMd
+  color: Theme.colors.surface
   border.width: 1
-  border.color: Settings.colors.border
+  border.color: Theme.colors.border
 }

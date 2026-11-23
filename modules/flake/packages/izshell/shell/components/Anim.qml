@@ -1,10 +1,10 @@
 import QtQuick
 import qs.data
 
-// The shell's motion: Settings' duration and easing curve. Set `duration` for
+// The shell's motion: Theme's duration and easing curve. Set `duration` for
 // a quicker or slower one; the curve stays.
 NumberAnimation {
-  duration: Settings.animNormal
+  duration: Theme.animNormal
   easing.type: Easing.BezierSpline
-  easing.bezierCurve: Settings.curve
+  easing.bezierCurve: Theme.curve
 }

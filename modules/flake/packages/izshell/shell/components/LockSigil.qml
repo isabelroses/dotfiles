@@ -41,13 +41,13 @@ Item {
       height: root.cell
       x: root.width / 2 + at[0] * root.pitch - width / 2
       y: root.height / 2 + at[1] * root.pitch - height / 2
-      radius: Settings.pill(width) / 2
-      color: root.failed ? Settings.colors.error : newest ? Settings.colors.accent : Settings.colors.text
-      Behavior on color { ColorAnimation { duration: Settings.animNormal } }
+      radius: Theme.pill(width) / 2
+      color: root.failed ? Theme.colors.error : newest ? Theme.colors.accent : Theme.colors.text
+      Behavior on color { ColorAnimation { duration: Theme.animNormal } }
 
       scale: 0
       Component.onCompleted: scale = 1
-      Behavior on scale { NumberAnimation { duration: Settings.animNormal; easing.type: Easing.OutBack } }
+      Behavior on scale { NumberAnimation { duration: Theme.animNormal; easing.type: Easing.OutBack } }
     }
   }
 }

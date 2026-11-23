@@ -14,9 +14,9 @@ Item {
   readonly property bool sharing: Pipewire.screenShares.length > 0
   readonly property bool micLive: micApps.length > 0 && !Pipewire.sourceMuted
   readonly property bool live: micLive || sharing
-  readonly property color micTint: Pipewire.sourceMuted ? Settings.colors.textSubtle : Settings.colors.red
+  readonly property color micTint: Pipewire.sourceMuted ? Theme.colors.textSubtle : Theme.colors.red
   readonly property color tint: micApps.length > 0 ? micTint
-    : sharing ? Settings.colors.red : Settings.colors.textSubtle
+    : sharing ? Theme.colors.red : Theme.colors.textSubtle
   readonly property string statusIcon: micApps.length > 0
     ? Pipewire.sourceMuted ? "microphone-sensitivity-muted-symbolic" : "audio-input-microphone-symbolic"
     : "video-display-symbolic"
@@ -42,7 +42,7 @@ Item {
       width: 22
       height: 22
       anchors.horizontalCenter: parent.horizontalCenter
-      radius: Settings.radiusXs
+      radius: Theme.radiusXs
       color: mic.hovered ? Utils.withAlpha(root.micTint, 0.18) : "transparent"
       onClicked: Pipewire.toggleSourceMute()
 
@@ -60,7 +60,7 @@ Item {
       anchors.horizontalCenter: parent.horizontalCenter
       icon: "video-display-symbolic"
       size: 14
-      color: Settings.colors.red
+      color: Theme.colors.red
     }
   }
 
@@ -82,13 +82,13 @@ Item {
     }
     width: root.compact ? 7 : 6
     height: width
-    radius: root.compact ? Settings.pill(width) : 0
-    color: root.live ? Settings.colors.red : Settings.colors.textSubtle
-    border.color: Settings.colors.surface
+    radius: root.compact ? Theme.pill(width) : 0
+    color: root.live ? Theme.colors.red : Theme.colors.textSubtle
+    border.color: Theme.colors.surface
     border.width: root.compact ? 1.5 : 0
 
     SequentialAnimation on opacity {
-      running: root.visible && root.live && Settings.animNormal > 0
+      running: root.visible && root.live && Theme.animNormal > 0
       onRunningChanged: if (!running) dot.opacity = 1
       loops: Animation.Infinite
       NumberAnimation { to: 0.25; duration: 900; easing.type: Easing.InOutSine }

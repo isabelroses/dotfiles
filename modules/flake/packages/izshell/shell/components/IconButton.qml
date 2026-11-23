@@ -7,8 +7,8 @@ Item {
     property string icon: ""
     property int size: 18
     property int padding: 6
-    property color color: Settings.colors.text
-    property color hoverColor: Settings.colors.surfaceRaised
+    property color color: Theme.colors.text
+    property color hoverColor: Theme.colors.surfaceRaised
     property bool enabled: true
 
     signal clicked
@@ -19,11 +19,11 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        radius: Settings.radiusSm
-        color: mouseArea.pressed ? Settings.colors.overlay : root.hoverColor
+        radius: Theme.radiusSm
+        color: mouseArea.pressed ? Theme.colors.overlay : root.hoverColor
         opacity: mouseArea.containsMouse && root.enabled ? 1 : 0
 
-        Behavior on opacity { Anim { duration: Settings.animFast } }
+        Behavior on opacity { Anim { duration: Theme.animFast } }
     }
 
     MyIcon { anchors.centerIn: parent; icon: root.icon; size: root.size; color: root.color }

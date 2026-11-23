@@ -21,30 +21,30 @@ Scope {
   readonly property string osdIcon: osdKind === "sink" ? Pipewire.sinkIcon
     : osdKind === "source" ? Pipewire.sourceIcon
     : Brightness.icon
-  readonly property color osdTint: Settings.colors.accent
+  readonly property color osdTint: Theme.colors.accent
 
   property var currentNotification: null
   property bool toastShown: false
-  readonly property int toastTimeout: Config.get("notifications.toast_timeout") * 1000
+  readonly property int toastTimeout: Settings.notifications.toast_timeout * 1000
 
   Connections {
     target: Pipewire
-    function onSinkVolumeChanged() { if (Config.get("osd.volume")) root.showOsd("sink"); }
-    function onSinkMutedChanged() { if (Config.get("osd.volume")) root.showOsd("sink"); }
-    function onSourceVolumeChanged() { if (Config.get("osd.mic")) root.showOsd("source"); }
-    function onSourceMutedChanged() { if (Config.get("osd.mic")) root.showOsd("source"); }
+    function onSinkVolumeChanged() { if (Settings.osd.volume) root.showOsd("sink"); }
+    function onSinkMutedChanged() { if (Settings.osd.volume) root.showOsd("sink"); }
+    function onSourceVolumeChanged() { if (Settings.osd.mic) root.showOsd("source"); }
+    function onSourceMutedChanged() { if (Settings.osd.mic) root.showOsd("source"); }
   }
 
   Connections {
     target: Brightness
     // `available` flips true after the startup read, so that read doesn't pop the OSD
-    function onBrightnessChanged() { if (Brightness.available && Config.get("osd.brightness")) root.showOsd("brightness"); }
+    function onBrightnessChanged() { if (Brightness.available && Settings.osd.brightness) root.showOsd("brightness"); }
   }
 
   Connections {
     target: Notifications
     function onNewNotification(notification: var): void {
-      if (!Config.get("notifications.toasts")) return;
+      if (!Settings.notifications.toasts) return;
       root.currentNotification = notification;
       root.toastShown = true;
       toastProgress.restart();
@@ -89,7 +89,7 @@ Scope {
       Behavior on opacity { Anim {} }
       Behavior on y { Anim {} }
 
-      CardSurface { radius: Math.min(Settings.sheetRadius, height / 2); raised: true }
+      CardSurface { radius: Math.min(Theme.sheetRadius, height / 2); raised: true }
 
       RowLayout {
         anchors { fill: parent; leftMargin: 8; rightMargin: 18 }
@@ -97,23 +97,23 @@ Scope {
 
         IconChip {
           size: 36
-          color: root.osdMuted ? Settings.colors.overlay : Utils.withAlpha(root.osdTint, 0.14)
+          color: root.osdMuted ? Theme.colors.overlay : Utils.withAlpha(root.osdTint, 0.14)
           icon: root.osdIcon
           iconSize: 18
-          iconColor: root.osdMuted ? Settings.colors.textMuted : root.osdTint
+          iconColor: root.osdMuted ? Theme.colors.textMuted : root.osdTint
         }
 
         Rectangle {
           Layout.fillWidth: true
           implicitHeight: 6
-          radius: Settings.pill(height)
-          color: Settings.colors.overlay
+          radius: Theme.pill(height)
+          color: Theme.colors.overlay
 
           Rectangle {
             width: parent.width * Math.min(root.osdVolume, 1.0)
             height: parent.height
-            radius: Settings.pill(height)
-            color: root.osdMuted ? Settings.colors.textSubtle : root.osdTint
+            radius: Theme.pill(height)
+            color: root.osdMuted ? Theme.colors.textSubtle : root.osdTint
 
             Behavior on width { SmoothedAnimation { velocity: 600 } }
           }
@@ -186,8 +186,8 @@ Scope {
         anchors { bottom: card.bottom; left: card.left; bottomMargin: 5; leftMargin: 12 }
         width: (card.width - 24) * fraction
         height: 2
-        radius: Settings.pill(height)
-        color: card.critical ? Settings.colors.error : Settings.colors.accent
+        radius: Theme.pill(height)
+        color: card.critical ? Theme.colors.error : Theme.colors.accent
         opacity: 0.6
       }
     }

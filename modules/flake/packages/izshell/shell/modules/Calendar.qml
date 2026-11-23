@@ -18,7 +18,7 @@ LazyLoader {
 
     // transparent margin around the card for its shadow to fall into
     readonly property int pad: 24
-    readonly property int gap: Settings.barFloating ? Settings.cardGap : 0
+    readonly property int gap: Theme.barFloating ? Theme.cardGap : 0
 
     color: "transparent"
     implicitWidth: card.width + pad * 2
@@ -32,16 +32,16 @@ LazyLoader {
     // anchored only to the bar's edge, so the compositor centres it along the
     // bar, level with the clock
     anchors {
-      left: Settings.barSide === "left"
-      right: Settings.barSide === "right"
-      top: Settings.barSide === "top"
-      bottom: Settings.barSide === "bottom"
+      left: Theme.barSide === "left"
+      right: Theme.barSide === "right"
+      top: Theme.barSide === "top"
+      bottom: Theme.barSide === "bottom"
     }
     margins {
-      left: Settings.barSide === "left" ? Settings.barWidth + gap - pad : 0
-      right: Settings.barSide === "right" ? Settings.barWidth + gap - pad : 0
-      top: Settings.barSide === "top" ? Settings.barWidth + gap - pad : 0
-      bottom: Settings.barSide === "bottom" ? Settings.barWidth + gap - pad : 0
+      left: Theme.barSide === "left" ? Theme.barWidth + gap - pad : 0
+      right: Theme.barSide === "right" ? Theme.barWidth + gap - pad : 0
+      top: Theme.barSide === "top" ? Theme.barWidth + gap - pad : 0
+      bottom: Theme.barSide === "bottom" ? Theme.barWidth + gap - pad : 0
     }
 
     HyprlandFocusGrab {
@@ -96,25 +96,25 @@ LazyLoader {
 
       opacity: 0
       scale: 0.96
-      transformOrigin: Settings.barVertical ? (Settings.barOnRight ? Item.Right : Item.Left)
-                                            : (Settings.barOnBottom ? Item.Bottom : Item.Top)
+      transformOrigin: Theme.barVertical ? (Theme.barOnRight ? Item.Right : Item.Left)
+                                            : (Theme.barOnBottom ? Item.Bottom : Item.Top)
       Component.onCompleted: { opacity = 1; scale = 1; }
-      Behavior on opacity { Anim { duration: Settings.animFast } }
+      Behavior on opacity { Anim { duration: Theme.animFast } }
       Behavior on scale { Anim {} }
 
       CardSurface {
-        attached: !Settings.barFloating
-        radius: attached ? 0 : Settings.sheetRadius
+        attached: !Theme.barFloating
+        radius: attached ? 0 : Theme.sheetRadius
         raised: true
       }
 
       // attached cards still need a full outline, since they float mid-edge
       Rectangle {
-        visible: !Settings.barFloating
+        visible: !Theme.barFloating
         anchors.fill: parent
         color: "transparent"
         border.width: 1
-        border.color: Settings.colors.border
+        border.color: Theme.colors.border
       }
 
       WheelHandler {
@@ -152,7 +152,7 @@ LazyLoader {
                 Layout.alignment: Qt.AlignBaseline
                 text: card.month.getFullYear()
                 font.pixelSize: 13
-                color: Settings.colors.textMuted
+                color: Theme.colors.textMuted
               }
             }
 
@@ -166,7 +166,7 @@ LazyLoader {
             icon: "go-previous-symbolic"
             size: 12
             padding: 7
-            color: Settings.colors.textMuted
+            color: Theme.colors.textMuted
             onClicked: card.shift(-1)
           }
 
@@ -174,7 +174,7 @@ LazyLoader {
             icon: "go-next-symbolic"
             size: 12
             padding: 7
-            color: Settings.colors.textMuted
+            color: Theme.colors.textMuted
             onClicked: card.shift(1)
           }
         }
@@ -201,8 +201,8 @@ LazyLoader {
             y: card.weekRow * card.cell
             width: parent.width
             height: card.cell
-            radius: Settings.pill(card.cell)
-            color: Utils.withAlpha(Settings.colors.text, 0.06)
+            radius: Theme.pill(card.cell)
+            color: Utils.withAlpha(Theme.colors.text, 0.06)
           }
 
           Grid {
@@ -225,10 +225,10 @@ LazyLoader {
                   anchors.centerIn: parent
                   width: card.cell - 4
                   height: card.cell - 4
-                  radius: Settings.pill(width)
+                  radius: Theme.pill(width)
                   color: "transparent"
                   border.width: 2
-                  border.color: Settings.colors.accent
+                  border.color: Theme.colors.accent
                   visible: day.isToday
                 }
 
@@ -237,10 +237,10 @@ LazyLoader {
                   text: day.modelData.getDate()
                   font.pixelSize: 12
                   font.weight: day.isToday ? Font.Bold : Font.Normal
-                  color: day.isToday ? Settings.colors.accent
-                       : !day.inMonth ? Settings.colors.textSubtle
-                       : day.index % 7 >= 5 ? Settings.colors.textMuted
-                       : Settings.colors.text
+                  color: day.isToday ? Theme.colors.accent
+                       : !day.inMonth ? Theme.colors.textSubtle
+                       : day.index % 7 >= 5 ? Theme.colors.textMuted
+                       : Theme.colors.text
                   opacity: day.inMonth ? 1 : 0.55
                 }
               }

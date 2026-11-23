@@ -12,13 +12,13 @@ import Izshell
 Scope {
   id: root
 
-  readonly property bool floating: Settings.barFloating
-  readonly property int rounding: floating ? Settings.cardRadius : 0
+  readonly property bool floating: Theme.barFloating
+  readonly property int rounding: floating ? Theme.cardRadius : 0
   readonly property int gapsIn: floating ? 4 : 0
   readonly property var gapsOut: {
     if (!floating) return { top: 0, right: 0, bottom: 0, left: 0 };
     const g = { top: 8, right: 8, bottom: 8, left: 8 };
-    g[Settings.barSide] = 4;
+    g[Theme.barSide] = 4;
     return g;
   }
 

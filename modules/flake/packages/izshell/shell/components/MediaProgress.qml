@@ -16,14 +16,14 @@ ColumnLayout {
     Rectangle {
         Layout.fillWidth: true
         implicitHeight: 4
-        radius: Settings.pill(height)
-        color: Utils.withAlpha(Settings.colors.text, 0.15)
+        radius: Theme.pill(height)
+        color: Utils.withAlpha(Theme.colors.text, 0.15)
 
         Rectangle {
             width: parent.width * Math.min(1, (root.player?.position ?? 0) / Math.max(1, root.player?.length ?? 1))
             height: parent.height
-            radius: Settings.pill(height)
-            color: Settings.colors.accent
+            radius: Theme.pill(height)
+            color: Theme.colors.accent
         }
     }
 

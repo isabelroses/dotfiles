@@ -20,7 +20,7 @@ Item {
       root.shown = false;
       if (!hovered || (root.text === "" && !root.content)) return timer.stop();
       const p = root.mapToItem(null, 0, 0);
-      root.offset = Settings.barVertical ? -p.x : -p.y;
+      root.offset = Theme.barVertical ? -p.x : -p.y;
       timer.restart();
     }
   }
@@ -41,31 +41,31 @@ Item {
       color: "transparent"
 
       anchor.item: root
-      anchor.rect.x: Settings.barVertical ? root.offset : 0
-      anchor.rect.y: Settings.barVertical ? 0 : root.offset
-      anchor.rect.width: Settings.barVertical ? Settings.barWidth : root.width
-      anchor.rect.height: Settings.barVertical ? root.height : Settings.barWidth
-      anchor.edges: Settings.barAwayEdge
-      anchor.gravity: Settings.barAwayEdge
+      anchor.rect.x: Theme.barVertical ? root.offset : 0
+      anchor.rect.y: Theme.barVertical ? 0 : root.offset
+      anchor.rect.width: Theme.barVertical ? Theme.barWidth : root.width
+      anchor.rect.height: Theme.barVertical ? root.height : Theme.barWidth
+      anchor.edges: Theme.barAwayEdge
+      anchor.gravity: Theme.barAwayEdge
 
       implicitWidth: root.content ? body.implicitWidth + 20 : Math.min(label.implicitWidth + 20, 320)
       implicitHeight: root.content ? body.implicitHeight + 20 : label.implicitHeight + 12
 
       Rectangle {
         anchors.fill: parent
-        radius: root.content ? Settings.cardRadius : Settings.radiusSm
-        color: Settings.colors.base
-        border.color: Settings.colors.borderStrong
+        radius: root.content ? Theme.cardRadius : Theme.radiusSm
+        color: Theme.colors.base
+        border.color: Theme.colors.borderStrong
         border.width: 1
 
         // accent stripe on the side touching the bar; square, so square tooltips only
         Rectangle {
-          visible: Settings.radiusSm <= 2
-          color: Settings.colors.accent
-          x: Settings.barSide === "right" ? parent.width - width : 0
-          y: Settings.barOnBottom ? parent.height - height : 0
-          width: Settings.barVertical ? 2 : parent.width
-          height: Settings.barVertical ? parent.height : 2
+          visible: Theme.radiusSm <= 2
+          color: Theme.colors.accent
+          x: Theme.barSide === "right" ? parent.width - width : 0
+          y: Theme.barOnBottom ? parent.height - height : 0
+          width: Theme.barVertical ? 2 : parent.width
+          height: Theme.barVertical ? parent.height : 2
         }
 
         Loader {

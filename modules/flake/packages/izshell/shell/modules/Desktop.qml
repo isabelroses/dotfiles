@@ -11,7 +11,7 @@ Variants {
     id: win
     required property ShellScreen modelData
     screen: modelData
-    color: Settings.colors.base
+    color: Theme.colors.base
 
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Background
@@ -32,12 +32,9 @@ Variants {
       layer.source = url;
     }
 
-    Component.onCompleted: show(Settings.wallpaper)
-
-    Connections {
-      target: Settings
-      function onWallpaperChanged() { win.show(Settings.wallpaper); }
-    }
+    readonly property string wallpaper: Settings.general.wallpaper
+    onWallpaperChanged: show(wallpaper)
+    Component.onCompleted: show(wallpaper)
 
     component Layer: Image {
       id: layer
@@ -46,7 +43,7 @@ Variants {
       asynchronous: true
       cache: false
       opacity: 0
-      Behavior on opacity { NumberAnimation { duration: Settings.animNormal * 3; easing.type: Easing.InOutQuad } }
+      Behavior on opacity { NumberAnimation { duration: Theme.animNormal * 3; easing.type: Easing.InOutQuad } }
 
       // Decoded at its own size and scaled by the GPU: asking the decoder to
       // upscale a small wallpaper to the screen cost ~50 MB. Only an image

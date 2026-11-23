@@ -25,7 +25,7 @@ LazyLoader {
       else Runtime.quickSettingsOpen = false;
     }
 
-    readonly property list<string> layout: Settings.barSide === "top"
+    readonly property list<string> layout: Theme.barSide === "top"
       ? ["controls", "media", "notifications"]
       : ["notifications", "media", "controls"]
     readonly property real maxListHeight: (screen?.height ?? 1080) * 0.55
@@ -51,9 +51,9 @@ LazyLoader {
         ClippingWrapperRectangle {
           implicitWidth: 64
           implicitHeight: 64
-          radius: Settings.cardRadius
-          color: Settings.colors.overlay
-          border.color: Settings.colors.border
+          radius: Theme.cardRadius
+          color: Theme.colors.overlay
+          border.color: Theme.colors.border
           border.width: 1
 
           Image {
@@ -72,13 +72,13 @@ LazyLoader {
           StyledText {
             Layout.fillWidth: true
             text: `${Time.greeting},`
-            color: Settings.colors.textMuted
+            color: Theme.colors.textMuted
             font.pixelSize: 12
           }
 
           StyledText {
             Layout.fillWidth: true
-            text: Settings.username
+            text: Settings.general.username
             serif: true
             font.pixelSize: 24
           }
@@ -86,7 +86,7 @@ LazyLoader {
           StyledText {
             Layout.fillWidth: true
             text: Time.longDate
-            color: Settings.colors.textMuted
+            color: Theme.colors.textMuted
             font.pixelSize: 12
           }
         }
@@ -95,7 +95,7 @@ LazyLoader {
           icon: "emblem-system-symbolic"
           size: 16
           padding: 9
-          color: Settings.colors.textMuted
+          color: Theme.colors.textMuted
           onClicked: Runtime.openSettings("home")
         }
 
@@ -103,7 +103,7 @@ LazyLoader {
           icon: "system-shutdown-symbolic"
           size: 16
           padding: 9
-          color: Settings.colors.textMuted
+          color: Theme.colors.textMuted
           onClicked: Runtime.openPowerMenu("")
         }
       }
@@ -133,15 +133,15 @@ LazyLoader {
           visible: Notifications.list.length > 0
           implicitWidth: Math.max(18, countText.implicitWidth + 10)
           implicitHeight: 16
-          radius: Settings.radiusXs
-          color: Settings.colors.accentSoft
+          radius: Theme.radiusXs
+          color: Theme.colors.accentSoft
 
           StyledText {
             id: countText
             anchors.centerIn: parent
             text: Notifications.list.length
             mono: true
-            color: Settings.colors.accent
+            color: Theme.colors.accent
             font.pixelSize: 11
           }
         }
@@ -225,10 +225,10 @@ LazyLoader {
             visible: Notifications.history.length > 0
             Layout.fillWidth: true
             implicitHeight: 32
-            radius: Settings.radiusSm
-            color: hovered ? Settings.colors.surfaceRaised : "transparent"
+            radius: Theme.radiusSm
+            color: hovered ? Theme.colors.surfaceRaised : "transparent"
             border.width: 1
-            border.color: Settings.colors.border
+            border.color: Theme.colors.border
 
             RowLayout {
               anchors { fill: parent; leftMargin: 10; rightMargin: 4 }
@@ -237,9 +237,9 @@ LazyLoader {
               MyIcon {
                 icon: "go-next-symbolic"
                 size: 10
-                color: Settings.colors.textMuted
+                color: Theme.colors.textMuted
                 rotation: feedArea.historyOpen ? -90 : 0
-                Behavior on rotation { Anim { duration: Settings.animFast } }
+                Behavior on rotation { Anim { duration: Theme.animFast } }
               }
 
               Caption {
@@ -252,7 +252,7 @@ LazyLoader {
                 visible: feedArea.historyOpen
                 icon: "edit-clear-all-symbolic"
                 size: 12
-                color: Settings.colors.textMuted
+                color: Theme.colors.textMuted
                 onClicked: Notifications.clearHistory()
               }
             }
@@ -278,10 +278,10 @@ LazyLoader {
         z: 3
         active: Runtime.wifiPasswordTarget !== null
         width: parent.width
-        y: Settings.barSide === "top" ? 0 : parent.height - height
+        y: Theme.barSide === "top" ? 0 : parent.height - height
         sourceComponent: WifiPasswordPrompt {
           implicitWidth: stack.width
-          radius: Settings.cardRadius
+          radius: Theme.cardRadius
         }
       }
     }
@@ -292,7 +292,7 @@ LazyLoader {
       topPadding: 6
       leftPadding: 4
       text: modelData.label
-      color: Settings.colors.textMuted
+      color: Theme.colors.textMuted
       font.pixelSize: 11
       font.weight: Font.DemiBold
     }
@@ -361,7 +361,7 @@ LazyLoader {
           icon: "window-close-symbolic"
           size: 10
           padding: 5
-          color: Settings.colors.textSubtle
+          color: Theme.colors.textSubtle
           onClicked: Notifications.removeHistory(histCard.entryIndex)
         }
       }

@@ -19,7 +19,7 @@ RowLayout {
     Layout.alignment: Qt.AlignVCenter
     implicitWidth: 6
     implicitHeight: 6
-    radius: Settings.pill(height)
+    radius: Theme.pill(height)
     color: root.tint
   }
 }

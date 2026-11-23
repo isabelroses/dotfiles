@@ -37,12 +37,12 @@ Rectangle {
   }
 
   implicitHeight: 40
-  radius: Settings.radiusSm
-  color: Settings.colors.surfaceRaised
+  radius: Theme.radiusSm
+  color: Theme.colors.surfaceRaised
   border.width: 1
-  border.color: error ? Settings.colors.error
-              : field.activeFocus ? Settings.colors.accent
-              : Settings.colors.borderStrong
+  border.color: error ? Theme.colors.error
+              : field.activeFocus ? Theme.colors.accent
+              : Theme.colors.borderStrong
   opacity: enabled ? 1 : 0.5
 
   RowLayout {
@@ -53,19 +53,19 @@ Rectangle {
       visible: root.icon !== ""
       icon: root.icon
       size: 12
-      color: Settings.colors.textSubtle
+      color: Theme.colors.textSubtle
     }
 
     TextField {
       id: field
       Layout.fillWidth: true
       echoMode: root.password && !reveal.revealed ? TextInput.Password : TextInput.Normal
-      placeholderTextColor: Settings.colors.textSubtle
-      color: Settings.colors.text
+      placeholderTextColor: Theme.colors.textSubtle
+      color: Theme.colors.text
       selectByMouse: true
-      selectionColor: Settings.colors.accent
-      selectedTextColor: Settings.colors.textOnAccent
-      font { family: root.mono ? Settings.fonts.mono : Settings.fonts.sans; pixelSize: root.fontSize }
+      selectionColor: Theme.colors.accent
+      selectedTextColor: Theme.colors.textOnAccent
+      font { family: root.mono ? Theme.fonts.mono : Theme.fonts.sans; pixelSize: root.fontSize }
       background: null
       padding: 0
       verticalAlignment: TextInput.AlignVCenter
@@ -84,7 +84,7 @@ Rectangle {
       visible: root.revealable
       icon: revealed ? "view-conceal-symbolic" : "view-reveal-symbolic"
       size: 14
-      color: Settings.colors.textMuted
+      color: Theme.colors.textMuted
       onClicked: revealed = !revealed
     }
 

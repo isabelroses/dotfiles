@@ -27,7 +27,7 @@ ColumnLayout {
     Layout.alignment: Qt.AlignHCenter
     Layout.topMargin: 40
     text: "No Bluetooth adapter"
-    color: Settings.colors.textMuted
+    color: Theme.colors.textMuted
   }
 
   RowGroup {
@@ -56,7 +56,7 @@ ColumnLayout {
     visible: root.adapter !== null && root.paired.length === 0
     Layout.leftMargin: 2
     text: "Nothing paired yet"
-    color: Settings.colors.textMuted
+    color: Theme.colors.textMuted
     font.pixelSize: 12
   }
 
@@ -192,7 +192,7 @@ ColumnLayout {
       MyIcon {
         icon: dev.modelData.icon || "bluetooth-symbolic"
         size: 16
-        color: dev.active ? Settings.colors.accent : Settings.colors.textMuted
+        color: dev.active ? Theme.colors.accent : Theme.colors.textMuted
       }
 
       ColumnLayout {
@@ -209,7 +209,7 @@ ColumnLayout {
           Layout.fillWidth: true
           text: dev.detail
           font.pixelSize: 11
-          color: dev.active ? Settings.colors.accent : Settings.colors.textMuted
+          color: dev.active ? Theme.colors.accent : Theme.colors.textMuted
         }
       }
 

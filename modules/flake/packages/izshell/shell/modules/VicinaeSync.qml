@@ -11,7 +11,7 @@ import qs.services
 Scope {
   id: root
 
-  readonly property int radius: Settings.sheetRadius
+  readonly property int radius: Theme.sheetRadius
   readonly property string wanted: JSON.stringify({ launcher_window: { rounding: radius } }, null, 2) + "\n"
 
   FileView {

@@ -63,8 +63,8 @@ Box {
             anchors.fill: parent
             gradient: Gradient {
                 orientation: Gradient.Horizontal
-                GradientStop { position: 0.0; color: Utils.withAlpha(Settings.colors.base, 0.35) }
-                GradientStop { position: 1.0; color: Utils.withAlpha(Settings.colors.base, 0.75) }
+                GradientStop { position: 0.0; color: Utils.withAlpha(Theme.colors.base, 0.35) }
+                GradientStop { position: 1.0; color: Utils.withAlpha(Theme.colors.base, 0.75) }
             }
         }
     }
@@ -91,10 +91,10 @@ Box {
 
                     width: tabLabel.implicitWidth + 20
                     height: 24
-                    radius: Settings.pill(height)
-                    color: selected ? Settings.colors.accentSoft : hovered ? Settings.colors.surfaceRaised : "transparent"
+                    radius: Theme.pill(height)
+                    color: selected ? Theme.colors.accentSoft : hovered ? Theme.colors.surfaceRaised : "transparent"
                     border.width: 1
-                    border.color: selected ? Utils.withAlpha(Settings.colors.accent, 0.5) : Settings.colors.border
+                    border.color: selected ? Utils.withAlpha(Theme.colors.accent, 0.5) : Theme.colors.border
                     onClicked: Media.selectedPlayer = modelData
 
 
@@ -104,7 +104,7 @@ Box {
                         text: tab.modelData.identity || "Player"
                         font.pixelSize: 11
                         font.weight: tab.selected ? Font.DemiBold : Font.Normal
-                        color: tab.selected ? Settings.colors.accent : Settings.colors.textMuted
+                        color: tab.selected ? Theme.colors.accent : Theme.colors.textMuted
                     }
                 }
             }

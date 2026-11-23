@@ -11,8 +11,8 @@ Rectangle {
 
   implicitWidth: size
   implicitHeight: size
-  radius: Settings.radiusRound
-  color: Settings.colors.overlay
+  radius: Theme.radiusRound
+  color: Theme.colors.overlay
 
   MyIcon {
     id: glyph

@@ -71,7 +71,7 @@ ColumnLayout {
 
   component Empty: StyledText {
     Layout.leftMargin: 2
-    color: Settings.colors.textMuted
+    color: Theme.colors.textMuted
     font.pixelSize: 12
   }
 
@@ -91,7 +91,7 @@ ColumnLayout {
       MyIcon {
         icon: dev.modelData.isSink ? Pipewire.nodeIcon(dev.modelData) : Pipewire.inputIcon(dev.modelData)
         size: 16
-        color: dev.isDefault ? Settings.colors.accent : Settings.colors.textMuted
+        color: dev.isDefault ? Theme.colors.accent : Theme.colors.textMuted
       }
 
       StyledText {
@@ -104,7 +104,7 @@ ColumnLayout {
       StyledText {
         visible: dev.isDefault
         text: "Default"
-        color: Settings.colors.accent
+        color: Theme.colors.accent
         font.pixelSize: 11
         font.weight: Font.DemiBold
       }
@@ -128,7 +128,7 @@ ColumnLayout {
 
         ThinSlider {
           Layout.fillWidth: true
-          tint: dev.muted ? Settings.colors.textSubtle : Settings.colors.accent
+          tint: dev.muted ? Theme.colors.textSubtle : Theme.colors.accent
           value: dev.modelData?.audio?.volume ?? 0
           onMoved: if (dev.modelData?.audio) dev.modelData.audio.volume = value
         }
@@ -144,7 +144,7 @@ ColumnLayout {
       IconButton {
         icon: dev.muted ? "audio-volume-muted-symbolic" : "audio-volume-high-symbolic"
         size: 14
-        color: dev.muted ? Settings.colors.error : Settings.colors.textMuted
+        color: dev.muted ? Theme.colors.error : Theme.colors.textMuted
         onClicked: if (dev.modelData?.audio) dev.modelData.audio.muted = !dev.muted
       }
     }
@@ -157,7 +157,7 @@ ColumnLayout {
       StyledText {
         Layout.fillWidth: true
         text: "Port"
-        color: Settings.colors.textMuted
+        color: Theme.colors.textMuted
         font.pixelSize: 12
       }
 
@@ -191,7 +191,7 @@ ColumnLayout {
         visible: stream.outgoing
         Layout.fillWidth: true
         node: stream.modelData
-        tint: Settings.colors.accent
+        tint: Theme.colors.accent
       }
 
       IconImage {

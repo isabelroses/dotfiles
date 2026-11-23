@@ -13,7 +13,7 @@ Rectangle {
   signal scrolled(wheel: WheelEvent)
 
   color: "transparent"
-  Behavior on color { ColorAnimation { duration: Settings.animFast } }
+  Behavior on color { ColorAnimation { duration: Theme.animFast } }
 
   MouseArea {
     id: area

@@ -190,7 +190,7 @@ ColumnLayout {
     Layout.fillWidth: true
     spacing: 12
 
-    MyIcon { icon: found.icon; size: 14; color: Settings.colors.textMuted }
+    MyIcon { icon: found.icon; size: 14; color: Theme.colors.textMuted }
 
     StyledText { text: found.text; font.pixelSize: 12 }
 
@@ -240,7 +240,7 @@ ColumnLayout {
       MyIcon {
         icon: Networking.networkIcon(net.modelData)
         size: 14
-        color: Settings.colors.textMuted
+        color: Theme.colors.textMuted
       }
 
       StyledText { Layout.fillWidth: true; text: net.modelData.name; font.pixelSize: 12 }
@@ -249,14 +249,14 @@ ColumnLayout {
         visible: net.locked
         icon: "system-lock-screen-symbolic"
         size: 11
-        color: Settings.colors.textSubtle
+        color: Theme.colors.textSubtle
       }
 
       StyledText {
         text: net.connecting ? "Connecting…" : net.failure !== "" ? net.failure : Math.round(net.modelData.signalStrength * 100) + "%"
         mono: !net.connecting && net.failure === ""
         font.pixelSize: 11
-        color: net.failure !== "" ? Settings.colors.error : Settings.colors.textMuted
+        color: net.failure !== "" ? Theme.colors.error : Theme.colors.textMuted
       }
 
       BoxButton {
@@ -317,7 +317,7 @@ ColumnLayout {
       Layout.preferredWidth: 130
       text: add.label
       font.pixelSize: 12
-      color: Settings.colors.textMuted
+      color: Theme.colors.textMuted
     }
 
     Repeater {
@@ -379,7 +379,7 @@ ColumnLayout {
             "vpn": "network-vpn-symbolic",
           })[conn.modelData.type] ?? "network-workgroup-symbolic"
           size: 15
-          color: conn.active ? Settings.colors.accent : Settings.colors.textMuted
+          color: conn.active ? Theme.colors.accent : Theme.colors.textMuted
         }
 
         StyledText {
@@ -392,7 +392,7 @@ ColumnLayout {
         StyledText {
           visible: conn.active
           text: `Connected · ${conn.modelData.device}`
-          color: Settings.colors.accent
+          color: Theme.colors.accent
           font.pixelSize: 11
           font.weight: Font.DemiBold
         }
@@ -400,7 +400,7 @@ ColumnLayout {
         MyIcon {
           icon: conn.open ? "pan-up-symbolic" : "pan-down-symbolic"
           size: 12
-          color: Settings.colors.textMuted
+          color: Theme.colors.textMuted
         }
       }
     }
@@ -502,7 +502,7 @@ ColumnLayout {
         fontSize: 11
         text: armed ? "Sure?" : "Forget"
         filled: armed
-        fillColor: Settings.colors.error
+        fillColor: Theme.colors.error
         onClicked: {
           if (!armed) return armed = true;
           NetworkConnections.remove(ed.uuid);
@@ -534,7 +534,7 @@ ColumnLayout {
       Layout.preferredWidth: 160
       text: parent.label
       font.pixelSize: 12
-      color: Settings.colors.textMuted
+      color: Theme.colors.textMuted
     }
   }
 

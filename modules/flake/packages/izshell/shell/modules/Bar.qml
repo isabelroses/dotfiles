@@ -25,13 +25,13 @@ Scope {
       screen: modelData
 
       // spare room past the reserved strip for shadows to fall into
-      readonly property int shadowRoom: Settings.barFloating ? 16 : 0
+      readonly property int shadowRoom: Theme.barFloating ? 16 : 0
       // card offset from the screen edge, across the bar
-      readonly property int outer: Settings.barFloating
-        ? Settings.barWidth - Settings.cardThickness - Settings.cardGap
-        : (Settings.barWidth - Settings.cardThickness) / 2
+      readonly property int outer: Theme.barFloating
+        ? Theme.barWidth - Theme.cardThickness - Theme.cardGap
+        : (Theme.barWidth - Theme.cardThickness) / 2
       // inset of the first and last card from the ends of the bar
-      readonly property int ends: Settings.barFloating ? outer : 4
+      readonly property int ends: Theme.barFloating ? outer : 4
 
       // slides off the edge while this monitor shows a fullscreen window. The
       // window covers the top layer at once, so the bar rises to the overlay
@@ -42,13 +42,13 @@ Scope {
       Behavior on hidden { Anim {} }
       WlrLayershell.layer: fullscreen && hidden < 1 ? WlrLayer.Overlay : WlrLayer.Top
 
-      implicitWidth: Settings.barWidth + shadowRoom
-      implicitHeight: Settings.barWidth + shadowRoom
+      implicitWidth: Theme.barWidth + shadowRoom
+      implicitHeight: Theme.barWidth + shadowRoom
       color: "transparent"
       exclusionMode: ExclusionMode.Normal
-      exclusiveZone: Settings.barWidth
+      exclusiveZone: Theme.barWidth
       WlrLayershell.namespace: "bar"
-      mask: Settings.barFloating ? cardsMask : laneMask
+      mask: Theme.barFloating ? cardsMask : laneMask
 
       property Region laneMask: Region { item: lane }
       property Region cardsMask: Region {
@@ -58,60 +58,60 @@ Scope {
       }
 
       anchors {
-        top: Settings.barSide !== "bottom"
-        bottom: Settings.barSide !== "top"
-        left: Settings.barSide !== "right"
-        right: Settings.barSide !== "left"
+        top: Theme.barSide !== "bottom"
+        bottom: Theme.barSide !== "top"
+        left: Theme.barSide !== "right"
+        right: Theme.barSide !== "left"
       }
 
       Item {
         id: lane
         opacity: 1 - win.hidden
         transform: Translate {
-          readonly property real d: (Settings.barWidth + win.shadowRoom) * win.hidden
-          x: !Settings.barVertical ? 0 : Settings.barOnRight ? d : -d
-          y: Settings.barVertical ? 0 : Settings.barOnBottom ? d : -d
+          readonly property real d: (Theme.barWidth + win.shadowRoom) * win.hidden
+          x: !Theme.barVertical ? 0 : Theme.barOnRight ? d : -d
+          y: Theme.barVertical ? 0 : Theme.barOnBottom ? d : -d
         }
-        x: Settings.barOnRight ? parent.width - width : 0
-        y: Settings.barOnBottom ? parent.height - height : 0
-        width: Settings.barVertical ? Settings.barWidth : parent.width
-        height: Settings.barVertical ? parent.height : Settings.barWidth
+        x: Theme.barOnRight ? parent.width - width : 0
+        y: Theme.barOnBottom ? parent.height - height : 0
+        width: Theme.barVertical ? Theme.barWidth : parent.width
+        height: Theme.barVertical ? parent.height : Theme.barWidth
 
         // distance of a card's near side from the lane's near edge
-        readonly property real across: (Settings.barOnRight || Settings.barOnBottom)
-          ? Settings.barWidth - win.outer - Settings.cardThickness
+        readonly property real across: (Theme.barOnRight || Theme.barOnBottom)
+          ? Theme.barWidth - win.outer - Theme.cardThickness
           : win.outer
 
         CardSurface {
-          visible: !Settings.barFloating
+          visible: !Theme.barFloating
           attached: true
-          vertical: Settings.barVertical
+          vertical: Theme.barVertical
         }
 
         // bar.start / middle / end; an item listed twice only shows the first time
-        readonly property list<string> startItems: Config.get("bar.start")
-        readonly property list<string> middleItems: Config.get("bar.middle").filter(i => !startItems.includes(i))
-        readonly property list<string> endItems: Config.get("bar.end").filter(i => !startItems.includes(i) && !middleItems.includes(i))
+        readonly property list<string> startItems: Settings.bar.start
+        readonly property list<string> middleItems: Settings.bar.middle.filter(i => !startItems.includes(i))
+        readonly property list<string> endItems: Settings.bar.end.filter(i => !startItems.includes(i) && !middleItems.includes(i))
 
         BarSection {
           id: head
           items: lane.startItems
-          x: Settings.barVertical ? lane.across : win.ends
-          y: Settings.barVertical ? win.ends : lane.across
+          x: Theme.barVertical ? lane.across : win.ends
+          y: Theme.barVertical ? win.ends : lane.across
         }
 
         BarSection {
           id: middle
           items: lane.middleItems
-          x: Settings.barVertical ? lane.across : (lane.width - width) / 2
-          y: Settings.barVertical ? (lane.height - height) / 2 : lane.across
+          x: Theme.barVertical ? lane.across : (lane.width - width) / 2
+          y: Theme.barVertical ? (lane.height - height) / 2 : lane.across
         }
 
         BarSection {
           id: tail
           items: lane.endItems
-          x: Settings.barVertical ? lane.across : lane.width - width - win.ends
-          y: Settings.barVertical ? lane.height - height - win.ends : lane.across
+          x: Theme.barVertical ? lane.across : lane.width - width - win.ends
+          y: Theme.barVertical ? lane.height - height - win.ends : lane.across
         }
       }
     }
@@ -124,18 +124,9 @@ Scope {
     id: section
 
     property list<string> items: []
-    readonly property var cards: {
-      const out = [];
-      for (const id of items) {
-        const last = out[out.length - 1];
-        const lone = id === "media" || id === "mic";
-        if (!lone && last && last[0] !== "media" && last[0] !== "mic") last.push(id);
-        else out.push([id]);
-      }
-      return out;
-    }
+    readonly property var cards: Settings.barCards(items)
 
-    columns: Settings.barVertical ? 1 : Math.max(1, cards.length)
+    columns: Theme.barVertical ? 1 : Math.max(1, cards.length)
     spacing: 6
 
     Repeater {
@@ -155,7 +146,7 @@ Scope {
         opacity: active ? 1 : 0
         scale: active ? 1 : 0.85
         visible: opacity > 0
-        Behavior on opacity { Anim { duration: Settings.animFast } }
+        Behavior on opacity { Anim { duration: Theme.animFast } }
         Behavior on scale { Anim {} }
 
         Repeater {
@@ -183,11 +174,11 @@ Scope {
     onClicked: Runtime.toggleQuickSettings()
     onScrolled: (e) => Pipewire.setSinkVolume(Pipewire.sinkVolume + (e.angleDelta.y > 0 ? 0.05 : -0.05))
     Layout.alignment: Qt.AlignCenter
-    implicitWidth: Settings.barVertical ? 34 : statusGroup.implicitWidth + 22
-    implicitHeight: Settings.barVertical ? statusGroup.implicitHeight + 22 : 34
-    radius: Settings.innerRadius
-    color: Runtime.quickSettingsOpen ? Settings.colors.accentSoft
-         : capsule.hovered ? Utils.withAlpha(Settings.colors.text, 0.08)
+    implicitWidth: Theme.barVertical ? 34 : statusGroup.implicitWidth + 22
+    implicitHeight: Theme.barVertical ? statusGroup.implicitHeight + 22 : 34
+    radius: Theme.innerRadius
+    color: Runtime.quickSettingsOpen ? Theme.colors.accentSoft
+         : capsule.hovered ? Utils.withAlpha(Theme.colors.text, 0.08)
          : "transparent"
 
 
@@ -197,7 +188,7 @@ Scope {
       spacing: 12
 
       Repeater {
-        model: Config.get("bar.status")
+        model: Settings.bar.status
 
         DelegateChooser {
           role: "modelData"

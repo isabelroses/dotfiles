@@ -20,17 +20,17 @@ ColumnLayout {
             text: `${Math.round(UPower.percentage)}%${UPower.charging ? " · charging" : ""}`
         }
         size: 16
-        color: root.low ? Settings.colors.error
-            : UPower.charging ? Settings.colors.success
-            : Settings.colors.text
+        color: root.low ? Theme.colors.error
+            : UPower.charging ? Theme.colors.success
+            : Theme.colors.text
     }
 
     StyledText {
         Layout.alignment: Qt.AlignCenter
-        visible: Config.get("bar.battery_percent")
+        visible: Settings.bar.battery_percent
         text: Math.round(UPower.percentage)
         mono: true
         font.pixelSize: 9
-        color: root.low ? Settings.colors.error : Settings.colors.textMuted
+        color: root.low ? Theme.colors.error : Theme.colors.textMuted
     }
 }

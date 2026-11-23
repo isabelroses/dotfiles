@@ -57,31 +57,31 @@ ColumnLayout {
         Rectangle {
           implicitWidth: 22
           implicitHeight: 22
-          radius: Settings.pill(width)
+          radius: Theme.pill(width)
           color: "transparent"
           border.width: 1
-          border.color: Settings.colors.borderStrong
+          border.color: Theme.colors.borderStrong
 
           StyledText {
             anchors.centerIn: parent
             text: line.index + 1
             mono: true
             font.pixelSize: 10
-            color: Settings.colors.textMuted
+            color: Theme.colors.textMuted
           }
         }
 
         StyledText {
           Layout.preferredWidth: 90
           text: line.modelData[0]
-          color: Settings.colors.textMuted
+          color: Theme.colors.textMuted
           font.pixelSize: 13
         }
 
         StyledText {
           Layout.fillWidth: true
           text: line.modelData[1] ?? ""
-          color: Settings.colors.text
+          color: Theme.colors.text
           font.pixelSize: 13
         }
       }

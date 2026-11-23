@@ -9,7 +9,7 @@ Item {
 
     property string icon: ""
     property int size: 18
-    property color color: Settings.colors.text
+    property color color: Theme.colors.text
 
     implicitWidth: size
     implicitHeight: size
@@ -29,6 +29,6 @@ Item {
             colorizationColor: root.color
         }
 
-        Behavior on opacity { Anim { duration: Settings.animFast } }
+        Behavior on opacity { Anim { duration: Theme.animFast } }
     }
 }

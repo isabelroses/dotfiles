@@ -32,9 +32,9 @@ Rectangle {
 
   implicitWidth: 380
   implicitHeight: column.implicitHeight + 40
-  radius: Settings.rounding
-  color: Settings.colors.base
-  border.color: Settings.colors.borderStrong
+  radius: Theme.rounding
+  color: Theme.colors.base
+  border.color: Theme.colors.borderStrong
   border.width: 1
 
   ColumnLayout {
@@ -49,10 +49,10 @@ Rectangle {
       IconChip {
         Layout.alignment: Qt.AlignTop
         size: 40
-        color: Settings.colors.accentSoft
+        color: Theme.colors.accentSoft
         icon: root.icon
         iconSize: 18
-        iconColor: Settings.colors.accent
+        iconColor: Theme.colors.accent
       }
 
       ColumnLayout {
@@ -70,7 +70,7 @@ Rectangle {
           Layout.fillWidth: true
           visible: text !== ""
           text: root.subtitle
-          color: Settings.colors.textMuted
+          color: Theme.colors.textMuted
           font.pixelSize: 12
           wrapMode: Text.Wrap
         }
@@ -101,7 +101,7 @@ Rectangle {
       Layout.fillWidth: true
       visible: text !== ""
       text: root.message
-      color: root.error ? Settings.colors.error : Settings.colors.textMuted
+      color: root.error ? Theme.colors.error : Theme.colors.textMuted
       font.pixelSize: 11
       wrapMode: Text.Wrap
     }

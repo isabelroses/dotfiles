@@ -12,7 +12,7 @@ Item {
   // flush against the screen edge: square, no shadow, and only the edge facing
   // away from the bar gets an outline
   property bool attached: false
-  property real radius: attached ? 0 : Settings.cardRadius
+  property real radius: attached ? 0 : Theme.cardRadius
   property bool vertical: true
   property bool raised: false
 
@@ -20,7 +20,7 @@ Item {
 
   Repeater {
     model: root.attached ? []
-      : Settings.colors.light
+      : Theme.colors.light
         ? (root.raised ? [{ y: 8, blur: 24, a: 0.12 }, { y: 1, blur: 3, a: 0.08 }]
                        : [{ y: 3, blur: 10, a: 0.10 }, { y: 1, blur: 2, a: 0.06 }])
         : (root.raised ? [{ y: 10, blur: 28, a: 0.40 }, { y: -2, blur: 12, a: 0.20 }]
@@ -36,7 +36,7 @@ Item {
     }
   }
 
-  Rectangle { anchors.fill: parent; radius: root.radius; color: Settings.colors.base }
+  Rectangle { anchors.fill: parent; radius: root.radius; color: Theme.colors.base }
 
   Shape {
     visible: !root.attached
@@ -49,8 +49,8 @@ Item {
       strokeGradient: LinearGradient {
         x2: root.vertical ? 0 : root.width
         y2: root.vertical ? root.height : 0
-        GradientStop { position: 0; color: Settings.colors.borderStrong }
-        GradientStop { position: 1; color: Utils.withAlpha(Settings.colors.borderStrong, 0.15) }
+        GradientStop { position: 0; color: Theme.colors.borderStrong }
+        GradientStop { position: 1; color: Utils.withAlpha(Theme.colors.borderStrong, 0.15) }
       }
       PathRectangle {
         x: 0.5; y: 0.5
@@ -62,10 +62,10 @@ Item {
 
   Rectangle {
     visible: root.attached
-    x: Settings.barSide === "left" && Settings.barVertical ? parent.width - width : 0
-    y: Settings.barSide === "top" ? parent.height - height : 0
-    width: Settings.barVertical ? 1 : parent.width
-    height: Settings.barVertical ? parent.height : 1
-    color: Settings.colors.border
+    x: Theme.barSide === "left" && Theme.barVertical ? parent.width - width : 0
+    y: Theme.barSide === "top" ? parent.height - height : 0
+    width: Theme.barVertical ? 1 : parent.width
+    height: Theme.barVertical ? parent.height : 1
+    color: Theme.colors.border
   }
 }

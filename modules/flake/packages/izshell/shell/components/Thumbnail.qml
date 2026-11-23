@@ -10,14 +10,14 @@ Item {
   property alias source: image.source
   property alias sourceSize: image.sourceSize
   readonly property alias status: image.status
-  property real radius: Settings.radiusSm
+  property real radius: Theme.radiusSm
   property int borderWidth: 1
-  property color borderColor: Settings.colors.border
+  property color borderColor: Theme.colors.border
 
   ClippingRectangle {
     anchors.fill: parent
     radius: root.radius
-    color: Settings.colors.overlay
+    color: Theme.colors.overlay
 
     Image {
       id: image
