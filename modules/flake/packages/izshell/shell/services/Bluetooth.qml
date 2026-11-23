@@ -20,6 +20,8 @@ Singleton {
     readonly property list<BluetoothDevice> devices: adapter?.devices?.values ?? []
     readonly property BluetoothDevice connectedDevice: devices.find(d => d.connected) ?? null
     readonly property bool connected: connectedDevice !== null
+    // for views: rows are added and removed as devices come and go, not rebuilt when one connects
+    readonly property ScriptModel deviceModel: ScriptModel { values: [...root.devices] }
 
     readonly property string icon: {
         if (state === BluetoothAdapterState.Blocked) return "bluetooth-disabled-symbolic";

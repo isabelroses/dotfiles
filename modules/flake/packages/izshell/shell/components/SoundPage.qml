@@ -23,23 +23,23 @@ ColumnLayout {
 
   SectionLabel { text: "Output devices"; size: 16 }
   Repeater {
-    model: Pipewire.sinks
+    model: Pipewire.sinkModel
     DeviceRow { isDefault: modelData === Pipewire.sink; onMakeDefault: Pipewire.setDefaultSink(modelData) }
   }
 
   SectionLabel { text: "Input devices"; size: 16; Layout.topMargin: 10 }
   Repeater {
-    model: Pipewire.sources
+    model: Pipewire.sourceModel
     DeviceRow { isDefault: modelData === Pipewire.source; onMakeDefault: Pipewire.setDefaultSource(modelData) }
   }
 
   SectionLabel { text: "Playback"; size: 16; Layout.topMargin: 10 }
   Empty { visible: Pipewire.streams.length === 0; text: "No apps are playing sound" }
-  Repeater { model: Pipewire.streams; StreamRow { options: root.sinkOptions; outgoing: true } }
+  Repeater { model: Pipewire.streamModel; StreamRow { options: root.sinkOptions; outgoing: true } }
 
   SectionLabel { text: "Recording"; size: 16; Layout.topMargin: 10 }
   Empty { visible: Pipewire.micUsers.length === 0; text: "No apps are recording" }
-  Repeater { model: Pipewire.micUsers; StreamRow { options: root.sourceOptions; outgoing: false } }
+  Repeater { model: Pipewire.micUserModel; StreamRow { options: root.sourceOptions; outgoing: false } }
 
   SectionLabel { text: "Cards"; size: 16; Layout.topMargin: 10 }
   Repeater {

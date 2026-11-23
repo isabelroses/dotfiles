@@ -27,6 +27,9 @@ Singleton {
 
     readonly property bool connected: ethernetConnected || activeWifi !== null
 
+    // for views: rows are added and removed as networks come and go, not rebuilt on each scan update
+    readonly property ScriptModel networkModel: ScriptModel { values: [...root.networks] }
+
     // Scanning is expensive: it runs only while someone holds a scan (a view
     // showing the list), and not while the user has paused it.
     property int scanRequests: 0

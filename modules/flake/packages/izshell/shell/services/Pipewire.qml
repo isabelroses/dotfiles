@@ -49,6 +49,14 @@ Singleton {
     readonly property list<QsPipewire.PwNode> micUsers: groups.micUsers
     readonly property list<QsPipewire.PwNode> screenShares: groups.screenShares
 
+    // For views: these lists are rebuilt whenever any node changes, and a model
+    // that only adds and removes the rows that did keeps the rest (and what is
+    // being dragged in them) alive.
+    readonly property ScriptModel sinkModel: ScriptModel { values: [...root.sinks] }
+    readonly property ScriptModel sourceModel: ScriptModel { values: [...root.sources] }
+    readonly property ScriptModel streamModel: ScriptModel { values: [...root.streams] }
+    readonly property ScriptModel micUserModel: ScriptModel { values: [...root.micUsers] }
+
     QsPipewire.PwObjectTracker {
         objects: [root.sink, root.source, ...root.streams, ...root.micUsers]
     }

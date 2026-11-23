@@ -81,7 +81,7 @@ Box {
             spacing: 6
 
             Repeater {
-                model: Media.players
+                model: Media.playerModel
 
                 Clickable {
                     id: tab

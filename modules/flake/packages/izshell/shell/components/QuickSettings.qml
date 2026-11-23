@@ -84,7 +84,7 @@ ColumnLayout {
     onActionClicked: Networking.rescan()
     emptyText: !Networking.wifiEnabled ? "Wi-Fi is off"
       : Networking.networks.length === 0 ? "Searching…" : ""
-    model: Networking.networks
+    model: Networking.networkModel
 
     delegate: PanelListItem {
       required property Net.WifiNetwork modelData
@@ -113,7 +113,7 @@ ColumnLayout {
     emptyText: !Bluetooth.adapter ? "No Bluetooth adapter"
       : !Bluetooth.powered ? "Bluetooth is off"
       : Bluetooth.devices.length === 0 ? "No devices found" : ""
-    model: Bluetooth.devices
+    model: Bluetooth.deviceModel
 
     delegate: PanelListItem {
       required property QsBluetooth.BluetoothDevice modelData
@@ -193,7 +193,7 @@ ColumnLayout {
     open: root.openPanel === "output"
     title: "Output"
     emptyText: Pipewire.sinks.length === 0 ? "No outputs" : ""
-    model: Pipewire.sinks
+    model: Pipewire.sinkModel
 
     delegate: PanelListItem {
       required property Pw.PwNode modelData
@@ -210,7 +210,7 @@ ColumnLayout {
     open: root.openPanel === "audio"
     title: "Apps"
     emptyText: Pipewire.streams.length === 0 ? "Nothing is playing" : ""
-    model: Pipewire.streams
+    model: Pipewire.streamModel
 
     delegate: AppVolumeRow {
       required property Pw.PwNode modelData
@@ -224,7 +224,7 @@ ColumnLayout {
     open: root.openPanel === "input"
     title: "Input"
     emptyText: Pipewire.sources.length === 0 ? "No inputs" : ""
-    model: Pipewire.sources
+    model: Pipewire.sourceModel
 
     delegate: PanelListItem {
       required property Pw.PwNode modelData

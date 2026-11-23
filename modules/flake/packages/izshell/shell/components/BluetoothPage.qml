@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
 import Quickshell.Bluetooth as QsBluetooth
 import qs.data
 import qs.services
@@ -64,7 +65,7 @@ ColumnLayout {
     visible: root.paired.length > 0
 
     Repeater {
-      model: root.paired
+      model: ScriptModel { values: [...root.paired] }
 
       DeviceRow {
         required property int index
@@ -118,7 +119,7 @@ ColumnLayout {
     visible: Bluetooth.powered && root.nearby.length > 0
 
     Repeater {
-      model: root.nearby
+      model: ScriptModel { values: [...root.nearby] }
 
       DeviceRow {
         required property int index

@@ -73,7 +73,7 @@ ColumnLayout {
     }
 
     Repeater {
-      model: root.nearby
+      model: ScriptModel { values: [...root.nearby] }
 
       NearbyRow {}
     }

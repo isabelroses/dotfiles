@@ -10,6 +10,7 @@ Singleton {
 
   property list<MprisPlayer> players: Mpris.players.values.filter(player => player?.trackTitle != "")
   property MprisPlayer selectedPlayer: players.length > 0 ? players[0] : null
+  readonly property ScriptModel playerModel: ScriptModel { values: [...root.players] }
 
   readonly property bool playing: selectedPlayer?.isPlaying ?? false
   readonly property bool hasProgress: (selectedPlayer?.lengthSupported ?? false) && (selectedPlayer?.length ?? 0) > 0
