@@ -106,7 +106,6 @@ in
         };
 
         hierarchySeparator = "/";
-        localDnsResolver = false;
         fqdn = cfg.domain;
         x509.useACMEHost = cfg.domain;
         domains = [ rdomain ];
