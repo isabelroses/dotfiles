@@ -172,6 +172,10 @@ in
           systems.oauth2 = {
             forgejo = {
               displayName = "Forgejo";
+              imageFile = pkgs.fetchurl {
+                url = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons@d4b500dc40a8e1043b1581cabb7208892cf35472/svg/forgejo.svg";
+                hash = "sha256-rFqblD/6KwswWk6iHdi3VkyKjswI0uPWEnT35hlz56U=";
+              };
               originUrl = "https://${cfg'.forgejo.domain}/user/oauth2/Isabel%27s%20SSO/callback";
               originLanding = "https://${cfg'.forgejo.domain}/";
               basicSecretFile = config.sops.secrets.kanidm-oauth2-forgejo.path;
@@ -192,6 +196,10 @@ in
 
             linkwarden = {
               displayName = "linkwarden";
+              imageFile = pkgs.fetchurl {
+                url = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons@d4b500dc40a8e1043b1581cabb7208892cf35472/webp/linkwarden.webp";
+                hash = "sha256-5k6lJPtwhPx/1z/BJ8bv31p+Nsf8FEvuFa09RD8VEts=";
+              };
               originUrl = "https://bookmark.isabelroses.com/api/v1/auth/callback/authentik";
               originLanding = "https://bookmark.isabelroses.com/";
               basicSecretFile = config.sops.secrets.kanidm-oauth2-linkwarden.path;
@@ -206,6 +214,10 @@ in
 
             wakapi = {
               displayName = "wakapi";
+              imageFile = pkgs.fetchurl {
+                url = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons@d4b500dc40a8e1043b1581cabb7208892cf35472/svg/wakapi.svg";
+                hash = "sha256-QMAB0lrV/PaN3jERZPeB3Dequ8XWwq+qsMooEp/WlqY=";
+              };
               originUrl = "https://${cfg'.wakapi.domain}/oidc/kanidm/callback";
               originLanding = "https://${cfg'.wakapi.domain}/";
               basicSecretFile = config.sops.secrets.kanidm-oauth2-wakapi.path;
@@ -220,6 +232,10 @@ in
 
             immich = {
               displayName = "immich";
+              imageFile = pkgs.fetchurl {
+                url = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons@d4b500dc40a8e1043b1581cabb7208892cf35472/svg/immich.svg";
+                hash = "sha256-pdSkOJnmP/x+lyRgNPf2PN/cQQqoA8VxPVRSkGAcTYk=";
+              };
               originUrl = [
                 "https://${cfg'.immich.domain}/auth/login"
                 "https://${cfg'.immich.domain}/api/oauth/mobile-redirect"
@@ -243,6 +259,10 @@ in
 
             vaultwarden = {
               displayName = "Vaultwarden";
+              imageFile = pkgs.fetchurl {
+                url = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons@d4b500dc40a8e1043b1581cabb7208892cf35472/svg/vaultwarden.svg";
+                hash = "sha256-r6OvcjtN5/UC0syWI1KEKly0ECa7WUCp+XDLUnG5Rys=";
+              };
               originUrl = "https://${cfg'.vaultwarden.domain}/identity/connect/oidc-signin";
               originLanding = "https://${cfg'.vaultwarden.domain}/";
               basicSecretFile = config.sops.secrets.kanidm-oauth2-vaultwarden.path;
@@ -256,6 +276,10 @@ in
 
             matrix = {
               displayName = "Matrix";
+              imageFile = pkgs.fetchurl {
+                url = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons@d4b500dc40a8e1043b1581cabb7208892cf35472/svg/matrix.svg";
+                hash = "sha256-riyL+sPIklJ0qrcyZHcuzH6gTF+k99CKIjuB8x1KJWM=";
+              };
               originUrl = "${config.services.matrix-synapse.settings.public_baseurl}/_synapse/client/oidc/callback";
               originLanding = "https://${cfg'.matrix.domain}/";
               basicSecretFile = config.sops.secrets.kanidm-oauth2-matrix.path;
@@ -269,6 +293,10 @@ in
 
             jellyfin = {
               displayName = "Jellyfin";
+              imageFile = pkgs.fetchurl {
+                url = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons@d4b500dc40a8e1043b1581cabb7208892cf35472/svg/jellyfin.svg";
+                hash = "sha256-f1PPCD27MRnsjFrL2AScUDMidhfkYVQPcFkawQkSQwY=";
+              };
               originUrl = [
                 "https://${cfg'.jellyfin.domain}/sso/OID/start/kanidm"
                 "https://${cfg'.jellyfin.domain}/sso/OID/redirect/kanidm"
@@ -298,6 +326,10 @@ in
 
             grafana = {
               displayName = "Grafana";
+              imageFile = pkgs.fetchurl {
+                url = "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons@d4b500dc40a8e1043b1581cabb7208892cf35472/svg/grafana.svg";
+                hash = "sha256-jzKJcHPuk1lKsjOUgu8hyjdnBEBV2oniuvkGbSVZLfc=";
+              };
               originUrl = "https://${cfg'.grafana.domain}/login/generic_oauth";
               originLanding = "https://${cfg'.grafana.domain}/";
               basicSecretFile = config.sops.secrets.kanidm-oauth2-grafana.path;
