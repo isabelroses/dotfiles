@@ -10,7 +10,7 @@ let
   ];
 
   mkService = {
-    enableGnomeKeyring = true;
+    oo7.enable = true;
     gnupg = {
       enable = true;
       noAutostart = true;
