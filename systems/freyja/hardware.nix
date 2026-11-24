@@ -23,4 +23,12 @@
   swapDevices = [
     { device = "/dev/disk/by-uuid/975ce62b-2d49-44f4-94cf-f2125eb3defb"; }
   ];
+
+  # sata ssd in a jmicron enclosure, autodetect hangs on it
+  services.smartd.devices = [
+    {
+      device = "/dev/disk/by-id/ata-Fanxiang_S101_512GB_AA000000000000005446";
+      options = "-d sat";
+    }
+  ];
 }
