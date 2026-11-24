@@ -13,7 +13,6 @@ let
   };
 in
 {
-  alloy = icon "Alloy" "svg/alloy.svg" "sha256-+41oDWvA5CmWixzrISj0R5ZcwWavvMcq7t3/BV1+NVE=";
   arr = icon "*arr" "svg/servarr.svg" "sha256-CKRTXxVLaU4RsSjkyHxG6RUQqvV4ruFuuIHstFW8FFU=";
   atuin = icon "Atuin" "svg/atuin.svg" "sha256-R3ZS1BGpldZwtc3KCr5F1/wOxAx92la9OS8gBKjsjf8=";
   borgbackup = icon "Borg" "svg/borg.svg" "sha256-6CenSJG3shyhvI52ZRIcZ2ESzKktDHLDElclTmUz5AA=";
@@ -21,6 +20,8 @@ in
     icon "Cloudflared" "svg/cloudflare.svg"
       "sha256-jRiABG7SI/+0ymYNT1LP+YbW2zEOJdh82C7M0CS0YfU=";
   cobalt = icon "Cobalt" "svg/cobalt.svg" "sha256-hDGGU3MjapcB3VLUokxsqkdZ9xYYAJKdl3AB/3+JWiI=";
+  # no fluent-bit logo in dashboard-icons, so it draws as a monogram
+  fluent-bit.name = "Fluent Bit";
   forgejo = icon "Forgejo" "svg/forgejo.svg" "sha256-rFqblD/6KwswWk6iHdi3VkyKjswI0uPWEnT35hlz56U=";
   gatus = icon "Gatus" "svg/gatus.svg" "sha256-kB4HLK/TDC1ZoXEHdKlz6YNwadUuN/6WlXT9uzQrRQE=";
   grafana = icon "Grafana" "svg/grafana.svg" "sha256-jzKJcHPuk1lKsjOUgu8hyjdnBEBV2oniuvkGbSVZLfc=";

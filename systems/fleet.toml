@@ -42,9 +42,9 @@ docker = true
 
 # what it runs in docker, for the docs and topology
 [amity.services]
-alloy.enable = true
 cloudflared.enable = true
 cobalt.enable = true
+fluent-bit.enable = true
 linkwarden.enable = true
 pufferpanel.enable = true
 umami.enable = true

@@ -13,7 +13,7 @@ let
   c = ''name!="", host=~"$host"'';
   docker = ''job="docker", host=~"$host"'';
 
-  # error and above, by the level alloy parses out of each line
+  # error and above, by the level fluent-bit parses out of each line
   errors = ''${docker}, level=~"error|fatal"'';
 in
 d.dashboard {
