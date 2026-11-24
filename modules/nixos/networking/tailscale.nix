@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
   inherit (lib.lists) optional;
+  inherit (lib.strings) concatStringsSep;
   inherit (lib.modules) mkIf mkDefault;
   inherit (lib.options) mkOption mkEnableOption;
   inherit (lib.types) bool listOf str;
@@ -27,6 +28,13 @@ in
       default = config.services.resolved.enable;
       defaultText = lib.options.literalExpression "config.services.resolved.enable";
       description = "Whether tailscaled manages DNS, which needs resolved.";
+    };
+
+    advertiseRoutes = mkOption {
+      type = listOf str;
+      default = [ ];
+      example = [ "192.168.10.0/24" ];
+      description = "Subnets this host routes into the tailnet.";
     };
 
     defaultFlags = mkOption {
@@ -82,7 +90,13 @@ in
       extraSetFlags =
         cfg.defaultFlags
         ++ optional cfg.isServer "--advertise-exit-node"
-        ++ optional (!cfg.acceptDns) "--accept-dns=false";
+        ++ optional (!cfg.acceptDns) "--accept-dns=false"
+        ++ optional (cfg.advertiseRoutes != [ ]) "--advertise-routes=${concatStringsSep "," cfg.advertiseRoutes}";
+    };
+
+    # so switches reapply changed flags
+    systemd.services.tailscaled-set = mkIf (tailscale.extraSetFlags != [ ]) {
+      serviceConfig.RemainAfterExit = true;
     };
 
     # what magicdns would add for us
