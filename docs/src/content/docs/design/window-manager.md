@@ -1,19 +1,33 @@
 ---
 title: Window manager
-description: The window managers used on Linux and macOS, with shortcut tables.
+description: The window manager and shell used on Linux, with its shortcuts.
 ---
 
-I use [fht-compositor](https://github.com/nferhat/fht-compositor) as my window
-manager on Linux. On macOS I don't use a window manager, but when I do it has
-to be [AeroSpace](https://github.com/nikitabobko/AeroSpace). This page
-documents how they are used.
+On Linux I use [Hyprland](https://hyprland.org/), configured in Lua at
+[`home/isabel/hyprland/config.lua`](https://github.com/isabelroses/dotfiles/blob/main/home/isabel/hyprland/config.lua),
+with my own Quickshell shell, izshell, for the bar, lock screen, power menu and
+screenshots, and [vicinae](https://github.com/vicinaehq/vicinae) as the
+launcher. On macOS I don't use a window manager.
 
-| SKHD shortcut                 | fht-compositor shortcut         | What it does               |
-| ----------------------------- | ------------------------------- | -------------------------- |
-| <kbd>CMD+RETURN</kbd>         | <kbd>SUPER+RETURN</kbd>         | open terminal              |
-|                               | <kbd>SUPER+B</kbd>              | open browser               |
-| <kbd>CMD+Q</kbd>              | <kbd>SUPER+Q</kbd>              | quit                       |
-| <kbd>CMD+D</kbd>              | <kbd>SUPER+D</kbd>              | launcher                   |
-|                               | <kbd>SUPER+F</kbd>              | full screen                |
-| <kbd>CMD+CTRL+[number]</kbd>  | <kbd>SUPER+[number]</kbd>       | open workspace [number]    |
-| <kbd>CMD+SHIFT+[number]</kbd> | <kbd>SUPER+SHIFT+[number]</kbd> | move to workspace [number] |
+<kbd>SUPER+/</kbd> opens a cheatsheet of every bind, read from the config, so
+it's always current. The main ones:
+
+| Shortcut                        | What it does              |
+| ------------------------------- | ------------------------- |
+| <kbd>SUPER+RETURN</kbd>         | terminal                  |
+| <kbd>SUPER+D</kbd>              | launcher                  |
+| <kbd>SUPER+B</kbd>              | browser                   |
+| <kbd>SUPER+E</kbd>              | files                     |
+| <kbd>SUPER+O</kbd>              | notes                     |
+| <kbd>SUPER+SHIFT+V</kbd>        | clipboard history         |
+| <kbd>SUPER+Q</kbd>              | close window              |
+| <kbd>SUPER+F</kbd>              | fullscreen                |
+| <kbd>SUPER+SPACE</kbd>          | toggle floating           |
+| <kbd>SUPER+[number]</kbd>       | go to workspace [number]  |
+| <kbd>SUPER+SHIFT+[number]</kbd> | move window to workspace  |
+| <kbd>SUPER+`</kbd>              | scratchpad                |
+| <kbd>SUPER+SHIFT+S</kbd>        | screenshot a region       |
+| <kbd>SUPER+SHIFT+T</kbd>        | copy text from the screen |
+| <kbd>PRINT</kbd>                | screenshot picker         |
+| <kbd>SUPER+L</kbd>              | lock                      |
+| <kbd>SUPER+ESCAPE</kbd>         | power menu                |

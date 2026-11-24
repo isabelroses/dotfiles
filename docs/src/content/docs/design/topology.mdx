@@ -8,14 +8,20 @@ import topology from "../../../assets/topology.webp";
 
 ## Systems
 
-| Name      | Type    | OS    | Extra Details                                                              |
-| --------- | ------- | ----- | -------------------------------------------------------------------------- |
-| amaterasu | Desktop | NixOS | A powerful desktop dual booting Windows 11                                 |
-| freyja    | Server  | NixOS | A small computer i picked up and now my media server                       |
-| lilith    | ISO     | NixOS | An ISO image of my NixOS configuration, used to install NixOS on new systems |
-| minerva   | Server  | NixOS | The original server, hosting most of my personal services                  |
-| skadi     | Server  | NixOS | Oracle free server, mostly used for the PDS and aarch64 builds             |
-| tatsumaki | Laptop  | macOS | A MacBook Air, given to me by uni, almost exclusively used at uni          |
+Every host is declared in
+[`systems/fleet.toml`](https://github.com/isabelroses/dotfiles/blob/main/systems/fleet.toml);
+see [Adding systems](/guides/adding-systems/).
+
+| Name      | Type    | OS     | Extra Details                                                                           |
+| --------- | ------- | ------ | --------------------------------------------------------------------------------------- |
+| amaterasu | Desktop | NixOS  | A powerful desktop dual booting Windows 11                                              |
+| amity     | Server  | Ubuntu | An Oracle server the flake doesn't build; it runs docker services and joins the tailnet |
+| freyja    | Server  | NixOS  | A small computer I picked up, now my media and monitoring server                        |
+| isis      | Server  | NixOS  | An UpCloud server for monitoring tgirl.cloud services                                   |
+| lilith    | ISO     | NixOS  | An ISO image of my NixOS configuration, used to install NixOS on new systems            |
+| minerva   | Server  | NixOS  | The original server, hosting most of my personal services                               |
+| skadi     | Server  | NixOS  | Oracle free server, mostly used for the PDS and aarch64 builds                          |
+| tatsumaki | Laptop  | macOS  | A MacBook Air, given to me by uni, almost exclusively used at uni                       |
 
 ## Modules
 
@@ -27,6 +33,8 @@ import topology from "../../../assets/topology.webp";
 - [home](https://github.com/isabelroses/dotfiles/tree/main/modules/home/) - modules used to configure home-manager
 - [iso](https://github.com/isabelroses/dotfiles/tree/main/modules/iso/) - modules used to build ISOs
 
-## Rendition
+## Diagram
+
+Drawn from `fleet.toml` on every docs build by `nix build .#topology`.
 
 <Image src={topology} alt="A topology diagram of the flake" />

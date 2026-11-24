@@ -39,7 +39,7 @@ module options.
 Following [RFC
 42](https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md), keep
 options minimal, through the use of freeform `settings` attrset backed by
-`pkgs.formats`. For an example see `modules/home/programs/discord.nix`.
+`pkgs.formats`.
 
 ### Lib usage
 
@@ -57,9 +57,9 @@ in
 #### Garden Lib
 
 On occasion you may find yourself repeating code. This is why I expose `lib`.
-Within the config this is accessible via `self.lib`. Some uses of this currently include:
-
-- `mkSecret` wires up a `sops` secret from `secrets/services/`.
+Within the config this is accessible via `self.lib`, for example `mkSecret`
+wires up a `sops` secret from `secrets/services/`. Every function is listed
+under [Lib](/lib/helpers/).
 
 ### Pipe operator
 
@@ -78,7 +78,8 @@ one.
 
 This form is the doc-comment standard from [RFC
 145](https://github.com/NixOS/rfcs/blob/master/rfcs/0145-doc-strings.md): the
-and the body is CommonMark with `# Arguments` and `# Type` sections. That
+comment opens with `/**`, and the body is CommonMark with `# Arguments` and
+`# Type` sections. That
 CommonMark choice comes from [RFC
 72](https://github.com/NixOS/rfcs/blob/master/rfcs/0072-commonmark-docs.md),
 which is also why option `description`s and these generated pages are written

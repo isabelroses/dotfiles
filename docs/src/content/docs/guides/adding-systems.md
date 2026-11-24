@@ -3,47 +3,75 @@ title: Adding systems
 description: How to declare a new system configuration in this flake.
 ---
 
-The per-system configuration lives in `/systems/<hostname>/`. To wire a host
-into the flake it must be declared in `nixosConfigurations` (or
-`darwinConfigurations`) inside
-[`modules/flake/default.nix`](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/default.nix).
+Every host is an entry in
+[`systems/fleet.toml`](https://github.com/isabelroses/dotfiles/blob/main/systems/fleet.toml).
+The flake reads that file, builds a `nixosConfiguration` or
+`darwinConfiguration` for each entry, and passes it through
+[`mkHost`](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/lib/mkhost.nix).
+Every host can read the whole file, so no host has to evaluate another to learn
+about it.
 
-Each entry is passed through the `mkHost` helper at
-[`modules/flake/lib/mkhost.nix`](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/lib/mkhost.nix).
-It accepts the following options:
+## The fleet entry
 
-- **arch**
-  - default: `"x86_64"`
-  - options: `"x86_64"`, `"aarch64"`
-- **class**
-  - default: `"nixos"`
-  - options: `"nixos"`, `"darwin"`, `"iso"`
-- **modules**
-  - default: `[ ]`
-  - extra NixOS / nix-darwin modules to import on top of the host's `systems/<hostname>/default.nix`
-- **specialArgs**
-  - default: `{ }`
-  - merged on top of the default `specialArgs` (which already includes `inputs` and `self`)
+The top-level keys are typed by
+[`systems/fleet.nix`](https://github.com/isabelroses/dotfiles/blob/main/systems/fleet.nix):
 
-For example, an aarch64 NixOS server:
+- **arch**: `"x86_64"` (default) or `"aarch64"`
+- **class**: `"nixos"` (default), `"darwin"`, `"iso"`, or `"unmanaged"`.
+  Unmanaged hosts aren't built, but the fleet still monitors them.
+- **ipv4** / **ipv6**: the address on the host's primary interface
+- **wakeOnLan**: the interface to enable Wake-on-LAN on
+- **relay**: public services another host serves for this one over tailscale,
+  for hosts behind NAT
 
-```nix
-nixosConfigurations = mkHosts {
-  skadi = {
-    arch = "aarch64";
-  };
-};
+Everything else becomes the host's `garden` config, so `profiles`, `device`,
+`system` and `services` tables set `garden.profiles.*`, `garden.device.*` and
+so on.
+
+For example, an aarch64 server:
+
+```toml
+[skadi]
+arch = "aarch64"
+ipv4 = "10.0.0.11"
+
+[skadi.profiles]
+headless.enable = true
+server.enable = true
+oracle.enable = true
+
+[skadi.services]
+nginx.enable = true
+pds.enable = true
 ```
 
 A macOS host:
 
-```nix
-darwinConfigurations = mkHosts {
-  tatsumaki = {
-    arch = "aarch64";
-    class = "darwin";
-  };
-};
+```toml
+[tatsumaki]
+arch = "aarch64"
+class = "darwin"
+
+[tatsumaki.profiles]
+laptop.enable = true
+graphical.enable = true
+workstation.enable = true
 ```
 
-The system tuple (e.g. `aarch64-linux`, `x86_64-linux`, `aarch64-darwin`) is derived from `arch` and `class`, so you don't need to set it yourself.
+The system tuple (e.g. `aarch64-linux`) is derived from `arch` and `class`.
+
+## The host directory
+
+Anything that needs Nix (`config`, `lib`, `pkgs`) goes in `systems/<host>/`.
+Each of these files is optional and imported when present:
+
+- `default.nix`: host-specific config
+- `hardware.nix`: hardware config, usually from `nixos-generate-config`
+- `users.nix`: per-host user and home-manager config
+
+## The topology diagram
+
+The [topology diagram](/design/topology/) is drawn from `fleet.toml`. A host
+that sits at home or travels needs listing under `home` or `roaming` in
+[`modules/flake/packages/topology/extra.nix`](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/packages/topology/extra.nix),
+along with its tailnet address. Anything unlisted is drawn in the cloud.

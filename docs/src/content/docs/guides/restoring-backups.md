@@ -12,7 +12,7 @@ All persistent service data is backed up nightly with
   and so on.
 - **Archive names** follow `<host>-<service>-<timestamp>`, e.g.
   `<host>-postgresql-2026-06-06T02:30:00`.
-- **Encryption** is `repokey-blake2`. Each repo's passphrase is a stored via
+- **Encryption** is `repokey-blake2`. Each repo's passphrase is stored via
   sops-nix.
 - As mentioned before I use rsync.net, it runs **Borg 1.4**, so every command
   needs `--remote-path=borg14`.
