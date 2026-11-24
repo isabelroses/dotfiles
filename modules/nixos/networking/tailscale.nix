@@ -31,10 +31,10 @@ in
 
     defaultFlags = mkOption {
       type = listOf str;
-      default = [ "--ssh" ];
+      default = [ ];
       description = ''
         A list of command-line flags that will be passed to the Tailscale daemon on startup
-        using the {option}`config.services.tailscale.extraUpFlags`.
+        using the {option}`config.services.tailscale.extraSetFlags`.
         If `isServer` is set to true, the server-specific values will be appended to the list
         defined in this option.
       '';
@@ -79,8 +79,10 @@ in
       enable = true;
       permitCertUid = "root";
       useRoutingFeatures = mkDefault (if cfg.isServer then "server" else "client");
-      extraUpFlags = cfg.defaultFlags ++ optional cfg.isServer "--advertise-exit-node";
-      extraSetFlags = optional (!cfg.acceptDns) "--accept-dns=false";
+      extraSetFlags =
+        cfg.defaultFlags
+        ++ optional cfg.isServer "--advertise-exit-node"
+        ++ optional (!cfg.acceptDns) "--accept-dns=false";
     };
 
     # what magicdns would add for us
