@@ -15,3 +15,22 @@ hero:
       icon: external
       variant: minimal
 ---
+
+import { Card, CardGrid, LinkCard } from "@astrojs/starlight/components";
+import { Image } from "astro:assets";
+import topology from "../../assets/topology.webp";
+
+## The fleet
+
+Every host, what it runs, and how they reach each other, drawn from
+[`fleet.toml`](https://github.com/isabelroses/dotfiles/blob/main/systems/fleet.toml)
+on every build.
+
+<Image src={topology} alt="A topology diagram of every host in the flake and the services each one runs" />
+
+<CardGrid>
+  <LinkCard title="Hosts" description="A page for each machine, with its hardware, profiles and services." href="/design/topology/" />
+  <LinkCard title="Services" description="Every service across the fleet, with its domain and port." href="/services/" />
+  <LinkCard title="Adding a system" description="Declare a new host in fleet.toml." href="/guides/adding-systems/" />
+  <LinkCard title="Options" description="Every garden option, generated from the modules." href="/options/nixos/services/" />
+</CardGrid>

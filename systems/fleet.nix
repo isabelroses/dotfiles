@@ -58,8 +58,25 @@ in
       description = "What the flake builds the host as. unmanaged hosts aren't built, but the fleet still monitors them";
     };
 
+    description = mkOption {
+      type = str;
+      default = "";
+      description = "One line about the host, for its docs page and the systems table";
+    };
+
+    location = mkOption {
+      type = enum [
+        "cloud"
+        "home"
+        "roaming"
+      ];
+      default = "cloud";
+      description = "Where the host sits, which groups it in the topology diagram";
+    };
+
     ipv4 = address "The IPv4 address on the host's primary interface" "203.0.113.10";
     ipv6 = address "The IPv6 address on the host's primary interface" "2001:db8::1";
+    tailnetIp = address "The host's address on the tailnet" "100.64.0.1";
     wakeOnLan = address "The interface on which to enable Wake-on-LAN" "enp1s0";
 
     relay = mkOption {

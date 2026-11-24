@@ -1,10 +1,16 @@
 {
+  lib,
   buildNpmPackage,
   importNpmLock,
   nodejs,
+  python3,
   simple-http-server,
   writeShellApplication,
 
+  fraunces,
+  inter,
+
+  fleetdoc,
   libdoc,
   optiondoc,
   topology,
@@ -12,6 +18,14 @@
   inputs,
   self ? inputs.self,
 }:
+let
+  # latin, plus the punctuation and arrows the pages use
+  unicodes = "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2190-21FF,U+2212,U+2215,U+25B8,U+25CF";
+
+  # a dirty tree has no rev, and the footer says so rather than guessing
+  rev = self.shortRev or self.dirtyShortRev or "unknown";
+  date = self.lastModifiedDate or "";
+in
 buildNpmPackage (finalAttrs: {
   pname = "docs";
   version = "0.0.1";
@@ -21,7 +35,20 @@ buildNpmPackage (finalAttrs: {
   npmDeps = importNpmLock { npmRoot = self + /docs; };
   inherit (importNpmLock) npmConfigHook;
 
-  nativeBuildInputs = [ nodejs ];
+  nativeBuildInputs = [
+    nodejs
+    (python3.withPackages (ps: [
+      ps.fonttools
+      ps.brotli
+    ]))
+  ];
+
+  env = {
+    PUBLIC_DOTFILES_REV = rev;
+    PUBLIC_DOTFILES_DATE = lib.optionalString (
+      date != ""
+    ) "${builtins.substring 0 4 date}-${builtins.substring 4 2 date}-${builtins.substring 6 2 date}";
+  };
 
   preBuild = ''
     mkdir -p src/content/docs/lib
@@ -37,12 +64,26 @@ buildNpmPackage (finalAttrs: {
       } > "src/content/docs/lib/$name.md"
     done
 
-    cp -r ${optiondoc} src/content/docs/options
+    cp -rL ${optiondoc} src/content/docs/options
+
+    # host pages and the services index, from fleet.toml and each host's config
+    cp -rL ${fleetdoc}/content/. src/content/docs/
+    mkdir -p src/generated
+    cp ${fleetdoc}/systems.md src/generated/systems.md
 
     # the public copy gives the readme a stable url
     cp ${topology}/topology.webp src/assets/topology.webp
     mkdir -p public
     cp ${topology}/topology.webp public/topology.webp
+
+    mkdir -p public/fonts
+    subset() {
+      pyftsubset "$1" --unicodes=${unicodes} --layout-features='*' \
+        --flavor=woff2 --output-file="public/fonts/$2.woff2"
+    }
+    subset '${fraunces}/share/fonts/truetype/Fraunces[SOFT,WONK,opsz,wght].ttf' fraunces
+    subset ${inter}/share/fonts/truetype/InterVariable.ttf inter
+    subset ${inter}/share/fonts/truetype/InterVariable-Italic.ttf inter-italic
   '';
 
   installPhase = ''

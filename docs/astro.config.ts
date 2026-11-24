@@ -17,10 +17,14 @@ export default defineConfig({
         },
       ],
       plugins: [starlightCatppuccin({
-        dark: { flavor: "mocha", accent: "sapphire" },
-        light: { flavor: "latte", accent: "sapphire" },
+        // pink, to match izshell's accent
+        dark: { flavor: "mocha", accent: "pink" },
+        light: { flavor: "latte", accent: "pink" },
       })],
       customCss: ["./src/styles/custom.css"],
+      components: {
+        Footer: "./src/components/Footer.astro",
+      },
       editLink: {
         baseUrl: "https://github.com/isabelroses/dotfiles/edit/main/docs/",
       },
@@ -33,6 +37,16 @@ export default defineConfig({
         {
           label: "Guides",
           items: [{ autogenerate: { directory: "guides" } }],
+        },
+        {
+          label: "Fleet",
+          items: [
+            { label: "Services", slug: "services" },
+            {
+              label: "Hosts",
+              items: [{ autogenerate: { directory: "hosts" } }],
+            },
+          ],
         },
         {
           label: "Lib",

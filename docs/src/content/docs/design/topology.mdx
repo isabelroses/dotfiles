@@ -5,23 +5,17 @@ description: An overview of the systems and module layout used in this flake.
 
 import { Image } from "astro:assets";
 import topology from "../../../assets/topology.webp";
+import { Content as Systems } from "../../../generated/systems.md";
 
 ## Systems
 
 Every host is declared in
 [`systems/fleet.toml`](https://github.com/isabelroses/dotfiles/blob/main/systems/fleet.toml);
-see [Adding systems](/guides/adding-systems/).
+see [Adding systems](/guides/adding-systems/). This table is generated from
+it on every docs build, and each host has a page with what it runs. The
+[services](/services/) page lists everything across the fleet.
 
-| Name      | Type    | OS     | Extra Details                                                                           |
-| --------- | ------- | ------ | --------------------------------------------------------------------------------------- |
-| amaterasu | Desktop | NixOS  | A powerful desktop dual booting Windows 11                                              |
-| amity     | Server  | Ubuntu | An Oracle server the flake doesn't build; it runs docker services and joins the tailnet |
-| freyja    | Server  | NixOS  | A small computer I picked up, now my media and monitoring server                        |
-| isis      | Server  | NixOS  | An UpCloud server for monitoring tgirl.cloud services                                   |
-| lilith    | ISO     | NixOS  | An ISO image of my NixOS configuration, used to install NixOS on new systems            |
-| minerva   | Server  | NixOS  | The original server, hosting most of my personal services                               |
-| skadi     | Server  | NixOS  | Oracle free server, mostly used for the PDS and aarch64 builds                          |
-| tatsumaki | Laptop  | macOS  | A MacBook Air, given to me by uni, almost exclusively used at uni                       |
+<Systems />
 
 ## Modules
 

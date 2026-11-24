@@ -3,6 +3,9 @@
 # anything that needs nix (config, lib, pkgs) stays in systems/<host>/default.nix
 
 [amaterasu]
+description = "A powerful desktop dual booting Windows 11"
+location = "home"
+tailnetIp = "100.88.249.103"
 wakeOnLan = "enp4s0"
 
 [amaterasu.profiles]
@@ -30,12 +33,26 @@ security.auditd.enable = true
 [amity]
 # ubuntu on oracle, so the flake doesn't build it. it joins the fleet over
 # tailscale and runs its own exporters, which prometheus scrapes
+description = "An Oracle server the flake doesn't build; it runs docker services and joins the tailnet"
 class = "unmanaged"
 arch = "aarch64"
 ipv4 = "143.47.240.116"
+tailnetIp = "100.98.147.89"
 docker = true
 
+# what it runs in docker, for the docs and topology
+[amity.services]
+alloy.enable = true
+cloudflared.enable = true
+cobalt.enable = true
+linkwarden.enable = true
+pufferpanel.enable = true
+umami.enable = true
+
 [freyja]
+description = "A small computer I picked up, now my media and monitoring server"
+location = "home"
+tailnetIp = "100.69.230.34"
 wakeOnLan = "enp6s0"
 # behind a home NAT
 relay = { via = "minerva", services = ["grafana", "immich", "jellyfin"] }
@@ -68,6 +85,10 @@ prometheus = { enable = true, host = "0.0.0.0" }
 enable = true
 radio = "/dev/serial/by-id/usb-SONOFF_SONOFF_Dongle_Plus_MG24_a8ad9d6a37a1ef11b4e1976661ce3355-if00-port0"
 
+[isis]
+description = "An UpCloud server for monitoring tgirl.cloud services"
+tailnetIp = "100.117.185.89"
+
 [isis.profiles]
 headless.enable = true
 server.enable = true
@@ -82,10 +103,13 @@ gatus = { enable = true, isPersonal = false }
 nginx = { enable = true, domain = "tgirl.cloud" }
 
 [lilith]
+description = "An ISO image of my NixOS configuration, used to install NixOS on new systems"
 class = "iso"
 
 [minerva]
+description = "The original server, hosting most of my personal services"
 ipv4 = "91.107.198.173"
+tailnetIp = "100.92.18.61"
 ipv6 = "2a01:4f8:c012:2f67::1"
 
 [minerva.profiles]
@@ -121,10 +145,12 @@ postgresql.enable = true
 redis.enable = true
 
 [skadi]
+description = "Oracle free server, mostly used for the PDS and aarch64 builds"
 # ampere altra, aarch64
 arch = "aarch64"
 ipv4 = "10.0.0.11"
 ipv6 = "2603:c020:c011:9c00:0:c069:1ff7:1ff3"
+tailnetIp = "100.110.118.65"
 
 [skadi.profiles]
 headless.enable = true
@@ -141,6 +167,9 @@ pds.enable = true
 piper.enable = true
 
 [tatsumaki]
+description = "A MacBook Air, given to me by uni, almost exclusively used at uni"
+location = "roaming"
+tailnetIp = "100.122.131.85"
 arch = "aarch64"
 class = "darwin"
 

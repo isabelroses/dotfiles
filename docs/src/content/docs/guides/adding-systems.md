@@ -19,7 +19,11 @@ The top-level keys are typed by
 - **arch**: `"x86_64"` (default) or `"aarch64"`
 - **class**: `"nixos"` (default), `"darwin"`, `"iso"`, or `"unmanaged"`.
   Unmanaged hosts aren't built, but the fleet still monitors them.
+- **description**: one line for the host's docs page and the systems table
+- **location**: `"cloud"` (default), `"home"` or `"roaming"`, which groups it
+  in the topology diagram
 - **ipv4** / **ipv6**: the address on the host's primary interface
+- **tailnetIp**: the host's address on the tailnet
 - **wakeOnLan**: the interface to enable Wake-on-LAN on
 - **relay**: public services another host serves for this one over tailscale,
   for hosts behind NAT
@@ -32,8 +36,10 @@ For example, an aarch64 server:
 
 ```toml
 [skadi]
+description = "Oracle free server, mostly used for the PDS and aarch64 builds"
 arch = "aarch64"
 ipv4 = "10.0.0.11"
+tailnetIp = "100.110.118.65"
 
 [skadi.profiles]
 headless.enable = true
@@ -69,9 +75,10 @@ Each of these files is optional and imported when present:
 - `hardware.nix`: hardware config, usually from `nixos-generate-config`
 - `users.nix`: per-host user and home-manager config
 
-## The topology diagram
+## The docs and topology diagram
 
-The [topology diagram](/design/topology/) is drawn from `fleet.toml`. A host
-that sits at home or travels needs listing under `home` or `roaming` in
-[`modules/flake/packages/topology/extra.nix`](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/packages/topology/extra.nix),
-along with its tailnet address. Anything unlisted is drawn in the cloud.
+The [topology diagram](/design/topology/), the systems table and each host's
+page are generated from `fleet.toml`, so a new host shows up on its own. The
+network around the fleet (the router, the tailnet) and devices that aren't
+hosts live in
+[`modules/flake/packages/topology/extra.nix`](https://github.com/isabelroses/dotfiles/blob/main/modules/flake/packages/topology/extra.nix).

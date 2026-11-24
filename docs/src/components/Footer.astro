@@ -1,0 +1,31 @@
+---
+import Default from "@astrojs/starlight/components/Footer.astro";
+
+// set by the nix build; a local `astro dev` has neither
+const rev = import.meta.env.PUBLIC_DOTFILES_REV;
+const date = import.meta.env.PUBLIC_DOTFILES_DATE;
+const known = rev && rev !== "unknown" && !rev.endsWith("-dirty");
+---
+
+<Default><slot /></Default>
+{
+  rev && (
+    <p class="build">
+      Built from{" "}
+      {known ? (
+        <a href={`https://github.com/isabelroses/dotfiles/commit/${rev}`}><code>{rev}</code></a>
+      ) : (
+        <code>{rev}</code>
+      )}
+      {date && <> on {date}</>}
+    </p>
+  )
+}
+
+<style>
+  .build {
+    margin-top: 1rem;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+</style>

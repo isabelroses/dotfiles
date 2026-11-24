@@ -9,6 +9,8 @@ removeAttrs (pkgs.lib.customisation.makeScope pkgs.newScope (self: {
 
   docs = self.callPackage ./docs/package.nix { };
 
+  fleetdoc = self.callPackage ./docs/fleet.nix { };
+
   gup = self.callPackage ./gup/package.nix { };
 
   izshell = self.callPackage ./izshell/package.nix { };

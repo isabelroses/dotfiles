@@ -49,43 +49,15 @@ let
     accent = "#f5c2e7";
   };
 
-  names = {
-    alloy = "Alloy";
-    arr = "*arr";
-    atuin = "Atuin";
-    borgbackup = "Borg";
-    cloudflared = "Cloudflared";
-    cobalt = "Cobalt";
-    forgejo = "Forgejo";
-    gatus = "Gatus";
-    grafana = "Grafana";
-    home-assistant = "Home Assistant";
-    immich = "Immich";
-    isabelroses-website = "website";
-    jellyfin = "Jellyfin";
-    kanidm = "Kanidm";
-    linkwarden = "Linkwarden";
-    loki = "Loki";
-    mailserver = "Mail";
-    matrix = "Matrix";
-    nginx = "nginx";
-    pds = "Bluesky PDS";
-    pi-hole = "Pi-hole";
-    postgresql = "PostgreSQL";
-    prometheus = "Prometheus";
-    pufferpanel = "PufferPanel";
-    redis = "Redis";
-    umami = "Umami";
-    vaultwarden = "Vaultwarden";
-  };
+  catalog = import ./catalog.nix { inherit fetchurl; };
 
-  label = id: names.${id} or id;
+  label = id: catalog.${id}.name or id;
   dotted = concatStringsSep "  ·  ";
 
   fleet = lib.trivial.importTOML "${inputs.self}/systems/fleet.toml";
 
   hosts = mapAttrs describe (
-    recursiveUpdate (filterAttrs (_: h: (h.class or "nixos") != "iso") fleet) extra.hosts
+    filterAttrs (_: h: (h.class or "nixos") != "iso") (recursiveUpdate fleet extra.hosts)
   );
 
   describe =
@@ -95,13 +67,7 @@ let
     in
     {
       inherit name;
-      where =
-        if builtins.elem name extra.home then
-          "home"
-        else if builtins.elem name extra.roaming then
-          "roaming"
-        else
-          "cloud";
+      where = h.location or "cloud";
       ipv4 = h.ipv4 or null;
       relay = h.relay or null;
 
@@ -124,8 +90,6 @@ let
     kind = "router · ${extra.router.info}";
     os = "router";
   };
-
-  logos = import ./icons.nix { inherit fetchurl; };
 
   nodes = builtins.attrValues hosts ++ [
     router
@@ -162,7 +126,7 @@ let
     os-router = routerIcon;
     os-storage = storageIcon;
   };
-  icons = lib.genAttrs wanted (id: logos.${id} or glyphs.${id} or (monogram id));
+  icons = lib.genAttrs wanted (id: catalog.${id}.icon or glyphs.${id} or (monogram id));
 
   # the jobs service modules add to garden.backups.jobs
   backupJobs = [

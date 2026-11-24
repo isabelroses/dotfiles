@@ -1,9 +1,55 @@
 @layer starlight, catppuccin, oled;
 
+/* the nix build subsets these into public/fonts */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 @layer oled {
   :root {
-    --sl-color-gray-6: #010101;
-    --sl-color-gray-7: #020202;
-    --sl-color-black: #000;
+    --sl-font: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --garden-serif: "Fraunces", ui-serif, Georgia, serif;
+  }
+
+  /* oledpuccin: mocha text and accents over true black, stepping up to
+     surface and raised. scoped to dark, since this layer outranks the light
+     theme's own values whatever their specificity */
+  :root[data-theme="dark"] {
+    --sl-color-black: #000000;
+    --sl-color-gray-7: #0b0b11;
+    --sl-color-gray-6: #11111b;
+    --sl-color-gray-5: #313244;
+    --sl-color-hairline: #313244;
+    --sl-color-hairline-light: #45475a;
+    --sl-color-hairline-shade: #0b0b11;
+  }
+
+  /* serif for titles only, everything else stays Inter */
+  h1#_top,
+  .hero h1,
+  .site-title,
+  .card .title {
+    font-family: var(--garden-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
   }
 }

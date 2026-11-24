@@ -10,7 +10,7 @@
   linkFarm,
 }:
 let
-  inherit (lib.attrsets) filterAttrs;
+  inherit (lib.attrsets) filterAttrs mapAttrsToList;
   inherit (lib.modules) evalModules;
   inherit (lib.strings) removePrefix;
 
@@ -85,21 +85,25 @@ let
     }
   ];
 
-  nixos = mkDoc "nixos" nixosEval.options.garden;
+  # the nixos options are most of the page, so each garden namespace gets its own
+  nixos = mapAttrsToList (ns: option: {
+    name = "nixos/${ns}.md";
+    path = mkDoc "garden.${ns}" { ${ns} = option; };
+  }) (filterAttrs (n: _: n != "_module") nixosEval.options.garden);
+
   darwin = mkDoc "darwin" darwinEval.options.garden;
   hm = mkDoc "home-manager" hmEval.options.garden;
 in
-linkFarm "modules" [
-  {
-    name = "nixos.md";
-    path = nixos;
-  }
-  {
-    name = "darwin.md";
-    path = darwin;
-  }
-  {
-    name = "home-manager.md";
-    path = hm;
-  }
-]
+linkFarm "modules" (
+  nixos
+  ++ [
+    {
+      name = "darwin.md";
+      path = darwin;
+    }
+    {
+      name = "home-manager.md";
+      path = hm;
+    }
+  ]
+)
