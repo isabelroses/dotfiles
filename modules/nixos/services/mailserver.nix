@@ -85,19 +85,21 @@ in
           path = "/srv/storage/mail/vmail";
         };
 
-        # Enable STARTTLS
-        enableImap = true;
-        enableImapSsl = true;
+        listeners = {
+          # Enable STARTTLS
+          imap.enable = true;
+          imaps.enable = true;
 
-        # eww
-        enablePop3 = false;
-        enablePop3Ssl = false;
+          # eww
+          pop3.enable = false;
+          pop3s.enable = false;
 
-        enableSubmission = false;
-        enableSubmissionSsl = true;
+          submission.enable = false;
+          submissions.enable = true;
 
-        # Enable ManageSieve so that we don't need to change the config to update sieves
-        enableManageSieve = true;
+          # Enable ManageSieve so that we don't need to change the config to update sieves
+          manageSieve.enable = true;
+        };
 
         # DKIM Settings
         dkim = {
