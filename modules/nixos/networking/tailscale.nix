@@ -97,7 +97,9 @@ in
         cfg.defaultFlags
         ++ optional cfg.isServer "--advertise-exit-node"
         ++ optional (!cfg.acceptDns) "--accept-dns=false"
-        ++ optional (cfg.advertiseRoutes != [ ]) "--advertise-routes=${concatStringsSep "," cfg.advertiseRoutes}";
+        ++ optional (
+          cfg.advertiseRoutes != [ ]
+        ) "--advertise-routes=${concatStringsSep "," cfg.advertiseRoutes}";
 
       # new servers join pre-tagged, once their key is in .sops.yaml
       authKeyFile = mkIf cfg.isServer config.sops.secrets.tailscale-auth-key.path;

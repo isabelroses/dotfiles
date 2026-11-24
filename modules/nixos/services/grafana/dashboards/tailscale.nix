@@ -28,7 +28,7 @@ d.dashboard {
         w = 8;
         unit = "percentunit";
         targets = [
-          (q ''sum(${rate ''tailscaled_inbound_bytes_total{${h}, path="derp"}''}) / sum(${rate "tailscaled_inbound_bytes_total{${h}}"})'' "derp")
+          (q "sum(${rate ''tailscaled_inbound_bytes_total{${h}, path="derp"}''}) / sum(${rate "tailscaled_inbound_bytes_total{${h}}"})" "derp")
         ];
         thresholds.orange = 0.1;
       })
