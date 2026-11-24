@@ -46,7 +46,7 @@ in
 {
   imports = [
     (mkService "grafana" {
-      port = 3000;
+      port = 3005;
       domain = "grafana.${config.networking.domain}";
     })
   ];
