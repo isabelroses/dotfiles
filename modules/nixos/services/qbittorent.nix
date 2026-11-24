@@ -6,7 +6,6 @@
 }:
 let
   inherit (lib.modules) mkIf;
-  inherit (lib.types) port;
   inherit (self.lib) mkSecret mkService;
 
   cfg = config.garden.services.qbittorrent;
@@ -25,6 +24,9 @@ in
   ];
 
   config = mkIf cfg.enable {
+    # group-writable so the arrs hardlink instead of copy
+    systemd.services.qbittorrent.serviceConfig.UMask = "0002";
+
     # peers have to reach the torrenting port from anywhere
     networking.firewall.allowedTCPPorts = [
       config.services.qbittorrent.torrentingPort
@@ -63,7 +65,7 @@ in
             QueueingSystemEnabled = false;
 
             # sorting
-            DefaultSavePath = "/media/downloads";
+            DefaultSavePath = "${arr.mediaDir}/downloads";
             DisableAutoTMMByDefault = false;
             DisableAutoTMMTriggers = {
               CategorySavePathChanged = false;

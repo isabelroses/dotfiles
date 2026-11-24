@@ -46,7 +46,8 @@ in
       ProtectControlGroups = true;
       RestrictSUIDSGID = true;
       RemoveIPC = true;
-      UMask = "0022";
+      # group-writable for hardlinks
+      UMask = lib.mkForce "0002";
       ProtectHostname = true;
       ProtectProc = "invisible";
       RestrictAddressFamilies = [
