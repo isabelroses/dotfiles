@@ -24,6 +24,7 @@ in
     ./relay.nix
     ./systemd.nix
     ./tailscale.nix
+    ./unbound.nix
     ./vpn.nix
     ./wireless.nix
     # keep-sorted end

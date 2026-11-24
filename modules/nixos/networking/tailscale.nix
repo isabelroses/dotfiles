@@ -16,6 +16,19 @@ in
       defaultText = "true";
     };
 
+    tailnet = mkOption {
+      type = str;
+      default = "alewife-galaxy.ts.net";
+      description = "The tailnet's MagicDNS domain.";
+    };
+
+    acceptDns = mkOption {
+      type = bool;
+      default = config.services.resolved.enable;
+      defaultText = lib.options.literalExpression "config.services.resolved.enable";
+      description = "Whether tailscaled manages DNS, which needs resolved.";
+    };
+
     defaultFlags = mkOption {
       type = listOf str;
       default = [ "--ssh" ];
@@ -67,7 +80,11 @@ in
       permitCertUid = "root";
       useRoutingFeatures = mkDefault (if cfg.isServer then "server" else "client");
       extraUpFlags = cfg.defaultFlags ++ optional cfg.isServer "--advertise-exit-node";
+      extraSetFlags = optional (!cfg.acceptDns) "--accept-dns=false";
     };
+
+    # what magicdns would add for us
+    networking.search = mkIf (!cfg.acceptDns) [ cfg.tailnet ];
 
     # use nftables directly rather than letting tailscaled guess
     # <https://wiki.nixos.org/wiki/Tailscale#Native_nftables_Support_(Modern_Setup)>

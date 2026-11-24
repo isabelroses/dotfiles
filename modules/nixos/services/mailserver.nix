@@ -72,6 +72,9 @@ in
         443
       ];
 
+      # spamhaus refuses dnsbl lookups via public resolvers
+      garden.system.networking.unbound.enable = true;
+
       mailserver = {
         enable = true;
         openFirewall = true;
