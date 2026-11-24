@@ -15,6 +15,8 @@ in
         (mkConnection "skadi" "eth0")
         (mkConnection "router" "eth0")
         (mkConnection "isis" "eth0")
+        (mkConnection "isis" "eth2")
+        (mkConnection "amity" "eth0")
       ];
     };
 
@@ -27,6 +29,7 @@ in
           "minerva"
           "skadi"
           "isis"
+          "amity"
         ];
       }
       // {
@@ -64,10 +67,20 @@ in
     # keep-sorted start block=yes newline_separated=yes
     amaterasu.hardware.info = "A powerful desktop dual booting windows 11";
 
+    # unmanaged, so nix-topology can't collect it from a nixosConfiguration
+    amity = mkDevice "amity" {
+      info = "Ubuntu on Oracle, runs its own exporters for prometheus";
+      interfaces = {
+        eth0 = { };
+        tailscale0 = { };
+      };
+    };
+
     freyja.hardware.info = "A small computer i picked up and now my media server";
 
+    # upcloud gives eth0 public v4, eth1 the private utility network, eth2 public v6
     isis = {
-      hardware.info = "Minimal server for monitoring tgirl.cloud services";
+      hardware.info = "UpCloud server for monitoring tgirl.cloud services";
       interfaces.eth0 = { };
     };
 
