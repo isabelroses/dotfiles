@@ -83,6 +83,12 @@ in
       when = runs "forgejo";
     };
 
+    # tailscaled's web client
+    tailscale = {
+      port = 5252;
+      when = _: true;
+    };
+
     # nginx in front of gatus, whose metrics share its web port
     gatus = {
       port = 9712;

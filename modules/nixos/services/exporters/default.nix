@@ -102,6 +102,10 @@ in
       systemd.services.prometheus-node-exporter.serviceConfig.SupplementaryGroups = [ "powercap" ];
     })
 
+    (mkIf (serves "tailscale" && config.garden.system.networking.tailscale.enable) {
+      services.tailscale.extraSetFlags = [ "--webclient" ];
+    })
+
     (mkIf (serves "nvidia-gpu") {
       services.prometheus.exporters.nvidia-gpu = exporter "nvidia-gpu";
     })
