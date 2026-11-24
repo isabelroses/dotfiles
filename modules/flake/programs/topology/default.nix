@@ -45,6 +45,7 @@ in
         [
           "eth1"
           "eth2"
+          "eth3"
         ]
         [ "wlan0" ]
       ];
@@ -52,12 +53,14 @@ in
       interfaces = {
         eth1.network = "LAN";
         eth2.network = "LAN";
+        eth3.network = "LAN";
         wlan0.network = "WLAN";
       };
 
       connections = {
         eth1 = mkConnection "amaterasu" "enp4s0";
         eth2 = mkConnection "freyja" "enp6s0";
+        eth3 = mkConnection "pi" "eth0";
         wlan0 = mkConnection "tatsumaki" "wlan0";
       };
     };
@@ -69,10 +72,48 @@ in
 
     # unmanaged, so nix-topology can't collect it from a nixosConfiguration
     amity = mkDevice "amity" {
-      info = "Ubuntu on Oracle, runs its own exporters for prometheus";
+      info = "Ubuntu on Oracle, a docker compose box published through a cloudflared tunnel";
       interfaces = {
         eth0 = { };
         tailscale0 = { };
+      };
+
+      services = {
+        cobalt = {
+          name = "Cobalt";
+          icon = ./assets/cobalt.svg;
+          info = "127.0.0.1:9000";
+        };
+
+        umami = {
+          name = "Umami";
+          icon = ./assets/umami.svg;
+          info = "0.0.0.0:3000";
+          details.db.text = "postgres 15";
+        };
+
+        linkwarden = {
+          name = "Linkwarden";
+          icon = ./assets/linkwarden.png;
+          info = "127.0.0.1:3001";
+          details.db.text = "postgres 16, meilisearch";
+        };
+
+        pufferpanel = {
+          name = "PufferPanel";
+          icon = ./assets/pufferpanel.png;
+          info = "0.0.0.0:8080";
+        };
+
+        cloudflared = {
+          name = "Cloudflared";
+          icon = ./assets/cloudflared.svg;
+        };
+
+        alloy = {
+          name = "Grafana Alloy";
+          details.scrapes.text = "node-exporter, cadvisor";
+        };
       };
     };
 
@@ -85,6 +126,20 @@ in
     };
 
     minerva.hardware.info = "This is the original server, hosting most of my personal services";
+
+    # not managed by the flake; home assistant reads its stats
+    pi = mkDevice "pi" {
+      info = "Raspberry Pi, the LAN's DNS ad blocker";
+      deviceIcon = ./assets/rpi.svg;
+      interfaces.eth0.addresses = [ "192.168.10.5" ];
+
+      services.pihole = {
+        name = "Pi-hole";
+        icon = ./assets/pihole.png;
+        info = "http://192.168.10.5:8089/admin";
+        details.dns.text = "192.168.10.5:53";
+      };
+    };
 
     skadi = {
       hardware.info = "Oracle free server, mostly used for the pds and aarch64 builds";
