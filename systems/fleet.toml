@@ -27,6 +27,14 @@ emulation.enable = true
 networking.useRouterDns = true
 security.auditd.enable = true
 
+[amity]
+# ubuntu on oracle, so the flake doesn't build it. it joins the fleet over
+# tailscale and runs its own exporters, which prometheus scrapes
+class = "unmanaged"
+arch = "aarch64"
+ipv4 = "143.47.240.116"
+docker = true
+
 [freyja]
 wakeOnLan = "enp6s0"
 # behind a home NAT

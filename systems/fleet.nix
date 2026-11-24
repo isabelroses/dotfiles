@@ -52,9 +52,10 @@ in
         "nixos"
         "darwin"
         "iso"
+        "unmanaged"
       ];
       default = "nixos";
-      description = "What the flake builds the host as";
+      description = "What the flake builds the host as. unmanaged hosts aren't built, but the fleet still monitors them";
     };
 
     ipv4 = address "The IPv4 address on the host's primary interface" "203.0.113.10";

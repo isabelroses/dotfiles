@@ -43,7 +43,9 @@ in
 
         schema_config.configs = [
           {
-            from = "2026-11-23";
+            # well before loki existed, so it can take a log's history (a
+            # container's, from when it started) rather than failing on it
+            from = "2026-01-01";
             store = "tsdb";
             object_store = "filesystem";
             schema = "v13";

@@ -1,7 +1,7 @@
 { lib }:
 let
   inherit (lib.attrsets) attrNames filterAttrs;
-  inherit (lib.lists) findFirst;
+  inherit (lib.lists) elem findFirst;
   inherit (lib.trivial) defaultTo;
 
   runs = service: fleet: fleet.services.${service}.enable or false;
@@ -11,6 +11,13 @@ in
     node = {
       port = 9100;
       when = _: true;
+    };
+
+    # per-container metrics on hosts that run docker; unmanaged ones run it
+    # from their compose stack
+    cadvisor = {
+      port = 9338;
+      when = fleet: fleet.docker or false;
     };
 
     nvidia-gpu = {
@@ -83,8 +90,19 @@ in
     };
   };
 
+  # unmanaged hosts run their exporters themselves, at these same ports
   hostsWhere =
-    when: fleet: attrNames (filterAttrs (_: host: host.class == "nixos" && when host) fleet);
+    when: fleet:
+    attrNames (
+      filterAttrs (
+        _: host:
+        elem host.class [
+          "nixos"
+          "unmanaged"
+        ]
+        && when host
+      ) fleet
+    );
 
   locate =
     service: fleet: defaults:

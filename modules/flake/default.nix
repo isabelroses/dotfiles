@@ -37,7 +37,9 @@ let
         }
       ];
     }).config.hosts;
-  hosts = lib.lists.partition (host: host.value.class == "darwin") (lib.attrsets.attrsToList fleet);
+  hosts = lib.lists.partition (host: host.value.class == "darwin") (
+    lib.lists.filter (host: host.value.class != "unmanaged") (lib.attrsets.attrsToList fleet)
+  );
 in
 
 {
