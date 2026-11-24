@@ -7,6 +7,7 @@
 
   libdoc,
   optiondoc,
+  topology,
 
   inputs,
   self ? inputs.self,
@@ -37,6 +38,11 @@ buildNpmPackage (finalAttrs: {
     done
 
     cp -r ${optiondoc} src/content/docs/options
+
+    # the public copy gives the readme a stable url
+    cp ${topology}/topology.webp src/assets/topology.webp
+    mkdir -p public
+    cp ${topology}/topology.webp public/topology.webp
   '';
 
   installPhase = ''

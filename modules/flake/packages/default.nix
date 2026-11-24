@@ -23,6 +23,8 @@ removeAttrs (pkgs.lib.customisation.makeScope pkgs.newScope (self: {
 
   optiondoc = self.callPackage ./docs/options.nix { };
 
+  topology = self.callPackage ./topology/package.nix { };
+
   update-pins = self.callPackage ./update-pins/package.nix { };
 
   # the scope's own yt-dlp would recurse, so take the nixpkgs one

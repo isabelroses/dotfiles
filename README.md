@@ -6,7 +6,7 @@
 
 ![Preview image](./docs/src/assets/main.webp)
 
-![image of my flakes topology](./docs/src/assets/topology.webp)
+![image of my flakes topology](https://dotfiles.isabelroses.com/topology.webp)
 
 ### Foreword
 

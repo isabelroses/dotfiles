@@ -8,6 +8,7 @@ on:
     paths:
       - "docs/**/*"
       - "modules/**/*"
+      - "systems/fleet.toml"
       - ".github/workflows/docs.yml"
       - ".github/actions/**/*"
 
