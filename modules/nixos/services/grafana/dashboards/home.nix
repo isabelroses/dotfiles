@@ -6,52 +6,11 @@ let
     stat
     timeseries
     bargauge
+    timeline
     heading
     ;
 
   sensor = name: "homeassistant_sensor_${name}";
-
-  timeline =
-    {
-      on ? "on",
-      off ? "off",
-      offColor ? "transparent",
-      ...
-    }@args:
-    d.panel (
-      removeAttrs args [
-        "on"
-        "off"
-        "offColor"
-      ]
-      // {
-        type = "state-timeline";
-        fieldConfig = {
-          mappings = [
-            {
-              type = "value";
-              options = {
-                "0" = {
-                  text = off;
-                  color = offColor;
-                };
-                "1" = {
-                  text = on;
-                  color = "green";
-                };
-              };
-            }
-          ];
-          color.mode = "thresholds";
-        };
-        options = {
-          showValue = "never";
-          mergeValues = true;
-          rowHeight = 0.8;
-          legend.showLegend = false;
-        };
-      }
-    );
 in
 d.dashboard {
   uid = "home";
@@ -69,27 +28,16 @@ d.dashboard {
         title = "Unavailable entities";
         w = 6;
         targets = [ (q "count(homeassistant_entity_available == 0) or vector(0)" "unavailable") ];
-        thresholds = [
-          {
-            color = "orange";
-            value = 1;
-          }
-          {
-            color = "red";
-            value = 10;
-          }
-        ];
+        thresholds = {
+          orange = 1;
+          red = 10;
+        };
       })
       (stat {
         title = "Updates waiting";
         w = 6;
         targets = [ (q "sum(homeassistant_update_state)" "updates") ];
-        thresholds = [
-          {
-            color = "blue";
-            value = 1;
-          }
-        ];
+        thresholds.blue = 1;
       })
       (stat {
         title = "Ads blocked today";
@@ -104,16 +52,10 @@ d.dashboard {
         w = 6;
         unit = "ppm";
         targets = [ (q (sensor "carbon_dioxide_ppm") "{{friendly_name}}") ];
-        thresholds = [
-          {
-            color = "orange";
-            value = 1000;
-          }
-          {
-            color = "red";
-            value = 1400;
-          }
-        ];
+        thresholds = {
+          orange = 1000;
+          red = 1400;
+        };
       })
     ]
 
@@ -219,22 +161,10 @@ d.dashboard {
         w = 8;
         unit = "percent";
         targets = [ (q (sensor "battery_percent") "{{friendly_name}}") ];
-        fieldConfig.thresholds = {
-          mode = "absolute";
-          steps = [
-            {
-              color = "red";
-              value = null;
-            }
-            {
-              color = "orange";
-              value = 20;
-            }
-            {
-              color = "green";
-              value = 40;
-            }
-          ];
+        thresholds = {
+          base = "red";
+          orange = 20;
+          green = 40;
         };
       })
       (timeseries {

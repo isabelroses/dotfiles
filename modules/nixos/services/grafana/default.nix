@@ -6,7 +6,9 @@
   ...
 }:
 let
-  inherit (lib.lists) optional;
+  inherit (lib.attrsets) attrNames;
+  inherit (lib.lists) filter optional;
+  inherit (lib.strings) removeSuffix;
   inherit (lib.modules) mkIf;
   inherit (self.lib) mkSecret mkService;
 
@@ -25,22 +27,13 @@ let
 
   local = service: "http://127.0.0.1:${toString services.${service}.port}";
 
+  # every file in ./dashboards but the lib is one dashboard
   d = import ./dashboards/lib.nix { inherit lib; };
   dashboards = pkgs.linkFarm "grafana-dashboards" (
-    map
-      (name: {
-        name = "${name}.json";
-        path = pkgs.writeText "${name}.json" (
-          builtins.toJSON (import ./dashboards/${name}.nix { inherit d; })
-        );
-      })
-      [
-        "fleet"
-        "power"
-        "logs"
-        "services"
-        "home"
-      ]
+    map (file: rec {
+      name = "${removeSuffix ".nix" file}.json";
+      path = pkgs.writeText name (builtins.toJSON (import ./dashboards/${file} { inherit d; }));
+    }) (filter (file: file != "lib.nix") (attrNames (builtins.readDir ./dashboards)))
   );
 in
 {

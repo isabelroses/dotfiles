@@ -3,6 +3,7 @@ let
   inherit (d)
     q
     stat
+    status
     timeseries
     bargauge
     heading
@@ -20,11 +21,10 @@ d.dashboard {
 
   rows = [
     [
-      (stat {
+      (status {
         title = "Reachable";
         w = 8;
         targets = [ (q ''up{job="node", ${h}}'' "{{host}}") ];
-        fieldConfig = d.upDown;
       })
       (stat {
         title = "Uptime";
@@ -36,12 +36,7 @@ d.dashboard {
         title = "Failed units";
         w = 8;
         targets = [ (q ''sum by (host) (node_systemd_unit_state{${h}, state="failed"})'' "{{host}}") ];
-        thresholds = [
-          {
-            color = "red";
-            value = 1;
-          }
-        ];
+        thresholds.red = 1;
       })
     ]
 
@@ -93,16 +88,10 @@ d.dashboard {
         targets = [
           (q "max by (host, mountpoint) (100 * (1 - node_filesystem_avail_bytes{${disks}} / node_filesystem_size_bytes{${disks}}))" "{{host}} {{mountpoint}}")
         ];
-        thresholds = [
-          {
-            color = "orange";
-            value = 80;
-          }
-          {
-            color = "red";
-            value = 90;
-          }
-        ];
+        thresholds = {
+          orange = 80;
+          red = 90;
+        };
       })
       (timeseries {
         title = "Disk IO";

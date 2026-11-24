@@ -6,6 +6,8 @@ let
     imap0
     imap1
     ;
+  inherit (lib.attrsets) mapAttrsToList;
+  inherit (lib.lists) sort;
   inherit (lib.trivial) max;
 
   prometheus = {
@@ -31,16 +33,28 @@ let
 
   rate = expr: "rate(${expr}[$__rate_interval])";
 
-  steps = thresholds: {
-    mode = "absolute";
-    steps = [
-      {
-        color = "green";
-        value = null;
-      }
-    ]
-    ++ thresholds;
-  };
+  # for gauges that only ever grow, like prowlarr's running totals
+  increase = expr: "increase(${expr}[$__rate_interval])";
+
+  # { orange = 80; red = 90; } as grafana's ascending steps; base colours
+  # everything under the lowest one
+  steps =
+    {
+      base ? "green",
+      ...
+    }@levels:
+    {
+      mode = "absolute";
+      steps = [
+        {
+          color = base;
+          value = null;
+        }
+      ]
+      ++ sort (a: b: a.value < b.value) (
+        mapAttrsToList (color: value: { inherit color value; }) (removeAttrs levels [ "base" ])
+      );
+    };
 
   upDown = {
     mappings = [
@@ -52,18 +66,9 @@ let
         };
       }
     ];
-    thresholds = {
-      mode = "absolute";
-      steps = [
-        {
-          color = "red";
-          value = null;
-        }
-        {
-          color = "green";
-          value = 1;
-        }
-      ];
+    thresholds = steps {
+      base = "red";
+      green = 1;
     };
   };
 
@@ -139,7 +144,7 @@ let
 
   stat =
     {
-      thresholds ? [ ],
+      thresholds ? { },
       ...
     }@args:
     base (
@@ -165,7 +170,7 @@ let
 
   bargauge =
     {
-      thresholds ? [ ],
+      thresholds ? { },
       ...
     }@args:
     base (
@@ -183,6 +188,52 @@ let
           displayMode = "gradient";
           orientation = "horizontal";
           showUnfilled = true;
+        };
+      }
+    );
+
+  # a stat of 0/1 series, shown as down/up
+  status = args: stat ({ fieldConfig = upDown; } // args);
+
+  # 0/1 series as coloured bands over time
+  timeline =
+    {
+      on ? "on",
+      off ? "off",
+      offColor ? "transparent",
+      ...
+    }@args:
+    base (
+      removeAttrs args [
+        "on"
+        "off"
+        "offColor"
+      ]
+      // {
+        type = "state-timeline";
+        fieldConfig = {
+          mappings = [
+            {
+              type = "value";
+              options = {
+                "0" = {
+                  text = off;
+                  color = offColor;
+                };
+                "1" = {
+                  text = on;
+                  color = "green";
+                };
+              };
+            }
+          ];
+          color.mode = "thresholds";
+        };
+        options = {
+          showValue = "never";
+          mergeValues = true;
+          rowHeight = 0.8;
+          legend.showLegend = false;
         };
       }
     );
@@ -308,12 +359,15 @@ in
 {
   inherit
     loki
+    prometheus
     q
     rate
-    upDown
+    increase
     timeseries
     stat
+    status
     bargauge
+    timeline
     logs
     heading
     hostVariable
