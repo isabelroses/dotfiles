@@ -4,6 +4,7 @@ let
     q
     rate
     stat
+    status
     timeseries
     heading
     ;
@@ -17,12 +18,11 @@ d.dashboard {
 
   rows = [
     [
-      (stat {
+      (status {
         title = "Scrape targets";
         w = 24;
         h = 6;
         targets = [ (q "up" "{{job}} · {{host}}") ];
-        fieldConfig = d.upDown;
       })
     ]
 
@@ -101,6 +101,47 @@ d.dashboard {
         w = 8;
         unit = "bytes";
         targets = [ (q ''process_resident_memory_bytes{job="synapse"}'' "synapse") ];
+      })
+    ]
+
+    [ (heading "Forgejo") ]
+    [
+      (stat {
+        title = "Forge";
+        w = 24;
+        targets = [
+          (q "gitea_users" "users")
+          (q "gitea_repositories" "repos")
+          (q "gitea_mirrors" "mirrors")
+          (q "gitea_organizations" "orgs")
+          (q "gitea_issues_open" "open issues")
+          (q "gitea_stars" "stars")
+        ];
+      })
+    ]
+    [
+      (timeseries {
+        title = "Activity";
+        w = 8;
+        targets = [
+          (q "delta(gitea_issues[1h])" "issues/h")
+          (q "delta(gitea_comments[1h])" "comments/h")
+          (q "delta(gitea_releases[1h])" "releases/h")
+        ];
+      })
+      (timeseries {
+        title = "Memory";
+        w = 8;
+        unit = "bytes";
+        targets = [
+          (q ''process_resident_memory_bytes{job="forgejo"}'' "resident")
+          (q ''go_memstats_heap_inuse_bytes{job="forgejo"}'' "heap")
+        ];
+      })
+      (timeseries {
+        title = "Goroutines";
+        w = 8;
+        targets = [ (q ''go_goroutines{job="forgejo"}'' "goroutines") ];
       })
     ]
 

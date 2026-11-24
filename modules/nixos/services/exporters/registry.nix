@@ -48,6 +48,39 @@ in
       path = "/_synapse/metrics";
       when = runs "matrix";
     };
+
+    sonarr = {
+      port = 9708;
+      when = runs "arr";
+    };
+
+    radarr = {
+      port = 9709;
+      when = runs "arr";
+    };
+
+    prowlarr = {
+      port = 9710;
+      when = runs "arr";
+    };
+
+    # qui's own metrics server, which also reports on the qbittorrent behind it
+    qui = {
+      port = 9074;
+      when = runs "arr";
+    };
+
+    # nginx in front of forgejo's unix socket, reachable over tailscale only
+    forgejo = {
+      port = 9711;
+      when = runs "forgejo";
+    };
+
+    # nginx in front of gatus, whose metrics share its web port
+    gatus = {
+      port = 9712;
+      when = runs "gatus";
+    };
   };
 
   hostsWhere =

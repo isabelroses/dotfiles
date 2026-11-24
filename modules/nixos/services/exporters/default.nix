@@ -7,7 +7,12 @@
 }:
 let
   inherit (lib.lists) elem;
-  inherit (lib.modules) mkDefault mkIf mkMerge;
+  inherit (lib.modules)
+    mkDefault
+    mkForce
+    mkIf
+    mkMerge
+    ;
   inherit (self.lib) mkService;
 
   inherit (config.networking) hostName;
@@ -29,6 +34,46 @@ let
   exporter = name: {
     enable = true;
     inherit (endpoints.${name}) port;
+  };
+
+  # for apps that serve /metrics only beside their public site: nginx hands
+  # it to prometheus on the endpoint's port, which only tailscale (a trusted
+  # interface) reaches, and hides it from the public vhost
+  bridge = name: upstream: {
+    services.nginx.virtualHosts = {
+      ${services.${name}.domain}.locations."= /metrics".return = "404";
+
+      "${name}-metrics" = {
+        listen =
+          map
+            (addr: {
+              inherit addr;
+              inherit (endpoints.${name}) port;
+            })
+            [
+              "0.0.0.0"
+              "[::]"
+            ];
+        quic = false;
+        forceSSL = false;
+        enableACME = false;
+        securityHeaders = false;
+        locations."= /metrics".proxyPass = upstream;
+      };
+    };
+  };
+
+  # exportarr takes the api key from the app's own config.xml. loading it as a
+  # credential lets root read it, since prowlarr's lives under the 0700
+  # /var/lib/private. the port isn't in there: nixos sets it through the env
+  exportarr = name: {
+    services.prometheus.exporters."exportarr-${name}" = exporter name // {
+      url = "http://127.0.0.1:${toString services.${name}.port}";
+      environment.CONFIG = "%d/config.xml";
+    };
+
+    systemd.services."prometheus-exportarr-${name}-exporter".serviceConfig.LoadCredential =
+      mkForce "config.xml:${config.services.${name}.dataDir}/config.xml";
   };
 in
 {
@@ -87,6 +132,28 @@ in
         IMMICH_MICROSERVICES_METRICS_PORT = toString endpoints.immich-microservices.port;
       };
     })
+
+    (mkIf (serves "sonarr") (exportarr "sonarr"))
+    (mkIf (serves "radarr") (exportarr "radarr"))
+    (mkIf (serves "prowlarr") (exportarr "prowlarr"))
+
+    (mkIf (serves "qui") {
+      services.qui.settings = {
+        metricsEnabled = true;
+        metricsHost = "0.0.0.0";
+        metricsPort = endpoints.qui.port;
+      };
+    })
+
+    (mkIf (serves "forgejo") (mkMerge [
+      { services.forgejo.settings.metrics.ENABLED = true; }
+      (bridge "forgejo" "http://unix:${config.services.forgejo.settings.server.HTTP_ADDR}")
+    ]))
+
+    (mkIf (serves "gatus") (mkMerge [
+      { services.gatus.settings.metrics = true; }
+      (bridge "gatus" "http://${services.gatus.host}:${toString services.gatus.port}")
+    ]))
 
     (mkIf (serves "synapse") {
       services.matrix-synapse.settings = {
