@@ -1,5 +1,11 @@
-{ lib, config, ... }:
+{
+  lib,
+  self,
+  config,
+  ...
+}:
 let
+  inherit (self.lib) mkSecret;
   inherit (lib.lists) optional;
   inherit (lib.strings) concatStringsSep;
   inherit (lib.modules) mkIf mkDefault;
@@ -92,7 +98,17 @@ in
         ++ optional cfg.isServer "--advertise-exit-node"
         ++ optional (!cfg.acceptDns) "--accept-dns=false"
         ++ optional (cfg.advertiseRoutes != [ ]) "--advertise-routes=${concatStringsSep "," cfg.advertiseRoutes}";
+
+      # new servers join pre-tagged, once their key is in .sops.yaml
+      authKeyFile = mkIf cfg.isServer config.sops.secrets.tailscale-auth-key.path;
+      authKeyParameters.preauthorized = mkIf cfg.isServer true;
+      extraUpFlags = optional cfg.isServer "--advertise-tags=tag:server";
     };
+
+    sops.secrets.tailscale-auth-key = mkIf cfg.isServer (mkSecret {
+      file = "tailscale";
+      key = "auth-key";
+    });
 
     # so switches reapply changed flags
     systemd.services.tailscaled-set = mkIf (tailscale.extraSetFlags != [ ]) {

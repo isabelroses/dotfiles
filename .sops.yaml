@@ -12,6 +12,15 @@ creation_rules:
       - age:
           - *isabel
 
+  - path_regex: secrets/services/tailscale\.yaml$
+    key_groups:
+      - age:
+          - *isabel
+          - *minerva
+          - *freyja
+          - *skadi
+          - *isis
+
   - path_regex: secrets/services/borg\.yaml$
     key_groups:
       - age:
