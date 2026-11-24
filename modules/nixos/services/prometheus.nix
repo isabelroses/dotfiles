@@ -24,12 +24,18 @@ let
       port,
       when,
       path ? "/metrics",
+      # bare names hit 127.0.0.2 on the prometheus host
+      tailnetOnly ? false,
     }:
     {
       job_name = name;
       metrics_path = path;
       static_configs = map (host: {
-        targets = [ "${host}:${toString port}" ];
+        targets = [
+          "${
+            if tailnetOnly then "${host}.${config.garden.system.networking.tailscale.tailnet}" else host
+          }:${toString port}"
+        ];
         labels.host = host;
       }) (registry.hostsWhere when config.garden.fleet);
     };

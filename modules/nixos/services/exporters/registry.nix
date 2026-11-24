@@ -86,6 +86,7 @@ in
     # tailscaled's web client
     tailscale = {
       port = 5252;
+      tailnetOnly = true;
       when = _: true;
     };
 
