@@ -1,5 +1,8 @@
 @layer starlight, catppuccin, oled;
 
+/* --palette-* custom properties, written from self.lib.palette by the nix build */
+@import "./palette.css";
+
 /* the nix build subsets these into public/fonts */
 @font-face {
   font-family: "Fraunces";
@@ -34,13 +37,13 @@
      surface and raised. scoped to dark, since this layer outranks the light
      theme's own values whatever their specificity */
   :root[data-theme="dark"] {
-    --sl-color-black: #000000;
-    --sl-color-gray-7: #0b0b11;
-    --sl-color-gray-6: #11111b;
-    --sl-color-gray-5: #313244;
-    --sl-color-hairline: #313244;
-    --sl-color-hairline-light: #45475a;
-    --sl-color-hairline-shade: #0b0b11;
+    --sl-color-black: var(--palette-base);
+    --sl-color-gray-7: var(--palette-surface);
+    --sl-color-gray-6: var(--palette-surfaceRaised);
+    --sl-color-gray-5: var(--palette-border);
+    --sl-color-hairline: var(--palette-border);
+    --sl-color-hairline-light: var(--palette-borderStrong);
+    --sl-color-hairline-shade: var(--palette-surface);
   }
 
   /* serif for titles only, everything else stays Inter */

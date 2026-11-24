@@ -264,7 +264,27 @@ in
             welcomeTemplate = "";
           };
 
-          theme.customCss = "";
+          # oledpuccin in dark mode; light mode stays immich's own
+          theme.customCss =
+            let
+              p = self.lib.palette;
+            in
+            # css
+            ''
+              :root {
+                --immich-dark-primary: ${p.rgb.accent};
+                --immich-dark-bg: ${p.rgb.base};
+                --immich-dark-fg: ${p.rgb.text};
+                --immich-dark-gray: ${p.rgb.surface};
+              }
+
+              .dark {
+                --immich-ui-light: ${p.base};
+                --immich-ui-dark: ${p.text};
+                --immich-ui-muted: ${p.textMuted};
+                --immich-ui-gray: ${p.surface};
+              }
+            '';
 
           trash = {
             days = 30;

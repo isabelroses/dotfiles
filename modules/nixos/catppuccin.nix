@@ -1,9 +1,13 @@
 {
   lib,
+  self,
   config,
   inputs,
   ...
 }:
+let
+  p = self.lib.palette;
+in
 {
   imports = [ inputs.catppuccin.nixosModules.catppuccin ];
 
@@ -11,23 +15,25 @@
     # pick our ports
     catppuccin.forgejo.enable = true;
 
-    console.colors = lib.modules.mkIf config.catppuccin.enable [
-      "000000"
-      "f38ba8"
-      "a6e3a1"
-      "f9e2af"
-      "89b4fa"
-      "f5c2e7"
-      "94e2d5"
-      "bac2de"
-      "585b70"
-      "f38ba8"
-      "a6e3a1"
-      "f9e2af"
-      "89b4fa"
-      "f5c2e7"
-      "94e2d5"
-      "a6adc8"
-    ];
+    console.colors = lib.modules.mkIf config.catppuccin.enable (
+      map (lib.strings.removePrefix "#") [
+        p.base
+        p.red
+        p.green
+        p.yellow
+        p.blue
+        p.pink
+        p.teal
+        p.text
+        p.textSubtle
+        p.red
+        p.green
+        p.yellow
+        p.blue
+        p.pink
+        p.teal
+        p.textMuted
+      ]
+    );
   };
 }

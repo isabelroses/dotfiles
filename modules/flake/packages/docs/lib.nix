@@ -12,8 +12,16 @@
       description = "helpers";
     }
     {
+      name = "mkhost";
+      description = "turns a host from fleet.toml into a nixos or darwin system";
+    }
+    {
       name = "modules";
       description = "what service modules use";
+    }
+    {
+      name = "palette";
+      description = "oledpuccin, the colours everything the fleet serves uses";
     }
     {
       name = "validators";
@@ -37,7 +45,7 @@ stdenvNoCC.mkDerivation {
 
     function docgen {
       name=$1
-      description=$3
+      description=$2
       nixdoc -c "$name" -d "lib.$name: $description" -f "$name.nix" > "$out/$name.md"
     }
 

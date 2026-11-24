@@ -1,0 +1,282 @@
+/* Oledppuccin for Jellyfin 12.x: catppuccin mocha, pink, on true black
+ *
+ * theme.css is catppuccin/jellyfin#63 (12.3+ default layout support), pinned
+ * to its commit. Once it merges, swap it for
+ * https://jellyfin.catppuccin.com/theme.css
+ */
+
+@import url("https://cdn.jsdelivr.net/gh/tashifkhan/catppuccin-jellyfin@5b7f489b8fa674ef5ff7ab1462315061f5f5a9af/themes/theme.css");
+@import url("https://jellyfin.catppuccin.com/catppuccin-mocha.css");
+
+/* ---------- palette: the theme maps every --jf-palette-* var onto these ---------- */
+
+:root,
+:root[data-theme] {
+  --main-color: @accent@;
+
+  --main-background: @base@;
+  --main-background-transparent: @base@cc;
+  --second-background: @surface@;
+  --hover-background: @overlay@;
+  --hover-background-transparent: @overlay@cc;
+
+  --border: #ffffff14;
+
+  /* jellyfin's own card rounding var, used by cards, posters and blurhash */
+  --jf-card-borderRadius: 0.6em;
+
+  /* header: translucent black instead of a grey slab */
+  --jf-palette-AppBar-defaultBg: #000000b3;
+  --jf-palette-AppBar-transparentBg: #00000066;
+}
+
+/* ---------- header ---------- */
+
+.MuiAppBar-root,
+.skinHeader-withBackground {
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  border-bottom: 1px solid var(--border);
+  box-shadow: none !important;
+}
+
+/* ---------- cards ---------- */
+
+/* hover ring drawn inside the card: scroller rows clip anything outside it,
+   and the card margin is only .6em */
+.cardScalable::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: var(--jf-card-borderRadius);
+  box-shadow: inset 0 0 0 2px transparent;
+  pointer-events: none;
+  transition: box-shadow 0.2s ease;
+}
+
+@media (hover: hover) {
+  .card:hover .cardScalable::after {
+    box-shadow: inset 0 0 0 2px var(--main-color);
+  }
+}
+
+/* keyboard / remote focus gets the same ring */
+.card:focus-visible .cardScalable::after {
+  box-shadow: inset 0 0 0 2px var(--main-color);
+}
+
+/* jellyfin dims the whole image on hover; only shade where the buttons sit */
+.cardOverlayContainer {
+  background: linear-gradient(0deg, #000000b3 0%, transparent 45%) !important;
+}
+
+/* ---------- detail page ---------- */
+
+/* the ribbon under the backdrop is a translucent paper band by default */
+.detailRibbon {
+  background: linear-gradient(180deg, transparent, #000 90%) !important;
+}
+
+/* the page-wide backdrop sits behind this scrim; jellyfin leaves it at .86
+   opacity so the art tints the whole page. keep the page true black, the
+   hero image at the top is a separate element */
+.backgroundContainer.withBackdrop {
+  background: var(--main-background) !important;
+  opacity: 1 !important;
+}
+
+.listItem {
+  border-radius: var(--jf-card-borderRadius);
+}
+
+/* ---------- page background ---------- */
+
+/* the blurred page-wide backdrop is what tints every page navy (settings,
+   profile, detail pages). drop it; the detail page hero is .itemBackdrop,
+   a separate element, and stays */
+.backdropContainer {
+  display: none !important;
+}
+
+.layout-mobile .itemBackdrop::before {
+  background: linear-gradient(180deg, #00000099, transparent 50%) !important;
+}
+
+/* card footers (cast names, "S1:E1 ..." under next up) sat in a box */
+.cardBox,
+.cardFooter {
+  background: transparent !important;
+}
+
+/* ---------- form fields (new layout MUI + legacy emby inputs) ---------- */
+
+.MuiFilledInput-root {
+  background: var(--second-background) !important;
+  border: 1px solid var(--border);
+  border-radius: var(--jf-card-borderRadius) !important;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+/* MUI's filled variant draws an underline; use the border instead */
+.MuiFilledInput-root::before,
+.MuiFilledInput-root::after {
+  display: none !important;
+}
+
+.MuiFilledInput-root:hover {
+  background: var(--hover-background) !important;
+}
+
+.MuiFilledInput-root.Mui-focused {
+  border-color: var(--main-color);
+}
+
+.MuiFormHelperText-root {
+  color: var(--dimmer-text) !important;
+  margin-inline: 0.25em !important;
+}
+
+.emby-input,
+.emby-textarea,
+.emby-select-withcolor {
+  border-width: 1px !important;
+  border-color: var(--border) !important;
+  border-radius: var(--jf-card-borderRadius) !important;
+}
+
+.emby-input:focus,
+.emby-textarea:focus,
+.emby-select-withcolor:focus {
+  border-color: var(--main-color) !important;
+}
+
+/* ---------- settings lists (user settings menu etc.) ---------- */
+
+.listItem-border {
+  border-bottom: none !important;
+  border-radius: var(--jf-card-borderRadius) !important;
+  margin: 0.15em 0 !important;
+}
+
+.listItem .listItemIcon:not(.listItemIcon-transparent) {
+  background: transparent !important;
+}
+
+/* only the leading icon; buttons inside list items (favourite heart,
+   played check) keep their own colours */
+.listItem .listItemIcon {
+  color: var(--dimmer-text);
+  transition: color 0.15s ease;
+}
+
+.listItem:hover .listItemIcon,
+.listItem:focus-visible .listItemIcon {
+  color: var(--main-color);
+}
+
+/* ---------- profile: password is managed by kanidm ---------- */
+
+.passwordSection,
+.updatePasswordForm {
+  display: none !important;
+}
+
+/* ---------- context menus (legacy action sheets and the new layout's MUI menus) ---------- */
+
+.actionSheet:not(.actionsheet-fullscreen),
+.MuiMenu-paper,
+.MuiPopover-paper {
+  background: var(--second-background) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--jf-card-borderRadius) !important;
+  box-shadow: 0 16px 48px #000 !important;
+}
+
+.actionSheetContent {
+  padding: 0.35em !important;
+}
+
+.actionSheetMenuItem,
+.MuiMenuItem-root {
+  border-radius: calc(var(--jf-card-borderRadius) - 0.2em) !important;
+  background: transparent !important;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.actionSheetMenuItem:hover,
+.actionSheetMenuItem:focus-visible,
+.MuiMenuItem-root:hover,
+.MuiMenuItem-root.Mui-focusVisible {
+  background: var(--hover-background) !important;
+  color: var(--main-color) !important;
+}
+
+.actionsheetMenuItemIcon,
+.MuiMenuItem-root .MuiListItemIcon-root {
+  color: var(--dimmer-text) !important;
+  transition: color 0.15s ease;
+}
+
+.actionSheetMenuItem:hover .actionsheetMenuItemIcon,
+.MuiMenuItem-root:hover .MuiListItemIcon-root {
+  color: var(--main-color) !important;
+}
+
+.actionsheetDivider,
+.MuiMenu-paper .MuiDivider-root {
+  background: var(--border) !important;
+  border-color: var(--border) !important;
+  margin: 0.35em 0.5em !important;
+}
+
+/* ---------- login page (12.x markup: .readOnlyContent > .loginDisclaimerContainer) ---------- */
+
+.manualLoginForm,
+.visualLoginForm,
+.btnManual,
+.btnForgotPassword {
+  display: none !important;
+}
+
+#loginPage .readOnlyContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  width: min(22em, 100%);
+}
+
+#loginPage .readOnlyContent > .emby-button {
+  margin: 0;
+}
+
+/* kanidm button first */
+#loginPage .loginDisclaimerContainer {
+  order: -1;
+  margin: 0;
+}
+
+#loginPage .loginDisclaimer,
+#loginPage .loginDisclaimer form {
+  width: 100%;
+  margin: 0;
+}
+
+#loginPage .loginDisclaimer button {
+  width: 100%;
+  margin: 0;
+  padding: 0.9em 1em;
+  border-radius: var(--jf-card-borderRadius);
+  color: var(--main-background) !important;
+  background: var(--main-color) !important;
+  font-weight: 700;
+}
+
+#loginPage .loginDisclaimer button:hover {
+  filter: brightness(1.08);
+}
+

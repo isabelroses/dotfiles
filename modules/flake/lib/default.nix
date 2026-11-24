@@ -12,6 +12,7 @@ lib.fixedPoints.makeExtensible (final: {
   helpers = import ./helpers.nix { inherit lib; };
   mkHost = import ./mkhost.nix { inherit inputs lib pkgsFor; };
   modules = import ./modules.nix { inherit lib inputs; };
+  palette = import ./palette.nix;
   validators = import ./validators.nix { inherit lib; };
   # keep-sorted end
 

@@ -6,6 +6,7 @@
   python3,
   simple-http-server,
   writeShellApplication,
+  writeText,
 
   fraunces,
   inter,
@@ -25,6 +26,16 @@ let
   # a dirty tree has no rev, and the footer says so rather than guessing
   rev = self.shortRev or self.dirtyShortRev or "unknown";
   date = self.lastModifiedDate or "";
+
+  # custom.css imports this for its oledpuccin colours
+  palette = writeText "palette.css" ''
+    :root {
+    ${
+      lib.strings.concatStrings (
+        lib.attrsets.mapAttrsToList (name: hex: "  --palette-${name}: ${hex};\n") self.lib.palette.colors
+      )
+    }}
+  '';
 in
 buildNpmPackage (finalAttrs: {
   pname = "docs";
@@ -51,6 +62,8 @@ buildNpmPackage (finalAttrs: {
   };
 
   preBuild = ''
+    cp ${palette} src/styles/palette.css
+
     mkdir -p src/content/docs/lib
     for file in ${libdoc}/*.md; do
       name=$(basename "$file" .md)

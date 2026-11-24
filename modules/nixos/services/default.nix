@@ -67,7 +67,7 @@ in
     ./grafana
     ./home-assistant
     ./immich.nix
-    ./jellyfin.nix
+    ./jellyfin
     ./kanidm.nix
     ./lethe.nix
     ./loki.nix

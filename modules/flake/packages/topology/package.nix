@@ -36,17 +36,19 @@ let
 
   extra = import ./extra.nix;
 
-  # oledpuccin
+  # oledpuccin, from the shared palette
   c = {
-    base = "#000000";
-    surface = "#0b0b11";
-    raised = "#11111b";
-    border = "#313244";
-    borderStrong = "#45475a";
-    text = "#cdd6f4";
-    muted = "#a6adc8";
-    subtle = "#6c7086";
-    accent = "#f5c2e7";
+    inherit (inputs.self.lib.palette)
+      base
+      surface
+      border
+      borderStrong
+      text
+      accent
+      ;
+    raised = inputs.self.lib.palette.surfaceRaised;
+    muted = inputs.self.lib.palette.textMuted;
+    subtle = inputs.self.lib.palette.textSubtle;
   };
 
   catalog = import ./catalog.nix { inherit fetchurl; };

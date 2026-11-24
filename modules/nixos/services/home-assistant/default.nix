@@ -105,44 +105,48 @@ in
 
           frontend.themes.mushroom_custom =
             let
+              p = self.lib.palette;
               c = {
-                rosewater = "#f5e0dc";
-                pink = "#f5c2e7";
-                mauve = "#cba6f7";
-                red = "#f38ba8";
-                peach = "#fab387";
-                yellow = "#f9e2af";
-                green = "#a6e3a1";
-                teal = "#94e2d5";
-                sky = "#89dceb";
-                blue = "#89b4fa";
-                lavender = "#b4befe";
-                text = "#cdd6f4";
-                subtext0 = "#a6adc8";
-                overlay0 = "#6c7086";
-                surface0 = "#313244";
-                surface1 = "#45475a";
-                base = "#000000";
-                mantle = "#010101";
-                crust = "#020202";
+                inherit (p)
+                  rosewater
+                  pink
+                  mauve
+                  red
+                  peach
+                  yellow
+                  green
+                  teal
+                  sky
+                  blue
+                  lavender
+                  text
+                  base
+                  ;
+                subtext0 = p.textMuted;
+                overlay0 = p.textSubtle;
+                surface0 = p.border;
+                surface1 = p.borderStrong;
+                mantle = p.base;
+                crust = p.surface;
               };
+              rgb = name: lib.strings.replaceStrings [ " " ] [ ", " ] p.rgb.${name};
             in
             {
               modes.dark = { };
 
               primary-color = c.pink;
               accent-color = c.pink;
-              rgb-primary-color = "245, 194, 231";
-              rgb-accent-color = "245, 194, 231";
+              rgb-primary-color = rgb "pink";
+              rgb-accent-color = rgb "pink";
               light-primary-color = c.rosewater;
               dark-primary-color = c.mauve;
-              text-primary-color = c.crust;
-              text-accent-color = c.crust;
+              text-primary-color = p.textOnAccent;
+              text-accent-color = p.textOnAccent;
 
               primary-text-color = c.text;
               secondary-text-color = c.subtext0;
               disabled-text-color = c.overlay0;
-              rgb-primary-text-color = "205, 214, 244";
+              rgb-primary-text-color = rgb "text";
 
               primary-background-color = c.base;
               secondary-background-color = c.mantle;
@@ -185,19 +189,19 @@ in
               paper-slider-active-color = c.pink;
               paper-slider-container-color = c.surface0;
 
-              mush-rgb-state-light = "249, 226, 175"; # yellow
-              mush-rgb-red = "243, 139, 168";
-              mush-rgb-pink = "245, 194, 231";
-              mush-rgb-purple = "203, 166, 247";
-              mush-rgb-blue = "137, 180, 250";
-              mush-rgb-light-blue = "137, 220, 235";
-              mush-rgb-cyan = "137, 220, 235";
-              mush-rgb-teal = "148, 226, 213";
-              mush-rgb-green = "166, 227, 161";
-              mush-rgb-yellow = "249, 226, 175";
-              mush-rgb-orange = "250, 179, 135";
-              mush-rgb-grey = "108, 112, 134";
-              mush-rgb-disabled = "69, 71, 90";
+              mush-rgb-state-light = rgb "yellow";
+              mush-rgb-red = rgb "red";
+              mush-rgb-pink = rgb "pink";
+              mush-rgb-purple = rgb "mauve";
+              mush-rgb-blue = rgb "blue";
+              mush-rgb-light-blue = rgb "sky";
+              mush-rgb-cyan = rgb "sky";
+              mush-rgb-teal = rgb "teal";
+              mush-rgb-green = rgb "green";
+              mush-rgb-yellow = rgb "yellow";
+              mush-rgb-orange = rgb "peach";
+              mush-rgb-grey = rgb "textSubtle";
+              mush-rgb-disabled = rgb "borderStrong";
 
               mush-title-padding = "12px 12px 6px";
               ha-card-box-shadow = "inset 0px 0px 0px 1px var(--border-color)";

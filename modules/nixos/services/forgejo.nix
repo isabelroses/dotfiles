@@ -3,6 +3,7 @@
   self,
   pkgs,
   config,
+  options,
   ...
 }:
 let
@@ -15,6 +16,8 @@ let
     mkForce
     ;
   inherit (self.lib) mkSecret journalJail mkService;
+
+  p = self.lib.palette;
 in
 {
   imports = [
@@ -39,6 +42,42 @@ in
     networking.firewall.allowedTCPPorts = [
       config.services.forgejo.settings.server.SSH_PORT
     ];
+
+    catppuccin.sources.gitea = mkForce (
+      pkgs.runCommandLocal "catppuccin-gitea-oledpuccin" { } ''
+        cp -r ${options.catppuccin.sources.default.gitea} $out
+        chmod u+w $out
+        cat > $out/theme-oledpuccin.css <<'EOF'
+        @import "./theme-catppuccin-mocha-pink.css";
+
+        :root {
+          --color-body: ${p.base};
+          --color-navbar: ${p.base};
+          --color-nav-bg: ${p.base};
+          --color-header-wrapper: ${p.base};
+          --color-footer: ${p.base};
+
+          --color-box-body: ${p.surface};
+          --color-box-header: ${p.surface};
+          --color-code-bg: ${p.surface};
+
+          --color-box-body-highlight: ${p.surfaceRaised};
+          --color-button: ${p.surfaceRaised};
+          --color-card: ${p.surfaceRaised};
+          --color-input-background: ${p.surfaceRaised};
+          --color-input-toggle-background: ${p.surfaceRaised};
+          --color-menu: ${p.surfaceRaised};
+          --color-secondary-bg: ${p.surfaceRaised};
+          --color-markup-code-inline: ${p.surfaceRaised};
+          --color-code-sidebar-bg: ${p.surfaceRaised};
+          --color-tooltip-bg: ${p.surfaceRaised};
+
+          --color-secondary: ${p.border};
+          --color-timeline: ${p.border};
+        }
+        EOF
+      ''
+    );
 
     catppuccin.forgejo = {
       enable = true;
@@ -87,6 +126,13 @@ in
 
           DEFAULT.APP_NAME = "iztea";
           attachment.ALLOWED_TYPES = "*/*";
+
+          # the theme picker offers oledpuccin and the stock ones; catppuccin's
+          # other flavours stay on disk but off the list
+          ui = {
+            DEFAULT_THEME = mkForce "oledpuccin";
+            THEMES = mkForce "oledpuccin,catppuccin-mocha-pink,forgejo-auto,forgejo-light,forgejo-dark";
+          };
 
           "ui.meta" = {
             AUTHOR = "Isabel Roses";

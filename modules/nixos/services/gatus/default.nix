@@ -10,6 +10,9 @@ let
   inherit (lib.strings) optionalString;
   inherit (self.lib) mkSecret mkService;
 
+  p = self.lib.palette;
+  inherit (p) hsl;
+
   rdomain = config.networking.domain;
   cfg = config.garden.services.gatus;
 
@@ -78,36 +81,37 @@ in
             custom-css = # css
               ''
                 :root, :root.dark {
-                  --background: 0 0% 0% !important;
-                  --foreground: 226 64% 88% !important;
-                  --card: 0 0% 0% !important;
-                  --card-foreground: 226 64% 88% !important;
-                  --popover: 237 16% 23% !important;
-                  --popover-foreground: 226 64% 88% !important;
-                  --primary: 199 76% 69% !important;
-                  --primary-foreground: 0 0% 0% !important;
-                  --secondary: 234 13% 31% !important;
-                  --secondary-foreground: 226 64% 88% !important;
-                  --muted: 237 16% 23% !important;
-                  --muted-foreground: 228 24% 72% !important;
-                  --accent: 199 76% 69% !important;
-                  --accent-foreground: 0 0% 0% !important;
-                  --destructive: 343 81% 75% !important;
-                  --destructive-foreground: 0 0% 0% !important;
-                  --border: 234 13% 31% !important;
-                  --input: 234 13% 31% !important;
-                  --ring: 199 76% 69% !important;
+                  --background: ${hsl.base} !important;
+                  --foreground: ${hsl.text} !important;
+                  --card: ${hsl.base} !important;
+                  --card-foreground: ${hsl.text} !important;
+                  --popover: ${hsl.surface} !important;
+                  --popover-foreground: ${hsl.text} !important;
+                  --primary: ${hsl.accent} !important;
+                  --primary-foreground: ${hsl.textOnAccent} !important;
+                  --secondary: ${hsl.overlay} !important;
+                  --secondary-foreground: ${hsl.text} !important;
+                  --muted: ${hsl.surface} !important;
+                  --muted-foreground: ${hsl.textMuted} !important;
+                  /* shadcn's accent is the hover fill, not the brand colour */
+                  --accent: ${hsl.overlay} !important;
+                  --accent-foreground: ${hsl.text} !important;
+                  --destructive: ${hsl.red} !important;
+                  --destructive-foreground: ${hsl.textOnAccent} !important;
+                  --border: ${hsl.border} !important;
+                  --input: ${hsl.border} !important;
+                  --ring: ${hsl.accent} !important;
                 }
 
                 .bg-success,
                 .bg-green-400, .bg-green-500, .bg-green-700 {
-                  background-color: #a6e3a1 !important;
+                  background-color: ${p.green} !important;
                 }
                 .bg-red-400, .bg-red-500, .bg-red-600, .bg-red-700 {
-                  background-color: #f38ba8 !important;
+                  background-color: ${p.red} !important;
                 }
                 .bg-yellow-400, .bg-yellow-500 {
-                  background-color: #f9e2af !important;
+                  background-color: ${p.yellow} !important;
                 }
 
                 .text-white.bg-green-400, .text-white.bg-green-500, .text-white.bg-green-700,

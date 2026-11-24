@@ -22,3 +22,6 @@ src/assets/topology.webp
 src/generated/
 src/content/docs/hosts/
 src/content/docs/services.md
+
+# generated from self.lib.palette by `nix build .#docs`
+src/styles/palette.css

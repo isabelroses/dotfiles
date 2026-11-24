@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   self,
   config,
   ...
@@ -9,6 +10,30 @@ let
   inherit (lib.modules) mkIf;
 
   cfg = config.garden.services.jellyfin;
+  branding =
+    pkgs.runCommandLocal "jellyfin-branding.xml"
+      {
+        css = pkgs.replaceVars ./theme.css {
+          inherit (self.lib.palette)
+            accent
+            base
+            surface
+            overlay
+            ;
+        };
+      }
+      ''
+        esc() { sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' "$1"; }
+
+        cat > $out <<EOF
+        <?xml version="1.0" encoding="utf-8"?>
+        <BrandingOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+          <LoginDisclaimer>$(esc ${./login.html})</LoginDisclaimer>
+          <CustomCss>$(esc "$css")</CustomCss>
+          <SplashscreenEnabled>false</SplashscreenEnabled>
+        </BrandingOptions>
+        EOF
+      '';
 in
 {
   imports = [
@@ -30,6 +55,10 @@ in
         7359
       ];
     };
+
+    systemd.services.jellyfin.serviceConfig.ExecStartPre = [
+      "${pkgs.coreutils}/bin/install -m 600 ${branding} ${config.services.jellyfin.configDir}/branding.xml"
+    ];
 
     users.users.jellyfin.extraGroups = [
       "video"

@@ -1,13 +1,3 @@
-{
-  lib,
-  inputs,
-  pkgsFor,
-}:
-let
-  inherit (inputs) self;
-
-  inherit (lib.attrsets) mapAttrs;
-in
 /**
   mkHost is a function that uses withSystem to give us inputs' and self'
   it also assumes the the system type either nixos or darwin and uses the appropriate
@@ -32,6 +22,16 @@ in
     }
   ```
 */
+{
+  lib,
+  inputs,
+  pkgsFor,
+}:
+let
+  inherit (inputs) self;
+
+  inherit (lib.attrsets) mapAttrs;
+in
 name:
 {
   arch,
